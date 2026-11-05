@@ -2188,12 +2188,12 @@
                         </tr>
                         <tr id="rowIncB2">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB2" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
-                          <td id="displayIncB2Label">Base II (unlocked after Base I)</td>
+                          <td id="displayIncB2Label">Base II</td>
                           <td class="xp-val" id="valIncB2Xp">2,000 XP</td>
                         </tr>
                         <tr id="rowIncB3" style="display: none;">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB3" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
-                          <td id="displayIncB3Label">Base III (unlocked after Base II)</td>
+                          <td id="displayIncB3Label">Base III</td>
                           <td class="xp-val" id="valIncB3Xp">2,000 XP</td>
                         </tr>
                         <tr id="rowIncBonus">
@@ -2257,28 +2257,38 @@
                       <tbody>
                         <tr id="rowTacB1">
                           <td style="text-align: center;"><input type="checkbox" id="chkTacB1" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
-                          <td id="displayTacB1Label">Base I (unlocked after Incursion Set)</td>
+                          <td id="displayTacB1Label">Base I</td>
                           <td class="xp-val" id="valTacB1Xp">2,000 XP</td>
+                        </tr>
+                        <tr id="rowTacHvt1" class="hvt-sub-row">
+                          <td style="text-align: center;"><input type="checkbox" id="chkTacHvt1" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
+                          <td style="padding-left: 20px;"><span style="color: var(--text-gold); font-weight: 800; font-size: 12px;">&#8627; <span id="displayTacHvt1Label">High Value Target Killed</span></span></td>
+                          <td class="xp-val" id="valTacHvt1" style="color: var(--text-gold);">4,000 XP</td>
                         </tr>
                         <tr id="rowTacB2">
                           <td style="text-align: center;"><input type="checkbox" id="chkTacB2" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
-                          <td id="displayTacB2Label">Base II (unlocked after Base I)</td>
+                          <td id="displayTacB2Label">Base II</td>
                           <td class="xp-val" id="valTacB2Xp">2,000 XP</td>
+                        </tr>
+                        <tr id="rowTacHvt2" class="hvt-sub-row">
+                          <td style="text-align: center;"><input type="checkbox" id="chkTacHvt2" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
+                          <td style="padding-left: 20px;"><span style="color: var(--text-gold); font-weight: 800; font-size: 12px;">&#8627; <span id="displayTacHvt2Label">High Value Target Killed</span></span></td>
+                          <td class="xp-val" id="valTacHvt2" style="color: var(--text-gold);">4,000 XP</td>
                         </tr>
                         <tr id="rowTacB3" style="display: none;">
                           <td style="text-align: center;"><input type="checkbox" id="chkTacB3" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
-                          <td id="displayTacB3Label">Base III (unlocked after Base II)</td>
+                          <td id="displayTacB3Label">Base III</td>
                           <td class="xp-val" id="valTacB3Xp">2,000 XP</td>
+                        </tr>
+                        <tr id="rowTacHvt3" class="hvt-sub-row" style="display: none;">
+                          <td style="text-align: center;"><input type="checkbox" id="chkTacHvt3" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
+                          <td style="padding-left: 20px;"><span style="color: var(--text-gold); font-weight: 800; font-size: 12px;">&#8627; <span id="displayTacHvt3Label">High Value Target Killed</span></span></td>
+                          <td class="xp-val" id="valTacHvt3" style="color: var(--text-gold);">4,000 XP</td>
                         </tr>
                         <tr id="rowTacBonus">
                           <td style="text-align: center;"><input type="checkbox" id="chkTacBonus" checked="" disabled=""></td>
                           <td><strong id="displayTacBonusLabel" style="color: #ffffff;">Set Completion Bonus (Requires Base I &amp; II)</strong></td>
                           <td class="xp-val" id="valTacBonus">4,000 XP</td>
-                        </tr>
-                        <tr id="rowTacHvt">
-                          <td style="text-align: center;"><input type="checkbox" id="chkTacHvt" checked="" onchange="setActiveCalcTrack('TACTICAL'); recalculateBlueBaron();"></td>
-                          <td><strong id="displayTacHvtLabel" style="color: var(--text-gold);">High Value Target Killed (+4,000 XP / base)</strong></td>
-                          <td class="xp-val" id="valTacHvt">8,000 XP</td>
                         </tr>
                       </tbody>
                                                             </table>
@@ -2300,7 +2310,7 @@
                     <div class="set-run-summary-strip" style="border-top-color: var(--text-red);">
                       <div>
                         <div class="set-run-metric-lbl">XP / Run (w/ Boost)</div>
-                        <div class="set-run-metric-val" style="color: var(--text-red);" id="cmpTacXp">32,000</div>
+                        <div class="set-run-metric-val" style="color: var(--text-red);" id="cmpTacXp">16,000</div>
                       </div>
                       <div>
                         <div class="set-run-metric-lbl">Total Runs Needed</div>
@@ -2314,6 +2324,32 @@
                   </div>
                 </div>
 
+              </div>
+
+              <!-- 2.5 War Bonus (Requires Completing Both Incursion Set & Tactical Strike Set) -->
+              <div class="war-bonus-subbox" id="warBonusSubbox" style="background: linear-gradient(90deg, rgba(255, 215, 0, 0.08), rgba(255, 82, 82, 0.08)); border: 1px solid var(--text-gold); border-left: 4px solid var(--text-gold); border-radius: 4px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 320px;">
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <input type="checkbox" id="chkWarBonus" checked disabled style="width: 16px; height: 16px; accent-color: var(--text-gold);">
+                    <span id="displayWarBonusTitle" style="font-family: 'Arial Black', sans-serif; font-size: 14px; color: var(--text-gold); text-transform: uppercase;">&#9876; War Bonus (Both Incursion &amp; Tactical Sets Completed)</span>
+                    <span id="warBonusStatusPill" class="bt-status-pill" style="background: rgba(255, 215, 0, 0.14); border-color: var(--text-gold); color: var(--text-gold);">ACTIVE (+14,000 BASE XP)</span>
+                  </div>
+                  <div id="displayWarBonusDesc" style="font-size: 13px; color: var(--text-muted);">Completing <strong style="color:#ffffff;">both</strong> the full <strong style="color: var(--text-gold);">Incursion Set</strong> and the full <strong style="color: var(--text-red);">Tactical Strike Set</strong> grants a <strong id="valWarBonusInlineTxt" style="color: var(--text-gold);">+14,000 XP War Bonus</strong>. Only added when both sets are completed.</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-left: auto;">
+                  <div style="background: #080d0b; border: 1px solid #1f3b2b; border-top: 2px solid var(--text-gold); padding: 6px 12px; border-radius: 3px; text-align: center; min-width: 130px;">
+                    <div style="font-family: monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase;">War Bonus / Run</div>
+                    <div id="valWarBonusRunXp" style="font-family: monospace; font-size: 14px; font-weight: 900; color: var(--text-gold);">+14,000 XP</div>
+                  </div>
+                  <div style="background: #080d0b; border: 1px solid #1f3b2b; border-top: 2px solid var(--text-cyan); padding: 6px 12px; border-radius: 3px; text-align: center; min-width: 145px;">
+                    <div style="font-family: monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Combined Pair Total</div>
+                    <div id="valFullPairRunTotalXp" style="font-family: monospace; font-size: 14px; font-weight: 900; color: var(--text-cyan);">38,000 XP</div>
+                  </div>
+                  <div style="background: #080d0b; border: 1px solid #1f3b2b; border-top: 2px solid var(--accent-green); padding: 6px 12px; border-radius: 3px; text-align: center; min-width: 155px;">
+                    <div id="lblWarBonusPairsDone" style="font-family: monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase;">War Bonus Earned (0 Pairs)</div>
+                    <div id="valWarBonusEarnedXp" style="font-family: monospace; font-size: 14px; font-weight: 900; color: var(--accent-green);">+0 XP</div>
+                  </div>
+                </div>
               </div>
 
               <!-- 3. Proving Grounds & Chests -->
@@ -3160,10 +3196,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "incB1Label": "Base I",
   "incB1Xp": 2000,
   "showIncB2": true,
-  "incB2Label": "Base II (unlocked after Base I)",
+  "incB2Label": "Base II",
   "incB2Xp": 2000,
   "showIncB3": false,
-  "incB3Label": "Base III (unlocked after Base II)",
+  "incB3Label": "Base III",
   "incB3Xp": 2000,
   "incBonusLabel": "Set Completion Bonus (Requires Base I & II)",
   "incBonusXp": 4000,
@@ -3171,19 +3207,20 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "tacDesc": "The Tactical Strike Set is a more challenging set unlocked after completing both Incursion Bases, featuring the main event's storyline.\n\nDesigned for Platoons using previous units from the current Main Event (Dyads) and is not faction-locked.\n**High Value Target:** Each base includes one High Value Target worth an extra 4,000 XP.\n**Combat Behavior:** The target is aware of your pursuit and will attempt to escape if not eliminated quickly.",
   "tacTableHeader": "Tactical Strike Target",
   "showTacB1": true,
-  "tacB1Label": "Base I (unlocked after Incursion Set)",
+  "tacB1Label": "Base I",
   "tacB1Xp": 2000,
   "showTacB2": true,
-  "tacB2Label": "Base II (unlocked after Base I)",
+  "tacB2Label": "Base II",
   "tacB2Xp": 2000,
   "showTacB3": false,
-  "tacB3Label": "Base III (unlocked after Base II)",
+  "tacB3Label": "Base III",
   "tacB3Xp": 2000,
   "tacBonusLabel": "Set Completion Bonus (Requires Base I & II)",
   "tacBonusXp": 4000,
   "showTacHvt": true,
-  "tacHvtLabel": "High Value Target Killed (+4,000 XP / base)",
+  "tacHvtLabel": "High Value Target Killed",
   "tacHvtXpPerBase": 4000,
+  "warBonusXp": 14000,
   "pgTitle": "Proving Grounds Brief & XP Multiplier Chests",
   "pgRightSub": "SELECT ACTIVE CHEST BOOST TO APPLY MULTIPLIER",
   "pgDesc": "Designed for the 2 most recent **Unique Units**, these bases allow a platoon of **2 Unique Units**. Completing Targets fills a Progress Bar toward a** Bronze, Silver, or Gold Prize Chest.** Once at your desired tier, click LOCK IN on the Event Screen to claim the Chest and reset progress. If you are maxed on the awarded item, Thorium is granted as a fallback.",
@@ -4009,9 +4046,9 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     } else {
       setActiveCalcTrack("BOTH");
       const activeIds = [];
-      if (masterState.showTacB1 !== false) activeIds.push("chkTacB1");
-      if (masterState.showTacB2 !== false) activeIds.push("chkTacB2");
-      if (masterState.showTacB3 === true) activeIds.push("chkTacB3");
+      if (masterState.showTacB1 !== false) { activeIds.push("chkTacB1"); if (masterState.showTacHvt !== false) activeIds.push("chkTacHvt1"); }
+      if (masterState.showTacB2 !== false) { activeIds.push("chkTacB2"); if (masterState.showTacHvt !== false) activeIds.push("chkTacHvt2"); }
+      if (masterState.showTacB3 === true)  { activeIds.push("chkTacB3"); if (masterState.showTacHvt !== false) activeIds.push("chkTacHvt3"); }
       const allChecked = activeIds.every(id => document.getElementById(id)?.checked);
       activeIds.forEach(id => {
         const el = document.getElementById(id);
@@ -4084,14 +4121,18 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     // 2. Tactical Strike Track
     const tacDefs = [
-      { show: masterState.showTacB1 !== false, chkId: "chkTacB1", rowId: "rowTacB1", valId: "valTacB1Xp", xp: parseInt(masterState.tacB1Xp, 10) || 0 },
-      { show: masterState.showTacB2 !== false, chkId: "chkTacB2", rowId: "rowTacB2", valId: "valTacB2Xp", xp: parseInt(masterState.tacB2Xp, 10) || 0 },
-      { show: Boolean(masterState.showTacB3),  chkId: "chkTacB3", rowId: "rowTacB3", valId: "valTacB3Xp", xp: parseInt(masterState.tacB3Xp, 10) || 0 }
+      { show: masterState.showTacB1 !== false, chkId: "chkTacB1", rowId: "rowTacB1", valId: "valTacB1Xp", xp: parseInt(masterState.tacB1Xp, 10) || 0, hvtChkId: "chkTacHvt1", hvtRowId: "rowTacHvt1", hvtValId: "valTacHvt1" },
+      { show: masterState.showTacB2 !== false, chkId: "chkTacB2", rowId: "rowTacB2", valId: "valTacB2Xp", xp: parseInt(masterState.tacB2Xp, 10) || 0, hvtChkId: "chkTacHvt2", hvtRowId: "rowTacHvt2", hvtValId: "valTacHvt2" },
+      { show: Boolean(masterState.showTacB3),  chkId: "chkTacB3", rowId: "rowTacB3", valId: "valTacB3Xp", xp: parseInt(masterState.tacB3Xp, 10) || 0, hvtChkId: "chkTacHvt3", hvtRowId: "rowTacHvt3", hvtValId: "valTacHvt3" }
     ];
+
+    const showHvt = masterState.showTacHvt !== false;
+    const hvtPerBase = parseInt(masterState.tacHvtXpPerBase, 10) || 0;
 
     let tacEnabledCount = 0;
     let tacCheckedCount = 0;
     let tacBasesXpSum = 0;
+    let hvtXp = 0;
 
     tacDefs.forEach(b => {
       const rowEl = document.getElementById(b.rowId);
@@ -4099,12 +4140,22 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       const valEl = document.getElementById(b.valId);
       if (valEl) valEl.textContent = `${b.xp.toLocaleString()} XP`;
 
+      const hvtRowEl = document.getElementById(b.hvtRowId);
+      if (hvtRowEl) hvtRowEl.style.display = (b.show && showHvt) ? "" : "none";
+      const hvtValEl = document.getElementById(b.hvtValId);
+
       if (b.show) {
         tacEnabledCount++;
         const isChk = Boolean(document.getElementById(b.chkId)?.checked);
         if (isChk) {
           tacCheckedCount++;
           tacBasesXpSum += b.xp;
+        }
+        if (showHvt) {
+          const isHvtChk = isChk && Boolean(document.getElementById(b.hvtChkId)?.checked);
+          if (hvtRowEl) hvtRowEl.classList.toggle("locked-bonus-row", !isHvtChk);
+          if (hvtValEl) hvtValEl.textContent = isHvtChk ? `${hvtPerBase.toLocaleString()} XP` : "0 XP";
+          if (isHvtChk) hvtXp += hvtPerBase;
         }
       }
     });
@@ -4122,20 +4173,13 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         : `0 XP (Requires ${tacEnabledCount} ${tacEnabledCount === 1 ? 'Base' : 'Bases'})`;
     }
 
-    const showHvt = masterState.showTacHvt !== false;
     const rowTacHvt = document.getElementById("rowTacHvt");
-    if (rowTacHvt) rowTacHvt.style.display = showHvt ? "" : "none";
-
-    const tacHvtChecked = showHvt && Boolean(document.getElementById("chkTacHvt")?.checked);
-    const hvtPerBase = parseInt(masterState.tacHvtXpPerBase, 10) || 0;
-    const hvtXp = tacHvtChecked ? (tacCheckedCount * hvtPerBase) : 0;
-    const valTacHvt = document.getElementById("valTacHvt");
-    if (valTacHvt) valTacHvt.textContent = `${hvtXp.toLocaleString()} XP`;
+    if (rowTacHvt) rowTacHvt.style.display = "none";
 
     const tacTotalRawXp = tacBasesXpSum + (tacBonusUnlocked ? tacBonusCfgXp : 0) + hvtXp;
     const tacRunXp = Math.round(tacTotalRawXp * mult);
 
-    return { incRunXp, tacRunXp };
+    return { incRunXp, tacRunXp, incBonusUnlocked, tacBonusUnlocked };
   }
 
     function recalculateBlueBaron(skipAutoSave) {
@@ -4162,7 +4206,17 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       if (cEl) cEl.classList.toggle("active-multiplier", Math.round(mult * 10) === parseInt(code, 10));
     });
 
-    const { incRunXp, tacRunXp } = computeTrackRunBreakdown(mult);
+    const { incRunXp, tacRunXp, incBonusUnlocked, tacBonusUnlocked } = computeTrackRunBreakdown(mult);
+
+    const activeTrack = getActiveTrackSelection();
+    const useInc = activeTrack === "BOTH" || activeTrack === "INCURSION";
+    const useTac = activeTrack === "BOTH" || activeTrack === "TACTICAL";
+
+    // War Bonus (+14,000 XP base) only applies when BOTH sets are completed
+    const warBonusBaseXp = parseInt(masterState.warBonusXp ?? 14000, 10) || 0;
+    const warBonusPerPairXp = Math.round(warBonusBaseXp * mult);
+    const warBonusUnlocked = useInc && useTac && incBonusUnlocked && tacBonusUnlocked;
+    const warBonusRunXp = warBonusUnlocked ? warBonusPerPairXp : 0;
 
     const incSetsDone = Math.max(0, parseInt(document.getElementById("incSetsCompletedInput")?.value, 10) || 0);
     const tacSetsDone = Math.max(0, parseInt(document.getElementById("tacSetsCompletedInput")?.value, 10) || 0);
@@ -4171,9 +4225,47 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const tacCalcInp = document.getElementById("tacSetsCompletedCalc");
     if (tacCalcInp && parseInt(tacCalcInp.value, 10) !== tacSetsDone) tacCalcInp.value = tacSetsDone;
 
+    // War Bonus for completed sets only adds when BOTH sets are completed (paired sets)
+    const pairedSetsDone = (incBonusUnlocked && tacBonusUnlocked) ? Math.min(incSetsDone, tacSetsDone) : 0;
     const incSetsXp = incSetsDone * incRunXp;
     const tacSetsXp = tacSetsDone * tacRunXp;
-    const totalSetsXp = incSetsXp + tacSetsXp;
+    const warSetsXp = pairedSetsDone * warBonusPerPairXp;
+    const totalSetsXp = incSetsXp + tacSetsXp + warSetsXp;
+
+    // Update War Bonus UI bar below the pair
+    const chkWarBonus = document.getElementById("chkWarBonus");
+    if (chkWarBonus) chkWarBonus.checked = warBonusUnlocked;
+    const warSubbox = document.getElementById("warBonusSubbox");
+    if (warSubbox) warSubbox.style.opacity = warBonusUnlocked ? "1" : "0.65";
+    const warPill = document.getElementById("warBonusStatusPill");
+    if (warPill) {
+      if (warBonusUnlocked) {
+        warPill.textContent = "ACTIVE (+" + warBonusBaseXp.toLocaleString() + " BASE XP)";
+        warPill.style.background = "rgba(255, 215, 0, 0.14)";
+        warPill.style.borderColor = "var(--text-gold)";
+        warPill.style.color = "var(--text-gold)";
+      } else {
+        warPill.textContent = "LOCKED (REQUIRES BOTH SETS COMPLETED)";
+        warPill.style.background = "rgba(255, 82, 82, 0.12)";
+        warPill.style.borderColor = "var(--text-red)";
+        warPill.style.color = "var(--text-red)";
+      }
+    }
+    const valWarInline = document.getElementById("valWarBonusInlineTxt");
+    if (valWarInline) valWarInline.textContent = "+" + warBonusBaseXp.toLocaleString() + " XP War Bonus";
+    const valWarRun = document.getElementById("valWarBonusRunXp");
+    if (valWarRun) {
+      valWarRun.textContent = warBonusUnlocked ? ("+" + warBonusRunXp.toLocaleString() + " XP") : "0 XP (Locked)";
+      valWarRun.style.color = warBonusUnlocked ? "var(--text-gold)" : "var(--text-muted)";
+    }
+    const valFullPair = document.getElementById("valFullPairRunTotalXp");
+    if (valFullPair) {
+      valFullPair.textContent = (incRunXp + tacRunXp + warBonusRunXp).toLocaleString() + " XP";
+    }
+    const lblWarPairs = document.getElementById("lblWarBonusPairsDone");
+    if (lblWarPairs) lblWarPairs.textContent = "War Bonus Earned (" + pairedSetsDone + (pairedSetsDone === 1 ? " Pair)" : " Pairs)");
+    const valWarEarned = document.getElementById("valWarBonusEarnedXp");
+    if (valWarEarned) valWarEarned.textContent = "+" + warSetsXp.toLocaleString() + " XP";
 
     const incBadge = document.getElementById("incSetsEarnedXpBadge");
     if (incBadge) incBadge.textContent = "+" + incSetsXp.toLocaleString() + " XP";
@@ -4187,7 +4279,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     const setsTotBadge = document.getElementById("setsTotalEarnedBadge");
     if (setsTotBadge) {
-      setsTotBadge.textContent = "Sets Earned Credit (" + incSetsDone + " Inc + " + tacSetsDone + " Tac): +" + totalSetsXp.toLocaleString() + " XP";
+      setsTotBadge.textContent = "Sets Earned Credit (" + incSetsDone + " Inc + " + tacSetsDone + " Tac" + (pairedSetsDone > 0 ? (" + " + pairedSetsDone + " War Bonus") : "") + "): +" + totalSetsXp.toLocaleString() + " XP";
     }
 
     const bankedXp = Math.max(0, parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0);
@@ -4201,10 +4293,6 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     document.getElementById("storeSelectedGoalTotal").textContent = selectedGoalXp.toLocaleString();
     const counterEl = document.getElementById("storeSelectedCounter");
     if (counterEl) counterEl.textContent = selectedCount + " / " + storeState.length + " Items Selected";
-
-    const activeTrack = getActiveTrackSelection();
-    const useInc = activeTrack === "BOTH" || activeTrack === "INCURSION";
-    const useTac = activeTrack === "BOTH" || activeTrack === "TACTICAL";
 
     const incChkCalc = document.getElementById("chkTrackIncursionCalc");
     if (incChkCalc) incChkCalc.checked = useInc;
@@ -4224,7 +4312,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     const incRuns = (incRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / incRunXp) : 0;
     const tacRuns = (tacRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / tacRunXp) : 0;
-    const combinedRunXp = incRunXp + tacRunXp;
+    const combinedRunXp = incRunXp + tacRunXp + warBonusRunXp;
     const combinedRuns = (combinedRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / combinedRunXp) : 0;
 
     document.getElementById("cmpIncXp").textContent = incRunXp.toLocaleString();
@@ -5286,6 +5374,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     setFormattedHtml("displayTacB3Label", masterState.tacB3Label);
     setFormattedHtml("displayTacBonusLabel", masterState.tacBonusLabel);
     setFormattedHtml("displayTacHvtLabel", masterState.tacHvtLabel);
+    const cleanHvtLbl = String(masterState.tacHvtLabel || "High Value Target Killed").replace(/\s*\(\+[\d,]+\s*XP\s*\/\s*base\)/i, "");
+    setFormattedHtml("displayTacHvt1Label", cleanHvtLbl);
+    setFormattedHtml("displayTacHvt2Label", cleanHvtLbl);
+    setFormattedHtml("displayTacHvt3Label", cleanHvtLbl);
 
     setTxt("displayPgTitle", masterState.pgTitle);
     setTxt("displayPgRightSub", masterState.pgRightSub);
@@ -5749,7 +5841,9 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         tacB1: Boolean(document.getElementById("chkTacB1")?.checked),
         tacB2: Boolean(document.getElementById("chkTacB2")?.checked),
         tacB3: Boolean(document.getElementById("chkTacB3")?.checked),
-        tacHvt: Boolean(document.getElementById("chkTacHvt")?.checked)
+        tacHvt1: Boolean(document.getElementById("chkTacHvt1")?.checked),
+        tacHvt2: Boolean(document.getElementById("chkTacHvt2")?.checked),
+        tacHvt3: Boolean(document.getElementById("chkTacHvt3")?.checked)
       },
       storeItems: storeState.map(s => ({ name: s.name, qty: s.qty, checked: s.checked }))
     };
@@ -5780,7 +5874,14 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       if (typeof data.tracks.tacB1 === "boolean") document.getElementById("chkTacB1").checked = data.tracks.tacB1;
       if (typeof data.tracks.tacB2 === "boolean") document.getElementById("chkTacB2").checked = data.tracks.tacB2;
       if (typeof data.tracks.tacB3 === "boolean" && document.getElementById("chkTacB3")) document.getElementById("chkTacB3").checked = data.tracks.tacB3;
-      if (typeof data.tracks.tacHvt === "boolean") document.getElementById("chkTacHvt").checked = data.tracks.tacHvt;
+      if (typeof data.tracks.tacHvt === "boolean") {
+        if (document.getElementById("chkTacHvt1")) document.getElementById("chkTacHvt1").checked = data.tracks.tacHvt;
+        if (document.getElementById("chkTacHvt2")) document.getElementById("chkTacHvt2").checked = data.tracks.tacHvt;
+        if (document.getElementById("chkTacHvt3")) document.getElementById("chkTacHvt3").checked = data.tracks.tacHvt;
+      }
+      if (typeof data.tracks.tacHvt1 === "boolean" && document.getElementById("chkTacHvt1")) document.getElementById("chkTacHvt1").checked = data.tracks.tacHvt1;
+      if (typeof data.tracks.tacHvt2 === "boolean" && document.getElementById("chkTacHvt2")) document.getElementById("chkTacHvt2").checked = data.tracks.tacHvt2;
+      if (typeof data.tracks.tacHvt3 === "boolean" && document.getElementById("chkTacHvt3")) document.getElementById("chkTacHvt3").checked = data.tracks.tacHvt3;
     }
     if (Array.isArray(data.storeItems)) {
       data.storeItems.forEach((savedItem, idx) => {
@@ -5855,7 +5956,9 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     document.getElementById("chkTacB1").checked = true;
     document.getElementById("chkTacB2").checked = true;
     if (document.getElementById("chkTacB3")) document.getElementById("chkTacB3").checked = true;
-    document.getElementById("chkTacHvt").checked = true;
+    if (document.getElementById("chkTacHvt1")) document.getElementById("chkTacHvt1").checked = true;
+    if (document.getElementById("chkTacHvt2")) document.getElementById("chkTacHvt2").checked = true;
+    if (document.getElementById("chkTacHvt3")) document.getElementById("chkTacHvt3").checked = true;
     setActiveCalcTrack("BOTH");
     document.querySelectorAll('input[name="pgMultiplier"]').forEach(r => { r.checked = (r.value === "1.0"); });
     renderBlueBaronStoreTable();
