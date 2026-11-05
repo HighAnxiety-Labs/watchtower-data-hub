@@ -489,15 +489,13 @@
 
   <!-- Header (Always Visible in Archive Mode) -->
   <header class="event-header">
-  <!-- [-WTR-] Google Tag Manager & Telemetry (GTM-P5XN2HWM / Property 397291260) -->
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P5XN2HWM');
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
 
     // Track in-page module & tab opens in Command Center
     window.addEventListener('DOMContentLoaded', function() {
@@ -506,10 +504,9 @@
         if (!btn) return;
         var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
         if (label) {
-          window.dataLayer.push({
-            event: 'wtr_module_click',
-            wtr_module_label: label,
-            wtr_page_path: location.pathname
+          gtag('event', 'wtr_module_click', {
+            module_label: label,
+            page_path: location.pathname
           });
         }
       }, true);
