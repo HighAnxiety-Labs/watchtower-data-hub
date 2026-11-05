@@ -2171,7 +2171,7 @@
                       </label>
                       <button type="button" class="preset-pill-btn" id="btnToggleAllIncBases" onclick="toggleAllTrackBases('INCURSION')">Toggle All 2</button>
                     </div>
-                    <p class="track-desc" id="displayIncDesc">This set of bases is designed for a <strong style="color:#ffffff; font-weight:900;">Platoon of the newest Unit</strong> being offered in the current Main Event <strong style="color:#ffffff; font-weight:900;">(Argus)</strong>, and only <strong style="color:#ffffff; font-weight:900;">Equinox</strong> Units can be deployed. This set will also contain the story for the Main Event.<span class="sentence-line-break"></span>Completing both bases (Base I &amp; II) automatically unlocks the <span class="hl-gold">+3,500 XP Set Completion Bonus</span>.</p>
+                    <p class="track-desc" id="displayIncDesc">This set of bases is designed for a <strong style="color:#ffffff; font-weight:900;">Platoon of the newest Unit</strong> being offered in the current Main Event <strong style="color:#ffffff; font-weight:900;">(Argus)</strong>, and only <strong style="color:#ffffff; font-weight:900;">Equinox</strong> Units can be deployed. This set will also contain the story for the Main Event.<span class="sentence-line-break"></span>Completing both bases (Base I &amp; II) automatically unlocks the <span class="hl-gold">+4,000 XP Set Completion Bonus</span>.</p>
                     <table class="mini-xp-table">
                       <thead>
                         <tr>
@@ -2184,12 +2184,12 @@
                         <tr id="rowIncB1">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB1" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
                           <td id="displayIncB1Label">Base I</td>
-                          <td class="xp-val" id="valIncB1Xp">1,000 XP</td>
+                          <td class="xp-val" id="valIncB1Xp">2,000 XP</td>
                         </tr>
                         <tr id="rowIncB2">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB2" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
                           <td id="displayIncB2Label">Base II (unlocked after Base I)</td>
-                          <td class="xp-val" id="valIncB2Xp">1,500 XP</td>
+                          <td class="xp-val" id="valIncB2Xp">2,000 XP</td>
                         </tr>
                         <tr id="rowIncB3" style="display: none;">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB3" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
@@ -2198,8 +2198,8 @@
                         </tr>
                         <tr id="rowIncBonus">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncBonus" checked="" disabled=""></td>
-                          <td><strong id="displayIncBonusLabel" style="color: #ffffff;">Set Completion Bonus (Requires Bases I–III)</strong></td>
-                          <td class="xp-val" id="valIncBonus">3,500 XP</td>
+                          <td><strong id="displayIncBonusLabel" style="color: #ffffff;">Set Completion Bonus (Requires Base I &amp; II)</strong></td>
+                          <td class="xp-val" id="valIncBonus">4,000 XP</td>
                         </tr>
                       </tbody>
                                                             </table>
@@ -2221,7 +2221,7 @@
                     <div class="set-run-summary-strip" style="border-top-color: var(--text-gold);">
                       <div>
                         <div class="set-run-metric-lbl">XP / Run (w/ Boost)</div>
-                        <div class="set-run-metric-val" style="color: var(--text-gold);" id="cmpIncXp">16,000</div>
+                        <div class="set-run-metric-val" style="color: var(--text-gold);" id="cmpIncXp">8,000</div>
                       </div>
                       <div>
                         <div class="set-run-metric-lbl">Total Runs Needed</div>
@@ -3154,19 +3154,19 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "btXpPerStage": 200,
   "btUnitsPerStage": 1,
   "incTitle": "Incursion Base Brief (2-Base Set)",
-  "incDesc": "This set of bases is designed for a **Platoon of the newest Unit** being offered in the current Main Event **(Argus)**, and only **Equinox** Units can be deployed. This set will also contain the story for the Main Event.\nCompleting both bases (Base I & II) automatically unlocks the ==+3,500 XP Set Completion Bonus==.",
+  "incDesc": "This set of bases is designed for a **Platoon of the newest Unit** being offered in the current Main Event **(Argus)**, and only **Equinox** Units can be deployed. This set will also contain the story for the Main Event.\nCompleting both bases (Base I & II) automatically unlocks the ==+4,000 XP Set Completion Bonus==.",
   "incTableHeader": "Incursion Target",
   "showIncB1": true,
   "incB1Label": "Base I",
-  "incB1Xp": 1000,
+  "incB1Xp": 2000,
   "showIncB2": true,
   "incB2Label": "Base II (unlocked after Base I)",
-  "incB2Xp": 1500,
+  "incB2Xp": 2000,
   "showIncB3": false,
   "incB3Label": "Base III (unlocked after Base II)",
   "incB3Xp": 2000,
   "incBonusLabel": "Set Completion Bonus (Requires Base I & II)",
-  "incBonusXp": 3500,
+  "incBonusXp": 4000,
   "tacTitle": "Tactical Strike Brief (2-Base Set + HVT)",
   "tacDesc": "The Tactical Strike Set is a more challenging set unlocked after completing both Incursion Bases, featuring the main event's storyline.\n\nDesigned for Platoons using previous units from the current Main Event (Dyads) and is not faction-locked.\n**High Value Target:** Each base includes one High Value Target worth an extra 4,000 XP.\n**Combat Behavior:** The target is aware of your pursuit and will attempt to escape if not eliminated quickly.",
   "tacTableHeader": "Tactical Strike Target",
@@ -4872,16 +4872,16 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     setVal("cfgIncTableHeader", masterState.incTableHeader);
     setChk("cfgShowIncB1", masterState.showIncB1 !== false);
     setVal("cfgIncB1Label", masterState.incB1Label);
-    setVal("cfgIncB1Xp", masterState.incB1Xp ?? 1000);
+    setVal("cfgIncB1Xp", masterState.incB1Xp ?? 2000);
     setChk("cfgShowIncB2", masterState.showIncB2 !== false);
     setVal("cfgIncB2Label", masterState.incB2Label);
-    setVal("cfgIncB2Xp", masterState.incB2Xp ?? 1500);
+    setVal("cfgIncB2Xp", masterState.incB2Xp ?? 2000);
     const incB3Chk = document.getElementById("cfgShowIncB3");
     if (incB3Chk) incB3Chk.checked = Boolean(masterState.showIncB3);
     setVal("cfgIncB3Label", masterState.incB3Label);
     setVal("cfgIncB3Xp", masterState.incB3Xp ?? 2000);
     setVal("cfgIncBonusLabel", masterState.incBonusLabel);
-    setVal("cfgIncBonusXp", masterState.incBonusXp ?? 3500);
+    setVal("cfgIncBonusXp", masterState.incBonusXp ?? 4000);
 
     setVal("cfgTacTitle", masterState.tacTitle);
     setVal("cfgTacDesc", masterState.tacDesc);
