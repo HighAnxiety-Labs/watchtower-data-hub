@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <!-- WATCHTOWER ANNUAL EVENT CALENDAR PUBLISHED // RELEASE: v2.9-CUSTOM-LEGENDS-DECK (2026-10-31) -->
-<html lang="en"><head><base href="https://165969602-atari-embeds.googleusercontent.com/embeds/4c8a3211fd76886a93ab92bca3a50520/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.etOqPKhAhvg.O%2Fd%3D1%2Frs%3DAHpOoo-l5JrVgGKVELwC844E6riBHX86-w%2Fm%3D__features__" target="_blank">
+<html lang="en"><head>
+  <!-- [-WTR-] Google Tag Manager & Telemetry (GTM-P5XN2HWM / Property 397291260) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P5XN2HWM');
+
+    // Track in-page module & tab opens in Command Center
+    window.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('click', function(e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill') : null;
+        if (!btn) return;
+        var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        if (label) {
+          window.dataLayer.push({
+            event: 'wtr_module_click',
+            wtr_module_label: label,
+            wtr_page_path: location.pathname
+          });
+        }
+      }, true);
+    });
+  </script><base href="https://165969602-atari-embeds.googleusercontent.com/embeds/4c8a3211fd76886a93ab92bca3a50520/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.etOqPKhAhvg.O%2Fd%3D1%2Frs%3DAHpOoo-l5JrVgGKVELwC844E6riBHX86-w%2Fm%3D__features__" target="_blank">
       <script>
         (function() {
           // Listen during capturing phase to intercept before <base target="_blank"> takes effect.

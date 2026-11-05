@@ -2,6 +2,32 @@
 <!-- WATCHTOWER SKIRMISH DOSSIER PUBLISHED // RELEASE: v6.3-AUTO-ARCHIVE (2026-10-30) -->
 <html lang="en">
 <head>
+  <!-- [-WTR-] Google Tag Manager & Telemetry (GTM-P5XN2HWM / Property 397291260) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P5XN2HWM');
+
+    // Track in-page module & tab opens in Command Center
+    window.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('click', function(e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill') : null;
+        if (!btn) return;
+        var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        if (label) {
+          window.dataLayer.push({
+            event: 'wtr_module_click',
+            wtr_module_label: label,
+            wtr_page_path: location.pathname
+          });
+        }
+      }, true);
+    });
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>WatchToweR Data Hub — OCT 2026 SKIRMISH Operational Brief</title>
@@ -878,6 +904,32 @@
 
     <!-- Header with 126px Top-Left WTR Emblem, WHITE OCT 2026 Prefix & Archival Collapse Button -->
     <header class="event-header">
+  <!-- [-WTR-] Google Tag Manager & Telemetry (GTM-P5XN2HWM / Property 397291260) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P5XN2HWM');
+
+    // Track in-page module & tab opens in Command Center
+    window.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('click', function(e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill') : null;
+        if (!btn) return;
+        var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        if (label) {
+          window.dataLayer.push({
+            event: 'wtr_module_click',
+            wtr_module_label: label,
+            wtr_page_path: location.pathname
+          });
+        }
+      }, true);
+    });
+  </script>
       <div class="header-left-wrap">
         <a class="header-logo-link" id="wtrHomeLogoLink" href="https://highanxiety-labs.github.io/watchtower-data-hub/command-center.html" target="_blank" rel="noopener" title="Fast Return to WatchToweR Data Hub Home Page">
           <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Home" class="header-logo-img">
