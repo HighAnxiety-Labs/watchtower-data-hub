@@ -964,11 +964,11 @@
   });
 
   const eventSchedules = {
-    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795543200000, "noStore": true,  "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "" },
+    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "" },
     "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "" },
-    "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793120400000, "noStore": true,  "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "" },
+    "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "" },
     "skirmish":  { "start": 1793379600000, "end": 1793728800000, "store": 1793815200000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "" },
-    "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1794938400000, "noStore": true,  "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "" },
+    "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "" },
     "nightmare": { "start": 1793901600000, "end": 1794420000000, "store": 1794506400000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "" }
   };
 
@@ -2332,9 +2332,9 @@
             briefUrl: "./operation-blue-baron.html",
             sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/"
           },
-          { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",             startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "N/A", briefUrl: "./2026-nov-holdout-brief.html", sourceUrl: "" },
-          { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",       startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "N/A", briefUrl: "./2026-nov-sector-breach-brief.html", sourceUrl: "" },
-          { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "N/A", briefUrl: "./vault/2026-oct-warpath.html", sourceUrl: "" },
+          { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",             startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "NOV 18, 2026", briefUrl: "./2026-nov-holdout-brief.html", sourceUrl: "" },
+          { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",       startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "NOV 25, 2026", briefUrl: "./2026-nov-sector-breach-brief.html", sourceUrl: "" },
+          { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "./vault/2026-oct-warpath.html", sourceUrl: "" },
           { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./skirmish.html", sourceUrl: "" },
           { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",         startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
           { key: "future",    tier: "main",  hex: "#ff2a85", enabled: false, label: "Special / New Event", startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
@@ -2363,14 +2363,14 @@
           "15": { resource: "Iridium",    events: [{ type: "holdout", text: "Holdout" }, { type: "phase1", text: "Ch.1 / Phase 1" }] },
           "16": { resource: "Medal/Adv",  events: [{ type: "holdout", text: "Holdout" }, { type: "phase1", text: "Ch.1 / Phase 1" }, { type: "bases", text: "Sabre • Goliath • Frostpiercer • Chronophage" }] },
           "17": { resource: "Iridium",    events: [{ type: "holdout", text: "Holdout" }, { type: "phase1", text: "Ch.1 / Phase 1" }, { type: "bases", text: "Sabre • Goliath • Frostpiercer • Chronophage" }] },
-          "18": { resource: "Medal/Adv",  events: [{ type: "phase1", text: "Ch.1 / Phase 1" }, { type: "bases", text: "Sabre • Goliath • Frostpiercer • Chronophage" }] },
+          "18": { resource: "Medal/Adv",  events: [{ type: "holdout", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase1", text: "Ch.1 / Phase 1" }, { type: "bases", text: "Sabre • Goliath • Frostpiercer • Chronophage" }] },
           "19": { resource: "Iridium",    events: [{ type: "phase1", text: "Ch.1 / Phase 1" }] },
           "20": { resource: "Medal/Adv",  events: [{ type: "breach", text: "Sector Breach" }, { type: "phase1", text: "Ch.1 / Phase 1 Ends" }, { type: "phase2", text: "Ch.1 / Phase 2 Begins" }] },
           "21": { resource: "Iridium",    events: [{ type: "breach", text: "Sector Breach" }, { type: "phase2", text: "Ch.1 / Phase 2" }] },
           "22": { resource: "Iridium",    events: [{ type: "breach", text: "Sector Breach" }, { type: "phase2", text: "Ch.1 / Phase 2" }] },
           "23": { resource: "Medal/Adv",  events: [{ type: "breach", text: "Sector Breach" }, { type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
           "24": { resource: "Iridium",    events: [{ type: "breach", text: "Sector Breach" }, { type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
-          "25": { resource: "Medal/Adv",  events: [{ type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
+          "25": { resource: "Medal/Adv",  events: [{ type: "breach", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
           "26": { resource: "Iridium",    events: [{ type: "phase2", text: "Ch.1 / Phase 2" }] },
           "27": { resource: "Medal/Adv",  events: [{ type: "phase2", text: "Ch.1 / Phase 2 Ends" }, { type: "phase3", text: "Ch.1 / Phase 3 Begins" }] },
           "28": { resource: "Iridium",    events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },

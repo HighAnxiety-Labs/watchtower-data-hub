@@ -372,7 +372,7 @@ body {
       </div>
       <div class="meta-line">
         <strong style="color: var(--text-orange);">Store Closes:</strong>
-        <span>N/A (CLAIM BY EVENT END)</span>
+        <span>WED NOV 25, 2026 @ 10:00 AM PST</span>
       </div>
     </div>
   </header>
@@ -423,6 +423,7 @@ body {
 (function() {
   const startMs = new Date("2026-11-20T10:00:00-08:00").getTime();
   const endMs   = new Date("2026-11-24T10:00:00-08:00").getTime();
+  const storeMs = new Date("2026-11-25T10:00:00-08:00").getTime();
   const clockEl = document.getElementById("liveEventCountdown");
   const lblEl   = document.getElementById("countdownStatusLabel");
 
@@ -443,6 +444,9 @@ body {
     } else if (now < endMs) {
       lblEl.textContent = "🟢 EVENT LIVE // TIME REMAINING";
       clockEl.textContent = fmt(endMs - now);
+    } else if (now < storeMs) {
+      lblEl.textContent = "🛒 STORE OPEN // CLOSES IN";
+      clockEl.textContent = fmt(storeMs - now);
     } else {
       lblEl.textContent = "⏹️ EVENT CONCLUDED";
       clockEl.textContent = "CONCLUDED";
