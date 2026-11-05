@@ -365,7 +365,7 @@
     function parseVaultFilename(fileName) {
       const cleanName = String(fileName || "").trim();
       const lower = cleanName.toLowerCase();
-      const ignored = ["hub-home.html", "2026-calendar.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html"];
+      const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html"];
       if (!lower.endsWith(".html") || ignored.includes(lower)) {
         return null;
       }

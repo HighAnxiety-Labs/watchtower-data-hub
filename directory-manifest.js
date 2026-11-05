@@ -9,6 +9,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "2026-nov-shadow-ops-brief.html",
     "building-briefs.html",
     "cc-22-pre-release.html",
+    "command-center.html",
     "hub-home.html",
     "operation-blue-baron.html",
     "report-war-crimes.html",

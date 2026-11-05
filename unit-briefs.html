@@ -1,121 +1,1299 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchToweR Hub — Unit Briefs Viewer</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background-color: #0b0f0d; color: #e0e6ed; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 14px; line-height: 1.45; font-size: 14.5px; }
-.control-panel { width: 100%; max-width: 1140px; margin: 0 auto 16px auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; background: #0d1210; border: 1px solid #00e676; padding: 10px 16px; border-radius: 4px; gap: 12px; }
-.panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.selector-label { color: #00e676; font-weight: 800; font-size: 12px; text-transform: uppercase; }
-.selector-select { background: #14241b; border: 1px solid #00e676; color: #fff; padding: 6px 10px; font-size: 13.5px; font-weight: 700; border-radius: 3px; cursor: pointer; }
-.selector-status { font-size: 12.5px; color: #00e676; font-weight: 700; background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px; border: 1px solid rgba(0, 230, 118, 0.3); }
-.report-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; overflow: hidden; }
-.classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
-.header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
-.unit-title { font-size: clamp(30px, 5vw, 48px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", sans-serif; text-transform: uppercase; }
-.unit-quote { font-style: italic; color: #b0bec5; font-size: 15.5px; border-left: 3px solid #00e676; padding-left: 12px; }
-.unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.meta-item { display: flex; align-items: center; gap: 8px; }
-.meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 13px; }
-.meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 13px; text-transform: uppercase; cursor: pointer; }
-.meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
-.unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 7px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; }
-.updates-label { color: #81c784; font-weight: 800; text-transform: uppercase; }
-.briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
-.col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: block; }
-.unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.stats-table tr { border-bottom: 1px solid #132419; }
-.stats-table td { padding: 6px; }
-.stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
-.stats-value { color: #fff; text-align: left; font-weight: 700; }
-.talent-block { margin-bottom: 14px; font-size: 14px; }
-.talent-tier { color: #00e676; font-weight: 800; font-size: 13.5px; margin-bottom: 3px; text-transform: uppercase; }
-.talent-desc { color: #cfd8dc; padding-left: 8px; border-left: 2px solid #1f3b2b; }
-.report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
-.workshop-grid, .doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-.workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; }
-.workshop-title { font-weight: 800; color: #ffd700; text-transform: uppercase; }
-.workshop-tag { font-weight: 800; color: #00e676; font-size: 12.5px; text-transform: uppercase; margin-bottom: 4px; }
-.upgrades-table-wrapper { width: 100%; max-height: 450px; overflow-y: auto; border: 1px solid #1f3b2b; border-radius: 4px; }
-.upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
-.upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; padding: 8px 10px; border-bottom: 2px solid #1f3b2b; }
-.upgrades-table td { padding: 7px 10px; border-bottom: 1px solid #132419; font-family: monospace; }
-.upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); }
-@media (min-width: 768px) { .header-content { flex-direction: row; align-items: center; gap: 30px; } .briefing-grid { grid-template-columns: 220px 1.1fr 1.4fr; } .workshop-grid, .doctrine-grid { grid-template-columns: repeat(3, 1fr); } }
-</style></head><body>
-<div class="control-panel">
-<div class="panel-section"><label class="selector-label" for="divisionSelect">Category Filter:</label>
-<select id="divisionSelect" class="selector-select" onchange="applyFilter()"><option value="ALL">ALL UNITS</option><option value="ACADEMY">ACADEMY</option><option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR</option><option value="WAR FACTORY">WAR FACTORY</option><option value="MERCENARY">MERCENARY</option><option value="CONTRACTOR">CONTRACTOR</option></select></div>
-<div class="panel-section" style="flex:1; min-width:230px;"><label class="selector-label" for="unitSelect">Select Unit:</label>
-<select id="unitSelect" class="selector-select" style="flex:1;" onchange="handleUnitSelectionChange(this.value)"><option value="">Loading Units...</option></select></div>
-<div class="panel-section"><span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span></div></div>
-<div id="report-view" style="display:none; width:100%; max-width:1140px; margin:0 auto;"></div>
+<!DOCTYPE html>
+<!-- WATCHTOWER UNIT BRIEF VIEWER // RELEASE: v6.2-FULL-VIEWER (SYNCED FROM UNIT-BRIEFS-MASTER) -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>WatchToweR Hub — Unit Briefs Viewer</title>
+  <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: auto; min-height: 100%; background-color: #0b0f0d; }
+  body {
+    color: #e0e6ed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.45;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* ==================== TOP CONTROL PANEL ==================== */
+  .control-panel-wrapper {
+    width: 100%; max-width: 1140px; margin: 0 auto 16px auto;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .control-panel {
+    width: 100%;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    background: #0d1210; border: 1px solid #00e676; padding: 10px 16px; border-radius: 4px; gap: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  .panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .selector-label { color: #00e676; font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
+  .selector-select {
+    background: #14241b; border: 1px solid #00e676; color: #fff; padding: 6px 10px;
+    font-size: 13.5px; font-weight: 700; border-radius: 3px; outline: none; cursor: pointer;
+  }
+  .selector-status {
+    font-size: 12.5px; color: #00e676; font-weight: 700; letter-spacing: 0.5px;
+    background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px;
+    border: 1px solid rgba(0, 230, 118, 0.3); white-space: nowrap;
+  }
+  .selector-status.error { color: #ff5252; border-color: #ff5252; background: rgba(255, 82, 82, 0.1); }
+
+  /* ==================== REPORT CARD STYLES ==================== */
+  .report-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05); overflow: hidden; }
+  .classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
+  .header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+  .unit-title { font-size: clamp(34px, 6vw, 50px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", Gadget, sans-serif; text-transform: uppercase; }
+  .unit-quote { font-style: italic; color: #b0bec5; font-size: 16px; border-left: 3px solid #00e676; padding-left: 12px; white-space: pre-line; }
+  .unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: 1px; white-space: nowrap; flex-wrap: wrap; gap: 10px; }
+  .meta-item { display: flex; align-items: center; gap: 8px; flex: 1; white-space: nowrap; }
+  .meta-item.meta-right { justify-content: flex-end; text-align: right; }
+  .meta-divider { width: 1px; height: 20px; background-color: #1a3324; margin: 0 16px; flex-shrink: 0; }
+  .meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+  .meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.2s ease-in-out; cursor: pointer; font-family: inherit; }
+  .meta-btn:hover { background: #1b3826; border-color: #00e676; box-shadow: 0 0 8px rgba(0, 230, 118, 0.2); }
+  .meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+  .meta-btn.btn-gold:hover { background: #242211; border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.25); }
+  .popout-icon { font-size: 12px; line-height: 1; opacity: 0.85; }
+  .unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 7px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 1px; }
+  .updates-label { color: #81c784; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 1px; }
+  .updates-content { color: #cfd8dc; font-size: 14px; flex: 1; }
+  .briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: block; }
+  .unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .stats-table tr { border-bottom: 1px solid #132419; }
+  .stats-table td { padding: 6px 6px; }
+  .stats-label { color: #90a4ae; font-weight: 600; width: 48%; }
+  .stats-value { color: #fff; text-align: right; }
+  .talent-block { margin-bottom: 14px; font-size: 14.5px; }
+  .talent-tier { color: #00e676; font-weight: 800; font-size: 14px; letter-spacing: 0.5px; margin-bottom: 3px; text-transform: uppercase; }
+  .talent-desc { color: #cfd8dc; padding-left: 8px; border-left: 2px solid #1f3b2b; line-height: 1.35; white-space: pre-line; }
+  .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.45); display: inline; }
+  .sentence-line-break { display: block; margin-top: 6px; }
+  .report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  .workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+  .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+  .workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14.5px; display: flex; flex-direction: column; justify-content: space-between; }
+  .workshop-item p { color: #cfd8dc !important; line-height: 1.35; margin-top: 4px; margin-bottom: 8px; font-size: 14.5px; white-space: pre-line; }
+  .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; font-size: 14px; text-transform: uppercase !important; letter-spacing: 0.5px; }
+  .workshop-tag { font-weight: 800; color: #00e676; font-size: 13px; margin-bottom: 4px; text-transform: uppercase !important; letter-spacing: 0.5px; }
+  .workshop-img-frame { width: 100%; max-width: 200px; aspect-ratio: 4 / 5; margin: 8px auto 0 auto; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .workshop-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ==================== DEDICATED FACTION WORKSHOP 4-COLUMN VIEWING LINE ==================== */
+  .faction-ws-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 10px; }
+  .faction-ws-card {
+    background: #0b1118; border: 1px solid rgba(255, 215, 0, 0.32); border-top: 3px solid #ffd700;
+    border-radius: 4px; padding: 12px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
+  }
+  .faction-ws-badge {
+    font-family: "Arial Black", sans-serif; font-size: 13.5px; color: #ffd700; text-transform: uppercase; letter-spacing: 1px;
+    background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.3); padding: 3px 10px; border-radius: 3px; width: 100%;
+  }
+  .faction-ws-img-frame {
+    width: 100%; max-width: 210px; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.25);
+    border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+  }
+  .faction-ws-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .faction-ws-talent { color: #cfd8dc; font-size: 13.5px; line-height: 1.4; padding-top: 6px; border-top: 1px solid #1a3324; width: 100%; white-space: pre-line; }
+
+  .upgrades-table-wrapper { width: 100%; max-height: 450px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
+  .upgrades-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: center; background: #0b1118; }
+  .upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px; border-bottom: 2px solid #1f3b2b; z-index: 2; }
+  .upgrades-table td { padding: 7px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; font-family: monospace; font-size: 13.5px; }
+  .upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); border-right: 1px solid #132419; width: 70px; }
+  .upgrades-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+  .upgrades-table tbody tr:hover { background: rgba(0, 230, 118, 0.05); }
+  .doctrine-notice { background: rgba(0, 230, 118, 0.08); border: 1px solid #00e676; border-left: 4px solid #00e676; color: #a7ffeb; padding: 8px 12px; border-radius: 4px; font-size: 14px; margin-bottom: 14px; }
+  .doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .doctrine-card { background: #0b1118; border: 1px solid #1f3b2b; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+  .doctrine-card.base { border-top: 3px solid #ffd700; } .doctrine-card.spec-1 { border-top: 3px solid #2dd4bf; } .doctrine-card.spec-2 { border-top: 3px solid #38bdf8; }
+  .doctrine-card-header { padding: 10px 12px; background: #0f1813; border-bottom: 1px solid #1a3324; min-height: 54px; display: flex; flex-direction: column; justify-content: center; }
+  .doctrine-card-header h2 { font-size: 14.5px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
+  .doctrine-card.base .doctrine-card-header h2 { color: #ffd700; } .doctrine-card.spec-1 .doctrine-card-header h2 { color: #2dd4bf; } .doctrine-card.spec-2 .doctrine-card-header h2 { color: #38bdf8; }
+  .doctrine-card-header .subtitle { font-size: 12.5px; color: #90a4ae; text-transform: uppercase; letter-spacing: 0.5px; }
+  .doctrine-table { width: 100%; border-collapse: collapse; font-size: 13.5px; table-layout: fixed; }
+  .doctrine-table th { padding: 7px 8px; border-bottom: 1px solid #132419; text-align: left; background: #090e0b; color: #81c784; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; height: 32px; }
+  .doctrine-table tbody tr { height: 48px; }
+  .doctrine-table td { padding: 6px 8px; border-bottom: 1px solid #132419; vertical-align: middle; }
+  .doctrine-table td.lvl { width: 54px; font-weight: 800; text-align: center; background: rgba(0, 0, 0, 0.3); border-right: 1px solid #132419; }
+  .doctrine-card.base td.lvl { color: #ffd700; } .doctrine-card.spec-1 td.lvl { color: #2dd4bf; } .doctrine-card.spec-2 td.lvl { color: #38bdf8; }
+  .doctrine-table td.desc { color: #e0e6ed; line-height: 1.35; }
+  .infusion-panel { background: #0b1118; border: 1px solid #1f3b2b; border-top: 3px solid #a855f7; border-radius: 4px; padding: 14px 16px; margin-top: 10px; }
+  .infusion-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a3324; padding-bottom: 8px; margin-bottom: 12px; }
+  .infusion-title { font-size: 15px; font-weight: 800; color: #c084fc; letter-spacing: 1px; text-transform: uppercase; }
+  .infusion-tag { background: #3b0764; color: #e9d5ff; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+  .infusion-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .infusion-card { background: #0f1813; border-left: 3px solid #c084fc; padding: 10px 12px; font-size: 14.5px; }
+  .infusion-card-title { font-weight: 800; color: #ffd700; margin-bottom: 4px; font-size: 14px; }
+  .infusion-card p { color: #cfd8dc; line-height: 1.35; white-space: pre-line; }
+  .warpaints-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+  .warpaints-grid.single-card { display: flex; justify-content: center; }
+  .warpaints-grid.single-card .warpaint-card { max-width: 220px; width: 100%; }
+  .warpaint-card { background: #0b1118; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; padding: 8px; display: flex; flex-direction: column; align-items: center; }
+  .warpaint-img-wrap { width: 100%; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .warpaint-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .warpaint-label { color: #c9d1d9; font-size: 1rem; font-weight: 800; text-align: center; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  @media (min-width: 768px) {
+    .header-content { flex-direction: row; align-items: center; gap: 30px; }
+    .briefing-grid { grid-template-columns: 220px 1.1fr 1.4fr; }
+    .doctrine-grid { grid-template-columns: repeat(3, 1fr); }
+    .infusion-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+    .faction-ws-grid { grid-template-columns: repeat(4, 1fr); }
+    .warpaints-grid:not(.single-card) { grid-template-columns: repeat(4, 1fr); }
+  }
+  </style>
+</head>
+<body>
+
+<div class="control-panel-wrapper">
+  <div class="control-panel">
+    <div class="panel-section">
+      <label class="selector-label" for="divisionSelect">Category Filter:</label>
+      <select id="divisionSelect" class="selector-select" style="width: 175px;" onchange="applyFilter()">
+        <option value="ALL">ALL UNITS</option>
+        <option value="ACADEMY">ACADEMY</option>
+        <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR</option>
+        <option value="WAR FACTORY">WAR FACTORY</option>
+        <option value="MERCENARY">MERCENARY</option>
+        <option value="CONTRACTOR">CONTRACTOR</option>
+        <option value="ONYX">ONYX / HOSTILE</option>
+      </select>
+    </div>
+    <div class="panel-section" style="flex: 1; min-width: 230px;">
+      <label class="selector-label" for="unitSelect">Select Unit:</label>
+      <select id="unitSelect" class="selector-select" style="flex: 1; max-width: none;" onchange="handleUnitSelectionChange(this.value)">
+        <option value="">Loading database...</option>
+      </select>
+    </div>
+    <div class="panel-section">
+      <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== REPORT VIEW CONTAINER (FULL 9-SECTION OUTPUT) ==================== -->
+<div id="report-view" style="display: none; width: 100%; max-width: 1140px; margin: 0 auto;">
+  <div id="exportable-report-card" class="report-card">
+    <div class="classification-bar">{{CLASSIFICATION}}</div>
+    <div class="header-content">
+      <h1 class="unit-title">{{UNIT_NAME}}</h1>
+      <p id="unit-quote-block" class="unit-quote">{{UNIT_QUOTE}}</p>
+    </div>
+    <div id="unit-meta-bar" class="unit-meta-bar">
+      <div id="origin-event-container" class="meta-item">
+        <span class="meta-label">Origin Event:</span>
+        <button id="origin-event-link" class="meta-btn" type="button">
+          <span id="origin-event-text-span">{{WC_EVENT_NAME}}</span>
+          <span class="popout-icon">↗</span>
+        </button>
+      </div>
+      <div id="meta-divider-bar" class="meta-divider">&nbsp;</div>
+      <div id="linked-unit-container" class="meta-item meta-right">
+        <span class="meta-label">LINKED UNIT:</span>
+        <button id="linkedUnitBtn" class="meta-btn btn-gold" type="button">
+          <span>{{LINKED_UNIT_NAME}}</span>
+          <span class="popout-icon">↗</span>
+        </button>
+      </div>
+    </div>
+    <div id="updates-bar-wrap" class="unit-updates-bar">
+      <span class="updates-label">Post-Release Updates:</span>
+      <span class="updates-content">{{UPDATES_TEXT}}</span>
+    </div>
+    <div class="briefing-grid">
+      <!-- Col 1: Visual -->
+      <div class="unit-display">
+        <span class="col-header" style="width: 100%;">{{RELEASE_DATE}}</span>
+        <div id="main-img-frame" class="unit-img-frame">
+          <img id="main-unit-img" class="unit-img" src="{{UNIT_IMAGE_URL}}" alt="{{UNIT_NAME}} Unit Render">
+        </div>
+      </div>
+      <!-- Col 2: Stats Table (All 23 Default Stats + Dynamic Custom Stats) -->
+      <div class="stats-col-container">
+        <span class="col-header" id="tpl-stats-col-header">Stats</span>
+        <table id="unit-stats-table" class="stats-table">
+          <tbody id="unit-stats-tbody">
+            <tr><td class="stats-label" style="text-align: right;">Generation</td><td class="stats-value" style="text-align: left;">{{STAT_GENERATION}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Faction</td><td class="stats-value" style="text-align: left;">{{STAT_FACTION}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Type</td><td class="stats-value" style="text-align: left;">{{STAT_TYPE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Armor Type</td><td class="stats-value" style="text-align: left;">{{STAT_ARMOR_TYPE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Weapon Type</td><td class="stats-value" style="text-align: left;">{{STAT_WEAPON_TYPE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Targets</td><td class="stats-value" style="text-align: left;">{{STAT_TARGETS}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Damage Type</td><td class="stats-value" style="text-align: left;">{{STAT_DAMAGE_TYPE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Size</td><td class="stats-value" style="text-align: left;">{{STAT_SIZE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Building Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Level Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING_REQ}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Progression Range)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_1}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_10}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_20}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Max Level)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_MAX}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Progression Range)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_1}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_10}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_20}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Max Level)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_MAX}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Max Speed</td><td class="stats-value" style="text-align: left;">{{STAT_SPEED}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Range</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Splash Radius</td><td class="stats-value" style="text-align: left;">{{STAT_SPLASH}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Col 3: Talents -->
+      <div id="talents-container" class="talents-col-container">
+        <span class="col-header" id="tpl-talents-col-header">Talents</span>
+        <div id="talent-block-base" class="talent-block"><div class="talent-desc">{{TALENT}}</div></div>
+        <div id="talent-block-1" class="talent-block"><div class="talent-tier">{{TALENT_LVL_1_TIER}}</div><div class="talent-desc">{{TALENT_LVL_1}}</div></div>
+        <div id="talent-block-5" class="talent-block"><div class="talent-tier">{{TALENT_LVL_5_TIER}}</div><div class="talent-desc">{{TALENT_LVL_5}}</div></div>
+        <div id="talent-block-10" class="talent-block"><div class="talent-tier">{{TALENT_LVL_10_TIER}}</div><div class="talent-desc">{{TALENT_LVL_10}}</div></div>
+        <div id="talent-block-11" class="talent-block"><div class="talent-tier">{{TALENT_LVL_11_TIER}}</div><div class="talent-desc">{{TALENT_LVL_11}}</div></div>
+        <div id="talent-block-15" class="talent-block"><div class="talent-tier">{{TALENT_LVL_15_TIER}}</div><div class="talent-desc">{{TALENT_LVL_15}}</div></div>
+        <div id="talent-block-20" class="talent-block"><div class="talent-tier">{{TALENT_LVL_20_TIER}}</div><div class="talent-desc">{{TALENT_LVL_20}}</div></div>
+        <div id="talent-block-21" class="talent-block"><div class="talent-tier">{{TALENT_LVL_21_TIER}}</div><div class="talent-desc">{{TALENT_LVL_21}}</div></div>
+        <div id="talent-block-25" class="talent-block"><div class="talent-tier">{{TALENT_LVL_25_TIER}}</div><div class="talent-desc">{{TALENT_LVL_25}}</div></div>
+        <div id="talent-block-30" class="talent-block"><div class="talent-tier">{{TALENT_LVL_30_TIER}}</div><div class="talent-desc">{{TALENT_LVL_30}}</div></div>
+      </div>
+    </div>
+    <!-- Workshop Tech Section (6 Slots + 4:5 Images) -->
+    <div id="tech-section" class="report-section">
+      <span class="col-header" id="tpl-workshop-header">Workshop Tech</span>
+      <div id="workshop-container" class="workshop-grid"></div>
+    </div>
+    <!-- Dedicated Faction Workshop Viewing Line (4 Slots: Faction + 4:5 Image + Talent) -->
+    <div id="faction-ws-section" class="report-section" style="display: none;">
+      <span class="col-header" id="faction-ws-header">{{FACTION_WS_HEADER}}</span>
+      <div id="faction-ws-container" class="faction-ws-grid"></div>
+    </div>
+    <!-- Upgrades Progression Section -->
+    <div id="upgrades-section" class="report-section" style="display: none;">
+      <span id="upgrades-section-header" class="col-header">Upgrade Progression Matrix</span>
+      <div class="upgrades-table-wrapper">
+        <table class="upgrades-table">
+          <thead>
+            <tr>
+              <th style="width: 70px;">Level</th>
+              <th>Tokens</th>
+              <th>Time (Days)</th>
+              <th>Gold</th>
+              <th>HP</th>
+              <th>DPS</th>
+            </tr>
+          </thead>
+          <tbody id="upgrades-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Evolution Doctrine Military Tech Section -->
+    <div id="doctrine-section" class="report-section">
+      <span id="doctrine-main-title" class="col-header">{{DOCTRINE_TITLE}}</span>
+      <div id="doctrine-prereq-wrap" class="doctrine-notice">
+        <strong>PREREQUISITE:</strong>
+        <span id="doctrine-prereq-text">{{DOCTRINE_PREREQ}}</span>
+      </div>
+      <div id="doctrine-costs-wrap" class="doctrine-notice">
+        <strong>UPGRADES:</strong>
+        <span id="doctrine-costs-text">{{DOCTRINE_COSTS}}</span>
+      </div>
+      <div id="doctrine-grid-container" class="doctrine-grid"></div>
+    </div>
+    <!-- Infusion Tech Section -->
+    <div id="infusion-section" class="report-section" style="display: none;">
+      <span id="infusion-main-header" class="col-header">UNIT INFUSION MATRIX</span>
+      <div id="infusion-notice-wrap" class="doctrine-notice" style="border-left-color: #c084fc; color: #f3e8ff;">
+        <strong>INFUSION OVERVIEW:</strong>
+        <span id="infusion-notice-text">{{INFUSION_OVERVIEW}}</span>
+      </div>
+      <div id="infusion-container-panel" class="infusion-panel">
+        <div class="infusion-header">
+          <span id="infusion-title-text" class="infusion-title">{{INFUSION_TITLE}}</span>
+          <span id="infusion-tag-text" class="infusion-tag">{{INFUSION_TAG}}</span>
+        </div>
+        <div id="infusion-grid-container" class="infusion-grid"></div>
+      </div>
+    </div>
+    <!-- Warpaints Section -->
+    <div id="warpaints-section" class="report-section">
+      <span id="warpaints-header" class="col-header">{{WARPAINTS_HEADER}}</span>
+      <div id="warpaints-container" class="warpaints-grid"></div>
+    </div>
+    <div class="classification-bar">{{CLASSIFICATION}}</div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-const SHEET_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc"; const GID = "444355456";
-let globalMatrixCache = [], filteredUnits = [];
-function cleanVal(v) { if (!v) return ""; const t = String(v).trim(); return (t==="-"||t==="—"||t==="N/A") ? "" : t; }
-function escapeHtml(s) { return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function resolveWtrAssetImagePath(p) { const s = String(p || "").trim().replace(/\\/g, "/"); if (!s || /^(?:https?:|data:|blob:)/i.test(s)) return s; const loc = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/").toLowerCase(); const base = loc.includes("/masters/") ? "../published/watchtower-data-hub/assets/images/" : loc.includes("/vault/") ? "../assets/images/" : "./assets/images/"; const stripped = s.replace(/^(?:\.\.\/|\.\/)+/, "").replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, ""); return base + stripped; }
-function formatImageUrl(u) { if (!u) return ""; let c = String(u).trim().replace(/^\x27/,""); const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/); if (m && m[1] && !c.startsWith("data:")) return "https://lh3.googleusercontent.com/d/" + m[1]; return resolveWtrAssetImagePath(c); }
-document.addEventListener("DOMContentLoaded", () => {
-  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
-  Papa.parse(url, { download: true, header: false, skipEmptyLines: true, complete: (res) => {
-    if (!res || !res.data || res.data.length <= 1) return;
-    const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
-    for (let r = 1; r < res.data.length; r++) {
-      const rec = {}; headers.forEach((k, i) => { if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/,"") : ""; });
-      rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
-      const isBld = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
-      if (rec.UNIT_NAME && !isBld) globalMatrixCache.push(rec);
+  const SHEET_CONFIG = {
+    docId: '1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc',
+    gids: {
+      MASTER_DB: '444355456',
+      BACKUP: '1412074705'
     }
-    applyFilter();
-    const qUnit = new URLSearchParams(window.location.search).get("unit");
-    if (qUnit) openLinkedUnit(qUnit);
-  }});
-});
-function applyFilter() {
-  const div = (document.getElementById("divisionSelect").value || "ALL").toUpperCase();
-  filteredUnits = globalMatrixCache.filter(r => {
-    if (div === "ALL") return true;
-    const combined = ((r.STAT_BUILDING||"") + " " + (r.CLASSIFICATION||"") + " " + (r.STAT_FACTION||"") + " " + (r.STAT_GENERATION||"")).toUpperCase();
-    if (div === "CONTRACTOR") return combined.includes("CONTRACTOR") || combined.includes("DIPLOMAC") || combined.includes("AGENCY");
-    if (div.includes("HANGAR")) return combined.includes("HANGAR") || combined.includes("HANGER") || combined.includes("AIRFIELD") || combined.includes("AIRCRAFT");
-    return combined.includes(div);
-  });
-  const drop = document.getElementById("unitSelect"); drop.innerHTML = "";
-  filteredUnits.sort((a, b) => String(a.UNIT_NAME || "").trim().localeCompare(String(b.UNIT_NAME || "").trim(), undefined, { numeric: true, sensitivity: "base" })); filteredUnits.forEach((u, i) => { const o = document.createElement("option"); o.value = i; o.textContent = u.UNIT_NAME; drop.appendChild(o); });
-  document.getElementById("loadStatus").textContent = "Ready (" + filteredUnits.length + " Units)";
-  if (filteredUnits.length > 0) { drop.value = "0"; handleUnitSelectionChange(0); }
-}
-function openLinkedUnit(name) {
-  document.getElementById("divisionSelect").value = "ALL"; applyFilter();
-  const idx = filteredUnits.findIndex(r => (r.UNIT_NAME||"").toUpperCase() === String(name||"").trim().toUpperCase());
-  if (idx !== -1) { document.getElementById("unitSelect").value = String(idx); handleUnitSelectionChange(idx); window.scrollTo({top:0, behavior:"smooth"}); }
-}
-function handleUnitSelectionChange(idx) {
-  const d = filteredUnits[idx]; if (!d) return;
-  const v = document.getElementById("report-view"); v.style.display = "block";
-  const g = k => cleanVal(d[k]);
-  const statPairs = [["Generation","STAT_GENERATION"],["Faction","STAT_FACTION"],["Type","STAT_TYPE"],["Armor Type","STAT_ARMOR_TYPE"],["Weapon Type","STAT_WEAPON_TYPE"],["Targets","STAT_TARGETS"],["Damage Type","STAT_DAMAGE_TYPE"],["Size","STAT_SIZE"],["Building Required","STAT_BUILDING"],["Level Required","STAT_BUILDING_REQ"],["HP Range","STAT_HP_RANGE"],["HP (Lvl 1)","STAT_HP_RANGE_1"],["HP (Lvl 10)","STAT_HP_RANGE_10"],["HP (Max)","STAT_HP_RANGE_MAX"],["DPS Range","STAT_DPS_RANGE"],["DPS (Lvl 1)","STAT_DPS_RANGE_1"],["DPS (Lvl 10)","STAT_DPS_RANGE_10"],["DPS (Max)","STAT_DPS_RANGE_MAX"],["Max Speed","STAT_SPEED"],["Range","STAT_RANGE"],["Splash","STAT_SPLASH"]];
-  let statsHtml = ""; statPairs.forEach(p => { if (g(p[1])) statsHtml += "<tr><td class=\"stats-label\">" + p[0] + "</td><td class=\"stats-value\">" + escapeHtml(g(p[1])) + "</td></tr>"; });
-  let talentsHtml = ""; if (g("TALENT")) talentsHtml += "<div class=\"talent-block\"><div class=\"talent-desc\">" + escapeHtml(g("TALENT")) + "</div></div>";
-  [1,5,10,11,15,20,21,25,30].forEach(l => { if (g("TALENT_LVL_"+l)) talentsHtml += "<div class=\"talent-block\"><div class=\"talent-tier\">" + escapeHtml(g("TALENT_LVL_"+l+"_TIER")||("LEVEL "+l)) + "</div><div class=\"talent-desc\">" + escapeHtml(g("TALENT_LVL_"+l)) + "</div></div>"; });
-  let techHtml = ""; for (let i=1; i<=6; i++) { const t = g("WORKSHOP_"+i+"_TITLE")||g("TECH_"+i+"_TITLE"), desc = g("WORKSHOP_"+i+"_DESC")||g("TECH_"+i+"_DESC"), tag = g("WORKSHOP_"+i+"_TAG")||g("TECH_"+i+"_TAG"); if (t || desc) techHtml += "<div class=\"workshop-item\"><div class=\"workshop-title\">" + escapeHtml(t) + "</div><div class=\"workshop-tag\">" + escapeHtml(tag) + "</div><p>" + escapeHtml(desc) + "</p></div>"; }
-  let upgHtml = ""; for (let l=1; l<=40; l++) { const tk=g("UPGRADE_TOKENS_"+l), tm=g("UPGRADE_DAYS_"+l), gd=g("UPGRADE_GOLD_"+l), hp=g("UPGRADE_HP_"+l), dp=g("UPGRADE_DPS_"+l); if (tk||tm||gd||hp||dp) upgHtml += "<tr><td class=\"lvl-cell\">Lvl "+l+"</td><td>"+escapeHtml(tk||"—")+"</td><td>"+escapeHtml(tm||"—")+"</td><td>"+escapeHtml(gd||"—")+"</td><td>"+escapeHtml(hp||"—")+"</td><td>"+escapeHtml(dp||"—")+"</td></tr>"; }
-  const lnk = g("LINKED_UNIT_NAME") || g("HERO") || g("PAIRED_UNIT");
-  v.innerHTML = "<div class=\"report-card\"><div class=\"classification-bar\">" + escapeHtml(g("CLASSIFICATION")||"UNIT BRIEF") + "</div>" +
-    "<div class=\"header-content\"><h1 class=\"unit-title\">" + escapeHtml(g("UNIT_NAME")) + "</h1>" + (g("UNIT_QUOTE") ? "<p class=\"unit-quote\">" + escapeHtml(g("UNIT_QUOTE")) + "</p>" : "") + "</div>" +
-    ((g("WC_EVENT_NAME") || lnk) ? "<div class=\"unit-meta-bar\"><div class=\"meta-item\">" + (g("WC_EVENT_NAME") ? "<span class=\"meta-label\">Origin Event:</span><span class=\"meta-btn\">" + escapeHtml(g("WC_EVENT_NAME")) + "</span>" : "") + "</div>" + (lnk ? "<div class=\"meta-item\"><span class=\"meta-label\">LINKED UNIT:</span><button type=\"button\" class=\"meta-btn btn-gold\" onclick=\"openLinkedUnit(\x27" + escapeHtml(lnk) + "\x27)\">" + escapeHtml(lnk) + " ↗</button></div>" : "") + "</div>" : "") +
-    (g("UPDATES_TEXT") ? "<div class=\"unit-updates-bar\"><span class=\"updates-label\">Updates:</span><span>" + escapeHtml(g("UPDATES_TEXT")) + "</span></div>" : "") +
-    "<div class=\"briefing-grid\"><div class=\"unit-display\"><span class=\"col-header\">" + escapeHtml(g("RELEASE_DATE")) + "</span><div class=\"unit-img-frame\"><img class=\"unit-img\" src=\"" + formatImageUrl(g("UNIT_IMAGE_URL")||g("IMAGE_URL")) + "\" alt=\"Unit\"></div></div>" +
-    "<div><span class=\"col-header\">Stats</span><table class=\"stats-table\"><tbody>" + statsHtml + "</tbody></table></div>" +
-    "<div><span class=\"col-header\">Talents</span>" + talentsHtml + "</div></div>" +
-    (techHtml ? "<div class=\"report-section\"><span class=\"col-header\">Workshop Tech</span><div class=\"workshop-grid\">" + techHtml + "</div></div>" : "") +
-    (upgHtml ? "<div class=\"report-section\"><span class=\"col-header\">Upgrade Progression Matrix</span><div class=\"upgrades-table-wrapper\"><table class=\"upgrades-table\"><thead><tr><th>Level</th><th>Tokens</th><th>Time</th><th>Gold</th><th>HP</th><th>DPS</th></tr></thead><tbody>" + upgHtml + "</tbody></table></div></div>" : "") +
-    "<div class=\"classification-bar\">" + escapeHtml(g("CLASSIFICATION")||"UNIT BRIEF") + "</div></div>";
-}
-</script></body></html>
+  };
 
+  const DEFAULT_STAT_SCHEMA = [
+    { key: 'STAT_GENERATION',   defaultLabel: 'Generation' },
+    { key: 'STAT_FACTION',      defaultLabel: 'Faction' },
+    { key: 'STAT_TYPE',         defaultLabel: 'Type' },
+    { key: 'STAT_ARMOR_TYPE',   defaultLabel: 'Armor Type' },
+    { key: 'STAT_WEAPON_TYPE',  defaultLabel: 'Weapon Type' },
+    { key: 'STAT_TARGETS',      defaultLabel: 'Targets' },
+    { key: 'STAT_DAMAGE_TYPE',  defaultLabel: 'Damage Type' },
+    { key: 'STAT_SIZE',         defaultLabel: 'Size' },
+    { key: 'STAT_BUILDING',     defaultLabel: 'Building Required' },
+    { key: 'STAT_BUILDING_REQ', defaultLabel: 'Level Required' },
+    { key: 'STAT_HP_RANGE',     defaultLabel: 'HP (Progression Range)' },
+    { key: 'STAT_HP_RANGE_1',   defaultLabel: 'HP (Level 1)' },
+    { key: 'STAT_HP_RANGE_10',  defaultLabel: 'HP (Level 10)' },
+    { key: 'STAT_HP_RANGE_20',  defaultLabel: 'HP (Level 20)' },
+    { key: 'STAT_HP_RANGE_MAX', defaultLabel: 'HP (Max Level)' },
+    { key: 'STAT_DPS_RANGE',    defaultLabel: 'DPS (Progression Range)' },
+    { key: 'STAT_DPS_RANGE_1',  defaultLabel: 'DPS (Level 1)' },
+    { key: 'STAT_DPS_RANGE_10', defaultLabel: 'DPS (Level 10)' },
+    { key: 'STAT_DPS_RANGE_20', defaultLabel: 'DPS (Level 20)' },
+    { key: 'STAT_DPS_RANGE_MAX',defaultLabel: 'DPS (Max Level)' },
+    { key: 'STAT_SPEED',        defaultLabel: 'Max Speed' },
+    { key: 'STAT_RANGE',        defaultLabel: 'Range' },
+    { key: 'STAT_SPLASH',       defaultLabel: 'Splash Radius' }
+  ];
+
+  const TEMPLATE_CONFIG = {
+    statsHeader: "Stats",
+    talentsHeader: "Talents",
+    workshopHeader: "Workshop Tech",
+    factionWsHeader: "Faction Workshop",
+    upgradesHeader: "Upgrade Progression Matrix",
+    infusionHeader: "UNIT INFUSION MATRIX",
+    statLabels: {},
+    customStats: []
+  };
+
+  const UNIT_HANDOFF_KEY = 'wtr_target_unit_handoff';
+  const TALENT_TIERS = [1, 5, 10, 11, 15, 20, 21, 25, 30];
+  const HEROIC_REGEX = /\b((?:BASIC|RISING|SUPER|SUPREME)\s+HEROIC|HEROIC)\b/gi;
+
+  let globalMatrixCache = [];
+  let filteredUnits = [];
+  let currentDivision = 'ALL';
+  let activeUnitTitle = 'Unit';
+
+  function showStatusMsg(msg, isError = false) {
+    const statusBox = document.getElementById('loadStatus');
+    if (!statusBox) return;
+    statusBox.textContent = msg;
+    statusBox.classList.toggle('error', Boolean(isError));
+  }
+
+  function escapeAttr(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  }
+
+  function cleanVal(v) {
+    if (!v) return '';
+    const trimmed = v.toString().trim();
+    return (trimmed === '-' || trimmed === '—' || trimmed === 'N/A' || trimmed.startsWith('{{')) ? '' : trimmed;
+  }
+
+  function getStatRowLabel(statKey) {
+    if (TEMPLATE_CONFIG.statLabels && TEMPLATE_CONFIG.statLabels[statKey] && TEMPLATE_CONFIG.statLabels[statKey].trim()) {
+      return TEMPLATE_CONFIG.statLabels[statKey].trim();
+    }
+    const found = DEFAULT_STAT_SCHEMA.find(s => s.key === statKey);
+    return found ? found.defaultLabel : statKey;
+  }
+
+  function formatImageUrl(url) {
+    if (!url) return '';
+    let clean = String(url).trim();
+    if (clean.startsWith("'")) clean = clean.slice(1).trim();
+    const formulaMatch = clean.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) clean = formulaMatch[1].trim();
+    const driveMatch = clean.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1] && !clean.startsWith('data:')) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    if (!/^(?:https?:|data:|blob:)/i.test(clean)) {
+      const loc = decodeURIComponent(window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+      const base = loc.includes('/masters/') ? '../published/watchtower-data-hub/assets/images/' : loc.includes('/vault/') ? '../assets/images/' : './assets/images/';
+      const stripped = clean.replace(/\\/g, '/').replace(/^(?:\.\.\/|\.\/)+/, '').replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, '');
+      return base + stripped;
+    }
+    return clean;
+  }
+
+  function formatMultiLineAndHeroicText(rawStr, applyGoldHeroic = true) {
+    if (!rawStr) return '';
+    let formatted = String(rawStr).trim();
+    formatted = formatted.replace(/\s*(?:\||\/\/)\s*/g, '<span class="sentence-line-break"></span>');
+    formatted = formatted.replace(
+      /(?<!\b(?:Mk|Lvl|Dr|Mr|vs|etc))([.!?])\s+(?=[A-Z0-9"“'‘(\[])/g,
+      '$1<span class="sentence-line-break"></span>'
+    );
+    if (applyGoldHeroic) {
+      formatted = formatted.replace(HEROIC_REGEX, m => `<span class="gold-heroic">${m}</span>`);
+    }
+    return formatted;
+  }
+
+  /* ==================== 3-STAGE BULLETPROOF GOOGLE SHEET READER ==================== */
+  function fetchSheetMatrixUniversal(docId, gid, onSuccess, onError) {
+    const cleanId = (docId || "").trim();
+    const cleanGid = (gid || "0").trim();
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+
+    Papa.parse(exportCsvUrl, {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: function(results) {
+        if (results && results.data && results.data.length > 1) {
+          onSuccess(results.data);
+        } else {
+          tryStage2GvizCsv();
+        }
+      },
+      error: function() {
+        tryStage2GvizCsv();
+      }
+    });
+
+    function tryStage2GvizCsv() {
+      fetch(gvizCsvUrl, { method: "GET", credentials: "omit" })
+        .then(res => {
+          if (!res.ok) throw new Error("GVIZ HTTP " + res.status);
+          return res.text();
+        })
+        .then(csvText => {
+          if (csvText.trim().startsWith("<!DOCTYPE") || csvText.trim().startsWith("<html")) {
+            throw new Error("Sheet returned HTML login page");
+          }
+          const parsed = Papa.parse(csvText, { header: false, skipEmptyLines: true });
+          if (!parsed.data || parsed.data.length <= 1) throw new Error("Empty GVIZ CSV");
+          onSuccess(parsed.data);
+        })
+        .catch(() => {
+          tryStage3Jsonp();
+        });
+    }
+
+    function tryStage3Jsonp() {
+      const cbName = "wtrGvizCallback_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+      const script = document.createElement("script");
+      let completed = false;
+
+      const timer = setTimeout(() => {
+        if (completed) return;
+        completed = true;
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError(new Error("Connection timed out or Sheet is private."));
+      }, 8000);
+
+      window[cbName] = function(response) {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+
+        if (!response || response.status === "error" || !response.table) {
+          onError(new Error("Sheet rejected request or is not shared publicly."));
+          return;
+        }
+
+        const cols = response.table.cols || [];
+        const rows = response.table.rows || [];
+        const matrix = [];
+
+        const colLabels = cols.map(c => (c && c.label ? String(c.label).trim() : ""));
+        if (colLabels.some(l => l !== "")) {
+          matrix.push(colLabels);
+        }
+
+        rows.forEach(r => {
+          const cArr = (r && r.c) ? r.c : [];
+          const rowCells = cols.map((_, idx) => {
+            const cell = cArr[idx];
+            if (!cell || cell.v === null || cell.v === undefined) return "";
+            return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+          });
+          if (rowCells.some(val => val.trim() !== "")) {
+            matrix.push(rowCells);
+          }
+        });
+
+        onSuccess(matrix);
+      };
+
+      script.onerror = function() {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError(new Error("Network or sharing error loading Google Sheet."));
+      };
+
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      document.head.appendChild(script);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const viewContainer = document.getElementById('report-view');
+    if (viewContainer && !window._htmlTemplateCache) {
+      window._htmlTemplateCache = viewContainer.innerHTML;
+    }
+    fetchMasterDatabase();
+  });
+
+  function fetchMasterDatabase() {
+    const gid = SHEET_CONFIG.gids.MASTER_DB;
+    showStatusMsg(`Syncing MASTER_DB...`);
+
+    fetchSheetMatrixUniversal(
+      SHEET_CONFIG.docId,
+      gid,
+      function(matrix) {
+        if (!matrix || matrix.length <= 1) {
+          return showStatusMsg('Database tab is empty.', true);
+        }
+
+        const fetchedList = [];
+        const headers = matrix[0].map(h => (h || '').trim().toUpperCase());
+
+        for (let r = 1; r < matrix.length; r++) {
+          const rec = { SHEET_ROW_INDEX: r + 1 };
+          headers.forEach((key, colIdx) => {
+            let val = matrix[r][colIdx] !== undefined ? matrix[r][colIdx].toString().trim() : '';
+            if (val.startsWith("'")) val = val.substring(1);
+            if (key) rec[key] = val;
+          });
+
+          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || rec.BUILDING_NAME || '';
+          if (rec.UNIT_NAME) {
+            fetchedList.push(rec);
+          }
+        }
+
+        globalMatrixCache = fetchedList;
+        setupFiltersAndRouting();
+      },
+      function() {
+        showStatusMsg('Error loading MASTER_DB', true);
+      }
+    );
+  }
+
+  function consumeRequestedUnitHandoff() {
+    let targetUnit = '';
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+      targetUnit = (urlParams.get('unit') || urlParams.get('u') || hashParams.get('unit') || hashParams.get('u') || '').trim();
+    } catch (e) {}
+
+    if (!targetUnit && document.referrer) {
+      try {
+        const refUrl = new URL(document.referrer);
+        const refUnit = refUrl.searchParams.get('unit') || refUrl.searchParams.get('u');
+        if (refUnit) targetUnit = refUnit.trim();
+      } catch (e) {}
+    }
+
+    if (!targetUnit) {
+      try {
+        const raw = localStorage.getItem(UNIT_HANDOFF_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.unit && (Date.now() - (parsed.ts || 0) < 180000)) {
+            targetUnit = String(parsed.unit).trim();
+          }
+          localStorage.removeItem(UNIT_HANDOFF_KEY);
+        }
+      } catch (e) {}
+    }
+
+    return targetUnit;
+  }
+
+  function setupFiltersAndRouting() {
+    const divSelect = document.getElementById('divisionSelect');
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+
+    let urlDiv = (urlParams.get('division') || urlParams.get('div') || hashParams.get('division') || hashParams.get('div') || '').trim().toUpperCase();
+    if (urlDiv === 'AIRCRAFT HANGER') urlDiv = 'AIRCRAFT HANGAR';
+    if (urlDiv && divSelect) {
+      divSelect.value = urlDiv;
+      currentDivision = urlDiv;
+    } else if (divSelect) {
+      currentDivision = divSelect.value;
+    }
+
+    applyFilter(true);
+  }
+
+  function isContractorRecord(rec) {
+    const bld = (rec.STAT_BUILDING || '').toUpperCase();
+    const classif = (rec.CLASSIFICATION || '').toUpperCase();
+    const gen = (rec.STAT_GENERATION || '').toUpperCase();
+    const faction = (rec.STAT_FACTION || '').toUpperCase();
+    const uType = (rec.STAT_TYPE || '').toUpperCase();
+
+    return (
+      classif.includes('CONTRACTOR') ||
+      gen.includes('CONTRACTOR') ||
+      faction.includes('DIPLOMAC') ||
+      faction.includes('DEPLOMANC') ||
+      faction.includes('CONTRACTOR') ||
+      bld.includes('AGENCY') ||
+      uType.includes('CONTRACTOR')
+    );
+  }
+
+  function isOnyxRecord(rec) {
+    const combined = `${rec.STAT_FACTION || ''} ${rec.CLASSIFICATION || ''} ${rec.UNIT_DIVISION || ''} ${rec.STAT_BUILDING || ''} ${rec.STAT_GENERATION || ''}`.toUpperCase();
+    return combined.includes('ONYX') || combined.includes('ZOMBIE') || combined.includes('HOSTILE') || combined.includes('ENEMY');
+  }
+
+  function isPureBuildingRecord(rec) {
+    const hasUnitCombatData = Boolean(
+      rec.STAT_FACTION ||
+      rec.STAT_WEAPON_TYPE ||
+      rec.STAT_ARMOR_TYPE ||
+      rec.STAT_DPS_RANGE ||
+      rec.STAT_HP_RANGE ||
+      rec.TALENT_LVL_1 ||
+      rec.TALENT_LVL_10 ||
+      rec.WORKSHOP_1_TITLE ||
+      rec.FACTION_WS_1_FACTION ||
+      rec.BASE_TREE_TITLE
+    );
+    if (hasUnitCombatData) return false;
+
+    const classif = (rec.CLASSIFICATION || '').toUpperCase();
+    const hasBuildingData = Boolean(
+      rec.DIR_1_DESC ||
+      rec.DIR_1_IRID ||
+      rec.MAT_LVLS ||
+      rec.MAT_IRID ||
+      rec.SPEC_1_LBL ||
+      rec.FUNC_1_TITLE ||
+      classif.includes('BASE OPERATIONS') ||
+      classif.includes('FACILITY')
+    );
+    return hasBuildingData;
+  }
+
+  function normUnitMatchKey(str) {
+    return String(str || '').toUpperCase().replace(/\+/g, '&').replace(/&AMP;/g, '&').replace(/\s+/g, ' ').trim();
+  }
+
+  function applyFilter(isInitialLoad = false) {
+    const divSelect = document.getElementById('divisionSelect');
+    currentDivision = (divSelect ? divSelect.value : 'ALL').toUpperCase();
+    const unitSelect = document.getElementById('unitSelect');
+
+    filteredUnits = globalMatrixCache.filter(rec => {
+      if (isPureBuildingRecord(rec) && !rec._locallySaved) {
+        return false;
+      }
+
+      const bldReq = (rec.STAT_BUILDING || '').toUpperCase();
+      const classif = (rec.CLASSIFICATION || '').toUpperCase();
+      const faction = (rec.STAT_FACTION || '').toUpperCase();
+      const gen = (rec.STAT_GENERATION || '').toUpperCase();
+
+      if (currentDivision === 'ALL' || currentDivision === 'ALL UNITS') return true;
+      if (currentDivision.includes('ONYX')) return isOnyxRecord(rec);
+      if (currentDivision.includes('CONTRACTOR') || currentDivision.includes('AGENCY')) return isContractorRecord(rec);
+      if (currentDivision.includes('MERCENARY')) {
+        return classif.includes('MERCENARY') || gen.includes('MERCENARY') || faction.includes('MERCENARY') || bldReq.includes('MERCENARY');
+      }
+      if (currentDivision.includes('HANGAR') || currentDivision.includes('HANGER')) {
+        return bldReq.includes('HANGAR') || bldReq.includes('HANGER') || bldReq.includes('AIRFIELD') || bldReq.includes('AIRCRAFT') || classif.includes('AIRCRAFT');
+      }
+      return bldReq.includes(currentDivision) || classif.includes(currentDivision);
+    });
+
+    if ((currentDivision === 'ALL' || currentDivision === 'ALL UNITS') && filteredUnits.length === 0 && globalMatrixCache.length > 0) {
+      filteredUnits = globalMatrixCache.slice();
+    }
+
+    if (!unitSelect) return;
+    filteredUnits.sort((a, b) => String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' }));
+    unitSelect.innerHTML = '<option value="">Select Record...</option>';
+    let count = 0;
+
+    filteredUnits.forEach((row, idx) => {
+      if (row.UNIT_NAME) {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = row.UNIT_NAME;
+        unitSelect.appendChild(opt);
+        count++;
+      }
+    });
+
+    showStatusMsg(`Ready (${count} ${count === 1 ? 'Unit' : 'Units'})`);
+
+    if (isInitialLoad) {
+      const requestedRaw = consumeRequestedUnitHandoff();
+      const targetNorm = normUnitMatchKey(requestedRaw);
+
+      if (targetNorm) {
+        let matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm);
+        if (matchedIndex === -1) {
+          matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME).includes(targetNorm) || targetNorm.includes(normUnitMatchKey(r.UNIT_NAME)));
+        }
+
+        if (matchedIndex === -1 && currentDivision !== 'ALL') {
+          if (divSelect) divSelect.value = 'ALL';
+          currentDivision = 'ALL';
+          filteredUnits = globalMatrixCache.filter(rec => !isPureBuildingRecord(rec) || rec._locallySaved);
+          filteredUnits.sort((a, b) => String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' }));
+          unitSelect.innerHTML = '<option value="">Select Record...</option>';
+          filteredUnits.forEach((row, idx) => {
+            if (row.UNIT_NAME) {
+              const opt = document.createElement('option');
+              opt.value = idx;
+              opt.textContent = row.UNIT_NAME;
+              unitSelect.appendChild(opt);
+            }
+          });
+          matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm || normUnitMatchKey(r.UNIT_NAME).includes(targetNorm));
+        }
+
+        if (matchedIndex !== -1) {
+          unitSelect.value = String(matchedIndex);
+          handleUnitSelectionChange(matchedIndex);
+          return;
+        }
+      }
+
+      if (filteredUnits.length > 0) {
+        unitSelect.value = "0";
+        handleUnitSelectionChange(0);
+      }
+    } else if (filteredUnits.length > 0) {
+      unitSelect.value = "0";
+      handleUnitSelectionChange(0);
+    } else {
+      document.getElementById('report-view').style.display = 'none';
+    }
+  }
+
+  function handleUnitSelectionChange(idx) {
+    if (idx === "" || idx === null || idx === undefined || !filteredUnits[idx]) {
+      document.getElementById('report-view').style.display = 'none';
+      return;
+    }
+    const unitRecord = filteredUnits[idx];
+    renderReport(unitRecord);
+  }
+
+  function openExternalSafely(url) {
+    if (!url || url === '#' || url.startsWith('javascript:')) return;
+    let targetUrl = String(url).trim();
+    if (!/^https?:\/\//i.test(targetUrl) && !targetUrl.startsWith('/')) {
+      targetUrl = 'https://' + targetUrl;
+    }
+    const win = window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    if (!win) {
+      const a = document.createElement('a');
+      a.href = targetUrl;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+  function openPopoutWindow(queryIdentifier) {
+    if (!queryIdentifier) return;
+    const cleanTarget = normUnitMatchKey(queryIdentifier);
+    const targetIdx = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
+
+    if (targetIdx !== -1) {
+      const unitSelect = document.getElementById('unitSelect');
+      if (unitSelect) unitSelect.value = String(targetIdx);
+      handleUnitSelectionChange(targetIdx);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const anyMatch = globalMatrixCache.find(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
+    if (anyMatch) {
+      const divSelect = document.getElementById('divisionSelect');
+      if (divSelect) divSelect.value = 'ALL';
+      applyFilter(false);
+      const allIdx = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
+      if (allIdx !== -1) {
+        document.getElementById('unitSelect').value = String(allIdx);
+        handleUnitSelectionChange(allIdx);
+      } else {
+        renderReport(anyMatch);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      alert(`Linked record "${queryIdentifier}" was not found in MASTER_DB.`);
+    }
+  }
+
+  function renderReport(data) {
+    const viewEl = document.getElementById('report-view');
+    if (!viewEl) return;
+    viewEl.style.display = 'block';
+    renderReportInternal(data, document);
+  }
+
+  function renderReportInternal(data, domDoc) {
+    const viewContainer = domDoc.getElementById('report-view');
+    if (!viewContainer) return;
+
+    if (window._htmlTemplateCache) {
+      viewContainer.innerHTML = window._htmlTemplateCache;
+    } else {
+      window._htmlTemplateCache = viewContainer.innerHTML;
+    }
+
+    const unitName = cleanVal(data['UNIT_NAME']);
+    activeUnitTitle = unitName || 'Unit';
+    const activeFilterVal = (document.getElementById('divisionSelect')?.value || currentDivision || '').toUpperCase();
+    const isContractor = activeFilterVal.includes('CONTRACTOR') || isContractorRecord(data);
+
+    const unitImg = cleanVal(data['UNIT_IMAGE_URL']) || cleanVal(data['IMAGE_URL']) || cleanVal(data['UNIT_IMG_URL']);
+    const originText = cleanVal(data['WC_EVENT_NAME']) || cleanVal(data['ORIGIN_EVENT_TEXT']) || cleanVal(data['ORIGIN_EVENT']);
+    const originUrl = cleanVal(data['WC_EVENT_URL']) || cleanVal(data['ORIGIN_EVENT_URL']);
+    const briefUrl = cleanVal(data['WTR_BRIEF_URL']) || cleanVal(data['UNIT_SOURCE_URL']);
+    const linkedLabel = cleanVal(data['LINKED_UNIT_NAME']) || cleanVal(data['LINKED_UNIT_LABEL']) || cleanVal(data['HERO']) || cleanVal(data['PAIRED_UNIT']);
+    const linkedId = cleanVal(data['LINKED_UNIT_ID']) || linkedLabel;
+    const updates = cleanVal(data['UPDATES_TEXT']) || cleanVal(data['POST_RELEASE_UPDATES']);
+    const classification = cleanVal(data['CLASSIFICATION']) || (isContractor ? 'CONTRACTOR' : 'UNIT BRIEF');
+
+    let baseTalentText = cleanVal(data['TALENT']) || cleanVal(data['CONTRACTOR_TALENT']);
+
+    const map = {
+      'CLASSIFICATION': classification,
+      'UNIT_NAME': unitName,
+      'UNIT_QUOTE': cleanVal(data['UNIT_QUOTE']) || cleanVal(data['QUOTE']),
+      'WC_EVENT_NAME': originText,
+      'LINKED_UNIT_NAME': linkedLabel,
+      'UPDATES_TEXT': updates,
+      'RELEASE_DATE': cleanVal(data['RELEASE_DATE']),
+      'UNIT_IMAGE_URL': formatImageUrl(unitImg),
+      'STAT_GENERATION': cleanVal(data['STAT_GENERATION']),
+      'STAT_FACTION': cleanVal(data['STAT_FACTION']),
+      'STAT_TYPE': cleanVal(data['STAT_TYPE']),
+      'STAT_ARMOR_TYPE': cleanVal(data['STAT_ARMOR_TYPE']),
+      'STAT_WEAPON_TYPE': cleanVal(data['STAT_WEAPON_TYPE']),
+      'STAT_TARGETS': cleanVal(data['STAT_TARGETS']),
+      'STAT_DAMAGE_TYPE': cleanVal(data['STAT_DAMAGE_TYPE']),
+      'STAT_SIZE': cleanVal(data['STAT_SIZE']),
+      'STAT_BUILDING': cleanVal(data['STAT_BUILDING']),
+      'STAT_BUILDING_REQ': cleanVal(data['STAT_BUILDING_REQ']) || cleanVal(data['STAT_BUILDING_MAX']),
+      'STAT_HP_RANGE': cleanVal(data['STAT_HP_RANGE']) || cleanVal(data['STAT_HP']),
+      'STAT_HP_RANGE_1': cleanVal(data['STAT_HP_RANGE_1']),
+      'STAT_HP_RANGE_10': cleanVal(data['STAT_HP_RANGE_10']),
+      'STAT_HP_RANGE_20': cleanVal(data['STAT_HP_RANGE_20']),
+      'STAT_HP_RANGE_MAX': cleanVal(data['STAT_HP_RANGE_MAX']) || cleanVal(data['STAT_HP_MAX']),
+      'STAT_DPS_RANGE': cleanVal(data['STAT_DPS_RANGE']) || cleanVal(data['STAT_DPS']),
+      'STAT_DPS_RANGE_1': cleanVal(data['STAT_DPS_RANGE_1']),
+      'STAT_DPS_RANGE_10': cleanVal(data['STAT_DPS_RANGE_10']),
+      'STAT_DPS_RANGE_20': cleanVal(data['STAT_DPS_RANGE_20']),
+      'STAT_DPS_RANGE_MAX': cleanVal(data['STAT_DPS_RANGE_MAX']) || cleanVal(data['STAT_DPS_MAX']),
+      'STAT_SPEED': cleanVal(data['STAT_SPEED']) || cleanVal(data['STAT_MAX_SPEED']),
+      'STAT_RANGE': cleanVal(data['STAT_RANGE']),
+      'STAT_SPLASH': cleanVal(data['STAT_SPLASH']),
+      'FACTION_WS_HEADER': cleanVal(data['FACTION_WS_HEADER']) || TEMPLATE_CONFIG.factionWsHeader || 'Faction Workshop',
+      'DOCTRINE_TITLE': cleanVal(data['DOCTRINE_TITLE']) || 'EVOLUTION DOCTRINE // MILITARY TECH',
+      'DOCTRINE_PREREQ': cleanVal(data['DOCTRINE_PREREQ']),
+      'DOCTRINE_COSTS': cleanVal(data['DOCTRINE_COSTS']),
+      'INFUSION_OVERVIEW': cleanVal(data['INFUSION_OVERVIEW']),
+      'INFUSION_TITLE': cleanVal(data['INFUSION_TITLE']) || 'Infusion Protocol',
+      'INFUSION_TAG': cleanVal(data['INFUSION_TAG']) || 'Passive Tech',
+      'WARPAINTS_HEADER': cleanVal(data['WARPAINTS_HEADER']) || cleanVal(data['WARPAINT_HEADER']) || 'WARPAINTS',
+      'TALENT': formatMultiLineAndHeroicText(baseTalentText, true)
+    };
+
+    const talentMapping = TALENT_TIERS.map(lvl => ({
+      key: `TALENT_LVL_${lvl}`,
+      tierKey: `TALENT_LVL_${lvl}_TIER`,
+      label: `LEVEL ${lvl}`
+    }));
+
+    talentMapping.forEach(t => {
+      let desc = cleanVal(data[t.key]);
+      let customTier = cleanVal(data[t.tierKey]);
+      let tierLabel = (isContractor && t.key === 'TALENT_LVL_1') ? '' : (customTier ? customTier : t.label);
+
+      tierLabel = tierLabel.replace(HEROIC_REGEX, m => `<span class="gold-heroic">${m}</span>`);
+      desc = formatMultiLineAndHeroicText(desc, true);
+
+      map[t.tierKey] = tierLabel;
+      map[t.key] = desc;
+    });
+
+    let renderedHtml = viewContainer.innerHTML;
+    Object.keys(map).forEach(key => {
+      const reg = new RegExp(`{{${key}}}`, 'g');
+      renderedHtml = renderedHtml.replace(reg, () => map[key]);
+    });
+    renderedHtml = renderedHtml.replace(/\{\{[A-Z0-9_]+\}\}/g, '');
+    viewContainer.innerHTML = renderedHtml;
+
+    const statsTbody = viewContainer.querySelector('#unit-stats-tbody');
+    if (statsTbody) {
+      const defaultRows = statsTbody.querySelectorAll('tr');
+      DEFAULT_STAT_SCHEMA.forEach((s, idx) => {
+        if (defaultRows[idx]) {
+          const lblCell = defaultRows[idx].querySelector('.stats-label');
+          if (lblCell) lblCell.textContent = getStatRowLabel(s.key);
+        }
+      });
+
+      // Also auto-append any extra STAT_* columns present in MASTER_DB that aren't in DEFAULT_STAT_SCHEMA
+      const knownStatKeys = new Set(DEFAULT_STAT_SCHEMA.map(s => s.key));
+      ['STAT_BUILDING_MAX', 'STAT_HP', 'STAT_HP_MAX', 'STAT_DPS', 'STAT_DPS_MAX', 'STAT_MAX_SPEED'].forEach(k => knownStatKeys.add(k));
+      Object.keys(data).forEach(k => {
+        if (k.startsWith('STAT_') && !knownStatKeys.has(k)) {
+          const val = cleanVal(data[k]);
+          if (val) {
+            const prettyLabel = k.replace(/^STAT_/, '').replace(/_/g, ' ');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td class="stats-label" style="text-align: right;">${escapeAttr(prettyLabel)}</td><td class="stats-value" style="text-align: left;">${escapeAttr(val)}</td>`;
+            statsTbody.appendChild(tr);
+          }
+        }
+      });
+    }
+
+    if (isContractor) {
+      const lvl1Tier = viewContainer.querySelector('#talent-block-1 .talent-tier');
+      if (lvl1Tier) lvl1Tier.style.display = 'none';
+    }
+    viewContainer.querySelectorAll('.talent-tier').forEach(tierEl => {
+      if (!tierEl.textContent.trim()) tierEl.style.display = 'none';
+    });
+
+    const originBtn = domDoc.getElementById('origin-event-link');
+    if (originBtn) {
+      if (originUrl) originBtn.onclick = () => openExternalSafely(originUrl);
+      else originBtn.style.cursor = 'default';
+    }
+
+    const mainImgEl = domDoc.getElementById('main-unit-img');
+    if (mainImgEl && briefUrl) {
+      mainImgEl.style.cursor = 'pointer';
+      mainImgEl.onclick = () => openExternalSafely(briefUrl);
+    }
+
+    const linkedBtn = domDoc.getElementById('linkedUnitBtn');
+    if (linkedBtn) {
+      if (!linkedLabel) {
+        const metaContainer = domDoc.getElementById('linked-unit-container');
+        if (metaContainer) metaContainer.style.display = 'none';
+      } else {
+        linkedBtn.onclick = function(e) {
+          e.preventDefault();
+          if (linkedId.startsWith('http://') || linkedId.startsWith('https://')) {
+            openExternalSafely(linkedId);
+          } else {
+            openPopoutWindow(linkedLabel || linkedId);
+          }
+        };
+      }
+    }
+
+    // 1. Standard Workshop Tech Parser (6 Slots + Images)
+    const techSection = domDoc.getElementById('tech-section');
+    const techContainer = domDoc.getElementById('workshop-container');
+    let techs = [];
+    for (let i = 1; i <= 6; i++) {
+      const title = cleanVal(data[`WORKSHOP_${i}_TITLE`]) || cleanVal(data[`TECH_${i}_TITLE`]);
+      const tag = cleanVal(data[`WORKSHOP_${i}_TAG`]) || cleanVal(data[`TECH_${i}_TAG`]);
+      const img = cleanVal(data[`WORKSHOP_${i}_IMAGE`]) || cleanVal(data[`WORKSHOP_${i}_IMG`]) || cleanVal(data[`TECH_${i}_IMAGE`]);
+      const desc = formatMultiLineAndHeroicText(cleanVal(data[`WORKSHOP_${i}_DESC`]) || cleanVal(data[`TECH_${i}_DESC`]), true);
+      if (title || desc || img) techs.push({ title, tag, img: formatImageUrl(img), desc });
+    }
+
+    if (techs.length === 0) {
+      if (techSection) techSection.style.display = 'none';
+    } else {
+      if (techSection) techSection.style.display = 'block';
+      if (techContainer) {
+        techContainer.className = (techs.length === 4) ? 'workshop-grid four-items' : 'workshop-grid';
+        techContainer.innerHTML = techs.map(t => `
+          <div class="workshop-item">
+            <div>
+              ${t.title ? `<div class="workshop-title">${t.title}</div>` : ''}
+              ${t.tag ? `<div class="workshop-tag">${t.tag}</div>` : ''}
+              ${t.desc ? `<p>${t.desc}</p>` : ''}
+            </div>
+            ${t.img ? `<div class="workshop-img-frame"><img src="${t.img}" alt="${t.title || 'Tech'}"></div>` : ''}
+          </div>
+        `).join('');
+      }
+    }
+
+    // 2. Dedicated Faction Workshop Viewing Line Parser (4 Slots: Faction + 4:5 Image + Talent)
+    const fwsSection = domDoc.getElementById('faction-ws-section');
+    const fwsContainer = domDoc.getElementById('faction-ws-container');
+    let factionTechs = [];
+    for (let i = 1; i <= 4; i++) {
+      const faction = cleanVal(data[`FACTION_WS_${i}_FACTION`]);
+      const img = cleanVal(data[`FACTION_WS_${i}_IMAGE`]) || cleanVal(data[`FACTION_WS_${i}_IMG`]);
+      const talent = formatMultiLineAndHeroicText(cleanVal(data[`FACTION_WS_${i}_TALENT`]) || cleanVal(data[`FACTION_WS_${i}_DESC`]), true);
+      if (faction || img || talent) {
+        factionTechs.push({
+          faction: faction || `FACTION SLOT #${i}`,
+          img: formatImageUrl(img),
+          talent: talent
+        });
+      }
+    }
+
+    if (factionTechs.length === 0) {
+      if (fwsSection) fwsSection.style.display = 'none';
+    } else {
+      if (fwsSection) fwsSection.style.display = 'block';
+      if (fwsContainer) {
+        fwsContainer.innerHTML = factionTechs.map(ft => `
+          <div class="faction-ws-card">
+            <div class="faction-ws-badge">${ft.faction}</div>
+            ${ft.img ? `<div class="faction-ws-img-frame"><img src="${ft.img}" alt="${ft.faction}"></div>` : ''}
+            ${ft.talent ? `<div class="faction-ws-talent">${ft.talent}</div>` : ''}
+          </div>
+        `).join('');
+      }
+    }
+
+    // 3. Dynamic Upgrades Table Parser
+    const upgradesSection = domDoc.getElementById('upgrades-section');
+    const upgradesBody = domDoc.getElementById('upgrades-table-body');
+    const upgradesHeader = domDoc.getElementById('upgrades-section-header');
+
+    const startLevelStr = cleanVal(data['UPGRADE_LVL_START']) || '1';
+    const startLvl = parseInt(startLevelStr, 10) || 1;
+    const totalTokens = cleanVal(data['UPGRADE_TOKENS_TOTAL']);
+    const totalDays = cleanVal(data['UPGRADE_DAYS_TOTAL']);
+    const totalGold = cleanVal(data['UPGRADE_GOLD_TOTAL']);
+    const totalLevels = cleanVal(data['UPGRADE_LVL_TOTAL']);
+
+    if (upgradesHeader) {
+      let headerText = TEMPLATE_CONFIG.upgradesHeader || 'Upgrade Progression Matrix';
+      let metaParts = [];
+      if (totalLevels) metaParts.push(`Total Ranks: ${totalLevels}`);
+      if (totalTokens) metaParts.push(`Tokens: ${totalTokens}`);
+      if (totalDays) metaParts.push(`Days: ${totalDays}`);
+      if (totalGold) metaParts.push(`Gold: ${totalGold}`);
+      if (metaParts.length > 0) headerText += ` — [ ${metaParts.join(' | ')} ]`;
+      upgradesHeader.textContent = headerText;
+    }
+
+    let upgradeRows = [];
+    for (let lvl = startLvl; lvl <= 40; lvl++) {
+      const tokens = cleanVal(data[`UPGRADE_TOKENS_${lvl}`]) || '—';
+      const time = cleanVal(data[`UPGRADE_DAYS_${lvl}`]) || '—';
+      const gold = cleanVal(data[`UPGRADE_GOLD_${lvl}`]) || '—';
+      const hp = cleanVal(data[`UPGRADE_HP_${lvl}`]) || cleanVal(data[`UPGRADE_HP`]) || '—';
+      const dps = cleanVal(data[`UPGRADE_DPS_${lvl}`]) || cleanVal(data[`UPGRADE_DPS`]) || '—';
+      const hasData = [tokens, time, gold, hp, dps].some(v => v !== '—' && v !== '');
+      if (hasData) upgradeRows.push({ lvl, tokens, time, gold, hp, dps });
+    }
+
+    if (upgradeRows.length === 0) {
+      if (upgradesSection) upgradesSection.style.display = 'none';
+    } else {
+      if (upgradesSection) upgradesSection.style.display = 'block';
+      if (upgradesBody) {
+        upgradesBody.innerHTML = upgradeRows.map(u => `
+          <tr>
+            <td class="lvl-cell">Lvl ${u.lvl}</td>
+            <td>${u.tokens}</td>
+            <td>${u.time}</td>
+            <td>${u.gold}</td>
+            <td>${u.hp}</td>
+            <td>${u.dps}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // 4. Dynamic Doctrine Parser (Base + Spec 1 + Spec 2 Trees)
+    const doctrineSection = domDoc.getElementById('doctrine-section');
+    const doctrineGrid = domDoc.getElementById('doctrine-grid-container');
+    const baseTitle = cleanVal(data['BASE_TREE_TITLE']) || cleanVal(data['SPEC1_TREE_TITLE']) || cleanVal(data['SPEC2_TREE_TITLE']);
+
+    if (!baseTitle) {
+      if (doctrineSection) doctrineSection.style.display = 'none';
+    } else {
+      if (doctrineSection) doctrineSection.style.display = 'block';
+      const buildTree = (cardClass, prefix) => {
+        const title = cleanVal(data[`${prefix}_TREE_TITLE`]);
+        if (!title) return '';
+        const sub = cleanVal(data[`${prefix}_TREE_SUBTITLE`]);
+        let rows = '';
+        for (let l = 1; l <= 6; l++) {
+          const eff = cleanVal(data[`${prefix}_LVL_${l}`]);
+          if (eff) rows += `<tr><td class="lvl">Lvl ${l}</td><td class="desc">${eff}</td></tr>`;
+        }
+        return `
+          <div class="doctrine-card ${cardClass}">
+            <div class="doctrine-card-header">
+              <h2>${title}</h2>
+              ${sub ? `<div class="subtitle">${sub}</div>` : ''}
+            </div>
+            <table class="doctrine-table">
+              <thead><tr><th style="text-align: center; width: 54px;">Level</th><th>Effect</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        `;
+      };
+      if (doctrineGrid) doctrineGrid.innerHTML = buildTree('base', 'BASE') + buildTree('spec-1', 'SPEC1') + buildTree('spec-2', 'SPEC2');
+    }
+
+    // 5. Dynamic Infusion Parser
+    const infusionSection = domDoc.getElementById('infusion-section');
+    const infusionGrid = domDoc.getElementById('infusion-grid-container');
+    const infusionOverview = cleanVal(data['INFUSION_OVERVIEW']);
+    const infusionTitle = cleanVal(data['INFUSION_TITLE']);
+
+    let infusionItems = [];
+    for (let i = 1; i <= 6; i++) {
+      const title = cleanVal(data[`INFUSION_${i}_TITLE`]);
+      const desc = formatMultiLineAndHeroicText(cleanVal(data[`INFUSION_${i}_DESC`]), true);
+      if (title || desc) infusionItems.push({ title: title || `Infusion Tier ${i}`, desc });
+    }
+
+    if (!infusionOverview && !infusionTitle && infusionItems.length === 0) {
+      if (infusionSection) infusionSection.style.display = 'none';
+    } else {
+      if (infusionSection) infusionSection.style.display = 'block';
+      const noticeWrap = domDoc.getElementById('infusion-notice-wrap');
+      const noticeText = domDoc.getElementById('infusion-notice-text');
+      if (noticeWrap && noticeText) {
+        if (!infusionOverview) noticeWrap.style.display = 'none';
+        else { noticeWrap.style.display = 'block'; noticeText.textContent = infusionOverview; }
+      }
+      if (infusionGrid) {
+        infusionGrid.innerHTML = infusionItems.map(item => `
+          <div class="infusion-card">
+            <div class="infusion-card-title">${item.title}</div>
+            <p>${item.desc}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    // 6. Dynamic Warpaints Parser
+    const wpSection = domDoc.getElementById('warpaints-section');
+    const wpContainer = domDoc.getElementById('warpaints-container');
+    const wpHeaderTitle = domDoc.getElementById('warpaints-header');
+
+    let warpaints = [];
+    for (let i = 1; i <= 4; i++) {
+      let img = cleanVal(data[`WARPAINT_${i}_IMAGE`]) || cleanVal(data[`WP_${i}_IMG`]);
+      let label = cleanVal(data[`WARPAINT_${i}_NAME`]) || cleanVal(data[`WP_${i}_LABEL`]);
+      if (img) warpaints.push({ img: formatImageUrl(img), label: label || 'Standard Paint' });
+    }
+
+    if (warpaints.length === 0) {
+      if (wpSection) wpSection.style.display = 'none';
+    } else {
+      if (wpSection) wpSection.style.display = 'block';
+      const customHeader = cleanVal(data['WARPAINTS_HEADER']) || cleanVal(data['WARPAINT_HEADER']);
+      if (wpHeaderTitle) wpHeaderTitle.textContent = customHeader ? customHeader : 'WARPAINTS';
+      if (wpContainer) {
+        wpContainer.className = (warpaints.length === 1) ? 'warpaints-grid single-card' : 'warpaints-grid';
+        wpContainer.innerHTML = warpaints.map(wp => `
+          <div class="warpaint-card">
+            <div class="warpaint-img-wrap">
+              <img src="${wp.img}" alt="${wp.label}">
+            </div>
+            <div class="warpaint-label">${wp.label}</div>
+          </div>
+        `).join('');
+      }
+    }
+
+    postProcessReport(viewContainer);
+  }
+
+  function postProcessReport(container) {
+    const isBlank = (txt) => !txt || txt.trim() === '' || txt === 'N/A' || txt === '-';
+
+    const quote = container.querySelector('#unit-quote-block');
+    if (quote && isBlank(quote.textContent)) quote.style.display = 'none';
+
+    const originContainer = container.querySelector('#origin-event-container');
+    const originText = container.querySelector('#origin-event-text-span');
+    const linkedContainer = container.querySelector('#linked-unit-container');
+    const divider = container.querySelector('#meta-divider-bar');
+
+    if (originContainer && (!originText || isBlank(originText.textContent))) originContainer.style.display = 'none';
+    if ((originContainer && originContainer.style.display === 'none') || (linkedContainer && linkedContainer.style.display === 'none')) {
+      if (divider) divider.style.display = 'none';
+    }
+    if (originContainer && originContainer.style.display === 'none' && linkedContainer && linkedContainer.style.display === 'none') {
+      const metaBar = container.querySelector('#unit-meta-bar');
+      if (metaBar) metaBar.style.display = 'none';
+    }
+
+    const updatesBar = container.querySelector('#updates-bar-wrap');
+    const updatesContent = container.querySelector('.updates-content');
+    if (updatesBar && updatesContent && isBlank(updatesContent.textContent)) updatesBar.style.display = 'none';
+
+    const mainImg = container.querySelector('.unit-img');
+    const imgFrame = container.querySelector('#main-img-frame');
+    if (mainImg && isBlank(mainImg.getAttribute('src'))) {
+      if (imgFrame) imgFrame.style.display = 'none';
+    }
+
+    let visibleStatRows = 0;
+    container.querySelectorAll('#unit-stats-table tr').forEach(row => {
+      const valCell = row.querySelector('.stats-value');
+      if (!valCell || isBlank(valCell.textContent)) row.style.display = 'none';
+      else visibleStatRows++;
+    });
+    const statsCol = container.querySelector('.stats-col-container');
+    if (statsCol && visibleStatRows === 0) statsCol.style.display = 'none';
+
+    container.querySelectorAll('.talent-block').forEach(tb => {
+      const desc = tb.querySelector('.talent-desc');
+      if (!desc || isBlank(desc.textContent)) tb.style.display = 'none';
+    });
+
+    const prereqWrap = container.querySelector('#doctrine-prereq-wrap');
+    const prereqText = container.querySelector('#doctrine-prereq-text');
+    if (prereqWrap && prereqText && isBlank(prereqText.textContent)) prereqWrap.style.display = 'none';
+
+    const costsWrap = container.querySelector('#doctrine-costs-wrap');
+    const costsText = container.querySelector('#doctrine-costs-text');
+    if (costsWrap && costsText && isBlank(costsText.textContent)) costsWrap.style.display = 'none';
+
+    const infusionSection = container.querySelector('#infusion-section');
+    const infusionGrid = container.querySelector('#infusion-grid-container');
+    const infusionOverview = container.querySelector('#infusion-notice-text');
+    if (infusionSection && (!infusionGrid || infusionGrid.children.length === 0) && (!infusionOverview || isBlank(infusionOverview.textContent))) {
+      infusionSection.style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
