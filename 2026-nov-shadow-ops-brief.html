@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER PRE-RELEASE EVENT BRIEF // NOV 2026 SHADOW OPS: CHAPTER 1 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>[-WTR-] Data Hub — NOV 2026 SHADOW OPS: CHAPTER 1 (Pre-Release Brief)</title>
+<style>
+:root {
+  --primary-color: #5c6bc0;
+  --accent-color: #818cf8;
+  --bg-dark: #070810;
+  --bg-panel: #0e101d;
+  --bg-card: #15192b;
+  --bg-inner: #090b14;
+  --border-dark: #252b48;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-gold: #ffd700;
+  --text-cyan: #38bdf8;
+  --text-orange: #f97316;
+  --text-green: #00e676;
+  --youtube-red: #ff0000;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: auto; background-color: var(--bg-dark); }
+body {
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 12px;
+  line-height: 1.55;
+  font-size: 14.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dossier-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 6px 28px rgba(129, 140, 248, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.locked-top-hud {
+  width: 100%;
+  background: #06070d;
+  border-bottom: 2px solid var(--primary-color);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.85);
+}
+.classification-bar {
+  position: relative;
+  background: var(--primary-color);
+  color: #ffffff;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 13px;
+  padding: 7px 16px;
+  text-transform: uppercase;
+  font-family: "Arial Black", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+}
+.class-bar-corner-stamp {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #06070d;
+  color: #ffffff;
+  padding: 0 24px 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  border-right: 2px solid var(--text-gold);
+}
+.class-bar-corner-stamp::before {
+  content: "■";
+  color: var(--accent-color);
+  font-size: 11px;
+}
+.status-pill-right {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #06070d;
+  color: var(--text-gold);
+  border: 1px solid var(--text-gold);
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+@media (max-width: 780px) {
+  .classification-bar { justify-content: space-between; padding: 6px 10px; flex-wrap: wrap; gap: 6px; }
+  .class-bar-corner-stamp, .status-pill-right { position: static; transform: none; }
+}
+.event-header {
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--border-dark);
+  background: linear-gradient(180deg, #101426 0%, #0a0c18 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.header-left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 1 1 380px;
+}
+.header-logo-link {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #252b48 0%, #090b14 50%, var(--primary-color) 100%);
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #000;
+}
+.event-sub-tag {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+.event-main-title {
+  font-family: "Arial Black", sans-serif;
+  font-size: clamp(24px, 3.6vw, 34px);
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow: 0 0 18px rgba(129, 140, 248, 0.35);
+}
+.event-subtitle-badge {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  color: var(--text-gold);
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.event-meta-box {
+  flex: 0 0 auto;
+  background: #06070d;
+  border: 1px solid var(--border-dark);
+  border-left: 3px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 310px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+.meta-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  font-family: monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+.meta-line strong { font-weight: 900; }
+.content-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.countdown-banner {
+  background: linear-gradient(90deg, rgba(92, 107, 192, 0.16) 0%, rgba(21, 25, 43, 0.9) 100%);
+  border: 1px solid var(--border-dark);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.countdown-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.countdown-eyebrow {
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 900;
+  color: var(--accent-color);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.countdown-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.countdown-clock {
+  font-family: monospace;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: var(--text-gold);
+  background: #06070d;
+  border: 1px solid var(--border-dark);
+  padding: 8px 18px;
+  border-radius: 4px;
+  letter-spacing: 1.5px;
+}
+.prerelease-notice-card {
+  background: var(--bg-inner);
+  border: 1px solid var(--border-dark);
+  border-top: 3px solid var(--text-gold);
+  border-radius: 4px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.notice-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 17px;
+  color: var(--text-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.notice-statement {
+  font-size: 16px;
+  color: #ffffff;
+  background: rgba(255, 215, 0, 0.07);
+  border-left: 4px solid var(--text-gold);
+  padding: 14px 18px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.notice-details {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.what-to-expect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.expect-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  padding: 14px;
+  border-radius: 4px;
+}
+.expect-item h4 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 13px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.expect-item p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.quick-links-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 6px;
+}
+.action-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  text-decoration: none;
+  font-family: monospace;
+  font-size: 12.5px;
+  font-weight: 900;
+  padding: 10px 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: all 0.15s ease;
+}
+.action-link-btn:hover {
+  background: var(--accent-color);
+  color: #000000;
+}
+.action-link-btn.gold {
+  border-color: var(--text-gold);
+  color: var(--text-gold);
+}
+.action-link-btn.gold:hover {
+  background: var(--text-gold);
+  color: #000000;
+}
+</style>
+</head>
+<body>
+<div class="dossier-card">
+  <div class="locked-top-hud">
+    <div class="classification-bar">
+      <span class="class-bar-corner-stamp">NOV 2026</span>
+      <span>PRE-RELEASE STANDBY // SHADOW OPS: CHAPTER 1 BRIEF</span>
+      <span class="status-pill-right">⏳ AWAITING KIXEYE DATA</span>
+    </div>
+  </div>
+
+  <header class="event-header">
+    <div class="header-left-wrap">
+      <a class="header-logo-link" href="./hub-home.html" title="Return to [-WTR-] Data Hub Home">
+        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem" class="header-logo-img">
+      </a>
+      <div>
+        <div class="event-sub-tag">[-WTR-] DATA HUB | NOVEMBER 2026 EVENT SCHEDULE</div>
+        <h1 class="event-main-title">SHADOW OPS: CHAPTER 1</h1>
+        <span class="event-subtitle-badge">📡 PRE-RELEASE PLACEHOLDER BRIEF</span>
+      </div>
+    </div>
+
+    <div class="event-meta-box">
+      <div class="meta-line">
+        <strong style="color: var(--text-cyan);">Starts (Phase 1):</strong>
+        <span>FRI NOV 13, 2026 @ 10:00 AM PST</span>
+      </div>
+      <div class="meta-line">
+        <strong style="color: var(--text-gold);">Ends (Phase 3):</strong>
+        <span>FRI DEC 4, 2026 @ 10:00 AM PST</span>
+      </div>
+      <div class="meta-line">
+        <strong style="color: var(--text-orange);">Store Closes:</strong>
+        <span>END OF CHAPTER (DEC 4, 2026)</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-body">
+    <div class="countdown-banner">
+      <div class="countdown-label-group">
+        <span class="countdown-eyebrow" id="countdownStatusLabel">⏱️ COUNTDOWN TO SHADOW OPS: PHASE 1</span>
+        <span class="countdown-sub">Estimated Kixeye Release Notes Window: <strong style="color:#fff;">Tue Nov 10 – Wed Nov 11, 2026</strong></span>
+      </div>
+      <div class="countdown-clock" id="liveEventCountdown">--d --h --m --s</div>
+    </div>
+
+    <div class="prerelease-notice-card">
+      <div class="notice-header">📡 OFFICIAL KIXEYE INTEL PENDING</div>
+      <div class="notice-statement">
+        Event details, featured Chapter 1 prize lists, and weekly phase requirements normally arrive <strong>2–3 days before the event starts</strong>, with few exceptions.
+      </div>
+      <p class="notice-details">
+        The 3-week Chapter 1 schedule is confirmed from the official <strong>November 2026 War Commander Events Calendar</strong>. As soon as Kixeye publishes the official Shadow Ops briefing, this placeholder page will be updated with full campaign details:
+      </p>
+
+      <div class="what-to-expect-grid">
+        <div class="expect-item">
+          <h4>Phase 1 // Nov 13 – Nov 20</h4>
+          <p>Launches Friday, Nov 13 @ 10:00 AM PST alongside Holdout.</p>
+        </div>
+        <div class="expect-item">
+          <h4>Phase 2 // Nov 20 – Nov 27</h4>
+          <p>Launches Friday, Nov 20 @ 10:00 AM PST alongside Sector Breach.</p>
+        </div>
+        <div class="expect-item">
+          <h4>Phase 3 // Nov 27 – Dec 4</h4>
+          <p>Final weekly phase; Chapter 1 Store closes at End of Chapter.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-links-bar">
+      <a class="action-link-btn gold" href="./vault/2026-oct-shadow-ops=spiders-whisper.html">📂 View Oct 2026 Shadow Ops Brief (Reference)</a>
+      <a class="action-link-btn" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/" target="_blank" rel="noopener noreferrer">📄 Kixeye Help Center ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const startMs = new Date("2026-11-13T10:00:00-08:00").getTime();
+  const endMs   = new Date("2026-12-04T10:00:00-08:00").getTime();
+  const clockEl = document.getElementById("liveEventCountdown");
+  const lblEl   = document.getElementById("countdownStatusLabel");
+
+  function fmt(diff) {
+    const totalSec = Math.max(0, Math.floor(diff / 1000));
+    const d = Math.floor(totalSec / 86400);
+    const h = Math.floor((totalSec % 86400) / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    return `${d}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+  }
+
+  function tick() {
+    const now = Date.now();
+    if (now < startMs) {
+      lblEl.textContent = "⏱️ COUNTDOWN TO SHADOW OPS: PHASE 1";
+      clockEl.textContent = fmt(startMs - now);
+    } else if (now < endMs) {
+      lblEl.textContent = "🟢 CHAPTER 1 ACTIVE // TIME REMAINING";
+      clockEl.textContent = fmt(endMs - now);
+    } else {
+      lblEl.textContent = "⏹️ CHAPTER CONCLUDED";
+      clockEl.textContent = "CONCLUDED";
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
+

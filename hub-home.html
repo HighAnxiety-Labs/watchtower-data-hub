@@ -557,13 +557,13 @@
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleBreach" style="color: #e09f5a;">Sector Breach</span><span class="timer-status-badge" id="badge-breach">Upcoming</span></div>
               <div class="timer-clock-display" id="clock-breach">--d --h --m --s</div>
               <div class="timer-subtext" id="sub-breach">Launches Nov 20, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnBreach" data-url="./2026-oct-sector-breach.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn4);">🖥️ OPEN SECTOR BREACH BRIEF</button>
+              <button type="button" class="timer-brief-btn" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn4);">🖥️ OPEN SECTOR BREACH BRIEF</button>
             </div>
             <div class="timer-card shadowops card-inherited" id="carouselCardShadowOps" style="display: flex; --dir-target-key: var(--dir-btn2); order: 0; opacity: 1;">
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Shadow Ops: Phase 1</span><span class="timer-status-badge" id="badge-shadowops">Upcoming</span></div>
               <div class="timer-clock-display" id="clock-shadowops">--d --h --m --s</div>
               <div class="timer-subtext" id="sub-shadowops">Launches Nov 13, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnShadowOps" data-url="https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-shadow-ops" data-clock-title="Shadow Ops: Phase 1" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn2);">🖥️ OPEN SHADOW OPS BRIEF</button>
+              <button type="button" class="timer-brief-btn" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Phase 1" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn2);">🖥️ OPEN SHADOW OPS BRIEF</button>
             </div>
             <div class="timer-card warpath card-inherited" id="carouselCardWarpath" style="display: none; --dir-target-key: var(--dir-archives); order: 10; opacity: 0.65;">
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleWarpath" style="color: #be8ee0;">Warpath</span><span class="timer-status-badge" id="badge-warpath">Concluded</span></div>
@@ -581,7 +581,7 @@
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleHoldout" style="color: #53bfd1;">Holdout</span><span class="timer-status-badge" id="badge-holdout">Upcoming</span></div>
               <div class="timer-clock-display" id="clock-holdout">--d --h --m --s</div>
               <div class="timer-subtext" id="sub-holdout">Launches Nov 13, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnHoldout" data-url="./2026-oct-holdout-brief.html" data-clock-title="Holdout" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn1);">🖥️ OPEN HOLDOUT BRIEF</button>
+              <button type="button" class="timer-brief-btn" id="clockBtnHoldout" data-url="./2026-nov-holdout-brief.html" data-clock-title="Holdout" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn1);">🖥️ OPEN HOLDOUT BRIEF</button>
             </div>
             <div class="timer-card nightmare card-inherited" id="carouselCardNightmare" style="display: flex; --dir-target-key: var(--dir-btn5); order: 0; opacity: 1;">
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e06c6c;">Operation: Blue Baron</span><span class="timer-status-badge" id="badge-nightmare">Upcoming</span></div>
@@ -1007,8 +1007,9 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "LIVE", title: "OPERATION: BLUE BARON", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
         { enabled: true, isSubPage: false, order: 2, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
-        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
-        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "OCTOBER SKIRMISH", url: "./skirmish.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
+        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
+        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
+        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "OCTOBER SKIRMISH", url: "./skirmish.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
       ]
     },
     wtrArchives: {
@@ -2331,15 +2332,15 @@
             briefUrl: "./operation-blue-baron.html",
             sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/"
           },
-          { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",             startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "N/A", briefUrl: "./2026-oct-holdout-brief.html", sourceUrl: "" },
-          { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",       startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "N/A", briefUrl: "./2026-oct-sector-breach.html", sourceUrl: "" },
+          { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",             startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "N/A", briefUrl: "./2026-nov-holdout-brief.html", sourceUrl: "" },
+          { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",       startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "N/A", briefUrl: "./2026-nov-sector-breach-brief.html", sourceUrl: "" },
           { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "N/A", briefUrl: "./vault/2026-oct-warpath.html", sourceUrl: "" },
           { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./skirmish.html", sourceUrl: "" },
           { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",         startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
           { key: "future",    tier: "main",  hex: "#ff2a85", enabled: false, label: "Special / New Event", startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
-          { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-shadow-ops", sourceUrl: "" },
-          { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-shadow-ops", sourceUrl: "" },
-          { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3", startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-shadow-ops", sourceUrl: "" },
+          { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+          { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+          { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3", startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
           { key: "bases",     tier: "bases", hex: "#fbc02d", enabled: true,  label: "Assigned Bases",      startDate: "MON / TUE / WED", endDate: "WEEKLY ROTATION", storeDate: "N/A", briefUrl: "", sourceUrl: "" }
         ],
         daysData: {

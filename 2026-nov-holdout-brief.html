@@ -1,2144 +1,456 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER HOLDOUT INLINE EVENT STUDIO // RELEASE: v10.2-HOLDOUT-STUDIO (2026-11-04) -->
+<!-- WATCHTOWER PRE-RELEASE EVENT BRIEF // NOV 2026 HOLDOUT -->
 <html lang="en">
 <head>
-<!-- ==================== START BLOCK 1: HEAD & CSS STYLES ==================== -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>[-WTR-] Data Hub — NOV 2026 HOLDOUT Inline Studio &amp; Calculator</title>
+<title>[-WTR-] Data Hub — NOV 2026 HOLDOUT (Pre-Release Brief)</title>
 <style>
-:root{--primary-color:#00bf63;--accent-green:#00e676;--bg-dark:#0b0f0d;--bg-panel:#121212;--bg-card:#18261e;--bg-inner:#0b1118;--border-dark:#1f3b2b;--text-main:#e0e6ed;--text-muted:#94a3b8;--text-gold:#ffd700;--text-cyan:#38bdf8;--text-orange:#f97316;--text-red:#ff5252;--youtube-red:#ff0000;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:auto;background-color:var(--bg-dark);}
-body{color:var(--text-main);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:10px;line-height:1.5;font-size:14.5px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
-.sentence-line-break{display:block;margin-top:8px;}
-.dossier-card{width:100%;max-width:1100px;margin:0 auto;background:var(--bg-panel);border:1px solid var(--border-dark);box-shadow:0 4px 25px rgba(0,255,128,0.05);display:flex;flex-direction:column;max-height:92vh;overflow:hidden;position:relative;}
-.dossier-card.archive-collapsed{max-height:none;}
-.dossier-card.unconstrained-height{max-height:none;}
-.dossier-card.unconstrained-height .brief-scroll-viewport{overflow-y:visible;max-height:none;}
-.locked-top-hud{flex-shrink:0;width:100%;background:#080c0a;z-index:50;box-shadow:0 6px 18px rgba(0,0,0,0.85);}
-.classification-bar{position:relative;background:var(--primary-color);color:#000;font-weight:900;text-align:center;letter-spacing:2.2px;font-size:13.5px;padding:6px 16px;text-transform:uppercase;font-family:"Arial Black",sans-serif;width:100%;display:flex;align-items:center;justify-content:center;min-height:38px;flex-shrink:0;}
-.class-bar-corner-stamp{position:absolute;left:0;top:0;bottom:0;background:#080c0a;color:#ffffff;padding:0 26px 0 16px;display:inline-flex;align-items:center;gap:8px;font-family:"Arial Black",sans-serif;font-size:13px;letter-spacing:1.8px;clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);border-right:2px solid var(--text-gold);box-shadow:4px 0 12px rgba(0,0,0,0.5);}
-.class-bar-corner-stamp::before{content:"■";color:var(--accent-green);font-size:11px;}
-.archive-collapse-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#080c0a;border:1px solid #000000;border-left:2px solid var(--text-gold);color:var(--accent-green);font-family:monospace;font-size:11.5px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:5px 12px;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.18s ease-in-out;box-shadow:0 2px 6px rgba(0,0,0,0.65);white-space:nowrap;}
-.archive-collapse-btn:hover{background:#14241b;color:#ffffff;border-color:var(--text-gold);box-shadow:0 0 10px rgba(0,0,0,0.85);}
-.dossier-card.archive-collapsed .archive-collapse-btn{background:#1a1605;border-color:var(--text-gold);color:var(--text-gold);}
-.dossier-card.archive-collapsed .archive-collapse-btn:hover{background:var(--text-gold);color:#000000;}
-@media (max-width:820px){.classification-bar{justify-content:space-between;padding:6px 8px 6px 0;font-size:11px;letter-spacing:0.8px;flex-wrap:wrap;gap:6px;}
-.class-bar-corner-stamp{position:static;padding:6px 14px;font-size:11px;}
-.archive-collapse-btn{position:static;transform:none;font-size:10.5px;padding:4px 9px;}
+:root {
+  --primary-color: #00bcd4;
+  --accent-color: #00e5ff;
+  --bg-dark: #070b0f;
+  --bg-panel: #0e141b;
+  --bg-card: #131d27;
+  --bg-inner: #090e14;
+  --border-dark: #1e3448;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-gold: #ffd700;
+  --text-cyan: #38bdf8;
+  --text-orange: #f97316;
+  --text-green: #00e676;
+  --youtube-red: #ff0000;
 }
-.file-tabs-rail{background:#080c0a;padding:8px 14px 0 14px;border-bottom:2px solid var(--primary-color);display:flex;align-items:flex-end;justify-content:space-between;gap:4px;flex-wrap:wrap;}
-.file-tabs-group{display:flex;align-items:flex-end;gap:4px;flex-wrap:wrap;}
-.dossier-card.archive-collapsed .file-tabs-rail{display:none;}
-.file-tab-btn{position:relative;background:linear-gradient(180deg,#16241c 0%,#0d1511 100%);color:var(--text-muted);border:none;padding:6px 10px 5px 10px;font-family:monospace;font-size:10.5px;font-weight:900;letter-spacing:0.4px;text-transform:uppercase;cursor:pointer;clip-path:polygon(7px 0,calc(100% - 7px) 0,100% 100%,0 100%);border-top:2px solid #2a4c39;transition:all 0.15s ease;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
-.file-tab-btn .tab-idx{color:var(--accent-green);font-size:10px;opacity:0.9;}
-.file-tab-btn:hover{background:linear-gradient(180deg,#1f3729 0%,#132219 100%);color:#ffffff;border-top-color:var(--accent-green);transform:translateY(-1px);}
-.file-tab-btn.active-file-tab{background:var(--primary-color);color:#000000;border-top-color:#ffffff;font-weight:900;}
-.file-tab-btn.active-file-tab .tab-idx{color:#000000;opacity:1;}
-.file-tab-btn.calc-tab{border-top-color:var(--text-gold);color:var(--text-gold);}
-.file-tab-btn.calc-tab .tab-idx{color:var(--text-gold);}
-.file-tab-btn.calc-tab.active-file-tab{background:var(--text-gold);color:#000000;}
-.file-tab-btn.calc-tab.active-file-tab .tab-idx{color:#000000;}
-.file-tab-btn.enemy-tab{border-top-color:var(--text-orange);color:#fed7aa;}
-.file-tab-btn.enemy-tab .tab-idx{color:var(--text-orange);}
-.brief-scroll-viewport{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative;}
-.brief-scroll-viewport::-webkit-scrollbar{width:10px;}
-.brief-scroll-viewport::-webkit-scrollbar-track{background:#060a08;}
-.brief-scroll-viewport::-webkit-scrollbar-thumb{background:#1f3b2b;border:1px solid var(--accent-green);border-radius:4px;}
-.event-header{padding:18px 24px;border-bottom:2px solid var(--border-dark);background:#0e1411;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;transition:padding 0.2s ease;margin-bottom:16px;}
-.header-left-wrap{display:flex;align-items:center;gap:20px;flex:1 1 420px;min-width:280px;}
-.header-logo-link{width:90px;height:90px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#1f3b2b 0%,#0b1118 50%,#00bf63 100%);box-shadow:0 0 20px rgba(0,230,118,0.35),inset 0 0 8px rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:width 0.2s ease,height 0.2s ease,transform 0.18s ease,box-shadow 0.18s ease;text-decoration:none;}
-.header-logo-link:hover{transform:scale(1.05);box-shadow:0 0 28px rgba(0,230,118,0.75);}
-.header-logo-img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:2px solid #000;}
-.dossier-card.archive-collapsed .event-header{padding:12px 22px;border-bottom:none;margin-bottom:0;}
-.dossier-card.archive-collapsed .header-logo-link{width:62px;height:62px;}
-.event-header-text{flex:1;min-width:0;}
-.event-sub-tag{font-size:clamp(11px,1.25vw,13px);letter-spacing:1.3px;color:var(--accent-green);text-transform:uppercase;margin-bottom:6px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-@media (max-width:720px){.event-sub-tag{white-space:normal;}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: auto; background-color: var(--bg-dark); }
+body {
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 12px;
+  line-height: 1.55;
+  font-size: 14.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.event-title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.event-main-title{font-family:"Arial Black",sans-serif;font-size:clamp(24px,3.8vw,35px);color:var(--accent-green);letter-spacing:1.5px;text-transform:uppercase;line-height:1.1;margin:0;cursor:pointer;}
-.event-meta-box{flex:0 0 auto;background:#080d0b;border:1px solid var(--border-dark);border-left:3px solid var(--accent-green);border-radius:4px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;min-width:285px;box-shadow:inset 0 0 10px rgba(0,0,0,0.75);}
-.meta-line{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:monospace;font-size:12.5px;color:var(--text-main);text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap;}
-.meta-line strong{font-weight:900;}
-@media (max-width:760px){.event-meta-box{width:100%;}
+.dossier-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 6px 28px rgba(0, 229, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-@media (max-width:640px){.header-left-wrap{flex-direction:column;align-items:flex-start;}
+.locked-top-hud {
+  width: 100%;
+  background: #060a0e;
+  border-bottom: 2px solid var(--primary-color);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.85);
 }
-.brief-collapsible-body{display:block;}
-.dossier-card.archive-collapsed .brief-collapsible-body{display:none;}
-.dossier-section{padding:0 20px 24px 20px;clear:both;}
-.section-header-bar{background:var(--primary-color);color:#000;font-family:"Arial Black",sans-serif;font-size:15.5px;padding:8px 16px;text-transform:uppercase;letter-spacing:1.5px;display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:8px;cursor:pointer;user-select:none;transition:filter 0.15s ease;}
-.section-header-bar:hover{filter:brightness(1.08);}
-.section-header-right{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.section-header-bar span.subtext{font-family:"Arial Black",sans-serif;font-size:13px;letter-spacing:0.5px;}
-.section-min-arrow{background:rgba(0,0,0,0.22);color:#000;font-family:monospace;font-size:13px;font-weight:900;padding:2px 8px;border-radius:3px;border:1px solid rgba(0,0,0,0.35);transition:transform 0.2s ease;}
-.dossier-section.section-minimized .section-content-wrap{display:none !important;}
-.video-hub-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;}
-.video-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.video-card{background:var(--bg-card);border:1px solid var(--border-dark);padding:16px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;}
-.video-card h3{font-family:"Arial Black",sans-serif;font-size:15.5px;color:var(--accent-green);margin-bottom:8px;text-transform:uppercase;}
-.video-card p{font-size:14.5px;color:var(--text-muted);margin-bottom:12px;line-height:1.45;}
-.video-btn{display:inline-block;background:var(--youtube-red);color:#ffffff !important;text-decoration:none;font-weight:800;font-size:13.5px;padding:9px 16px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;box-shadow:0 2px 8px rgba(255,0,0,0.25);transition:background-color 0.15s ease-in-out;align-self:flex-start;cursor:pointer;}
-.video-btn:hover{background:#cc0000;}
-.video-note{color:var(--text-muted);font-size:12px;margin-top:10px;line-height:1.4;}
-.sitrep-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px 20px;font-size:15px;color:var(--text-main);}
-.sitrep-content-layout{display:flex;align-items:flex-start;gap:20px;}
-.sitrep-img-wrap{flex:0 0 auto;width:46%;max-width:65%;background:#060a08;border:1px solid rgba(0,230,118,0.35);border-radius:4px;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,0.75);cursor:pointer;transition:border-color 0.15s ease,transform 0.15s ease;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.sitrep-img-wrap:hover{border-color:var(--accent-green);transform:translateY(-1px);}
-.sitrep-img-wrap img{width:100%;height:auto;display:block;border-radius:3px;object-fit:contain;}
-.sitrep-text-col{flex:1 1 0%;min-width:0;display:flex;flex-direction:column;gap:12px;}
-@media (max-width:680px){.sitrep-content-layout{flex-direction:column;align-items:center;}
-.sitrep-img-wrap{width:100% !important;max-width:100% !important;}
+.classification-bar {
+  position: relative;
+  background: var(--primary-color);
+  color: #000;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 13px;
+  padding: 7px 16px;
+  text-transform: uppercase;
+  font-family: "Arial Black", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
 }
-.sitrep-quote{background:rgba(0,230,118,0.06);border-left:4px solid var(--accent-green);padding:12px 16px;font-style:italic;color:var(--text-gold);font-weight:700;font-size:15.5px;}
-.featured-full-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;}
-.featured-items-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:10px 16px;background:var(--bg-card);border:1px solid var(--border-dark);padding:16px;font-size:14px;}
-.featured-items-list li{position:relative;padding-left:18px;color:var(--text-main);}
-.featured-items-list li::before{content:"■";position:absolute;left:0;color:var(--accent-green);font-size:11px;}
-.mission-tracks-wrap{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;display:flex;flex-direction:column;gap:18px;}
-.tracks-side-by-side-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch;}
-@media (max-width:820px){.tracks-side-by-side-grid{grid-template-columns:1fr;}
+.class-bar-corner-stamp {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #060a0e;
+  color: #ffffff;
+  padding: 0 24px 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  border-right: 2px solid var(--text-gold);
 }
-.track-block{background:var(--bg-card);border:1px solid var(--border-dark);border-left:4px solid var(--accent-green);padding:16px;border-radius:3px;display:flex;flex-direction:column;justify-content:space-between;transition:opacity 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease;}
-.track-block.incursion{border-left-color:var(--text-cyan);}
-.track-block.tactical{border-left-color:var(--text-gold);}
-.track-block.active-selected-track{box-shadow:0 0 18px rgba(0,230,118,0.16),inset 0 0 8px rgba(0,230,118,0.06);}
-.track-block.inactive-track{opacity:0.65;}
-.track-header-line{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
-.track-title{font-family:"Arial Black",sans-serif;font-size:15px;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
-.track-desc{font-size:14px;color:var(--text-main);margin-bottom:12px;line-height:1.45;}
-.mini-xp-table{width:100%;border-collapse:collapse;font-size:13.5px;background:#0b1118;border:1px solid var(--border-dark);}
-.mini-xp-table th,.mini-xp-table td{padding:8px 10px;border-bottom:1px solid #16241c;}
-.mini-xp-table th{background:#09110d;color:var(--text-muted);font-family:monospace;font-size:11px;text-transform:uppercase;text-align:left;}
-.mini-xp-table td.xp-val{text-align:right;color:var(--text-gold);font-family:monospace;font-weight:800;white-space:nowrap;}
-.mini-xp-table td.crate-val{text-align:right;color:var(--text-cyan);font-family:monospace;font-weight:800;white-space:nowrap;}
-.mini-xp-table tr.locked-bonus-row{opacity:0.42;}
-.set-run-summary-strip{margin-top:12px;background:#080d0b;border:1px solid var(--border-dark);border-top:2px solid var(--text-cyan);border-radius:3px;padding:10px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;}
-.set-run-metric-lbl{font-family:monospace;font-size:10.5px;color:var(--text-muted);text-transform:uppercase;font-weight:700;}
-.set-run-metric-val{font-family:monospace;font-size:16px;font-weight:900;color:var(--text-cyan);margin-top:2px;}
-.proving-grounds-subbox{background:#0e1612;border:1px solid var(--border-dark);border-left:4px solid var(--text-orange);padding:16px;border-radius:3px;display:flex;flex-direction:column;gap:12px;width:100%;}
-.pg-chests-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-@media (max-width:720px){.pg-chests-grid{grid-template-columns:1fr;}
+.class-bar-corner-stamp::before {
+  content: "■";
+  color: var(--accent-color);
+  font-size: 11px;
 }
-.chest-tier-card{border:1px solid var(--border-dark);border-radius:3px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform 0.15s ease,box-shadow 0.15s ease;}
-.chest-tier-card.active-multiplier{box-shadow:0 0 14px rgba(255,215,0,0.35);border-color:var(--text-gold);}
-.chest-tier-head{padding:8px 12px;font-family:"Arial Black",sans-serif;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
-.chest-none .chest-tier-head{background:#1f2937;color:#e5e7eb;}
-.chest-bronze .chest-tier-head{background:#0e7490;color:#ffffff;}
-.chest-silver .chest-tier-head{background:#047857;color:#ffffff;}
-.chest-gold .chest-tier-head{background:#ffd700;color:#000000;}
-.chest-tier-body{background:var(--bg-card);padding:10px 12px;font-size:13px;color:var(--text-main);flex:1;}
-.calc-toolbar{background:#0e1913;border:1px solid var(--border-dark);border-top:none;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.btn-calc-action{background:#14241b;border:1px solid var(--accent-green);color:var(--accent-green);font-weight:800;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all 0.15s ease-in-out;display:inline-flex;align-items:center;gap:5px;}
-.btn-calc-action:hover{background:var(--primary-color);color:#000;}
-.btn-calc-action.btn-cyan{border-color:var(--text-cyan);color:var(--text-cyan);}
-.btn-calc-action.btn-cyan:hover{background:var(--text-cyan);color:#000;}
-.btn-calc-action.btn-gold{border-color:var(--text-gold);color:var(--text-gold);}
-.btn-calc-action.btn-gold:hover{background:var(--text-gold);color:#000;}
-.calc-hud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;padding:16px;background:var(--bg-inner);border-left:1px solid var(--border-dark);border-right:1px solid var(--border-dark);}
-.calc-stat-card{background:#0e1612;border:1px solid var(--border-dark);border-top:3px solid var(--stat-accent,var(--accent-green));border-radius:4px;padding:12px;text-align:center;}
-.calc-stat-lbl{font-family:monospace;font-size:11.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;}
-.calc-stat-val{font-family:monospace;font-size:23px;font-weight:900;margin-top:4px;color:var(--stat-accent,var(--accent-green));}
-.calc-stat-sub{font-family:monospace;font-size:11.5px;color:var(--text-muted);margin-top:3px;}
-.calc-bank-strip{background:#080d0b;border:1px solid var(--border-dark);border-top:none;padding:12px 16px;display:flex;flex-direction:column;gap:10px;}
-.calc-bank-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.calc-progress-track{width:100%;height:10px;background:#030504;border:1px solid var(--border-dark);border-radius:5px;overflow:hidden;}
-.calc-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#00bf63 0%,#38bdf8 100%);transition:width 0.2s ease;}
-.calc-presets-bar{background:#0b130f;border:1px solid var(--border-dark);border-top:none;padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.preset-pill-btn{background:#14241b;border:1px solid var(--border-dark);color:var(--text-main);font-size:11.5px;font-weight:800;padding:6px 11px;border-radius:3px;cursor:pointer;text-transform:uppercase;transition:all 0.15s ease;display:inline-flex;align-items:center;gap:5px;}
-.preset-pill-btn:hover{border-color:var(--accent-green);color:var(--accent-green);}
-.preset-pill-btn.addon-active{background:rgba(0,230,118,0.2);border-color:var(--accent-green);color:#ffffff;box-shadow:0 0 10px rgba(0,230,118,0.3);}
-.data-table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;}
-.data-table th,.data-table td{padding:10px 12px;border-bottom:1px solid #16241c;border-right:1px solid #16241c;vertical-align:middle;}
-.data-table th:last-child,.data-table td:last-child{border-right:none;}
-.data-table th{background:var(--bg-card);color:var(--accent-green);text-transform:uppercase;font-size:13px;letter-spacing:0.5px;font-weight:800;}
-.data-table tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
-.data-table tr.unchecked-prize-row{opacity:0.42;}
-.qty-stepper{display:inline-flex;align-items:center;gap:4px;}
-.qty-step-btn{background:#182920;border:1px solid var(--border-dark);color:#fff;font-family:monospace;font-weight:900;font-size:12px;width:24px;height:26px;border-radius:3px;cursor:pointer;}
-.qty-step-btn:hover{background:var(--accent-green);color:#000;}
-.qty-input-box{width:48px;height:26px;background:#050806;border:1px solid var(--border-dark);color:var(--accent-green);text-align:center;font-family:monospace;font-weight:800;font-size:13px;border-radius:3px;}
-.store-unit-link{color:var(--text-main);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;}
-.store-unit-link:hover{color:var(--accent-green);text-decoration:underline;}
-.img-db-badge{display:inline-flex;align-items:center;gap:4px;font-family:monospace;font-size:10.5px;font-weight:800;color:var(--accent-green);background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.35);padding:2px 6px;border-radius:3px;text-transform:uppercase;}
-.unit-gallery-dynamic{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,255px));gap:18px;padding:20px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;justify-content:center;}
-.unit-gallery-4col{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px;padding:18px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;}
-.unit-poster-card{background:var(--bg-card);border:1px solid rgba(0,230,118,0.35);padding:10px;border-radius:4px;display:flex;flex-direction:column;align-items:center;text-decoration:none;cursor:pointer;transition:transform 0.15s ease,border-color 0.15s ease,box-shadow 0.15s ease;}
-.unit-poster-card:hover{border-color:var(--accent-green);box-shadow:0 0 18px rgba(0,230,118,0.4);transform:translateY(-2px);}
-.unit-poster-card.challenge-card{border-color:rgba(249,115,22,0.45);}
-.unit-poster-card.challenge-card:hover{border-color:var(--text-orange);box-shadow:0 0 16px rgba(249,115,22,0.35);}
-.unit-poster-frame{width:100%;aspect-ratio:4 / 5;background:#060a08;border:1px solid var(--border-dark);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.unit-poster-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-.unit-poster-title{margin-top:10px;font-family:"Arial Black",sans-serif;font-size:14.5px;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.8px;text-align:center;}
-.unit-poster-sub{margin-top:3px;font-family:monospace;font-size:11.5px;color:var(--text-gold);font-weight:800;text-transform:uppercase;text-align:center;}
-.unit-poster-caption{padding:10px 6px 4px 6px;text-align:center;width:100%;}
-.unit-poster-caption h4{color:var(--text-orange);font-family:"Arial Black",sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
-.unit-poster-caption .hvt-badge{display:inline-block;color:var(--text-gold);background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.4);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:800;margin-bottom:6px;}
-.unit-poster-caption p{color:var(--text-main);font-size:13px;line-height:1.4;}
-.use-or-lose-bottom-banner{border:2px solid var(--text-red);background:rgba(255,82,82,0.1);color:#fca5a5;padding:16px 20px;margin:0 20px 24px 20px;font-size:14.5px;font-weight:800;text-align:center;letter-spacing:0.8px;text-transform:uppercase;border-radius:3px;box-shadow:0 0 16px rgba(255,82,82,0.2);}
-.side-quick-rail{position:absolute;right:18px;bottom:20px;z-index:60;display:flex;flex-direction:column;gap:6px;}
-.dossier-card.archive-collapsed .side-quick-rail{display:none;}
-.side-rail-btn{background:rgba(14,25,19,0.92);border:1px solid var(--accent-green);color:var(--accent-green);font-family:monospace;font-size:11px;font-weight:900;padding:6px 10px;border-radius:4px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.8);text-transform:uppercase;transition:all 0.15s ease;}
-.side-rail-btn:hover{background:var(--accent-green);color:#000;}
-.side-rail-btn.gold{border-color:var(--text-gold);color:var(--text-gold);}
-.side-rail-btn.gold:hover{background:var(--text-gold);color:#000;}
-.wtr-hover-preview-pod{position:fixed;z-index:100005;pointer-events:none;display:none;background:rgba(9,14,11,0.98);border:2px solid var(--accent-green);border-radius:6px;padding:10px;box-shadow:0 12px 35px rgba(0,0,0,0.95),0 0 20px rgba(0,230,118,0.35);flex-direction:column;gap:8px;width:240px;}
-.wtr-hover-preview-pod.show{display:flex;}
-.hover-pod-header{font-family:"Arial Black",sans-serif;font-size:11.5px;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #1f3b2b;padding-bottom:4px;text-align:center;}
-.hover-pod-frame{width:100%;aspect-ratio:4 / 5;background:#000;border:1px solid rgba(0,230,118,0.4);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.hover-pod-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-.hover-pod-sub{font-family:monospace;font-size:11px;color:var(--text-gold);text-align:center;font-weight:800;}
-.hover-pod-footer{font-family:monospace;font-size:10px;color:var(--text-cyan);text-align:center;font-weight:800;background:rgba(56,189,248,0.1);padding:4px;border-radius:3px;}
-.wtr-overlay-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(4,8,6,0.9);backdrop-filter:blur(4px);z-index:100010;display:none;align-items:center;justify-content:center;padding:18px;}
-.wtr-overlay-modal.open{display:flex;}
-.wtr-overlay-window{width:100%;max-width:1060px;max-height:92vh;background:#0d1210;border:2px solid var(--accent-green);border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.95),0 0 30px rgba(0,230,118,0.25);display:flex;flex-direction:column;overflow:hidden;}
-.wtr-overlay-topbar{background:linear-gradient(90deg,#0f2419 0%,#09120d 100%);border-bottom:2px solid var(--border-dark);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-.wtr-overlay-title{font-family:"Arial Black",sans-serif;font-size:15px;color:var(--accent-green);text-transform:uppercase;letter-spacing:1.2px;}
-.wtr-overlay-actions{display:flex;align-items:center;gap:10px;}
-.wtr-overlay-close-btn{background:#dc2626;border:1px solid #fca5a5;color:#fff;font-family:monospace;font-size:12.5px;font-weight:900;padding:7px 14px;border-radius:3px;cursor:pointer;text-transform:uppercase;}
-.wtr-overlay-close-btn:hover{background:#ef4444;}
-.wtr-overlay-content{padding:20px;overflow-y:auto;flex:1;}
-.overlay-unit-grid{display:grid;grid-template-columns:240px 1fr 1.2fr;gap:20px;}
-@media (max-width:820px){.overlay-unit-grid{grid-template-columns:1fr;}
+.status-pill-right {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #060a0e;
+  color: var(--text-gold);
+  border: 1px solid var(--text-gold);
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
 }
-.overlay-stats-table{width:100%;border-collapse:collapse;font-size:14px;}
-.overlay-stats-table td{padding:6px 8px;border-bottom:1px solid #16241c;}
-.overlay-stats-lbl{color:var(--text-muted);font-weight:700;width:48%;}
-.overlay-stats-val{color:#fff;font-family:monospace;text-align:right;}
-input[type="checkbox"],input[type="radio"]{accent-color:var(--accent-green);width:16px;height:16px;cursor:pointer;}
+@media (max-width: 780px) {
+  .classification-bar { justify-content: space-between; padding: 6px 10px; flex-wrap: wrap; gap: 6px; }
+  .class-bar-corner-stamp, .status-pill-right { position: static; transform: none; }
+}
+.event-header {
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--border-dark);
+  background: linear-gradient(180deg, #0c151f 0%, #091017 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.header-left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 1 1 380px;
+}
+.header-logo-link {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #1e3448 0%, #090e14 50%, var(--primary-color) 100%);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #000;
+}
+.event-sub-tag {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+.event-main-title {
+  font-family: "Arial Black", sans-serif;
+  font-size: clamp(24px, 3.6vw, 34px);
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow: 0 0 18px rgba(0, 229, 255, 0.3);
+}
+.event-subtitle-badge {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  color: var(--text-gold);
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.event-meta-box {
+  flex: 0 0 auto;
+  background: #060a0e;
+  border: 1px solid var(--border-dark);
+  border-left: 3px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 310px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+.meta-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  font-family: monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+.meta-line strong { font-weight: 900; }
+.content-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.countdown-banner {
+  background: linear-gradient(90deg, rgba(0, 188, 212, 0.12) 0%, rgba(19, 29, 39, 0.9) 100%);
+  border: 1px solid var(--border-dark);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.countdown-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.countdown-eyebrow {
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 900;
+  color: var(--accent-color);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.countdown-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.countdown-clock {
+  font-family: monospace;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: var(--text-gold);
+  background: #060a0e;
+  border: 1px solid var(--border-dark);
+  padding: 8px 18px;
+  border-radius: 4px;
+  letter-spacing: 1.5px;
+}
+.prerelease-notice-card {
+  background: var(--bg-inner);
+  border: 1px solid var(--border-dark);
+  border-top: 3px solid var(--text-gold);
+  border-radius: 4px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.notice-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 17px;
+  color: var(--text-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.notice-statement {
+  font-size: 16px;
+  color: #ffffff;
+  background: rgba(255, 215, 0, 0.07);
+  border-left: 4px solid var(--text-gold);
+  padding: 14px 18px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.notice-details {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.what-to-expect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.expect-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  padding: 14px;
+  border-radius: 4px;
+}
+.expect-item h4 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 13px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.expect-item p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.quick-links-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 6px;
+}
+.action-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  text-decoration: none;
+  font-family: monospace;
+  font-size: 12.5px;
+  font-weight: 900;
+  padding: 10px 16px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: all 0.15s ease;
+}
+.action-link-btn:hover {
+  background: var(--accent-color);
+  color: #000000;
+}
+.action-link-btn.gold {
+  border-color: var(--text-gold);
+  color: var(--text-gold);
+}
+.action-link-btn.gold:hover {
+  background: var(--text-gold);
+  color: #000000;
+}
 </style>
 </head>
-<!-- ==================== END BLOCK 1: HEAD & CSS STYLES ==================== -->
-<!-- ==================== START BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
 <body>
-<!-- ==================== UNIVERSAL FLOATING HOVER THUMBNAIL POD ==================== -->
-<div class="wtr-hover-preview-pod" id="wtrHoverPreviewPod">
-<div class="hover-pod-header" id="hoverPodTitle">PREVIEW</div>
-<div class="hover-pod-frame"><img id="hoverPodImg" src="" alt="Thumbnail"></div>
-<div class="hover-pod-sub" id="hoverPodSub">WATCHTOWER INTEL</div>
-<div class="hover-pod-footer">🖱️ CLICK TO OPEN OVERLAY</div>
-</div>
-<!-- ==================== IN-PAGE FULL OVERLAY MODAL ==================== -->
-<div class="wtr-overlay-modal" id="wtrInPageOverlayModal" onclick="if(event.target===this) closeInPageOverlay()">
-<div class="wtr-overlay-window">
-<div class="wtr-overlay-topbar">
-<span class="wtr-overlay-title" id="overlayModalTitle">🖥️ WATCHTOWER INTEL OVERLAY</span>
-<div class="wtr-overlay-actions">
-<a id="overlayExternalBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-calc-action btn-cyan" style="text-decoration: none;">↗ Open Full Page in New Tab</a>
-<button type="button" class="wtr-overlay-close-btn" onclick="closeInPageOverlay()">✕ Close Overlay</button>
-</div>
-</div>
-<div class="wtr-overlay-content" id="overlayModalBody"></div>
-</div>
-</div>
-<!-- ==================== END BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
-<!-- ==================== START BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05 WITH HOLDOUT BASE & CRATE YIELD MATRIX) ==================== -->
-<div id="dossier-view" style="width: 100%;">
-<div id="main-export-holdout" class="dossier-card" data-store-close="2026-11-18T10:00:00-08:00">
-<!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
-<div class="locked-top-hud">
-<div class="classification-bar">
-<span class="class-bar-corner-stamp" id="displayCornerStampTop">NOV 2026</span>
-<span id="displayClassBarTop">UNCLASSIFIED // HOLDOUT TACTICAL BRIEF</span>
-<button type="button" class="archive-collapse-btn" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
-<span id="archiveToggleIcon">▼</span>
-<span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
-</button>
-</div>
-<!-- Instant File-Folder Tab Locator Bar -->
-<nav class="file-tabs-rail" aria-label="Instant Section Locators">
-<div class="file-tabs-group">
-<button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
-<span class="tab-idx">01</span><span id="displayTab01Label">TOP</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToDossierSection('secVideoRecon', this)">
-<span class="tab-idx">02</span><span id="displayTab02Label">VIDEO RECON</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToDossierSection('secSitrep', this)">
-<span class="tab-idx">03</span><span id="displayTab03Label">SITREP</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToDossierSection('secFeatured', this)">
-<span class="tab-idx">04</span><span id="displayTab04Label">FEATURED</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToDossierSection('secMissionTracks', this)">
-<span class="tab-idx">05</span><span id="displayTab05Label">BASE &amp; CRATES</span>
-</button>
-<button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToDossierSection('integratedStoreCalcSection', this)">
-<span class="tab-idx">06</span><span id="displayTab06Label">🧮 STORE &amp; CALC</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToDossierSection('secNewUnits', this)">
-<span class="tab-idx">07</span><span id="displayTab07Label">FEATURED UNITS</span>
-</button>
-<button type="button" class="file-tab-btn" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToDossierSection('secUpdatedUnits', this)">
-<span class="tab-idx">08</span><span id="displayTab08Label">WARPAINT RECON</span>
-</button>
-<button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToDossierSection('secEnemyForces', this)">
-<span class="tab-idx">09</span><span id="displayTab09Label">CHALLENGES</span>
-</button>
-</div>
-<button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
-<span>↕ FULL PAGE</span>
-</button>
-</nav>
-</div>
-<!-- ==================== SELF-CONTAINED SCROLLING VIEWPORT ==================== -->
-<div class="brief-scroll-viewport" id="briefScrollViewport">
-<!-- SECTION 01: HEADER WITH INLINE EDITOR CHECKBOX -->
-<header class="event-header" id="secTopHeader">
-<div class="header-left-wrap">
-<a class="header-logo-link"
-id="wtrHomeLogoLink"
-href="https://sites.google.com/view/watchtower-data-hub/home"
-target="_blank"
-rel="noopener noreferrer"
-data-no-overlay="true"
-title="Return to [-WTR-] Data Hub Home">
-<img id="displayWtrLogoImg" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem" class="header-logo-img">
-</a>
-<div class="event-header-text">
-<div class="event-sub-tag"><span id="displayHeaderPrefix">[-WTR-] DATA HUB</span> |
-<a id="displaySourceLink"
-href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1039-holdout---october-2026/"
-data-preview-title="KIXEYE OFFICIAL HOLDOUT RELEASE NOTES"
-data-preview-sub="External KIXEYE Help Center"
-data-preview-img="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
-style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> |
-<a id="displayCalcJumpLink"
-href="javascript:void(0)"
-data-no-overlay="true"
-onclick="jumpToDossierSection('integratedStoreCalcSection')"
-style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
-</div>
-<div class="event-title-row">
-<h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">HOLDOUT</h1>
-</div>
-</div>
-</div>
-<div class="event-meta-box event-meta">
-<div class="meta-line">
-<strong id="displaySchedStartLabel" style="color: var(--text-cyan);">Starts:</strong>
-<span id="displaySchedStart">THU OCT 9, 2026 @ 10:00 AM PDT</span>
-</div>
-<div class="meta-line">
-<strong id="displaySchedEndLabel" style="color: var(--text-gold);">Ends:</strong>
-<span id="displaySchedEnd">WED OCT 13, 2026 @ 10:00 AM PDT</span>
-</div>
-<div class="meta-line">
-<strong id="displaySchedStoreLabel" style="color: var(--text-orange);">Store Closes:</strong>
-<span id="displaySchedStore">THU OCT 14, 2026 @ 10:00 AM PDT</span>
-</div>
-</div>
-</header>
-<!-- Collapsible Brief Content -->
-<div id="briefCollapsibleBody" class="brief-collapsible-body">
-<!-- SECTION 02: VIDEO RECON & GUIDES -->
-<section class="dossier-section" id="secVideoRecon">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarVideoTitle">VIDEO RECON &amp; GUIDES</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarVideoSub">YouTube Tactical Search (Direct Pop-Out)</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="video-hub-box">
-<div class="video-hub-grid">
-<div class="video-card">
-<div>
-<h3 id="displayVid1Title">Top Tier Guides</h3>
-<p id="displayVid1Desc">Actionable, zero-fluff content featuring clear step-by-step breakdowns covering Holdout unit compositions, crate runner positions, and survival strategies.</p>
-</div>
-<div>
-<a id="displayVidTopTier"
-href="https://www.youtube.com/results?search_query=War+Commander+Holdout+%22Project_d88%22&amp;sp=EgIIAw%253D%253D"
-target="_blank"
-rel="noopener noreferrer"
-data-no-overlay="true"
-class="video-btn">▶ Top Tier YouTube Videos</a>
-<div class="video-note" id="displayVid1Note"><strong>Note:</strong> Quality videos take time to produce. If you don't see any content listed right away, please check back later.</div>
-</div>
-</div>
-<div class="video-card">
-<div>
-<h3 id="displayVid2Title">Watch Me Play</h3>
-<p id="displayVid2Desc">Casual gameplay runs and general Holdout gauntlet playthrough recordings set to background music from community creators.</p>
-</div>
-<div>
-<a id="displayVidWatchMe"
-href="https://www.youtube.com/results?search_query=War+Commander+Holdout+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%253D%253D"
-target="_blank"
-rel="noopener noreferrer"
-data-no-overlay="true"
-class="video-btn">▶ Watch Me Play Videos</a>
-<div class="video-note" id="displayVid2Note"><strong>Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- SECTION 03: SITUATION REPORT (ADJUSTABLE PICTURE FRAME + DOUBLE-SPACE LINE BREAKS) -->
-<section class="dossier-section" id="secSitrep">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarSitrepTitle">SITUATION REPORT &amp; COMBAT REGULATIONS</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarSitrepSub">Operational Intelligence &amp; Gauntlet Rules</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="sitrep-box">
-<div class="sitrep-content-layout" id="sitrepContentLayout">
-<div class="sitrep-img-wrap" id="displaySitrepImgWrap" onclick="openGenericLinkOverlay(masterState.mainTitle + ' // SITUATION REPORT', masterState.sitrepLead, masterState.sitrepImgUrl, '')">
-<img id="displaySitrepImg" src="https://share1.cloudhq-mkt3.net/a621069148c11d.png" alt="Holdout Situation Report" onload="syncSitrepImageSizing()">
-</div>
-<div class="sitrep-text-col" id="displaySitrepTextCol">
-<p id="displaySitrepLead"></p>
-<div class="sitrep-quote" id="displaySitrepQuote"></div>
-<p id="displaySitrepBody"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- SECTION 04: FEATURED ITEMS -->
-<section class="dossier-section" id="secFeatured">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarFeaturedTitle">FEATURED ITEMS</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarFeaturedSub">Holdout Store Highlights</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="featured-full-box">
-<ul class="featured-items-list" id="displayFeaturedItemsList"></ul>
-</div>
-</div>
-</section>
-<!-- SECTION 05: HOLDOUT BASE PROGRESSION & CRATE YIELD CALCULATOR VARIABLES -->
-<section class="dossier-section" id="secMissionTracks">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarTracksTitle">BASE PROGRESSION &amp; XP CRATE YIELD MATRIX</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarTracksSub">Select Active Gauntlet Mode, Bases &amp; Time-Limited XP Crates Claimed</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="mission-tracks-wrap">
-<!-- Side-by-Side: 3-Base Standard Track vs 4-Base Full Gauntlet Track -->
-<div class="tracks-side-by-side-grid">
-<!-- Left Card: Standard 3-Base Track (Bases I–III) -->
-<div class="track-block incursion inactive-track" id="trackBlockIncursion">
-<div>
-<div class="track-header-line">
-<label class="track-title" style="color: var(--text-cyan);">
-<input type="radio" name="activeCalcTrack" value="STANDARD3" onchange="setActiveCalcTrack('STANDARD3')">
-<span id="displayIncTitle">Standard 3-Base Holdout Track (Bases I–III)</span>
-</label>
-<button type="button" class="preset-pill-btn" id="btnToggleAllIncBases" onclick="toggleAllTrackBases('STANDARD3')">Toggle All</button>
-</div>
-<p class="track-desc" id="displayIncDesc"></p>
-<table class="mini-xp-table">
-<thead>
-<tr>
-<th style="width: 38px; text-align: center;">Use</th>
-<th id="displayIncTableHeader">Holdout Target</th>
-<th style="text-align: right;">Base XP</th>
-<th style="text-align: right;">+Crate XP</th>
-<th style="text-align: right;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr id="rowIncB1">
-<td style="text-align: center;"><input type="checkbox" id="chkIncB1" checked onchange="setActiveCalcTrack('STANDARD3'); recalculateHoldout();"></td>
-<td id="displayIncB1Label">Base I (Standard Difficulty)</td>
-<td class="xp-val" id="valIncB1Xp">10,000</td>
-<td class="crate-val" id="valIncB1Crate">+4,000</td>
-<td class="xp-val" id="valIncB1Total">14,000 XP</td>
-</tr>
-<tr id="rowIncB2">
-<td style="text-align: center;"><input type="checkbox" id="chkIncB2" checked onchange="setActiveCalcTrack('STANDARD3'); recalculateHoldout();"></td>
-<td id="displayIncB2Label">Base II (Medium • Unlocked after Base I)</td>
-<td class="xp-val" id="valIncB2Xp">10,000</td>
-<td class="crate-val" id="valIncB2Crate">+4,000</td>
-<td class="xp-val" id="valIncB2Total">14,000 XP</td>
-</tr>
-<tr id="rowIncB3">
-<td style="text-align: center;"><input type="checkbox" id="chkIncB3" checked onchange="setActiveCalcTrack('STANDARD3'); recalculateHoldout();"></td>
-<td id="displayIncB3Label">Base III (Hard • +1 Random Logistic)</td>
-<td class="xp-val" id="valIncB3Xp">10,000</td>
-<td class="crate-val" id="valIncB3Crate">+4,000</td>
-<td class="xp-val" id="valIncB3Total">14,000 XP</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="set-run-summary-strip" style="border-top-color: var(--text-cyan);">
-<div>
-<div class="set-run-metric-lbl">3-Base Run Yield</div>
-<div class="set-run-metric-val" style="color: var(--text-cyan);" id="cmpIncXp">42,000</div>
-</div>
-<div>
-<div class="set-run-metric-lbl">3-Base Runs Needed</div>
-<div class="set-run-metric-val" id="cmpIncRuns">15</div>
-</div>
-<div>
-<div class="set-run-metric-lbl">Daily Pace</div>
-<div class="set-run-metric-val" id="cmpIncDaily">3.8 / d</div>
-</div>
-</div>
-</div>
-<!-- Right Card: Full 4-Base Gauntlet Run (Bases I–III + Bonus Base) -->
-<div class="track-block tactical active-selected-track" id="trackBlockTactical">
-<div>
-<div class="track-header-line">
-<label class="track-title" style="color: var(--text-gold);">
-<input type="radio" name="activeCalcTrack" value="GAUNTLET4" checked onchange="setActiveCalcTrack('GAUNTLET4')">
-<span id="displayTacTitle">Full 4-Base Gauntlet Run (Bases I–III + Bonus Base)</span>
-</label>
-<button type="button" class="preset-pill-btn" id="btnToggleAllTacBases" onclick="toggleAllTrackBases('GAUNTLET4')">Toggle All 4</button>
-</div>
-<p class="track-desc" id="displayTacDesc"></p>
-<table class="mini-xp-table">
-<thead>
-<tr>
-<th style="width: 38px; text-align: center;">Use</th>
-<th>Gauntlet Target</th>
-<th style="text-align: right;">Base XP</th>
-<th style="text-align: right;">+Crate XP</th>
-<th style="text-align: right;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr id="rowTacB1">
-<td style="text-align: center;"><input type="checkbox" id="chkTacB1" checked onchange="setActiveCalcTrack('GAUNTLET4'); recalculateHoldout();"></td>
-<td id="displayTacB1Label">Base I (Standard Difficulty)</td>
-<td class="xp-val" id="valTacB1Xp">10,000</td>
-<td class="crate-val" id="valTacB1Crate">+4,000</td>
-<td class="xp-val" id="valTacB1Total">14,000 XP</td>
-</tr>
-<tr id="rowTacB2">
-<td style="text-align: center;"><input type="checkbox" id="chkTacB2" checked onchange="setActiveCalcTrack('GAUNTLET4'); recalculateHoldout();"></td>
-<td id="displayTacB2Label">Base II (Medium • Unlocked after Base I)</td>
-<td class="xp-val" id="valTacB2Xp">10,000</td>
-<td class="crate-val" id="valTacB2Crate">+4,000</td>
-<td class="xp-val" id="valTacB2Total">14,000 XP</td>
-</tr>
-<tr id="rowTacB3">
-<td style="text-align: center;"><input type="checkbox" id="chkTacB3" checked onchange="setActiveCalcTrack('GAUNTLET4'); recalculateHoldout();"></td>
-<td id="displayTacB3Label">Base III (Hard • +1 Random Logistic)</td>
-<td class="xp-val" id="valTacB3Xp">10,000</td>
-<td class="crate-val" id="valTacB3Crate">+4,000</td>
-<td class="xp-val" id="valTacB3Total">14,000 XP</td>
-</tr>
-<tr id="rowTacBonus">
-<td style="text-align: center;"><input type="checkbox" id="chkTacBonus" checked onchange="setActiveCalcTrack('GAUNTLET4'); recalculateHoldout();"></td>
-<td><strong id="displayBonusBaseLabel" style="color: var(--text-gold);">Bonus Base (Veteran • Unlocked after Base III)</strong></td>
-<td class="xp-val" id="valTacBonusXp">16,000</td>
-<td class="crate-val" id="valTacBonusCrate">+4,000</td>
-<td class="xp-val" id="valTacBonusTotal">20,000 XP</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="set-run-summary-strip" style="border-top-color: var(--text-gold);">
-<div>
-<div class="set-run-metric-lbl">4-Base Gauntlet Yield</div>
-<div class="set-run-metric-val" style="color: var(--text-gold);" id="cmpTacXp">62,000</div>
-</div>
-<div>
-<div class="set-run-metric-lbl">Gauntlet Runs Needed</div>
-<div class="set-run-metric-val" id="cmpTacRuns">10</div>
-</div>
-<div>
-<div class="set-run-metric-lbl">Daily Pace</div>
-<div class="set-run-metric-val" id="cmpTacDaily">2.5 / d</div>
-</div>
-</div>
-</div>
-</div>
-<!-- 3. Time-Limited XP Crates Per-Base Selector -->
-<div class="proving-grounds-subbox">
-<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-<span id="displayPgTitle" style="font-family: 'Arial Black', sans-serif; font-size: 15px; color: var(--text-orange); text-transform: uppercase;">Time-Limited XP Crates &amp; Per-Base Collection Tier</span>
-<span id="displayPgRightSub" style="font-family: monospace; font-size: 12px; color: var(--text-gold); font-weight: 800;">SELECT AVERAGE XP CRATES CLAIMED PER BASE</span>
-</div>
-<p class="track-desc" id="displayPgDesc" style="margin-bottom: 4px;"></p>
-<div class="pg-chests-grid">
-<label class="chest-tier-card chest-gold active-multiplier" id="cardCrate3">
-<div class="chest-tier-head">
-<span><input type="radio" name="holdoutCrateTier" value="3" checked onchange="recalculateHoldout()"> <span id="displayChest10Title">ALL 3 XP CRATES CLAIMED (RECOMMENDED)</span></span>
-<span id="badgeCrate3Val">+4,000 XP / Base</span>
-</div>
-<div class="chest-tier-body" id="displayChest10Desc"></div>
-</label>
-<label class="chest-tier-card chest-silver" id="cardCrate2">
-<div class="chest-tier-head">
-<span><input type="radio" name="holdoutCrateTier" value="2" onchange="recalculateHoldout()"> <span id="displayChest12Title">2 OF 3 XP CRATES CLAIMED</span></span>
-<span id="badgeCrate2Val">+2,000 XP / Base</span>
-</div>
-<div class="chest-tier-body" id="displayChest12Desc"></div>
-</label>
-<label class="chest-tier-card chest-bronze" id="cardCrate1">
-<div class="chest-tier-head">
-<span><input type="radio" name="holdoutCrateTier" value="1" onchange="recalculateHoldout()"> <span id="displayChest15Title">1 OF 3 XP CRATES CLAIMED</span></span>
-<span id="badgeCrate1Val">+1,000 XP / Base</span>
-</div>
-<div class="chest-tier-body" id="displayChest15Desc"></div>
-</label>
-<label class="chest-tier-card chest-none" id="cardCrate0">
-<div class="chest-tier-head">
-<span><input type="radio" name="holdoutCrateTier" value="0" onchange="recalculateHoldout()"> <span id="displayChest20Title">NO XP CRATES (SURVIVAL ONLY)</span></span>
-<span id="badgeCrate0Val">+0 XP / Base</span>
-</div>
-<div class="chest-tier-body" id="displayChest20Desc"></div>
-</label>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- ==================== END BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05) ==================== -->
-<!-- ==================== START BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
-<!-- SECTION 06: INTEGRATED HOLDOUT STORE INVENTORY & INTERACTIVE CALCULATOR -->
-<section class="dossier-section" id="integratedStoreCalcSection">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarStoreTitle">HOLDOUT STORE INVENTORY &amp; INTERACTIVE CALCULATOR</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarStoreSub">Hover Any Unit for 4:5 Thumbnail • Click to Open In-Page Overlay</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<!-- Calculator Save / Load / Reset Bar -->
-<div class="calc-toolbar">
-<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-<span style="font-family: 'Arial Black', sans-serif; font-size: 13px; color: var(--accent-green); text-transform: uppercase;">🧮 LIVE HOLDOUT REQUISITION CALCULATOR</span>
-<span id="calcStatusToast" style="font-family: monospace; font-size: 12px; color: var(--text-gold); font-weight: 800;"></span>
-</div>
-<div style="display: flex; gap: 8px; flex-wrap: wrap;">
-<button type="button" class="btn-calc-action btn-cyan" onclick="exportHoldoutCalcJson()">💾 Save Settings (.JSON)</button>
-<button type="button" class="btn-calc-action" onclick="document.getElementById('holdoutCalcFileInput').click()">📂 Load Settings (.JSON)</button>
-<button type="button" class="btn-calc-action btn-gold" onclick="resetHoldoutCalcToDefault()">↺ Reset to Default</button>
-<input type="file" id="holdoutCalcFileInput" accept=".json" style="display: none;" onchange="importHoldoutCalcJson(event)">
-</div>
-</div>
-<!-- 4-Card Live HUD Summary -->
-<div class="calc-hud-grid">
-<div class="calc-stat-card" style="--stat-accent: var(--accent-green);">
-<div class="calc-stat-lbl">Remaining XP Needed</div>
-<div class="calc-stat-val" id="hudRemainingXp">600,000</div>
-<div class="calc-stat-sub" id="hudTotalGoalSub">Selected Store Goal: 600,000 XP</div>
-</div>
-<div class="calc-stat-card" style="--stat-accent: var(--text-cyan);">
-<div class="calc-stat-lbl" id="hudActiveTrackLbl">Active Mode (4-Base Gauntlet)</div>
-<div class="calc-stat-val" id="hudActiveTrackXp">62,000 XP</div>
-<div class="calc-stat-sub" id="hudActiveMultSub">XP Crates: 3 / Base (+4,000 XP)</div>
-</div>
-<div class="calc-stat-card" style="--stat-accent: var(--text-gold);">
-<div class="calc-stat-lbl">Total Runs Needed</div>
-<div class="calc-stat-val" id="hudTotalRuns">10</div>
-<div class="calc-stat-sub" id="hudAltTrackRunsSub">3-Base Track Alt: 15 runs</div>
-</div>
-<div class="calc-stat-card" style="--stat-accent: var(--text-orange);">
-<div class="calc-stat-lbl" id="hudDailyPaceLbl">Daily Run Pace (4 Days)</div>
-<div class="calc-stat-val" id="hudDailyPace">2.5 / Day</div>
-<div class="calc-stat-sub" id="hudDailyXpSub">150,000 XP / day (4d)</div>
-</div>
-</div>
-<!-- Current Banked XP & Progress Bar -->
-<div class="calc-bank-strip">
-<div class="calc-bank-row">
-<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-<span style="font-family: monospace; font-size: 12px; font-weight: 900; color: var(--text-gold); text-transform: uppercase;">⚡ Current Event XP Banked:</span>
-<input type="number" id="calcBankedXpInput" min="0" step="1000" value="0" oninput="recalculateHoldout()" style="background: #050806; border: 1px solid var(--text-gold); color: #fff; font-family: monospace; font-weight: 900; padding: 5px 8px; width: 135px; text-align: right; border-radius: 3px;">
-<button type="button" class="btn-calc-action btn-gold" onclick="logOneCompletedHoldoutRun()">+1 Completed Run (<span id="btnLogRunXp">+62,000</span>)</button>
-<button type="button" class="btn-calc-action" onclick="document.getElementById('calcBankedXpInput').value=0; recalculateHoldout();">Clear Bank</button>
-</div>
-<span id="calcProgressText" style="font-family: monospace; font-size: 12px; font-weight: 800; color: var(--text-cyan);">0% OF GOAL COMPLETED (0 / 600,000 XP)</span>
-</div>
-<div class="calc-progress-track">
-<div class="calc-progress-fill" id="calcProgressFill" style="width: 0%;"></div>
-</div>
-</div>
-<!-- Dynamic Additive Quick Filter Add-On Pills -->
-<div class="calc-presets-bar" id="dynamicAddonPillsBar"></div>
-<!-- Interactive Event Store Table -->
-<div style="overflow-x: auto;">
-<table class="data-table">
-<thead>
-<tr>
-<th style="width: 46px; text-align: center;">Use</th>
-<th style="text-align: left; width: 44%;">Item Designation (Hover for Thumbnail • Click for Overlay)</th>
-<th style="text-align: center; width: 20%;">Qty / Max Limit</th>
-<th style="text-align: right; width: 15%;">XP Cost</th>
-<th style="text-align: right; width: 15%;">Needed XP</th>
-</tr>
-</thead>
-<tbody id="holdoutStoreTbody"></tbody>
-<tfoot>
-<tr style="background: #070c09; font-weight: 900; border-top: 2px solid var(--border-dark);">
-<td colspan="3" style="text-align: right; font-family: monospace; color: var(--text-muted);">FULL STORE VALUE: <span id="storeFullValueTotal" style="color: #ffffff;">1,990,000</span> XP</td>
-<td style="text-align: right; font-family: monospace; color: var(--text-gold);">SELECTED GOAL:</td>
-<td id="storeSelectedGoalTotal" style="text-align: right; font-family: monospace; color: var(--accent-green); font-size: 15.5px;">600,000</td>
-</tr>
-</tfoot>
-</table>
-</div>
-</div>
-</section>
-<!-- SECTION 07: FEATURED UNITS IN THIS HOLDOUT -->
-<section class="dossier-section" id="secNewUnits">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarNewUnitsTitle">FEATURED UNITS IN THIS HOLDOUT</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarNewUnitsSub">Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="unit-gallery-dynamic" id="newUnitsGalleryGrid"></div>
-</div>
-</section>
-<!-- SECTION 08: WARPAINT VISUAL RECON GALLERY -->
-<section class="dossier-section" id="secUpdatedUnits">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarUpdatedUnitsTitle">WARPAINT VISUAL RECON</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarUpdatedUnitsSub">Featured Store Warpaint Schemes • Click Any Card to Inspect</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="unit-gallery-dynamic" id="updatedUnitsGalleryGrid"></div>
-</div>
-</section>
-<!-- SECTION 09: TACTICAL CHALLENGES, CRATES & BACKUP REINFORCEMENTS (REPLACES ENEMY FORCES) -->
-<section class="dossier-section" id="secEnemyForces">
-<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
-<span id="displayBarEnemyTitle">TACTICAL CHALLENGES &amp; FIELD CRATES RECON</span>
-<div class="section-header-right">
-<span class="subtext" id="displayBarEnemySub">Holdout Gauntlet Mechanics, Time-Limited XP Crates &amp; Backup Reinforcements</span>
-<span class="section-min-arrow">▼</span>
-</div>
-</div>
-<div class="section-content-wrap">
-<div class="unit-gallery-4col" id="enemyForcesGalleryGrid"></div>
-</div>
-</section>
-<!-- USE IT OR LOSE IT AT THE VERY BOTTOM -->
-<div class="use-or-lose-bottom-banner" id="secUseOrLoseBanner">
-<div style="display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap;">
-<span id="displayWarningLeadText">⚠️ "USE IT OR LOSE IT" GRACE PERIOD IS ONLY 24 HOURS!</span>
-</div>
-PLEASE REDEEM ALL <span id="displayWarningEventName">HOLDOUT</span> XP PRIZES BY <span id="displayAlertDeadline" style="color: #ffffff; text-decoration: underline;">THURSDAY, OCTOBER 14, 2026 @ 10:00 AM PDT</span>.
-</div>
-</div>
-</div><!-- End Self-Contained Scrolling Viewport -->
-<!-- Floating Quick-Return Rail -->
-<div class="side-quick-rail">
-<button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('integratedStoreCalcSection')" title="Jump to Store & Calculator">🧮 CALC</button>
-<button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
-</div>
-</div>
-</div>
-<!-- ==================== END BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09) ==================== -->
-<!-- ==================== START BLOCK 5: JAVASCRIPT INLINE STUDIO & HOLDOUT CALCULATOR ENGINE (v10.2-HOLDOUT-STUDIO) ==================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<div class="dossier-card">
+  <div class="locked-top-hud">
+    <div class="classification-bar">
+      <span class="class-bar-corner-stamp">NOV 2026</span>
+      <span>PRE-RELEASE STANDBY // HOLDOUT TACTICAL BRIEF</span>
+      <span class="status-pill-right">⏳ AWAITING KIXEYE DATA</span>
+    </div>
+  </div>
+
+  <header class="event-header">
+    <div class="header-left-wrap">
+      <a class="header-logo-link" href="./hub-home.html" title="Return to [-WTR-] Data Hub Home">
+        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem" class="header-logo-img">
+      </a>
+      <div>
+        <div class="event-sub-tag">[-WTR-] DATA HUB | NOVEMBER 2026 EVENT SCHEDULE</div>
+        <h1 class="event-main-title">HOLDOUT</h1>
+        <span class="event-subtitle-badge">📡 PRE-RELEASE PLACEHOLDER BRIEF</span>
+      </div>
+    </div>
+
+    <div class="event-meta-box">
+      <div class="meta-line">
+        <strong style="color: var(--text-cyan);">Starts:</strong>
+        <span>FRI NOV 13, 2026 @ 10:00 AM PST</span>
+      </div>
+      <div class="meta-line">
+        <strong style="color: var(--text-gold);">Ends:</strong>
+        <span>TUE NOV 17, 2026 @ 10:00 AM PST</span>
+      </div>
+      <div class="meta-line">
+        <strong style="color: var(--text-orange);">Store Closes:</strong>
+        <span>N/A (CLAIM BY EVENT END)</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-body">
+    <div class="countdown-banner">
+      <div class="countdown-label-group">
+        <span class="countdown-eyebrow" id="countdownStatusLabel">⏱️ COUNTDOWN TO HOLDOUT DEPLOYMENT</span>
+        <span class="countdown-sub">Estimated Kixeye Release Notes Window: <strong style="color:#fff;">Tue Nov 10 – Wed Nov 11, 2026</strong></span>
+      </div>
+      <div class="countdown-clock" id="liveEventCountdown">--d --h --m --s</div>
+    </div>
+
+    <div class="prerelease-notice-card">
+      <div class="notice-header">📡 OFFICIAL KIXEYE INTEL PENDING</div>
+      <div class="notice-statement">
+        Event details, featured store items, and target XP tables normally arrive <strong>2–3 days before the event starts</strong>, with few exceptions.
+      </div>
+      <p class="notice-details">
+        The dates and times above are confirmed from the official <strong>November 2026 War Commander Events Calendar</strong>. As soon as Kixeye publishes the official Holdout briefing, this placeholder page will be replaced with the full interactive WatchToweR brief:
+      </p>
+
+      <div class="what-to-expect-grid">
+        <div class="expect-item">
+          <h4>01 // Situation Report</h4>
+          <p>Full Holdout gauntlet rules, wave mechanics, and survival regulations.</p>
+        </div>
+        <div class="expect-item">
+          <h4>02 // Base &amp; Crate XP Matrix</h4>
+          <p>Standard 3-Base vs. 4-Base Gauntlet track XP breakdowns and time-limited crate yields.</p>
+        </div>
+        <div class="expect-item">
+          <h4>03 // Interactive Store Calculator</h4>
+          <p>Full November Holdout store pricing, unit/tech unlocks, and run planner.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-links-bar">
+      <a class="action-link-btn gold" href="./vault/2026-oct-holdout-brief.html">📂 View Oct 2026 Holdout Brief (Reference)</a>
+      <a class="action-link-btn" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/" target="_blank" rel="noopener noreferrer">📄 Kixeye Help Center ↗</a>
+      <a class="action-link-btn" href="https://www.youtube.com/results?search_query=War+Commander+Holdout+%22Project_d88%22&sp=EgIIAw%253D%253D" target="_blank" rel="noopener noreferrer">▶ Holdout YouTube Guides ↗</a>
+    </div>
+  </div>
+</div>
+
 <script>
-const WTR_DOSSIER_RELEASE = "v10.2-HOLDOUT-STUDIO (2026-11-04)";
-const MASTER_STORAGE_KEY = "wtr_holdout_master_studio_v10_2";
-const PLAYER_CALC_STORAGE_KEY = "wtr_holdout_nov2026_player_v10_2";
-const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
-const MASTER_DB_BASE_URL = "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs";
-const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
-const SHEET_MASTER_GID = "444355456";
-let masterFileHandle = null;
-let masterDbUnitsCache = [];
-let storeState = [];
-const FALLBACK_UNIT_IMAGES = {
-"DUTCH": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/21f8cdae-2bad-4d7c-8554-28b21e160b76",
-"DYAD": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/af1738c0-be86-4198-a17c-a8171783c5ad",
-"MYRMIDON": "https://lh3.googleusercontent.com/d/1P-pS2xW9u0z2K6c9S4jT3_f1_X9oD9N5",
-"CASTOR & POLLUX": "https://lh3.googleusercontent.com/d/1C4sT0rP0llUxW4rC0mm4nd3r",
-"WANDERER KABUTO": "https://share1.cloudhq-mkt3.net/7b6131e2663097.png",
-"KABUTO": "https://share1.cloudhq-mkt3.net/7b6131e2663097.png",
-"METEOR": "https://share1.cloudhq-mkt3.net/7132bb2b3795de.jpeg",
-"METATRON": "https://share1.cloudhq-mkt3.net/7b8fc98b8803c1.jpeg",
-"WARRIOR": "https://share1.cloudhq-mkt3.net/9494a18919c746.jpeg",
-"MACEDON": "https://share1.cloudhq-mkt3.net/4500eed13a5b45.jpeg"
-};
-const defaultMasterState = {
-"savedAt": 1793750000000,
-"startCollapsedArchive": false,
-"showVideo": true,
-"showSitrep": true,
-"showFeatured": true,
-"showTracks": true,
-"showStore": true,
-"showNewUnits": true,
-"showUpdatedUnits": true,
-"showEnemyForces": true,
-"showWarning": true,
-"showSitrepImg": true,
-"sitrepImgMode": "MANUAL",
-"sitrepImgWidthPct": 42,
-"sitrepImgMaxH": 600,
-"showSitrepQuote": true,
-"showSitrepBody": true,
-"cornerStamp": "NOV 2026",
-"mainTitle": "HOLDOUT",
-"classBar": "UNCLASSIFIED // HOLDOUT TACTICAL BRIEF",
-"headerPrefix": "[-WTR-] DATA HUB",
-"sourceLinkLabel": "Data Source ↗",
-"calcJumpLabel": "Interactive Store Calculator ↓",
-"wtrLogoImg": "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
-"wtrLogoHref": "https://sites.google.com/view/watchtower-data-hub/home",
-"schedStartLabel": "Starts:",
-"schedStart": "THU OCT 9, 2026 @ 10:00 AM PDT",
-"schedEndLabel": "Ends:",
-"schedEnd": "WED OCT 13, 2026 @ 10:00 AM PDT",
-"schedStoreLabel": "Store Closes:",
-"schedStore": "THU OCT 14, 2026 @ 10:00 AM PDT",
-"warningLeadText": "⚠️ \"USE IT OR LOSE IT\" GRACE PERIOD IS ONLY 24 HOURS!",
-"alertDeadline": "THURSDAY, OCTOBER 14, 2026 @ 10:00 AM PDT",
-"eventDays": 4,
-"vid1Title": "Top Tier Guides",
-"vid1Desc": "Actionable, zero-fluff content featuring clear step-by-step breakdowns covering Holdout unit compositions, crate runner positions, and survival strategies.",
-"vid1BtnText": "▶ Top Tier YouTube Videos",
-"vidTopTier": "https://www.youtube.com/results?search_query=War+Commander+Holdout+%22Project_d88%22&sp=EgIIAw%253D%253D",
-"vid1Note": "**Note:** Quality videos take time to produce. If you don't see any content listed right away, please check back later.",
-"vid2Title": "Watch Me Play",
-"vid2Desc": "Casual gameplay runs and general Holdout gauntlet playthrough recordings set to background music from community creators.",
-"vid2BtnText": "▶ Watch Me Play Videos",
-"vidWatchMe": "https://www.youtube.com/results?search_query=War+Commander+Holdout+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&sp=EgIIAw%253D%253D",
-"vid2Note": "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
-"sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1039-holdout---october-2026/",
-"tab01Label": "TOP",
-"tab02Label": "VIDEO RECON",
-"tab03Label": "SITREP",
-"tab04Label": "FEATURED",
-"tab05Label": "BASE & CRATES",
-"tab06Label": "🧮 STORE & CALC",
-"tab07Label": "FEATURED UNITS",
-"tab08Label": "WARPAINT RECON",
-"tab09Label": "CHALLENGES",
-"barVideoTitle": "VIDEO RECON & GUIDES",
-"barVideoSub": "YouTube Tactical Search (Direct Pop-Out)",
-"barSitrepTitle": "SITUATION REPORT & COMBAT REGULATIONS",
-"barSitrepSub": "Operational Intelligence & Gauntlet Rules",
-"barFeaturedTitle": "FEATURED ITEMS",
-"barFeaturedSub": "Holdout Store Highlights",
-"barTracksTitle": "BASE PROGRESSION & XP CRATE YIELD MATRIX",
-"barTracksSub": "Select Active Gauntlet Mode, Bases & Time-Limited XP Crates Claimed",
-"barStoreTitle": "HOLDOUT STORE INVENTORY & INTERACTIVE CALCULATOR",
-"barStoreSub": "Hover Any Unit for 4:5 Thumbnail • Click to Open In-Page Overlay",
-"barNewUnitsTitle": "FEATURED UNITS IN THIS HOLDOUT",
-"barNewUnitsSub": "Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay",
-"barUpdatedUnitsTitle": "WARPAINT VISUAL RECON",
-"barUpdatedUnitsSub": "Featured Store Warpaint Schemes • Click Any Card to Inspect",
-"barEnemyTitle": "TACTICAL CHALLENGES & FIELD CRATES RECON",
-"barEnemySub": "Holdout Gauntlet Mechanics, Time-Limited XP Crates & Backup Reinforcements",
-"sitrepImgUrl": "https://share1.cloudhq-mkt3.net/a621069148c11d.png",
-"sitrepLead": "**Holdout** is a high-intensity defensive survival gauntlet where Commanders deploy forces into fortified sectors and hold the line against continuous waves of incoming enemy assaults.  Unlike standard base attacks, battles conclude only when all enemy forces are exhausted—and **partial progression credit is disabled**.",
-"sitrepQuote": "“Stand your ground, secure the Backup Reinforcements, and intercept every time-limited XP Crate before it self-destructs—survival to the final wave is the only path to victory.”",
-"sitrepBody": "Progress sequentially through **Base I (Standard)**, **Base II (Medium)**, and **Base III (Hard)** to unlock the **Bonus Gauntlet Base (Veteran)** and reset your main track for free.  Players start with **3 Free Restart Tokens** (+1 regenerated every 15 minutes up to 3 max).  Use the **Built-In Holdout Store & Crate Calculator** below to configure your exact base & crate yields and plan your store requisitions.",
-"incTitle": "Standard 3-Base Holdout Track (Bases I–III)",
-"incDesc": "Sequential survival track (**Base I → Base II → Base III**).  Completing Base III awards a **random Logistic cache** and resets the 3-base track for free.  Collecting all 3 XP Crates per base adds **+4,000 XP** per target (**42,000 XP / Full 3-Base Run**).",
-"incTableHeader": "Holdout Target",
-"showIncB1": true,
-"incB1Label": "Base I (Standard Difficulty)",
-"incB1Xp": 10000,
-"showIncB2": true,
-"incB2Label": "Base II (Medium • Unlocked after Base I)",
-"incB2Xp": 10000,
-"showIncB3": true,
-"incB3Label": "Base III (Hard • +1 Random Logistic)",
-"incB3Xp": 10000,
-"tacTitle": "Full 4-Base Gauntlet Run (Bases I–III + Bonus Base)",
-"tacDesc": "Completing Bases I, II, and III unlocks the **Veteran Bonus Base** (**16,000 Base XP + 4,000 Crate XP = 20,000 XP**).  Running all 4 bases with all crates yields **==62,000 XP per Full Gauntlet Cycle==**.",
-"showBonusBase": true,
-"bonusBaseLabel": "Bonus Base (Veteran • Unlocked after Base III)",
-"bonusBaseXp": 16000,
-"crate1Xp": 1000,
-"crate2Xp": 1000,
-"crate3Xp": 2000,
-"pgTitle": "Time-Limited XP Crates & Per-Base Collection Tier",
-"pgRightSub": "SELECT AVERAGE XP CRATES CLAIMED PER BASE",
-"pgDesc": "During each Holdout battle, **3 time-limited XP Crates** spawn briefly between assault waves (**Crate 1: +1,000 XP**, **Crate 2: +1,000 XP**, **Crate 3: +2,000 XP** = **+4,000 XP per base**).  Position a ground unit directly over each crate before it self-destructs to claim the bonus XP.",
-"chest10Title": "ALL 3 XP CRATES CLAIMED (RECOMMENDED)",
-"chest10Desc": "**+4,000 Crate XP / Base** (Crate 1: 1,000 + Crate 2: 1,000 + Crate 3: 2,000 XP).",
-"chest12Title": "2 OF 3 XP CRATES CLAIMED",
-"chest12Desc": "**+2,000 Crate XP / Base** (Crate 1: 1,000 + Crate 2: 1,000 XP).",
-"chest15Title": "1 OF 3 XP CRATES CLAIMED",
-"chest15Desc": "**+1,000 Crate XP / Base** (First wave XP Crate only).",
-"chest20Title": "NO XP CRATES (SURVIVAL ONLY)",
-"chest20Desc": "**+0 Crate XP / Base** (Base survival completion payout only).",
-"featuredItemsText": [
-"Myrmidon Upgrade Token (10x @ 30,000 XP)",
-"Dutch Upgrade Token (10x @ 30,000 XP)",
-"Evo Tech: DUTCH - Pirate's Doctrine",
-"Ability Tech: DUTCH - Dead Man's Hand",
-"Dyad Upgrade Token (10x @ 30,000 XP)",
-"Quantum Twins Prototype / Standard / Elite",
-"Dyad Red / Blue / Gold Warpaints",
-"Castor & Pollux Gold Warpaint",
-"Meteor Storm / Warrior / Metatron / Macedon Warpaints",
-"Sentinels Devotion (Wanderer Kabuto)",
-"Evo Tech for Wanderer Kabuto",
-"Zombie Mine Unlock"
-].join("\n"),
-"storeCatalog": [
-{ "name": "Myrmidon Upgrade Token", "maxLimit": 10, "cost": 30000, "costLabel": "30,000 / Each", "unit": "MYRMIDON", "defaultChecked": true },
-{ "name": "Dutch Upgrade Token", "maxLimit": 10, "cost": 30000, "costLabel": "30,000 / Each", "unit": "DUTCH", "defaultChecked": true },
-{ "name": "Evo Tech: DUTCH - Pirate's Doctrine", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "DUTCH", "defaultChecked": false },
-{ "name": "Ability Tech: DUTCH - Dead Man's Hand", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "DUTCH", "defaultChecked": false },
-{ "name": "Dyad Upgrade Token", "maxLimit": 10, "cost": 30000, "costLabel": "30,000 / Each", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Quantum Twins Prototype", "maxLimit": 1, "cost": 25000, "costLabel": "25,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Quantum Twins Standard", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Quantum Twins Elite", "maxLimit": 1, "cost": 75000, "costLabel": "75,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Dyad Red Warpaint", "maxLimit": 1, "cost": 35000, "costLabel": "35,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Dyad Blue Warpaint", "maxLimit": 1, "cost": 35000, "costLabel": "35,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Dyad Gold Warpaint", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "DYAD", "defaultChecked": false },
-{ "name": "Castor & Pollux Gold Warpaint", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "CASTOR & POLLUX", "defaultChecked": false },
-{ "name": "Meteor Storm Warpaints (1-3)", "maxLimit": 3, "cost": 75000, "costLabel": "75,000 / Each", "unit": "METEOR", "defaultChecked": false },
-{ "name": "Meteor Storm Warrior Warpaint", "maxLimit": 1, "cost": 90000, "costLabel": "90,000", "unit": "WARRIOR", "defaultChecked": false },
-{ "name": "Meteor Storm Metatron Warpaint", "maxLimit": 1, "cost": 90000, "costLabel": "90,000", "unit": "METATRON", "defaultChecked": false },
-{ "name": "Meteor Storm Macedon Warpaint", "maxLimit": 1, "cost": 90000, "costLabel": "90,000", "unit": "MACEDON", "defaultChecked": false },
-{ "name": "Sentinels Devotion (Wanderer Kabuto)", "maxLimit": 27, "cost": 15000, "costLabel": "15,000 / Each", "unit": "WANDERER KABUTO", "defaultChecked": false },
-{ "name": "Evo Tech for Wanderer Kabuto", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "WANDERER KABUTO", "defaultChecked": false },
-{ "name": "Wanderer Kabuto Gold Warpaint", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "WANDERER KABUTO", "defaultChecked": false },
-{ "name": "Zombie Mine Unlock", "maxLimit": 1, "cost": 50000, "costLabel": "50,000", "unit": "", "defaultChecked": false }
-],
-"newUnitsCards": [
-{ "order": 1, "label": "DUTCH", "linkedUnit": "DUTCH", "customImgUrl": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/21f8cdae-2bad-4d7c-8554-28b21e160b76" },
-{ "order": 2, "label": "DYAD", "linkedUnit": "DYAD", "customImgUrl": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/af1738c0-be86-4198-a17c-a8171783c5ad" },
-{ "order": 3, "label": "MYRMIDON", "linkedUnit": "MYRMIDON", "customImgUrl": "" },
-{ "order": 4, "label": "CASTOR & POLLUX", "linkedUnit": "CASTOR & POLLUX", "customImgUrl": "" }
-],
-"updatedUnitsCards": [
-{ "order": 1, "label": "METEOR WARPAINTS", "linkedUnit": "METEOR", "customImgUrl": "https://share1.cloudhq-mkt3.net/7132bb2b3795de.jpeg" },
-{ "order": 2, "label": "METATRON WARPAINT", "linkedUnit": "METATRON", "customImgUrl": "https://share1.cloudhq-mkt3.net/7b8fc98b8803c1.jpeg" },
-{ "order": 3, "label": "WARRIOR WARPAINT", "linkedUnit": "WARRIOR", "customImgUrl": "https://share1.cloudhq-mkt3.net/9494a18919c746.jpeg" },
-{ "order": 4, "label": "MACEDON WARPAINT", "linkedUnit": "MACEDON", "customImgUrl": "https://share1.cloudhq-mkt3.net/4500eed13a5b45.jpeg" }
-],
-"enemyForcesCards": [
-{
-"order": 1,
-"name": "CONTINUOUS GAUNTLET ASSAULTS",
-"linkedUnit": "",
-"hvtBadge": "~ NO WAVE PARTITIONS ~",
-"desc": "Unlike Invasion, Holdout battles are not divided into discrete waves. Enemy forces assault continuously with short intermittent gaps until all attackers are exhausted.",
-"imgUrl": "https://share1.cloudhq-mkt3.net/a621069148c11d.png"
-},
-{
-"order": 2,
-"name": "ALL-OR-NOTHING SURVIVAL",
-"linkedUnit": "",
-"hvtBadge": "~ ZERO PARTIAL CREDIT ~",
-"desc": "Partial progression credit and UI pips are disabled. Commanders must survive through the entire gauntlet to claim Base XP and Crate XP rewards.",
-"imgUrl": "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
-},
-{
-"order": 3,
-"name": "TIME-LIMITED XP CRATES",
-"linkedUnit": "",
-"hvtBadge": "~ +4,000 XP / BASE ~",
-"desc": "Three time-limited XP Crates (1,000 + 1,000 + 2,000 XP) manifest briefly between waves and self-destruct if not claimed by standing a ground unit over them.",
-"imgUrl": "https://share1.cloudhq-mkt3.net/a621069148c11d.png"
-},
-{
-"order": 4,
-"name": "BACKUP REINFORCEMENT CRATES",
-"linkedUnit": "",
-"hvtBadge": "~ ALLIED REINFORCEMENTS ~",
-"desc": "Unlock early in the base for allied reinforcement squads: Moonskaters + Marina, Pioneers + Kodiak, Goliaths + Kabuto, or Sirens + Orpheus.",
-"imgUrl": "https://share1.cloudhq-mkt3.net/7b6131e2663097.png"
-}
-]
-};
-let masterState = JSON.parse(JSON.stringify(defaultMasterState));
-function escapeHtml(str) {
-return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-function formatDoubleSpaceLines(str) {
-let escaped = escapeHtml(str);
-escaped = escaped
-.replace(/&lt;(\/?)(b|strong)&gt;/gi, '<$1strong>')
-.replace(/&lt;(\/?)(i|em)&gt;/gi, '<$1em>')
-.replace(/&lt;br\s*\/?&gt;/gi, '<span class="sentence-line-break"></span>');
-escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#ffffff; font-weight:900;">$1</strong>');
-escaped = escaped.replace(/==(.+?)==/g, '<strong style="color:var(--text-gold); font-weight:900;">$1</strong>');
-escaped = escaped.replace(/\+\+(.+?)\+\+/g, '<strong style="color:var(--accent-green); font-weight:900;">$1</strong>');
-return escaped
-.replace(/\r?\n/g, '<span class="sentence-line-break"></span>')
-.replace(/ {2,}/g, '<span class="sentence-line-break"></span>');
-}
-document.addEventListener("keydown", function(e) {
-if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
-const el = document.activeElement;
-if (!el || (el.tagName !== "TEXTAREA" && el.tagName !== "INPUT")) return;
-if (typeof el.selectionStart !== "number") return;
-e.preventDefault();
-const start = el.selectionStart;
-const end = el.selectionEnd;
-const val = el.value;
-const selected = val.substring(start, end);
-if (selected.startsWith("**") && selected.endsWith("**") && selected.length >= 4) {
-el.value = val.substring(0, start) + selected.slice(2, -2) + val.substring(end);
-el.setSelectionRange(start, end - 4);
-} else {
-const replacement = `**${selected || "bold text"}**`;
-el.value = val.substring(0, start) + replacement + val.substring(end);
-el.setSelectionRange(start + 2, start + 2 + (selected.length || 9));
-}
-el.dispatchEvent(new Event("input", { bubbles: true }));
-}
-});
-function safeGetStorage(key) {
-try { return localStorage.getItem(key); } catch (e) { return null; }
-}
-function safeSetStorage(key, val) {
-try { localStorage.setItem(key, val); } catch (e) {}
-}
-function normalizeUnitKey(name) {
-return String(name || "").toUpperCase().replace(/\+/g, "&").replace(/\s+/g, " ").trim();
-}
-function formatImageUrl(u) {
-if (!u) return "";
-let c = String(u).trim().replace(/^\x27/, "");
-const formulaMatch = c.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
-if (formulaMatch && formulaMatch[1]) c = formulaMatch[1].trim();
-const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
-return (m && m[1] && !c.startsWith("data:")) ? ("https://lh3.googleusercontent.com/d/" + m[1]) : c;
-}
-function toggleInlineEditor(editorId, shouldOpen) {
-const el = document.getElementById(editorId);
-if (!el) return;
-if (shouldOpen === undefined) {
-el.classList.toggle("open");
-} else {
-el.classList.toggle("open", Boolean(shouldOpen));
-}
-const parentSec = el.closest(".dossier-section");
-if (parentSec && parentSec.classList.contains("section-minimized") && el.classList.contains("open")) {
-parentSec.classList.remove("section-minimized");
-const arrow = parentSec.querySelector(".section-min-arrow");
-if (arrow) arrow.textContent = "▼";
-}
-}
-function toggleAllInlineEditors() {
-const allEditors = Array.from(document.querySelectorAll(".inline-section-editor"));
-const anyClosed = allEditors.some(ed => !ed.classList.contains("open"));
-allEditors.forEach(ed => ed.classList.toggle("open", anyClosed));
-document.querySelectorAll(".sec-edit-pill input[type='checkbox']").forEach(chk => {
-chk.checked = anyClosed;
-});
-}
-function syncSitrepImageSizing() {
-const layoutEl = document.getElementById("sitrepContentLayout");
-const imgWrap = document.getElementById("displaySitrepImgWrap");
-const imgEl = document.getElementById("displaySitrepImg");
-const textCol = document.getElementById("displaySitrepTextCol");
-if (!layoutEl || !imgWrap || !imgEl || !textCol) return;
-if (imgWrap.style.display === "none") return;
-const mode = masterState.sitrepImgMode || "MANUAL";
-const widthPct = Math.min(65, Math.max(15, parseInt(masterState.sitrepImgWidthPct, 10) || 42));
-const maxHPx = parseInt(masterState.sitrepImgMaxH, 10) || 600;
-const lblPct = document.getElementById("lblSitrepWidthPct");
-if (lblPct) lblPct.textContent = `${widthPct}%`;
-const lblMaxH = document.getElementById("lblSitrepMaxH");
-if (lblMaxH) lblMaxH.textContent = maxHPx >= 600 ? "None" : `${maxHPx}px`;
-if (window.innerWidth <= 680) {
-imgWrap.style.width = "100%";
-imgWrap.style.maxWidth = "100%";
-imgEl.style.maxHeight = maxHPx < 600 ? `${maxHPx}px` : "none";
-return;
-}
-const totalRowWidth = layoutEl.clientWidth;
-if (!totalRowWidth || totalRowWidth <= 0) return;
-const baseTargetWidthPx = Math.floor((totalRowWidth - 20) * (widthPct / 100));
-imgWrap.style.width = `${baseTargetWidthPx}px`;
-imgWrap.style.maxWidth = `${widthPct}%`;
-imgEl.style.maxHeight = maxHPx < 600 ? `${maxHPx}px` : "none";
-}
-window.addEventListener("resize", syncSitrepImageSizing);
-function buildUnitDeepLinkUrl(unitName) {
-const clean = String(unitName || "").trim();
-if (!clean) return MASTER_DB_BASE_URL;
-return `${MASTER_DB_BASE_URL}?unit=${encodeURIComponent(clean)}#unit=${encodeURIComponent(clean)}`;
-}
-function stampUnitHandoff(unitName) {
-const clean = String(unitName || "").trim();
-if (!clean) return;
-safeSetStorage(UNIT_HANDOFF_KEY, JSON.stringify({ unit: clean, ts: Date.now() }));
-}
-function showToast(msg) {
-const el = document.getElementById("status-toast");
-if (!el) return;
-el.textContent = msg;
-clearTimeout(window._masterToastTimer);
-window._masterToastTimer = setTimeout(() => { el.textContent = ""; }, 2800);
-}
-function showCalcToast(msg) {
-const el = document.getElementById("calcStatusToast");
-if (!el) return;
-el.textContent = msg;
-clearTimeout(window._holdoutToastTimer);
-window._holdoutToastTimer = setTimeout(() => { el.textContent = ""; }, 2800);
-}
-function findUnitInMasterDb(unitName) {
-if (!unitName) return null;
-const target = normalizeUnitKey(unitName);
-return masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME) === target) ||
-masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME).includes(target) || target.includes(normalizeUnitKey(u.UNIT_NAME)));
-}
-function getUnitImageUrl(unitName, customOverride) {
-if ((customOverride || "").trim()) return formatImageUrl(customOverride);
-const rec = findUnitInMasterDb(unitName);
-if (rec && (rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL)) {
-return formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL);
-}
-const norm = normalizeUnitKey(unitName);
-return FALLBACK_UNIT_IMAGES[norm] || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
-}
-function syncStoreStateFromMasterCatalog() {
-const oldMap = {};
-storeState.forEach(s => { oldMap[s.name] = s; });
-storeState = (masterState.storeCatalog || []).map(item => {
-const baseMax = Math.max(1, parseInt(item.maxLimit, 10) || 1);
-const costNum = Math.max(0, parseInt(item.cost, 10) || 0);
-const prev = oldMap[item.name];
-return {
-name: item.name,
-baseMaxLimit: baseMax,
-maxLimit: baseMax,
-qty: prev ? Math.min(baseMax, prev.qty) : baseMax,
-cost: costNum,
-costLabel: item.costLabel || (costNum === 0 ? "FREE" : (baseMax > 1 ? `${costNum.toLocaleString()} / Each` : costNum.toLocaleString())),
-unit: (item.unit || "").trim().toUpperCase(),
-checked: prev ? prev.checked : (item.defaultChecked !== false)
-};
-});
-}
-function renderDynamicAddonPillsBar() {
-const bar = document.getElementById("dynamicAddonPillsBar");
-if (!bar) return;
-const uniqueUnits = [];
-storeState.forEach(item => {
-const u = (item.unit || "").trim().toUpperCase();
-if (u && !uniqueUnits.includes(u)) uniqueUnits.push(u);
-});
-let html = `<span style="font-family: monospace; font-size: 11px; color: var(--text-gold); font-weight: 800;">ADD-ON FILTERS (CLICK TO ADD / UNCLICK TO REMOVE):</span>`;
-uniqueUnits.forEach(u => {
-html += `<button type="button" class="preset-pill-btn" data-addon="${escapeHtml(u)}" onclick="toggleStoreAddonFilter('${escapeHtml(u)}')">➕ ${escapeHtml(u)}</button>`;
-});
-html += `
-<button type="button" class="preset-pill-btn" style="border-color: var(--text-cyan); color: var(--text-cyan);" onclick="setAllStoreItems(true)">✅ Select All</button>
-<button type="button" class="preset-pill-btn" style="border-color: var(--text-red); color: #fda4af;" onclick="setAllStoreItems(false)">⬜ Clear All</button>
-<span id="storeSelectedCounter" style="margin-left: auto; font-family: monospace; font-size: 12px; color: var(--accent-green); font-weight: 800;"></span>
-`;
-bar.innerHTML = html;
-}
-function renderHoldoutStoreTable() {
-renderDynamicAddonPillsBar();
-const tbody = document.getElementById("holdoutStoreTbody");
-if (!tbody) return;
-tbody.innerHTML = storeState.map((item, idx) => {
-const effMax = item.baseMaxLimit;
-item.maxLimit = effMax;
-if (item.qty > effMax) item.qty = effMax;
-const neededXp = item.checked ? (item.qty * item.cost) : 0;
-const unitLink = item.unit
-? `<a href="${escapeHtml(buildUnitDeepLinkUrl(item.unit))}" data-unit="${escapeHtml(item.unit)}" class="store-unit-link">■ ${escapeHtml(item.name)} <span class="img-db-badge">🗄️ ${escapeHtml(item.unit)} OVERLAY</span></a>`
-: `■ ${escapeHtml(item.name)}`;
-return `
-<tr id="storeRow-${idx}" class="${item.checked ? '' : 'unchecked-prize-row'}">
-<td style="text-align: center;">
-<input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleStoreItemCheck(${idx}, this.checked)">
-</td>
-<td>${unitLink}</td>
-<td style="text-align: center; white-space: nowrap;">
-<div class="qty-stepper">
-<button type="button" class="qty-step-btn" onclick="stepStoreItemQty(${idx}, -1)">-</button>
-<input type="number" min="0" max="${effMax}" value="${item.qty}" class="qty-input-box" oninput="setStoreItemQty(${idx}, this.value)">
-<button type="button" class="qty-step-btn" onclick="stepStoreItemQty(${idx}, 1)">+</button>
-<button type="button" class="qty-step-btn" style="width: auto; padding: 0 6px; font-size: 10px; color: var(--text-gold);" onclick="setStoreItemQty(${idx}, ${effMax})" title="Set to Max Limit (${effMax})">/${effMax}</button>
-</div>
-</td>
-<td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">${escapeHtml(item.costLabel)}</td>
-<td style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;" id="storeNeededCell-${idx}">${neededXp.toLocaleString()}</td>
-</tr>
-`;
-}).join("");
-bindUniversalLinkPreviews();
-syncAddonFilterButtonStates();
-}
-function matchesAddonKey(item, addonKey) {
-const key = String(addonKey || "").toUpperCase();
-return item.unit.toUpperCase() === key || item.name.toUpperCase().includes(key);
-}
-function toggleStoreAddonFilter(addonKey) {
-const matchingItems = storeState.filter(item => matchesAddonKey(item, addonKey));
-if (matchingItems.length === 0) return;
-const allCurrentlyChecked = matchingItems.every(item => item.checked);
-const nextState = !allCurrentlyChecked;
-matchingItems.forEach(item => {
-item.checked = nextState;
-if (nextState && item.qty === 0) item.qty = item.baseMaxLimit;
-});
-renderHoldoutStoreTable();
-recalculateHoldout();
-}
-function setAllStoreItems(shouldCheck) {
-storeState.forEach(item => {
-item.checked = shouldCheck;
-if (shouldCheck && item.qty === 0) item.qty = item.baseMaxLimit;
-});
-renderHoldoutStoreTable();
-recalculateHoldout();
-}
-function syncAddonFilterButtonStates() {
-document.querySelectorAll(".preset-pill-btn[data-addon]").forEach(btn => {
-const key = btn.getAttribute("data-addon");
-const matching = storeState.filter(item => matchesAddonKey(item, key));
-const isAllActive = matching.length > 0 && matching.every(item => item.checked);
-btn.classList.toggle("addon-active", isAllActive);
-const cleanName = btn.textContent.replace(/^[➕✅]\s*/, "");
-btn.textContent = `${isAllActive ? '✅' : '➕'} ${cleanName}`;
-});
-}
-function toggleStoreItemCheck(idx, isChecked) {
-if (!storeState[idx]) return;
-storeState[idx].checked = isChecked;
-const row = document.getElementById(`storeRow-${idx}`);
-if (row) row.classList.toggle("unchecked-prize-row", !isChecked);
-syncAddonFilterButtonStates();
-recalculateHoldout();
-}
-function stepStoreItemQty(idx, delta) {
-if (!storeState[idx]) return;
-const item = storeState[idx];
-item.qty = Math.min(item.baseMaxLimit, Math.max(0, (parseInt(item.qty, 10) || 0) + delta));
-item.checked = item.qty > 0;
-renderHoldoutStoreTable();
-recalculateHoldout();
-}
-function setStoreItemQty(idx, rawVal) {
-if (!storeState[idx]) return;
-const item = storeState[idx];
-item.qty = Math.min(item.baseMaxLimit, Math.max(0, parseInt(rawVal, 10) || 0));
-item.checked = item.qty > 0;
-const row = document.getElementById(`storeRow-${idx}`);
-if (row) row.classList.toggle("unchecked-prize-row", !item.checked);
-syncAddonFilterButtonStates();
-recalculateHoldout();
-}
-function setActiveCalcTrack(trackKey) {
-document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => {
-r.checked = (r.value === trackKey);
-});
-recalculateHoldout();
-}
-function toggleAllTrackBases(trackKey) {
-if (trackKey === "STANDARD3") {
-setActiveCalcTrack("STANDARD3");
-const activeIds = [];
-if (masterState.showIncB1 !== false) activeIds.push("chkIncB1");
-if (masterState.showIncB2 !== false) activeIds.push("chkIncB2");
-if (masterState.showIncB3 !== false) activeIds.push("chkIncB3");
-const allChecked = activeIds.every(id => document.getElementById(id)?.checked);
-activeIds.forEach(id => {
-const el = document.getElementById(id);
-if (el) el.checked = !allChecked;
-});
-} else {
-setActiveCalcTrack("GAUNTLET4");
-const activeIds = [];
-if (masterState.showIncB1 !== false) activeIds.push("chkTacB1");
-if (masterState.showIncB2 !== false) activeIds.push("chkTacB2");
-if (masterState.showIncB3 !== false) activeIds.push("chkTacB3");
-if (masterState.showBonusBase !== false) activeIds.push("chkTacBonus");
-const allChecked = activeIds.every(id => document.getElementById(id)?.checked);
-activeIds.forEach(id => {
-const el = document.getElementById(id);
-if (el) el.checked = !allChecked;
-});
-}
-recalculateHoldout();
-}
-function getSelectedCrateTier() {
-const sel = document.querySelector('input[name="holdoutCrateTier"]:checked');
-return sel ? (parseInt(sel.value, 10) ?? 3) : 3;
-}
-function getCrateXpPerBase(tier) {
-const c1 = Math.max(0, parseInt(masterState.crate1Xp, 10) || 0);
-const c2 = Math.max(0, parseInt(masterState.crate2Xp, 10) || 0);
-const c3 = Math.max(0, parseInt(masterState.crate3Xp, 10) || 0);
-if (tier >= 3) return c1 + c2 + c3;
-if (tier === 2) return c1 + c2;
-if (tier === 1) return c1;
-return 0;
-}
-function getActiveTrackSelection() {
-const sel = document.querySelector('input[name="activeCalcTrack"]:checked');
-return sel ? sel.value : "GAUNTLET4";
-}
-function computeHoldoutTrackBreakdown(crateTier) {
-const crateXp = getCrateXpPerBase(crateTier);
-const b1Xp = Math.max(0, parseInt(masterState.incB1Xp, 10) || 0);
-const b2Xp = Math.max(0, parseInt(masterState.incB2Xp, 10) || 0);
-const b3Xp = Math.max(0, parseInt(masterState.incB3Xp, 10) || 0);
-const bonusXp = Math.max(0, parseInt(masterState.bonusBaseXp, 10) || 0);
-const c1 = Math.max(0, parseInt(masterState.crate1Xp, 10) || 0);
-const c2 = Math.max(0, parseInt(masterState.crate2Xp, 10) || 0);
-const c3 = Math.max(0, parseInt(masterState.crate3Xp, 10) || 0);
-const b3El = document.getElementById("badgeCrate3Val");
-if (b3El) b3El.textContent = `+${(c1 + c2 + c3).toLocaleString()} XP / Base`;
-const b2El = document.getElementById("badgeCrate2Val");
-if (b2El) b2El.textContent = `+${(c1 + c2).toLocaleString()} XP / Base`;
-const b1El = document.getElementById("badgeCrate1Val");
-if (b1El) b1El.textContent = `+${c1.toLocaleString()} XP / Base`;
-const stdDefs = [
-{ show: masterState.showIncB1 !== false, chkId: "chkIncB1", rowId: "rowIncB1", xpId: "valIncB1Xp", crId: "valIncB1Crate", totId: "valIncB1Total", xp: b1Xp },
-{ show: masterState.showIncB2 !== false, chkId: "chkIncB2", rowId: "rowIncB2", xpId: "valIncB2Xp", crId: "valIncB2Crate", totId: "valIncB2Total", xp: b2Xp },
-{ show: masterState.showIncB3 !== false, chkId: "chkIncB3", rowId: "rowIncB3", xpId: "valIncB3Xp", crId: "valIncB3Crate", totId: "valIncB3Total", xp: b3Xp }
-];
-let stdRunXp = 0;
-stdDefs.forEach(b => {
-const rowEl = document.getElementById(b.rowId);
-if (rowEl) rowEl.style.display = b.show ? "" : "none";
-const tot = b.xp + crateXp;
-const xpEl = document.getElementById(b.xpId);
-if (xpEl) xpEl.textContent = b.xp.toLocaleString();
-const crEl = document.getElementById(b.crId);
-if (crEl) crEl.textContent = `+${crateXp.toLocaleString()}`;
-const totEl = document.getElementById(b.totId);
-if (totEl) totEl.textContent = `${tot.toLocaleString()} XP`;
-if (b.show && document.getElementById(b.chkId)?.checked) {
-stdRunXp += tot;
-}
-});
-const gauntDefs = [
-{ show: masterState.showIncB1 !== false, chkId: "chkTacB1", rowId: "rowTacB1", xpId: "valTacB1Xp", crId: "valTacB1Crate", totId: "valTacB1Total", xp: b1Xp },
-{ show: masterState.showIncB2 !== false, chkId: "chkTacB2", rowId: "rowTacB2", xpId: "valTacB2Xp", crId: "valTacB2Crate", totId: "valTacB2Total", xp: b2Xp },
-{ show: masterState.showIncB3 !== false, chkId: "chkTacB3", rowId: "rowTacB3", xpId: "valTacB3Xp", crId: "valTacB3Crate", totId: "valTacB3Total", xp: b3Xp },
-{ show: masterState.showBonusBase !== false, chkId: "chkTacBonus", rowId: "rowTacBonus", xpId: "valTacBonusXp", crId: "valTacBonusCrate", totId: "valTacBonusTotal", xp: bonusXp }
-];
-let gauntRunXp = 0;
-gauntDefs.forEach(b => {
-const rowEl = document.getElementById(b.rowId);
-if (rowEl) rowEl.style.display = b.show ? "" : "none";
-const tot = b.xp + crateXp;
-const xpEl = document.getElementById(b.xpId);
-if (xpEl) xpEl.textContent = b.xp.toLocaleString();
-const crEl = document.getElementById(b.crId);
-if (crEl) crEl.textContent = `+${crateXp.toLocaleString()}`;
-const totEl = document.getElementById(b.totId);
-if (totEl) totEl.textContent = `${tot.toLocaleString()} XP`;
-if (b.show && document.getElementById(b.chkId)?.checked) {
-gauntRunXp += tot;
-}
-});
-return { stdRunXp, gauntRunXp, crateXp };
-}
-function recalculateHoldout(skipAutoSave) {
-let fullStoreXp = 0;
-let selectedGoalXp = 0;
-let selectedCount = 0;
-const eventDays = Math.max(1, parseInt(masterState.eventDays, 10) || 4);
-storeState.forEach((item, idx) => {
-fullStoreXp += (item.baseMaxLimit * item.cost);
-const needed = item.checked ? (item.qty * item.cost) : 0;
-if (item.checked) selectedCount++;
-selectedGoalXp += needed;
-const cell = document.getElementById(`storeNeededCell-${idx}`);
-if (cell) cell.textContent = needed.toLocaleString();
-});
-const bankedXp = Math.max(0, parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0);
-const remainingXp = Math.max(0, selectedGoalXp - bankedXp);
-const pct = selectedGoalXp > 0 ? Math.min(100, Math.round((bankedXp / selectedGoalXp) * 100)) : 0;
-document.getElementById("storeFullValueTotal").textContent = fullStoreXp.toLocaleString();
-document.getElementById("storeSelectedGoalTotal").textContent = selectedGoalXp.toLocaleString();
-const counterEl = document.getElementById("storeSelectedCounter");
-if (counterEl) counterEl.textContent = `${selectedCount} / ${storeState.length} Items Selected`;
-const crateTier = getSelectedCrateTier();
-[0, 1, 2, 3].forEach(t => {
-const cEl = document.getElementById(`cardCrate${t}`);
-if (cEl) cEl.classList.toggle("active-multiplier", crateTier === t);
-});
-const { stdRunXp, gauntRunXp, crateXp } = computeHoldoutTrackBreakdown(crateTier);
-const activeTrack = getActiveTrackSelection();
-const incBox = document.getElementById("trackBlockIncursion");
-const tacBox = document.getElementById("trackBlockTactical");
-if (incBox) {
-incBox.classList.toggle("inactive-track", activeTrack !== "STANDARD3");
-incBox.classList.toggle("active-selected-track", activeTrack === "STANDARD3");
-}
-if (tacBox) {
-tacBox.classList.toggle("inactive-track", activeTrack !== "GAUNTLET4");
-tacBox.classList.toggle("active-selected-track", activeTrack === "GAUNTLET4");
-}
-const stdRuns = (stdRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / stdRunXp) : 0;
-const gauntRuns = (gauntRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / gauntRunXp) : 0;
-document.getElementById("cmpIncXp").textContent = stdRunXp.toLocaleString();
-document.getElementById("cmpIncRuns").textContent = stdRuns;
-document.getElementById("cmpIncDaily").textContent = `${(stdRuns / eventDays).toFixed(1)} / d`;
-document.getElementById("cmpTacXp").textContent = gauntRunXp.toLocaleString();
-document.getElementById("cmpTacRuns").textContent = gauntRuns;
-document.getElementById("cmpTacDaily").textContent = `${(gauntRuns / eventDays).toFixed(1)} / d`;
-const activeRunXp = activeTrack === "STANDARD3" ? stdRunXp : gauntRunXp;
-const activeRunsNeeded = activeTrack === "STANDARD3" ? stdRuns : gauntRuns;
-const altRunsNeeded = activeTrack === "STANDARD3" ? gauntRuns : stdRuns;
-const altTrackName = activeTrack === "STANDARD3" ? "4-Base Gauntlet" : "3-Base Track";
-document.getElementById("hudRemainingXp").textContent = remainingXp.toLocaleString();
-document.getElementById("hudTotalGoalSub").textContent = `Selected Store Goal: ${selectedGoalXp.toLocaleString()} XP`;
-document.getElementById("hudActiveTrackLbl").textContent = `Active Mode (${activeTrack === "STANDARD3" ? "3-Base Track" : "4-Base Gauntlet"})`;
-document.getElementById("hudActiveTrackXp").textContent = `${activeRunXp.toLocaleString()} XP`;
-document.getElementById("hudActiveMultSub").textContent = `XP Crates: ${crateTier} / Base (+${crateXp.toLocaleString()} XP)`;
-document.getElementById("hudTotalRuns").textContent = activeRunsNeeded;
-document.getElementById("hudAltTrackRunsSub").textContent = `${altTrackName} Alt: ${altRunsNeeded} runs`;
-document.getElementById("hudDailyPaceLbl").textContent = `Daily Run Pace (${eventDays} Days)`;
-document.getElementById("hudDailyPace").textContent = `${(activeRunsNeeded / eventDays).toFixed(1)} / Day`;
-document.getElementById("hudDailyXpSub").textContent = `${Math.ceil(remainingXp / eventDays).toLocaleString()} XP / day (${eventDays}d)`;
-document.getElementById("btnLogRunXp").textContent = `+${activeRunXp.toLocaleString()}`;
-document.getElementById("calcProgressText").textContent = `${pct}% OF GOAL COMPLETED (${bankedXp.toLocaleString()} / ${selectedGoalXp.toLocaleString()} XP)`;
-document.getElementById("calcProgressFill").style.width = `${pct}%`;
-if (!skipAutoSave) {
-saveHoldoutStateToBrowser();
-}
-}
-function logOneCompletedHoldoutRun() {
-const activeTrack = getActiveTrackSelection();
-const crateTier = getSelectedCrateTier();
-const { stdRunXp, gauntRunXp } = computeHoldoutTrackBreakdown(crateTier);
-const addXp = activeTrack === "STANDARD3" ? stdRunXp : gauntRunXp;
-const inp = document.getElementById("calcBankedXpInput");
-if (inp && addXp > 0) {
-inp.value = (parseInt(inp.value, 10) || 0) + addXp;
-recalculateHoldout();
-}
-}
-function renderFeaturedItemsDom() {
-const listEl = document.getElementById("displayFeaturedItemsList");
-if (!listEl) return;
-const lines = String(masterState.featuredItemsText || "").split("\n").map(l => l.trim()).filter(Boolean);
-listEl.innerHTML = lines.map(line => `<li>${formatDoubleSpaceLines(line)}</li>`).join("");
-}
-function syncFeaturedHighlightsFromStore() {
-const lines = (masterState.storeCatalog || []).map(s => s.name);
-masterState.featuredItemsText = lines.join("\n");
-const ta = document.getElementById("cfgFeaturedItemsText");
-if (ta) ta.value = masterState.featuredItemsText;
-renderFeaturedItemsDom();
-persistMasterStateToLocal();
-showToast("✅ Featured List Synced from Store!");
-}
-function buildMasterDbOptionsHtml(selectedUnit, allowEmpty = true) {
-const selNorm = normalizeUnitKey(selectedUnit);
-let html = allowEmpty ? `<option value="">-- No Unit Link --</option>` : "";
-const knownNames = masterDbUnitsCache.map(u => u.UNIT_NAME);
-if (selectedUnit && !knownNames.some(n => normalizeUnitKey(n) === selNorm)) {
-html += `<option value="${escapeHtml(selectedUnit)}" selected>🗄️ ${escapeHtml(selectedUnit)}</option>`;
-}
-masterDbUnitsCache.forEach(u => {
-const isSelected = normalizeUnitKey(u.UNIT_NAME) === selNorm;
-html += `<option value="${escapeHtml(u.UNIT_NAME)}" ${isSelected ? 'selected' : ''}>🗄️ ${escapeHtml(u.UNIT_NAME)}</option>`;
-});
-return html;
-}
-function renderUnitGalleriesDom() {
-const renderCards = (cardsArr, gridId) => {
-const gridEl = document.getElementById(gridId);
-if (!gridEl) return;
-const sorted = [...(cardsArr || [])].sort((a, b) => (parseInt(a.order, 10) || 1) - (parseInt(b.order, 10) || 1));
-gridEl.innerHTML = sorted.map(c => {
-const unitTarget = (c.linkedUnit || c.label || "UNIT").trim();
-const imgUrl = getUnitImageUrl(unitTarget, c.customImgUrl);
-return `
-<a href="${escapeHtml(buildUnitDeepLinkUrl(unitTarget))}"
-data-unit="${escapeHtml(unitTarget)}"
-data-preview-img="${escapeHtml(imgUrl)}"
-class="unit-poster-card">
-<div class="unit-poster-frame">
-<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(c.label || unitTarget)}">
-</div>
-<div class="unit-poster-title">${escapeHtml(c.label || unitTarget)}</div>
-<div class="unit-poster-sub">🖥️ CLICK FOR IN-PAGE OVERLAY</div>
-</a>
-`;
-}).join("");
-};
-renderCards(masterState.newUnitsCards, "newUnitsGalleryGrid");
-renderCards(masterState.updatedUnitsCards, "updatedUnitsGalleryGrid");
-const enemyGrid = document.getElementById("enemyForcesGalleryGrid");
-if (enemyGrid) {
-const sortedEnemy = [...(masterState.enemyForcesCards || [])].sort((a, b) => (parseInt(a.order, 10) || 1) - (parseInt(b.order, 10) || 1));
-enemyGrid.innerHTML = sortedEnemy.map(e => {
-const linkedUnit = (e.linkedUnit || "").trim();
-const imgUrl = (e.imgUrl || "").trim()
-? formatImageUrl(e.imgUrl)
-: (linkedUnit ? getUnitImageUrl(linkedUnit) : "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png");
-const displayDesc = (e.desc || "").trim();
-const displayName = (e.name || linkedUnit || "TACTICAL CHALLENGE").trim();
-const previewTitle = e.hvtBadge ? `${displayName} (${e.hvtBadge})` : displayName;
-const targetHref = linkedUnit ? buildUnitDeepLinkUrl(linkedUnit) : "javascript:void(0)";
-const dataUnitAttr = linkedUnit ? `data-unit="${escapeHtml(linkedUnit)}"` : "";
-return `
-<a href="${escapeHtml(targetHref)}"
-${dataUnitAttr}
-data-preview-title="${escapeHtml(previewTitle)}"
-data-preview-sub="${escapeHtml(displayDesc)}"
-data-preview-img="${escapeHtml(imgUrl)}"
-class="unit-poster-card challenge-card">
-<div class="unit-poster-frame">
-<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(displayName)}">
-</div>
-<div class="unit-poster-caption">
-<h4>${escapeHtml(displayName)}</h4>
-${e.hvtBadge ? `<span class="hvt-badge">${escapeHtml(e.hvtBadge)}</span>` : ""}
-<p>${formatDoubleSpaceLines(displayDesc)}</p>
-${linkedUnit ? `<div class="unit-poster-sub" style="color:var(--accent-green); margin-top:6px;">🗄️ UNIT DB: ${escapeHtml(linkedUnit)} ↗</div>` : ""}
-</div>
-</a>
-`;
-}).join("");
-}
-bindUniversalLinkPreviews();
-}
-function renderAdminStoreEditor(){} function renderAdminUnitGalleriesEditor(){} function populateMasterInputs(){}
-function applyMasterStateToDom() {
-const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v || ""; };
-const setFormattedHtml = (id, v) => { const el = document.getElementById(id); if (el) el.innerHTML = formatDoubleSpaceLines(v || ""); };
-const setHref = (id, v) => { const el = document.getElementById(id); if (el && v) el.href = v; };
-const setSecVis = (secId, tabId, pillId, show) => {
-const sec = document.getElementById(secId);
-if (sec) sec.style.display = show !== false ? "block" : "none";
-const tab = document.getElementById(tabId);
-if (tab) tab.style.display = show !== false ? "inline-flex" : "none";
-const pill = document.getElementById(pillId);
-if (pill) pill.classList.toggle("off", show === false);
-};
-setBriefCollapseState(Boolean(masterState.startCollapsedArchive), false);
-const archPill = document.getElementById("pillArchiveCollapsed");
-if (archPill) archPill.classList.toggle("off", !masterState.startCollapsedArchive);
-setSecVis("secVideoRecon", "tabBtnVideo", "pillShowVideo", masterState.showVideo);
-setSecVis("secSitrep", "tabBtnSitrep", "pillShowSitrep", masterState.showSitrep);
-setSecVis("secFeatured", "tabBtnFeatured", "pillShowFeatured", masterState.showFeatured);
-setSecVis("secMissionTracks", "tabBtnTracks", "pillShowTracks", masterState.showTracks);
-setSecVis("integratedStoreCalcSection", "tabBtnStore", "pillShowStore", masterState.showStore);
-setSecVis("secNewUnits", "tabBtnNewUnits", "pillShowNewUnits", masterState.showNewUnits);
-setSecVis("secUpdatedUnits", "tabBtnUpdatedUnits", "pillShowUpdatedUnits", masterState.showUpdatedUnits);
-setSecVis("secEnemyForces", "tabBtnEnemyForces", "pillShowEnemyForces", masterState.showEnemyForces);
-const warnBanner = document.getElementById("secUseOrLoseBanner");
-if (warnBanner) warnBanner.style.display = masterState.showWarning !== false ? "block" : "none";
-const warnPill = document.getElementById("pillShowWarning");
-if (warnPill) warnPill.classList.toggle("off", masterState.showWarning === false);
-setTxt("displayCornerStampTop", masterState.cornerStamp);
-setTxt("displayClassBarTop", masterState.classBar);
-setTxt("displayMainTitle", masterState.mainTitle);
-setTxt("displayWarningEventName", masterState.mainTitle);
-setTxt("displayHeaderPrefix", masterState.headerPrefix);
-setTxt("displaySourceLink", masterState.sourceLinkLabel);
-setTxt("displayCalcJumpLink", masterState.calcJumpLabel);
-const wtrLogoImgEl = document.getElementById("displayWtrLogoImg");
-if (wtrLogoImgEl && masterState.wtrLogoImg) wtrLogoImgEl.src = formatImageUrl(masterState.wtrLogoImg);
-setHref("wtrHomeLogoLink", masterState.wtrLogoHref);
-setTxt("displaySchedStartLabel", masterState.schedStartLabel);
-setTxt("displaySchedStart", masterState.schedStart);
-setTxt("displaySchedEndLabel", masterState.schedEndLabel);
-setTxt("displaySchedEnd", masterState.schedEnd);
-setTxt("displaySchedStoreLabel", masterState.schedStoreLabel);
-setTxt("displaySchedStore", masterState.schedStore);
-setFormattedHtml("displayWarningLeadText", masterState.warningLeadText);
-setTxt("displayAlertDeadline", masterState.alertDeadline);
-setTxt("displayTab01Label", masterState.tab01Label);
-setTxt("displayTab02Label", masterState.tab02Label);
-setTxt("displayTab03Label", masterState.tab03Label);
-setTxt("displayTab04Label", masterState.tab04Label);
-setTxt("displayTab05Label", masterState.tab05Label);
-setTxt("displayTab06Label", masterState.tab06Label);
-setTxt("displayTab07Label", masterState.tab07Label);
-setTxt("displayTab08Label", masterState.tab08Label);
-setTxt("displayTab09Label", masterState.tab09Label);
-setTxt("displayVid1Title", masterState.vid1Title);
-setFormattedHtml("displayVid1Desc", masterState.vid1Desc);
-setTxt("displayVidTopTier", masterState.vid1BtnText);
-setHref("displayVidTopTier", masterState.vidTopTier);
-setFormattedHtml("displayVid1Note", masterState.vid1Note);
-setTxt("displayVid2Title", masterState.vid2Title);
-setFormattedHtml("displayVid2Desc", masterState.vid2Desc);
-setTxt("displayVidWatchMe", masterState.vid2BtnText);
-setHref("displayVidWatchMe", masterState.vidWatchMe);
-setFormattedHtml("displayVid2Note", masterState.vid2Note);
-setHref("displaySourceLink", masterState.sourceUrl);
-setTxt("displayBarVideoTitle", masterState.barVideoTitle);
-setTxt("displayBarVideoSub", masterState.barVideoSub);
-setTxt("displayBarSitrepTitle", masterState.barSitrepTitle);
-setTxt("displayBarSitrepSub", masterState.barSitrepSub);
-setTxt("displayBarFeaturedTitle", masterState.barFeaturedTitle);
-setTxt("displayBarFeaturedSub", masterState.barFeaturedSub);
-setTxt("displayBarTracksTitle", masterState.barTracksTitle);
-setTxt("displayBarTracksSub", masterState.barTracksSub);
-setTxt("displayBarStoreTitle", masterState.barStoreTitle);
-setTxt("displayBarStoreSub", masterState.barStoreSub);
-setTxt("displayBarNewUnitsTitle", masterState.barNewUnitsTitle);
-setTxt("displayBarNewUnitsSub", masterState.barNewUnitsSub);
-setTxt("displayBarUpdatedUnitsTitle", masterState.barUpdatedUnitsTitle);
-setTxt("displayBarUpdatedUnitsSub", masterState.barUpdatedUnitsSub);
-setTxt("displayBarEnemyTitle", masterState.barEnemyTitle);
-setTxt("displayBarEnemySub", masterState.barEnemySub);
-const sitrepImgWrap = document.getElementById("displaySitrepImgWrap");
-const sitrepImgEl = document.getElementById("displaySitrepImg");
-const hasSitrepImg = masterState.showSitrepImg !== false && Boolean((masterState.sitrepImgUrl || "").trim());
-if (sitrepImgWrap) sitrepImgWrap.style.display = hasSitrepImg ? "flex" : "none";
-if (sitrepImgEl && hasSitrepImg) {
-const cleanImgSrc = formatImageUrl(masterState.sitrepImgUrl);
-if (sitrepImgEl.getAttribute("src") !== cleanImgSrc) sitrepImgEl.src = cleanImgSrc;
-}
-setFormattedHtml("displaySitrepLead", masterState.sitrepLead);
-setFormattedHtml("displaySitrepQuote", masterState.sitrepQuote);
-setFormattedHtml("displaySitrepBody", masterState.sitrepBody);
-const quoteEl = document.getElementById("displaySitrepQuote");
-if (quoteEl) {
-const showQ = masterState.showSitrepQuote !== false && Boolean((masterState.sitrepQuote || "").trim());
-quoteEl.style.display = showQ ? "block" : "none";
-}
-const bodyEl = document.getElementById("displaySitrepBody");
-if (bodyEl) {
-const showB = masterState.showSitrepBody !== false && Boolean((masterState.sitrepBody || "").trim());
-bodyEl.style.display = showB ? "block" : "none";
-}
-syncSitrepImageSizing();
-setTimeout(syncSitrepImageSizing, 50);
-setTxt("displayIncTitle", masterState.incTitle);
-setFormattedHtml("displayIncDesc", masterState.incDesc);
-setTxt("displayIncTableHeader", masterState.incTableHeader);
-setFormattedHtml("displayIncB1Label", masterState.incB1Label);
-setFormattedHtml("displayIncB2Label", masterState.incB2Label);
-setFormattedHtml("displayIncB3Label", masterState.incB3Label);
-setTxt("displayTacTitle", masterState.tacTitle);
-setFormattedHtml("displayTacDesc", masterState.tacDesc);
-setFormattedHtml("displayTacB1Label", masterState.incB1Label);
-setFormattedHtml("displayTacB2Label", masterState.incB2Label);
-setFormattedHtml("displayTacB3Label", masterState.incB3Label);
-setFormattedHtml("displayBonusBaseLabel", masterState.bonusBaseLabel);
-setTxt("displayPgTitle", masterState.pgTitle);
-setTxt("displayPgRightSub", masterState.pgRightSub);
-setFormattedHtml("displayPgDesc", masterState.pgDesc);
-setTxt("displayChest10Title", masterState.chest10Title);
-setFormattedHtml("displayChest10Desc", masterState.chest10Desc);
-setTxt("displayChest12Title", masterState.chest12Title);
-setFormattedHtml("displayChest12Desc", masterState.chest12Desc);
-setTxt("displayChest15Title", masterState.chest15Title);
-setFormattedHtml("displayChest15Desc", masterState.chest15Desc);
-setTxt("displayChest20Title", masterState.chest20Title);
-setFormattedHtml("displayChest20Desc", masterState.chest20Desc);
-renderFeaturedItemsDom();
-renderUnitGalleriesDom();
-renderHoldoutStoreTable();
-recalculateHoldout();
-}
-function syncMasterFromInputs(){} function saveAllMasterConfig(){}
-function jumpToDossierSection(sectionId, tabBtnEl) {
-const card = getBriefCardEl();
-if (card && card.classList.contains("archive-collapsed")) {
-setBriefCollapseState(false, false);
-}
-document.querySelectorAll(".file-tab-btn[data-target]").forEach(b => {
-b.classList.toggle("active-file-tab", b === tabBtnEl || b.getAttribute("data-target") === sectionId);
-});
-const viewport = document.getElementById("briefScrollViewport");
-const sec = document.getElementById(sectionId);
-if (!sec) return;
-if (sec.classList.contains("section-minimized")) {
-sec.classList.remove("section-minimized");
-const arrow = sec.querySelector(".section-min-arrow");
-if (arrow) arrow.textContent = "▼";
-}
-if (viewport && !card.classList.contains("unconstrained-height")) {
-if (sectionId === "secTopHeader") {
-viewport.scrollTo({ top: 0, behavior: "smooth" });
-} else {
-const vRect = viewport.getBoundingClientRect();
-const sRect = sec.getBoundingClientRect();
-const targetScrollTop = viewport.scrollTop + (sRect.top - vRect.top) - 10;
-viewport.scrollTo({ top: Math.max(0, targetScrollTop), behavior: "smooth" });
-}
-} else {
-sec.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-}
-function toggleViewportHeightMode() {
-const card = getBriefCardEl();
-const btn = document.getElementById("btnToggleHeightMode");
-if (!card) return;
-const isFull = card.classList.toggle("unconstrained-height");
-if (btn) {
-btn.innerHTML = isFull ? "<span>🔒 LOCK HUD</span>" : "<span>↕ FULL PAGE</span>";
-}
-setTimeout(syncSitrepImageSizing, 50);
-}
-document.getElementById("briefScrollViewport")?.addEventListener("scroll", function() {
-const viewport = this;
-const secIds = [
-"secTopHeader",
-"secVideoRecon",
-"secSitrep",
-"secFeatured",
-"secMissionTracks",
-"integratedStoreCalcSection",
-"secNewUnits",
-"secUpdatedUnits",
-"secEnemyForces"
-];
-const vTop = viewport.getBoundingClientRect().top;
-let activeId = "secTopHeader";
-for (const id of secIds) {
-const el = document.getElementById(id);
-if (!el || el.style.display === "none") continue;
-const offset = el.getBoundingClientRect().top - vTop;
-if (offset <= 80) activeId = id;
-}
-document.querySelectorAll(".file-tab-btn[data-target]").forEach(b => {
-b.classList.toggle("active-file-tab", b.getAttribute("data-target") === activeId);
-});
-});
-function toggleSectionMinimize(headerBarEl) {
-const sec = headerBarEl.closest(".dossier-section");
-if (!sec) return;
-const isMin = sec.classList.toggle("section-minimized");
-const arrow = headerBarEl.querySelector(".section-min-arrow");
-if (arrow) arrow.textContent = isMin ? "▶" : "▼";
-if (!isMin && sec.id === "secSitrep") {
-setTimeout(syncSitrepImageSizing, 40);
-}
-}
-function showHoverThumbnail(e, title, sub, imgUrl) {
-const pod = document.getElementById("wtrHoverPreviewPod");
-if (!pod) return;
-document.getElementById("hoverPodTitle").textContent = title || "WATCHTOWER PREVIEW";
-document.getElementById("hoverPodSub").textContent = sub || "CLICK TO OPEN OVERLAY";
-document.getElementById("hoverPodImg").src = imgUrl || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
-pod.classList.add("show");
-moveHoverThumbnail(e);
-}
-function moveHoverThumbnail(e) {
-const pod = document.getElementById("wtrHoverPreviewPod");
-if (!pod || !pod.classList.contains("show")) return;
-const pad = 18;
-let left = e.clientX + pad;
-let top = e.clientY + pad;
-const rect = pod.getBoundingClientRect();
-if (left + rect.width > window.innerWidth - 12) left = Math.max(10, e.clientX - rect.width - pad);
-if (top + rect.height > window.innerHeight - 12) top = Math.max(10, window.innerHeight - rect.height - 12);
-pod.style.left = `${left}px`;
-pod.style.top = `${top}px`;
-}
-function hideHoverThumbnail() {
-const pod = document.getElementById("wtrHoverPreviewPod");
-if (pod) pod.classList.remove("show");
-}
-function openUnitDossierOverlay(unitName, externalUrl, customImgOverride) {
-hideHoverThumbnail();
-const modal = document.getElementById("wtrInPageOverlayModal");
-const titleEl = document.getElementById("overlayModalTitle");
-const bodyEl = document.getElementById("overlayModalBody");
-const extBtn = document.getElementById("overlayExternalBtn");
-if (!modal || !bodyEl) return;
-stampUnitHandoff(unitName);
-const rec = findUnitInMasterDb(unitName);
-const imgUrl = getUnitImageUrl(unitName, customImgOverride);
-const targetHref = buildUnitDeepLinkUrl(unitName);
-titleEl.textContent = `🖥️ MASTER_DB UNIT DOSSIER // ${unitName.toUpperCase()}`;
-extBtn.href = targetHref;
-extBtn.style.display = "inline-flex";
-extBtn.onclick = function() { stampUnitHandoff(unitName); };
-if (rec) {
-const statPairs = [
-["Generation", "STAT_GENERATION"], ["Faction", "STAT_FACTION"], ["Type", "STAT_TYPE"],
-["Armor Type", "STAT_ARMOR_TYPE"], ["Weapon Type", "STAT_WEAPON_TYPE"], ["Targets", "STAT_TARGETS"],
-["Damage Type", "STAT_DAMAGE_TYPE"], ["Size", "STAT_SIZE"], ["Building Required", "STAT_BUILDING"],
-["HP (Lvl 1)", "STAT_HP_RANGE_1"], ["HP (Max)", "STAT_HP_RANGE_MAX"],
-["DPS (Lvl 1)", "STAT_DPS_RANGE_1"], ["DPS (Max)", "STAT_DPS_RANGE_MAX"],
-["Max Speed", "STAT_SPEED"], ["Range", "STAT_RANGE"], ["Splash", "STAT_SPLASH"]
-];
-let statsRows = "";
-statPairs.forEach(([lbl, key]) => {
-if (rec[key]) statsRows += `<tr><td class="overlay-stats-lbl">${escapeHtml(lbl)}</td><td class="overlay-stats-val">${escapeHtml(rec[key])}</td></tr>`;
-});
-let talentsHtml = "";
-if (rec.TALENT) talentsHtml += `<div style="margin-bottom:10px; padding-left:10px; border-left:2px solid var(--accent-green);">${formatDoubleSpaceLines(rec.TALENT)}</div>`;
-[1, 5, 10, 15, 20, 25, 30].forEach(lvl => {
-if (rec["TALENT_LVL_" + lvl]) {
-talentsHtml += `<div style="margin-bottom:12px;"><div style="color:var(--accent-green); font-weight:800; font-size:13px;">LEVEL ${lvl}</div><div style="padding-left:10px; border-left:2px solid #1f3b2b;">${formatDoubleSpaceLines(rec["TALENT_LVL_" + lvl])}</div></div>`;
-}
-});
-bodyEl.innerHTML = `
-<div class="overlay-unit-grid">
-<div style="display:flex; flex-direction:column; align-items:center;">
-<div class="unit-poster-frame" style="max-width:230px;"><img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(unitName)}"></div>
-<div style="margin-top:8px; font-family:monospace; color:var(--text-gold); font-weight:800;">${escapeHtml(rec.RELEASE_DATE || "ACTIVE CYCLE")}</div>
-</div>
-<div>
-<div style="font-family:'Arial Black',sans-serif; color:var(--accent-green); border-bottom:1px solid #1f3b2b; padding-bottom:6px; margin-bottom:10px;">SPECIFICATIONS</div>
-<table class="overlay-stats-table"><tbody>${statsRows || '<tr><td>Live stats synced in full MASTER_DB page.</td></tr>'}</tbody></table>
-</div>
-<div>
-<div style="font-family:'Arial Black',sans-serif; color:var(--accent-green); border-bottom:1px solid #1f3b2b; padding-bottom:6px; margin-bottom:10px;">TALENTS &amp; CAPABILITIES</div>
-${talentsHtml || '<p style="color:var(--text-muted);">Click "Open Full Page in New Tab" above for complete upgrade progression matrix.</p>'}
-</div>
-</div>
-`;
-} else {
-bodyEl.innerHTML = `
-<div style="display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; padding:12px;">
-<div class="unit-poster-frame" style="max-width:340px;"><img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(unitName)}"></div>
-<h2 style="font-family:'Arial Black',sans-serif; color:var(--accent-green);">${escapeHtml(unitName)}</h2>
-<p style="color:var(--text-main); max-width:600px;">Click <strong>"↗ Open Full Page in New Tab"</strong> in the top-right bar to view the full interactive progression table in the WatchToweR Unit Briefs Engine.</p>
-</div>
-`;
-}
-modal.classList.add("open");
-}
-function openGenericLinkOverlay(title, sub, imgUrl, href) {
-hideHoverThumbnail();
-const modal = document.getElementById("wtrInPageOverlayModal");
-const titleEl = document.getElementById("overlayModalTitle");
-const bodyEl = document.getElementById("overlayModalBody");
-const extBtn = document.getElementById("overlayExternalBtn");
-if (!modal || !bodyEl) return;
-titleEl.textContent = `🖥️ ${title || 'WATCHTOWER INTEL OVERLAY'}`;
-if (href && href !== "javascript:void(0)" && !href.startsWith("#")) {
-extBtn.href = href;
-extBtn.style.display = "inline-flex";
-extBtn.onclick = null;
-} else {
-extBtn.style.display = "none";
-}
-bodyEl.innerHTML = `
-<div style="display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; padding:14px;">
-<div style="max-width:540px; width:100%; background:#000; border:1px solid rgba(0,230,118,0.4); border-radius:4px; padding:6px;">
-<img src="${escapeHtml(formatImageUrl(imgUrl) || 'https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png')}" alt="${escapeHtml(title)}" style="width:100%; height:auto; display:block; border-radius:3px;">
-</div>
-<h2 style="font-family:'Arial Black',sans-serif; color:var(--accent-green); text-transform:uppercase;">${escapeHtml(title)}</h2>
-<p style="font-size:15px; color:var(--text-main); max-width:660px; line-height:1.55;">${formatDoubleSpaceLines(sub)}</p>
-${(href && href !== "javascript:void(0)" && !href.startsWith("#")) ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="btn-calc-action btn-gold" style="padding:10px 20px; font-size:13.5px; text-decoration:none;">↗ Launch Destination in New Tab</a>` : ''}
-</div>
-`;
-modal.classList.add("open");
-}
-function closeInPageOverlay() {
-const modal = document.getElementById("wtrInPageOverlayModal");
-if (modal) modal.classList.remove("open");
-}
-function bindUniversalLinkPreviews() {
-document.querySelectorAll("#dossier-view a").forEach(a => {
-if (
-a.id === "overlayExternalBtn" ||
-a.classList.contains("video-btn") ||
-a.getAttribute("data-no-overlay") === "true" ||
-a.getAttribute("data-bound-preview") === "true"
-) return;
-a.setAttribute("data-bound-preview", "true");
-a.addEventListener("mouseenter", function(e) {
-const unitName = a.getAttribute("data-unit");
-if (unitName) {
-const rec = findUnitInMasterDb(unitName);
-const sub = rec ? `${rec.STAT_FACTION || 'Unit'} • ${rec.STAT_TYPE || 'Dossier'}` : "MASTER_DB Unit / Warpaint Dossier";
-const customImg = a.getAttribute("data-preview-img") || "";
-showHoverThumbnail(e, unitName, sub, getUnitImageUrl(unitName, customImg));
-} else {
-const title = a.getAttribute("data-preview-title") || (a.textContent || "Link").trim();
-const sub = a.getAttribute("data-preview-sub") || "WatchToweR Resource Link";
-const img = a.getAttribute("data-preview-img") || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
-showHoverThumbnail(e, title, sub, img);
-}
-});
-a.addEventListener("mousemove", moveHoverThumbnail);
-a.addEventListener("mouseleave", hideHoverThumbnail);
-a.addEventListener("click", function(e) {
-e.preventDefault();
-const unitName = a.getAttribute("data-unit");
-const href = a.getAttribute("href");
-const customImg = a.getAttribute("data-preview-img") || "";
-if (unitName) {
-stampUnitHandoff(unitName);
-openUnitDossierOverlay(unitName, href, customImg);
-} else {
-const title = a.getAttribute("data-preview-title") || (a.textContent || "Link").trim();
-const sub = a.getAttribute("data-preview-sub") || "WatchToweR Tactical Recon";
-const img = customImg || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
-openGenericLinkOverlay(title, sub, img, href);
-}
-});
-});
-}
-function buildCurrentHoldoutCalcPayload() {
-return {
-event: masterState.mainTitle || "NOV 2026 HOLDOUT",
-version: "10.2-HOLDOUT",
-savedAt: new Date().toISOString(),
-bankedXp: parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0,
-activeTrack: getActiveTrackSelection(),
-crateTier: getSelectedCrateTier(),
-tracks: {
-incB1: Boolean(document.getElementById("chkIncB1")?.checked),
-incB2: Boolean(document.getElementById("chkIncB2")?.checked),
-incB3: Boolean(document.getElementById("chkIncB3")?.checked),
-tacB1: Boolean(document.getElementById("chkTacB1")?.checked),
-tacB2: Boolean(document.getElementById("chkTacB2")?.checked),
-tacB3: Boolean(document.getElementById("chkTacB3")?.checked),
-tacBonus: Boolean(document.getElementById("chkTacBonus")?.checked)
-},
-storeItems: storeState.map(s => ({ name: s.name, qty: s.qty, checked: s.checked }))
-};
-}
-function applyHoldoutCalcPayload(data) {
-if (!data) return;
-if (typeof data.bankedXp === "number") {
-document.getElementById("calcBankedXpInput").value = data.bankedXp;
-}
-if (data.activeTrack) {
-document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => {
-r.checked = (r.value === data.activeTrack);
-});
-}
-if (data.crateTier !== undefined) {
-document.querySelectorAll('input[name="holdoutCrateTier"]').forEach(r => {
-r.checked = (parseInt(r.value, 10) === parseInt(data.crateTier, 10));
-});
-}
-if (data.tracks) {
-if (typeof data.tracks.incB1 === "boolean") document.getElementById("chkIncB1").checked = data.tracks.incB1;
-if (typeof data.tracks.incB2 === "boolean") document.getElementById("chkIncB2").checked = data.tracks.incB2;
-if (typeof data.tracks.incB3 === "boolean") document.getElementById("chkIncB3").checked = data.tracks.incB3;
-if (typeof data.tracks.tacB1 === "boolean") document.getElementById("chkTacB1").checked = data.tracks.tacB1;
-if (typeof data.tracks.tacB2 === "boolean") document.getElementById("chkTacB2").checked = data.tracks.tacB2;
-if (typeof data.tracks.tacB3 === "boolean") document.getElementById("chkTacB3").checked = data.tracks.tacB3;
-if (typeof data.tracks.tacBonus === "boolean") document.getElementById("chkTacBonus").checked = data.tracks.tacBonus;
-}
-if (Array.isArray(data.storeItems)) {
-data.storeItems.forEach((savedItem, idx) => {
-if (storeState[idx] && storeState[idx].name === savedItem.name) {
-storeState[idx].qty = Math.min(storeState[idx].baseMaxLimit, Math.max(0, parseInt(savedItem.qty, 10) || 0));
-storeState[idx].checked = Boolean(savedItem.checked);
-}
-});
-}
-renderHoldoutStoreTable();
-recalculateHoldout(true);
-}
-function saveHoldoutStateToBrowser() {
-safeSetStorage(PLAYER_CALC_STORAGE_KEY, JSON.stringify(buildCurrentHoldoutCalcPayload()));
-}
-function loadHoldoutStateFromBrowser() {
-const raw = safeGetStorage(PLAYER_CALC_STORAGE_KEY);
-if (raw) {
-try {
-applyHoldoutCalcPayload(JSON.parse(raw));
-return true;
-} catch (e) {}
-}
-return false;
-}
-function exportHoldoutCalcJson() {
-const payload = buildCurrentHoldoutCalcPayload();
-const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-const url = URL.createObjectURL(blob);
-const a = document.createElement("a");
-a.href = url;
-a.download = "2026_HOLDOUT_CALC_SETTINGS.json";
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-URL.revokeObjectURL(url);
-showCalcToast("✅ Settings Saved to JSON!");
-}
-function importHoldoutCalcJson(event) {
-const file = event?.target?.files?.[0];
-if (!file) return;
-const reader = new FileReader();
-reader.onload = function(e) {
-try {
-const parsed = JSON.parse(e.target.result);
-applyHoldoutCalcPayload(parsed);
-saveHoldoutStateToBrowser();
-showCalcToast(`✅ Loaded ${file.name}`);
-} catch (err) {
-showCalcToast("⚠️ Invalid JSON Settings File");
-}
-event.target.value = "";
-};
-reader.readAsText(file);
-}
-function resetHoldoutCalcToDefault() {
-try { localStorage.removeItem(PLAYER_CALC_STORAGE_KEY); } catch (e) {}
-storeState = [];
-syncStoreStateFromMasterCatalog();
-document.getElementById("calcBankedXpInput").value = 0;
-["chkIncB1", "chkIncB2", "chkIncB3", "chkTacB1", "chkTacB2", "chkTacB3", "chkTacBonus"].forEach(id => {
-const el = document.getElementById(id);
-if (el) el.checked = true;
-});
-setActiveCalcTrack("GAUNTLET4");
-document.querySelectorAll('input[name="holdoutCrateTier"]').forEach(r => { r.checked = (r.value === "3"); });
-renderHoldoutStoreTable();
-recalculateHoldout();
-showCalcToast("↺ Calculator Reset to Default");
-}
-function getBriefCardEl() {
-return document.getElementById("main-export-holdout") ||
-document.querySelector(".dossier-card, .report-card");
-}
-function setBriefCollapseState(shouldCollapse, isAutoArchived) {
-const card = getBriefCardEl();
-const icon = document.getElementById("archiveToggleIcon");
-const text = document.getElementById("archiveToggleText");
-if (!card) return;
-if (shouldCollapse) {
-card.classList.add("archive-collapsed");
-if (icon) icon.textContent = "▶";
-if (text) text.textContent = isAutoArchived ? "EXPAND ARCHIVED BRIEF" : "EXPAND BRIEF";
-} else {
-card.classList.remove("archive-collapsed");
-if (icon) icon.textContent = "▼";
-if (text) text.textContent = "COLLAPSE BRIEF (ARCHIVE)";
-setTimeout(syncSitrepImageSizing, 50);
-}
-}
-function toggleBriefArchiveMode() {
-const card = getBriefCardEl();
-if (!card) return;
-const currentlyCollapsed = card.classList.contains("archive-collapsed");
-setBriefCollapseState(!currentlyCollapsed, false);
-}
-function parseWarCommanderEventDateMs(rawText) {
-if (!rawText) return null;
-const clean = String(rawText).replace(/\u00A0/g, " ").trim();
-const m = clean.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\s*@\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PDT|PST)?/i);
-if (!m) return null;
-const monthNames = { JAN:0, FEB:1, MAR:2, APR:3, MAY:4, JUN:5, JUL:6, AUG:7, SEP:8, OCT:9, NOV:10, DEC:11 };
-const mon = monthNames[m[1].slice(0, 3).toUpperCase()];
-if (mon === undefined) return null;
-const day = parseInt(m[2], 10);
-const year = parseInt(m[3], 10);
-let hour = parseInt(m[4], 10);
-const min = parseInt(m[5], 10);
-const ampm = m[6].toUpperCase();
-const tz = (m[7] || "PDT").toUpperCase();
-if (ampm === "PM" && hour < 12) hour += 12;
-if (ampm === "AM" && hour === 12) hour = 0;
-const offset = (tz === "PST") ? "-08:00" : "-07:00";
-const pad = (n) => String(n).padStart(2, "0");
-const iso = `${year}-${pad(mon + 1)}-${pad(day)}T${pad(hour)}:${pad(min)}:00${offset}`;
-const ms = Date.parse(iso);
-return isNaN(ms) ? null : ms;
-}
-function autoCollapseIfStoreClosed() {
-const card = getBriefCardEl();
-if (!card) return;
-const cutoffMs = parseWarCommanderEventDateMs(masterState.schedStore) || parseWarCommanderEventDateMs(masterState.schedEnd);
-if (cutoffMs && Date.now() >= cutoffMs) {
-setBriefCollapseState(true, true);
-const metaEl = card.querySelector(".event-meta");
-if (metaEl && !document.getElementById("autoArchiveStatusBadge")) {
-const badge = document.createElement("div");
-badge.id = "autoArchiveStatusBadge";
-badge.style.cssText = "background: rgba(255, 215, 0, 0.14); border: 1px solid #ffd700; color: #ffd700; font-family: monospace; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.8px; text-align: center; margin-top: 4px;";
-badge.textContent = "📦 ARCHIVED (STORE CLOSED)";
-metaEl.appendChild(badge);
-}
-}
-}
-function fetchMasterDbUnits(showFeedback = false) {
-const pill = document.getElementById("masterDbStatusPill");
-if (pill) pill.textContent = "🗄️ MASTER_DB: Syncing...";
-Papa.parse(`https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/export?format=csv&gid=${SHEET_MASTER_GID}`, {
-download: true,
-header: false,
-skipEmptyLines: true,
-complete: function(res) {
-if (!res || !res.data || res.data.length <= 1) return;
-const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
-const units = [];
-for (let r = 1; r < res.data.length; r++) {
-const rec = {};
-headers.forEach((k, i) => {
-if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/, "") : "";
-});
-rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
-const isBuilding = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
-if (rec.UNIT_NAME && !isBuilding) units.push(rec);
-}
-masterDbUnitsCache = units;
-if (pill) pill.textContent = `🗄️ MASTER_DB: ${units.length} Units Linked`;
-bakeResolvedDbDataIntoMasterState();
-renderAdminStoreEditor();
-renderAdminUnitGalleriesEditor();
-renderUnitGalleriesDom();
-if (showFeedback) showToast(`✅ Synced ${units.length} Units from MASTER_DB`);
-},
-error: function() {
-if (pill) pill.textContent = "🗄️ MASTER_DB: Offline Fallback";
-}
-});
-}
-function bakeResolvedDbDataIntoMasterState() {
-["newUnitsCards", "updatedUnitsCards"].forEach(arrKey => {
-(masterState[arrKey] || []).forEach(c => {
-const linked = (c.linkedUnit || "").trim();
-const curLbl = (c.label || "").trim();
-if (linked && (!curLbl || curLbl.toUpperCase() === "NEW UNIT")) {
-c.label = linked;
-}
-if (!(c.customImgUrl || "").trim() && (linked || curLbl)) {
-const resolved = getUnitImageUrl(linked || curLbl, "");
-if (resolved && resolved !== "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png") {
-c.customImgUrl = resolved;
-}
-}
-});
-});
-}
-function loadPersistedMasterStateOnBoot() {
-let vaultState = null;
-let localState = null;
-const vaultEl = document.getElementById("wtrMasterStateVault");
-if (vaultEl && vaultEl.textContent.trim()) {
-try { vaultState = decodeVaultBase64(vaultEl.textContent); } catch (e) {}
-}
-const isPublished = !document.getElementById("studioTopControlBar");
-if (!isPublished) {
-const raw = safeGetStorage(MASTER_STORAGE_KEY);
-if (raw) {
-try { localState = JSON.parse(raw); } catch (e) {}
-}
-}
-const candidates = [defaultMasterState];
-if (vaultState) candidates.push(vaultState);
-if (localState) candidates.push(localState);
-candidates.sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0));
-if (candidates[0] !== defaultMasterState) {
-masterState = Object.assign({}, JSON.parse(JSON.stringify(defaultMasterState)), candidates[0]);
-bakeResolvedDbDataIntoMasterState();
-}
-}
-bakeResolvedDbDataIntoMasterState();
-loadPersistedMasterStateOnBoot();
-syncStoreStateFromMasterCatalog();
-populateMasterInputs();
-applyMasterStateToDom();
-loadHoldoutStateFromBrowser();
-renderAdminStoreEditor();
-renderAdminUnitGalleriesEditor();
-autoCollapseIfStoreClosed();
-fetchMasterDbUnits(false);
+(function() {
+  const startMs = new Date("2026-11-13T10:00:00-08:00").getTime();
+  const endMs   = new Date("2026-11-17T10:00:00-08:00").getTime();
+  const clockEl = document.getElementById("liveEventCountdown");
+  const lblEl   = document.getElementById("countdownStatusLabel");
+
+  function fmt(diff) {
+    const totalSec = Math.max(0, Math.floor(diff / 1000));
+    const d = Math.floor(totalSec / 86400);
+    const h = Math.floor((totalSec % 86400) / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    return `${d}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;
+  }
+
+  function tick() {
+    const now = Date.now();
+    if (now < startMs) {
+      lblEl.textContent = "⏱️ COUNTDOWN TO HOLDOUT DEPLOYMENT";
+      clockEl.textContent = fmt(startMs - now);
+    } else if (now < endMs) {
+      lblEl.textContent = "🟢 EVENT LIVE // TIME REMAINING";
+      clockEl.textContent = fmt(endMs - now);
+    } else {
+      lblEl.textContent = "⏹️ EVENT CONCLUDED";
+      clockEl.textContent = "CONCLUDED";
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 </body>
 </html>
-<!-- ==================== END BLOCK 5: JAVASCRIPT INLINE STUDIO & HOLDOUT CALCULATOR ENGINE (v10.2-HOLDOUT-STUDIO) ==================== -->
