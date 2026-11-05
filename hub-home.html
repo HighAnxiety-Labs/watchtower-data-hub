@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- WATCHTOWER MASTER STUDIO // RELEASE: v20.3-CALENDAR-SYNC (2026-10-31) -->
 <html lang="en" style="--lead-accent: #2b8cbe;">
 <head>
@@ -5954,15 +5954,33 @@
             const base = href.split("/").filter(Boolean).pop() || "";
             if (base.toLowerCase().endsWith(".html")) found.push(base);
           });
-          if (found.length > 0) {
-            targetSet.clear();
+          if (found.length > 0 && /Index of|Directory listing/i.test(text)) {
             found.forEach(f => targetSet.add(f));
+          }
+        } catch (e) {}
+      };
+      const probeGithubApi = async (subPath, targetSet) => {
+        try {
+          const apiUrl = `https://api.github.com/repos/HighAnxiety-Labs/watchtower-data-hub/contents/${subPath}`;
+          const resp = await fetch(apiUrl, { cache: "no-store" });
+          if (!resp.ok) return;
+          const items = await resp.json();
+          if (Array.isArray(items)) {
+            const htmlFiles = items
+              .filter(it => it && it.type === "file" && String(it.name || "").toLowerCase().endsWith(".html"))
+              .map(it => it.name);
+            if (htmlFiles.length > 0) {
+              targetSet.clear();
+              htmlFiles.forEach(f => targetSet.add(f));
+            }
           }
         } catch (e) {}
       };
       await Promise.all([
         probeHtmlDir(prefix, activeSet),
-        probeHtmlDir(`${prefix}vault/`, vaultSet)
+        probeHtmlDir(`${prefix}vault/`, vaultSet),
+        probeGithubApi("", activeSet),
+        probeGithubApi("vault", vaultSet)
       ]);
     }
 

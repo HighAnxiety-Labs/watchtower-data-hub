@@ -444,6 +444,19 @@
               if (base.toLowerCase().endsWith(".html")) fileSet.add(base);
             });
           }
+          const ghResp = await fetch("https://api.github.com/repos/HighAnxiety-Labs/watchtower-data-hub/contents/vault", { cache: "no-store" });
+          if (ghResp.ok) {
+            const ghItems = await ghResp.json();
+            if (Array.isArray(ghItems)) {
+              const htmlFiles = ghItems
+                .filter(it => it && it.type === "file" && String(it.name || "").toLowerCase().endsWith(".html"))
+                .map(it => it.name);
+              if (htmlFiles.length > 0) {
+                fileSet.clear();
+                htmlFiles.forEach(f => fileSet.add(f));
+              }
+            }
+          }
         } catch (e) {}
       }
 
