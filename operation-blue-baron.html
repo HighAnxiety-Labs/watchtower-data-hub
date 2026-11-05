@@ -2332,9 +2332,9 @@
                   <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                     <input type="checkbox" id="chkWarBonus" checked disabled style="width: 16px; height: 16px; accent-color: var(--text-gold);">
                     <span id="displayWarBonusTitle" style="font-family: 'Arial Black', sans-serif; font-size: 14px; color: var(--text-gold); text-transform: uppercase;">&#9876; War Bonus (Both Incursion &amp; Tactical Sets Completed)</span>
-                    <span id="warBonusStatusPill" class="bt-status-pill" style="background: rgba(255, 215, 0, 0.14); border-color: var(--text-gold); color: var(--text-gold);">ACTIVE (+14,000 BASE XP)</span>
+                    <span id="warBonusStatusPill" class="bt-status-pill" style="background: rgba(255, 215, 0, 0.14); border-color: var(--text-gold); color: var(--text-gold);">ACTIVE (+14,000 FLAT XP)</span>
                   </div>
-                  <div id="displayWarBonusDesc" style="font-size: 13px; color: var(--text-muted);">Completing <strong style="color:#ffffff;">both</strong> the full <strong style="color: var(--text-gold);">Incursion Set</strong> and the full <strong style="color: var(--text-red);">Tactical Strike Set</strong> grants a <strong id="valWarBonusInlineTxt" style="color: var(--text-gold);">+14,000 XP War Bonus</strong>. Only added when both sets are completed.</div>
+                  <div id="displayWarBonusDesc" style="font-size: 13px; color: var(--text-muted);">Completing <strong style="color:#ffffff;">both</strong> the full <strong style="color: var(--text-gold);">Incursion Set</strong> and the full <strong style="color: var(--text-red);">Tactical Strike Set</strong> grants a flat <strong id="valWarBonusInlineTxt" style="color: var(--text-gold);">+14,000 XP War Bonus</strong> (only added when both sets are completed; not increased by Proving Grounds multiplier chests).</div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-left: auto;">
                   <div style="background: #080d0b; border: 1px solid #1f3b2b; border-top: 2px solid var(--text-gold); padding: 6px 12px; border-radius: 3px; text-align: center; min-width: 130px;">
@@ -4212,9 +4212,9 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const useInc = activeTrack === "BOTH" || activeTrack === "INCURSION";
     const useTac = activeTrack === "BOTH" || activeTrack === "TACTICAL";
 
-    // War Bonus (+14,000 XP base) only applies when BOTH sets are completed
+    // War Bonus (+14,000 XP flat) only applies when BOTH sets are completed and is NOT increased by Proving Grounds multipliers
     const warBonusBaseXp = parseInt(masterState.warBonusXp ?? 14000, 10) || 0;
-    const warBonusPerPairXp = Math.round(warBonusBaseXp * mult);
+    const warBonusPerPairXp = warBonusBaseXp;
     const warBonusUnlocked = useInc && useTac && incBonusUnlocked && tacBonusUnlocked;
     const warBonusRunXp = warBonusUnlocked ? warBonusPerPairXp : 0;
 
@@ -4240,7 +4240,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const warPill = document.getElementById("warBonusStatusPill");
     if (warPill) {
       if (warBonusUnlocked) {
-        warPill.textContent = "ACTIVE (+" + warBonusBaseXp.toLocaleString() + " BASE XP)";
+        warPill.textContent = "ACTIVE (+" + warBonusBaseXp.toLocaleString() + " FLAT XP)";
         warPill.style.background = "rgba(255, 215, 0, 0.14)";
         warPill.style.borderColor = "var(--text-gold)";
         warPill.style.color = "var(--text-gold)";
