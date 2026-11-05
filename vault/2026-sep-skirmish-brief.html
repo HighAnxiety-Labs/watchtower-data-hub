@@ -1,0 +1,296 @@
+<style>:root {
+            --bg-color: #0b0f12;
+            --panel-bg: #121920;
+            --border-color: #00e5ff;
+            --accent-green: #00ff66;
+            --accent-red: #ff3333;
+            --text-color: #d1f4ff;
+            --header-color: #ffffff;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            padding: 20px;
+            background: radial-gradient(circle, #1a2632 0%, #0b0f12 100%);
+        }
+        .header-title {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--header-color);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            padding: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        .panel-title {
+            color: var(--border-color);
+            font-size: 1.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(0, 229, 255, 0.1);
+            color: var(--border-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .alert-box {
+            border: 1px solid var(--accent-red);
+            background-color: rgba(255, 51, 51, 0.1);
+            color: #ff9999;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .spacer-text {
+            color: #7a9bb0;
+            font-style: italic;
+        }</style>
+<div class="container">
+  <h1 class="header-title">
+    <span style="font-family: arial, helvetica, sans-serif;">SKIRMISH: BRIEFING | 
+      <span style="color: #00ffff;">
+        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1025-16-18-release-notes/" style="color: #00ffff;">Data Source</a>
+      </span>
+    </span>
+  </h1>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Schedule Section --></span>
+  <div class="panel" style="margin-bottom: 20px;">
+    <h2 class="panel-title">
+      <span style="font-family: arial, helvetica, sans-serif;">Event schedule</span>
+    </h2>
+    <ul>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>START:</strong> Friday, September 25th at 10 AM PDT
+        </span>
+      </li>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>END:</strong> Monday, September 29th at 10 AM PDT
+        </span>
+      </li>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>STORE CLOSES:</strong> Tuesday, September 30th at 10 AM PDT
+        </span>
+      </li>
+    </ul>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Mission & Tracks Section --></span>
+  <div class="grid-2">
+    <div class="panel">
+      <h2 class="panel-title">
+        <span style="font-family: arial, helvetica, sans-serif;">MISSION OVERVIEW</span>
+      </h2>
+      <p>Earn the next Arc II Hero,&nbsp;
+        <strong>Castor &amp; Pollux</strong>, the 
+        <strong>Sentinel</strong> Heroes in this month’s Skirmish, and use it to dominate in the upcoming monthly Event.&nbsp;
+      </p>
+      <p>Use
+        <strong>Voidhammer, Broadside, Valiant MkII, Recruiter, and Sabre</strong>units and their 
+        <strong>Heroes</strong>, against 
+        <strong>Onyx</strong>to play through the Recruit set or the Officer set to earn skirmish XP. Sets can be completed in any order and pay out a bonus XP Cache. The Officer set will test your might but will pay out more XP than the Recruit set. Choose the set that best fits your power level. You can hit the targets multiple times, and wins will count towards future set completions, so you won't be penalized for hitting a target again!
+      </p>
+    </div>
+    <div class="panel">
+      <h2 class="panel-title">
+        <span style="font-family: arial, helvetica, sans-serif;">TRACKS &amp; REWARDS</span>
+      </h2>
+      <h3 style="color: var(--accent-green);">
+        <strong>Recruit Track</strong>
+      </h3>
+      <ul>
+        <li>
+          <strong>Recruit Base I Rewards:</strong> 1,000 XP
+        </li>
+        <li>
+          <strong>Recruit Base II Rewards:</strong> 2,000 XP
+        </li>
+        <li>
+          <strong>Recruit Base III Rewards:</strong> 5,000 XP
+        </li>
+        <li>
+          <strong>Recruit Base Completion Bonus Rewards:</strong> 8,000 XP
+        </li>
+      </ul>
+      <h3 style="color: var(--accent-red);">
+        <strong>Officer Track</strong>
+      </h3>
+      <ul>
+        <li>
+          <strong>Conqueror Base I Rewards:</strong> 8,000 XP
+        </li>
+        <li>
+          <strong>Conqueror Base II Rewards:</strong> 16,000 XP 
+          <br>
+        </li>
+        <li>
+          <strong>Conqueror Base Completion Bonus Rewards:</strong> 28,000 XP
+        </li>
+      </ul>
+    </div>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Event Store Table Section --></span>
+  <div class="panel">
+    <h2 class="panel-title">
+      <span style="font-family: arial, helvetica, sans-serif;">STORE INVENTORY</span>
+    </h2>
+    <table style="height: 152px;" width="967">
+      <thead>
+        <tr style="height: 14px;">
+          <th style="width: 358.226px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">NEW ITEM</span>
+          </th>
+          <th style="width: 210.24px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">REDEMPTION LIMIT</span>
+          </th>
+          <th style="width: 176.885px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">XP COST</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">Castor + Pollux Upgrade Tokens 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">10</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">40,000 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">Castor + Pollux Upgrade Parts 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">80</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">4,000 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">Castor + Pollux 24hr Build Logistics 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">4</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">32,000 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">Castor + Pollux Tech - Son Of Tyndareus 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">100,000</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">Castor + Pollux Tech - Son of Zeus 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">100,000</span>
+          </td>
+        </tr>
+        <tr style="height: 18px;">
+          <td style="width: 358.226px; height: 18px;">Castor + Pollux Tech - Children of Leda 
+            <br>
+          </td>
+          <td style="width: 210.24px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 176.885px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">100,000</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 358.226px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">Broadside Upgrade Token</span>
+          </td>
+          <td style="width: 210.24px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">70</span>
+          </td>
+          <td style="width: 176.885px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">40,000 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 18px;">
+          <td style="width: 358.226px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">Broadside&nbsp; Max Buildable</span>
+          </td>
+          <td style="width: 210.24px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">20</span>
+          </td>
+          <td style="width: 176.885px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">5,000 / Each</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Critical Alert / Warning Footer --></span>
+  <div class="alert-box">
+    <span style="font-family: arial, helvetica, sans-serif;">⚠️ &nbsp;Use It or Lose It will only be 24 hours long. 
+      <br>Please be sure to redeem your prizes by 10am PDT on&nbsp; 
+      <strong>TUESday, SEPT 30th.</strong>
+    </span>
+  </div>
+</div>

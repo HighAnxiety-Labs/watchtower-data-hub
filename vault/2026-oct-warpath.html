@@ -1,0 +1,568 @@
+<style>
+  :root {
+    --primary-color: #00bf63;
+    --accent-green: #00e676;
+    --bg-dark: #0b0f0d;
+    --bg-panel: #121212;
+    --bg-card: #18261e;
+    --bg-inner: #0b1118;
+    --border-dark: #1f3b2b;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --text-gold: #ffd700;
+    --text-cyan: #38bdf8;
+    --text-orange: #f97316;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: auto; min-height: 100%; background-color: var(--bg-dark); }
+  body {
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px; line-height: 1.5; font-size: 14.5px;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  }
+  /* Report Card Container */
+  .report-card {
+    width: 100%; max-width: 1100px; margin: 0 auto; background: var(--bg-panel);
+    border: 1px solid var(--border-dark); box-shadow: 0 4px 25px rgba(0, 255, 128, 0.05); overflow: hidden;
+  }
+  /* Classification Bars */
+  .classification-bar {
+    background: var(--primary-color); color: #000; font-weight: 900; text-align: center;
+    letter-spacing: 2.5px; font-size: 14px; padding: 8px; text-transform: uppercase;
+    font-family: "Arial Black", sans-serif; width: 100%; display: block;
+  }
+  /* Event Header */
+  .event-header { padding: 22px 26px; border-bottom: 2px solid var(--border-dark); background: #0e1411; }
+  .event-sub-tag { font-size: 14px; letter-spacing: 2px; color: var(--accent-green); text-transform: uppercase; margin-bottom: 6px; font-weight: 800; }
+  .event-title-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px;
+  }
+  .event-main-title {
+    font-family: 'Arial Black', sans-serif; font-size: 35px; color: var(--accent-green);
+    letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.1; margin: 0; cursor: pointer;
+  }
+  .archive-collapse-btn {
+    background: #14241b; border: 1px solid var(--accent-green); color: var(--accent-green);
+    font-family: monospace; font-size: 13px; font-weight: 900; letter-spacing: 1px;
+    text-transform: uppercase; padding: 8px 14px; border-radius: 4px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); white-space: nowrap;
+  }
+  .archive-collapse-btn:hover {
+    background: var(--accent-green); color: #000; box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+  }
+  .report-card.archive-collapsed .archive-collapse-btn {
+    background: rgba(255, 215, 0, 0.12); border-color: var(--text-gold); color: var(--text-gold);
+  }
+  .report-card.archive-collapsed .archive-collapse-btn:hover {
+    background: var(--text-gold); color: #000; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+  }
+  .event-meta { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14.5px; color: var(--text-muted); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Archive Collapsible Body */
+  .brief-collapsible-body {
+    display: block;
+  }
+  .report-card.archive-collapsed .brief-collapsible-body {
+    display: none;
+  }
+  .report-card.archive-collapsed .event-header {
+    border-bottom: none;
+  }
+
+  /* Section Containers */
+  .report-section { padding: 20px 20px 24px 20px; clear: both; }
+  .section-header-bar {
+    background: var(--primary-color); color: #000; font-family: "Arial Black", sans-serif;
+    font-size: 16px; padding: 8px 16px; text-transform: uppercase; letter-spacing: 1.5px;
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .section-header-bar span.subtext { font-family: "Arial Black", sans-serif; font-size: 14px; letter-spacing: 0.5px; }
+  /* Intel Lists */
+  .intel-list {
+    list-style: none; padding: 18px; background: var(--bg-inner); border: 1px solid var(--border-dark);
+    border-top: none; display: flex; flex-direction: column; gap: 14px; font-size: 15.5px; width: 100%;
+  }
+  .intel-list li { position: relative; padding-left: 22px; line-height: 1.5; }
+  .intel-list li.no-bullet { padding-left: 0; border-bottom: 1px solid #16241c; padding-bottom: 14px; margin-bottom: 6px; }
+  .intel-list li:not(.no-bullet)::before { content: "■"; position: absolute; left: 0; color: var(--accent-green); font-size: 13px; }
+  .intel-list strong { color: #ffffff; }
+  /* Aligned Data Tables */
+  .data-table {
+    width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 15.5px;
+    background: var(--bg-inner); border: 1px solid var(--border-dark); border-top: none;
+  }
+  .data-table th, .data-table td { padding: 12px 14px; border-bottom: 1px solid #16241c; border-right: 1px solid #16241c; vertical-align: middle; }
+  .data-table th:last-child, .data-table td:last-child { border-right: none; }
+  .data-table th { background: var(--bg-card); color: var(--accent-green); text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; font-weight: 800; }
+  .data-table tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
+  .highlight-gold { color: var(--text-gold); font-weight: bold; }
+  /* Footer Nav */
+  .report-footer-nav {
+    padding: 18px 22px; background: #080c0a; display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 14px; font-size: 15px; color: var(--text-muted); border-top: 1px solid var(--border-dark);
+  }
+  .report-footer-nav a { color: var(--accent-green); text-decoration: none; font-weight: 700; margin-left: 16px; }
+  .report-footer-nav a:hover { text-decoration: underline; }
+  /* -------------------------------------
+     STYLES FOR EMBEDDED MR BRAIN REPORT
+     ------------------------------------- */
+  .embed-report-card { width: 100%; background: #0d1210; border: 1px solid #1f3b2b; overflow: hidden; margin-top: 12px; }
+  .embed-classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
+  .embed-header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+  .embed-unit-title { font-size: clamp(34px, 6vw, 50px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", Gadget, sans-serif; text-transform: uppercase; margin:0;}
+  .embed-unit-quote { font-style: italic; color: #b0bec5; font-size: 16px; border-left: 3px solid #00e676; padding-left: 12px; margin:0;}
+  .embed-unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: 1px; white-space: nowrap; }
+  .embed-meta-item { display: flex; align-items: center; gap: 8px; flex: 1; white-space: nowrap; }
+  .embed-meta-item.meta-right { justify-content: flex-end; text-align: right; }
+  .embed-meta-divider { width: 1px; height: 20px; background-color: #1a3324; margin: 0 16px; flex-shrink: 0; }
+  .embed-meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+  .embed-meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.2s ease-in-out; cursor: pointer; }
+  .embed-meta-btn:hover { background: #1b3826; border-color: #00e676; box-shadow: 0 0 8px rgba(0, 230, 118, 0.2); }
+  .embed-meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+  .embed-meta-btn.btn-gold:hover { background: #242211; border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.25); }
+  .embed-popout-icon { font-size: 12px; line-height: 1; opacity: 0.85; }
+  .embed-unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 7px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 1px; }
+  .embed-updates-label { color: #81c784; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 1px; }
+  .embed-updates-content { color: #cfd8dc; font-size: 14px; flex: 1; }
+  .embed-briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .embed-col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: block; }
+  .embed-unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .embed-unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .embed-unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .embed-stats-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .embed-stats-table tr { border-bottom: 1px solid #132419; }
+  .embed-stats-table td { padding: 6px 6px; }
+  .embed-stats-label { color: #90a4ae; font-weight: 600; width: 48%; }
+  .embed-stats-value { color: #fff; text-align: right; }
+  .embed-talent-block { margin-bottom: 14px; font-size: 14.5px; }
+  .embed-talent-tier { color: #00e676; font-weight: 800; font-size: 14px; letter-spacing: 0.5px; margin-bottom: 3px; text-transform: uppercase; }
+  .embed-talent-desc { color: #cfd8dc; padding-left: 8px; border-left: 2px solid #1f3b2b; line-height: 1.35; }
+  .embed-gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.45); display: inline; }
+  .embed-report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  @media (min-width: 768px) {
+    .embed-header-content { flex-direction: row; align-items: center; gap: 30px; }
+    .embed-briefing-grid { grid-template-columns: 220px 1.1fr 1.4fr; }
+  }
+</style>
+
+<div id="report-view" style="width: 100%;">
+  <div id="main-export-report" class="report-card">
+    <div class="classification-bar">Unclassified</div>
+
+    <!-- Header (Always Visible in Archive Mode) -->
+    <header class="event-header">
+      <div class="event-sub-tag">WatchToweR Data Hub | Tactical Brief | 
+        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1050-warpath-october-2026/" style="color: var(--text-cyan); text-decoration: none;" target="_blank" rel="noopener">Data Source</a>
+      </div>
+      <div class="event-title-row">
+        <h1 class="event-main-title" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">WARPATH (OCT 2026)</h1>
+        <button type="button" class="archive-collapse-btn" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
+          <span id="archiveToggleIcon">▼</span>
+          <span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
+        </button>
+      </div>
+      <div class="event-meta">
+        <span><strong style="color: var(--text-cyan);">Starts:</strong> FRI OCT 16, 2026 @ 10:00 AM PDT</span>
+        <span><strong style="color: var(--text-gold);">Ends:</strong> TUE OCT 20, 2026 @ 10:00 AM PDT</span>
+      </div>
+    </header>
+
+    <!-- Collapsible Brief Content -->
+    <div id="briefCollapsibleBody" class="brief-collapsible-body">
+      <!-- SECTION 1: WARPATH COMBAT RULES -->
+      <section class="report-section">
+        <div class="section-header-bar">WARPATH OVERVIEW 
+          <span class="subtext">Combat Regulations</span>
+        </div>
+        <ul class="intel-list">
+          <li class="no-bullet">
+            <strong>Engage in Player-vs-Player (PvP) combat to earn Honor. Winning Honor improves your position on the Leaderboard. Reach higher Leaderboard Divisions to unlock Medals and Blood Thorium.</strong>
+          </li>
+          <li>
+            <strong>Honor Mechanics:</strong> Honor earned is based on your opponent's level and is no longer influenced by the attacker's level.
+          </li>
+          <li>
+            <strong>Exchange Rules:</strong> The difference between the attacker's and defender's Honor is reflected in the exchange. Winning an attack against a player with more Honor than you will result in more Honor won.
+          </li>
+          <li>
+            <strong>Repair Times:</strong> All Repairs during Warpath are <strong>half-time!</strong>
+          </li>
+          <li>
+            <strong>Protection Rules:</strong> Attack individual players twice while Warpath is active. Standard Damage Protection times are set to 4 hours for the duration of Warpath.
+          </li>
+        </ul>
+      </section>
+
+      <!-- SECTION 2: DAILY REWARD CHESTS -->
+      <section class="report-section">
+        <div class="section-header-bar">DAILY REWARD TRACK 
+          <span class="subtext">PvP Chests</span>
+        </div>
+        <ul class="intel-list">
+          <li class="no-bullet">
+            <strong>In addition to the final prize payout, you can earn Medals and Blood Thorium daily! Every PvP Attack will earn you points toward the track. Each tier unlocks a chest.</strong> 
+            <br><br>When completed, you have a <strong>12 hour cooldown</strong>, or you can use gold to speed it up. <strong>Resetting the track costs 25 Gold.</strong>
+          </li>
+          <li>
+            <strong>Bronze Chest:</strong> 20,000 Medals
+          </li>
+          <li>
+            <strong>Silver Chest:</strong> 40,000 Medals
+          </li>
+          <li>
+            <strong>Gold Chest:</strong> 80,000 Medals + <strong style="color: #ff5252;">2 Blood Thorium</strong> (Payout Doubled!)
+          </li>
+        </ul>
+      </section>
+
+      <!-- SECTION 3: LEADERBOARD PAYOUTS -->
+      <section class="report-section">
+        <div class="section-header-bar">LEADERBOARD PAYOUTS 
+          <span class="subtext">Blood Thorium Diamonds</span>
+        </div>
+        <img style="display: block; max-width: 100%; height: auto; margin-left: auto; margin-right: auto;" src="https://share1.cloudhq-mkt3.net/a2681361f2fa06.png" alt="Warpath Leaderboard Payouts" width="918" height="524">
+      </section>
+
+      <!-- SECTION 4: FEATURED REWARDS -->
+      <section class="report-section">
+        <div class="section-header-bar">FEATURED ROSTER 
+          <span class="subtext">Mercenary &amp; Contractor</span>
+        </div>
+        <!-- WTR DOSSIER EMBED: MR_BRAIN -->
+        <div style="width: 100%; display: flex; justify-content: center; padding: 16px 0 24px 0; margin: 0 auto;">
+          <div class="embed-report-card">
+            <div class="embed-classification-bar">MERCENARY</div>
+            <div class="embed-header-content">
+              <h1 class="embed-unit-title">MR. BRAIN</h1>
+              <p id="unit-quote-block" class="embed-unit-quote" style="display: none;">&nbsp;</p>
+            </div>
+            <div id="unit-meta-bar" class="embed-unit-meta-bar">
+              <div id="origin-event-container" class="embed-meta-item">
+                <span class="embed-meta-label">Origin Event:</span> 
+                <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1050-warpath-october-2026/" target="_blank" rel="noopener noreferrer" class="embed-meta-btn" id="origin-event-link">
+                  <span id="origin-event-text-span">WARPATH</span> 
+                  <span class="embed-popout-icon">↗</span>
+                </a>
+              </div>
+              <div id="meta-divider-bar" class="embed-meta-divider" style="display: none;">&nbsp;</div>
+              <div id="linked-unit-container" class="embed-meta-item embed-meta-right" style="display: none;">
+                <span class="embed-meta-label">LINKED UNIT:</span> 
+                <a id="linkedUnitBtn" class="embed-meta-btn embed-btn-gold"></a> 
+                <span class="embed-popout-icon">↗</span>
+              </div>
+            </div>
+            <div id="updates-bar-wrap" class="embed-unit-updates-bar" style="display: none;">
+              <span class="embed-updates-label">Post-Release Updates:</span>
+            </div>
+            <div class="embed-briefing-grid">
+              <!-- Col 1: Visual -->
+              <div class="embed-unit-display">
+                <span class="embed-col-header" style="width: 100%;">Oct 2026</span>
+                <div id="main-img-frame" class="embed-unit-img-frame">
+                  <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1050-warpath-october-2026/" target="_blank" rel="noopener noreferrer" id="main-img-link">
+                    <img class="embed-unit-img" src="https://share1.cloudhq-mkt3.net/76b602892293c8.jpeg" alt="MR. BRAIN Unit Render">
+                  </a>
+                </div>
+              </div>
+              <!-- Col 2: Stats Table -->
+              <div class="embed-stats-col-container">
+                <span class="embed-col-header">Stats</span>
+                <table id="unit-stats-table" class="embed-stats-table">
+                  <tbody>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Generation</td>
+                      <td class="embed-stats-value" style="text-align: left;">Champion</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Faction</td>
+                      <td class="embed-stats-value" style="text-align: left;">Mercenary</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Type</td>
+                      <td class="embed-stats-value" style="text-align: left;">Infantry</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Armor Type</td>
+                      <td class="embed-stats-value" style="text-align: left;">Medium</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Targets</td>
+                      <td class="embed-stats-value" style="text-align: left;">Ground</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Damage Type</td>
+                      <td class="embed-stats-value" style="text-align: left;">Area</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Size</td>
+                      <td class="embed-stats-value" style="text-align: left;">400</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Building Required</td>
+                      <td class="embed-stats-value" style="text-align: left;">Mercenary Camp</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">HP (Level 1)</td>
+                      <td class="embed-stats-value" style="text-align: left;">410,000</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">HP (Max Level)</td>
+                      <td class="embed-stats-value" style="text-align: left;">500,000</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">DPS (Level 1)</td>
+                      <td class="embed-stats-value" style="text-align: left;">44,800</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">DPS (Max Level)</td>
+                      <td class="embed-stats-value" style="text-align: left;">52,000</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Max Speed</td>
+                      <td class="embed-stats-value" style="text-align: left;">6</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Range</td>
+                      <td class="embed-stats-value" style="text-align: left;">400</td>
+                    </tr>
+                    <tr>
+                      <td class="embed-stats-label" style="text-align: right;">Splash Radius</td>
+                      <td class="embed-stats-value" style="text-align: left;">60</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Col 3: Talents -->
+              <div id="talents-container" class="embed-talents-col-container">
+                <span class="embed-col-header">Talents</span>
+                <div class="embed-talent-block">
+                  <div class="embed-talent-tier">LEVEL 1</div>
+                  <div class="embed-talent-desc">Applies infected status to vehicles and infantry</div>
+                </div>
+                <div class="embed-talent-block">
+                  <div class="embed-talent-tier">LEVEL 5</div>
+                  <div class="embed-talent-desc">Lifesteal vs infantry</div>
+                </div>
+                <div class="embed-talent-block">
+                  <div class="embed-talent-tier">LEVEL 10</div>
+                  <div class="embed-talent-desc">Has a 34% chance to resurrect with 50% health up to 3 times</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Existing Contractor Record -->
+        <table class="data-table" style="margin-top: 20px; height: 394px;">
+          <thead>
+            <tr style="height: 45px;">
+              <th style="width: 229.287px; height: 45px;">Designation</th>
+              <th style="width: 687.874px; height: 45px;">Intel &amp; Talents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="height: 349px;">
+              <td style="font-weight: bold; color: #ffffff; text-align: center; height: 349px; width: 229.287px;">CONTRACTOR 
+                <img src="https://share1.cloudhq-mkt3.net/887a28ae1d1f19.jpeg" alt="Johnny Bones" width="221" height="277"> 
+                <br>
+                <span style="color: var(--text-gold); font-size: 13px;">JOHNNY BONES</span>
+              </td>
+              <td style="height: 349px; width: 687.874px;">Formerly known as Orlando Bones. 
+                <br><br>APPLIES INFECTED TO ALL ATTACKING VEHICLES. THOSE INFECTED WILL SPAWN ZOMBIE DEFENDERS ON DEATH.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 5: EVENT STORE REWARDS -->
+      <section class="report-section">
+        <div class="section-header-bar">EVENT STORE REWARDS 
+          <span class="subtext">October 2026 Cycle</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="text-align: left; width: 55%;">Item Designation</th>
+              <th style="text-align: center; width: 15%;">Redemption Limit</th>
+              <th style="text-align: right; width: 15%;">Cost</th>
+              <th style="text-align: right; width: 15%;">
+                <span style="color: #ffff00;">TOTAL</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>■ Mercenary - Mr. Braine Parts</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">12</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">3</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">
+                <span style="color: #ffff00;">36</span>
+              </td>
+            </tr>
+            <tr>
+              <td>■ Mr. Braine Upgrade Tokens</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">12</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">15</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">
+                <span style="color: #ffff00;">180</span>
+              </td>
+            </tr>
+            <tr>
+              <td>■ Contractor - Johnny Bones</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">25</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">
+                <span style="color: #ffff00;">25</span>
+              </td>
+            </tr>
+            <tr>
+              <td><br></td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">&nbsp;</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">
+                <strong style="color: #e0e6ed; text-align: center;">
+                  <span style="color: #ffff00;">COMBINED</span>
+                </strong>
+              </td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">
+                <span style="color: #ffff00;">241</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Footer Navigation -->
+      <footer class="report-footer-nav">WatchToweR Data Hub // Operational Intelligence
+        <div>
+          <a href="https://sites.google.com/view/watchtower-data-hub/combined-data-hub">Home</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-event-calendar" target="_blank" rel="noopener">Event Calendar</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/administration-bug-hub/get-involved" target="_blank" rel="noopener">Get Involved!</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="classification-bar">Unclassified</div>
+  </div>
+</div>
+
+<script>
+  function getBriefCardEl() {
+    return document.getElementById("main-export-nightmare") ||
+           document.getElementById("main-export-holdout") ||
+           document.getElementById("main-export-dossier") ||
+           document.getElementById("main-export-report") ||
+           document.querySelector(".dossier-card, .report-card");
+  }
+
+  function setBriefCollapseState(shouldCollapse, isAutoArchived) {
+    const card = getBriefCardEl();
+    const icon = document.getElementById("archiveToggleIcon");
+    const text = document.getElementById("archiveToggleText");
+    if (!card) return;
+
+    if (shouldCollapse) {
+      card.classList.add("archive-collapsed");
+      if (icon) icon.textContent = "▶";
+      if (text) text.textContent = isAutoArchived ? "EXPAND ARCHIVED BRIEF" : "EXPAND BRIEF";
+    } else {
+      card.classList.remove("archive-collapsed");
+      if (icon) icon.textContent = "▼";
+      if (text) text.textContent = "COLLAPSE BRIEF (ARCHIVE)";
+    }
+  }
+
+  function toggleBriefArchiveMode() {
+    const card = getBriefCardEl();
+    if (!card) return;
+    const currentlyCollapsed = card.classList.contains("archive-collapsed");
+    setBriefCollapseState(!currentlyCollapsed, false);
+  }
+
+  /* Aliases so existing onclick handlers in any brief work automatically */
+  const toggleNightmareArchiveMode = toggleBriefArchiveMode;
+  const toggleHoldoutArchiveMode = toggleBriefArchiveMode;
+  const toggleSectorBreachArchiveMode = toggleBriefArchiveMode;
+
+  function parseWarCommanderEventDateMs(rawText) {
+    if (!rawText) return null;
+    /* Matches e.g. "OCT 8, 2026 @ 10:00 AM PDT" or "OCT 14, 2026 @ 10:00 AM PST" */
+    const m = rawText.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\s*@\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PDT|PST)?/i);
+    if (!m) return null;
+
+    const monthNames = {
+      JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5,
+      JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11
+    };
+    const mon = monthNames[m[1].slice(0, 3).toUpperCase()];
+    if (mon === undefined) return null;
+
+    const day = parseInt(m[2], 10);
+    const year = parseInt(m[3], 10);
+    let hour = parseInt(m[4], 10);
+    const min = parseInt(m[5], 10);
+    const ampm = m[6].toUpperCase();
+    const tz = (m[7] || "PDT").toUpperCase();
+
+    if (ampm === "PM" && hour < 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+
+    const offset = (tz === "PST") ? "-08:00" : "-07:00";
+    const pad = (n) => String(n).padStart(2, "0");
+    const iso = `${year}-${pad(mon + 1)}-${pad(day)}T${pad(hour)}:${pad(min)}:00${offset}`;
+    const ms = Date.parse(iso);
+    return isNaN(ms) ? null : ms;
+  }
+
+  function autoCollapseIfStoreClosed() {
+    const card = getBriefCardEl();
+    if (!card) return;
+
+    let cutoffMs = null;
+
+    /* 1. Optional explicit data-store-close attribute on the card */
+    const explicitAttr = card.getAttribute("data-store-close");
+    if (explicitAttr) {
+      const parsedAttr = Date.parse(explicitAttr);
+      if (!isNaN(parsedAttr)) cutoffMs = parsedAttr;
+    }
+
+    /* 2. Otherwise auto-parse "Store Closes:" (or fallback to "Ends:") from .event-meta */
+    if (!cutoffMs) {
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl) {
+        const metaText = metaEl.textContent || "";
+        const storeMatch = metaText.match(/Store\s*Closes\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+        const endsMatch  = metaText.match(/Ends\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+
+        if (storeMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(storeMatch[1]);
+        } else if (endsMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(endsMatch[1]);
+        }
+      }
+    }
+
+    if (cutoffMs && Date.now() >= cutoffMs) {
+      setBriefCollapseState(true, true);
+
+      /* Inject a subtle status badge in .event-meta so players know why it's collapsed */
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl && !document.getElementById("autoArchiveStatusBadge")) {
+        const badge = document.createElement("span");
+        badge.id = "autoArchiveStatusBadge";
+        badge.style.cssText = "background: rgba(255, 215, 0, 0.14); border: 1px solid #ffd700; color: #ffd700; font-family: monospace; font-size: 12px; font-weight: 900; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.8px;";
+        badge.textContent = "📦 ARCHIVED (STORE CLOSED)";
+        metaEl.appendChild(badge);
+      }
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoCollapseIfStoreClosed);
+  } else {
+    autoCollapseIfStoreClosed();
+  }
+</script>

@@ -1,0 +1,309 @@
+<style>:root {
+            --bg-color: #0b0f12;
+            --panel-bg: #121920;
+            --border-color: #00e5ff;
+            --accent-green: #00ff66;
+            --accent-red: #ff3333;
+            --text-color: #d1f4ff;
+            --header-color: #ffffff;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            padding: 20px;
+            background: radial-gradient(circle, #1a2632 0%, #0b0f12 100%);
+        }
+        .header-title {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--header-color);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            padding: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        .panel-title {
+            color: var(--border-color);
+            font-size: 1.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(0, 229, 255, 0.1);
+            color: var(--border-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .alert-box {
+            border: 1px solid var(--accent-red);
+            background-color: rgba(255, 51, 51, 0.1);
+            color: #ff9999;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .spacer-text {
+            color: #7a9bb0;
+            font-style: italic;
+        }</style>
+<div class="container">
+  <h1 class="header-title">
+    <span style="font-family: arial, helvetica, sans-serif;">SECTOR BREACH: BRIEFING</span>
+  </h1>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Schedule Section --></span>
+  <div class="panel" style="margin-bottom: 20px;">
+    <h2 class="panel-title">
+      <span style="font-family: arial, helvetica, sans-serif;">Event schedule | 
+        <a href="https://docs.google.com/spreadsheets/d/1N6ejcTPllZKnUyMGiSNy38vn4LueKu_htHUXyXwZrgM/copy" target="_blank" rel="noopener">
+          <span style="color: #00ff00;">EVENT CALCUlATOR</span>
+        </a> | NEW UNIT "
+        <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/aircraft-hanger/warlord-stormwail/legendary-banshee">
+          <span style="color: #00ff00;">LEGENDARY BANSHEE</span>
+        </a>" DATA SHEET
+      </span>
+    </h2>
+    <ul>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>START:</strong> Friday, August 21, 2026 @ 10 AM PDT
+        </span>
+      </li>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>END:</strong> Tuesday, August 25, 2026 @ 10 AM PDT
+        </span>
+      </li>
+      <li>
+        <span style="font-family: arial, helvetica, sans-serif;">
+          <strong>STORE CLOSES:</strong> Wednesday, August 26, 2026 @ 10 AM PDT
+        </span>
+      </li>
+    </ul>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Mission & Tracks Section --></span>
+  <div class="grid-2">
+    <div class="panel">
+      <h2 class="panel-title">
+        <span style="font-family: arial, helvetica, sans-serif;">MISSION OVERVIEW</span>
+      </h2>
+      <p>
+        <span class="spacer-text" style="font-family: arial, helvetica, sans-serif;">
+          <strong>Sarkis Cloning Technology has been used on Player Bases creating Rogue Player Bases, and it’s up to the Sector Commanders to push them out. Players will hit PVE bases that are copies of player’s bases with the Assault Platoons in order to earn Sector Breach XP in the Sector Breach Store. 
+            <br>
+            <br>Use your units to play through the General set or the Conqueror set to earn Sector Breach XP with the Assault Platoon option. Sets can be completed in any order and pay out a bonus XP Cache.&nbsp; 
+            <br>
+          </strong>
+        </span>
+      </p>
+      <ul>
+        <li>
+          <span class="spacer-text" style="font-family: arial, helvetica, sans-serif;">
+            <strong>The Conqueror set will test your might but will pay out more XP than the General set. Choose the set that best fits your power level.</strong>
+          </span>
+        </li>
+        <li>
+          <span class="spacer-text" style="font-family: arial, helvetica, sans-serif;">
+            <strong>You can hit the targets multiple times, and wins will count towards future set completions, so you won't be penalized for hitting a target again!</strong>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2 class="panel-title">
+        <span style="font-family: arial, helvetica, sans-serif;">TRACKS &amp; REWARDS</span>
+      </h2>
+      <h3 style="color: var(--accent-green);">
+        <strong>General Track</strong>
+      </h3>
+      <ul>
+        <li>
+          <strong>General Base I Rewards:</strong>&nbsp;5,500 XP
+        </li>
+        <li>
+          <strong>General Base II Rewards:</strong>&nbsp;5,500 XP
+        </li>
+        <li>
+          <strong>General Base III Rewards:</strong>&nbsp;10,000 XP
+        </li>
+        <li>
+          <strong>General Base Completion Bonus Rewards:</strong>&nbsp;40,000 XP
+        </li>
+      </ul>
+      <h3 style="color: var(--accent-red);">
+        <strong>Conqueror Track</strong>
+      </h3>
+      <ul>
+        <li>
+          <strong>Conqueror Base I Rewards:</strong>&nbsp;17,000 XP
+        </li>
+        <li>
+          <strong>Conqueror Base II Rewards:</strong>&nbsp;17,000 XP
+        </li>
+        <li>
+          <strong>Conqueror Base III Rewards:</strong>&nbsp;30,000 XP
+        </li>
+        <li>
+          <strong>Conqueror Base Completion Bonus Rewards:</strong>&nbsp;100,000 XP
+        </li>
+      </ul>
+    </div>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Event Store Table Section --></span>
+  <div class="panel">
+    <h2 class="panel-title">
+      <span style="font-family: arial, helvetica, sans-serif;">STORE INVENTORY</span>
+    </h2>
+    <table style="height: 154px;" width="967">
+      <thead>
+        <tr style="height: 14px;">
+          <th style="width: 402.776px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">NEW ITEM</span>
+          </th>
+          <th style="width: 230.152px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">REDEMPTION LIMIT</span>
+          </th>
+          <th style="width: 196.72px; height: 14px;">
+            <span style="font-family: arial, helvetica, sans-serif;">XP COST</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee</td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">24</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">77,500 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee Upgrade Token</td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">10</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">100,000 / Each</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee - 
+            <strong>Precision Rotors</strong>&nbsp;Tech
+          </td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee - 
+            <strong>High-Speed Rotors</strong>&nbsp;Tech&nbsp;
+          </td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee - 
+            <strong>Hedge Armors</strong>&nbsp;Tech&nbsp;
+          </td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+        <tr style="height: 20px;">
+          <td style="width: 402.776px; height: 20px;">Legendary Banshee - 
+            <strong>Apparition Armor</strong>&nbsp;Tech&nbsp;
+          </td>
+          <td style="width: 230.152px; height: 20px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 20px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+        <tr style="height: 17px;">
+          <td style="width: 402.776px; height: 17px;">Legendary Banshee - 
+            <strong>Inertia Missiles</strong>&nbsp;Tech&nbsp;
+          </td>
+          <td style="width: 230.152px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 17px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+        <tr style="height: 18px;">
+          <td style="width: 402.776px; height: 18px;">Legendary Banshee - 
+            <strong>Destabilizer Missiles</strong>&nbsp;Tech&nbsp;
+          </td>
+          <td style="width: 230.152px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">1</span>
+          </td>
+          <td style="width: 196.72px; height: 18px;">
+            <span style="font-family: arial, helvetica, sans-serif;">275,000</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <span style="font-family: arial, helvetica, sans-serif;"><!-- Critical Alert / Warning Footer --></span>
+  <div class="alert-box">
+    <span style="font-family: arial, helvetica, sans-serif;">⚠️ &nbsp;Use It or Lose It will only be 24 hours long. 
+      <br>Please be sure to redeem your prizes by 10am PDT on&nbsp; 
+      <strong>Wednesday, August 26th.</strong>
+    </span>
+  </div>
+</div>

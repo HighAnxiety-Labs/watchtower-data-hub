@@ -1,0 +1,944 @@
+<style>html, body { background-color: #0b0f0d; margin: 0; padding: 16px; }
+  /* Reset & Base Variables */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: auto;
+    min-height: 100%;
+    background-color: #0b0f0d;
+  }
+  body {
+    color: #e0e6ed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.45;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  /* Control Panel */
+  .control-panel {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background: #0d1210;
+    border: 1px solid #1f3b2b;
+    padding: 10px 16px;
+    border-radius: 4px;
+    gap: 14px;
+  }
+  .selector-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .selector-label {
+    color: #00e676;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .selector-select {
+    background: #14241b;
+    border: 1px solid #00e676;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+  }
+  .right-control-cluster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .selector-status {
+    font-size: 13px;
+    color: #00e676;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  /* Admin Button Group */
+  .export-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .btn-export {
+    background: #14241b;
+    border: 1px solid #00e676;
+    color: #00e676;
+    font-weight: 800;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-export:hover {
+    background: #00bf63;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+  }
+  .btn-export.btn-import { border-color: #fb923c; color: #fb923c; background: #271709; }
+  .btn-export.btn-import:hover { background: #fb923c; color: #000; }
+  .btn-export.btn-edit { border-color: #fde047; color: #fde047; background: #23200d; }
+  .btn-export.btn-edit:hover { background: #fde047; color: #000; }
+  .btn-export.btn-new { border-color: #38bdf8; color: #38bdf8; background: #0d212c; }
+  .btn-export.btn-new:hover { background: #38bdf8; color: #000; }
+  .btn-export.btn-img { border-color: #f2a900; color: #f2a900; }
+  .btn-export.btn-img:hover { background: #f2a900; color: #000; }
+  .btn-export.btn-link { border-color: #22d3ee; color: #22d3ee; }
+  .btn-export.btn-link:hover { background: #22d3ee; color: #000; }
+  .btn-export.btn-master { border-color: #c084fc; color: #c084fc; }
+  .btn-export.btn-master:hover { background: #c084fc; color: #000; }
+  /* ==================== IN-PAGE TACTICAL MODALS ==================== */
+  .wtr-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.84);
+    backdrop-filter: blur(3px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .wtr-modal-backdrop.open { display: flex; }
+  .wtr-modal-box {
+    width: 100%;
+    max-width: 620px;
+    background: #0d1411;
+    border: 2px solid #38bdf8;
+    border-radius: 5px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.95), 0 0 20px rgba(56, 189, 248, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .wtr-modal-header {
+    background: linear-gradient(90deg, #0d212c 0%, #091318 100%);
+    border-bottom: 1px solid #1e3a4c;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wtr-modal-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: #38bdf8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .wtr-modal-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .wtr-modal-footer {
+    background: #080d0b;
+    border-top: 1px solid #1a2e22;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  /* ==================== MASTER EDITOR STUDIO PANEL ==================== */
+  .master-editor-panel {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto 20px auto;
+    background: #0c1310;
+    border: 2px solid #f2a900;
+    border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .master-editor-panel.open { display: flex; }
+  .editor-top-bar {
+    background: linear-gradient(90deg, #1f2412 0%, #101814 100%);
+    border-bottom: 1px solid #3a4424;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .editor-top-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: #fde047;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .editor-tabs {
+    display: flex;
+    background: #080c0a;
+    border-bottom: 1px solid #1f3b2b;
+    overflow-x: auto;
+  }
+  .editor-tab-btn {
+    background: transparent;
+    border: none;
+    border-right: 1px solid #1a2e22;
+    border-bottom: 3px solid transparent;
+    color: #90a4ae;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 11px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .editor-tab-btn:hover { color: #fff; background: rgba(0, 230, 118, 0.05); }
+  .editor-tab-btn.active { color: #00e676; border-bottom-color: #00e676; background: #111c16; }
+  .editor-tab-pane {
+    display: none;
+    padding: 18px;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .editor-tab-pane.active { display: flex; }
+  .ed-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .ed-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .ed-field { display: flex; flex-direction: column; gap: 5px; }
+  .ed-field label { font-size: 11px; font-weight: 800; color: #81c784; text-transform: uppercase; letter-spacing: 0.8px; }
+  .ed-field input[type="text"], .ed-field input[type="number"], .ed-field select, .ed-field textarea {
+    background: #060a08; border: 1px solid #264634; color: #fff; padding: 8px 10px; font-size: 13px; border-radius: 3px; font-family: inherit; outline: none;
+  }
+  .ed-field input:focus, .ed-field select:focus, .ed-field textarea:focus { border-color: #00e676; }
+  .ed-toggle-box {
+    background: #101b15; border: 1px solid #264634; border-left: 4px solid #00e676; padding: 10px 14px; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .ed-toggle-box label { font-size: 12.5px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; }
+  .ed-toggle-box input[type="checkbox"] { width: 18px; height: 18px; accent-color: #00e676; cursor: pointer; }
+  .ed-list-container { display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+  .ed-row-item { background: #080d0a; border: 1px solid #1f3b2b; padding: 8px 10px; border-radius: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .ed-row-item input, .ed-row-item select, .ed-row-item textarea {
+    background: #0e1712; border: 1px solid #2a4937; color: #fff; padding: 6px 8px; font-size: 12.5px; border-radius: 2px; outline: none;
+  }
+  .ed-row-item input:focus, .ed-row-item select:focus, .ed-row-item textarea:focus { border-color: #00e676; }
+  .btn-mini {
+    background: #182b20; border: 1px solid #2e543e; color: #a7ffeb; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 2px; cursor: pointer; text-transform: uppercase;
+  }
+  .btn-mini:hover { background: #00e676; color: #000; }
+  .btn-mini.danger { background: #2a1215; border-color: #f43f5e; color: #fda4af; }
+  .btn-mini.danger:hover { background: #f43f5e; color: #fff; }
+  .editor-footer-bar {
+    background: #090e0b; border-top: 1px solid #1f3b2b; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  /* ==================== DOSSIER CARD STYLES ==================== */
+  .dossier-card {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    background: #0d1210;
+    border: 1px solid #1f3b2b;
+    box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05);
+    overflow: hidden;
+  }
+  .classification-bar {
+    background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase;
+  }
+  .header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+  .unit-title {
+    font-size: clamp(32px, 5vw, 46px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", Gadget, sans-serif; text-transform: uppercase;
+  }
+  .unit-quote { font-style: italic; color: #b0bec5; font-size: 15.5px; border-left: 3px solid #00e676; padding-left: 12px; flex: 1; }
+  /* Meta Strip */
+  .unit-meta-bar {
+    background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: 1px; flex-wrap: wrap; gap: 10px;
+  }
+  .meta-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .meta-item.meta-right { justify-content: flex-end; text-align: right; }
+  .meta-divider { width: 1px; height: 20px; background-color: #1a3324; margin: 0 12px; flex-shrink: 0; }
+  .meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 12.5px; letter-spacing: 1px; }
+  .meta-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.2s ease-in-out; cursor: pointer;
+  }
+  .meta-btn:hover { background: #1b3826; border-color: #00e676; box-shadow: 0 0 8px rgba(0, 230, 118, 0.2); }
+  .meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+  .meta-btn.btn-gold:hover { background: #242211; border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.25); }
+  .meta-btn.btn-cyan { color: #22d3ee; border-color: rgba(34, 211, 238, 0.35); }
+  .meta-btn.btn-cyan:hover { background: #0d252c; border-color: #22d3ee; }
+  .popout-icon { font-size: 11px; line-height: 1; opacity: 0.85; }
+  /* Updates Strip */
+  .unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 0.5px; flex-wrap: wrap; }
+  .updates-label { color: #f2a900; font-weight: 800; text-transform: uppercase; white-space: nowrap; letter-spacing: 1px; }
+  .updates-content { color: #cfd8dc; font-size: 13.5px; flex: 1; }
+  /* 3-Column Briefing Grid */
+  .briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .col-header {
+    font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  /* Building Image (4:5 Ratio Auto-Fit) */
+  .unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .unit-img-frame {
+    width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #060908; border: 1px solid rgba(0, 255, 128, 0.3); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  }
+  .unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Stats Table */
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .stats-table tr { border-bottom: 1px solid #132419; }
+  .stats-table td { padding: 6px 8px; }
+  .stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
+  .stats-value { color: #fff; text-align: left; font-weight: 700; }
+  .val-iridium { color: #bc8cff !important; }
+  .val-gold { color: #ffd700 !important; }
+  .val-green { color: #00e676 !important; }
+  .val-alert { color: #ff5252 !important; }
+  /* Core Functions / Unlocks */
+  .talent-block { margin-bottom: 12px; font-size: 14px; }
+  .talent-tier { color: #00e676; font-weight: 800; font-size: 13px; letter-spacing: 0.5px; margin-bottom: 3px; text-transform: uppercase; }
+  .talent-desc { color: #cfd8dc; padding-left: 10px; border-left: 2px solid #1f3b2b; line-height: 1.38; }
+  .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.35); }
+  .broken-badge { background: rgba(244, 63, 94, 0.2); border: 1px solid #f43f5e; color: #fda4af; font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 3px; text-transform: uppercase; }
+  /* Shared Sections */
+  .dossier-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  /* DATA SHEET 1: Directive */
+  .wc-directive-box {
+    width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6); padding: 15px 18px; border-radius: 2px;
+  }
+  .wc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .wc-title { font-size: 16px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #f2a900; display: flex; align-items: center; gap: 10px; }
+  .wc-badge { font-size: 11px; background: #21262d; border: 1px solid #f2a900; color: #f2a900; padding: 2px 8px; border-radius: 2px; letter-spacing: 1px; }
+  .wc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
+  .wc-table th { background-color: #1f242c; color: #8b949e; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; padding: 10px; border-bottom: 2px solid #30363d; white-space: nowrap; }
+  .wc-table td { padding: 9px 10px; border-bottom: 1px solid #21262d; }
+  .wc-table tr:hover { background-color: #1f2733; }
+  .level-cell { font-weight: 800; color: #58a6ff; font-family: monospace; font-size: 14px; }
+  .iridium-cost { color: #bc8cff; font-weight: 700; font-family: monospace; }
+  .gold-cost { color: #ffd700; font-weight: 700; font-family: monospace; }
+  .sale-cost { color: #00e676; font-weight: 700; font-family: monospace; }
+  .cc-req { color: #7ee787; font-weight: 700; }
+  .section-divider td {
+    background: #13171d; font-weight: 800; color: #8b949e; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d; padding: 6px 10px;
+  }
+  .empty-row td { color: #6e7681; font-style: italic; }
+  .highlight-row { background: rgba(242, 169, 0, 0.07); }
+  /* DATA SHEET 2: Upgrades */
+  .upgrades-table-wrapper { width: 100%; max-height: 480px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
+  .upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
+  .upgrades-table th {
+    position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 9px 10px; border-bottom: 2px solid #1f3b2b; z-index: 2; white-space: nowrap;
+  }
+  .upgrades-table td { padding: 8px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; font-family: monospace; font-size: 13px; }
+  .upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); border-right: 1px solid #132419; text-align: left; white-space: nowrap; }
+  .upgrades-table td.notes-cell { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: left; color: #cfd8dc; }
+  .upgrades-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+  .upgrades-table tbody tr:hover { background: rgba(0, 230, 118, 0.06); }
+  .upgrades-table tr.totals-row td { background: #14241b; color: #ffd700; font-weight: 900; border-top: 2px solid #00e676; font-size: 13.5px; }
+  /* DATA SHEET 3: Doctrine */
+  .doctrine-notice {
+    background: rgba(0, 230, 118, 0.08); border: 1px solid #00e676; border-left: 4px solid #00e676; color: #a7ffeb; padding: 8px 12px; border-radius: 4px; font-size: 13.5px; margin-bottom: 12px;
+  }
+  .doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .doctrine-card { background: #0b1118; border: 1px solid #1f3b2b; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+  .doctrine-card.base { border-top: 3px solid #ffd700; }
+  .doctrine-card.spec-1 { border-top: 3px solid #2dd4bf; }
+  .doctrine-card.spec-2 { border-top: 3px solid #38bdf8; }
+  .doctrine-card-header { padding: 10px 12px; background: #0f1813; border-bottom: 1px solid #1a3324; min-height: 54px; display: flex; flex-direction: column; justify-content: center; }
+  .doctrine-card-header h2 { font-size: 14px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
+  .doctrine-card.base .doctrine-card-header h2 { color: #ffd700; }
+  .doctrine-card.spec-1 .doctrine-card-header h2 { color: #2dd4bf; }
+  .doctrine-card.spec-2 .doctrine-card-header h2 { color: #38bdf8; }
+  .doctrine-card-header .subtitle { font-size: 12px; color: #90a4ae; text-transform: uppercase; letter-spacing: 0.5px; }
+  .doctrine-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  .doctrine-table th { padding: 7px 8px; border-bottom: 1px solid #132419; text-align: left; background: #090e0b; color: #81c784; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .doctrine-table td { padding: 7px 8px; border-bottom: 1px solid #132419; vertical-align: middle; }
+  .doctrine-table td.lvl { width: 76px; font-weight: 800; text-align: center; background: rgba(0, 0, 0, 0.3); border-right: 1px solid #132419; font-family: monospace; }
+  .doctrine-card.base td.lvl { color: #ffd700; }
+  .doctrine-card.spec-1 td.lvl { color: #2dd4bf; }
+  .doctrine-card.spec-2 td.lvl { color: #38bdf8; }
+  .doctrine-table td.desc { color: #e0e6ed; line-height: 1.35; }
+  /* Sub-Systems Grid */
+  .workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+  .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+  .workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+  .workshop-item p { color: #cfd8dc !important; line-height: 1.35; margin-top: 4px; margin-bottom: 6px; font-size: 13.5px; }
+  .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; font-size: 14px; text-transform: uppercase; }
+  .workshop-tag { font-weight: 800; color: #00e676; font-size: 12px; margin-bottom: 4px; font-family: monospace; }
+  @media (min-width: 768px) {
+    .header-content { flex-direction: row; align-items: center; gap: 30px; }
+    .briefing-grid { grid-template-columns: 230px 1.15fr 1.35fr; }
+    .doctrine-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+  }</style>
+<div style="width: 100%; max-width: 1140px;">
+  <div id="exportable-dossier-card" class="dossier-card">
+    <div id="d-classification" class="classification-bar">BASE OPERATIONS // AVIATION LOGISTICS — AIRCRAFT HANGER (CC22 WAVE)</div>
+    <div class="header-content">
+      <h1 id="d-title" class="unit-title">AIRCRAFT HANGER</h1>
+      <p id="d-quote" class="unit-quote" style="display: block;">"Provides supplemental storage, aircraft maintenance bays, and +4,000 Air Hanger capacity per CC22 upgrade level."</p>
+    </div>
+<!-- Meta Strip with Dynamic Data Sheet Quick-Jump Links & Linked Facility -->
+    <div id="unit-meta-bar" class="unit-meta-bar" style="display: flex;">
+      <div id="origin-event-container" class="meta-item" style="display: flex;">
+        <span class="meta-label">Data Sheets:</span> 
+        <a href="#directive-section" id="jump-sheet1" class="meta-btn" onclick="scrollToSection('directive-section'); return false;" style="display: inline-flex;">
+          <span id="jump-sheet1-text">1. Upgrade Directive</span> 
+          <span class="popout-icon">↓</span>
+        </a> 
+        <a href="#upgrades-section" id="jump-sheet2" class="meta-btn btn-cyan" onclick="scrollToSection('upgrades-section'); return false;" style="display: none;">
+          <span id="jump-sheet2-text">2. CC22 Planning Matrix</span> 
+          <span class="popout-icon">↓</span>
+        </a> 
+        <a href="#doctrine-section" id="jump-sheet3" class="meta-btn" onclick="scrollToSection('doctrine-section'); return false;" style="display: none;">
+          <span id="jump-sheet3-text">3. Upgrade Path &amp; Notes</span> 
+          <span class="popout-icon">↓</span>
+        </a>
+      </div>
+      <div id="meta-divider-bar" class="meta-divider" style="display: block;">&nbsp;</div>
+      <div id="linked-unit-container" class="meta-item meta-right" style="display: flex;">
+        <span class="meta-label">LINKED FACILITY:</span> 
+        <a id="linkedFacilityBtn" class="meta-btn btn-gold"></a> 
+        <span id="d-linked-name">AIRFIELD (LVL 60)</span> 
+        <span class="popout-icon">↗</span>
+      </div>
+    </div>
+<!-- Operational Updates / Known Issues Strip -->
+    <div id="updates-bar-wrap" class="unit-updates-bar" style="display: flex;">
+      <span id="d-updates-label" class="updates-label">Operational Telemetry:</span> 
+      <span id="d-updates" class="updates-content">Each upgrade level from 46 to 50 grants an immediate +4,000 capacity increase to the Air Hanger (+20,000 total capacity across 5 levels).</span>
+    </div>
+<!-- 3-Column Briefing Grid -->
+    <div class="briefing-grid"><!-- Col 1: Visual (4:5 Auto-Fit Image) -->
+      <div class="unit-display">
+        <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;">CC22 TIER: LVL 45 → 50</span>
+        <div id="main-img-frame" class="unit-img-frame">
+          <img id="d-main-img" class="unit-img" src="https://share1.cloudhq-mkt3.net/672e01ddf448a6.jpeg" alt="AIRCRAFT HANGER (LVL 45–50) Render">
+        </div>
+      </div>
+<!-- Col 2: Facility Specifications Table -->
+      <div class="stats-col-container">
+        <span class="col-header">Facility Specifications</span>
+        <table id="unit-stats-table" class="stats-table">
+          <tbody id="d-stats-tbody">
+            <tr>
+              <td class="stats-label">Facility Category</td>
+              <td class="stats-value ">Military / Aviation Storage</td>
+            </tr>
+            <tr>
+              <td class="stats-label">CC22 Level Range</td>
+              <td class="stats-value val-green">Level 45 → Level 50 (5 Lvls)</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Total Iridium Cost</td>
+              <td class="stats-value val-iridium">205,000 Iridium</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Total Duration</td>
+              <td class="stats-value ">20 Days 12 Hours</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Total Gold (w/ Iridium)</td>
+              <td class="stats-value val-gold">741 Gold</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Total Instant Gold</td>
+              <td class="stats-value val-gold">844 Gold</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Total Sale Gold (5% Off)</td>
+              <td class="stats-value val-green">802 Gold</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Capacity Gain</td>
+              <td class="stats-value ">+4,000 per Level (+20k Total)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!-- Col 3: Core Functions & Unlocks -->
+      <div id="talents-container" class="talents-col-container">
+        <span class="col-header">Core Functions &amp; Unlocks</span>
+        <div id="d-talents-list">
+          <div class="talent-block">
+            <div class="talent-tier">AVIATION FLEET EXPANSION (+20,000 CAP)</div>
+            <div class="talent-desc">Adds +4,000 Air Hanger capacity at Levels 46, 47, 48, 49, and 50 to house high-cap Arc 2 aircraft squadrons.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- ==================== DATA SHEET 1: UPGRADE DIRECTIVE ==================== -->
+    <div id="directive-section" class="dossier-section" style="display: block;">
+      <span class="col-header">
+        <span id="d-sheet1-header">Data Sheet 1 // AIRCRAFT HANGER (LVL 45–50) Upgrade Directive</span> 
+        <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: AIR_HANGER-OPS</span>
+      </span>
+      <div class="wc-directive-box">
+        <div class="wc-header">
+          <div class="wc-title">
+            <span id="d-directive-title">AIRCRAFT HANGER (LVL 45–50)</span> 
+            <span class="wc-badge">UPGRADE DIRECTIVE</span>
+          </div>
+          <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;">DATABASE REF: AIR_HANGER-OPS</div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="wc-table">
+            <thead>
+              <tr>
+                <th style="width: 7%;">Lvl</th>
+                <th style="width: 31%;">Description &amp; Unlocks</th>
+                <th style="width: 12%;">Cost (Iridium)</th>
+                <th style="width: 12%;">Gold (w/ Iridium)</th>
+                <th style="width: 12%;">Gold Buyout</th>
+                <th style="width: 10%;">Sale Gold</th>
+                <th style="width: 8%;">Duration</th>
+                <th style="width: 8%;">Req CC</th>
+              </tr>
+            </thead>
+            <tbody id="d-directive-tbody">
+              <tr class="section-divider">
+                <td colspan="8">CC22 Aircraft Hanger Upgrade Progression (Levels 45 → 50)</td>
+              </tr>
+              <tr class="">
+                <td class="level-cell">45→46</td>
+                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="iridium-cost">25,000</td>
+                <td class="gold-cost">97</td>
+                <td class="gold-cost">110</td>
+                <td class="sale-cost">105 (5%)</td>
+                <td>2d 12h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+              <tr class="">
+                <td class="level-cell">46→47</td>
+                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="iridium-cost">30,000</td>
+                <td class="gold-cost">114</td>
+                <td class="gold-cost">129</td>
+                <td class="sale-cost">123 (5%)</td>
+                <td>3d 0h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+              <tr class="">
+                <td class="level-cell">47→48</td>
+                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="iridium-cost">40,000</td>
+                <td class="gold-cost">147</td>
+                <td class="gold-cost">167</td>
+                <td class="sale-cost">159 (5%)</td>
+                <td>4d 0h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+              <tr class="">
+                <td class="level-cell">48→49</td>
+                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="iridium-cost">50,000</td>
+                <td class="gold-cost">177</td>
+                <td class="gold-cost">202</td>
+                <td class="sale-cost">192 (5%)</td>
+                <td>5d 0h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="level-cell">49→50</td>
+                <td>Increase of 4k to Air Hanger capacity (+20k Total)</td>
+                <td class="iridium-cost">60,000</td>
+                <td class="gold-cost">206</td>
+                <td class="gold-cost">236</td>
+                <td class="sale-cost">224 (5%)</td>
+                <td>6d 0h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="level-cell">TOTAL</td>
+                <td>5 Upgrade Levels Total</td>
+                <td class="iridium-cost">205,000</td>
+                <td class="gold-cost">741</td>
+                <td class="gold-cost">844</td>
+                <td class="sale-cost">802</td>
+                <td>20d 12h</td>
+                <td class="cc-req">CC 22</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<!-- ==================== DATA SHEET 2: CC22 UPGRADE PLANNING MATRIX ==================== -->
+    <div id="upgrades-section" class="dossier-section" style="display: none;">
+      <span id="upgrades-section-header" class="col-header">
+        <span id="d-sheet2-header">Data Sheet 2 // CC22 Master Upgrade Planning Matrix (All Facilities)</span> 
+        <span id="d-sheet2-sub" style="font-size: 12px; color: #ffd700; font-family: monospace;">TOTAL: 244d 12h | 2,445,000 IRIDIUM | 9,346 GOLD</span>
+      </span>
+      <div class="upgrades-table-wrapper">
+        <table class="upgrades-table">
+          <thead>
+            <tr>
+              <th style="text-align: left;">Building / Facility</th>
+              <th>Levels</th>
+              <th># Lvls</th>
+              <th>Duration</th>
+              <th>Iridium Cost</th>
+              <th>Gold (w/ Irid)</th>
+              <th>Instant Gold</th>
+              <th>Sale Offer</th>
+              <th style="text-align: left;">Operational Unlocks &amp; Notes</th>
+            </tr>
+          </thead>
+          <tbody id="upgrades-table-body">
+            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Dossier">
+              <td class="lvl-cell">↗ Command Center 22</td>
+              <td>21 → 22</td>
+              <td>1</td>
+              <td>8d 0h</td>
+              <td class="iridium-cost">80,000</td>
+              <td class="gold-cost">384</td>
+              <td class="gold-cost">424</td>
+              <td class="sale-cost">6% (399)</td>
+              <td class="notes-cell">Unlocks new wave of CC22 building upgrades across base</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Dossier">
+              <td class="lvl-cell">↗ ACADEMY (LVL 55–60)</td>
+              <td>55 → 60</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 cap)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load AIRCRAFT HANGER (LVL 45–50) into top Dossier">
+              <td class="lvl-cell">↗ AIRCRAFT HANGER (LVL 45–50)</td>
+              <td>45 → 50</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">Increases Air Hanger capacity by +4,000 per level (+20,000 total)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Airfield into top Dossier">
+              <td class="lvl-cell">↗ Airfield</td>
+              <td>55 → 60</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Air in War Prod</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Barracks into top Dossier">
+              <td class="lvl-cell">↗ Barracks</td>
+              <td>50 → 55</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L55 unlocks Arc 2 Infantry in War Prod</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Dossier">
+              <td class="lvl-cell">↗ Construction Yard</td>
+              <td>5 → 10</td>
+              <td>5</td>
+              <td>16d 12h</td>
+              <td class="iridium-cost">165,000</td>
+              <td class="gold-cost">615</td>
+              <td class="gold-cost">698</td>
+              <td class="sale-cost">5% (663)</td>
+              <td class="notes-cell">Increases Basic Constructs to 6 and Reinforced Constructs to 4</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Dossier">
+              <td class="lvl-cell">↗ Mercenary Camp</td>
+              <td>25 → 30</td>
+              <td>5</td>
+              <td>16d 12h</td>
+              <td class="iridium-cost">165,000</td>
+              <td class="gold-cost">615</td>
+              <td class="gold-cost">698</td>
+              <td class="sale-cost">5% (663)</td>
+              <td class="notes-cell">War Prod: L26 Bearguard, L27 Snow Man, L28 Quartermaster, L29 Gunslinger, L30 Faster Prod</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Dossier">
+              <td class="lvl-cell">↗ Mine Factory</td>
+              <td>5 → 10</td>
+              <td>5</td>
+              <td>16d 12h</td>
+              <td class="iridium-cost">165,000</td>
+              <td class="gold-cost">615</td>
+              <td class="gold-cost">698</td>
+              <td class="sale-cost">5% (663)</td>
+              <td class="notes-cell">Active Minefield Capacity increases: L6 (8), L7 (9), L8 (10), L9 (11), L10 (12)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Dossier">
+              <td class="lvl-cell">↗ Radio Tower</td>
+              <td>10 → 14</td>
+              <td>4</td>
+              <td>11d 12h</td>
+              <td class="iridium-cost">115,000</td>
+              <td class="gold-cost">552</td>
+              <td class="gold-cost">610</td>
+              <td class="sale-cost">5% (580)</td>
+              <td class="notes-cell">Increases deployable Advanced Scouts: L11 (11), L12 (12), L13 (13), L14 (14)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Skyguard into top Dossier">
+              <td class="lvl-cell">↗ Skyguard</td>
+              <td>15 → 20</td>
+              <td>5</td>
+              <td>16d 12h</td>
+              <td class="iridium-cost">165,000</td>
+              <td class="gold-cost">615</td>
+              <td class="gold-cost">698</td>
+              <td class="sale-cost">5% (663)</td>
+              <td class="notes-cell">Air Defender capacity scales: L16 (2650), L17 (2700), L18 (2750), L19 (2800), L20 (2850)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Dossier">
+              <td class="lvl-cell">↗ Tactical Ops Center</td>
+              <td>20 → 25</td>
+              <td>5</td>
+              <td>16d 12h</td>
+              <td class="iridium-cost">165,000</td>
+              <td class="gold-cost">792</td>
+              <td class="gold-cost">875</td>
+              <td class="sale-cost">5% (831)</td>
+              <td class="notes-cell">Overrides attacker bonuses for Arc 3 PVP units: 31% to 35% Damage Dealt &amp; Taken</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Tech Center into top Dossier">
+              <td class="lvl-cell">↗ Tech Center</td>
+              <td>45 → 50</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 Vehicle Defender cap)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load War Factory into top Dossier">
+              <td class="lvl-cell">↗ War Factory</td>
+              <td>55 → 60</td>
+              <td>5</td>
+              <td>20d 12h</td>
+              <td class="iridium-cost">205,000</td>
+              <td class="gold-cost">741</td>
+              <td class="gold-cost">844</td>
+              <td class="sale-cost">5% (802)</td>
+              <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Vehicles in War Prod</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Dossier">
+              <td class="lvl-cell">↗ Weapons Lab</td>
+              <td>12 → 13</td>
+              <td>1</td>
+              <td>5d 0h</td>
+              <td class="iridium-cost">50,000</td>
+              <td class="gold-cost">177</td>
+              <td class="gold-cost">202</td>
+              <td class="sale-cost">8% (186)</td>
+              <td class="notes-cell">Unlocks Bastion levels: Damage (Tesla Tower, Orbital Hammer), Support, Utility (Generator)</td>
+            </tr>
+            <tr style="cursor: pointer;" title="Click to load Workshop into top Dossier">
+              <td class="lvl-cell">↗ Workshop</td>
+              <td>21 → 25</td>
+              <td>4</td>
+              <td>14d 12h</td>
+              <td class="iridium-cost">145,000</td>
+              <td class="gold-cost">535</td>
+              <td class="gold-cost">608</td>
+              <td class="sale-cost">—</td>
+              <td class="notes-cell">Increases deployment limit for Heavy Platforms across base</td>
+            </tr>
+            <tr class="totals-row">
+              <td class="lvl-cell" style="color: #00e676;">TOTALS (15 BLDGS)</td>
+              <td>CC22 WAVE</td>
+              <td>58</td>
+              <td>244d 12h</td>
+              <td>2,445,000</td>
+              <td>9,346</td>
+              <td>10,575</td>
+              <td>9,458</td>
+              <td class="notes-cell" style="color: #ffd700; font-weight: 800;">Complete Command Center 22 Base Upgrade Wave</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+<!-- ==================== DATA SHEET 3: UPGRADE PATH & PRE-RELEASE TELEMETRY ==================== -->
+    <div id="doctrine-section" class="dossier-section" style="display: none;">
+      <span id="doctrine-main-title" class="col-header">
+        <span id="d-sheet3-header">Data Sheet 3 // CC22 Strategic Upgrade Path &amp; Pre-Release Telemetry</span> 
+        <span id="d-sheet3-sub" style="font-size: 12px; color: #38bdf8; font-family: monospace;">3-PHASE PRIORITY ROADMAP</span>
+      </span>
+      <div id="doctrine-prereq-wrap" class="doctrine-notice" style="display: none;">
+        <strong>PREREQUISITE GATE:</strong> 
+        <span id="doctrine-prereq-text">Command Center Level 21 (80,000 Iridium / 8 Days) is required before initiating the Command Center 22 upgrade. Starting any CC22 building upgrade with Iridium reduces its Gold buyout cost.</span>
+      </div>
+      <div id="doctrine-costs-wrap" class="doctrine-notice" style="display: none;">
+        <strong>WAVE SUMMARY:</strong> 
+        <span id="doctrine-costs-text">15 Facilities (58 Total Upgrade Ranks) — 2,445,000 Total Iridium | 244 Days 12 Hours Total Build Time | 9,346 Reduced Gold (w/ Iridium) | 10,575 Instant Gold | 9,458 Sale Gold</span>
+      </div>
+      <div id="doctrine-grid-container" class="doctrine-grid">
+        <div class="doctrine-card base">
+          <div class="doctrine-card-header">
+            <h2>Phase 1: Core &amp; Capacity</h2>
+            <div class="subtitle">Immediate Post-CC22 Priorities</div>
+          </div>
+          <table class="doctrine-table">
+            <thead>
+              <tr>
+                <th style="text-align: center; width: 76px;">Target</th>
+                <th>Strategic Benefit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lvl">CC L22</td>
+                <td class="desc">80,000 Iridium (8d) — Unlocks the entire CC22 building wave across your base.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Yard 6-10</td>
+                <td class="desc">Construction Yard (165k Irid / 16d 12h) — Increases Basic Constructs to 6 &amp; Reinforced to 4.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Hanger 50</td>
+                <td class="desc">Aircraft Hanger L46–50 (205k Irid / 20d 12h) — Adds +4,000 Air Hanger capacity per level (+20k total).</td>
+              </tr>
+              <tr>
+                <td class="lvl">Radio 14</td>
+                <td class="desc">Radio Tower L11–14 (115k Irid / 11d 12h) — Increases deployable Advanced Scouts from 11 up to 14.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="doctrine-card spec-1">
+          <div class="doctrine-card-header">
+            <h2>Phase 2: Bastions &amp; Defense</h2>
+            <div class="subtitle">Fortress &amp; Counter-PVP Shielding</div>
+          </div>
+          <table class="doctrine-table">
+            <thead>
+              <tr>
+                <th style="text-align: center; width: 76px;">Target</th>
+                <th>Strategic Benefit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lvl">Wep Lab 13</td>
+                <td class="desc">50,000 Iridium (5d) — Unlocks new Bastion levels for Damage (Tesla Tower, Orbital Hammer), Support &amp; Utility.</td>
+              </tr>
+              <tr>
+                <td class="lvl">TOC 21-25</td>
+                <td class="desc">Tactical Ops Center (165k Irid / 16d 12h) — Overrides attacker bonuses for Arc 3 PVP units (31% to 35% boost/reduction).</td>
+              </tr>
+              <tr>
+                <td class="lvl">Sky 16-20</td>
+                <td class="desc">Skyguard (165k Irid / 16d 12h) — Scales Air Defender capacity from 2,650 up to 2,850.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Mines 6-10</td>
+                <td class="desc">Mine Factory (165k Irid / 16d 12h) — Expands Active Minefield Capacity from 8 up to 12 minefields.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="doctrine-card spec-2">
+          <div class="doctrine-card-header">
+            <h2>Phase 3: War Production</h2>
+            <div class="subtitle">Arc 2 Unlocks &amp; Repair Speed</div>
+          </div>
+          <table class="doctrine-table">
+            <thead>
+              <tr>
+                <th style="text-align: center; width: 76px;">Target</th>
+                <th>Strategic Benefit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lvl">WF 56-60</td>
+                <td class="desc">War Factory (205k Irid / 20d 12h) — Repair speed up to 70% (Arc 1) / 65% (Arc 2). L60 unlocks Arc 2 Vehicles in War Prod.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Air 56-60</td>
+                <td class="desc">Airfield (205k Irid / 20d 12h) — Repair speed up to 70% (Arc 1) / 65% (Arc 2). L60 unlocks Arc 2 Air in War Prod.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Brks 51-55</td>
+                <td class="desc">Barracks (205k Irid / 20d 12h) — Repair speed up to 70% (Arc 1) / 65% (Arc 2). L55 unlocks Arc 2 Infantry in War Prod.</td>
+              </tr>
+              <tr>
+                <td class="lvl">Merc 26-30</td>
+                <td class="desc">Mercenary Camp (165k Irid / 16d 12h) — Adds Bearguard (L26), Snow Man (L27), Quartermaster (L28), Gunslinger (L29), Faster Prod (L30).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<!-- ==================== CONNECTED SUB-FACILITIES SECTION ==================== -->
+    <div id="tech-section" class="dossier-section" style="display: none;">
+      <span id="d-tech-header" class="col-header">Connected CC22 Sub-Facilities &amp; Critical Notes</span>
+      <div id="workshop-container" class="workshop-grid four-items">
+        <div class="workshop-item">
+          <div>
+            <div class="workshop-title">Weapons Lab L13</div>
+            <div class="workshop-tag">50,000 IRIDIUM • 5 DAYS</div>
+            <p>Unlocks new Bastion levels for Damage (Tesla Tower, Orbital Hammer), Support (Tactical Backup, Recovery), and Utility (Generator).</p>
+          </div>
+        </div>
+        <div class="workshop-item">
+          <div>
+            <div class="workshop-title">Workshop L22–25</div>
+            <div class="workshop-tag">145,000 IRIDIUM • 14D 12H</div>
+            <p>4 upgrade tiers (25k / 30k / 40k / 50k Iridium) granting increased deployment limits for Heavy Platforms across the base perimeter.</p>
+          </div>
+        </div>
+        <div class="workshop-item" style="border-left-color: #f43f5e;">
+          <div>
+            <div class="workshop-title" style="color: #fda4af;">🚨 Academy L56–60</div>
+            <div class="workshop-tag" style="color: #f43f5e;">205,000 IRIDIUM • BROKEN</div>
+            <p>Intended to scale Last Stand Defender Capacity from 1,250 to 1,450, but currently broken (no Last Stand increase given in-game).</p>
+          </div>
+        </div>
+        <div class="workshop-item" style="border-left-color: #f43f5e;">
+          <div>
+            <div class="workshop-title" style="color: #fda4af;">🚨 Tech Center L46–50</div>
+            <div class="workshop-tag" style="color: #f43f5e;">205,000 IRIDIUM • BROKEN</div>
+            <p>Intended to scale Base Last Stand Vehicle Defender storage from 1,250 to 1,450, but currently broken (no Last Stand increase given).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS // AVIATION LOGISTICS — AIRCRAFT HANGER (CC22 WAVE)</div>
+  </div>
+</div>

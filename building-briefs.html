@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WatchToweR Hub — Building Briefs Viewer</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background-color: #0b0f0d; color: #e0e6ed; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 14px; line-height: 1.45; font-size: 14.5px; }
+.control-panel { width: 100%; max-width: 1140px; margin: 0 auto 16px auto; }
+.pull-strip { background: #0d1210; border: 1px solid #00e676; border-radius: 4px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.selector-label { color: #00e676; font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; }
+.selector-select { background: #14241b; border: 1px solid #00e676; color: #fff; padding: 7px 12px; font-size: 13.5px; font-weight: 700; border-radius: 3px; cursor: pointer; outline: none; }
+.selector-status { font-size: 12.5px; color: #00e676; font-weight: 700; background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px; border: 1px solid rgba(0, 230, 118, 0.3); }
+.record-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; overflow: hidden; }
+.classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
+.header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+.unit-title { font-size: clamp(28px, 4.5vw, 44px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", sans-serif; text-transform: uppercase; }
+.unit-quote { font-style: italic; color: #b0bec5; font-size: 15px; border-left: 3px solid #00e676; padding-left: 12px; flex: 1; }
+.unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.meta-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 12.5px; }
+.meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 12px; text-transform: uppercase; cursor: pointer; }
+.meta-btn:hover { background: #1b3826; border-color: #00e676; }
+.meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+.meta-btn.btn-cyan { color: #22d3ee; border-color: rgba(34, 211, 238, 0.35); }
+.unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
+.updates-label { color: #f2a900; font-weight: 800; text-transform: uppercase; }
+.updates-content { color: #cfd8dc; font-size: 13.5px; flex: 1; }
+.briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+.col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #060908; border: 1px solid rgba(0, 255, 128, 0.3); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.stats-table tr { border-bottom: 1px solid #132419; }
+.stats-table td { padding: 6px 8px; }
+.stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
+.stats-value { color: #fff; text-align: left; font-weight: 700; }
+.val-iridium { color: #bc8cff !important; } .val-gold { color: #ffd700 !important; } .val-green { color: #00e676 !important; } .val-alert { color: #ff5252 !important; }
+.talent-block { margin-bottom: 12px; font-size: 14px; }
+.talent-tier { color: #00e676; font-weight: 800; font-size: 13px; text-transform: uppercase; margin-bottom: 3px; }
+.talent-desc { color: #cfd8dc; padding-left: 10px; border-left: 2px solid #1f3b2b; }
+.record-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+.wc-directive-box { width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; padding: 15px 18px; border-radius: 2px; }
+.wc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 12px; }
+.wc-title { font-size: 16px; font-weight: 800; text-transform: uppercase; color: #f2a900; display: flex; align-items: center; gap: 10px; }
+.wc-badge { font-size: 11px; background: #21262d; border: 1px solid #f2a900; padding: 2px 8px; border-radius: 2px; }
+.wc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
+.wc-table th { background-color: #1f242c; color: #8b949e; text-transform: uppercase; font-size: 11px; padding: 10px; border-bottom: 2px solid #30363d; white-space: nowrap; }
+.wc-table td { padding: 9px 10px; border-bottom: 1px solid #21262d; }
+.level-cell { font-weight: 800; color: #58a6ff; font-family: monospace; }
+.highlight-row td { background: rgba(255, 215, 0, 0.05); }
+.section-divider td { background: #141c24; color: #f2a900; font-weight: 800; font-size: 11px; text-transform: uppercase; padding: 6px 10px; border-bottom: 2px solid #30363d; }
+.upgrades-table-wrapper { width: 100%; max-height: 480px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
+.upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
+.upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; padding: 9px 10px; border-bottom: 2px solid #30363d; z-index: 2; white-space: nowrap; }
+.upgrades-table td { padding: 8px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; }
+.upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); text-align: left; cursor: pointer; }
+.upgrades-table td.lvl-cell:hover { color: #00e676; text-decoration: underline; }
+.doctrine-notice { background: rgba(0, 230, 118, 0.08); border: 1px solid #00e676; border-left: 4px solid #00e676; color: #a7ffeb; padding: 8px 12px; border-radius: 4px; margin-bottom: 12px; }
+.doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.doctrine-card { background: #0b1118; border: 1px solid #1f3b2b; border-radius: 4px; display: flex; flex-direction: column; }
+.doctrine-card.base { border-top: 3px solid #ffd700; } .doctrine-card.spec-1 { border-top: 3px solid #2dd4bf; } .doctrine-card.spec-2 { border-top: 3px solid #38bdf8; }
+.doctrine-card-header { padding: 10px 12px; background: #0f1813; border-bottom: 1px solid #1a3324; }
+.doctrine-card-header h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
+.doctrine-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.doctrine-table th { padding: 7px 8px; border-bottom: 1px solid #132419; text-align: left; background: #090e0b; color: #81c784; font-size: 11.5px; }
+.doctrine-table td { padding: 7px 8px; border-bottom: 1px solid #132419; }
+.doctrine-table td.lvl { width: 76px; font-weight: 800; text-align: center; background: rgba(0, 0, 0, 0.3); border-right: 1px solid #132419; }
+.workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+.workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; }
+.workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; text-transform: uppercase; }
+.workshop-tag { font-weight: 800; color: #00e676; font-size: 12px; margin-bottom: 4px; font-family: monospace; }
+@media (min-width: 768px) { .header-content { flex-direction: row; align-items: center; gap: 30px; } .briefing-grid { grid-template-columns: 230px 1.15fr 1.35fr; } .doctrine-grid, .workshop-grid { grid-template-columns: repeat(3, 1fr); } }
+</style></head><body>
+<div class="control-panel"><div class="pull-strip">
+<div class="panel-section"><label class="selector-label" for="divisionSelect">Category:</label>
+<select id="divisionSelect" class="selector-select" onchange="applyFilter()"><option value="ALL">ALL BUILDINGS</option><option value="COMMAND">COMMAND</option><option value="MILITARY">MILITARY</option><option value="DEFENSE">DEFENSE</option><option value="RESOURCE">RESOURCE / SUPPORT</option></select></div>
+<div class="panel-section" style="flex:1; min-width:240px;"><label class="selector-label" for="unitSelect">Facility:</label>
+<select id="unitSelect" class="selector-select" style="flex:1;" onchange="handleBuildingSelectionChange(this.value)"><option value="">Loading Facilities...</option></select></div>
+<div class="panel-section"><span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span></div>
+</div></div>
+<div id="record-view" style="width:100%; max-width:1140px; margin:0 auto; display:none;">
+<div class="record-card"><div id="d-classification" class="classification-bar">BASE OPERATIONS</div>
+<div class="header-content"><h1 id="d-title" class="unit-title">COMMAND CENTER 22</h1><p id="d-quote" class="unit-quote"></p></div>
+<div id="unit-meta-bar" class="unit-meta-bar"><div id="origin-event-container" class="meta-item"><span class="meta-label">Data Sheets:</span>
+<button id="jump-sheet1" class="meta-btn" type="button"><span id="jump-sheet1-text">1. Upgrade Directive</span> ↓</button>
+<button id="jump-sheet2" class="meta-btn btn-cyan" type="button"><span id="jump-sheet2-text">2. Planning Matrix</span> ↓</button>
+<button id="jump-sheet3" class="meta-btn" type="button"><span id="jump-sheet3-text">3. Upgrade Path</span> ↓</button></div>
+<div id="linked-unit-container" class="meta-item" style="display:none;"><span class="meta-label">LINKED FACILITY:</span><button id="linkedFacilityBtn" class="meta-btn btn-gold" type="button"><span id="d-linked-name"></span> ↗</button></div></div>
+<div id="updates-bar-wrap" class="unit-updates-bar"></div>
+<div class="briefing-grid"><div class="unit-display"><span id="d-tier-badge" class="col-header" style="width:100%; justify-content:center;"></span><div class="unit-img-frame"><img id="d-main-img" class="unit-img" src="" alt="Building Render"></div></div>
+<div><span class="col-header">Facility Specifications</span><table class="stats-table"><tbody id="d-stats-tbody"></tbody><tbody id="d-building-reqs" style="display:none;"><tr><td class="stats-label">Building Required</td><td id="d-stat-building" class="stats-value"></td></tr><tr><td class="stats-label">Level Required</td><td id="d-stat-building-req" class="stats-value"></td></tr></tbody></table></div>
+<div><span class="col-header">Core Functions & Unlocks</span><div id="d-talents-list"></div></div></div>
+<div id="directive-section" class="record-section"><span class="col-header"><span id="d-sheet1-header">Data Sheet 1 // Upgrade Directive</span><span id="d-sheet1-ref-top" style="font-size:12px; color:#f2a900; font-family:monospace;"></span></span>
+<div class="wc-directive-box"><div class="wc-header"><div class="wc-title"><span id="d-directive-title"></span><span class="wc-badge">UPGRADE DIRECTIVE</span></div><div id="d-directive-ref" style="font-size:12px; color:#8b949e;"></div></div>
+<div style="overflow-x:auto;"><table class="wc-table"><thead><tr><th>Lvl</th><th>Description & Unlocks</th><th>Cost (Iridium)</th><th>Gold (w/ Iridium)</th><th>Gold Buyout</th><th>Sale Gold</th><th>Duration</th><th>Req CC</th></tr></thead><tbody id="d-directive-tbody"></tbody></table></div></div></div>
+<div id="upgrades-section" class="record-section"><span class="col-header"><span id="d-sheet2-header">Data Sheet 2 // Planning Matrix</span><span id="d-sheet2-sub" style="font-size:12px; color:#ffd700; font-family:monospace;"></span></span>
+<div class="upgrades-table-wrapper"><table class="upgrades-table"><thead><tr><th style="text-align:left;">Building / Facility</th><th>Levels</th><th># Lvls</th><th>Duration</th><th>Iridium Cost</th><th>Gold (w/ Irid)</th><th>Instant Gold</th><th>Sale Offer</th><th style="text-align:left;">Operational Unlocks & Notes</th></tr></thead><tbody id="d-matrix-tbody"></tbody></table></div></div>
+<div id="doctrine-section" class="record-section"><span class="col-header"><span id="d-sheet3-header">Data Sheet 3 // Strategic Upgrade Path</span><span id="d-sheet3-sub" style="font-size:12px; color:#38bdf8; font-family:monospace;"></span></span>
+<div id="doctrine-prereq-wrap" class="doctrine-notice"><strong>PREREQUISITE GATE:</strong> <span id="doctrine-prereq-text"></span></div>
+<div id="doctrine-costs-wrap" class="doctrine-notice"><strong>WAVE SUMMARY:</strong> <span id="doctrine-costs-text"></span></div>
+<div id="doctrine-grid-container" class="doctrine-grid"></div></div>
+<div id="tech-section" class="record-section" style="display:none;"><span class="col-header">Connected Sub-Facilities & Critical Notes</span><div id="workshop-container" class="workshop-grid"></div></div>
+<div id="d-footer-classification" class="classification-bar">BASE OPERATIONS</div></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+const SHEET_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc"; const GID = "444355456";
+let globalMatrixCache = [], filteredList = [];
+function escapeHtml(s) { return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function resolveWtrAssetImagePath(p) { const s = String(p || "").trim().replace(/\\/g, "/"); if (!s || /^(?:https?:|data:|blob:)/i.test(s)) return s; const loc = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/").toLowerCase(); const base = loc.includes("/masters/") ? "../published/watchtower-data-hub/assets/images/" : loc.includes("/vault/") ? "../assets/images/" : "./assets/images/"; const stripped = s.replace(/^(?:\.\.\/|\.\/)+/, "").replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, ""); return base + stripped; }
+function formatImageUrl(u) { if (!u) return ""; let c = String(u).trim().replace(/^\x27/,""); const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/); if (m && m[1] && !c.startsWith("data:")) return "https://lh3.googleusercontent.com/d/" + m[1]; return resolveWtrAssetImagePath(c); }
+document.addEventListener("DOMContentLoaded", () => {
+  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
+  Papa.parse(url, { download: true, header: false, skipEmptyLines: true, complete: (res) => {
+    if (!res || !res.data || res.data.length <= 1) return;
+    const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
+    for (let r = 1; r < res.data.length; r++) {
+      const rec = {}; headers.forEach((k, i) => { if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim() : ""; });
+      rec.BUILDING_NAME = rec.BUILDING_NAME || rec.UNIT_NAME || rec.TITLE || "";
+      if (rec.BUILDING_NAME && (rec.DIR_1_LVL || rec.MAT_LVLS || (rec.CLASSIFICATION||"").toUpperCase().includes("BASE OPERATIONS"))) globalMatrixCache.push(rec);
+    }
+    applyFilter();
+  }});
+});
+function applyFilter() {
+  const f = (document.getElementById("divisionSelect").value || "ALL").toUpperCase();
+  filteredList = globalMatrixCache.filter(r => { const c = ((r.CLASSIFICATION||"") + " " + (r.CATEGORY||"")).toUpperCase(); if (f === "ALL") return true; if (f === "RESOURCE") return c.includes("RESOURCE") || c.includes("SUPPORT"); return c.includes(f); });
+  const drop = document.getElementById("unitSelect"); drop.innerHTML = "";
+  filteredList.sort((a, b) => String(a.BUILDING_NAME || a.UNIT_NAME || "").trim().localeCompare(String(b.BUILDING_NAME || b.UNIT_NAME || "").trim(), undefined, { numeric: true, sensitivity: "base" })); filteredList.forEach((b, i) => { const o = document.createElement("option"); o.value = i; o.textContent = b.BUILDING_NAME; drop.appendChild(o); });
+  document.getElementById("loadStatus").textContent = "Ready (" + filteredList.length + " Facilities)";
+  if (filteredList.length > 0) { drop.value = "0"; handleBuildingSelectionChange(0); }
+}
+function openLinkedFacility(name) {
+  document.getElementById("divisionSelect").value = "ALL"; applyFilter();
+  const idx = filteredList.findIndex(r => (r.BUILDING_NAME||"").toUpperCase().includes(String(name||"").toUpperCase()));
+  if (idx !== -1) { document.getElementById("unitSelect").value = String(idx); handleBuildingSelectionChange(idx); window.scrollTo({top:0, behavior:"smooth"}); }
+}
+function handleBuildingSelectionChange(idx) {
+  const rec = filteredList[idx]; if (!rec) return;
+  document.getElementById("record-view").style.display = "block";
+  const g = k => (rec[k] !== undefined && rec[k] !== null ? String(rec[k]).trim() : ""); const isT = k => g(k).toUpperCase() === "TRUE";
+  const bName = g("BUILDING_NAME") || "Facility";
+  document.getElementById("d-title").textContent = bName;
+  document.getElementById("d-classification").textContent = g("CLASSIFICATION") || "BASE OPERATIONS";
+  document.getElementById("d-footer-classification").textContent = g("CLASSIFICATION") || "BASE OPERATIONS";
+  document.getElementById("d-tier-badge").textContent = g("TIER_BADGE");
+  const q = g("QUOTE") || g("UNIT_QUOTE"); const qEl = document.getElementById("d-quote"); qEl.textContent = q; qEl.style.display = q ? "block" : "none";
+  const img = g("IMAGE_URL") || g("UNIT_IMAGE_URL"); document.getElementById("d-main-img").src = img ? formatImageUrl(img) : "";
+  const uCont = g("UPDATES_CONTENT") || g("UPDATES_TEXT"); const uWrap = document.getElementById("updates-bar-wrap");
+  uWrap.innerHTML = "<span class=\"updates-label\">" + escapeHtml(g("UPDATES_LABEL")||"Operational Telemetry:") + "</span><span class=\"updates-content\">" + escapeHtml(uCont) + "</span>"; uWrap.style.display = uCont ? "flex" : "none";
+  let specHtml = ""; for (let i=1; i<=15; i++) { if (g("SPEC_"+i+"_LBL") || g("SPEC_"+i+"_VAL")) specHtml += "<tr><td class=\"stats-label\">" + escapeHtml(g("SPEC_"+i+"_LBL")) + "</td><td class=\"stats-value " + g("SPEC_"+i+"_COLOR") + "\">" + escapeHtml(g("SPEC_"+i+"_VAL")) + "</td></tr>"; }
+  document.getElementById("d-stats-tbody").innerHTML = specHtml;
+  let funcHtml = ""; for (let i=1; i<=8; i++) { if (g("FUNC_"+i+"_TITLE") || g("FUNC_"+i+"_DESC")) funcHtml += "<div class=\"talent-block\"><div class=\"talent-tier\">" + escapeHtml(g("FUNC_"+i+"_TITLE")) + "</div><div class=\"talent-desc\">" + escapeHtml(g("FUNC_"+i+"_DESC")) + "</div></div>"; }
+  document.getElementById("d-talents-list").innerHTML = funcHtml;
+  document.getElementById("d-sheet1-header").textContent = g("SHEET1_HEADER") || "Data Sheet 1 // Upgrade Directive";
+  document.getElementById("d-directive-title").textContent = bName; document.getElementById("d-directive-ref").textContent = g("SHEET1_REF");
+  let dirHtml = ""; for (let i=1; i<=20; i++) { if (isT("DIR_"+i+"_IS_DIVIDER") && g("DIR_"+i+"_DESC")) { dirHtml += "<tr class=\"section-divider\"><td colspan=\"8\">" + escapeHtml(g("DIR_"+i+"_DESC")) + "</td></tr>"; } else if (g("DIR_"+i+"_LVL") || g("DIR_"+i+"_DESC")) { dirHtml += "<tr class=\"" + (isT("DIR_"+i+"_GOLD_HL")?"highlight-row":"") + "\"><td class=\"level-cell\">" + escapeHtml(g("DIR_"+i+"_LVL")) + "</td><td>" + escapeHtml(g("DIR_"+i+"_DESC")) + "</td><td class=\"val-iridium\">" + escapeHtml(g("DIR_"+i+"_IRID")||"—") + "</td><td class=\"val-gold\">" + escapeHtml(g("DIR_"+i+"_GOLD_R")||"—") + "</td><td class=\"val-gold\">" + escapeHtml(g("DIR_"+i+"_GOLD_B")||"—") + "</td><td class=\"val-green\">" + escapeHtml(g("DIR_"+i+"_SALE")||"—") + "</td><td>" + escapeHtml(g("DIR_"+i+"_TIME")||"—") + "</td><td>" + escapeHtml(g("DIR_"+i+"_REQ")||"—") + "</td></tr>"; } }
+  document.getElementById("d-directive-tbody").innerHTML = dirHtml;
+  let matHtml = ""; globalMatrixCache.forEach(m => { if (!m.MAT_LVLS && !m.MAT_IRID) return; const mN = m.BUILDING_NAME || ""; matHtml += "<tr " + (mN===bName?"style=\"background:rgba(0,230,118,0.1);\"":"") + "><td class=\"lvl-cell\" onclick=\"openLinkedFacility(\x27" + escapeHtml(mN) + "\x27)\">↗ " + escapeHtml(mN) + "</td><td>" + escapeHtml(m.MAT_LVLS||"—") + "</td><td>" + escapeHtml(m.MAT_COUNT||"—") + "</td><td>" + escapeHtml(m.MAT_TIME||"—") + "</td><td class=\"val-iridium\">" + escapeHtml(m.MAT_IRID||"—") + "</td><td class=\"val-gold\">" + escapeHtml(m.MAT_GOLD_R||"—") + "</td><td class=\"val-gold\">" + escapeHtml(m.MAT_GOLD_B||"—") + "</td><td class=\"val-green\">" + escapeHtml(m.MAT_SALE||"—") + "</td><td style=\"text-align:left; font-size:12.5px;\">" + escapeHtml(m.MAT_NOTES||"") + "</td></tr>"; });
+  document.getElementById("d-matrix-tbody").innerHTML = matHtml;
+  document.getElementById("doctrine-prereq-text").textContent = g("SHEET3_PREREQ"); document.getElementById("doctrine-costs-text").textContent = g("SHEET3_COSTS");
+  let docHtml = ""; const styles = ["base","spec-1","spec-2"]; for (let i=1; i<=3; i++) { const t = g("DOC_"+i+"_TITLE"), s = g("DOC_"+i+"_SUB"), rows = g("DOC_"+i+"_ROWS"); if (t || rows) { let rH = ""; rows.split("\n").filter(l=>l.trim()!=="").forEach(l => { const p = l.split("|"); rH += "<tr><td class=\"lvl\">" + escapeHtml((p[0]||"").trim()) + "</td><td>" + escapeHtml(p.slice(1).join("|").trim()) + "</td></tr>"; }); docHtml += "<div class=\"doctrine-card " + styles[i-1] + "\"><div class=\"doctrine-card-header\"><h2>" + escapeHtml(t) + "</h2><div style=\"font-size:12px; color:#90a4ae;\">" + escapeHtml(s) + "</div></div><table class=\"doctrine-table\"><tbody>" + rH + "</tbody></table></div>"; } }
+  document.getElementById("doctrine-grid-container").innerHTML = docHtml;
+  document.getElementById("jump-sheet1").onclick = () => document.getElementById("directive-section").scrollIntoView({behavior:"smooth"});
+  document.getElementById("jump-sheet2").onclick = () => document.getElementById("upgrades-section").scrollIntoView({behavior:"smooth"});
+  document.getElementById("jump-sheet3").onclick = () => document.getElementById("doctrine-section").scrollIntoView({behavior:"smooth"});
+}
+</script></body></html>
+

@@ -1,0 +1,1327 @@
+<style>
+  :root {
+    --primary-color: #00bf63;
+    --accent-green: #00e676;
+    --bg-dark: #0b0f0d;
+    --bg-panel: #121212;
+    --bg-card: #18261e;
+    --bg-inner: #0b1118;
+    --border-dark: #1f3b2b;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --text-gold: #ffd700;
+    --text-cyan: #38bdf8;
+    --text-orange: #f97316;
+    --youtube-red: #ff0000;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: auto;
+    min-height: 100%;
+    background-color: var(--bg-dark);
+  }
+  body {
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.5;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Control Panel */
+  .control-panel {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background: #0d1210;
+    border: 1px solid var(--border-dark);
+    padding: 10px 16px;
+    border-radius: 4px;
+    gap: 14px;
+  }
+  .selector-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .selector-label {
+    color: var(--accent-green);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .selector-select {
+    background: #14241b;
+    border: 1px solid var(--accent-green);
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+  }
+  .selector-status {
+    font-size: 13px;
+    color: var(--accent-green);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* Export Button Group */
+  .export-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-export {
+    background: #14241b;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-export:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+  }
+  .btn-export.btn-link {
+    border-color: #22d3ee;
+    color: #22d3ee;
+  }
+  .btn-export.btn-link:hover {
+    background: #22d3ee;
+    color: #000;
+  }
+  .btn-export.btn-svg {
+    border-color: #38bdf8;
+    color: #38bdf8;
+  }
+  .btn-export.btn-svg:hover {
+    background: #38bdf8;
+    color: #000;
+  }
+  .btn-export.btn-toggle {
+    border-color: #c084fc;
+    color: #c084fc;
+  }
+  .btn-export.btn-toggle:hover {
+    background: #c084fc;
+    color: #000;
+  }
+
+  /* Debug / Edit Mode Styles */
+  body.debug-mode [style*="display: none"],
+  body.debug-mode tr[style*="display: none"],
+  body.debug-mode .dossier-section[style*="display: none"],
+  body.debug-mode .doctrine-notice[style*="display: none"],
+  body.debug-mode div[style*="display:none"] {
+    display: block !important;
+  }
+  body.debug-mode tr {
+    display: table-row !important;
+  }
+  body.debug-mode .dossier-section {
+    border: 1px dashed #c084fc !important;
+  }
+
+  /* Dossier Card Container */
+  .dossier-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 25px rgba(0, 255, 128, 0.05);
+    overflow: hidden;
+  }
+
+  /* Classification Bars */
+  .classification-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 2.5px;
+    font-size: 14px;
+    padding: 8px;
+    text-transform: uppercase;
+    font-family: "Arial Black", sans-serif;
+    width: 100%;
+    display: block;
+  }
+
+  /* Event Header */
+  .event-header {
+    padding: 22px 26px;
+    border-bottom: 2px solid var(--border-dark);
+    background: #0e1411;
+  }
+  .event-sub-tag {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+  .event-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .event-main-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 35px;
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+    cursor: pointer;
+  }
+  .archive-collapse-btn {
+    background: #14241b;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+  }
+  .archive-collapse-btn:hover {
+    background: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+  }
+  .dossier-card.archive-collapsed .archive-collapse-btn {
+    background: rgba(255, 215, 0, 0.12);
+    border-color: var(--text-gold);
+    color: var(--text-gold);
+  }
+  .dossier-card.archive-collapsed .archive-collapse-btn:hover {
+    background: var(--text-gold);
+    color: #000;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+  }
+  .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Archive Collapsible Body */
+  .brief-collapsible-body {
+    display: block;
+  }
+  .dossier-card.archive-collapsed .brief-collapsible-body {
+    display: none;
+  }
+  .dossier-card.archive-collapsed .event-header {
+    border-bottom: none;
+  }
+
+  /* Quick Links Bar */
+  .quick-links-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 20px 20px 0 20px;
+  }
+  .quick-link-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    background: linear-gradient(180deg, #00e5ff 0%, #0099cc 100%);
+    border: 1px solid #7df9ff;
+    color: #000000 !important;
+    padding: 13px 16px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 15px;
+    line-height: 1.25;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .quick-link-btn:hover {
+    background: linear-gradient(180deg, #33ebff 0%, #00b4d8 100%);
+    border-color: #ffffff;
+    color: #000000 !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* WTR Alert */
+  .wtr-alert {
+    background: rgba(0, 191, 99, 0.08);
+    border: 1px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
+    color: #a7ffeb;
+    padding: 14px 18px;
+    font-size: 16px;
+    margin: 18px 20px 20px 20px;
+    border-radius: 2px;
+  }
+
+  /* Video Hub */
+  .video-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 0 20px 22px 20px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    padding: 16px;
+    border-radius: 4px;
+  }
+  .video-card h3 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 15.5px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .video-card p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .video-btn {
+    display: inline-block;
+    background: var(--youtube-red);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 14.5px;
+    padding: 8px 16px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.25);
+    transition: background-color 0.15s ease-in-out;
+  }
+  .video-btn:hover {
+    background: #cc0000;
+  }
+
+  /* Section Containers */
+  .dossier-section {
+    padding: 0 20px 24px 20px;
+    clear: both;
+  }
+  .section-header-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-family: "Arial Black", sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .section-header-bar span.subtext {
+    font-family: "Arial Black", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Intel Lists */
+  .intel-list {
+    list-style: none;
+    padding: 18px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15.5px;
+    width: 100%;
+  }
+  .intel-list li {
+    position: relative;
+    padding-left: 22px;
+    line-height: 1.5;
+  }
+  .intel-list li.no-bullet {
+    padding-left: 0;
+    border-bottom: 1px solid #16241c;
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
+  .intel-list li:not(.no-bullet)::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-size: 13px;
+  }
+  .intel-list strong { color: #ffffff; }
+
+  /* Aligned Data Tables */
+  .data-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 15.5px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #16241c;
+    border-right: 1px solid #16241c;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  .data-table th:last-child,
+  .data-table td:last-child {
+    border-right: none;
+  }
+  .data-table th {
+    background: var(--bg-card);
+    color: var(--accent-green);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+  }
+  .data-table tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Difficulty Pills */
+  .badge-diff {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .diff-standard { background: rgba(129, 199, 132, 0.15); color: #81c784; border: 1px solid #81c784; }
+  .diff-medium   { background: rgba(255, 215, 0, 0.15); color: var(--text-gold); border: 1px solid var(--text-gold); }
+  .diff-hard     { background: rgba(249, 115, 22, 0.15); color: var(--text-orange); border: 1px solid var(--text-orange); }
+  .diff-veteran  { background: rgba(56, 189, 248, 0.15); color: var(--text-cyan); border: 1px solid var(--text-cyan); }
+
+  /* Subcard Components */
+  .unit-subcard {
+    background: #0d1210;
+    border: 1px solid var(--border-dark);
+    margin-top: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px;
+    border-bottom: 1px solid #1a3324;
+  }
+  .unit-title {
+    font-size: clamp(40px, 7.5vw, 60px);
+    font-weight: 900;
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    line-height: 1;
+    font-family: "Arial Black", Gadget, sans-serif;
+  }
+  .unit-quote {
+    font-style: italic;
+    color: #b0bec5;
+    font-size: 17.5px;
+    border-left: 3px solid var(--accent-green);
+    padding-left: 14px;
+    line-height: 1.4;
+  }
+  .unit-meta-bar {
+    background: #090e0b;
+    border-bottom: 1px solid #1a3324;
+    padding: 10px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    white-space: nowrap;
+  }
+  .meta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #14241b;
+    border: 1px solid var(--border-dark);
+    border-radius: 3px;
+    padding: 5px 12px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  .meta-btn:hover {
+    background: #1b3826;
+    border-color: var(--accent-green);
+  }
+  .popout-icon {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  /* Briefing Grid */
+  .briefing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 22px;
+  }
+  @media (min-width: 768px) {
+    .header-content {
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+    }
+    .briefing-grid {
+      grid-template-columns: 220px 1.15fr 1.35fr;
+    }
+  }
+  .col-header {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a3324;
+    padding-bottom: 7px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .unit-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .unit-img-frame {
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 4 / 5;
+    background: #000;
+    border: 1px solid rgba(0, 255, 128, 0.25);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .unit-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15.5px;
+  }
+  .stats-table tr {
+    border-bottom: 1px solid #132419;
+  }
+  .stats-table td {
+    padding: 7px 8px;
+  }
+  .stats-label {
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 48%;
+  }
+  .stats-value {
+    color: #fff;
+    text-align: right;
+    font-family: monospace;
+    font-size: 15px;
+  }
+  .talent-block {
+    margin-bottom: 16px;
+    font-size: 15.5px;
+  }
+  .talent-tier {
+    color: var(--accent-green);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .talent-desc {
+    color: #cfd8dc;
+    padding-left: 10px;
+    border-left: 2px solid var(--border-dark);
+    line-height: 1.4;
+  }
+
+  /* Workshop Tech Grid */
+  .workshop-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media (min-width: 768px) {
+    .workshop-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1000px) {
+    .workshop-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .workshop-item {
+    background: #0f1813;
+    border-left: 3px solid var(--accent-green);
+    padding: 12px 14px;
+  }
+  .workshop-title {
+    font-weight: 800;
+    color: var(--text-gold);
+    font-size: 15.5px;
+    margin-bottom: 3px;
+  }
+  .workshop-tag {
+    font-weight: 800;
+    color: var(--accent-green);
+    font-size: 14px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .workshop-item p {
+    color: #cfd8dc !important;
+    line-height: 1.4;
+    margin-top: 4px;
+    font-size: 15px;
+  }
+
+  /* Upgrades Table */
+  .upgrades-table-wrapper {
+    width: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-top: 12px;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+  }
+  .upgrades-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    text-align: center;
+    background: var(--bg-inner);
+  }
+  .upgrades-table th {
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    color: var(--accent-green);
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border-dark);
+    z-index: 2;
+  }
+  .upgrades-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #132419;
+    color: #e0e6ed;
+    font-family: monospace;
+    font-size: 14px;
+  }
+  .upgrades-table td.lvl-cell {
+    color: var(--text-gold);
+    font-weight: 800;
+    background: rgba(0, 0, 0, 0.35);
+    border-right: 1px solid #132419;
+    width: 80px;
+  }
+  .upgrades-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .upgrades-table tbody tr:hover {
+    background: rgba(0, 230, 118, 0.05);
+  }
+
+  /* Footer Nav */
+  .dossier-footer-nav {
+    padding: 18px 22px;
+    background: #080c0a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 15px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-dark);
+  }
+  .dossier-footer-nav a {
+    color: var(--accent-green);
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 16px;
+  }
+  .dossier-footer-nav a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- ==================== TARGET DOSSIER CARD ==================== -->
+<div id="dossier-view" style="width: 100%;">
+  <div id="main-export-dossier" class="dossier-card">
+    <div class="classification-bar">Unclassified</div>
+
+    <!-- Header (Always Visible in Archive Mode) -->
+    <header class="event-header">
+      <div class="event-sub-tag">WatchToweR Data Hub | Tactical Brief | 
+        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1045-sector-breach-october-2026/" style="color: var(--text-cyan); text-decoration: none;" target="_blank" rel="noopener">Data Source</a>
+      </div>
+      <div class="event-title-row">
+        <h1 class="event-main-title" onclick="toggleSectorBreachArchiveMode()" title="Click to Collapse / Expand Brief">SECTOR BREACH</h1>
+        <button type="button" class="archive-collapse-btn" id="archiveToggleBtn" onclick="toggleSectorBreachArchiveMode()">
+          <span id="archiveToggleIcon">▼</span>
+          <span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
+        </button>
+      </div>
+      <div class="event-meta">
+        <span><strong style="color: var(--text-cyan);">Starts:</strong> THU OCT 16, 2026 @ 10:00 AM PDT</span>
+        <span><strong style="color: var(--text-gold);">Ends:</strong> WED OCT 20, 2026 @ 10:00 AM PDT</span>
+        <span><strong style="color: var(--text-orange);">Store Closes:</strong> THU OCT 21, 2026 @ 10:00 AM PDT</span>
+      </div>
+    </header>
+
+    <!-- Collapsible Brief Content -->
+    <div id="briefCollapsibleBody" class="brief-collapsible-body">
+      <!-- Quick Links Hub -->
+      <nav class="quick-links-bar">
+        <a href="https://docs.google.com/spreadsheets/d/17LURziEQNXQRoAoJthXQoBy0fBmMVOTg4Z353jiaRAQ/copy" class="quick-link-btn" target="_blank" rel="noopener">⚡ Sector Breach Calculator ↗</a>
+      </nav>
+
+      <!-- Video Search Alert -->
+      <div class="wtr-alert">
+        <strong>⚠️ Streamlined by WTR:</strong> We simplify video searching by cutting through the clutter with two instant search options:
+      </div>
+
+      <!-- Video Links Section -->
+      <div class="video-hub-grid">
+        <div class="video-card">
+          <h3>Top Tier Guides</h3>
+          <p>Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.</p>
+          <a href="https://www.youtube.com/results?search_query=SECTOR+BREACH+Project_d88&amp;sp=EgIIAw%253D%253D" class="video-btn" target="_blank" rel="noopener">▶ Top Tier YouTube Videos</a>
+        </div>
+        <div class="video-card">
+          <h3>Watch Me Play</h3>
+          <p>Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
+          <a href="https://www.youtube.com/results?search_query=SECTOR+BREACH%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%253D%253D" class="video-btn" target="_blank" rel="noopener">▶ Watch Me Play Videos</a>
+        </div>
+      </div>
+
+      <!-- SECTION 1: SECTOR BREACH MISSION OVERVIEW -->
+      <section class="dossier-section">
+        <div class="section-header-bar">MISSION OVERVIEW 
+          <span class="subtext">Combat Regulations</span>
+        </div>
+        <ul class="intel-list">
+          <li class="no-bullet">
+            <strong>Sarkis Cloning Technology has been used on Player Bases creating Rogue Player Bases, and it’s up to the Sector Commanders to push them out. Players will hit PVE bases that are copies of player bases with the Assault Platoons in order to earn Sector Breach XP in the Sector Breach Store.</strong> 
+            <br><br>
+            <strong>Use your units to play through the General set or the Conqueror set to earn Sector Breach XP with the Assault Platoon option. Sets can be completed in any order and pay out a bonus XP Cache.</strong>
+          </li>
+          <li>
+            <strong>The Conqueror set will test your might but will pay out more XP than the General set. Choose the set that best fits your power level.</strong>
+          </li>
+          <li>
+            <strong>Scalable Targets:</strong> Three main Sector Breach bases are discovered on the world map, scaling progressively in tactical difficulty.
+          </li>
+          <li>
+            <strong>Hit Repeatability:</strong> You can hit the targets multiple times, and wins will count towards future set completions, so you won't be penalized for hitting a target again!
+          </li>
+        </ul>
+      </section>
+
+      <!-- SECTION 2: TRACKS & REWARDS -->
+      <section class="dossier-section">
+        <div class="section-header-bar">TRACKS &amp; REWARDS XP Payout 
+          <span class="subtext">Yield Matrix</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 26%; text-align: left;">
+                <span style="color: #00ffff; font-size: 14px;">General Track</span>
+              </th>
+              <th style="width: 14%; text-align: right;">XP Payout</th>
+              <th style="width: 18%; text-align: center;">Difficulty Rating</th>
+              <th style="width: 28%; text-align: left;">
+                <span style="color: #ff5252; font-size: 14px;">Conqueror Track</span>
+              </th>
+              <th style="width: 14%; text-align: right;">XP Payout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Base I Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">5,500</td>
+              <td style="text-align: center;">
+                <span class="badge-diff diff-standard">Standard</span>
+              </td>
+              <td style="font-weight: bold; color: #ffffff;">Base I Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">17,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Base II Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">5,500</td>
+              <td style="text-align: center;">
+                <span class="badge-diff diff-medium">Medium</span>
+              </td>
+              <td style="font-weight: bold; color: #ffffff;">Base II Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">17,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Base III Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000</td>
+              <td style="text-align: center;">
+                <span class="badge-diff diff-hard">Hard</span>
+              </td>
+              <td style="font-weight: bold; color: #ffffff;">Base III Rewards</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: var(--text-gold);">Set Completion Bonus</td>
+              <td style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;">40,000</td>
+              <td style="text-align: center;">
+                <span class="badge-diff diff-veteran">Veteran</span>
+              </td>
+              <td style="font-weight: bold; color: var(--text-gold);">Set Completion Bonus</td>
+              <td style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;">100,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 3: UNIT PROFILE (JUGGERNAUT) -->
+      <section class="dossier-section">
+        <div class="unit-subcard">
+          <div class="section-header-bar">NEW LEGENDARY JUGGERNAUT 
+            <span class="subtext">Battlefield UNIT</span>
+          </div>
+          <div class="header-content">
+            <h2 class="unit-title">JUGGERNAUT</h2>
+            <p class="unit-quote">Time to bring out the big guns. This behemoth is a monstrosity of mass destruction.</p>
+          </div>
+          <div class="unit-meta-bar">
+            <div class="meta-item">
+              <span style="color: #81c784; font-weight: 800; text-transform: uppercase;">Origin Event:</span> 
+              <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1045-sector-breach-october-2026/" target="_blank" rel="noopener noreferrer" class="meta-btn">SECTOR BREACH 
+                <span class="popout-icon">↗</span>
+              </a>
+            </div>
+          </div>
+          <div class="briefing-grid">
+            <!-- Visual Column -->
+            <div class="unit-display">
+              <span class="col-header" style="width: 100%;">Oct 2026</span>
+              <div class="unit-img-frame">
+                <img class="unit-img" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb" alt="JUGGERNAUT Unit Render">
+              </div>
+            </div>
+
+            <!-- Stats Column -->
+            <div>
+              <span class="col-header">Stats</span>
+              <table class="stats-table">
+                <tbody>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Generation</td>
+                    <td class="stats-value" style="text-align: left;">Arc 3</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Faction</td>
+                    <td class="stats-value" style="text-align: left;">Legendary</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Type</td>
+                    <td class="stats-value" style="text-align: left;">Vehicle</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Armor Type</td>
+                    <td class="stats-value" style="text-align: left;">Medium</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Weapon Type</td>
+                    <td class="stats-value" style="text-align: left;">Mortar &amp; Nukes ⚠️</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Targets</td>
+                    <td class="stats-value" style="text-align: left;">Ground</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Damage Type</td>
+                    <td class="stats-value" style="text-align: left;">Area</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Size</td>
+                    <td class="stats-value" style="text-align: left;">500</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Building Req / Max</td>
+                    <td class="stats-value" style="text-align: left;">War Factory / 45</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">HP (Level 1)</td>
+                    <td class="stats-value" style="text-align: left;">710,000</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">HP (Max Level)</td>
+                    <td class="stats-value" style="text-align: left;">800,000</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">DPS (Level 1)</td>
+                    <td class="stats-value" style="text-align: left;">74,306</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">DPS (Max Level)</td>
+                    <td class="stats-value" style="text-align: left;">81,993</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Max Speed</td>
+                    <td class="stats-value" style="text-align: left;">3</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Range</td>
+                    <td class="stats-value" style="text-align: left;">550</td>
+                  </tr>
+                  <tr>
+                    <td class="stats-label" style="text-align: right;">Splash Radius</td>
+                    <td class="stats-value" style="text-align: left;">80</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Talents Column -->
+            <div>
+              <span class="col-header">Talents</span>
+              <div class="talent-block">
+                <div class="talent-tier">LEVEL 1</div>
+                <div class="talent-desc">Fires an Area damage nuclear warhead after every 9 shots. (⚠️10 second cooldown in manual mode, after 9 shots if not using the tech.) 
+                  <br><br>Every 10% health lost, the Legendary Juggernaut gains 100,000 temporary health.<br><br>Take 65% less damage from mines.<br><br>Deal 100% more damage to buildings.
+                </div>
+              </div>
+              <div class="talent-block">
+                <div class="talent-tier">LEVEL 10</div>
+                <div class="talent-desc">Target 2 Enemies with main mortars and increase splash from 80 to 120.<br><br>Damage Taken Reduced by 600.<br><br>Mega Armor Up: After the first time this unit reaches 90% health, take 60% reduced damage from all sources.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Workshop Tech Grid -->
+          <div class="dossier-section" style="padding-top: 10px;">
+            <span class="col-header">Workshop Tech</span>
+            <div class="workshop-grid">
+              <div class="workshop-item">
+                <div class="workshop-title">Manual Override</div>
+                <div class="workshop-tag">Control Systems</div>
+                <p>Replace auto-firing warhead and temporary health effects with Commander-controlled active ability variations of them, in addition to a Speed Boost ability. This tech is free to equip.</p>
+              </div>
+              <div class="workshop-item">
+                <div class="workshop-title">Fallout</div>
+                <div class="workshop-tag">Munitions</div>
+                <p>Ignite non-immune enemy units, dealing 100,000 damage over 5 seconds.</p>
+              </div>
+              <div class="workshop-item">
+                <div class="workshop-title">Adaptive Protocol</div>
+                <div class="workshop-tag">Tactics</div>
+                <p>For every Banshee in the platoon, deal 4% more damage to buildings. For every Viper in the platoon, take 4% less damage from air units. For every Rhino in the platoon, take 2% less damage from vehicles and infantry.</p>
+              </div>
+              <div class="workshop-item">
+                <div class="workshop-title">Armored Crest</div>
+                <div class="workshop-tag">Plating</div>
+                <p>Take 50% less damage from aircraft.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upgrades Progression Section -->
+          <div class="dossier-section" style="padding-top: 0;">
+            <span class="col-header" id="upgrades-section-header">Upgrade Progression Matrix — [ Total Ranks: 10 ]</span>
+            <div class="upgrades-table-wrapper">
+              <table class="upgrades-table">
+                <thead>
+                  <tr>
+                    <th style="width: 80px;">Level</th>
+                    <th>Tokens</th>
+                    <th>Time (Days)</th>
+                    <th>Gold</th>
+                    <th>HP</th>
+                    <th>DPS</th>
+                  </tr>
+                </thead>
+                <tbody id="upgrades-table-body">
+                  <tr>
+                    <td class="lvl-cell">Lvl 1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>710,000</td>
+                    <td>74,306</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 2</td>
+                    <td>1</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>720,000</td>
+                    <td>75,160</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 3</td>
+                    <td>2</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>730,000</td>
+                    <td>76,014</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 4</td>
+                    <td>3</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>740,000</td>
+                    <td>76,868</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 5</td>
+                    <td>4</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>750,000</td>
+                    <td>77,722</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 6</td>
+                    <td>5</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>760,000</td>
+                    <td>78,577</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 7</td>
+                    <td>6</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>770,000</td>
+                    <td>79,431</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 8</td>
+                    <td>7</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>780,000</td>
+                    <td>80,285</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 9</td>
+                    <td>8</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>790,000</td>
+                    <td>81,139</td>
+                  </tr>
+                  <tr>
+                    <td class="lvl-cell">Lvl 10</td>
+                    <td>9</td>
+                    <td>5 days</td>
+                    <td>50</td>
+                    <td>800,000</td>
+                    <td>81,993</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: EVENT STORE REWARDS -->
+      <section class="dossier-section">
+        <div class="section-header-bar">EVENT STORE REWARDS 
+          <span class="subtext">October 2026 Cycle</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="text-align: left; width: 60%;">Item Designation</th>
+              <th style="width: 20%; text-align: center;">Redemption Limit</th>
+              <th style="width: 20%; text-align: right;">XP Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>■ Legendary Juggernaut Part</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">100</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut Part (4-Pack)</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">25</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">40,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut Part (10-Pack)</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">10</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">100,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut Upgrade Tokens</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">45</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">50,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut - <strong>Manual Override Tech</strong></td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">FREE</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut - <strong>Armored Crest Tech</strong></td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">500,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut - <strong>Fallout Tech</strong></td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">500,000</td>
+            </tr>
+            <tr>
+              <td>■ Legendary Juggernaut - <strong>Adaptive Protocol Tech</strong></td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">500,000</td>
+            </tr>
+            <tr>
+              <td>■ Warlord Stormwail Upgrade Token</td>
+              <td style="text-align: center; font-weight: bold; font-family: monospace;">20</td>
+              <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">125,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Footer Navigation -->
+      <footer class="dossier-footer-nav">WatchToweR Data Hub // Operational Intelligence
+        <div>
+          <a href="https://sites.google.com/view/watchtower-data-hub/home">Home</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/oct-2026-calendar" target="_blank" rel="noopener">Event Calendar</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/get-involved" target="_blank" rel="noopener">Get Involved!</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="classification-bar">Unclassified</div>
+  </div>
+</div>
+
+<!-- ==================== EXTERNAL LIBRARIES & ARCHIVE TOGGLE ==================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+  function getBriefCardEl() {
+    return document.getElementById("main-export-nightmare") ||
+           document.getElementById("main-export-holdout") ||
+           document.getElementById("main-export-dossier") ||
+           document.getElementById("main-export-report") ||
+           document.querySelector(".dossier-card, .report-card");
+  }
+
+  function setBriefCollapseState(shouldCollapse, isAutoArchived) {
+    const card = getBriefCardEl();
+    const icon = document.getElementById("archiveToggleIcon");
+    const text = document.getElementById("archiveToggleText");
+    if (!card) return;
+
+    if (shouldCollapse) {
+      card.classList.add("archive-collapsed");
+      if (icon) icon.textContent = "▶";
+      if (text) text.textContent = isAutoArchived ? "EXPAND ARCHIVED BRIEF" : "EXPAND BRIEF";
+    } else {
+      card.classList.remove("archive-collapsed");
+      if (icon) icon.textContent = "▼";
+      if (text) text.textContent = "COLLAPSE BRIEF (ARCHIVE)";
+    }
+  }
+
+  function toggleBriefArchiveMode() {
+    const card = getBriefCardEl();
+    if (!card) return;
+    const currentlyCollapsed = card.classList.contains("archive-collapsed");
+    setBriefCollapseState(!currentlyCollapsed, false);
+  }
+
+  /* Aliases so existing onclick handlers in any brief work automatically */
+  const toggleNightmareArchiveMode = toggleBriefArchiveMode;
+  const toggleHoldoutArchiveMode = toggleBriefArchiveMode;
+  const toggleSectorBreachArchiveMode = toggleBriefArchiveMode;
+
+  function parseWarCommanderEventDateMs(rawText) {
+    if (!rawText) return null;
+    /* Matches e.g. "OCT 8, 2026 @ 10:00 AM PDT" or "OCT 14, 2026 @ 10:00 AM PST" */
+    const m = rawText.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\s*@\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PDT|PST)?/i);
+    if (!m) return null;
+
+    const monthNames = {
+      JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5,
+      JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11
+    };
+    const mon = monthNames[m[1].slice(0, 3).toUpperCase()];
+    if (mon === undefined) return null;
+
+    const day = parseInt(m[2], 10);
+    const year = parseInt(m[3], 10);
+    let hour = parseInt(m[4], 10);
+    const min = parseInt(m[5], 10);
+    const ampm = m[6].toUpperCase();
+    const tz = (m[7] || "PDT").toUpperCase();
+
+    if (ampm === "PM" && hour < 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+
+    const offset = (tz === "PST") ? "-08:00" : "-07:00";
+    const pad = (n) => String(n).padStart(2, "0");
+    const iso = `${year}-${pad(mon + 1)}-${pad(day)}T${pad(hour)}:${pad(min)}:00${offset}`;
+    const ms = Date.parse(iso);
+    return isNaN(ms) ? null : ms;
+  }
+
+  function autoCollapseIfStoreClosed() {
+    const card = getBriefCardEl();
+    if (!card) return;
+
+    let cutoffMs = null;
+
+    /* 1. Optional explicit data-store-close attribute on the card */
+    const explicitAttr = card.getAttribute("data-store-close");
+    if (explicitAttr) {
+      const parsedAttr = Date.parse(explicitAttr);
+      if (!isNaN(parsedAttr)) cutoffMs = parsedAttr;
+    }
+
+    /* 2. Otherwise auto-parse "Store Closes:" (or fallback to "Ends:") from .event-meta */
+    if (!cutoffMs) {
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl) {
+        const metaText = metaEl.textContent || "";
+        const storeMatch = metaText.match(/Store\s*Closes\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+        const endsMatch  = metaText.match(/Ends\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+
+        if (storeMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(storeMatch[1]);
+        } else if (endsMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(endsMatch[1]);
+        }
+      }
+    }
+
+    if (cutoffMs && Date.now() >= cutoffMs) {
+      setBriefCollapseState(true, true);
+
+      /* Inject a subtle status badge in .event-meta so players know why it's collapsed */
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl && !document.getElementById("autoArchiveStatusBadge")) {
+        const badge = document.createElement("span");
+        badge.id = "autoArchiveStatusBadge";
+        badge.style.cssText = "background: rgba(255, 215, 0, 0.14); border: 1px solid #ffd700; color: #ffd700; font-family: monospace; font-size: 12px; font-weight: 900; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.8px;";
+        badge.textContent = "📦 ARCHIVED (STORE CLOSED)";
+        metaEl.appendChild(badge);
+      }
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoCollapseIfStoreClosed);
+  } else {
+    autoCollapseIfStoreClosed();
+  }
+</script>

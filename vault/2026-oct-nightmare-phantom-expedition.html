@@ -1,0 +1,1171 @@
+<style>
+  :root {
+    --primary-color: #00bf63;
+    --accent-green: #00e676;
+    --bg-dark: #0b0f0d;
+    --bg-panel: #121212;
+    --bg-card: #18261e;
+    --bg-inner: #0b1118;
+    --border-dark: #1f3b2b;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --text-gold: #ffd700;
+    --text-cyan: #38bdf8;
+    --text-orange: #f97316;
+    --text-red: #ff5252;
+    --youtube-red: #ff0000;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: auto;
+    min-height: 100%;
+    background-color: var(--bg-dark);
+  }
+  body {
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.5;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Dossier Card Container */
+  .dossier-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 25px rgba(0, 255, 128, 0.05);
+    overflow: hidden;
+  }
+
+  /* Classification Bars */
+  .classification-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 2.5px;
+    font-size: 14px;
+    padding: 8px;
+    text-transform: uppercase;
+    font-family: "Arial Black", sans-serif;
+    width: 100%;
+    display: block;
+  }
+
+  /* Event Header */
+  .event-header {
+    padding: 22px 26px;
+    border-bottom: 2px solid var(--border-dark);
+    background: #0e1411;
+  }
+  .event-sub-tag {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+  .event-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .event-main-title {
+    font-family: "Arial Black", sans-serif;
+    font-size: clamp(24px, 4vw, 35px);
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+    cursor: pointer;
+  }
+  .archive-collapse-btn {
+    background: #14241b;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+  }
+  .archive-collapse-btn:hover {
+    background: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+  }
+  .dossier-card.archive-collapsed .archive-collapse-btn {
+    background: rgba(255, 215, 0, 0.12);
+    border-color: var(--text-gold);
+    color: var(--text-gold);
+  }
+  .dossier-card.archive-collapsed .archive-collapse-btn:hover {
+    background: var(--text-gold);
+    color: #000;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+  }
+  .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Archive Collapsible Body */
+  .brief-collapsible-body {
+    display: block;
+  }
+  .dossier-card.archive-collapsed .brief-collapsible-body {
+    display: none;
+  }
+  .dossier-card.archive-collapsed .event-header {
+    border-bottom: none;
+  }
+
+  /* Quick Links Bar */
+  .quick-links-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 20px 0 20px;
+  }
+  .quick-link-btn {
+    flex: 1 1 260px;
+    min-width: 0;
+    text-align: center;
+    background: linear-gradient(180deg, #00e5ff 0%, #0099cc 100%);
+    border: 1px solid #7df9ff;
+    color: #000000 !important;
+    padding: 13px 16px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.25;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .quick-link-btn:hover {
+    background: linear-gradient(180deg, #33ebff 0%, #00b4d8 100%);
+    border-color: #ffffff;
+    color: #000000 !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* WTR Alert */
+  .wtr-alert {
+    background: rgba(0, 191, 99, 0.08);
+    border: 1px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
+    color: #a7ffeb;
+    padding: 14px 18px;
+    font-size: 15.5px;
+    margin: 18px 20px 20px 20px;
+    border-radius: 2px;
+  }
+
+  /* Video Hub */
+  .video-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 0 20px 24px 20px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    padding: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .video-card h3 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 15.5px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .video-card p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .video-btn {
+    display: inline-block;
+    background: var(--youtube-red);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13.5px;
+    padding: 9px 16px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.25);
+    transition: background-color 0.15s ease-in-out;
+    align-self: flex-start;
+  }
+  .video-btn:hover {
+    background: #cc0000;
+  }
+  .video-note {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  /* Section Containers */
+  .dossier-section {
+    padding: 0 20px 24px 20px;
+    clear: both;
+  }
+  .section-header-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-family: "Arial Black", sans-serif;
+    font-size: 15.5px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-header-bar span.subtext {
+    font-family: "Arial Black", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .section-header-bar a {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: 900;
+  }
+
+  /* Situation Report Box */
+  .sitrep-box {
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-main);
+  }
+  .sitrep-quote {
+    background: rgba(0, 230, 118, 0.06);
+    border-left: 4px solid var(--accent-green);
+    padding: 12px 16px;
+    font-style: italic;
+    color: var(--text-gold);
+    font-weight: 700;
+    font-size: 15.5px;
+  }
+
+  /* Unit Image Galleries */
+  .unit-gallery-2col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    padding: 18px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  .unit-gallery-3col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 18px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  .unit-gallery-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 18px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  @media (max-width: 860px) {
+    .unit-gallery-4col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 500px) {
+    .unit-gallery-4col {
+      grid-template-columns: 1fr;
+    }
+  }
+  .unit-poster-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .unit-poster-card:hover {
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+  }
+  .unit-poster-card.enemy-card {
+    border-color: rgba(255, 82, 82, 0.45);
+  }
+  .unit-poster-card.enemy-card:hover {
+    border-color: var(--text-red);
+  }
+  .unit-poster-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #060a08;
+    border: 1px solid var(--border-dark);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .unit-poster-frame.auto-aspect {
+    aspect-ratio: auto;
+  }
+  .unit-poster-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .unit-poster-caption {
+    padding: 10px 6px 4px 6px;
+    text-align: center;
+    width: 100%;
+  }
+  .unit-poster-caption h4 {
+    color: var(--text-red);
+    font-family: "Arial Black", sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .unit-poster-caption .hvt-badge {
+    display: inline-block;
+    color: var(--text-gold);
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .unit-poster-caption p {
+    color: var(--text-main);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  /* Two-Column Tactical Split (Mission Tracks & Proving Grounds) */
+  .intel-split-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .intel-panel-box {
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    display: flex;
+    flex-direction: column;
+  }
+  .intel-panel-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .track-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-left: 4px solid var(--accent-green);
+    padding: 14px;
+    border-radius: 3px;
+  }
+  .track-block.incursion {
+    border-left-color: var(--text-gold);
+  }
+  .track-block.tactical {
+    border-left-color: var(--text-red);
+  }
+  .track-title {
+    font-family: "Arial Black", sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .track-desc {
+    font-size: 14px;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+  .mini-xp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #0b1118;
+    border: 1px solid var(--border-dark);
+  }
+  .mini-xp-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #16241c;
+  }
+  .mini-xp-table td.xp-val {
+    text-align: right;
+    color: var(--text-gold);
+    font-family: monospace;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  /* Featured List & Chest Tiers */
+  .featured-items-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 8px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    padding: 14px;
+    font-size: 13.5px;
+  }
+  .featured-items-list li {
+    position: relative;
+    padding-left: 16px;
+    color: var(--text-main);
+  }
+  .featured-items-list li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-size: 11px;
+  }
+  .chest-tier-card {
+    border: 1px solid var(--border-dark);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .chest-tier-head {
+    padding: 6px 12px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .chest-bronze .chest-tier-head { background: #cd7f32; color: #ffffff; }
+  .chest-silver .chest-tier-head { background: #c0c0c0; color: #000000; }
+  .chest-gold .chest-tier-head   { background: #ffd700; color: #000000; }
+  .chest-tier-body {
+    background: var(--bg-card);
+    padding: 10px 12px;
+    font-size: 13.5px;
+    color: var(--text-main);
+  }
+
+  /* Aligned Data Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #16241c;
+    border-right: 1px solid #16241c;
+    vertical-align: middle;
+  }
+  .data-table th:last-child,
+  .data-table td:last-child {
+    border-right: none;
+  }
+  .data-table th {
+    background: var(--bg-card);
+    color: var(--accent-green);
+    text-transform: uppercase;
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+  }
+  .data-table tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .grace-warning-banner {
+    background: rgba(255, 82, 82, 0.1);
+    border: 1px solid var(--text-red);
+    border-left: 4px solid var(--text-red);
+    color: #fca5a5;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Footer Nav */
+  .dossier-footer-nav {
+    padding: 18px 22px;
+    background: #080c0a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 15px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-dark);
+  }
+  .dossier-footer-nav a {
+    color: var(--accent-green);
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 16px;
+  }
+  .dossier-footer-nav a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- ==================== TARGET DOSSIER CARD ==================== -->
+<div id="dossier-view" style="width: 100%;">
+  <div id="main-export-nightmare" class="dossier-card" data-store-close="2026-10-08T10:00:00-07:00">
+    <div class="classification-bar">Unclassified</div>
+
+    <!-- Header (Always Visible in Archive Mode) -->
+    <header class="event-header">
+      <div class="event-sub-tag">WatchToweR Data Hub | Tactical Brief | 
+        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1032-operation--nightmare-phantom-edition-october-2026-main-event/" style="color: var(--text-cyan); text-decoration: none;" target="_blank" rel="noopener">Data Source</a> | 
+        <a href="https://docs.google.com/spreadsheets/d/1pm4k3VEERahc3Z6PXDDdoWr4pZNiEUeN1FeJ90l09Es/copy" style="color: var(--text-gold); text-decoration: none;" target="_blank" rel="noopener">Event Calculator</a>
+      </div>
+      <div class="event-title-row">
+        <h1 class="event-main-title" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">NIGHTMARE: PHANTOM EXPEDITION</h1>
+        <button type="button" class="archive-collapse-btn" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
+          <span id="archiveToggleIcon">▼</span>
+          <span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
+        </button>
+      </div>
+      <div class="event-meta">
+        <span><strong style="color: var(--text-cyan);">Starts:</strong> THU OCT 1, 2026 @ 10:00 AM PDT</span>
+        <span><strong style="color: var(--text-gold);">Ends:</strong> WED OCT 7, 2026 @ 10:00 AM PDT</span>
+        <span><strong style="color: var(--text-orange);">Store Closes:</strong> THU OCT 8, 2026 @ 10:00 AM PDT</span>
+      </div>
+    </header>
+
+    <!-- Collapsible Brief Content -->
+    <div id="briefCollapsibleBody" class="brief-collapsible-body">
+      <!-- Quick Links Hub -->
+      <nav class="quick-links-bar">
+        <a href="https://docs.google.com/spreadsheets/d/1pm4k3VEERahc3Z6PXDDdoWr4pZNiEUeN1FeJ90l09Es/copy" class="quick-link-btn" target="_blank" rel="noopener">⚡ Nightmare Event Calculator Sheet ↗</a>
+      </nav>
+
+      <!-- Video Search Alert -->
+      <div class="wtr-alert">
+        <strong>⚠️ Streamlined by WTR:</strong> We simplify video searching by cutting through the clutter with two instant search options:
+      </div>
+
+      <!-- Video Links Section -->
+      <div class="video-hub-grid">
+        <div class="video-card">
+          <div>
+            <h3>Top Tier Guides</h3>
+            <p>Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.</p>
+          </div>
+          <div>
+            <a href="https://www.youtube.com/results?search_query=Nightmare%3A+Phantom+Expedition+%22Project_d88%22&amp;sp=EgIIAw%253D%253D" class="video-btn" target="_blank" rel="noopener">▶ Top Tier YouTube Videos</a>
+            <div class="video-note"><strong>Note:</strong> Quality videos take time to produce. If you don't see any content listed right away, please check back later.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div>
+            <h3>Watch Me Play</h3>
+            <p>Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
+          </div>
+          <div>
+            <a href="https://www.youtube.com/results?search_query=Nightmare%3A+Phantom+Expedition+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%253D%253D" class="video-btn" target="_blank" rel="noopener">▶ Watch Me Play Videos</a>
+            <div class="video-note"><strong>Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: SITUATION REPORT -->
+      <section class="dossier-section">
+        <div class="section-header-bar">SITUATION REPORT 
+          <span class="subtext">Operational Intelligence</span>
+        </div>
+        <div class="sitrep-box">
+          <p>Above the cloud line, a dark shadow drifts, unseen by those walking in the light below. In the depths, Kane’s forces stir; a silent legion awakened by ONYX’s desperate, last-second transmission:</p>
+          <div class="sitrep-quote">
+            “The sector is fractured. RUBI is exposed. Rise, Kane—and let the dead find common ground with the living once more.”
+          </div>
+          <p>In <strong>NIGHTMARE: Phantom Expedition</strong>, Commanders will take to the battlefield in the monthly event that includes Basic Training Targets, The Incursion Track, the Tactical Track, and the Proving Grounds. Unlock the story in the Incursion and Tactical tracks, and earn HUGE amounts of XP. Use the event XP to purchase prizes in the Event Store.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 2: NEW UNITS FOR THIS EVENT -->
+      <section class="dossier-section">
+        <div class="section-header-bar">NEW UNITS FOR THIS EVENT 
+          <span class="subtext">Click Images for Data Sheet Details ↗</span>
+        </div>
+        <div class="unit-gallery-2col">
+          <div class="unit-poster-card">
+            <div class="unit-poster-frame auto-aspect">
+              <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/academy/hero-castor-pollux/dyad" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%;">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/af1738c0-be86-4198-a17c-a8171783c5ad" alt="Dyad Data Sheet">
+              </a>
+            </div>
+          </div>
+          <div class="unit-poster-card">
+            <div class="unit-poster-frame auto-aspect">
+              <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/aircraft-hanger/dutch" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%;">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/21f8cdae-2bad-4d7c-8554-28b21e160b76" alt="Dutch Data Sheet">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: NEWLY UPDATED UNITS -->
+      <section class="dossier-section">
+        <div class="section-header-bar">NEWLY UPDATED UNITS 
+          <span class="subtext">Click Images for Data Sheet Details ↗</span>
+        </div>
+        <div class="unit-gallery-3col">
+          <div class="unit-poster-card">
+            <div class="unit-poster-frame">
+              <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/tech-center/dr-ache" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f93edc05-762b-41d8-acf6-1d85f14e0859" alt="Dr. Ache">
+              </a>
+            </div>
+          </div>
+          <div class="unit-poster-card">
+            <div class="unit-poster-frame">
+              <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/aircraft-hanger/dr-argon" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/3489bca5-43cb-4b29-9e70-ee7d81cd4643" alt="Dr. Aegon">
+              </a>
+            </div>
+          </div>
+          <div class="unit-poster-card">
+            <div class="unit-poster-frame">
+              <a href="https://sites.google.com/view/watchtower-data-hub/unit-data-docs/academy/bloodfang" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: 100%;">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/245076ca-6cd9-4af4-8f3b-9da819170cfa" alt="Bloodfang">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: KANE'S FORCES -->
+      <section class="dossier-section">
+        <div class="section-header-bar">KANE'S FORCES 
+          <span class="subtext">Hostile Threat Recon</span>
+        </div>
+        <div class="unit-gallery-4col">
+          <!-- Unit 1: Brute -->
+          <div class="unit-poster-card enemy-card">
+            <div class="unit-poster-frame">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/2cff1d3c-2952-4b94-9608-797ff167a839" alt="Brute">
+            </div>
+            <div class="unit-poster-caption">
+              <h4>BRUTE</h4>
+              <span class="hvt-badge">~ HIGH VALUE TARGET ~</span>
+              <p>SUPER TOUGH!! High-health Zombie, short range of 400, shoots Ground, Air, and High Alt, 2x damage to vehicles and air, medium armor, burst damage.</p>
+            </div>
+          </div>
+          <!-- Unit 2: Zombie Catapult -->
+          <div class="unit-poster-card enemy-card">
+            <div class="unit-poster-frame">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/cc7611da-e690-4f39-a25f-73e73817214e" alt="Zombie Catapult">
+            </div>
+            <div class="unit-poster-caption">
+              <h4>ZOMBIE CATAPULT</h4>
+              <p>Slow, high damage, can hit everything including High Altitude.</p>
+            </div>
+          </div>
+          <!-- Unit 3: Zombie Rocketeer -->
+          <div class="unit-poster-card enemy-card">
+            <div class="unit-poster-frame">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/655c910d-1c61-446e-9dd2-bbd76659a635" alt="Zombie Rocketeer">
+            </div>
+            <div class="unit-poster-caption">
+              <h4>ZOMBIE ROCKETEER</h4>
+              <p>Long range, can hit Air and High Altitude, high damage.</p>
+            </div>
+          </div>
+          <!-- Unit 4: Flame Zombie -->
+          <div class="unit-poster-card enemy-card">
+            <div class="unit-poster-frame">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/ae9c28fc-5878-40d5-a37b-555717840a19" alt="Flame Zombie">
+            </div>
+            <div class="unit-poster-caption">
+              <h4>FLAME ZOMBIE</h4>
+              <p>Short range, can hit everything including High Altitude.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: MISSION TRACKS & PROVING GROUNDS SPLIT -->
+      <section class="dossier-section">
+        <div class="intel-split-grid">
+          <!-- Left Column: Mission Tracks -->
+          <div class="intel-panel-box">
+            <div class="section-header-bar">MISSION TRACKS 
+              <span class="subtext">Progression &amp; XP</span>
+            </div>
+            <div class="intel-panel-body">
+              <!-- Basic Training -->
+              <div class="track-block">
+                <span class="track-title" style="color: var(--accent-green);">Basic Training</span>
+                <p class="track-desc">The Basic Training Bases are designed to be attacked with <strong>Units available in the Supply Store</strong> or better.</p>
+                <div style="background: #0b1118; border: 1px solid var(--border-dark); padding: 10px; font-size: 13.5px; color: var(--text-main);">
+                  <strong>Basic Training Base Rewards:</strong> Holdout-style target that awards 200 XP + 4 random Crates that spawn in base that award 200 additional XP per Crate. For the first 4 completions, you receive a Voidhammer, Broadside, and <strong>Build Logistics</strong> for both. After the 4th completion, you receive XP only.
+                </div>
+              </div>
+
+              <!-- Incursion Base Set -->
+              <div class="track-block incursion">
+                <span class="track-title" style="color: var(--text-gold);">Incursion Base Set <span style="font-size: 12px; color: #fde047;">(Sentinel Units Only)</span></span>
+                <p class="track-desc">Designed for a <strong>Platoon of the newest Unit</strong> offered in the current Main Event (<strong>Dyad</strong>), and only <strong>Sentinel</strong> Units can be deployed. Contains the Main Event story.</p>
+                <table class="mini-xp-table">
+                  <tbody>
+                    <tr>
+                      <td>Base I</td>
+                      <td class="xp-val">1,000 XP</td>
+                    </tr>
+                    <tr>
+                      <td>Base II (unlocked after Base I)</td>
+                      <td class="xp-val">1,500 XP</td>
+                    </tr>
+                    <tr>
+                      <td>Base III (unlocked after Base II)</td>
+                      <td class="xp-val">2,000 XP</td>
+                    </tr>
+                    <tr>
+                      <td><strong style="color: #ffffff;">Set Completion Bonus Rewards</strong></td>
+                      <td class="xp-val">3,500 XP</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Tactical Strike Set -->
+              <div class="track-block tactical">
+                <span class="track-title" style="color: var(--text-red);">Tactical Strike Set</span>
+                <p class="track-desc">Unlocked after completing all 3 Incursion Bases. Designed for Platoons of the <strong>Previous Units</strong> (<strong>Voidhammer</strong>) and IS NOT faction locked. Each base contains a single <strong>High Value Target</strong> worth an additional <strong>4,000 XP</strong> that will attempt to escape if not eliminated in time.</p>
+                <table class="mini-xp-table">
+                  <tbody>
+                    <tr>
+                      <td>Base I (unlocked after Incursion Set)</td>
+                      <td class="xp-val">2,000 XP</td>
+                    </tr>
+                    <tr>
+                      <td>Base II (unlocked after Base I)</td>
+                      <td class="xp-val">2,000 XP</td>
+                    </tr>
+                    <tr>
+                      <td><strong style="color: #ffffff;">Set Completion Bonus Rewards</strong></td>
+                      <td class="xp-val">4,000 XP</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Featured Items & Proving Grounds -->
+          <div class="intel-panel-box">
+            <div class="section-header-bar">FEATURED &amp; PROVING GROUNDS 
+              <span class="subtext">Chests &amp; Unlocks</span>
+            </div>
+            <div class="intel-panel-body">
+              <div>
+                <div style="font-family: 'Arial Black', sans-serif; font-size: 13.5px; color: var(--accent-green); text-transform: uppercase; margin-bottom: 8px;">Featured Store Highlights</div>
+                <ul class="featured-items-list">
+                  <li>Event Trophy</li>
+                  <li>New! Dyad Unit</li>
+                  <li>Spec Op: Dyad Promotion</li>
+                  <li>Dyad Upgrade Token</li>
+                  <li>Dyad Maxbuildable</li>
+                  <li>Dyad 24 Hr Build Logistic</li>
+                  <li>Castor + Pollux Unlock Parts</li>
+                  <li>Castor + Pollux Token</li>
+                  <li>Tech: Son of Tyndareus</li>
+                  <li>Tech: Son of Zeus</li>
+                  <li>Tech: Children of Leda</li>
+                  <li>Myrmidon Upgrade Token</li>
+                  <li>Tech: Chemical Warfare</li>
+                  <li>Tech: Expanded Canisters</li>
+                  <li>Bloodfang Token</li>
+                  <li>Dr. Ache Token</li>
+                  <li>Dr. Aegon Token</li>
+                  <li>Tachyon Retrofit Tech</li>
+                  <li>Dutch Parts</li>
+                </ul>
+              </div>
+
+              <div>
+                <div style="font-family: 'Arial Black', sans-serif; font-size: 14px; color: var(--text-orange); text-transform: uppercase; margin-bottom: 6px;">Proving Grounds &amp; Chests</div>
+                <p class="track-desc">Designed for a platoon of the 2 most recent <strong>Unique Units</strong>. Completing targets fills a Progress Bar toward a <strong>Bronze, Silver, or Gold Prize Chest</strong>. Click the <strong>LOCK IN</strong> button on the Event Screen to claim your chest and reset progress. Full inventory items roll over to Thorium.</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div class="chest-tier-card chest-bronze">
+                    <div class="chest-tier-head">BRONZE CHEST</div>
+                    <div class="chest-tier-body"><strong>x1.2 XP Boost (2H)</strong> + Random Roll: Repair Logistic, 6K Iridium, or 10K Adv Mats.</div>
+                  </div>
+                  <div class="chest-tier-card chest-silver">
+                    <div class="chest-tier-head">SILVER CHEST (Replaces Bronze Boost)</div>
+                    <div class="chest-tier-body"><strong>x1.5 XP Boost (2H)</strong> + Random Roll: Repair Logistics, 12K Iridium, or 20K Adv Mats.</div>
+                  </div>
+                  <div class="chest-tier-card chest-gold">
+                    <div class="chest-tier-head">GOLD CHEST (Replaces Silver Boost)</div>
+                    <div class="chest-tier-body"><strong>x2.0 XP Boost (2H)</strong> + Random Roll: Premium Repair Logistics, 18K Iridium, or 30K Adv Mats.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: EVENT STORE INVENTORY -->
+      <section class="dossier-section">
+        <div class="section-header-bar">
+          <span>EVENT STORE INVENTORY</span>
+          <span class="subtext">[-WTR-] CALCULATOR: <a href="https://docs.google.com/spreadsheets/d/1pm4k3VEERahc3Z6PXDDdoWr4pZNiEUeN1FeJ90l09Es/copy" target="_blank" rel="noopener">CLICK HERE ↗</a></span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="text-align: left; width: 60%;">Item Designation</th>
+                <th style="text-align: center; width: 15%;">Redemption Limit</th>
+                <th style="text-align: right; width: 25%;">XP Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>■ Phantom Expedition Event Trophy</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">4,000</td>
+              </tr>
+              <tr>
+                <td>■ Spec Op: Dyad PROMOTION - FREE</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;">FREE</td>
+              </tr>
+              <tr>
+                <td>■ Spec Op: Dyad PROMOTION</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">40,000</td>
+              </tr>
+              <tr>
+                <td>■ Dyad Upgrade Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">10</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">16,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Dyad 24hr Build Logistic</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">5</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">8,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Dyad Maxbuildable</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">24</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">6,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Castor + Pollux Unlock Parts</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">80</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">1,600 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Castor + Pollux Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">20</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">16,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Castor + Pollux Tech: Thetis Armor</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Castor + Pollux Tech: Pelian Strike Rounds</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Castor + Pollux Tech: Iliad Protocol</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Myrmidon Upgrade Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">20</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">16,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Myrmidon Tech: Steel Nerves</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">24</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Myrmidon Tech: Steady Hands</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">24</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Bloodfang Parts</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">40</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">4,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Bloodfang Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">45</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">20,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Bloodfang Tech: Enhanced Speed</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Bloodfang Tech: Seductive Aura</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Bloodfang Tech: Vampyric Blade</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">30,000</td>
+              </tr>
+              <tr>
+                <td>■ Dr. Ache Parts</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">8</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Dr. Ache Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">30</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">20,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Dr. Aegon Parts</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">8</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">10,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Dr. Aegon Token</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">30</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">20,000 / EA</td>
+              </tr>
+              <tr>
+                <td>■ Tachyon Retrofit Tech</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">1</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">80,000</td>
+              </tr>
+              <tr>
+                <td>■ Dutch Parts</td>
+                <td style="text-align: center; font-weight: bold; font-family: monospace;">40</td>
+                <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">4,000 / EA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grace-warning-banner">
+          ⚠️ "USE IT OR LOSE IT" GRACE PERIOD IS ONLY 24 HOURS. REDEEM BY THURSDAY, OCT 08, 2026 @ 10:00 AM PDT.
+        </div>
+      </section>
+
+      <!-- Footer Navigation -->
+      <footer class="dossier-footer-nav">WatchToweR Data Hub // Operational Intelligence
+        <div>
+          <a href="https://sites.google.com/view/watchtower-data-hub/home">Home</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/oct-2026-calendar" target="_blank" rel="noopener">Event Calendar</a> 
+          <a href="https://sites.google.com/view/watchtower-data-hub/get-involved" target="_blank" rel="noopener">Get Involved!</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="classification-bar">Unclassified</div>
+  </div>
+</div>
+
+<script>
+  function getBriefCardEl() {
+    return document.getElementById("main-export-nightmare") ||
+           document.getElementById("main-export-holdout") ||
+           document.getElementById("main-export-dossier") ||
+           document.getElementById("main-export-report") ||
+           document.querySelector(".dossier-card, .report-card");
+  }
+
+  function setBriefCollapseState(shouldCollapse, isAutoArchived) {
+    const card = getBriefCardEl();
+    const icon = document.getElementById("archiveToggleIcon");
+    const text = document.getElementById("archiveToggleText");
+    if (!card) return;
+
+    if (shouldCollapse) {
+      card.classList.add("archive-collapsed");
+      if (icon) icon.textContent = "▶";
+      if (text) text.textContent = isAutoArchived ? "EXPAND ARCHIVED BRIEF" : "EXPAND BRIEF";
+    } else {
+      card.classList.remove("archive-collapsed");
+      if (icon) icon.textContent = "▼";
+      if (text) text.textContent = "COLLAPSE BRIEF (ARCHIVE)";
+    }
+  }
+
+  function toggleBriefArchiveMode() {
+    const card = getBriefCardEl();
+    if (!card) return;
+    const currentlyCollapsed = card.classList.contains("archive-collapsed");
+    setBriefCollapseState(!currentlyCollapsed, false);
+  }
+
+  /* Aliases so existing onclick handlers in any brief work automatically */
+  const toggleNightmareArchiveMode = toggleBriefArchiveMode;
+  const toggleHoldoutArchiveMode = toggleBriefArchiveMode;
+  const toggleSectorBreachArchiveMode = toggleBriefArchiveMode;
+
+  function parseWarCommanderEventDateMs(rawText) {
+    if (!rawText) return null;
+    const m = rawText.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\s*@\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PDT|PST)?/i);
+    if (!m) return null;
+
+    const monthNames = {
+      JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5,
+      JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11
+    };
+    const mon = monthNames[m[1].slice(0, 3).toUpperCase()];
+    if (mon === undefined) return null;
+
+    const day = parseInt(m[2], 10);
+    const year = parseInt(m[3], 10);
+    let hour = parseInt(m[4], 10);
+    const min = parseInt(m[5], 10);
+    const ampm = m[6].toUpperCase();
+    const tz = (m[7] || "PDT").toUpperCase();
+
+    if (ampm === "PM" && hour < 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+
+    const offset = (tz === "PST") ? "-08:00" : "-07:00";
+    const pad = (n) => String(n).padStart(2, "0");
+    const iso = `${year}-${pad(mon + 1)}-${pad(day)}T${pad(hour)}:${pad(min)}:00${offset}`;
+    const ms = Date.parse(iso);
+    return isNaN(ms) ? null : ms;
+  }
+
+  function autoCollapseIfStoreClosed() {
+    const card = getBriefCardEl();
+    if (!card) return;
+
+    let cutoffMs = null;
+
+    const explicitAttr = card.getAttribute("data-store-close");
+    if (explicitAttr) {
+      const parsedAttr = Date.parse(explicitAttr);
+      if (!isNaN(parsedAttr)) cutoffMs = parsedAttr;
+    }
+
+    if (!cutoffMs) {
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl) {
+        const metaText = metaEl.textContent || "";
+        const storeMatch = metaText.match(/Store\s*Closes\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+        const endsMatch  = metaText.match(/Ends\s*:\s*([^|•\n]+?(?:PDT|PST))/i);
+
+        if (storeMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(storeMatch[1]);
+        } else if (endsMatch) {
+          cutoffMs = parseWarCommanderEventDateMs(endsMatch[1]);
+        }
+      }
+    }
+
+    if (cutoffMs && Date.now() >= cutoffMs) {
+      setBriefCollapseState(true, true);
+
+      const metaEl = card.querySelector(".event-meta");
+      if (metaEl && !document.getElementById("autoArchiveStatusBadge")) {
+        const badge = document.createElement("span");
+        badge.id = "autoArchiveStatusBadge";
+        badge.style.cssText = "background: rgba(255, 215, 0, 0.14); border: 1px solid #ffd700; color: #ffd700; font-family: monospace; font-size: 12px; font-weight: 900; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.8px;";
+        badge.textContent = "📦 ARCHIVED (STORE CLOSED)";
+        metaEl.appendChild(badge);
+      }
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoCollapseIfStoreClosed);
+  } else {
+    autoCollapseIfStoreClosed();
+  }
+</script>

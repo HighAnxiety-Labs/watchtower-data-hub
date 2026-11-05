@@ -1,0 +1,303 @@
+<style>:root {
+      --bg-color: #0b0e11;
+      --panel-bg: #14181d;
+      --border-color: #2b333c;
+      --accent-orange: #ff6a00;
+      --accent-amber: #dca134;
+      --text-main: #e2e8f0;
+      --text-muted: #8a99a8;
+      --row-alt: #101418;
+      --row-hover: #1b2229;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 32px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .store-terminal {
+      width: 100%;
+      max-width: 900px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--accent-orange);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      padding: 24px;
+      position: relative;
+    }
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .title-wrap h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .title-wrap h1 span {
+      color: var(--accent-orange);
+    }
+    .terminal-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      background: rgba(255, 106, 0, 0.15);
+      border: 1px solid var(--accent-orange);
+      color: var(--accent-orange);
+      letter-spacing: 1px;
+    }
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    thead th {
+      text-align: left;
+      padding: 12px 16px;
+      background-color: #0d1013;
+      color: var(--accent-amber);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      border-bottom: 2px solid var(--border-color);
+    }
+    thead th.numeric {
+      text-align: right;
+    }
+    tbody tr {
+      background-color: var(--panel-bg);
+      border-bottom: 1px solid #1c2229;
+      transition: background 0.15s ease;
+    }
+    tbody tr:nth-child(even) {
+      background-color: var(--row-alt);
+    }
+    tbody tr:hover {
+      background-color: var(--row-hover);
+    }
+    td {
+      padding: 12px 16px;
+      color: var(--text-main);
+    }
+    td.numeric {
+      text-align: right;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+    }
+    .item-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .item-name::before {
+      content: "■";
+      color: var(--accent-orange);
+      font-size: 10px;
+    }
+    .item-detail {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: normal;
+      margin-left: 4px;
+    }
+    .xp-cost {
+      color: var(--accent-orange);
+      font-weight: 700;
+    }
+    .limit-value {
+      color: #94a3b8;
+    }</style>
+<div class="store-terminal">
+  <div class="terminal-header">
+    <div class="title-wrap">
+      <h1>/ HOLDOUT STORE / SEPT 2026 /</h1>
+    </div>
+    <div class="terminal-badge">SUPPLY DEPOT ACTIVE</div>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Item Designation</th>
+          <th class="numeric">Redemption Limit</th>
+          <th class="numeric">XP Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="item-name">Myrmidon Upgrade Token</span>
+          </td>
+          <td class="numeric limit-value">15</td>
+          <td class="numeric xp-cost">15,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Broadside Upgrade Token</span>
+          </td>
+          <td class="numeric limit-value">25</td>
+          <td class="numeric xp-cost">15,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Modern Iliad Prototype</span> 
+            <span class="item-detail">(1 Myrmidon level 1) (1 Hour)</span>
+          </td>
+          <td class="numeric limit-value">4</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Modern Iliad Standard</span> 
+            <span class="item-detail">(2 Myrmidon level 5) (1 Hour)</span>
+          </td>
+          <td class="numeric limit-value">4</td>
+          <td class="numeric xp-cost">40,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Modern Iliad Elite</span> 
+            <span class="item-detail">(3 Myrmidon level 10) (1 Hour)</span>
+          </td>
+          <td class="numeric limit-value">4</td>
+          <td class="numeric xp-cost">80,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Myrmidon Warpaint - Black Biohazard</span>
+          </td>
+          <td class="numeric limit-value">24</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Myrmidon Warpaint - White Biohazard</span>
+          </td>
+          <td class="numeric limit-value">24</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Myrmidon Warpaint - Green Biohazard</span>
+          </td>
+          <td class="numeric limit-value">24</td>
+          <td class="numeric xp-cost">5,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Myrmidon Warpaint - Blue Biohazard</span>
+          </td>
+          <td class="numeric limit-value">24</td>
+          <td class="numeric xp-cost">5,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Achilles Warpaint - Blacked Out</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">30,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto Part</span>
+          </td>
+          <td class="numeric limit-value">10</td>
+          <td class="numeric xp-cost">6,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto Standard Upgrade Token</span>
+          </td>
+          <td class="numeric limit-value">45</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto Elite Upgrade Token</span>
+          </td>
+          <td class="numeric limit-value">55</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Omega Wanderer Kabuto Upgrade Token</span>
+          </td>
+          <td class="numeric limit-value">65</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto - Corpus Contract</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto Build Logistic (12 Hour)</span>
+          </td>
+          <td class="numeric limit-value">5</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Wanderer Kabuto Upgrade Logistic (12 Hour)</span>
+          </td>
+          <td class="numeric limit-value">8</td>
+          <td class="numeric xp-cost">10,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Recruiter - Sentinels Devotion</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Recruiter - Corpus Contract</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Recruiter - Equinox Treaty</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="item-name">Recruiter - Rangers Enlistment</span>
+          </td>
+          <td class="numeric limit-value">1</td>
+          <td class="numeric xp-cost">20,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

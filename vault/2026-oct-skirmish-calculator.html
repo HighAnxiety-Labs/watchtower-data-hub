@@ -1,0 +1,2832 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER SKIRMISH CALCULATOR PUBLISHED // RELEASE: v4.2-STABLE (2026-10-29) -->
+<html lang="en"><head>
+      <script>
+        (function() {
+          // Listen during capturing phase to intercept before <base target="_blank"> takes effect.
+          document.addEventListener('click', function(e) {
+            // Find the nearest ancestor anchor (handles nested icons, spans, svgs).
+            var el = e.target;
+            var anchor = null;
+            while (el && el !== document) {
+              if (el.tagName && el.tagName.toLowerCase() === 'a') {
+                anchor = el;
+                break;
+              }
+              el = el.parentElement;
+            }
+            if (!anchor) return;
+
+            // Only intercept relative in-page fragment links, not external links with hashes.
+            var href = anchor.getAttribute('href');
+            if (!href) return;
+            href = href.trim();
+            if (!href.startsWith('#')) return;
+
+            // Prevent default <base target="_blank"> navigation to a new blank tab.
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Handle empty anchor or top anchor.
+            if (href === '#' || href === '#top') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return;
+            }
+
+            // Resolve target element by id, falling back to legacy name attribute.
+            var targetId = href.slice(1);
+            try {
+              targetId = decodeURIComponent(targetId);
+            } catch (err) {}
+
+            var targetEl = document.getElementById(targetId);
+            if (!targetEl) {
+              try {
+                var escaped = window.CSS && CSS.escape ? CSS.escape(targetId) : targetId.replace(/["\\]/g, '\\$&');
+                targetEl = document.querySelector('[name="' + escaped + '"]');
+              } catch (err) {}
+            }
+
+            // Smoothly scroll to the target within the embed and update URL hash history.
+            if (targetEl) {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              if (window.history && window.history.pushState) {
+                window.history.pushState(null, '', href);
+              }
+            }
+          }, true); // useCapture: true is critical to preempt <base target="_blank">
+        })();
+      </script>
+    
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>WatchToweR Data Hub — OCT 2026 SKIRMISH EVENT CALCULATOR</title>
+<style>
+  :root {
+    --bg-dark: #05070a;
+    --panel-bg: #0d1219;
+    --card-bg: #121922;
+    --card-sub: #161f2c;
+    --border-metal: #2a3b4c;
+    --border-bevel: #41586f;
+    --border-shadow: #05080c;
+    --accent-cyan: #00e5ff;
+    --accent-green: #3d9e65;
+    --accent-bright-green: #00e676;
+    --accent-red: #f43f5e;
+    --accent-gold: #e2c547;
+    --accent-purple: #9d6bd6;
+    --text-main: #f0f6fc;
+    --text-muted: #9fb0c2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    padding: 16px;
+    line-height: 1.45;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(61, 158, 101, 0.08) 0%, transparent 60%),
+      linear-gradient(rgba(42, 59, 76, 0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42, 59, 76, 0.25) 1px, transparent 1px);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+  }
+
+  .calc-container {
+    max-width: 1340px;
+    margin: 0 auto;
+    background: var(--panel-bg);
+    border: 3px solid var(--border-metal);
+    box-shadow: 0 0 0 1px var(--border-shadow), 0 12px 40px rgba(0, 0, 0, 0.95), inset 1px 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  }
+
+  /* Header Bar with Top-Left WTR Logo */
+  .header-bar {
+    background: linear-gradient(180deg, #192530 0%, #0e151d 100%);
+    border-bottom: 3px solid var(--border-metal);
+    border-left: 6px solid var(--accent-green);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .header-left-cluster {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .header-logo-link {
+    position: relative;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #41586f 0%, #151e29 50%, #2a3b4c 100%);
+    box-shadow: 0 0 18px rgba(0, 230, 118, 0.35), inset 0 0 8px rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;
+  }
+
+  .header-logo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.65);
+  }
+
+  .header-logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #000;
+  }
+
+  .header-title-cluster .sub-tag {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .header-title-cluster h1 {
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+    line-height: 1.15;
+  }
+
+  .header-title-cluster h1 span {
+    color: var(--accent-bright-green);
+  }
+
+  .header-title-cluster .meta {
+    font-size: 0.77rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .db-sync-pill {
+    font-family: monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: rgba(0, 230, 118, 0.12);
+    border: 1px solid rgba(0, 230, 118, 0.4);
+    color: var(--accent-bright-green);
+  }
+
+  .header-right-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    background: linear-gradient(180deg, #1f2b38 0%, #0d141c 100%);
+    border: 1px solid var(--border-bevel);
+    border-bottom: 2px solid var(--border-shadow);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 3px 6px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+  }
+
+  .btn:hover {
+    background: linear-gradient(180deg, #293849 0%, #141e29 100%);
+    border-color: var(--accent-cyan);
+    color: #fff;
+  }
+
+  .btn-cyan { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+  .btn-cyan:hover { background: var(--accent-cyan); color: #05070a; }
+
+  .btn-gold { border-color: var(--accent-gold); color: var(--accent-gold); }
+  .btn-gold:hover { background: var(--accent-gold); color: #05070a; }
+
+  .btn-green { border-color: #4ade80; color: #4ade80; }
+  .btn-green:hover { background: #10b981; color: #05070a; }
+
+  .btn-danger-armed {
+    background: var(--accent-red) !important;
+    border-color: #fff !important;
+    color: #fff !important;
+  }
+
+  /* Master Verification Strip (Stripped on Publish) */
+  .master-verify-strip {
+    width: 100%;
+    background: #07110e;
+    border-bottom: 2px solid #10b981;
+    padding: 8px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: monospace;
+    font-size: 0.74rem;
+    color: #a7f3d0;
+  }
+
+  .verify-badge-pill {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #4ade80;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 900;
+  }
+
+  /* ==================== MASTER ADMIN PANEL (STRIPPED ON PUBLISH) ==================== */
+  .admin-panel {
+    background: linear-gradient(180deg, #0e141c 0%, #070a0e 100%);
+    border-bottom: 3px solid var(--border-metal);
+    padding: 20px 24px;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.85);
+  }
+
+  .admin-panel-title {
+    font-family: monospace;
+    font-size: 0.88rem;
+    color: var(--accent-gold);
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--border-metal);
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .config-section-header {
+    background: linear-gradient(180deg, #1c2734 0%, #0d141b 100%);
+    border: 1px solid var(--border-metal);
+    padding: 10px 14px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .config-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-family: monospace;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+  }
+
+  .collapse-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 0.72rem;
+    color: var(--accent-gold);
+  }
+
+  .collapsed .collapse-arrow { transform: rotate(-90deg); }
+  .config-section-body { display: block; padding-top: 10px; }
+  .config-section-body.hidden { display: none; }
+
+  .section-save-btn {
+    background: #0a1f18;
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .section-save-btn:hover { background: #10b981; color: #000; }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .admin-control-group {
+    background: linear-gradient(180deg, #151e28 0%, #0c1218 100%);
+    border: 1px solid var(--border-metal);
+    padding: 10px 12px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .admin-control-group label {
+    font-size: 0.68rem;
+    font-family: monospace;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .admin-control-group input,
+  .prize-editor-row input,
+  .prize-editor-row select {
+    background: #06090d;
+    border: 1px solid var(--border-metal);
+    color: #fff;
+    padding: 6px 9px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+    outline: none;
+    font-family: inherit;
+  }
+  .admin-control-group input:focus,
+  .prize-editor-row input:focus,
+  .prize-editor-row select:focus { border-color: var(--accent-cyan); }
+
+  .prize-editor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .prize-editor-row {
+    background: linear-gradient(180deg, #151e28 0%, #0b1016 100%);
+    border: 1px solid var(--border-metal);
+    border-left: 4px solid var(--accent-cyan);
+    padding: 10px 12px;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 38px 1.6fr 72px 72px 105px 1.25fr 1.1fr auto;
+    gap: 8px;
+    align-items: end;
+  }
+
+  @media (max-width: 1150px) {
+    .prize-editor-row {
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    }
+  }
+
+  .pe-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .pe-field label {
+    font-size: 0.63rem;
+    font-family: monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .card-delete-btn {
+    background: rgba(244, 63, 94, 0.14);
+    border: 1px solid var(--accent-red);
+    color: #fda4af;
+    font-size: 0.7rem;
+    font-family: monospace;
+    font-weight: 800;
+    padding: 6px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 31px;
+  }
+  .card-delete-btn:hover { background: var(--accent-red); color: #000; }
+
+  .export-output-box {
+    display: none;
+    background: #040608;
+    border: 1px solid var(--accent-cyan);
+    padding: 14px;
+    border-radius: 4px;
+    margin: 14px 24px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .export-output-box textarea {
+    width: 100%;
+    height: 130px;
+    background: #000;
+    color: #a7ffeb;
+    font-family: monospace;
+    font-size: 0.74rem;
+    padding: 8px;
+    border: 1px solid var(--border-metal);
+  }
+
+  /* Command HUD & Live Progress Bar */
+  .command-hud {
+    background: linear-gradient(180deg, #121a24 0%, #090d13 100%);
+    border-bottom: 3px solid var(--border-metal);
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hud-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    gap: 12px;
+  }
+
+  .stat-box {
+    background: linear-gradient(180deg, #16202d 0%, #0c1118 100%);
+    border: 1px solid var(--border-metal);
+    border-top: 2px solid var(--box-accent, var(--border-bevel));
+    border-radius: 4px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 10px rgba(0,0,0,0.6);
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    font-family: monospace;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-top: 6px;
+    font-family: monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    margin-top: 4px;
+  }
+
+  /* Banked eXP & Progress Strip */
+  .bank-progress-strip {
+    background: #080c11;
+    border: 1px solid var(--border-metal);
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bank-controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .bank-input-cluster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .bank-input-cluster label {
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .exp-bank-input {
+    background: #101722;
+    border: 1px solid var(--accent-gold);
+    color: #fff;
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 900;
+    padding: 6px 10px;
+    border-radius: 4px;
+    width: 140px;
+    text-align: right;
+  }
+
+  .exp-bank-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(226, 197, 71, 0.4);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 12px;
+    background: #040609;
+    border: 1px solid var(--border-metal);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2b8cbe 0%, #00e676 100%);
+    transition: width 0.25s ease-out;
+  }
+
+  /* Main 2-Column Content Layout */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 24px;
+  }
+
+  @media (min-width: 1024px) {
+    .main-layout {
+      grid-template-columns: 1.32fr 0.88fr;
+      align-items: start;
+    }
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-metal);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+  }
+
+  .card-header {
+    background: linear-gradient(180deg, #1b2634 0%, #111822 100%);
+    padding: 12px 16px;
+    font-weight: 900;
+    font-size: 0.84rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--border-metal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Quick Filter Pills */
+  .preset-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    background: #0a0f16;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-metal);
+    align-items: center;
+  }
+
+  .preset-label {
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .pill-btn {
+    background: #15202e;
+    border: 1px solid var(--border-metal);
+    color: var(--text-main);
+    font-size: 0.71rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+  }
+
+  .pill-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: #1b2a3d;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  th, td {
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(42, 59, 76, 0.6);
+  }
+
+  th {
+    background: #0a0f16;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-family: monospace;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  td.num, th.num { text-align: right; font-family: monospace; font-variant-numeric: tabular-nums; }
+  td.center, th.center { text-align: center; }
+
+  tr.prize-row { transition: opacity 0.15s ease, background 0.15s ease; }
+  tr.prize-row:hover { background: rgba(255, 255, 255, 0.03); }
+  tr.prize-row.unchecked-row { opacity: 0.42; background: #090d12; }
+
+  .prize-intel-btn {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font: inherit;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    transition: color 0.15s ease;
+  }
+  .prize-intel-btn:hover {
+    color: var(--accent-bright-green);
+  }
+  .intel-link-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: monospace;
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: var(--accent-bright-green);
+    background: rgba(0, 230, 118, 0.12);
+    border: 1px solid rgba(0, 230, 118, 0.45);
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .intel-link-badge.ext {
+    color: var(--accent-cyan);
+    background: rgba(0, 229, 255, 0.12);
+    border-color: rgba(0, 229, 255, 0.4);
+  }
+
+  /* Stepper Controls */
+  .qty-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    justify-content: flex-end;
+  }
+
+  .step-btn {
+    background: #1a2534;
+    border: 1px solid var(--border-bevel);
+    color: var(--text-main);
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 900;
+    width: 24px;
+    height: 26px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+  .step-btn:hover { background: var(--accent-cyan); color: #000; border-color: #fff; }
+  .step-btn.max-btn { width: auto; padding: 0 5px; font-size: 0.65rem; color: var(--accent-gold); }
+  .step-btn.max-btn:hover { background: var(--accent-gold); color: #000; }
+
+  .limit-input {
+    width: 48px;
+    height: 26px;
+    background: #080c12;
+    border: 1px solid var(--border-metal);
+    color: var(--accent-cyan);
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-align: center;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 0.82rem;
+  }
+  .limit-input:focus { border-color: var(--accent-cyan); outline: none; }
+
+  .track-header-row td {
+    background: #162232;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 9px 12px;
+    border-top: 2px solid var(--border-metal);
+  }
+
+  .track-quick-toggle {
+    float: right;
+    background: rgba(0, 229, 255, 0.12);
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    font-size: 0.68rem;
+    font-family: monospace;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .track-quick-toggle:hover { background: var(--accent-cyan); color: #000; }
+
+  .subtotal-row td {
+    background: #0d141d;
+    font-weight: 800;
+    border-top: 1px solid var(--border-metal);
+  }
+
+  .run-goal-row td {
+    background: #1b1118;
+    color: #fda4af;
+    font-weight: 800;
+    border-bottom: 2px solid var(--border-metal);
+  }
+
+  .run-goal-row td.highlight-runs {
+    color: var(--accent-red);
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--accent-cyan);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .val-green { color: var(--accent-bright-green); }
+  .val-cyan { color: var(--accent-cyan); }
+  .val-red { color: var(--accent-red); }
+  .val-yellow { color: var(--accent-gold); }
+
+  .footer-note {
+    border-top: 2px solid var(--border-metal);
+    background: #090d13;
+    padding: 12px 24px;
+    font-size: 0.74rem;
+    font-family: monospace;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ==================== IN-PAGE MASTER_DB UNIT DOSSIER MODAL ==================== */
+  .unit-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(3, 6, 10, 0.88);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .unit-modal-backdrop.open { display: flex; }
+
+  .unit-modal-box {
+    width: 100%;
+    max-width: 1060px;
+    max-height: 90vh;
+    background: #0d1210;
+    border: 2px solid #00e676;
+    border-radius: 6px;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 230, 118, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .unit-modal-topbar {
+    background: linear-gradient(90deg, #0d2118 0%, #09120e 100%);
+    border-bottom: 2px solid #1a3324;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .unit-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dossier-grid {
+    display: grid;
+    grid-template-columns: 210px 1fr 1.2fr;
+    gap: 18px;
+  }
+  @media (max-width: 820px) {
+    .dossier-grid { grid-template-columns: 1fr; }
+  }
+
+  .dossier-img-frame {
+    width: 100%;
+    max-width: 210px;
+    aspect-ratio: 4 / 5;
+    background: #050807;
+    border: 1px solid rgba(0, 230, 118, 0.35);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .dossier-img-frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  .dossier-col-title {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: #00e676;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-bottom: 1px solid #1a3324;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .dossier-talent {
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+  }
+  .dossier-talent-tier {
+    color: #00e676;
+    font-weight: 800;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+  }
+  .dossier-talent-desc {
+    color: #cfd8dc;
+    padding-left: 8px;
+    border-left: 2px solid #1f3b2b;
+    margin-top: 2px;
+  }
+
+  .dossier-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .dossier-tech-card {
+    background: #0f1813;
+    border-left: 3px solid #00e676;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 8px; }
+    .calc-container { clip-path: none; }
+    .header-bar, .command-hud, .main-layout, .admin-panel { padding: 12px; }
+    .header-right-stack { width: 100%; align-items: stretch; }
+    .action-buttons { justify-content: center; }
+  }
+</style>
+<style>.f1l1o3bf{font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, Arial;font-style:normal;font-weight:400}.f1l1o3bf button, .f1l1o3bf input, .f1l1o3bf textarea{font-family:inherit}.f1i95ii3{border-top:0.5px solid var(--origin-color-border-base-subdued)}.f1a8rywe{min-width:0}.f1mpvv25{min-width:100%;width:0}.fjz5tje{-moz-appearance:none;-webkit-appearance:none;appearance:none;background:none;border:none;color:var(--origin-color-text-base-default);cursor:pointer;font:inherit;letter-spacing:inherit;padding:0;text-decoration:underline;text-underline-position:from-font}.f1h70aqx{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);overflow:hidden;width:200px}.fa7ohrq{background:transparent;border:none;border-top-left-radius:20px;border-top-right-radius:20px;display:block;overflow:hidden;vertical-align:top}.f1lzxbh5{transform:none}.f2iyhnc{--ease-out:cubic-bezier(0, 0.8, 0.2, 1)}.f1c6kbrm{height:0;overflow:hidden;pointer-events:none;width:0}.fkiiwe1{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);box-sizing:content-box;display:flex;flex-direction:column;min-width:200px;overflow:hidden;transition:width 300ms cubic-bezier(0, 0.8, 0.2, 1), height 300ms cubic-bezier(0, 0.8, 0.2, 1)}.f1mgyl9u{position:relative}.fkxp4c0{background:transparent !important;border:none !important;border-radius:0 !important;border-top:0.5px solid var(--origin-color-border-base-subdued) !important;box-shadow:none !important;box-sizing:border-box;min-width:200px;width:-moz-max-content;width:max-content}.f1w5w47h{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:1}.f1rm63xq{contain:inline-size}.f1sjiwcg{box-sizing:border-box;max-height:226px;overflow-y:auto}.f1sjiwcg button[role="menuitem"]{flex-shrink:0}.f1jhsh4f.f1jhsh4f{max-height:196px}.fhbth78{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);overflow:hidden}.fcym66q{min-width:100%;width:-moz-max-content;width:max-content}@keyframes f1gwuh0p{from{opacity:0}to{opacity:1}}.fvrf9c6{animation:f1gwuh0p 0.2s cubic-bezier(0.1, 0.65, 0.2, 1) forwards;max-width:-moz-fit-content;max-width:fit-content;opacity:0}</style></head>
+<body>
+
+<div class="calc-container" id="terminalMainFrame">
+  <!-- HEADER BAR WITH TOP-LEFT CLICKABLE WTR EMBLEM -->
+  <div class="header-bar">
+    <div class="header-left-cluster">
+      <a class="header-logo-link" id="wtrHomeLogoLink" href="https://sites.google.com/view/watchtower-data-hub/home" onclick="openSafeLink(this.href, event)" title="Fast Return to WatchToweR Data Hub Home Page">
+        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Home" class="header-logo-img" id="displayLogoImg">
+      </a>
+      <div class="header-title-cluster">
+        <div class="sub-tag" id="displaySubTag">WatchToweR Data Hub // Tactical Grind Planner</div>
+        <h1><span id="displayEventDatePrefix" style="color:#ffffff;">OCT 2026</span> <span id="displayEventTitleMain">SKIRMISH EVENT CALCULATOR</span></h1>
+        <div class="meta">
+          <span id="displayMetaText">Data sourced from Kixeye releases • Created By: [-WTR-]HighAnxiety</span>
+          <span class="db-sync-pill" id="masterDbStatusPill">🗄️ MASTER_DB: 45 Units Linked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right-stack">
+      <!-- Master Studio Controls (Automatically Stripped on Publish) -->
+      
+
+      <!-- Player Controls (Kept in Published File) -->
+      <div class="action-buttons">
+        <span id="status-toast" style="font-family:monospace; font-size:0.75rem; color:var(--accent-bright-green); font-weight:800;"></span>
+        <button class="btn btn-cyan" id="btn-save" type="button">💾 SAVE YOUR SETTINGS</button>
+        <button class="btn" id="btn-load" type="button">📂 LOAD YOUR SETTINGS</button>
+        <button class="btn" id="btn-reset" type="button">↺ Reset Defaults</button>
+        <input type="file" id="file-input" accept=".json" style="display:none;">
+      </div>
+    </div>
+  </div>
+
+  <!-- MASTER-ONLY VERIFICATION STRIP (STRIPPED ON PUBLISH) -->
+  
+
+  <!-- ==================== COMPANION MASTER CONFIG PANEL (STRIPPED ON PUBLISH) ==================== -->
+  
+
+  <!-- PUBLISHED HTML CLIPBOARD BOX (STRIPPED ON PUBLISH) -->
+  
+
+  <!-- TOP COMMAND HUD & PROGRESS TRACKER (BASE 1.0x STREAMLINED) -->
+  <div class="command-hud">
+    <div class="hud-stats-grid">
+      <div class="stat-box" style="--box-accent: var(--accent-bright-green);">
+        <div class="stat-label"><span>Remaining eXP Needed</span> <span>🎯</span></div>
+        <div class="stat-value val-green" id="card-needed">5,159,000</div>
+        <div class="stat-sub" id="card-total-goal-sub">Total Goal: 5,159,000 eXP</div>
+      </div>
+
+      <div class="stat-box" style="--box-accent: var(--accent-red);">
+        <div class="stat-label"><span>Officer Track Runs (1.0x)</span> <span>⚔️</span></div>
+        <div class="stat-value val-red" id="card-off-base">100</div>
+        <div class="stat-sub" id="card-off-base-pace">~25.0 runs/day (4d)</div>
+      </div>
+
+      <div class="stat-box" style="--box-accent: var(--accent-cyan);">
+        <div class="stat-label"><span>Recruit Track Runs (1.0x)</span> <span>🛡️</span></div>
+        <div class="stat-value val-cyan" id="card-rec-base">-</div>
+        <div class="stat-sub" id="card-rec-base-pace">0 eXP / run</div>
+      </div>
+
+      <div class="stat-box" style="--box-accent: var(--accent-gold);">
+        <div class="stat-label"><span id="card-active-tier-lbl">Officer Daily Pace</span> <span>⚡</span></div>
+        <div class="stat-value val-yellow" id="card-active-runs">25.0 / Day</div>
+        <div class="stat-sub" id="card-active-pace">100 total runs (52,000 eXP/run)</div>
+      </div>
+    </div>
+
+    <!-- Live Banked eXP Bar -->
+    <div class="bank-progress-strip">
+      <div class="bank-controls-row">
+        <div class="bank-input-cluster">
+          <label for="banked-exp-input">⚡ Current eXP Banked:</label>
+          <input type="number" id="banked-exp-input" class="exp-bank-input" min="0" step="1000" value="0" placeholder="0">
+          <button type="button" class="btn btn-gold" id="btn-log-run" title="Add 1 completed run of your active track to your banked eXP">+1 Completed Run (<span id="log-run-amt">+52,000</span>)</button>
+          <button type="button" class="btn" id="btn-clear-bank" style="padding:6px 10px;">Clear Bank</button>
+        </div>
+        <div style="font-family:monospace; font-size:0.8rem; font-weight:800; color:var(--accent-cyan);" id="progress-pct-label">0% OF GOAL COMPLETED (0 / 5,159,000 eXP)</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="exp-progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN 2-COLUMN WORKSPACE -->
+  <div class="main-layout">
+    <!-- LEFT: PRIZE REQUISITION LIST -->
+    <div class="card">
+      <div class="card-header">
+        <span>1. Event Prize Requisition List</span>
+        <span style="font-family:monospace; font-size:0.75rem; color:var(--accent-bright-green);" id="selected-items-count">17 / 17 Selected</span>
+      </div>
+
+      <!-- Dynamic Loadout Presets (Auto-built from Linked MASTER_DB Units) -->
+      <div class="preset-pills" id="dynamicPresetPills"><span class="preset-label">Quick Presets:</span><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('DIXON')">⚡ Only DIXON</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('WANDERER KABUTO')">⚡ Only WANDERER KABUTO</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('TACHYON')">⚡ Only TACHYON</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('RECRUITER')">⚡ Only RECRUITER</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('BLOODFANG')">⚡ Only BLOODFANG</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('DUTCH')">⚡ Only DUTCH</button><button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('MR. BRAIN')">⚡ Only MR. BRAIN</button>
+      <button type="button" class="pill-btn" onclick="applyPreset('all')">Select All</button>
+      <button type="button" class="pill-btn" onclick="applyPreset('none')">Clear All</button>
+    </div>
+
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th class="center" style="width:36px;">✅</th>
+              <th>Prize Item (Click Linked Items for Live MASTER_DB Dossier)</th>
+              <th class="num" style="width:138px;">Qty / Limit</th>
+              <th class="num">eXP Cost</th>
+              <th class="num">Needed eXP</th>
+            </tr>
+          </thead>
+          <tbody id="prizes-table"><tr class="prize-row " id="prize-row-0">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="0" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(0)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon Upgrade Tokens</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(0, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="0" value="10">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(0, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(0)" title="Set to Max Limit (10)">MAX</button>
+          </div>
+        </td>
+        <td class="num">40,000</td>
+        <td class="num val-green" id="p-needed-0" style="font-weight:800;">400,000</td>
+      </tr><tr class="prize-row " id="prize-row-1">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="1" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(1)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon Parts</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(1, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="1" value="80">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(1, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(1)" title="Set to Max Limit (80)">MAX</button>
+          </div>
+        </td>
+        <td class="num">4,000</td>
+        <td class="num val-green" id="p-needed-1" style="font-weight:800;">320,000</td>
+      </tr><tr class="prize-row " id="prize-row-2">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="2" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(2)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon 24hr Build Logistics</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(2, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="2" value="4">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(2, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(2)" title="Set to Max Limit (4)">MAX</button>
+          </div>
+        </td>
+        <td class="num">32,000</td>
+        <td class="num val-green" id="p-needed-2" style="font-weight:800;">128,000</td>
+      </tr><tr class="prize-row " id="prize-row-3">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="3" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(3)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon Special Tech I</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(3, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="3" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(3, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(3)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">100,000</td>
+        <td class="num val-green" id="p-needed-3" style="font-weight:800;">100,000</td>
+      </tr><tr class="prize-row " id="prize-row-4">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="4" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(4)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon Special Tech II</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(4, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="4" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(4, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(4)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">100,000</td>
+        <td class="num val-green" id="p-needed-4" style="font-weight:800;">100,000</td>
+      </tr><tr class="prize-row " id="prize-row-5">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="5" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(5)" title="Open Live MASTER_DB Unit Brief for DIXON">
+            <span>Dixon Special Tech III</span>
+            <span class="intel-link-badge">🗄️ DIXON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(5, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="5" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(5, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(5)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">100,000</td>
+        <td class="num val-green" id="p-needed-5" style="font-weight:800;">100,000</td>
+      </tr><tr class="prize-row " id="prize-row-6">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="6" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(6)" title="Open Live MASTER_DB Unit Brief for WANDERER KABUTO">
+            <span>Wander Kabuto - WYRMGUARD Warpaint</span>
+            <span class="intel-link-badge">🗄️ WANDERER KABUTO INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(6, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="6" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(6, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(6)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">500,000</td>
+        <td class="num val-green" id="p-needed-6" style="font-weight:800;">500,000</td>
+      </tr><tr class="prize-row " id="prize-row-7">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="7" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(7)" title="Open Live MASTER_DB Unit Brief for TACHYON">
+            <span>Tachyon - BAPHOMET Warpaint</span>
+            <span class="intel-link-badge">🗄️ TACHYON INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(7, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="7" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(7, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(7)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">500,000</td>
+        <td class="num val-green" id="p-needed-7" style="font-weight:800;">500,000</td>
+      </tr><tr class="prize-row " id="prize-row-8">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="8" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(8)" title="Open Live MASTER_DB Unit Brief for RECRUITER">
+            <span>Recruiter - SHOGGOTH Warpaint</span>
+            <span class="intel-link-badge">🗄️ RECRUITER INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(8, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="8" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(8, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(8)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">500,000</td>
+        <td class="num val-green" id="p-needed-8" style="font-weight:800;">500,000</td>
+      </tr><tr class="prize-row " id="prize-row-9">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="9" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(9)" title="Open Live MASTER_DB Unit Brief for BLOODFANG">
+            <span>Bloodfang -  LYCAN Warpaint</span>
+            <span class="intel-link-badge">🗄️ BLOODFANG INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(9, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="9" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(9, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(9)" title="Set to Max Limit (2)">MAX</button>
+          </div>
+        </td>
+        <td class="num">500,000</td>
+        <td class="num val-green" id="p-needed-9" style="font-weight:800;">500,000</td>
+      </tr><tr class="prize-row " id="prize-row-10">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="10" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(10)" title="Open Live MASTER_DB Unit Brief for DUTCH">
+            <span>Dutch Unlock PartsDutch Unlock Parts</span>
+            <span class="intel-link-badge">🗄️ DUTCH INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(10, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="10" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(10, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(10)" title="Set to Max Limit (40)">MAX</button>
+          </div>
+        </td>
+        <td class="num">6,000</td>
+        <td class="num val-green" id="p-needed-10" style="font-weight:800;">6,000</td>
+      </tr><tr class="prize-row " id="prize-row-11">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="11" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(11)" title="Open Live MASTER_DB Unit Brief for DUTCH">
+            <span>Dutch - Dead Man’s Hand</span>
+            <span class="intel-link-badge">🗄️ DUTCH INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(11, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="11" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(11, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(11)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">125,000</td>
+        <td class="num val-green" id="p-needed-11" style="font-weight:800;">125,000</td>
+      </tr><tr class="prize-row " id="prize-row-12">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="12" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(12)" title="Open Live MASTER_DB Unit Brief for DUTCH">
+            <span>Dutch - Pirate’s Doctrine</span>
+            <span class="intel-link-badge">🗄️ DUTCH INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(12, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="12" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(12, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(12)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">200,000</td>
+        <td class="num val-green" id="p-needed-12" style="font-weight:800;">200,000</td>
+      </tr><tr class="prize-row " id="prize-row-13">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="13" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(13)" title="Open Live MASTER_DB Unit Brief for DUTCH">
+            <span>Dutch Upgrade Tokens</span>
+            <span class="intel-link-badge">🗄️ DUTCH INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(13, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="13" value="25">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(13, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(13)" title="Set to Max Limit (25)">MAX</button>
+          </div>
+        </td>
+        <td class="num">20,000</td>
+        <td class="num val-green" id="p-needed-13" style="font-weight:800;">500,000</td>
+      </tr><tr class="prize-row " id="prize-row-14">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="14" checked=""></td>
+        <td><span>Zombie Mine Unlock</span></td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(14, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="14" value="1">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(14, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(14)" title="Set to Max Limit (1)">MAX</button>
+          </div>
+        </td>
+        <td class="num">100,000</td>
+        <td class="num val-green" id="p-needed-14" style="font-weight:800;">100,000</td>
+      </tr><tr class="prize-row " id="prize-row-15">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="15" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(15)" title="Open Live MASTER_DB Unit Brief for MR. BRAIN">
+            <span>Mr. Braine Unlock Parts</span>
+            <span class="intel-link-badge">🗄️ MR. BRAIN INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(15, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="15" value="12">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(15, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(15)" title="Set to Max Limit (12)">MAX</button>
+          </div>
+        </td>
+        <td class="num">30,000</td>
+        <td class="num val-green" id="p-needed-15" style="font-weight:800;">360,000</td>
+      </tr><tr class="prize-row " id="prize-row-16">
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="16" checked=""></td>
+        <td>
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(16)" title="Open Live MASTER_DB Unit Brief for MR. BRAIN">
+            <span>Mr. Braine Upgrade Token</span>
+            <span class="intel-link-badge">🗄️ MR. BRAIN INTEL</span>
+          </button>
+        </td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(16, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="16" value="12">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(16, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(16)" title="Set to Max Limit (12)">MAX</button>
+          </div>
+        </td>
+        <td class="num">60,000</td>
+        <td class="num val-green" id="p-needed-16" style="font-weight:800;">720,000</td>
+      </tr></tbody>
+          <tfoot>
+            <tr style="background:#080c12; font-weight:900; border-top:2px solid var(--border-metal);">
+              <td colspan="3" style="text-align:right; font-family:monospace; color:var(--text-muted);">FULL STORE: <span id="grand-total-all" style="color:#fff;">5,159,000</span></td>
+              <td style="text-align:right; font-family:monospace; color:var(--text-muted);">TARGET GOAL:</td>
+              <td class="num val-green" id="grand-total-needed" style="font-size:0.95rem;">5,159,000</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT: TRACK PAYOUTS & RUN CALCULATOR (STREAMLINED TO BASE 1.0x) -->
+    <div class="card">
+      <div class="card-header">
+        <span>2. Track Payouts &amp; Whole Runs Required</span>
+        <span style="font-family:monospace; font-size:0.72rem; color:var(--accent-cyan);">Standard Base (1.0x) Payout</span>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Base / Bonus</th>
+              <th class="center" style="width:42px;">✅</th>
+              <th class="num" style="color:var(--accent-cyan);">eXP Payout (1.0x)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- RECRUIT TRACK -->
+            <tr class="track-header-row">
+              <td colspan="3">
+                Recruit Track (3-Base Set)
+                <button type="button" class="track-quick-toggle" onclick="toggleFullTrack('rec')">Toggle Full Set</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Recruit Base I</td>
+              <td class="center"><input type="checkbox" id="rec-b1"></td>
+              <td class="num" id="rec-b1-10">0</td>
+            </tr>
+            <tr>
+              <td>Recruit Base II</td>
+              <td class="center"><input type="checkbox" id="rec-b2"></td>
+              <td class="num" id="rec-b2-10">0</td>
+            </tr>
+            <tr>
+              <td>Recruit Base III</td>
+              <td class="center"><input type="checkbox" id="rec-b3"></td>
+              <td class="num" id="rec-b3-10">0</td>
+            </tr>
+            <tr>
+              <td style="color:var(--accent-gold);">Completion Bonus (Auto)</td>
+              <td class="center"><input type="checkbox" id="rec-bonus" disabled=""></td>
+              <td class="num" id="rec-bonus-10">0</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td colspan="2">Total Recruit Set (eXP)</td>
+              <td class="num val-cyan" id="rec-tot-10">0</td>
+            </tr>
+            <tr class="run-goal-row">
+              <td colspan="2">Remaining Whole Runs (Recruit Track)</td>
+              <td class="num highlight-runs" id="rec-runs-10">-</td>
+            </tr>
+
+            <!-- OFFICER TRACK -->
+            <tr class="track-header-row">
+              <td colspan="3">
+                Officer Track (2-Base Set)
+                <button type="button" class="track-quick-toggle" onclick="toggleFullTrack('off')">Toggle Full Set</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Officer Base I</td>
+              <td class="center"><input type="checkbox" id="off-b1" checked=""></td>
+              <td class="num" id="off-b1-10">8,000</td>
+            </tr>
+            <tr>
+              <td>Officer Base II</td>
+              <td class="center"><input type="checkbox" id="off-b2" checked=""></td>
+              <td class="num" id="off-b2-10">16,000</td>
+            </tr>
+            <tr>
+              <td style="color:var(--accent-gold);">Completion Bonus (Auto)</td>
+              <td class="center"><input type="checkbox" id="off-bonus" checked="" disabled=""></td>
+              <td class="num" id="off-bonus-10">28,000</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td colspan="2">Total Officer Set (eXP)</td>
+              <td class="num val-cyan" id="off-tot-10">52,000</td>
+            </tr>
+            <tr class="run-goal-row">
+              <td colspan="2">Remaining Whole Runs (Officer Track)</td>
+              <td class="num highlight-runs" id="off-runs-10">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <span>* Run counts round up to the nearest whole run required to meet your remaining eXP goal. Click the [-WTR-] Emblem to return Home.</span>
+    <span id="footerReleaseLabel">REL: v4.2-STABLE (2026-10-29) // WATCHTOWER DATA HUB // [-WTR-]HIGHANXIETY</span>
+  </div>
+</div>
+
+<!-- ==================== IN-PAGE MASTER_DB UNIT DOSSIER MODAL ==================== -->
+<div class="unit-modal-backdrop" id="unitDossierModal" onclick="if(event.target===this) closeUnitDossierModal()">
+  <div class="unit-modal-box">
+    <div class="unit-modal-topbar">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-family:monospace; font-size:0.78rem; color:#00e676; font-weight:900;">🗄️ LIVE MASTER_DB UNIT BRIEF //</span>
+        <strong id="modalUnitTitle" style="font-size:1.1rem; color:#fff; text-transform:uppercase; letter-spacing:1px;">UNIT NAME</strong>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button type="button" class="btn btn-gold" id="modalFullBriefBtn" onclick="openSafeLink(this.dataset.url, event)">↗ Open Full Unit Briefs Page</button>
+        <button type="button" class="btn" onclick="closeUnitDossierModal()" style="background:#991b1b; border-color:#fca5a5; color:#fff;">✕ Close Dossier</button>
+      </div>
+    </div>
+    <div class="unit-modal-body" id="unitModalBody">
+      <!-- Populated dynamically from MASTER_DB -->
+    </div>
+  </div>
+</div>
+
+<!-- PapaParse for Live Google Sheets MASTER_DB Sync -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+  const WTR_CALC_RELEASE = "v4.2-STABLE (2026-10-29)";
+  const MASTER_STORAGE_KEY = "wtr_skirmish_master_studio_v4_2_clean";
+  const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
+  const SHEET_MASTER_GID = "444355456";
+
+  let masterFileHandle = null;
+  let masterDbUnitsCache = [];
+
+  const defaultMasterState = {
+  "savedAt": 1793301683767,
+  "eventYear": "2026",
+  "eventMonth": "OCT",
+  "eventDays": 4,
+  "eventTitleMain": "SKIRMISH EVENT CALCULATOR",
+  "subTag": "WatchToweR Data Hub // Tactical Grind Planner",
+  "metaText": "Data sourced from Kixeye releases • Created By: [-WTR-]HighAnxiety",
+  "homeUrl": "https://sites.google.com/view/watchtower-data-hub/home",
+  "logoUrl": "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+  "unitBriefsBaseUrl": "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs",
+  "prizes": [
+    {
+      "name": "Dixon Upgrade Tokens",
+      "linkedUnit": "DIXON",
+      "limit": 10,
+      "maxLimit": 10,
+      "cost": 40000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dixon Parts",
+      "linkedUnit": "DIXON",
+      "limit": 80,
+      "maxLimit": 80,
+      "cost": 4000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dixon 24hr Build Logistics",
+      "linkedUnit": "DIXON",
+      "limit": 4,
+      "maxLimit": 4,
+      "cost": 32000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dixon Special Tech I",
+      "linkedUnit": "DIXON",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 100000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dixon Special Tech II",
+      "linkedUnit": "DIXON",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 100000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dixon Special Tech III",
+      "linkedUnit": "DIXON",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 100000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Wander Kabuto - WYRMGUARD Warpaint",
+      "linkedUnit": "WANDERER KABUTO",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 500000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Tachyon - BAPHOMET Warpaint",
+      "linkedUnit": "TACHYON",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 500000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Recruiter - SHOGGOTH Warpaint",
+      "linkedUnit": "RECRUITER",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 500000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Bloodfang -  LYCAN Warpaint",
+      "linkedUnit": "BLOODFANG",
+      "limit": 1,
+      "maxLimit": 2,
+      "cost": 500000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dutch Unlock PartsDutch Unlock Parts",
+      "linkedUnit": "DUTCH",
+      "limit": 1,
+      "maxLimit": 40,
+      "cost": 6000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dutch - Dead Man’s Hand",
+      "linkedUnit": "DUTCH",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 125000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dutch - Pirate’s Doctrine",
+      "linkedUnit": "DUTCH",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 200000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Dutch Upgrade Tokens",
+      "linkedUnit": "DUTCH",
+      "limit": 25,
+      "maxLimit": 25,
+      "cost": 20000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Zombie Mine Unlock",
+      "linkedUnit": "",
+      "limit": 1,
+      "maxLimit": 1,
+      "cost": 100000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Mr. Braine Unlock Parts",
+      "linkedUnit": "MR. BRAIN",
+      "limit": 12,
+      "maxLimit": 12,
+      "cost": 30000,
+      "checked": true,
+      "url": ""
+    },
+    {
+      "name": "Mr. Braine Upgrade Token",
+      "linkedUnit": "MR. BRAIN",
+      "limit": 12,
+      "maxLimit": 12,
+      "cost": 60000,
+      "checked": true,
+      "url": ""
+    }
+  ]
+};
+  let masterState = JSON.parse(JSON.stringify(defaultMasterState));
+  let currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+
+  const RECRUIT_VALUES = { b1: 1000, b2: 2000, b3: 5000, bonus: 8000 };
+  const OFFICER_VALUES = { b1: 8000, b2: 16000, bonus: 28000 };
+
+  const prizesTbody = document.getElementById("prizes-table");
+  const bankedInput = document.getElementById("banked-exp-input");
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function safeGetStorage(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+
+  function safeSetStorage(key, val) {
+    try { localStorage.setItem(key, val); } catch (e) {}
+  }
+
+  function formatImageUrl(u) {
+    if (!u) return "";
+    let c = String(u).trim().replace(/^\x27/, "");
+    const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    return (m && m[1] && !c.startsWith("data:")) ? ("https://lh3.googleusercontent.com/d/" + m[1]) : c;
+  }
+
+  function getPlayerStorageKey() {
+    const yr = (masterState.eventYear || "2026").trim();
+    const mo = (masterState.eventMonth || "OCT").trim().toUpperCase();
+    return `wtr_skirmish_player_${yr}_${mo}`;
+  }
+
+  function getPlayerSaveFilename() {
+    const yr = (masterState.eventYear || "2026").trim().replace(/[^0-9]/g, "") || "2026";
+    const mo = (masterState.eventMonth || "OCT").trim().toUpperCase().replace(/[^A-Z0-9]/g, "") || "OCT";
+    return `${yr}_${mo}_SKIRMISH_WTR_CALC_DATA.json`;
+  }
+
+  function openSafeLink(url, e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!url || url === "#") return;
+    let targetUrl = String(url).trim();
+    if (!/^https?:\/\//i.test(targetUrl) && !targetUrl.startsWith("/")) {
+      targetUrl = "https://" + targetUrl;
+    }
+    const win = window.open(targetUrl, "_blank", "noopener,noreferrer");
+    if (!win) {
+      const a = document.createElement("a");
+      a.href = targetUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById("status-toast");
+    if (!el) return;
+    el.textContent = msg;
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => { el.textContent = ""; }, 2800);
+  }
+
+  /* ==================== LIVE MASTER_DB FETCH & IN-PAGE DOSSIER ENGINE ==================== */
+  function fetchMasterDbUnits(showFeedback = false) {
+    const pill = document.getElementById("masterDbStatusPill");
+    if (pill) pill.textContent = "🗄️ MASTER_DB: Syncing...";
+
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/export?format=csv&gid=${SHEET_MASTER_GID}`;
+    Papa.parse(csvUrl, {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: function(res) {
+        if (!res || !res.data || res.data.length <= 1) return;
+        const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
+        const units = [];
+        for (let r = 1; r < res.data.length; r++) {
+          const rec = {};
+          headers.forEach((k, i) => {
+            if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/, "") : "";
+          });
+          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
+          const isBuilding = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
+          if (rec.UNIT_NAME && !isBuilding) {
+            units.push(rec);
+          }
+        }
+        masterDbUnitsCache = units;
+        if (pill) pill.textContent = `🗄️ MASTER_DB: ${units.length} Units Linked`;
+        renderAdminPrizeEditor();
+        renderPrizesTable();
+        if (showFeedback) showToast(`✅ Synced ${units.length} Units from MASTER_DB`);
+      },
+      error: function() {
+        if (pill) pill.textContent = "🗄️ MASTER_DB: Offline Fallback";
+      }
+    });
+  }
+
+  function normalizeUnitKey(name) {
+    return String(name || "").toUpperCase().replace(/\+/g, "&").replace(/\s+/g, " ").trim();
+  }
+
+  function findUnitInMasterDb(unitName) {
+    if (!unitName) return null;
+    const target = normalizeUnitKey(unitName);
+    return masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME) === target) ||
+           masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME).includes(target) || target.includes(normalizeUnitKey(u.UNIT_NAME)));
+  }
+
+  function triggerPrizeIntelAction(idx) {
+    const p = currentPrizes[idx];
+    if (!p) return;
+
+    if (p.linkedUnit) {
+      const unitRec = findUnitInMasterDb(p.linkedUnit);
+      if (unitRec) {
+        openUnitDossierModal(unitRec);
+        return;
+      }
+      const base = (masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs").trim();
+      openSafeLink(`${base}?unit=${encodeURIComponent(p.linkedUnit)}`);
+      return;
+    }
+
+    if (p.url) {
+      openSafeLink(p.url);
+    }
+  }
+
+  function openUnitDossierModal(d) {
+    const modal = document.getElementById("unitDossierModal");
+    const titleEl = document.getElementById("modalUnitTitle");
+    const fullBtn = document.getElementById("modalFullBriefBtn");
+    const bodyEl = document.getElementById("unitModalBody");
+    if (!modal || !bodyEl || !d) return;
+
+    const cleanVal = v => {
+      if (!v) return "";
+      const t = String(v).trim();
+      return (t === "-" || t === "—" || t === "N/A") ? "" : t;
+    };
+    const g = k => cleanVal(d[k]);
+
+    const uName = g("UNIT_NAME") || "UNIT DOSSIER";
+    if (titleEl) titleEl.textContent = `${uName} — ${g("CLASSIFICATION") || "TACTICAL BRIEF"}`;
+
+    const baseBriefUrl = (masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs").trim();
+    if (fullBtn) {
+      fullBtn.setAttribute("data-url", `${baseBriefUrl}?unit=${encodeURIComponent(uName)}`);
+    }
+
+    const statPairs = [
+      ["Generation", "STAT_GENERATION"], ["Faction", "STAT_FACTION"], ["Type", "STAT_TYPE"],
+      ["Armor Type", "STAT_ARMOR_TYPE"], ["Weapon Type", "STAT_WEAPON_TYPE"], ["Targets", "STAT_TARGETS"],
+      ["Damage Type", "STAT_DAMAGE_TYPE"], ["Size", "STAT_SIZE"], ["Building Required", "STAT_BUILDING"],
+      ["Level Required", "STAT_BUILDING_REQ"], ["HP (Lvl 1)", "STAT_HP_RANGE_1"], ["HP (Max)", "STAT_HP_RANGE_MAX"],
+      ["DPS (Lvl 1)", "STAT_DPS_RANGE_1"], ["DPS (Max)", "STAT_DPS_RANGE_MAX"], ["Max Speed", "STAT_SPEED"],
+      ["Range", "STAT_RANGE"], ["Splash", "STAT_SPLASH"]
+    ];
+    let statsRows = "";
+    statPairs.forEach(pair => {
+      if (g(pair[1])) {
+        statsRows += `<tr><td style="color:#90a4ae; font-weight:600; text-align:right; width:48%; padding:5px 8px;">${pair[0]}</td><td style="color:#fff; font-weight:700; padding:5px 8px;">${escapeHtml(g(pair[1]))}</td></tr>`;
+      }
+    });
+
+    let talentsHtml = "";
+    if (g("TALENT")) {
+      talentsHtml += `<div class="dossier-talent"><div class="dossier-talent-desc">${escapeHtml(g("TALENT"))}</div></div>`;
+    }
+    [1, 5, 10, 11, 15, 20, 21, 25, 30].forEach(lvl => {
+      if (g(`TALENT_LVL_${lvl}`)) {
+        const tierLbl = g(`TALENT_LVL_${lvl}_TIER`) || `LEVEL ${lvl}`;
+        talentsHtml += `<div class="dossier-talent"><div class="dossier-talent-tier">${escapeHtml(tierLbl)}</div><div class="dossier-talent-desc">${escapeHtml(g(`TALENT_LVL_${lvl}`))}</div></div>`;
+      }
+    });
+
+    let techHtml = "";
+    for (let i = 1; i <= 6; i++) {
+      const t = g(`WORKSHOP_${i}_TITLE`) || g(`TECH_${i}_TITLE`);
+      const tag = g(`WORKSHOP_${i}_TAG`) || g(`TECH_${i}_TAG`);
+      const desc = g(`WORKSHOP_${i}_DESC`) || g(`TECH_${i}_DESC`);
+      if (t || desc) {
+        techHtml += `<div class="dossier-tech-card"><div style="color:#ffd700; font-weight:800; text-transform:uppercase;">${escapeHtml(t)}</div><div style="color:#00e676; font-size:0.72rem; font-weight:800; margin-bottom:4px;">${escapeHtml(tag)}</div><div style="color:#cfd8dc;">${escapeHtml(desc)}</div></div>`;
+      }
+    }
+
+    const imgUrl = formatImageUrl(g("UNIT_IMAGE_URL") || g("IMAGE_URL"));
+
+    bodyEl.innerHTML = `
+      ${g("UNIT_QUOTE") ? `<div style="font-style:italic; color:#b0bec5; border-left:3px solid #00e676; padding-left:12px;">${escapeHtml(g("UNIT_QUOTE"))}</div>` : ""}
+      <div class="dossier-grid">
+        <div style="text-align:center;">
+          <span class="dossier-col-title">${escapeHtml(g("RELEASE_DATE") || "UNIT RENDER")}</span>
+          <div class="dossier-img-frame">
+            ${imgUrl ? `<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(uName)}">` : `<div style="padding:40px 10px; font-family:monospace; color:#00e676;">${escapeHtml(uName)}</div>`}
+          </div>
+        </div>
+        <div>
+          <span class="dossier-col-title">Specifications</span>
+          <table style="width:100%; border-collapse:collapse;"><tbody>${statsRows}</tbody></table>
+        </div>
+        <div>
+          <span class="dossier-col-title">Talents &amp; Capabilities</span>
+          ${talentsHtml || `<div style="color:#8b9bb4; font-size:0.8rem;">No talent records listed.</div>`}
+        </div>
+      </div>
+      ${techHtml ? `<div><span class="dossier-col-title">Workshop Tech</span><div class="dossier-tech-grid">${techHtml}</div></div>` : ""}
+    `;
+
+    modal.classList.add("open");
+  }
+
+  function closeUnitDossierModal() {
+    const modal = document.getElementById("unitDossierModal");
+    if (modal) modal.classList.remove("open");
+  }
+
+  /* ==================== DYNAMIC PRESET PILLS & PRIZE TABLE RENDERER ==================== */
+  function renderDynamicPresets() {
+    const bar = document.getElementById("dynamicPresetPills");
+    if (!bar) return;
+    const uniqueLinkedUnits = [];
+    currentPrizes.forEach(p => {
+      const u = (p.linkedUnit || "").trim().toUpperCase();
+      if (u && !uniqueLinkedUnits.includes(u)) uniqueLinkedUnits.push(u);
+    });
+
+    let html = `<span class="preset-label">Quick Presets:</span>`;
+    uniqueLinkedUnits.forEach(u => {
+      html += `<button type="button" class="pill-btn" onclick="applyLinkedUnitPreset('${escapeHtml(u)}')">⚡ Only ${escapeHtml(u)}</button>`;
+    });
+    html += `
+      <button type="button" class="pill-btn" onclick="applyPreset('all')">Select All</button>
+      <button type="button" class="pill-btn" onclick="applyPreset('none')">Clear All</button>
+    `;
+    bar.innerHTML = html;
+  }
+
+  function renderPrizesTable() {
+    renderDynamicPresets();
+    prizesTbody.innerHTML = "";
+
+    currentPrizes.forEach((p, idx) => {
+      const total = (p.limit || 0) * (p.cost || 0);
+      const tr = document.createElement("tr");
+      tr.className = `prize-row ${p.checked ? '' : 'unchecked-row'}`;
+      tr.id = `prize-row-${idx}`;
+
+      const hasMasterUnit = Boolean((p.linkedUnit || "").trim());
+      const hasCustomUrl = Boolean((p.url || "").trim());
+
+      let nameCellHtml = `<span>${escapeHtml(p.name)}</span>`;
+      if (hasMasterUnit) {
+        nameCellHtml = `
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(${idx})" title="Open Live MASTER_DB Unit Brief for ${escapeHtml(p.linkedUnit)}">
+            <span>${escapeHtml(p.name)}</span>
+            <span class="intel-link-badge">🗄️ ${escapeHtml(p.linkedUnit)} INTEL</span>
+          </button>
+        `;
+      } else if (hasCustomUrl) {
+        nameCellHtml = `
+          <button type="button" class="prize-intel-btn" onclick="triggerPrizeIntelAction(${idx})" title="Open External Intel Link">
+            <span>${escapeHtml(p.name)}</span>
+            <span class="intel-link-badge ext">🔎 INTEL ↗</span>
+          </button>
+        `;
+      }
+
+      const maxCap = p.maxLimit !== undefined ? p.maxLimit : p.limit;
+
+      tr.innerHTML = `
+        <td class="center"><input type="checkbox" class="prize-cb" data-idx="${idx}" ${p.checked ? 'checked' : ''}></td>
+        <td>${nameCellHtml}</td>
+        <td class="num">
+          <div class="qty-stepper">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(${idx}, -1)">-</button>
+            <input type="number" min="0" class="limit-input" data-idx="${idx}" value="${p.limit}">
+            <button type="button" class="step-btn" onclick="stepPrizeLimit(${idx}, 1)">+</button>
+            <button type="button" class="step-btn max-btn" onclick="setPrizeMax(${idx})" title="Set to Max Limit (${maxCap})">MAX</button>
+          </div>
+        </td>
+        <td class="num">${(p.cost || 0).toLocaleString()}</td>
+        <td class="num val-green" id="p-needed-${idx}" style="font-weight:800;">${(p.checked ? total : 0).toLocaleString()}</td>
+      `;
+      prizesTbody.appendChild(tr);
+    });
+  }
+
+  function stepPrizeLimit(idx, delta) {
+    if (!currentPrizes[idx]) return;
+    const maxCap = parseInt(currentPrizes[idx].maxLimit, 10) || 9999;
+    const nextVal = Math.min(maxCap, Math.max(0, (parseInt(currentPrizes[idx].limit, 10) || 0) + delta));
+    currentPrizes[idx].limit = nextVal;
+    currentPrizes[idx].checked = nextVal > 0;
+    renderPrizesTable();
+    updateAll();
+  }
+
+  function setPrizeMax(idx) {
+    if (!currentPrizes[idx]) return;
+    currentPrizes[idx].limit = parseInt(currentPrizes[idx].maxLimit, 10) || 1;
+    currentPrizes[idx].checked = true;
+    renderPrizesTable();
+    updateAll();
+  }
+
+  function applyLinkedUnitPreset(unitName) {
+    const target = String(unitName || "").trim().toUpperCase();
+    currentPrizes.forEach(p => {
+      p.checked = ((p.linkedUnit || "").trim().toUpperCase() === target) || String(p.name || "").toUpperCase().includes(target);
+    });
+    renderPrizesTable();
+    updateAll();
+  }
+
+  function applyPreset(mode) {
+    currentPrizes.forEach(p => {
+      p.checked = (mode === "all");
+    });
+    renderPrizesTable();
+    updateAll();
+  }
+
+  function toggleFullTrack(trackPrefix) {
+    if (trackPrefix === "rec") {
+      const b1 = document.getElementById("rec-b1");
+      const b2 = document.getElementById("rec-b2");
+      const b3 = document.getElementById("rec-b3");
+      const targetState = !(b1.checked && b2.checked && b3.checked);
+      b1.checked = b2.checked = b3.checked = targetState;
+    } else {
+      const b1 = document.getElementById("off-b1");
+      const b2 = document.getElementById("off-b2");
+      const targetState = !(b1.checked && b2.checked);
+      b1.checked = b2.checked = targetState;
+    }
+    updateAll();
+  }
+
+  function updateAll() {
+    let totalAll = 0;
+    let totalGoal = 0;
+    let selectedCount = 0;
+    const eventDays = Math.max(1, parseInt(masterState.eventDays, 10) || 4);
+
+    currentPrizes.forEach((p, idx) => {
+      const cb = prizesTbody.querySelector(`.prize-cb[data-idx="${idx}"]`);
+      const limitInput = prizesTbody.querySelector(`.limit-input[data-idx="${idx}"]`);
+      const rowEl = document.getElementById(`prize-row-${idx}`);
+
+      p.checked = cb ? cb.checked : p.checked;
+      p.limit = limitInput ? Math.max(0, parseInt(limitInput.value, 10) || 0) : p.limit;
+
+      if (rowEl) rowEl.classList.toggle("unchecked-row", !p.checked);
+      if (p.checked) selectedCount++;
+
+      const total = p.limit * (p.cost || 0);
+      totalAll += total;
+      const needed = p.checked ? total : 0;
+      totalGoal += needed;
+
+      const needEl = document.getElementById(`p-needed-${idx}`);
+      if (needEl) needEl.innerText = needed.toLocaleString();
+    });
+
+    const bankedExp = Math.max(0, parseInt(bankedInput.value, 10) || 0);
+    const remainingNeeded = Math.max(0, totalGoal - bankedExp);
+    const pctDone = totalGoal > 0 ? Math.min(100, Math.round((bankedExp / totalGoal) * 100)) : 0;
+
+    document.getElementById("selected-items-count").innerText = `${selectedCount} / ${currentPrizes.length} Selected`;
+    document.getElementById("grand-total-all").innerText = totalAll.toLocaleString();
+    document.getElementById("grand-total-needed").innerText = totalGoal.toLocaleString();
+    document.getElementById("card-needed").innerText = remainingNeeded.toLocaleString();
+    document.getElementById("card-total-goal-sub").innerText = `Total Goal: ${totalGoal.toLocaleString()} eXP`;
+    document.getElementById("progress-pct-label").innerText = `${pctDone}% OF GOAL COMPLETED (${bankedExp.toLocaleString()} / ${totalGoal.toLocaleString()} eXP)`;
+    document.getElementById("exp-progress-fill").style.width = `${pctDone}%`;
+
+    const recB1 = document.getElementById("rec-b1").checked;
+    const recB2 = document.getElementById("rec-b2").checked;
+    const recB3 = document.getElementById("rec-b3").checked;
+    const recBonus = recB1 && recB2 && recB3;
+    document.getElementById("rec-bonus").checked = recBonus;
+
+    const offB1 = document.getElementById("off-b1").checked;
+    const offB2 = document.getElementById("off-b2").checked;
+    const offBonus = offB1 && offB2;
+    document.getElementById("off-bonus").checked = offBonus;
+
+    // Recruit Track Base (1.0x)
+    const recValB1 = recB1 ? RECRUIT_VALUES.b1 : 0;
+    const recValB2 = recB2 ? RECRUIT_VALUES.b2 : 0;
+    const recValB3 = recB3 ? RECRUIT_VALUES.b3 : 0;
+    const recValBonus = recBonus ? RECRUIT_VALUES.bonus : 0;
+    const recTotalTrack = recValB1 + recValB2 + recValB3 + recValBonus;
+
+    document.getElementById("rec-b1-10").innerText = recValB1.toLocaleString();
+    document.getElementById("rec-b2-10").innerText = recValB2.toLocaleString();
+    document.getElementById("rec-b3-10").innerText = recValB3.toLocaleString();
+    document.getElementById("rec-bonus-10").innerText = recValBonus.toLocaleString();
+    document.getElementById("rec-tot-10").innerText = recTotalTrack.toLocaleString();
+
+    const recBaseRuns = (recTotalTrack > 0 && remainingNeeded > 0) ? Math.ceil(remainingNeeded / recTotalTrack) : 0;
+    document.getElementById("rec-runs-10").innerText =
+      recBaseRuns > 0 ? recBaseRuns : (remainingNeeded === 0 && totalGoal > 0 ? "0" : "-");
+
+    // Officer Track Base (1.0x)
+    const offValB1 = offB1 ? OFFICER_VALUES.b1 : 0;
+    const offValB2 = offB2 ? OFFICER_VALUES.b2 : 0;
+    const offValBonus = offBonus ? OFFICER_VALUES.bonus : 0;
+    const offTotalTrack = offValB1 + offValB2 + offValBonus;
+
+    document.getElementById("off-b1-10").innerText = offValB1.toLocaleString();
+    document.getElementById("off-b2-10").innerText = offValB2.toLocaleString();
+    document.getElementById("off-bonus-10").innerText = offValBonus.toLocaleString();
+    document.getElementById("off-tot-10").innerText = offTotalTrack.toLocaleString();
+
+    const offBaseRuns = (offTotalTrack > 0 && remainingNeeded > 0) ? Math.ceil(remainingNeeded / offTotalTrack) : 0;
+    document.getElementById("off-runs-10").innerText =
+      offBaseRuns > 0 ? offBaseRuns : (remainingNeeded === 0 && totalGoal > 0 ? "0" : "-");
+
+    // Top HUD Cards
+    document.getElementById("card-off-base").innerText = offBaseRuns > 0 ? offBaseRuns : (remainingNeeded === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("card-off-base-pace").innerText = offBaseRuns > 0 ? `~${(offBaseRuns / eventDays).toFixed(1)} runs/day (${eventDays}d)` : `${offTotalTrack.toLocaleString()} eXP / run`;
+
+    document.getElementById("card-rec-base").innerText = recBaseRuns > 0 ? recBaseRuns : (remainingNeeded === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("card-rec-base-pace").innerText = recBaseRuns > 0 ? `~${(recBaseRuns / eventDays).toFixed(1)} runs/day (${eventDays}d)` : `${recTotalTrack.toLocaleString()} eXP / run`;
+
+    const activeTrackPool = offTotalTrack > 0 ? offTotalTrack : recTotalTrack;
+    const activeTrackName = offTotalTrack > 0 ? "Officer" : "Recruit";
+    const activeRuns = offTotalTrack > 0 ? offBaseRuns : recBaseRuns;
+
+    document.getElementById("card-active-tier-lbl").innerText = `${activeTrackName} Daily Pace`;
+    document.getElementById("card-active-runs").innerText = activeRuns > 0 ? `${(activeRuns / eventDays).toFixed(1)} / Day` : (remainingNeeded === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("card-active-pace").innerText = `${activeRuns} total runs (${activeTrackPool.toLocaleString()} eXP/run)`;
+
+    document.getElementById("log-run-amt").innerText = `+${activeTrackPool.toLocaleString()}`;
+
+    savePlayerStateToLocal();
+  }
+
+  /* ==================== MASTER CONFIG PANEL ENGINE ==================== */
+  function toggleAdminPanel() {
+    const panel = document.getElementById("adminPanel");
+    if (!panel) return;
+    panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+  }
+
+  function toggleConfigSection(headerEl) {
+    const bodyEl = headerEl.nextElementSibling;
+    const isHidden = bodyEl.classList.contains("hidden");
+    if (isHidden) { bodyEl.classList.remove("hidden"); headerEl.classList.remove("collapsed"); }
+    else { bodyEl.classList.add("hidden"); headerEl.classList.add("collapsed"); }
+  }
+
+  function populateMasterInputsFromState() {
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v !== undefined ? v : ""; };
+    setVal("cfgEventYear", masterState.eventYear || "2026");
+    setVal("cfgEventMonth", masterState.eventMonth || "OCT");
+    setVal("cfgEventDays", masterState.eventDays || 4);
+    setVal("cfgEventTitleMain", masterState.eventTitleMain || "SKIRMISH EVENT CALCULATOR");
+    setVal("cfgSubTag", masterState.subTag || "WatchToweR Data Hub // Tactical Grind Planner");
+    setVal("cfgMetaText", masterState.metaText || "Data sourced from Kixeye releases • Created By: [-WTR-]HighAnxiety");
+    setVal("cfgHomeUrl", masterState.homeUrl || "https://sites.google.com/view/watchtower-data-hub/home");
+    setVal("cfgUnitBriefsBaseUrl", masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs");
+  }
+
+  function applyMasterHeaderToDom() {
+    const yr = (masterState.eventYear || "2026").trim();
+    const mo = (masterState.eventMonth || "OCT").trim().toUpperCase();
+    const prefixEl = document.getElementById("displayEventDatePrefix");
+    const mainTitleEl = document.getElementById("displayEventTitleMain");
+    const subTagEl = document.getElementById("displaySubTag");
+    const metaEl = document.getElementById("displayMetaText");
+    const logoLink = document.getElementById("wtrHomeLogoLink");
+    const fnPreview = document.getElementById("previewSaveFilename");
+
+    if (prefixEl) prefixEl.textContent = `${mo} ${yr}`;
+    if (mainTitleEl) mainTitleEl.textContent = masterState.eventTitleMain || "SKIRMISH EVENT CALCULATOR";
+    if (subTagEl) subTagEl.textContent = masterState.subTag || "";
+    if (metaEl) metaEl.textContent = masterState.metaText || "";
+    if (logoLink && masterState.homeUrl) logoLink.href = masterState.homeUrl;
+    if (fnPreview) fnPreview.textContent = getPlayerSaveFilename();
+    document.title = `WatchToweR Data Hub — ${mo} ${yr} ${masterState.eventTitleMain || 'SKIRMISH Event Calculator'}`;
+  }
+
+  function syncMasterSettingsFromInputs() {
+    if (!document.getElementById("cfgEventYear")) return;
+    masterState.eventYear = document.getElementById("cfgEventYear").value.trim() || "2026";
+    masterState.eventMonth = (document.getElementById("cfgEventMonth").value.trim() || "OCT").toUpperCase();
+    masterState.eventDays = Math.max(1, parseInt(document.getElementById("cfgEventDays").value, 10) || 4);
+    masterState.eventTitleMain = document.getElementById("cfgEventTitleMain").value.trim();
+    masterState.subTag = document.getElementById("cfgSubTag").value.trim();
+    masterState.metaText = document.getElementById("cfgMetaText").value.trim();
+    masterState.homeUrl = document.getElementById("cfgHomeUrl").value.trim();
+    masterState.unitBriefsBaseUrl = document.getElementById("cfgUnitBriefsBaseUrl").value.trim();
+    applyMasterHeaderToDom();
+    updateAll();
+    persistMasterStateToLocal();
+  }
+
+  function buildMasterDbSelectOptions(selectedUnit) {
+    const selNorm = normalizeUnitKey(selectedUnit);
+    let html = `<option value="">-- No MASTER_DB Unit Linked --</option>`;
+
+    const knownNames = masterDbUnitsCache.map(u => u.UNIT_NAME);
+    if (selectedUnit && !knownNames.some(n => normalizeUnitKey(n) === selNorm)) {
+      html += `<option value="${escapeHtml(selectedUnit)}" selected>🗄️ ${escapeHtml(selectedUnit)}</option>`;
+    }
+
+    masterDbUnitsCache.forEach(u => {
+      const isSelected = normalizeUnitKey(u.UNIT_NAME) === selNorm;
+      html += `<option value="${escapeHtml(u.UNIT_NAME)}" ${isSelected ? 'selected' : ''}>🗄️ ${escapeHtml(u.UNIT_NAME)}</option>`;
+    });
+    return html;
+  }
+
+  function renderAdminPrizeEditor() {
+    const listEl = document.getElementById("adminPrizeEditorList");
+    if (!listEl) return;
+
+    listEl.innerHTML = masterState.prizes.map((p, idx) => `
+      <div class="prize-editor-row">
+        <div class="pe-field" style="align-items:center;">
+          <label>Def ✅</label>
+          <input type="checkbox" ${p.checked ? 'checked' : ''} onchange="updateMasterPrizeField(${idx}, 'checked', this.checked)">
+        </div>
+        <div class="pe-field">
+          <label>Prize Item Name</label>
+          <input type="text" value="${escapeHtml(p.name)}" oninput="updateMasterPrizeField(${idx}, 'name', this.value)">
+        </div>
+        <div class="pe-field">
+          <label>Def Qty</label>
+          <input type="number" min="0" value="${p.limit}" oninput="updateMasterPrizeField(${idx}, 'limit', parseInt(this.value,10)||0)">
+        </div>
+        <div class="pe-field">
+          <label>Max Limit</label>
+          <input type="number" min="1" value="${p.maxLimit !== undefined ? p.maxLimit : p.limit}" oninput="updateMasterPrizeField(${idx}, 'maxLimit', parseInt(this.value,10)||1)">
+        </div>
+        <div class="pe-field">
+          <label>eXP Cost</label>
+          <input type="number" min="0" step="500" value="${p.cost}" oninput="updateMasterPrizeField(${idx}, 'cost', parseInt(this.value,10)||0)">
+        </div>
+        <div class="pe-field">
+          <label style="color:var(--accent-bright-green);">🗄️ Linked MASTER_DB Unit</label>
+          <select onchange="updateMasterPrizeField(${idx}, 'linkedUnit', this.value)">
+            ${buildMasterDbSelectOptions(p.linkedUnit || '')}
+          </select>
+        </div>
+        <div class="pe-field">
+          <label style="color:var(--accent-cyan);">Custom Fallback URL (Opt)</label>
+          <input type="text" value="${escapeHtml(p.url || '')}" placeholder="https://..." oninput="updateMasterPrizeField(${idx}, 'url', this.value)">
+        </div>
+        <button type="button" class="card-delete-btn" onclick="deleteMasterPrizeItem(${idx}, this)">🗑️ Delete</button>
+      </div>
+    `).join("");
+  }
+
+  function updateMasterPrizeField(idx, field, val) {
+    if (!masterState.prizes[idx]) return;
+    masterState.prizes[idx][field] = val;
+    if (field === "maxLimit" && masterState.prizes[idx].limit > val) {
+      masterState.prizes[idx].limit = val;
+    }
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    renderPrizesTable();
+    updateAll();
+    persistMasterStateToLocal();
+  }
+
+  function addMasterPrizeItem() {
+    masterState.prizes.push({
+      name: "New Event Prize Item",
+      linkedUnit: "",
+      limit: 1,
+      maxLimit: 10,
+      cost: 25000,
+      checked: true,
+      url: ""
+    });
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    renderAdminPrizeEditor();
+    renderPrizesTable();
+    updateAll();
+    persistMasterStateToLocal();
+    showToast("➕ Added New Prize Row");
+  }
+
+  function deleteMasterPrizeItem(idx, btnEl) {
+    if (!masterState.prizes[idx]) return;
+    if (btnEl && btnEl.getAttribute("data-armed") !== "true") {
+      btnEl.setAttribute("data-armed", "true");
+      btnEl.classList.add("btn-danger-armed");
+      btnEl.textContent = "⚠️ Confirm?";
+      setTimeout(() => {
+        if (btnEl && document.body.contains(btnEl)) {
+          btnEl.removeAttribute("data-armed");
+          btnEl.classList.remove("btn-danger-armed");
+          btnEl.textContent = "🗑️ Delete";
+        }
+      }, 3000);
+      return;
+    }
+    masterState.prizes.splice(idx, 1);
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    renderAdminPrizeEditor();
+    renderPrizesTable();
+    updateAll();
+    persistMasterStateToLocal();
+  }
+
+  function saveAllMasterConfig(btnEl) {
+    syncMasterSettingsFromInputs();
+    masterState.savedAt = Date.now();
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    renderPrizesTable();
+    updateAll();
+    persistMasterStateToLocal();
+
+    if (btnEl) {
+      const orig = btnEl.textContent;
+      btnEl.textContent = "✅ SAVED & VERIFIED!";
+      setTimeout(() => { btnEl.textContent = orig; }, 2200);
+    }
+    showToast("✅ Master Config Committed!");
+  }
+
+  function persistMasterStateToLocal() {
+    masterState.savedAt = Date.now();
+    safeSetStorage(MASTER_STORAGE_KEY, JSON.stringify(masterState));
+  }
+
+  /* ==================== PLAYER SAVE & LOAD SETTINGS ENGINE ==================== */
+  function getPlayerConfig() {
+    return {
+      version: 4.2,
+      release: WTR_CALC_RELEASE,
+      eventYear: masterState.eventYear,
+      eventMonth: masterState.eventMonth,
+      timestamp: new Date().toISOString(),
+      bankedExp: parseInt(bankedInput.value, 10) || 0,
+      prizes: currentPrizes.map(p => ({ name: p.name, limit: p.limit, checked: p.checked })),
+      tracks: {
+        recB1: document.getElementById("rec-b1").checked,
+        recB2: document.getElementById("rec-b2").checked,
+        recB3: document.getElementById("rec-b3").checked,
+        offB1: document.getElementById("off-b1").checked,
+        offB2: document.getElementById("off-b2").checked
+      }
+    };
+  }
+
+  function applyPlayerConfig(config) {
+    if (!config) return;
+    if (typeof config.bankedExp === "number") bankedInput.value = config.bankedExp;
+    if (config.prizes && Array.isArray(config.prizes)) {
+      config.prizes.forEach((saved, idx) => {
+        if (currentPrizes[idx]) {
+          currentPrizes[idx].limit = typeof saved.limit === 'number' ? saved.limit : currentPrizes[idx].limit;
+          currentPrizes[idx].checked = typeof saved.checked === 'boolean' ? saved.checked : currentPrizes[idx].checked;
+        }
+      });
+      renderPrizesTable();
+    }
+    if (config.tracks) {
+      if (typeof config.tracks.recB1 === 'boolean') document.getElementById("rec-b1").checked = config.tracks.recB1;
+      if (typeof config.tracks.recB2 === 'boolean') document.getElementById("rec-b2").checked = config.tracks.recB2;
+      if (typeof config.tracks.recB3 === 'boolean') document.getElementById("rec-b3").checked = config.tracks.recB3;
+      if (typeof config.tracks.offB1 === 'boolean') document.getElementById("off-b1").checked = config.tracks.offB1;
+      if (typeof config.tracks.offB2 === 'boolean') document.getElementById("off-b2").checked = config.tracks.offB2;
+    }
+    updateAll();
+  }
+
+  function savePlayerStateToLocal() {
+    safeSetStorage(getPlayerStorageKey(), JSON.stringify(getPlayerConfig()));
+  }
+
+  function loadPlayerStateFromLocal() {
+    const raw = safeGetStorage(getPlayerStorageKey());
+    if (raw) {
+      try { applyPlayerConfig(JSON.parse(raw)); } catch (e) {}
+    }
+  }
+
+  document.getElementById("btn-save").addEventListener("click", () => {
+    const config = getPlayerConfig();
+    const filename = getPlayerSaveFilename();
+    const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`💾 Saved ${filename}`);
+  });
+
+  document.getElementById("btn-load").addEventListener("click", () => {
+    document.getElementById("file-input").click();
+  });
+
+  document.getElementById("file-input").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        applyPlayerConfig(JSON.parse(event.target.result));
+        showToast(`✅ Loaded ${file.name}`);
+      } catch (err) {
+        showToast("❌ Invalid JSON Settings File");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  });
+
+  const resetBtn = document.getElementById("btn-reset");
+  resetBtn.addEventListener("click", () => {
+    if (resetBtn.getAttribute("data-armed") !== "true") {
+      resetBtn.setAttribute("data-armed", "true");
+      resetBtn.classList.add("btn-danger-armed");
+      resetBtn.textContent = "⚠️ Confirm Reset?";
+      setTimeout(() => {
+        resetBtn.removeAttribute("data-armed");
+        resetBtn.classList.remove("btn-danger-armed");
+        resetBtn.textContent = "↺ Reset Defaults";
+      }, 3000);
+      return;
+    }
+    resetBtn.removeAttribute("data-armed");
+    resetBtn.classList.remove("btn-danger-armed");
+    resetBtn.textContent = "↺ Reset Defaults";
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    bankedInput.value = 0;
+    document.getElementById("rec-b1").checked = false;
+    document.getElementById("rec-b2").checked = false;
+    document.getElementById("rec-b3").checked = false;
+    document.getElementById("off-b1").checked = true;
+    document.getElementById("off-b2").checked = true;
+    renderPrizesTable();
+    updateAll();
+    showToast("↺ Defaults Restored");
+  });
+
+  document.getElementById("btn-log-run").addEventListener("click", () => {
+    const offB1 = document.getElementById("off-b1").checked;
+    const offB2 = document.getElementById("off-b2").checked;
+    const offBonus = offB1 && offB2;
+    const recB1 = document.getElementById("rec-b1").checked;
+    const recB2 = document.getElementById("rec-b2").checked;
+    const recB3 = document.getElementById("rec-b3").checked;
+    const recBonus = recB1 && recB2 && recB3;
+
+    const offPool = (offB1 ? OFFICER_VALUES.b1 : 0) + (offB2 ? OFFICER_VALUES.b2 : 0) + (offBonus ? OFFICER_VALUES.bonus : 0);
+    const recPool = (recB1 ? RECRUIT_VALUES.b1 : 0) + (recB2 ? RECRUIT_VALUES.b2 : 0) + (recB3 ? RECRUIT_VALUES.b3 : 0) + (recBonus ? RECRUIT_VALUES.bonus : 0);
+    const addAmt = Math.round(offPool > 0 ? offPool : recPool);
+
+    if (addAmt > 0) {
+      bankedInput.value = (parseInt(bankedInput.value, 10) || 0) + addAmt;
+      updateAll();
+      showToast(`✅ +${addAmt.toLocaleString()} eXP Logged!`);
+    }
+  });
+
+  document.getElementById("btn-clear-bank").addEventListener("click", () => {
+    bankedInput.value = 0;
+    updateAll();
+    showToast("Banked eXP cleared");
+  });
+
+  bankedInput.addEventListener("input", updateAll);
+  prizesTbody.addEventListener("input", updateAll);
+  prizesTbody.addEventListener("change", updateAll);
+
+  ["rec-b1", "rec-b2", "rec-b3", "off-b1", "off-b2"].forEach(id => {
+    document.getElementById(id).addEventListener("change", updateAll);
+  });
+
+  /* ==================== MASTER LOAD, SAVE & HARDENED PUBLISH ENGINE ==================== */
+  function safeSerializeForScript(obj) {
+    const openScriptRegex = new RegExp("<" + "script", "gi");
+    const closeScriptRegex = new RegExp("<" + "/script", "gi");
+    const openCommentRegex = new RegExp("<" + "!--", "g");
+    return JSON.stringify(obj, null, 2)
+      .replace(openScriptRegex, "\\u003cscript")
+      .replace(closeScriptRegex, "\\u003c/script")
+      .replace(openCommentRegex, "\\u003c!--");
+  }
+
+  function encodeVaultBase64(obj) {
+    return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
+  }
+
+  function decodeVaultBase64(b64) {
+    return JSON.parse(decodeURIComponent(escape(atob(b64.trim()))));
+  }
+
+  function scrubBrowserExtensionsFromClone(rootNode) {
+    if (!rootNode) return;
+    const junkSelectors = [
+      "base[href*='atari-embeds']",
+      "grammarly-desktop-integration",
+      "grammarly-extension",
+      "grammarly-popups",
+      "grammarly-mirror",
+      "[data-grammarly-shadow-root]",
+      "[class*='grammarly']",
+      "[id*='grammarly']",
+      "loom-container",
+      "#loom-companion-mv3"
+    ];
+    junkSelectors.forEach(sel => {
+      try { rootNode.querySelectorAll(sel).forEach(el => el.remove()); } catch (e) {}
+    });
+
+    const allEls = [rootNode, ...Array.from(rootNode.querySelectorAll("*"))];
+    allEls.forEach(el => {
+      if (!el.attributes) return;
+      Array.from(el.attributes).forEach(attr => {
+        const name = attr.name.toLowerCase();
+        if (name.startsWith("data-gr-") || name.startsWith("data-new-gr-") || name.startsWith("data-grammarly")) {
+          el.removeAttribute(attr.name);
+        }
+      });
+    });
+  }
+
+  function buildMasterHtmlSnapshotString() {
+    syncMasterSettingsFromInputs();
+    closeUnitDossierModal();
+    masterState.savedAt = Date.now();
+    persistMasterStateToLocal();
+
+    const expArea = document.getElementById("exportTextarea");
+    if (expArea) expArea.value = "";
+
+    const cloneDoc = document.documentElement.cloneNode(true);
+    scrubBrowserExtensionsFromClone(cloneDoc);
+
+    const expBox = cloneDoc.querySelector("#exportOutputBox");
+    if (expBox) expBox.style.display = "none";
+
+    const oldVault = cloneDoc.querySelector("#wtrMasterStateVault");
+    if (oldVault) oldVault.remove();
+
+    const vaultScript = document.createElement("script");
+    vaultScript.id = "wtrMasterStateVault";
+    vaultScript.type = "text/plain";
+    vaultScript.textContent = encodeVaultBase64(masterState);
+    cloneDoc.querySelector("head").appendChild(vaultScript);
+
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER SKIRMISH CALCULATOR MASTER // RELEASE: ${WTR_CALC_RELEASE} -->\n` + cloneDoc.outerHTML;
+    htmlOut = htmlOut.replace(
+      /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
+      () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
+    );
+    return htmlOut;
+  }
+
+  async function saveMasterFileToDisk(silentIfLinked = false) {
+    const masterHtml = buildMasterHtmlSnapshotString();
+    const yr = (masterState.eventYear || "2026").trim();
+    const mo = (masterState.eventMonth || "OCT").trim().toUpperCase();
+    const defaultMasterFilename = `${yr}_${mo}_SKIRMISH_MASTER_STUDIO.html`;
+
+    try {
+      if (window.showSaveFilePicker) {
+        if (!masterFileHandle || !silentIfLinked) {
+          masterFileHandle = await window.showSaveFilePicker({
+            suggestedName: defaultMasterFilename,
+            types: [{ description: "WatchTower Skirmish Master HTML", accept: { "text/html": [".html"] } }]
+          });
+        }
+        const writable = await masterFileHandle.createWritable();
+        await writable.write(masterHtml);
+        await writable.close();
+        showToast(`✅ Master Saved: ${masterFileHandle.name}`);
+        return;
+      }
+    } catch (err) {
+      if (err && err.name === "AbortError") return;
+    }
+
+    const blob = new Blob([masterHtml], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = defaultMasterFilename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`💾 Master Downloaded!`);
+  }
+
+  window.addEventListener("keydown", function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+      if (document.getElementById("adminPanel")) {
+        e.preventDefault();
+        saveMasterFileToDisk(true);
+      }
+    }
+  });
+
+  function handleUniversalMasterFileLoad(event) {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const raw = (e.target.result || "").trim();
+        let parsed = null;
+        if (raw.startsWith("{")) {
+          parsed = JSON.parse(raw);
+        } else {
+          const doc = new DOMParser().parseFromString(raw, "text/html");
+          const vaultEl = doc.querySelector("#wtrMasterStateVault");
+          if (vaultEl && vaultEl.textContent.trim()) {
+            parsed = decodeVaultBase64(vaultEl.textContent);
+          } else {
+            const scripts = doc.querySelectorAll("script");
+            for (const s of scripts) {
+              const m = s.textContent.match(/const defaultMasterState = (\{[\s\S]*?\});\s*let masterState/);
+              if (m && m[1]) { parsed = JSON.parse(m[1]); break; }
+            }
+          }
+        }
+        if (!parsed) throw new Error("No Master State found in file.");
+        masterState = Object.assign({}, defaultMasterState, parsed);
+        currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+        populateMasterInputsFromState();
+        applyMasterHeaderToDom();
+        renderAdminPrizeEditor();
+        renderPrizesTable();
+        updateAll();
+        persistMasterStateToLocal();
+        showToast(`✅ Loaded Master: ${file.name}`);
+      } catch (err) {
+        showToast("❌ Invalid Master File");
+      } finally {
+        event.target.value = "";
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function generateCleanPublishedHtml() {
+    syncMasterSettingsFromInputs();
+    closeUnitDossierModal();
+    masterState.savedAt = Date.now();
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+    bankedInput.value = 0;
+    renderPrizesTable();
+    updateAll();
+    persistMasterStateToLocal();
+
+    const adminPanel = document.getElementById("adminPanel");
+    if (adminPanel) adminPanel.style.display = "none";
+
+    const expArea = document.getElementById("exportTextarea");
+    if (expArea) expArea.value = "";
+
+    const cloneDoc = document.documentElement.cloneNode(true);
+    scrubBrowserExtensionsFromClone(cloneDoc);
+
+    const removeIds = [
+      "editorHeaderControls",
+      "masterVerifyStrip",
+      "adminPanel",
+      "exportOutputBox",
+      "masterFileLoaderInput",
+      "wtrMasterStateVault"
+    ];
+    removeIds.forEach(id => {
+      const el = cloneDoc.querySelector(`#${id}`);
+      if (el) el.remove();
+    });
+
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER SKIRMISH CALCULATOR PUBLISHED // RELEASE: ${WTR_CALC_RELEASE} -->\n` + cloneDoc.outerHTML;
+    htmlOut = htmlOut.replace(
+      /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
+      () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
+    );
+    return htmlOut;
+  }
+
+  function publishPage(mode) {
+    const cleanHtml = generateCleanPublishedHtml();
+    const exportBox = document.getElementById("exportOutputBox");
+    const exportArea = document.getElementById("exportTextarea");
+    const statusLabel = document.getElementById("exportStatusLabel");
+
+    const yr = (masterState.eventYear || "2026").trim();
+    const mo = (masterState.eventMonth || "OCT").trim().toUpperCase();
+    const pubFilename = `${yr}_${mo}_SKIRMISH_WTR_PUBLISHED.html`;
+
+    if (exportBox && exportArea) {
+      exportArea.value = cleanHtml;
+      exportBox.style.display = "flex";
+    }
+    copyTextareaToClipboard();
+
+    if (mode === "copy") {
+      if (statusLabel) statusLabel.textContent = `✅ PUBLISHED ${WTR_CALC_RELEASE} & COPIED (${mo} ${yr} — ${masterState.prizes.length} Prizes)`;
+      showToast("📋 Published HTML Copied!");
+    } else {
+      const blob = new Blob([cleanHtml], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = pubFilename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      if (statusLabel) statusLabel.textContent = `🚀 PUBLISHED ${WTR_CALC_RELEASE} & DOWNLOADED: ${pubFilename}`;
+      showToast(`🚀 Downloaded ${pubFilename}`);
+    }
+  }
+
+  function copyTextareaToClipboard() {
+    const textarea = document.getElementById("exportTextarea");
+    if (!textarea) return;
+    textarea.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textarea.value).catch(() => {});
+    }
+  }
+
+  function loadPersistedMasterStateOnBoot() {
+    let vaultState = null;
+    let localState = null;
+    const vaultEl = document.getElementById("wtrMasterStateVault");
+    if (vaultEl && vaultEl.textContent.trim()) {
+      try { vaultState = decodeVaultBase64(vaultEl.textContent); } catch (e) {}
+    }
+    const isPublished = !document.getElementById("adminPanel");
+    if (!isPublished) {
+      const raw = safeGetStorage(MASTER_STORAGE_KEY);
+      if (raw) {
+        try { localState = JSON.parse(raw); } catch (e) {}
+      }
+    }
+    if (vaultState && localState) {
+      masterState = Object.assign({}, defaultMasterState, (vaultState.savedAt || 0) >= (localState.savedAt || 0) ? vaultState : localState);
+    } else if (vaultState) {
+      masterState = Object.assign({}, defaultMasterState, vaultState);
+    } else if (localState) {
+      masterState = Object.assign({}, defaultMasterState, localState);
+    }
+    currentPrizes = JSON.parse(JSON.stringify(masterState.prizes));
+  }
+
+  /* Initialize Studio, Live MASTER_DB Sync & Calculator */
+  loadPersistedMasterStateOnBoot();
+  populateMasterInputsFromState();
+  applyMasterHeaderToDom();
+  renderAdminPrizeEditor();
+  renderPrizesTable();
+  loadPlayerStateFromLocal();
+  updateAll();
+  fetchMasterDbUnits(false);
+</script>
+
+
+      <script>
+        (function() {
+          // The root element's background fills the whole page. As in CSS,
+          // the body's background is used when the root element has none.
+          function getPageBackgroundColor() {
+            var docStyle = window.getComputedStyle(document.documentElement);
+            var color = docStyle.backgroundColor;
+            if ((color === 'rgba(0, 0, 0, 0)' || color === 'transparent') &&
+                docStyle.backgroundImage === 'none' && document.body) {
+              color = window.getComputedStyle(document.body).backgroundColor;
+            }
+            return color || '';
+          }
+
+          var lastReportedColor = '';
+          function reportBackgroundColor() {
+            try {
+              var color = getPageBackgroundColor();
+              if (color === lastReportedColor) return;
+              lastReportedColor = color;
+              window.parent.postMessage({
+                type: 'ATARI_CODE_EMBED_BACKGROUND_COLOR',
+                backgroundColor: color
+              }, '*');
+            } catch (e) {}
+          }
+
+          // The page background usually changes through an attribute on html
+          // or body (for example a theme class), a style sheet in head, or the
+          // system color scheme.
+          if (typeof MutationObserver !== 'undefined') {
+            var observer = new MutationObserver(reportBackgroundColor);
+            observer.observe(document.documentElement, {attributes: true});
+            if (document.body) {
+              observer.observe(document.body, {attributes: true});
+            }
+            if (document.head) {
+              observer.observe(document.head, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                characterData: true
+              });
+            }
+          }
+          var colorSchemeQuery =
+              window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+          if (colorSchemeQuery && colorSchemeQuery.addEventListener) {
+            colorSchemeQuery.addEventListener('change', reportBackgroundColor);
+          }
+          window.addEventListener('load', reportBackgroundColor);
+          window.addEventListener('transitionend', reportBackgroundColor);
+          window.addEventListener('animationend', reportBackgroundColor);
+          reportBackgroundColor();
+        })();
+      </script>
+    </body></html>

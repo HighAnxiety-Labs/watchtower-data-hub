@@ -1,0 +1,365 @@
+<style>:root {
+      --bg-dark: #0a0c0f;
+      --bg-panel: rgba(16, 21, 28, 0.88);
+      --bg-card: rgba(22, 29, 39, 0.7);
+      --accent-cyan: #00ffcc;
+      --accent-blue: #00a8ff;
+      --accent-amber: #ffaa00;
+      --border-hud: #1f2e42;
+      --border-hud-bright: #2d4666;
+      --text-main: #d1d9e6;
+      --text-muted: #798ba3;
+      --text-bright: #f0f6fc;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(0, 168, 255, 0.12), transparent 70%),
+        linear-gradient(rgba(10, 12, 15, 0.94), rgba(10, 12, 15, 0.98)),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 204, 0.015) 3px);
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+      line-height: 1.5;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    /* TOP INTEL BANNER */
+    .intel-header {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hud);
+      border-top: 3px solid var(--accent-cyan);
+      position: relative;
+      padding: 24px 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    }
+    .intel-meta {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+    h1.intel-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+    }
+    .release-tag {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.88rem;
+      color: var(--accent-amber);
+      font-weight: 700;
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+    /* UNLOCK STATS BAR */
+    .unlock-banner {
+      background: linear-gradient(90deg, rgba(0, 255, 204, 0.08) 0%, rgba(0, 168, 255, 0.03) 100%);
+      border: 1px solid var(--accent-cyan);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+    .unlock-desc {
+      font-size: 1.05rem;
+      color: var(--text-bright);
+    }
+    .unlock-desc strong {
+      color: var(--accent-cyan);
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    .unlock-specs {
+      display: flex;
+      gap: 14px;
+    }
+    .stat-badge {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border-hud-bright);
+      padding: 6px 14px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-bright);
+    }
+    .stat-badge span {
+      color: var(--accent-cyan);
+    }
+    /* GRID & CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .hud-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hud);
+      padding: 24px;
+      position: relative;
+    }
+    .hud-panel::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 20px;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-cyan);
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-hud);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .panel-header h2 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-header h2::before {
+      content: "■";
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+    }
+    /* LIST ENTRIES */
+    .intel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .intel-item {
+      background: var(--bg-card);
+      border-left: 3px solid var(--border-hud-bright);
+      padding: 12px 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .intel-item:hover {
+      border-left-color: var(--accent-cyan);
+      background: rgba(30, 42, 58, 0.7);
+    }
+    .intel-title-sm {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      display: inline-block;
+      margin-right: 8px;
+    }
+    .intel-content {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+    }
+    /* BUILDING MATRIX TILES */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .matrix-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hud);
+      padding: 14px 16px;
+      position: relative;
+    }
+    .matrix-card:hover {
+      border-color: var(--border-hud-bright);
+    }
+    .matrix-name {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      border-bottom: 1px dashed var(--border-hud);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .matrix-name .level {
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+    }
+    .matrix-body {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+    /* FOOTER */
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }</style>
+<div class="container"><!-- Intel Header -->
+  <header class="intel-header">
+    <div class="intel-meta">Watchtower Tactical Dispatch // 
+      <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1022-command-center-22-briefing/">
+        <span style="color: #00ccff;">Original Patch Notes Link</span>
+      </a>
+    </div>
+    <h1 class="intel-title">Command Center 22 Briefing</h1>
+    <div class="release-tag">DEPLOYMENT TIMELINE: THURSDAY, SEPTEMBER 24TH, 2026 (APPROX. 17:00 PDT)</div>
+  </header><!-- Command Center Upgrade Stats -->
+  <div class="unlock-banner">
+    <div class="unlock-desc">
+      <strong>HEADQUARTERS PROGRESSION:</strong> Command Center Level 22 unlocks modern defensive platforms, tech trees, and facility tiers.
+    </div>
+    <div class="unlock-specs">
+      <div class="stat-badge">UPGRADE TIME: 8 DAYS</div>
+      <div class="stat-badge">RESOURCE: 80,000 IRIDIUM</div>
+    </div>
+  </div>
+  <div class="grid"><!-- Section 1: Mine Factory Overhaul -->
+    <section class="hud-panel">
+      <div class="panel-header">
+        <h2>Mine Factory Overhaul</h2>
+      </div>
+      <ul class="intel-list">
+        <li class="intel-item">
+          <span class="intel-title-sm">Deployable Minefields:</span> 
+          <span class="intel-content">Replaces individual mine placements. Matches the exact footprint and structure sizing of a heavy platform.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Stealth &amp; Auto-Rearm:</span> 
+          <span class="intel-content">Remains undetected by enemy forces until triggered or unmasked by specialized sweepers. Auto-rearms post-battle based on mine lifespan. Instant arming remains available via Gold.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Tactical Munition Variants:</span> 
+          <span class="intel-content">Damage mines now inflict balanced flat damage. New variants introduce status effects and summoning capabilities. New mine variants will drop via HOLDOUT.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Global Upgrades &amp; HUD:</span> 
+          <span class="intel-content">All planted fields automatically scale to your highest unlocked tier in the Mine Factory. Management and placement are streamlined through a redesigned interface.</span>
+        </li>
+      </ul>
+    </section>
+<!-- Section 2: Building Upgrades -->
+    <section class="hud-panel">
+      <div class="panel-header">
+        <h2>Combat Infrastructure Upgrades</h2>
+      </div>
+      <div class="matrix-grid">
+        <div class="matrix-card">
+          <div class="matrix-name">Mine Factory 
+            <span class="level">MAX LVL 10</span>
+          </div>
+          <div class="matrix-body">Expands total defensive minefield capacity up to 12 deployable zones.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Tactical Ops Center 
+            <span class="level">MAX LVL 25</span>
+          </div>
+          <div class="matrix-body">Supplies dedicated damage buffs tailored for Arc 2 combat units.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Weapons Lab 
+            <span class="level">MAX LVL 13</span>
+          </div>
+          <div class="matrix-body">Unlocks higher bastion tiers: Tesla Cannon, Orbital Hammer, Tactical Backup, and Recovery.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Skyguard 
+            <span class="level">MAX LVL 20</span>
+          </div>
+          <div class="matrix-body">Increases base Air Defender capacity threshold up to 2,850.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Unit Plants 
+            <span class="level">LVL 55-60</span>
+          </div>
+          <div class="matrix-body">Barracks (55), War Factory (60), Airfield (60) provide Arc 2 repair perks and Modern War Production.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Merc Camp 
+            <span class="level">MAX LVL 30</span>
+          </div>
+          <div class="matrix-body">Introduces the Bearguard and Gunslinger mercenaries alongside accelerated production cycles.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Radio Tower 
+            <span class="level">MAX LVL 14</span>
+          </div>
+          <div class="matrix-body">Raises maximum tactical deployment limits for Advanced Scouts.</div>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-name">Auxiliary Base Assets 
+            <span class="level">EXPANDED</span>
+          </div>
+          <div class="matrix-body">Expanded caps for Academy, Tech Center, Air Hangar, Construction Yard, and Heavy Platforms.</div>
+        </div>
+      </div>
+    </section>
+<!-- Section 3: QoL and Technical Fixes -->
+    <section class="hud-panel">
+      <div class="panel-header">
+        <h2>Tactical Logistics &amp; Quality of Life</h2>
+      </div>
+      <ul class="intel-list">
+        <li class="intel-item">
+          <span class="intel-title-sm">Decentralized Research:</span> 
+          <span class="intel-content">Research modules moved to their direct structural sources: Command Center, Defense Lab, Missile Silo, and Mine Factory.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Enhanced Inventory Display:</span> 
+          <span class="intel-content">Refreshed inventory dashboard. Hovering over any stockpiled material displays descriptions and source acquisition methods.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Contractor Invulnerability:</span> 
+          <span class="intel-content">Contractors are now untargetable by hostiles, adopting the behavior of base trophies.</span>
+        </li>
+        <li class="intel-item">
+          <span class="intel-title-sm">Combat Engine Fixes:</span> 
+          <span class="intel-content">Resolved an infinite loop bug in unit firing animations. Contrast and legibility updated for the Building List and Recon Satellite screens.</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <footer>Sector Command // Tactical Briefing Document // All systems nominal</footer>
+</div>

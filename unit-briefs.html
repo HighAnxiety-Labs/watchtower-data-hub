@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WatchToweR Hub — Unit Briefs Viewer</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background-color: #0b0f0d; color: #e0e6ed; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 14px; line-height: 1.45; font-size: 14.5px; }
+.control-panel { width: 100%; max-width: 1140px; margin: 0 auto 16px auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; background: #0d1210; border: 1px solid #00e676; padding: 10px 16px; border-radius: 4px; gap: 12px; }
+.panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.selector-label { color: #00e676; font-weight: 800; font-size: 12px; text-transform: uppercase; }
+.selector-select { background: #14241b; border: 1px solid #00e676; color: #fff; padding: 6px 10px; font-size: 13.5px; font-weight: 700; border-radius: 3px; cursor: pointer; }
+.selector-status { font-size: 12.5px; color: #00e676; font-weight: 700; background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px; border: 1px solid rgba(0, 230, 118, 0.3); }
+.report-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; overflow: hidden; }
+.classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
+.header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+.unit-title { font-size: clamp(30px, 5vw, 48px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", sans-serif; text-transform: uppercase; }
+.unit-quote { font-style: italic; color: #b0bec5; font-size: 15.5px; border-left: 3px solid #00e676; padding-left: 12px; }
+.unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.meta-item { display: flex; align-items: center; gap: 8px; }
+.meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 13px; }
+.meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 13px; text-transform: uppercase; cursor: pointer; }
+.meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+.unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 7px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.updates-label { color: #81c784; font-weight: 800; text-transform: uppercase; }
+.briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+.col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: block; }
+.unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.stats-table tr { border-bottom: 1px solid #132419; }
+.stats-table td { padding: 6px; }
+.stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
+.stats-value { color: #fff; text-align: left; font-weight: 700; }
+.talent-block { margin-bottom: 14px; font-size: 14px; }
+.talent-tier { color: #00e676; font-weight: 800; font-size: 13.5px; margin-bottom: 3px; text-transform: uppercase; }
+.talent-desc { color: #cfd8dc; padding-left: 8px; border-left: 2px solid #1f3b2b; }
+.report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+.workshop-grid, .doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+.workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; }
+.workshop-title { font-weight: 800; color: #ffd700; text-transform: uppercase; }
+.workshop-tag { font-weight: 800; color: #00e676; font-size: 12.5px; text-transform: uppercase; margin-bottom: 4px; }
+.upgrades-table-wrapper { width: 100%; max-height: 450px; overflow-y: auto; border: 1px solid #1f3b2b; border-radius: 4px; }
+.upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
+.upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; padding: 8px 10px; border-bottom: 2px solid #1f3b2b; }
+.upgrades-table td { padding: 7px 10px; border-bottom: 1px solid #132419; font-family: monospace; }
+.upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); }
+@media (min-width: 768px) { .header-content { flex-direction: row; align-items: center; gap: 30px; } .briefing-grid { grid-template-columns: 220px 1.1fr 1.4fr; } .workshop-grid, .doctrine-grid { grid-template-columns: repeat(3, 1fr); } }
+</style></head><body>
+<div class="control-panel">
+<div class="panel-section"><label class="selector-label" for="divisionSelect">Category Filter:</label>
+<select id="divisionSelect" class="selector-select" onchange="applyFilter()"><option value="ALL">ALL UNITS</option><option value="ACADEMY">ACADEMY</option><option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR</option><option value="WAR FACTORY">WAR FACTORY</option><option value="MERCENARY">MERCENARY</option><option value="CONTRACTOR">CONTRACTOR</option></select></div>
+<div class="panel-section" style="flex:1; min-width:230px;"><label class="selector-label" for="unitSelect">Select Unit:</label>
+<select id="unitSelect" class="selector-select" style="flex:1;" onchange="handleUnitSelectionChange(this.value)"><option value="">Loading Units...</option></select></div>
+<div class="panel-section"><span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span></div></div>
+<div id="report-view" style="display:none; width:100%; max-width:1140px; margin:0 auto;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+const SHEET_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc"; const GID = "444355456";
+let globalMatrixCache = [], filteredUnits = [];
+function cleanVal(v) { if (!v) return ""; const t = String(v).trim(); return (t==="-"||t==="—"||t==="N/A") ? "" : t; }
+function escapeHtml(s) { return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function resolveWtrAssetImagePath(p) { const s = String(p || "").trim().replace(/\\/g, "/"); if (!s || /^(?:https?:|data:|blob:)/i.test(s)) return s; const loc = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/").toLowerCase(); const base = loc.includes("/masters/") ? "../published/watchtower-data-hub/assets/images/" : loc.includes("/vault/") ? "../assets/images/" : "./assets/images/"; const stripped = s.replace(/^(?:\.\.\/|\.\/)+/, "").replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, ""); return base + stripped; }
+function formatImageUrl(u) { if (!u) return ""; let c = String(u).trim().replace(/^\x27/,""); const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/); if (m && m[1] && !c.startsWith("data:")) return "https://lh3.googleusercontent.com/d/" + m[1]; return resolveWtrAssetImagePath(c); }
+document.addEventListener("DOMContentLoaded", () => {
+  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
+  Papa.parse(url, { download: true, header: false, skipEmptyLines: true, complete: (res) => {
+    if (!res || !res.data || res.data.length <= 1) return;
+    const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
+    for (let r = 1; r < res.data.length; r++) {
+      const rec = {}; headers.forEach((k, i) => { if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/,"") : ""; });
+      rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
+      const isBld = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
+      if (rec.UNIT_NAME && !isBld) globalMatrixCache.push(rec);
+    }
+    applyFilter();
+    const qUnit = new URLSearchParams(window.location.search).get("unit");
+    if (qUnit) openLinkedUnit(qUnit);
+  }});
+});
+function applyFilter() {
+  const div = (document.getElementById("divisionSelect").value || "ALL").toUpperCase();
+  filteredUnits = globalMatrixCache.filter(r => {
+    if (div === "ALL") return true;
+    const combined = ((r.STAT_BUILDING||"") + " " + (r.CLASSIFICATION||"") + " " + (r.STAT_FACTION||"") + " " + (r.STAT_GENERATION||"")).toUpperCase();
+    if (div === "CONTRACTOR") return combined.includes("CONTRACTOR") || combined.includes("DIPLOMAC") || combined.includes("AGENCY");
+    if (div.includes("HANGAR")) return combined.includes("HANGAR") || combined.includes("HANGER") || combined.includes("AIRFIELD") || combined.includes("AIRCRAFT");
+    return combined.includes(div);
+  });
+  const drop = document.getElementById("unitSelect"); drop.innerHTML = "";
+  filteredUnits.sort((a, b) => String(a.UNIT_NAME || "").trim().localeCompare(String(b.UNIT_NAME || "").trim(), undefined, { numeric: true, sensitivity: "base" })); filteredUnits.forEach((u, i) => { const o = document.createElement("option"); o.value = i; o.textContent = u.UNIT_NAME; drop.appendChild(o); });
+  document.getElementById("loadStatus").textContent = "Ready (" + filteredUnits.length + " Units)";
+  if (filteredUnits.length > 0) { drop.value = "0"; handleUnitSelectionChange(0); }
+}
+function openLinkedUnit(name) {
+  document.getElementById("divisionSelect").value = "ALL"; applyFilter();
+  const idx = filteredUnits.findIndex(r => (r.UNIT_NAME||"").toUpperCase() === String(name||"").trim().toUpperCase());
+  if (idx !== -1) { document.getElementById("unitSelect").value = String(idx); handleUnitSelectionChange(idx); window.scrollTo({top:0, behavior:"smooth"}); }
+}
+function handleUnitSelectionChange(idx) {
+  const d = filteredUnits[idx]; if (!d) return;
+  const v = document.getElementById("report-view"); v.style.display = "block";
+  const g = k => cleanVal(d[k]);
+  const statPairs = [["Generation","STAT_GENERATION"],["Faction","STAT_FACTION"],["Type","STAT_TYPE"],["Armor Type","STAT_ARMOR_TYPE"],["Weapon Type","STAT_WEAPON_TYPE"],["Targets","STAT_TARGETS"],["Damage Type","STAT_DAMAGE_TYPE"],["Size","STAT_SIZE"],["Building Required","STAT_BUILDING"],["Level Required","STAT_BUILDING_REQ"],["HP Range","STAT_HP_RANGE"],["HP (Lvl 1)","STAT_HP_RANGE_1"],["HP (Lvl 10)","STAT_HP_RANGE_10"],["HP (Max)","STAT_HP_RANGE_MAX"],["DPS Range","STAT_DPS_RANGE"],["DPS (Lvl 1)","STAT_DPS_RANGE_1"],["DPS (Lvl 10)","STAT_DPS_RANGE_10"],["DPS (Max)","STAT_DPS_RANGE_MAX"],["Max Speed","STAT_SPEED"],["Range","STAT_RANGE"],["Splash","STAT_SPLASH"]];
+  let statsHtml = ""; statPairs.forEach(p => { if (g(p[1])) statsHtml += "<tr><td class=\"stats-label\">" + p[0] + "</td><td class=\"stats-value\">" + escapeHtml(g(p[1])) + "</td></tr>"; });
+  let talentsHtml = ""; if (g("TALENT")) talentsHtml += "<div class=\"talent-block\"><div class=\"talent-desc\">" + escapeHtml(g("TALENT")) + "</div></div>";
+  [1,5,10,11,15,20,21,25,30].forEach(l => { if (g("TALENT_LVL_"+l)) talentsHtml += "<div class=\"talent-block\"><div class=\"talent-tier\">" + escapeHtml(g("TALENT_LVL_"+l+"_TIER")||("LEVEL "+l)) + "</div><div class=\"talent-desc\">" + escapeHtml(g("TALENT_LVL_"+l)) + "</div></div>"; });
+  let techHtml = ""; for (let i=1; i<=6; i++) { const t = g("WORKSHOP_"+i+"_TITLE")||g("TECH_"+i+"_TITLE"), desc = g("WORKSHOP_"+i+"_DESC")||g("TECH_"+i+"_DESC"), tag = g("WORKSHOP_"+i+"_TAG")||g("TECH_"+i+"_TAG"); if (t || desc) techHtml += "<div class=\"workshop-item\"><div class=\"workshop-title\">" + escapeHtml(t) + "</div><div class=\"workshop-tag\">" + escapeHtml(tag) + "</div><p>" + escapeHtml(desc) + "</p></div>"; }
+  let upgHtml = ""; for (let l=1; l<=40; l++) { const tk=g("UPGRADE_TOKENS_"+l), tm=g("UPGRADE_DAYS_"+l), gd=g("UPGRADE_GOLD_"+l), hp=g("UPGRADE_HP_"+l), dp=g("UPGRADE_DPS_"+l); if (tk||tm||gd||hp||dp) upgHtml += "<tr><td class=\"lvl-cell\">Lvl "+l+"</td><td>"+escapeHtml(tk||"—")+"</td><td>"+escapeHtml(tm||"—")+"</td><td>"+escapeHtml(gd||"—")+"</td><td>"+escapeHtml(hp||"—")+"</td><td>"+escapeHtml(dp||"—")+"</td></tr>"; }
+  const lnk = g("LINKED_UNIT_NAME") || g("HERO") || g("PAIRED_UNIT");
+  v.innerHTML = "<div class=\"report-card\"><div class=\"classification-bar\">" + escapeHtml(g("CLASSIFICATION")||"UNIT BRIEF") + "</div>" +
+    "<div class=\"header-content\"><h1 class=\"unit-title\">" + escapeHtml(g("UNIT_NAME")) + "</h1>" + (g("UNIT_QUOTE") ? "<p class=\"unit-quote\">" + escapeHtml(g("UNIT_QUOTE")) + "</p>" : "") + "</div>" +
+    ((g("WC_EVENT_NAME") || lnk) ? "<div class=\"unit-meta-bar\"><div class=\"meta-item\">" + (g("WC_EVENT_NAME") ? "<span class=\"meta-label\">Origin Event:</span><span class=\"meta-btn\">" + escapeHtml(g("WC_EVENT_NAME")) + "</span>" : "") + "</div>" + (lnk ? "<div class=\"meta-item\"><span class=\"meta-label\">LINKED UNIT:</span><button type=\"button\" class=\"meta-btn btn-gold\" onclick=\"openLinkedUnit(\x27" + escapeHtml(lnk) + "\x27)\">" + escapeHtml(lnk) + " ↗</button></div>" : "") + "</div>" : "") +
+    (g("UPDATES_TEXT") ? "<div class=\"unit-updates-bar\"><span class=\"updates-label\">Updates:</span><span>" + escapeHtml(g("UPDATES_TEXT")) + "</span></div>" : "") +
+    "<div class=\"briefing-grid\"><div class=\"unit-display\"><span class=\"col-header\">" + escapeHtml(g("RELEASE_DATE")) + "</span><div class=\"unit-img-frame\"><img class=\"unit-img\" src=\"" + formatImageUrl(g("UNIT_IMAGE_URL")||g("IMAGE_URL")) + "\" alt=\"Unit\"></div></div>" +
+    "<div><span class=\"col-header\">Stats</span><table class=\"stats-table\"><tbody>" + statsHtml + "</tbody></table></div>" +
+    "<div><span class=\"col-header\">Talents</span>" + talentsHtml + "</div></div>" +
+    (techHtml ? "<div class=\"report-section\"><span class=\"col-header\">Workshop Tech</span><div class=\"workshop-grid\">" + techHtml + "</div></div>" : "") +
+    (upgHtml ? "<div class=\"report-section\"><span class=\"col-header\">Upgrade Progression Matrix</span><div class=\"upgrades-table-wrapper\"><table class=\"upgrades-table\"><thead><tr><th>Level</th><th>Tokens</th><th>Time</th><th>Gold</th><th>HP</th><th>DPS</th></tr></thead><tbody>" + upgHtml + "</tbody></table></div></div>" : "") +
+    "<div class=\"classification-bar\">" + escapeHtml(g("CLASSIFICATION")||"UNIT BRIEF") + "</div></div>";
+}
+</script></body></html>
+

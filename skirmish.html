@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER SKIRMISH DOSSIER PUBLISHED // RELEASE: v6.3-AUTO-ARCHIVE (2026-10-30) -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>WatchToweR Data Hub — OCT 2026 SKIRMISH Operational Brief</title>
+  <style>
+  :root {
+    --primary-color: #00bf63;
+    --accent-green: #00e676;
+    --bg-dark: #0b0f0d;
+    --bg-panel: #121212;
+    --bg-card: #18261e;
+    --bg-inner: #0b1118;
+    --border-dark: #1f3b2b;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --text-gold: #ffd700;
+    --text-cyan: #38bdf8;
+    --text-orange: #f97316;
+    --accent-red: #ff3333;
+    --youtube-red: #ff0000;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: auto;
+    min-height: 100%;
+    background-color: var(--bg-dark);
+  }
+  body {
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.5;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .btn-export {
+    background: #14241b;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+  }
+  .btn-export:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+  }
+  .btn-export.btn-link { border-color: #22d3ee; color: #22d3ee; }
+  .btn-export.btn-link:hover { background: #22d3ee; color: #000; }
+  .btn-export.btn-gold { border-color: var(--text-gold); color: var(--text-gold); }
+  .btn-export.btn-gold:hover { background: var(--text-gold); color: #000; }
+  .btn-danger-armed { background: var(--accent-red) !important; color: #fff !important; border-color: #fff !important; }
+
+  /* ==================== DOSSIER CARD CONTAINER ==================== */
+  #dossier-view {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .dossier-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 25px rgba(0, 255, 128, 0.05);
+    overflow: hidden;
+  }
+
+  /* Classification Bars */
+  .classification-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 2.5px;
+    font-size: 14px;
+    padding: 8px;
+    text-transform: uppercase;
+    font-family: "Arial Black", sans-serif;
+    width: 100%;
+    display: block;
+  }
+
+  /* Event Header with 126px Top-Left WTR Emblem & Archival Collapse Toggle */
+  .event-header {
+    padding: 22px 26px;
+    border-bottom: 2px solid var(--border-dark);
+    background: #0e1411;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .header-left-wrap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+    min-width: 280px;
+    flex-wrap: wrap;
+  }
+  .header-logo-link {
+    width: 126px;
+    height: 126px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #1f3b2b 0%, #0b1118 50%, #00bf63 100%);
+    box-shadow: 0 0 22px rgba(0, 230, 118, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    text-decoration: none;
+  }
+  .header-logo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 230, 118, 0.75);
+  }
+  .header-logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #000;
+  }
+  .event-header-text {
+    flex: 1;
+    min-width: 240px;
+  }
+  .event-sub-tag {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+  .event-main-title {
+    font-family: "Arial Black", sans-serif;
+    font-size: 35px;
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    line-height: 1.1;
+    cursor: pointer;
+  }
+  .event-main-title .title-date-white {
+    color: #ffffff;
+    margin-right: 10px;
+  }
+  .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Whole-Page Archival Collapse Button */
+  .archive-collapse-btn {
+    background: linear-gradient(180deg, #1b2e23 0%, #0d1712 100%);
+    border: 2px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: "Arial Black", sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .archive-collapse-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 16px rgba(0, 230, 118, 0.5);
+  }
+  .archive-collapse-btn.is-collapsed {
+    border-color: var(--text-gold);
+    color: var(--text-gold);
+  }
+  .archive-collapse-btn.is-collapsed:hover {
+    background: var(--text-gold);
+    color: #000;
+  }
+
+  #collapsibleDossierBody.collapsed-archive {
+    display: none;
+  }
+
+  /* Quick Links Bar */
+  .quick-links-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 20px 0 20px;
+  }
+  .quick-link-btn {
+    flex: 1 1 260px;
+    min-width: 0;
+    text-align: center;
+    background: linear-gradient(180deg, #00e5ff 0%, #0099cc 100%);
+    border: 1px solid #7df9ff;
+    color: #000000 !important;
+    padding: 13px 16px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 15px;
+    line-height: 1.25;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .quick-link-btn:hover {
+    background: linear-gradient(180deg, #33ebff 0%, #00b4d8 100%);
+    border-color: #ffffff;
+    color: #000000 !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+  }
+  .quick-link-btn.btn-embed-toggle {
+    background: linear-gradient(180deg, #00e676 0%, #00994d 100%);
+    border-color: #80ffb3;
+    box-shadow: 0 0 14px rgba(0, 230, 118, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .quick-link-btn.btn-embed-toggle:hover {
+    background: linear-gradient(180deg, #4dff9d 0%, #00bf63 100%);
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.65);
+  }
+
+  /* ==================== NATIVE MODULAR EMBEDDED CALCULATOR DRAWER ==================== */
+  .embedded-calc-drawer {
+    display: none;
+    margin: 14px 20px 0 20px;
+    background: var(--bg-inner);
+    border: 2px solid var(--accent-green);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85);
+  }
+  .embedded-calc-drawer.open {
+    display: block;
+  }
+  .embedded-calc-topbar {
+    background: #0e1913;
+    border-bottom: 2px solid var(--border-dark);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ec-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ec-hud-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 10px;
+  }
+  .ec-stat-card {
+    background: #0e1612;
+    border: 1px solid var(--border-dark);
+    border-top: 3px solid var(--ec-accent, var(--accent-green));
+    border-radius: 4px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .ec-stat-lbl {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .ec-stat-val {
+    font-family: monospace;
+    font-size: 22px;
+    font-weight: 900;
+    margin-top: 4px;
+    color: var(--ec-accent, var(--accent-green));
+  }
+  .ec-stat-sub {
+    font-family: monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .ec-bank-strip {
+    background: #080d0b;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ec-bank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ec-progress-track {
+    width: 100%;
+    height: 10px;
+    background: #030504;
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .ec-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00bf63 0%, #00e5ff 100%);
+    transition: width 0.2s ease;
+  }
+  .ec-workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 980px) {
+    .ec-workspace-grid.two-col {
+      grid-template-columns: 1.32fr 0.88fr;
+      align-items: start;
+    }
+  }
+  .ec-subcard {
+    background: #0d1411;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .ec-subcard-head {
+    background: #14221a;
+    padding: 9px 14px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 13px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ec-presets-bar {
+    background: #090e0b;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-dark);
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .ec-pill-btn {
+    background: #14241b;
+    border: 1px solid var(--border-dark);
+    color: var(--text-main);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+  }
+  .ec-pill-btn:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    background: #1a3024;
+  }
+  .ec-pill-btn.wp-btn {
+    border-color: rgba(255, 215, 0, 0.45);
+    color: var(--text-gold);
+  }
+  .ec-pill-btn.wp-btn:hover {
+    border-color: var(--text-gold);
+    background: rgba(255, 215, 0, 0.15);
+  }
+  .ec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .ec-table th, .ec-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #16241c;
+    text-align: left;
+  }
+  .ec-table th {
+    background: #090f0c;
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .ec-table tr.unchecked-row {
+    opacity: 0.42;
+  }
+  .ec-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .ec-step-btn {
+    background: #182920;
+    border: 1px solid var(--border-dark);
+    color: #fff;
+    font-family: monospace;
+    font-weight: 900;
+    font-size: 12px;
+    width: 22px;
+    height: 24px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .ec-step-btn:hover {
+    background: var(--accent-green);
+    color: #000;
+  }
+  .ec-qty-input {
+    width: 44px;
+    height: 24px;
+    background: #050806;
+    border: 1px solid var(--border-dark);
+    color: var(--accent-green);
+    text-align: center;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 12.5px;
+    border-radius: 3px;
+  }
+
+  /* WTR Alert */
+  .wtr-alert {
+    background: rgba(0, 191, 99, 0.08);
+    border: 1px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
+    color: #a7ffeb;
+    padding: 14px 18px;
+    font-size: 16px;
+    margin: 18px 20px 20px 20px;
+    border-radius: 2px;
+  }
+
+  /* Video Hub */
+  .video-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 0 20px 22px 20px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    padding: 16px;
+    border-radius: 4px;
+  }
+  .video-card h3 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 15.5px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .video-card p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .video-btn {
+    display: inline-block;
+    background: var(--youtube-red);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 14.5px;
+    padding: 8px 16px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.25);
+    transition: background-color 0.15s ease-in-out;
+  }
+  .video-btn:hover {
+    background: #cc0000;
+  }
+
+  /* Section Containers */
+  .dossier-section {
+    padding: 0 20px 24px 20px;
+    clear: both;
+  }
+  .section-header-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-family: "Arial Black", sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-header-bar span.subtext {
+    font-family: "Arial Black", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Intel Lists */
+  .intel-list {
+    list-style: none;
+    padding: 18px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15.5px;
+    width: 100%;
+  }
+  .intel-list li {
+    position: relative;
+    padding-left: 22px;
+    line-height: 1.5;
+  }
+  .intel-list li.no-bullet {
+    padding-left: 0;
+    border-bottom: 1px solid #16241c;
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
+  .intel-list li:not(.no-bullet)::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-size: 13px;
+  }
+  .intel-list strong { color: #ffffff; }
+
+  /* Aligned Data Tables */
+  .data-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 15.5px;
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #16241c;
+    border-right: 1px solid #16241c;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  .data-table th:last-child,
+  .data-table td:last-child {
+    border-right: none;
+  }
+  .data-table th {
+    background: var(--bg-card);
+    color: var(--accent-green);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+  }
+  .data-table tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Store Item Link */
+  .store-unit-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .store-unit-link:hover {
+    color: var(--accent-green);
+    text-decoration: underline;
+  }
+  .img-db-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-green);
+    background: rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.35);
+    padding: 2px 7px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ==================== PURE 4:5 IMAGE-ONLY GALLERY FOR FEATURED STORE UNITS ==================== */
+  .featured-images-box {
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+    padding: 20px;
+  }
+  .featured-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 230px));
+    gap: 18px;
+    justify-content: center;
+  }
+  .pure-image-card-link {
+    background: #0d1411;
+    border: 1px solid rgba(0, 230, 118, 0.35);
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .pure-image-card-link:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 18px rgba(0, 230, 118, 0.45);
+    transform: translateY(-3px);
+  }
+  .pure-image-4x5-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #000;
+    border: 1px solid rgba(0, 255, 128, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pure-image-4x5-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pure-image-caption {
+    margin-top: 10px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 14px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-align: center;
+  }
+  .pure-image-sub {
+    margin-top: 3px;
+    font-family: monospace;
+    font-size: 11.5px;
+    color: var(--text-gold);
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  /* Use It Or Lose It Warning Box */
+  .use-or-lose-alert {
+    border: 2px solid var(--accent-red);
+    background: rgba(255, 51, 51, 0.1);
+    color: #ff9999;
+    padding: 16px 20px;
+    text-align: center;
+    font-weight: 800;
+    margin: 0 20px 24px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 15px;
+    border-radius: 3px;
+    box-shadow: 0 0 16px rgba(255, 51, 51, 0.2);
+  }
+
+  /* Footer Nav */
+  .dossier-footer-nav {
+    padding: 18px 22px;
+    background: #080c0a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 15px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-dark);
+  }
+  .dossier-footer-nav a {
+    color: var(--accent-green);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    margin-left: 16px;
+  }
+  .dossier-footer-nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* ==================== FLOATING HOVER PREVIEW CARD (4:5 UNIT + WARPAINT) ==================== */
+  .wtr-hover-preview-pod {
+    position: fixed;
+    z-index: 100005;
+    pointer-events: none;
+    display: none;
+    background: rgba(9, 14, 11, 0.98);
+    border: 2px solid var(--accent-green);
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 230, 118, 0.35);
+    flex-direction: column;
+    gap: 8px;
+    max-width: 310px;
+  }
+  .wtr-hover-preview-pod.show {
+    display: flex;
+  }
+  .hover-pod-header {
+    font-family: "Arial Black", sans-serif;
+    font-size: 12px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #1f3b2b;
+    padding-bottom: 4px;
+    text-align: center;
+  }
+  .hover-pod-images {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .hover-pod-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 132px;
+  }
+  .hover-pod-frame {
+    width: 132px;
+    aspect-ratio: 4 / 5;
+    background: #000;
+    border: 1px solid rgba(0, 230, 118, 0.4);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hover-pod-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hover-pod-lbl {
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-gold);
+    text-transform: uppercase;
+    margin-top: 4px;
+    text-align: center;
+  }
+  .hover-pod-footer {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--text-cyan);
+    text-align: center;
+    font-weight: 800;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--accent-green);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+
+<!-- ==================== FLOATING HOVER PREVIEW POD (4:5 UNIT + WARPAINT) ==================== -->
+<div class="wtr-hover-preview-pod" id="wtrHoverPreviewPod">
+  <div class="hover-pod-header" id="hoverPodTitle">DIXON // MASTER_DB PREVIEW</div>
+  <div class="hover-pod-images">
+    <div class="hover-pod-col">
+      <div class="hover-pod-frame"><img id="hoverPodUnitImg" src="https://lh3.googleusercontent.com/d/1hgov7velVyk5oxiD7aRr9JjzCgyHD2YT" alt="Unit"></div>
+      <span class="hover-pod-lbl">UNIT RENDER</span>
+    </div>
+    <div class="hover-pod-col" id="hoverPodWpCol" style="display: none;">
+      <div class="hover-pod-frame"><img id="hoverPodWpImg" src="" alt="Warpaint"></div>
+      <span class="hover-pod-lbl" id="hoverPodWpLbl">WARPAINT</span>
+    </div>
+  </div>
+  <div class="hover-pod-footer">🖱️ CLICK TO OPEN UNIT IN MASTER_DB ↗</div>
+</div>
+
+<!-- ==================== TARGET DOSSIER CARD ==================== -->
+<div id="dossier-view">
+  <div id="main-export-dossier" class="dossier-card">
+    <div class="classification-bar" id="displayClassBarTop">UNCLASSIFIED OPERATIONAL BRIEF</div>
+
+    <!-- Header with 126px Top-Left WTR Emblem, WHITE OCT 2026 Prefix & Archival Collapse Button -->
+    <header class="event-header">
+      <div class="header-left-wrap">
+        <a class="header-logo-link" id="wtrHomeLogoLink" href="https://sites.google.com/view/watchtower-data-hub/data-hub" target="_blank" rel="noopener" title="Fast Return to WatchToweR Data Hub Home Page">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Home" class="header-logo-img">
+        </a>
+        <div class="event-header-text">
+          <div class="event-sub-tag">WatchToweR Data Hub | Tactical Brief | Created By: [-WTR-]HighAnxiety | 
+            <a id="displaySourceLink" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a>
+          </div>
+          <h1 class="event-main-title" onclick="toggleWholePageArchive()" title="Click to Collapse / Expand Brief">
+            <span class="title-date-white" id="displayTitlePrefixWhite">OCT 2026 </span><span id="displayMainTitle">SKIRMISH</span>
+          </h1>
+          <div class="event-meta">
+            <span><strong style="color: var(--text-cyan);">Starts:</strong> <span id="displaySchedStart">FRI OCT 30, 2026 @ 10:00 AM PDT</span></span>
+            <span><strong style="color: var(--text-gold);">Ends:</strong> <span id="displaySchedEnd">TUE NOV 3, 2026 @ 10:00 AM PST</span></span>
+            <span><strong style="color: var(--text-orange);">Store Closes:</strong> <span id="displaySchedStore">WED NOV 4, 2026 @ 10:00 AM PST</span></span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="archive-collapse-btn" id="btnArchiveCollapseToggle" onclick="toggleWholePageArchive()">▲ Collapse Brief (Archive Mode)</button>
+    </header>
+
+    <!-- Collapsible Whole-Page Body for Archival Stacking -->
+    <div id="collapsibleDossierBody">
+
+      <!-- Quick Links Hub (Embedded Calculator Toggle + Direct External Link) -->
+      <nav class="quick-links-bar" id="frameCalcBar" style="display: flex;">
+        <button type="button" id="btnToggleEmbeddedCalc" class="quick-link-btn btn-embed-toggle" onclick="toggleEmbeddedCalculatorDrawer()" style="display: flex;">🧮 Toggle Embedded Skirmish Calculator ▼</button>
+        <a id="displayCalculatorLink" href="https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-skirmish-calc" target="_blank" rel="noopener" class="quick-link-btn">⚡ Open Full Skirmish Calculator Page ↗</a>
+      </nav>
+
+      <!-- ==================== NATIVE MODULAR EMBEDDED SKIRMISH CALCULATOR ==================== -->
+      <div class="embedded-calc-drawer" id="embeddedCalcDrawer">
+        <div class="embedded-calc-topbar" id="ecSaveToolbar" style="display: flex;">
+          <span style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--accent-green); text-transform:uppercase; letter-spacing:1px;">
+            🧮 INTERACTIVE SKIRMISH EVENT CALCULATOR <span id="ecToastMsg" style="color:var(--text-gold); margin-left:10px; font-family:monospace;"></span>
+          </span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn-export btn-link" onclick="saveEmbeddedCalcSettings()">💾 SAVE YOUR SETTINGS</button>
+            <button type="button" class="btn-export" onclick="document.getElementById('ecFileInput').click()">📂 LOAD YOUR SETTINGS</button>
+            <button type="button" class="btn-export btn-gold" onclick="resetEmbeddedCalcSettings(this)">↺ Reset Calc</button>
+            <button type="button" class="btn-export" onclick="toggleEmbeddedCalculatorDrawer()">▲ Hide Calc</button>
+            <input type="file" id="ecFileInput" accept=".json" style="display:none;" onchange="loadEmbeddedCalcSettings(event)">
+          </div>
+        </div>
+
+        <div class="ec-body">
+          <div class="ec-hud-grid" id="ecHudSection" style="display: grid;">
+            <div class="ec-stat-card" style="--ec-accent: var(--accent-green);">
+              <div class="ec-stat-lbl">Remaining eXP Needed</div>
+              <div class="ec-stat-val" id="ecCardNeeded">1,148,000</div>
+              <div class="ec-stat-sub" id="ecCardTotalGoalSub">Total Goal: 1,148,000 eXP</div>
+            </div>
+            <div class="ec-stat-card" style="--ec-accent: var(--accent-red);">
+              <div class="ec-stat-lbl">Officer Track (1.0x) Runs</div>
+              <div class="ec-stat-val" id="ecCardOffBase">23</div>
+              <div class="ec-stat-sub" id="ecCardOffBasePace">~5.8 runs/day (4d)</div>
+            </div>
+            <div class="ec-stat-card" style="--ec-accent: var(--text-cyan);">
+              <div class="ec-stat-lbl">Recruit Track (1.0x) Runs</div>
+              <div class="ec-stat-val" id="ecCardRecBase">-</div>
+              <div class="ec-stat-sub" id="ecCardRecBasePace">0 eXP / full run</div>
+            </div>
+            <div class="ec-stat-card" style="--ec-accent: var(--text-gold);">
+              <div class="ec-stat-lbl" id="ecCardActiveTierLbl">Officer Daily Pace</div>
+              <div class="ec-stat-val" id="ecCardActiveRuns">5.8 / Day</div>
+              <div class="ec-stat-sub" id="ecCardActivePace">23 total runs (52,000 eXP/run)</div>
+            </div>
+          </div>
+
+          <div class="ec-bank-strip" id="ecBankSection" style="display: flex;">
+            <div class="ec-bank-row">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--text-gold); text-transform:uppercase;">⚡ Current eXP Banked:</span>
+                <input type="number" id="ecBankedInput" min="0" step="1000" value="0" oninput="updateEmbeddedCalculator()" style="background:#050806; border:1px solid var(--text-gold); color:#fff; font-family:monospace; font-weight:900; padding:5px 8px; width:130px; text-align:right; border-radius:3px;">
+                <button type="button" class="btn-export btn-gold" onclick="logOneCompletedCalcRun()">+1 Completed Run (<span id="ecLogRunAmt">+52,000</span>)</button>
+                <button type="button" class="btn-export" onclick="document.getElementById('ecBankedInput').value=0; updateEmbeddedCalculator();">Clear Bank</button>
+              </div>
+              <span id="ecProgressPctLbl" style="font-family:monospace; font-size:12px; font-weight:800; color:var(--text-cyan);">0% OF GOAL COMPLETED (0 / 1,148,000 eXP)</span>
+            </div>
+            <div class="ec-progress-track">
+              <div class="ec-progress-fill" id="ecProgressFill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="ec-workspace-grid two-col" id="ecWorkspaceGrid">
+            <div class="ec-subcard" id="ecPrizesCard" style="display: block;">
+              <div class="ec-subcard-head">
+                <span>1. Event Prize Requisition List</span>
+                <span id="ecSelectedCountLbl" style="font-family:monospace; font-size:11.5px;">6 / 17 Selected</span>
+              </div>
+              <div class="ec-presets-bar" id="ecPresetsBar" style="display: flex;"></div>
+              <div style="overflow-x:auto;">
+                <table class="ec-table">
+                  <thead>
+                    <tr>
+                      <th style="width:32px; text-align:center;">✅</th>
+                      <th>Prize Item</th>
+                      <th style="width:128px; text-align:right;">Qty / Limit</th>
+                      <th style="text-align:right;">XP Cost</th>
+                      <th style="text-align:right;">Needed XP</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ecPrizesTbody"></tbody>
+                  <tfoot>
+                    <tr style="background:#070c09; font-weight:900; border-top:2px solid var(--border-dark);">
+                      <td colspan="3" style="text-align:right; font-family:monospace; color:var(--text-muted);">FULL STORE: <span id="ecGrandTotalAll" style="color:#fff;">4,393,000</span></td>
+                      <td style="text-align:right; font-family:monospace; color:var(--text-muted);">GOAL:</td>
+                      <td id="ecGrandTotalNeeded" style="text-align:right; font-family:monospace; color:var(--accent-green); font-size:14px;">1,148,000</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div class="ec-subcard" id="ecTracksCard" style="display: block;">
+              <div class="ec-subcard-head">
+                <span>2. Track Payouts &amp; Whole Runs</span>
+                <span style="font-family:monospace; font-size:10.5px; color:var(--text-cyan);">Standard Base (1.0x) Payout</span>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="ec-table">
+                  <thead>
+                    <tr>
+                      <th>Base / Bonus</th>
+                      <th style="width:36px; text-align:center;">✅</th>
+                      <th style="text-align:right; color:var(--text-cyan);">eXP Payout (1.0x)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="background:#14241b; font-weight:800; color:var(--text-cyan);">
+                      <td colspan="3">Recruit Track (3-Base Set) <button type="button" class="ec-pill-btn" style="float:right; padding:1px 6px;" onclick="toggleCalcFullTrack('rec')">Toggle Set</button></td>
+                    </tr>
+                    <tr>
+                      <td>Recruit Base I</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-rec-b1" onchange="updateEmbeddedCalculator()"></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-rec-b1-10">0</td>
+                    </tr>
+                    <tr>
+                      <td>Recruit Base II</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-rec-b2" onchange="updateEmbeddedCalculator()"></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-rec-b2-10">0</td>
+                    </tr>
+                    <tr>
+                      <td>Recruit Base III</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-rec-b3" onchange="updateEmbeddedCalculator()"></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-rec-b3-10">0</td>
+                    </tr>
+                    <tr>
+                      <td style="color:var(--text-gold);">Set Completion Bonus</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-rec-bonus" disabled></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-rec-bonus-10">0</td>
+                    </tr>
+                    <tr style="background:#09110d; font-weight:800; color:var(--text-cyan);">
+                      <td colspan="2">Total Recruit Set (eXP)</td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-rec-tot-10">0</td>
+                    </tr>
+                    <tr style="background:#1c1116; font-weight:900; color:#ff9999;">
+                      <td colspan="2">Whole Runs (Recruit Track)</td>
+                      <td style="text-align:right; font-family:monospace; font-size:14px;" id="ec-rec-runs-10">-</td>
+                    </tr>
+
+                    <tr style="background:#14241b; font-weight:800; color:#ff5252;">
+                      <td colspan="3">Officer Track (2-Base Set) <button type="button" class="ec-pill-btn" style="float:right; padding:1px 6px;" onclick="toggleCalcFullTrack('off')">Toggle Set</button></td>
+                    </tr>
+                    <tr>
+                      <td>Officer Base I</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-off-b1" checked onchange="updateEmbeddedCalculator()"></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-off-b1-10">8,000</td>
+                    </tr>
+                    <tr>
+                      <td>Officer Base II</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-off-b2" checked onchange="updateEmbeddedCalculator()"></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-off-b2-10">16,000</td>
+                    </tr>
+                    <tr>
+                      <td style="color:var(--text-gold);">Set Completion Bonus</td>
+                      <td style="text-align:center;"><input type="checkbox" id="ec-off-bonus" checked disabled></td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-off-bonus-10">28,000</td>
+                    </tr>
+                    <tr style="background:#09110d; font-weight:800; color:var(--text-cyan);">
+                      <td colspan="2">Total Officer Set (eXP)</td>
+                      <td style="text-align:right; font-family:monospace;" id="ec-off-tot-10">52,000</td>
+                    </tr>
+                    <tr style="background:#1c1116; font-weight:900; color:#ff5252;">
+                      <td colspan="2">Whole Runs (Officer Track)</td>
+                      <td style="text-align:right; font-family:monospace; font-size:14px;" id="ec-off-runs-10">23</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Search Alert -->
+      <div class="wtr-alert" id="frameVidAlert" style="display: block;">
+        <strong>⚠️ Streamlined by [-WTR-]:</strong> We simplify video searching by cutting through the clutter with two instant 7-day filtered search options:
+      </div>
+
+      <!-- Video Links Section -->
+      <div class="video-hub-grid" id="frameVideosGrid" style="display: grid;">
+        <div class="video-card">
+          <h3>Top Tier Guides</h3>
+          <p>Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.</p>
+          <a id="displayVidTopTier" href="https://www.youtube.com/results?search_query=SKIRMISH+Project_d88&amp;sp=EgIIAw%253D%253D" target="_blank" rel="noopener" class="video-btn">▶ Top Tier YouTube Videos</a>
+        </div>
+        <div class="video-card">
+          <h3>Watch Me Play</h3>
+          <p>Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
+          <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=SKIRMISH%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%253D%253D" target="_blank" rel="noopener" class="video-btn">▶ Watch Me Play Videos</a>
+        </div>
+      </div>
+
+      <!-- SECTION 1: SKIRMISH MISSION OVERVIEW -->
+      <section class="dossier-section" id="frameMissionSection" style="display: block;">
+        <div class="section-header-bar">MISSION OVERVIEW 
+          <span class="subtext">Combat Regulations</span>
+        </div>
+        <ul class="intel-list" id="displayMissionList"></ul>
+      </section>
+
+      <!-- SECTION 2: TRACKS & REWARDS -->
+      <section class="dossier-section" id="frameTracksSection" style="display: block;">
+        <div class="section-header-bar">TRACKS &amp; REWARDS XP PAYOUT 
+          <span class="subtext">Standard Base Payout Matrix</span>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 34%; text-align: left;">
+                <span style="color: #00ffff; font-size: 14px;">Recruit Track (3-Base Set)</span>
+              </th>
+              <th style="width: 16%; text-align: right;">XP Payout</th>
+              <th style="width: 34%; text-align: left;">
+                <span style="color: #ff5252; font-size: 14px;">Officer Track (2-Base Set)</span>
+              </th>
+              <th style="width: 16%; text-align: right;">XP Payout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Recruit Base I Rewards</td>
+              <td id="xp-rec-b1" style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">1,000</td>
+              <td style="font-weight: bold; color: #ffffff;">Officer Base I Rewards</td>
+              <td id="xp-off-b1" style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">8,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Recruit Base II Rewards</td>
+              <td id="xp-rec-b2" style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">2,000</td>
+              <td style="font-weight: bold; color: #ffffff;">Officer Base II Rewards</td>
+              <td id="xp-off-b2" style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">16,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: #ffffff;">Recruit Base III Rewards</td>
+              <td id="xp-rec-b3" style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">5,000</td>
+              <td style="font-weight: bold; color: var(--text-gold);">Set Completion Bonus</td>
+              <td id="xp-off-bonus" style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;">28,000</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold; color: var(--text-gold);">Set Completion Bonus</td>
+              <td id="xp-rec-bonus" style="text-align: right; color: var(--text-gold); font-weight: bold; font-family: monospace;">8,000</td>
+              <td style="color: var(--text-muted);">—</td>
+              <td style="text-align: right; color: var(--text-muted); font-family: monospace;">—</td>
+            </tr>
+            <tr style="background: #101c16; border-top: 2px solid var(--border-dark);">
+              <td style="font-weight: 900; color: var(--text-cyan); text-transform: uppercase;">Total Recruit Set Payout</td>
+              <td id="xp-rec-total" style="text-align: right; color: var(--text-cyan); font-weight: 900; font-family: monospace; font-size: 16.5px;">16,000</td>
+              <td style="font-weight: 900; color: var(--text-cyan); text-transform: uppercase;">Total Officer Set Payout</td>
+              <td id="xp-off-total" style="text-align: right; color: var(--text-cyan); font-weight: 900; font-family: monospace; font-size: 16.5px;">52,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 3: SKIRMISH EVENT STORE REWARDS -->
+      <section class="dossier-section" id="frameStoreSection" style="display: block;">
+        <div class="section-header-bar">SKIRMISH EVENT STORE REWARDS 
+          <span class="subtext" id="displayStoreSubtext">Hover Linked Items for 4:5 Preview • Click to Open Unit in MASTER_DB</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="text-align: left; width: 60%;">Item Designation</th>
+              <th style="width: 20%; text-align: center;">Redemption Limit</th>
+              <th style="width: 20%; text-align: right;">XP Cost</th>
+            </tr>
+          </thead>
+          <tbody id="storeInventoryTbody"></tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 4: FEATURED UNITS & WARPAINTS -->
+      <section class="dossier-section" id="frameUnitSection" style="display: block;">
+        <div class="section-header-bar">
+          <span id="displayUnitSectionHeader">FEATURED UNITS &amp; WARPAINTS</span>
+          <span class="subtext">Click Any 4:5 Image to Open Unit Dossier in MASTER_DB ↗</span>
+        </div>
+        <div class="featured-images-box">
+          <div class="featured-images-grid" id="featuredImagesGalleryGrid"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: USE IT OR LOSE IT 24-HOUR WARNING -->
+      <div class="use-or-lose-alert" id="frameWarningSection" style="display: block;">
+        ⚠️ USE IT OR LOSE IT WILL ONLY BE 24 HOURS LONG!
+        <br>
+        Please be sure to redeem all Skirmish XP prizes before <span id="displayAlertDeadline" style="color:#ffffff; text-decoration:underline;">WEDNESDAY, NOVEMBER 4TH AT 10:00 AM PST</span>.
+      </div>
+
+      <!-- Editable Footer Navigation -->
+      <footer class="dossier-footer-nav" id="frameFooterSection" style="display: flex;">
+        <span id="displayFooterBrandText">WatchToweR Data Hub // Operational Intelligence // [-WTR-]HighAnxiety</span>
+        <div id="displayFooterLinksContainer"></div>
+      </footer>
+    </div><!-- End Collapsible Dossier Body -->
+
+    <div class="classification-bar" id="displayClassBarBottom">UNCLASSIFIED OPERATIONAL BRIEF</div>
+  </div>
+</div>
+
+<!-- ==================== EXTERNAL LIBRARIES ==================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+  const WTR_DOSSIER_RELEASE = "v6.3-AUTO-ARCHIVE (2026-10-30)";
+  const MASTER_STORAGE_KEY = "wtr_skirmish_sector_frame_master_v6_3";
+  const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
+  const SHEET_MASTER_GID = "444355456";
+
+  let masterDbUnitsCache = [];
+  let calcPrizesState = [];
+
+  const BASE_TRACK_XP = {
+    recB1: 1000,
+    recB2: 2000,
+    recB3: 5000,
+    recBonus: 8000,
+    recTotal: 16000,
+    offB1: 8000,
+    offB2: 16000,
+    offBonus: 28000,
+    offTotal: 52000
+  };
+
+  const defaultMasterState = {
+    "savedAt": 1793309626348,
+    "startCollapsedArchive": false,
+    "showCalcBar": true,
+    "showEmbedCalcBtn": true,
+    "showVidAlert": true,
+    "showVideos": true,
+    "showMission": true,
+    "showTracks": true,
+    "showStore": true,
+    "showUnitProfile": true,
+    "showWarning": true,
+    "showFooter": true,
+    "calcStartOpen": false,
+    "calcShowSaveBar": true,
+    "calcShowHud": true,
+    "calcShowBank": true,
+    "calcShowPresets": true,
+    "calcShowPrizes": true,
+    "calcShowTracks": true,
+    "calcPresetKeywords": "DIXON, TACHYON, RECRUITER, WARPAINT",
+    "titlePrefixWhite": "OCT 2026",
+    "mainTitle": "SKIRMISH",
+    "classBar": "UNCLASSIFIED OPERATIONAL BRIEF",
+    "unitSectionHeader": "FEATURED UNITS & WARPAINTS",
+    "schedStart": "FRI OCT 30, 2026 @ 10:00 AM PDT",
+    "schedEnd": "TUE NOV 3, 2026 @ 10:00 AM PST",
+    "schedStore": "WED NOV 4, 2026 @ 10:00 AM PST",
+    "alertDeadline": "WEDNESDAY, NOVEMBER 4TH AT 10:00 AM PST",
+    "calculatorUrl": "https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-skirmish-calc",
+    "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
+    "homeUrl": "./hub-home.html",
+    "unitBriefsBaseUrl": "./unit-briefs.html",
+    "vidTopTier": "https://www.youtube.com/results?search_query=SKIRMISH+Project_d88&sp=EgIIAw%253D%253D",
+    "vidWatchMe": "https://www.youtube.com/results?search_query=SKIRMISH%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&sp=EgIIAw%253D%253D",
+    "missionLead": "Earn the next Arc III Equinox Hero, DIXON, in this month’s Skirmish, and use it to dominate in the upcoming monthly Event.",
+    "missionBullets": "Use Voidhammer, Broadside, Myrmidon, Valiant Mk.II, Wanderer Kabuto, Dutch, Bloodfang, Dr. Ache, and Dr. Aegon units and their Heroes, against ZOMBIES… a lot of them, to play through the Recruit set or the Officer set to earn skirmish XP\nTrack Selection | Sets can be completed in any order and pay out a bonus XP Cache. The Officer set will test your might but will pay out more XP than the Recruit set.\nScalable Targets | Three Recruit bases and two Officer bases are available on the world map, scaling progressively in tactical difficulty.\nHit Repeatability | You can hit the targets multiple times, and wins will count towards future set completions, so you won't be penalized for hitting a target again!",
+    "storeItems": [
+      { "name": "Dixon Upgrade Tokens", "limit": "10", "cost": "40,000 / Each", "linkedUnit": "DIXON" },
+      { "name": "Dixon Parts", "limit": "80", "cost": "4,000 / Each", "linkedUnit": "DIXON" },
+      { "name": "Dixon Parts (4x Pack)", "limit": "20", "cost": "15,000 / Each", "linkedUnit": "DIXON" },
+      { "name": "Dixon Parts (x10 Pack)", "limit": "8", "cost": "35,000 / Each", "linkedUnit": "DIXON" },
+      { "name": "Dixon 24hr Build Logistics", "limit": "4", "cost": "32,000 / Each", "linkedUnit": "DIXON" },
+      { "name": "Dixon Tech - The Stargazer Maneuver", "limit": "1", "cost": "100,000", "linkedUnit": "DIXON" },
+      { "name": "Dixon Tech - Tachyon Grid Sweepers", "limit": "1", "cost": "100,000", "linkedUnit": "DIXON" },
+      { "name": "Dixon Tech - Rotating Shield Harmonics", "limit": "1", "cost": "100,000", "linkedUnit": "DIXON" },
+      { "name": "Wander Kabuto WYRMGUARD Warpaint", "limit": "1", "cost": "250,000", "linkedUnit": "WANDERER KABUTO" },
+      { "name": "Tachyon BAPHOMET Warpaint", "limit": "1", "cost": "250,000", "linkedUnit": "TACHYON" },
+      { "name": "Recruiter SHOGGOTH Warpaint", "limit": "1", "cost": "250,000", "linkedUnit": "RECRUITER" },
+      { "name": "Bloodfang LYCAN Warpaint", "limit": "1", "cost": "250,000", "linkedUnit": "BLOODFANG" },
+      { "name": "Dutch Unlock Parts", "limit": "40", "cost": "6,000", "linkedUnit": "DUTCH" },
+      { "name": "Dutch - Dead Man’s Hand", "limit": "1", "cost": "125,000", "linkedUnit": "DUTCH" },
+      { "name": "Dutch - Pirate’s Doctrine", "limit": "1", "cost": "200,000", "linkedUnit": "DUTCH" },
+      { "name": "Dutch Upgrade Tokens", "limit": "25", "cost": "20,000", "linkedUnit": "DUTCH" },
+      { "name": "Zombie Mines Unlock", "limit": "1", "cost": "100,000", "linkedUnit": "" },
+      { "name": "Mr. Braine Unlock Parts", "limit": "12", "cost": "30,000", "linkedUnit": "MR. BRAINES" },
+      { "name": "Mr. Braine Upgrade Token", "limit": "12", "cost": "60,000", "linkedUnit": "MR. BRAINES" }
+    ],
+    "featuredImageCards": [
+      { "order": 1, "label": "DIXON", "linkedUnit": "DIXON", "imgSource": "UNIT", "customImgUrl": "https://lh3.googleusercontent.com/d/1hgov7velVyk5oxiD7aRr9JjzCgyHD2YT" },
+      { "order": 2, "label": "TACHYON", "linkedUnit": "TACHYON", "imgSource": "UNIT", "customImgUrl": "https://lh3.googleusercontent.com/d/1Kb6fPw-BFgP6S05VBDFPFo2_y3kJQRH1" },
+      { "order": 3, "label": "RECRUITER", "linkedUnit": "RECRUITER", "imgSource": "UNIT", "customImgUrl": "https://lh3.googleusercontent.com/d/1yjK9mIWXzXT7wn_tiaq6Qxr8a_2-TyDx" },
+      { "order": 4, "label": "WANDERER KABUTO", "linkedUnit": "WANDERER KABUTO", "imgSource": "UNIT", "customImgUrl": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/ab606075-c34e-4c6b-9429-cc95d75e5ecf" },
+      { "order": 5, "label": "BLOODFANG", "linkedUnit": "BLOODFANG", "imgSource": "UNIT", "customImgUrl": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/245076ca-6cd9-4af4-8f3b-9da819170cfa" },
+      { "order": 6, "label": "DUTCH", "linkedUnit": "DUTCH", "imgSource": "UNIT", "customImgUrl": "https://share1.cloudhq-mkt3.net/f536bb5d852111.jpeg" },
+      { "order": 7, "label": "MR. BRAINES", "linkedUnit": "MR. BRAINES", "imgSource": "UNIT", "customImgUrl": "https://share1.cloudhq-mkt3.net/76b602892293c8.jpeg" }
+    ],
+    "footerBrandText": "WatchToweR Data Hub // Operational Intelligence // [-WTR-]HighAnxiety",
+    "footerLinks": [
+      { "label": "Home", "url": "./hub-home.html" },
+      { "label": "Skirmish Calculator", "url": "https://sites.google.com/view/watchtower-data-hub/operational-briefs/oct-skirmish-calc" },
+      { "label": "Get Involved!", "url": "https://sites.google.com/view/watchtower-data-hub/get-involved" }
+    ]
+  };
+
+  let masterState = JSON.parse(JSON.stringify(defaultMasterState));
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function formatImageUrl(u) {
+    if (!u) return "";
+    let c = String(u).trim().replace(/^\x27/, "");
+    const formulaMatch = c.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) c = formulaMatch[1].trim();
+    const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    return (m && m[1] && !c.startsWith("data:")) ? ("https://lh3.googleusercontent.com/d/" + m[1]) : c;
+  }
+
+  function getUnitDatabaseLink(unitName) {
+    const base = (masterState.unitBriefsBaseUrl || "./unit-briefs.html").trim();
+    if (!unitName) return base;
+    return `${base}${base.includes("?") ? "&" : "?"}unit=${encodeURIComponent(unitName.trim())}`;
+  }
+
+  function normalizeUnitKey(name) {
+    return String(name || "").toUpperCase().replace(/\+/g, "&").replace(/\s+/g, " ").trim();
+  }
+
+  /* ==================== WHOLE-PAGE ARCHIVAL COLLAPSE + AUTO STORE-CLOSED CHECK ==================== */
+  function toggleWholePageArchive(forceState, isAutoStoreClosed = false) {
+    const bodyEl = document.getElementById("collapsibleDossierBody");
+    const btnEl = document.getElementById("btnArchiveCollapseToggle");
+    if (!bodyEl || !btnEl) return;
+
+    const shouldCollapse = typeof forceState === "boolean"
+      ? forceState
+      : !bodyEl.classList.contains("collapsed-archive");
+
+    bodyEl.classList.toggle("collapsed-archive", shouldCollapse);
+    btnEl.classList.toggle("is-collapsed", shouldCollapse);
+    if (shouldCollapse) {
+      btnEl.textContent = isAutoStoreClosed
+        ? "▼ Expand Brief (Archived — Store Closed)"
+        : "▼ Expand Brief (Archived)";
+    } else {
+      btnEl.textContent = "▲ Collapse Brief (Archive Mode)";
+    }
+  }
+
+  function parseWarCommanderDateStringMs(rawStr) {
+    if (!rawStr) return null;
+    const clean = String(rawStr).replace(/\u00A0/g, " ").trim();
+    const m = clean.match(/([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\s*@\s*(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PDT|PST)?/i);
+    if (!m) return null;
+
+    const months = { JAN:0, FEB:1, MAR:2, APR:3, MAY:4, JUN:5, JUL:6, AUG:7, SEP:8, OCT:9, NOV:10, DEC:11 };
+    const mon = months[m[1].slice(0, 3).toUpperCase()];
+    if (mon === undefined) return null;
+
+    const day = parseInt(m[2], 10);
+    const year = parseInt(m[3], 10);
+    let hour = parseInt(m[4], 10);
+    const min = parseInt(m[5], 10);
+    const ampm = m[6].toUpperCase();
+    const tz = (m[7] || "PDT").toUpperCase();
+
+    if (ampm === "PM" && hour < 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+
+    const offset = (tz === "PST") ? "-08:00" : "-07:00";
+    const pad = n => String(n).padStart(2, "0");
+    const iso = `${year}-${pad(mon + 1)}-${pad(day)}T${pad(hour)}:${pad(min)}:00${offset}`;
+    const ms = Date.parse(iso);
+    return isNaN(ms) ? null : ms;
+  }
+
+  function checkAndAutoCollapseOnStoreClosed() {
+    const storeStr = masterState.schedStore || document.getElementById("displaySchedStore")?.textContent || "";
+    const endStr   = masterState.schedEnd   || document.getElementById("displaySchedEnd")?.textContent   || "";
+    const cutoffMs = parseWarCommanderDateStringMs(storeStr) || parseWarCommanderDateStringMs(endStr);
+
+    if (cutoffMs && Date.now() >= cutoffMs) {
+      toggleWholePageArchive(true, true);
+
+      const metaEl = document.querySelector(".event-meta");
+      if (metaEl && !document.getElementById("autoArchiveClosedBadge")) {
+        const badge = document.createElement("span");
+        badge.id = "autoArchiveClosedBadge";
+        badge.style.cssText = "background: rgba(255, 215, 0, 0.14); border: 1px solid #ffd700; color: #ffd700; font-family: monospace; font-size: 12px; font-weight: 900; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.8px;";
+        badge.textContent = "📦 ARCHIVED (STORE CLOSED)";
+        metaEl.appendChild(badge);
+      }
+    }
+  }
+
+  /* ==================== EMBEDDED SKIRMISH CALCULATOR ENGINE ==================== */
+  function syncCalcPrizesFromStore() {
+    calcPrizesState = (masterState.storeItems || []).map((item, idx) => {
+      const maxLim = parseInt(String(item.limit).replace(/[^0-9]/g, ""), 10) || 1;
+      const costNum = parseInt(String(item.cost).replace(/[^0-9]/g, ""), 10) || 0;
+      const isDefaultDixon = item.name.toUpperCase().includes("DIXON") && !item.name.toUpperCase().includes("WARPAINT");
+      return {
+        name: item.name,
+        linkedUnit: (item.linkedUnit || "").trim(),
+        limit: maxLim,
+        maxLimit: maxLim,
+        cost: costNum,
+        checked: isDefaultDixon || idx < 6
+      };
+    });
+  }
+
+  function renderEmbeddedCalcTable() {
+    const tbody = document.getElementById("ecPrizesTbody");
+    const presetsBar = document.getElementById("ecPresetsBar");
+    if (!tbody) return;
+
+    if (presetsBar) {
+      const rawKeywords = String(masterState.calcPresetKeywords || "DIXON, TACHYON, RECRUITER, WARPAINT")
+        .split(",")
+        .map(k => k.trim().toUpperCase())
+        .filter(Boolean);
+
+      let pHtml = `<span style="font-family:monospace; font-size:11px; color:var(--text-muted); font-weight:800;">PRESETS:</span>`;
+      rawKeywords.forEach(kw => {
+        const isWp = kw.includes("WARPAINT");
+        const btnLabel = isWp ? `🎨 All ${kw}` : `⚡ Only ${kw}`;
+        const btnClass = isWp ? "ec-pill-btn wp-btn" : "ec-pill-btn";
+        pHtml += `<button type="button" class="${btnClass}" onclick="applyEmbeddedCalcKeywordPreset('${escapeHtml(kw)}')">${escapeHtml(btnLabel)}</button>`;
+      });
+      pHtml += `<button type="button" class="ec-pill-btn" onclick="applyEmbeddedCalcKeywordPreset('ALL')">Select All</button>`;
+      pHtml += `<button type="button" class="ec-pill-btn" onclick="applyEmbeddedCalcKeywordPreset('NONE')">Clear All</button>`;
+      presetsBar.innerHTML = pHtml;
+    }
+
+    tbody.innerHTML = calcPrizesState.map((p, idx) => {
+      const needed = p.checked ? (p.limit * p.cost) : 0;
+      return `
+        <tr class="${p.checked ? '' : 'unchecked-row'}" id="ec-prize-row-${idx}">
+          <td style="text-align:center;"><input type="checkbox" data-idx="${idx}" ${p.checked ? 'checked' : ''} onchange="toggleCalcPrizeCheck(${idx}, this.checked)"></td>
+          <td>${escapeHtml(p.name)}</td>
+          <td style="text-align:right;">
+            <div class="ec-stepper">
+              <button type="button" class="ec-step-btn" onclick="stepCalcPrizeQty(${idx}, -1)">-</button>
+              <input type="number" min="0" max="${p.maxLimit}" class="ec-qty-input" value="${p.limit}" oninput="setCalcPrizeQty(${idx}, this.value)">
+              <button type="button" class="ec-step-btn" onclick="stepCalcPrizeQty(${idx}, 1)">+</button>
+              <button type="button" class="ec-step-btn" style="width:auto; padding:0 5px; font-size:10px; color:var(--text-gold);" onclick="setCalcPrizeQty(${idx}, ${p.maxLimit})">MAX</button>
+            </div>
+          </td>
+          <td style="text-align:right; font-family:monospace;">${p.cost.toLocaleString()}</td>
+          <td style="text-align:right; font-family:monospace; color:var(--accent-green); font-weight:800;" id="ec-need-cell-${idx}">${needed.toLocaleString()}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function applyEmbeddedCalcKeywordPreset(keyword) {
+    const kw = String(keyword || "").trim().toUpperCase();
+    calcPrizesState.forEach(p => {
+      if (kw === "ALL") p.checked = true;
+      else if (kw === "NONE") p.checked = false;
+      else {
+        const nameUpper = String(p.name || "").toUpperCase();
+        const unitUpper = String(p.linkedUnit || "").toUpperCase();
+        if (kw.includes("WARPAINT")) p.checked = nameUpper.includes("WARPAINT");
+        else p.checked = nameUpper.includes(kw) || unitUpper === kw;
+      }
+    });
+    renderEmbeddedCalcTable();
+    updateEmbeddedCalculator();
+  }
+
+  function toggleCalcPrizeCheck(idx, isChecked) {
+    if (!calcPrizesState[idx]) return;
+    calcPrizesState[idx].checked = isChecked;
+    const row = document.getElementById(`ec-prize-row-${idx}`);
+    if (row) row.classList.toggle("unchecked-row", !isChecked);
+    updateEmbeddedCalculator();
+  }
+
+  function stepCalcPrizeQty(idx, delta) {
+    if (!calcPrizesState[idx]) return;
+    const p = calcPrizesState[idx];
+    p.limit = Math.min(p.maxLimit, Math.max(0, (parseInt(p.limit, 10) || 0) + delta));
+    p.checked = p.limit > 0;
+    renderEmbeddedCalcTable();
+    updateEmbeddedCalculator();
+  }
+
+  function setCalcPrizeQty(idx, val) {
+    if (!calcPrizesState[idx]) return;
+    const p = calcPrizesState[idx];
+    p.limit = Math.min(p.maxLimit, Math.max(0, parseInt(val, 10) || 0));
+    p.checked = p.limit > 0;
+    updateEmbeddedCalculator();
+  }
+
+  function toggleCalcFullTrack(prefix) {
+    if (prefix === "rec") {
+      const b1 = document.getElementById("ec-rec-b1"), b2 = document.getElementById("ec-rec-b2"), b3 = document.getElementById("ec-rec-b3");
+      const next = !(b1.checked && b2.checked && b3.checked);
+      b1.checked = b2.checked = b3.checked = next;
+    } else {
+      const b1 = document.getElementById("ec-off-b1"), b2 = document.getElementById("ec-off-b2");
+      const next = !(b1.checked && b2.checked);
+      b1.checked = b2.checked = next;
+    }
+    updateEmbeddedCalculator();
+  }
+
+  function updateEmbeddedCalculator() {
+    let totalAll = 0, totalGoal = 0, selectedCount = 0;
+    const eventDays = 4;
+
+    calcPrizesState.forEach((p, idx) => {
+      const fullCost = p.maxLimit * p.cost;
+      const needed = p.checked ? (p.limit * p.cost) : 0;
+      totalAll += fullCost;
+      totalGoal += needed;
+      if (p.checked) selectedCount++;
+      const cell = document.getElementById(`ec-need-cell-${idx}`);
+      if (cell) cell.textContent = needed.toLocaleString();
+    });
+
+    const banked = Math.max(0, parseInt(document.getElementById("ecBankedInput")?.value, 10) || 0);
+    const remaining = Math.max(0, totalGoal - banked);
+    const pct = totalGoal > 0 ? Math.min(100, Math.round((banked / totalGoal) * 100)) : 0;
+
+    document.getElementById("ecSelectedCountLbl").textContent = `${selectedCount} / ${calcPrizesState.length} Selected`;
+    document.getElementById("ecGrandTotalAll").textContent = totalAll.toLocaleString();
+    document.getElementById("ecGrandTotalNeeded").textContent = totalGoal.toLocaleString();
+    document.getElementById("ecCardNeeded").textContent = remaining.toLocaleString();
+    document.getElementById("ecCardTotalGoalSub").textContent = `Total Goal: ${totalGoal.toLocaleString()} eXP`;
+    document.getElementById("ecProgressPctLbl").textContent = `${pct}% OF GOAL COMPLETED (${banked.toLocaleString()} / ${totalGoal.toLocaleString()} eXP)`;
+    document.getElementById("ecProgressFill").style.width = `${pct}%`;
+
+    const recB1 = document.getElementById("ec-rec-b1")?.checked;
+    const recB2 = document.getElementById("ec-rec-b2")?.checked;
+    const recB3 = document.getElementById("ec-rec-b3")?.checked;
+    const recBonus = recB1 && recB2 && recB3;
+    if (document.getElementById("ec-rec-bonus")) document.getElementById("ec-rec-bonus").checked = recBonus;
+
+    const offB1 = document.getElementById("ec-off-b1")?.checked;
+    const offB2 = document.getElementById("ec-off-b2")?.checked;
+    const offBonus = offB1 && offB2;
+    if (document.getElementById("ec-off-bonus")) document.getElementById("ec-off-bonus").checked = offBonus;
+
+    const r1 = recB1 ? BASE_TRACK_XP.recB1 : 0, r2 = recB2 ? BASE_TRACK_XP.recB2 : 0, r3 = recB3 ? BASE_TRACK_XP.recB3 : 0, rb = recBonus ? BASE_TRACK_XP.recBonus : 0;
+    const rTot = r1 + r2 + r3 + rb;
+    document.getElementById("ec-rec-b1-10").textContent = r1.toLocaleString();
+    document.getElementById("ec-rec-b2-10").textContent = r2.toLocaleString();
+    document.getElementById("ec-rec-b3-10").textContent = r3.toLocaleString();
+    document.getElementById("ec-rec-bonus-10").textContent = rb.toLocaleString();
+    document.getElementById("ec-rec-tot-10").textContent = rTot.toLocaleString();
+    const recBaseRuns = (rTot > 0 && remaining > 0) ? Math.ceil(remaining / rTot) : 0;
+    document.getElementById("ec-rec-runs-10").textContent = recBaseRuns > 0 ? recBaseRuns : (remaining === 0 && totalGoal > 0 ? "0" : "-");
+
+    const o1 = offB1 ? BASE_TRACK_XP.offB1 : 0, o2 = offB2 ? BASE_TRACK_XP.offB2 : 0, ob = offBonus ? BASE_TRACK_XP.offBonus : 0;
+    const oTot = o1 + o2 + ob;
+    document.getElementById("ec-off-b1-10").textContent = o1.toLocaleString();
+    document.getElementById("ec-off-b2-10").textContent = o2.toLocaleString();
+    document.getElementById("ec-off-bonus-10").textContent = ob.toLocaleString();
+    document.getElementById("ec-off-tot-10").textContent = oTot.toLocaleString();
+    const offBaseRuns = (oTot > 0 && remaining > 0) ? Math.ceil(remaining / oTot) : 0;
+    document.getElementById("ec-off-runs-10").textContent = offBaseRuns > 0 ? offBaseRuns : (remaining === 0 && totalGoal > 0 ? "0" : "-");
+
+    document.getElementById("ecCardOffBase").textContent = offBaseRuns > 0 ? offBaseRuns : (remaining === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("ecCardOffBasePace").textContent = offBaseRuns > 0 ? `~${(offBaseRuns / eventDays).toFixed(1)} runs/day (${eventDays}d)` : `${oTot.toLocaleString()} eXP / full run`;
+
+    document.getElementById("ecCardRecBase").textContent = recBaseRuns > 0 ? recBaseRuns : (remaining === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("ecCardRecBasePace").textContent = recBaseRuns > 0 ? `~${(recBaseRuns / eventDays).toFixed(1)} runs/day (${eventDays}d)` : `${rTot.toLocaleString()} eXP / full run`;
+
+    const activePool = oTot > 0 ? oTot : rTot;
+    const activeTrackName = oTot > 0 ? "Officer" : "Recruit";
+    const activeRuns = oTot > 0 ? offBaseRuns : recBaseRuns;
+
+    document.getElementById("ecCardActiveTierLbl").textContent = `${activeTrackName} Daily Pace`;
+    document.getElementById("ecCardActiveRuns").textContent = activeRuns > 0 ? `${(activeRuns / eventDays).toFixed(1)} / Day` : (remaining === 0 && totalGoal > 0 ? "DONE" : "-");
+    document.getElementById("ecCardActivePace").textContent = `${activeRuns} total runs (${activePool.toLocaleString()} eXP/run)`;
+    document.getElementById("ecLogRunAmt").textContent = `+${activePool.toLocaleString()}`;
+  }
+
+  function logOneCompletedCalcRun() {
+    const offB1 = document.getElementById("ec-off-b1")?.checked, offB2 = document.getElementById("ec-off-b2")?.checked;
+    const offPool = (offB1 ? BASE_TRACK_XP.offB1 : 0) + (offB2 ? BASE_TRACK_XP.offB2 : 0) + ((offB1 && offB2) ? BASE_TRACK_XP.offBonus : 0);
+    const inp = document.getElementById("ecBankedInput");
+    if (inp && offPool > 0) {
+      inp.value = (parseInt(inp.value, 10) || 0) + offPool;
+      updateEmbeddedCalculator();
+    }
+  }
+
+  function saveEmbeddedCalcSettings() {
+    const data = {
+      version: 6.3,
+      release: WTR_DOSSIER_RELEASE,
+      timestamp: new Date().toISOString(),
+      bankedExp: parseInt(document.getElementById("ecBankedInput")?.value, 10) || 0,
+      prizes: calcPrizesState.map(p => ({ name: p.name, limit: p.limit, checked: p.checked }))
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "2026_OCT_SKIRMISH_WTR_CALC_DATA.json";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function loadEmbeddedCalcSettings(event) {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const cfg = JSON.parse(e.target.result);
+        if (typeof cfg.bankedExp === "number") document.getElementById("ecBankedInput").value = cfg.bankedExp;
+        if (Array.isArray(cfg.prizes)) {
+          cfg.prizes.forEach((sp, i) => {
+            if (calcPrizesState[i]) {
+              calcPrizesState[i].limit = typeof sp.limit === "number" ? sp.limit : calcPrizesState[i].limit;
+              calcPrizesState[i].checked = typeof sp.checked === "boolean" ? sp.checked : calcPrizesState[i].checked;
+            }
+          });
+        }
+        renderEmbeddedCalcTable();
+        updateEmbeddedCalculator();
+      } catch (err) {}
+      event.target.value = "";
+    };
+    reader.readAsText(file);
+  }
+
+  function resetEmbeddedCalcSettings() {
+    syncCalcPrizesFromStore();
+    document.getElementById("ecBankedInput").value = 0;
+    renderEmbeddedCalcTable();
+    updateEmbeddedCalculator();
+  }
+
+  function toggleEmbeddedCalculatorDrawer(forceOpen) {
+    const drawer = document.getElementById("embeddedCalcDrawer");
+    const btn = document.getElementById("btnToggleEmbeddedCalc");
+    if (!drawer) return;
+    const isOpen = typeof forceOpen === "boolean" ? drawer.classList.toggle("open", forceOpen) : drawer.classList.toggle("open");
+    if (btn) btn.textContent = isOpen ? "🧮 Hide Embedded Skirmish Calculator ▲" : "🧮 Toggle Embedded Skirmish Calculator ▼";
+    if (isOpen) { renderEmbeddedCalcTable(); updateEmbeddedCalculator(); }
+  }
+
+  /* ==================== FLOATING 4:5 HOVER PREVIEW ENGINE ==================== */
+  function findUnitInMasterDb(unitName) {
+    if (!unitName) return null;
+    const target = normalizeUnitKey(unitName);
+    return masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME) === target) ||
+           masterDbUnitsCache.find(u => normalizeUnitKey(u.UNIT_NAME).includes(target) || target.includes(normalizeUnitKey(u.UNIT_NAME)));
+  }
+
+  function showUnitHoverPreview(e, unitName) {
+    if (!unitName) return;
+    const rec = findUnitInMasterDb(unitName);
+    const pod = document.getElementById("wtrHoverPreviewPod");
+    if (!pod) return;
+
+    const uTitle = rec ? (rec.UNIT_NAME || unitName) : unitName;
+    document.getElementById("hoverPodTitle").textContent = `${uTitle} // MASTER_DB PREVIEW`;
+
+    const cardOverride = (masterState.featuredImageCards || []).find(c => normalizeUnitKey(c.linkedUnit) === normalizeUnitKey(unitName) && (c.customImgUrl || "").trim());
+    const rawUnitImg = (rec ? (rec.UNIT_IMAGE_URL || rec.IMAGE_URL || "") : "") || (cardOverride ? cardOverride.customImgUrl : "");
+
+    const unitImgEl = document.getElementById("hoverPodUnitImg");
+    unitImgEl.src = rawUnitImg ? formatImageUrl(rawUnitImg) : "";
+
+    const rawWpImg = rec ? (rec.WARPAINT_1_IMAGE || rec.WP_1_IMG || "") : "";
+    const wpName = rec ? (rec.WARPAINT_1_NAME || rec.WP_1_LABEL || "WARPAINT") : "WARPAINT";
+    const wpCol = document.getElementById("hoverPodWpCol");
+    if (rawWpImg) {
+      wpCol.style.display = "flex";
+      document.getElementById("hoverPodWpImg").src = formatImageUrl(rawWpImg);
+      document.getElementById("hoverPodWpLbl").textContent = wpName;
+    } else {
+      wpCol.style.display = "none";
+    }
+
+    pod.classList.add("show");
+    moveUnitHoverPreview(e);
+  }
+
+  function moveUnitHoverPreview(e) {
+    const pod = document.getElementById("wtrHoverPreviewPod");
+    if (!pod || !pod.classList.contains("show")) return;
+    const pad = 18;
+    let left = e.clientX + pad, top = e.clientY + pad;
+    const rect = pod.getBoundingClientRect();
+    if (left + rect.width > window.innerWidth - 12) left = Math.max(10, e.clientX - rect.width - pad);
+    if (top + rect.height > window.innerHeight - 12) top = Math.max(10, window.innerHeight - rect.height - 12);
+    pod.style.left = `${left}px`;
+    pod.style.top = `${top}px`;
+  }
+
+  function hideUnitHoverPreview() {
+    const pod = document.getElementById("wtrHoverPreviewPod");
+    if (pod) pod.classList.remove("show");
+  }
+
+  function resolveCardImageUrl(card) {
+    const rec = findUnitInMasterDb(card.linkedUnit);
+    if (rec) {
+      const raw = rec.UNIT_IMAGE_URL || rec.IMAGE_URL || "";
+      if (raw) return formatImageUrl(raw);
+    }
+    if ((card.customImgUrl || "").trim()) return formatImageUrl(card.customImgUrl);
+    return "";
+  }
+
+  function renderMissionOverview() {
+    const listEl = document.getElementById("displayMissionList");
+    if (!listEl) return;
+    let html = "";
+    if ((masterState.missionLead || "").trim()) {
+      html += `<li class="no-bullet"><strong>${escapeHtml(masterState.missionLead)}</strong></li>`;
+    }
+    String(masterState.missionBullets || "").split("\n").map(l => l.trim()).filter(Boolean).forEach(b => {
+      const parts = b.split("|");
+      if (parts.length > 1) html += `<li><strong>${escapeHtml(parts[0].trim())}:</strong> ${escapeHtml(parts.slice(1).join("|").trim())}</li>`;
+      else html += `<li><strong>${escapeHtml(b)}</strong></li>`;
+    });
+    listEl.innerHTML = html;
+  }
+
+  function renderStoreTable() {
+    const tbody = document.getElementById("storeInventoryTbody");
+    if (!tbody) return;
+    tbody.innerHTML = (masterState.storeItems || []).map(item => {
+      const linked = (item.linkedUnit || "").trim();
+      const itemHtml = linked
+        ? `<a href="${escapeHtml(getUnitDatabaseLink(linked))}" target="_blank" rel="noopener noreferrer" class="store-unit-link" onmouseenter="showUnitHoverPreview(event, '${escapeHtml(linked)}')" onmousemove="moveUnitHoverPreview(event)" onmouseleave="hideUnitHoverPreview()">■ ${escapeHtml(item.name)} <span class="img-db-badge">🗄️ ${escapeHtml(linked)} DB ↗</span></a>`
+        : `■ ${escapeHtml(item.name)}`;
+      return `
+        <tr>
+          <td>${itemHtml}</td>
+          <td style="text-align: center; font-weight: bold; font-family: monospace;">${escapeHtml(item.limit)}</td>
+          <td style="text-align: right; color: var(--accent-green); font-weight: bold; font-family: monospace;">${escapeHtml(item.cost)}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderFeaturedImagesGallery() {
+    const gridEl = document.getElementById("featuredImagesGalleryGrid");
+    if (!gridEl) return;
+    gridEl.innerHTML = (masterState.featuredImageCards || []).map(card => {
+      const unitTarget = (card.linkedUnit || "DIXON").trim();
+      const dbHref = getUnitDatabaseLink(unitTarget);
+      const imgUrl = resolveCardImageUrl(card);
+      const displayTitle = (card.label || unitTarget).trim();
+      return `
+        <a href="${escapeHtml(dbHref)}" target="_blank" rel="noopener noreferrer" class="pure-image-card-link" onmouseenter="showUnitHoverPreview(event, '${escapeHtml(unitTarget)}')" onmousemove="moveUnitHoverPreview(event)" onmouseleave="hideUnitHoverPreview()" title="Click to open ${escapeHtml(unitTarget)} in WatchToweR Unit Briefs Database">
+          <div class="pure-image-4x5-frame">
+            <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(displayTitle)}">
+          </div>
+          <div class="pure-image-caption">${escapeHtml(displayTitle)}</div>
+          <div class="pure-image-sub">🗄️ ${escapeHtml(unitTarget)} DB BRIEF ↗</div>
+        </a>
+      `;
+    }).join("");
+  }
+
+  function renderFooterDom() {
+    const brandEl = document.getElementById("displayFooterBrandText");
+    const linksContainer = document.getElementById("displayFooterLinksContainer");
+    if (brandEl) brandEl.textContent = masterState.footerBrandText;
+    if (linksContainer) {
+      linksContainer.innerHTML = (masterState.footerLinks || []).map(lnk =>
+        `<a href="${escapeHtml(lnk.url)}" target="_blank" rel="noopener">${escapeHtml(lnk.label)}</a>`
+      ).join(" ");
+    }
+  }
+
+  function fetchMasterDbUnits() {
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/export?format=csv&gid=${SHEET_MASTER_GID}`;
+    Papa.parse(csvUrl, {
+      download: true, header: false, skipEmptyLines: true,
+      complete: function(res) {
+        if (!res || !res.data || res.data.length <= 1) return;
+        const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
+        const units = [];
+        for (let r = 1; r < res.data.length; r++) {
+          const rec = {};
+          headers.forEach((k, i) => { if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/, "") : ""; });
+          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
+          const isBuilding = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
+          if (rec.UNIT_NAME && !isBuilding) units.push(rec);
+        }
+        masterDbUnitsCache = units;
+        renderFeaturedImagesGallery();
+      }
+    });
+  }
+
+  /* Boot Sequence */
+  syncCalcPrizesFromStore();
+  renderMissionOverview();
+  renderStoreTable();
+  renderFeaturedImagesGallery();
+  renderFooterDom();
+  renderEmbeddedCalcTable();
+  updateEmbeddedCalculator();
+  checkAndAutoCollapseOnStoreClosed();
+  fetchMasterDbUnits();
+</script>
+<script id="wtrDixonExclusivePatch">
+(function(){
+  function isDxPart(p) { const n = String(p && p.name || "").toUpperCase(); return n.includes("DIXON") && n.includes("PART"); }
+  function isDxCheapest(p) { return isDxPart(p) && (Number(p.maxLimit) === 8 || String(p.name || "").toUpperCase().includes("10 PACK") || String(p.name || "").toUpperCase().includes("X10")); }
+  function enforceDxGroup(activeIdx) {
+    if (typeof calcPrizesState === "undefined" || !Array.isArray(calcPrizesState)) return;
+    const sel = calcPrizesState[activeIdx];
+    if (sel && sel.checked && isDxPart(sel)) {
+      calcPrizesState.forEach((p, idx) => { if (idx !== activeIdx && isDxPart(p)) p.checked = false; });
+    }
+  }
+  if (typeof syncCalcPrizesFromStore === "function") {
+    const origSync = syncCalcPrizesFromStore;
+    syncCalcPrizesFromStore = function() {
+      origSync();
+      if (typeof calcPrizesState !== "undefined" && Array.isArray(calcPrizesState)) {
+        calcPrizesState.forEach(p => { if (isDxPart(p)) p.checked = isDxCheapest(p); });
+      }
+    };
+  }
+  if (typeof toggleCalcPrizeCheck === "function") {
+    toggleCalcPrizeCheck = function(idx, isChecked) {
+      if (!calcPrizesState[idx]) return;
+      calcPrizesState[idx].checked = isChecked;
+      if (isChecked) { if (!calcPrizesState[idx].limit) calcPrizesState[idx].limit = calcPrizesState[idx].maxLimit; enforceDxGroup(idx); }
+      if (typeof renderEmbeddedCalcTable === "function") renderEmbeddedCalcTable();
+      if (typeof updateEmbeddedCalculator === "function") updateEmbeddedCalculator();
+    };
+  }
+  if (typeof stepCalcPrizeQty === "function") {
+    stepCalcPrizeQty = function(idx, delta) {
+      if (!calcPrizesState[idx]) return;
+      const p = calcPrizesState[idx];
+      p.limit = Math.min(p.maxLimit, Math.max(0, (parseInt(p.limit, 10) || 0) + delta));
+      p.checked = p.limit > 0;
+      if (p.checked) enforceDxGroup(idx);
+      if (typeof renderEmbeddedCalcTable === "function") renderEmbeddedCalcTable();
+      if (typeof updateEmbeddedCalculator === "function") updateEmbeddedCalculator();
+    };
+  }
+  if (typeof setCalcPrizeQty === "function") {
+    setCalcPrizeQty = function(idx, val) {
+      if (!calcPrizesState[idx]) return;
+      const p = calcPrizesState[idx];
+      p.limit = Math.min(p.maxLimit, Math.max(0, parseInt(val, 10) || 0));
+      p.checked = p.limit > 0;
+      if (p.checked) enforceDxGroup(idx);
+      if (typeof renderEmbeddedCalcTable === "function") renderEmbeddedCalcTable();
+      if (typeof updateEmbeddedCalculator === "function") updateEmbeddedCalculator();
+    };
+  }
+  if (typeof applyEmbeddedCalcKeywordPreset === "function") {
+    const origPreset = applyEmbeddedCalcKeywordPreset;
+    applyEmbeddedCalcKeywordPreset = function(keyword) {
+      origPreset(keyword);
+      const kw = String(keyword || "").trim().toUpperCase();
+      if (kw !== "NONE" && typeof calcPrizesState !== "undefined" && Array.isArray(calcPrizesState)) {
+        const anyDxChecked = calcPrizesState.some(p => isDxPart(p) && p.checked);
+        if (anyDxChecked) calcPrizesState.forEach(p => { if (isDxPart(p)) p.checked = isDxCheapest(p); });
+        if (typeof renderEmbeddedCalcTable === "function") renderEmbeddedCalcTable();
+        if (typeof updateEmbeddedCalculator === "function") updateEmbeddedCalculator();
+      }
+    };
+  }
+  if (typeof syncCalcPrizesFromStore === "function") syncCalcPrizesFromStore();
+  if (typeof renderStoreTable === "function") renderStoreTable();
+  if (typeof renderEmbeddedCalcTable === "function") renderEmbeddedCalcTable();
+  if (typeof updateEmbeddedCalculator === "function") updateEmbeddedCalculator();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Ignore installers, archives, and temporary sync folders
+*.exe
+*.msi
+*.zip
+.tmp.driveupload/
+Thumbs.db
+.DS_Store
+

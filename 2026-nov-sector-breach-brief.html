@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER SECTOR BREACH INLINE EVENT STUDIO // RELEASE: v10.2-SECTOR-BREACH-STUDIO (2026-11-04) -->
+<html lang="en">
+<head>
+<!-- ==================== START BLOCK 1: HEAD & CSS STYLES ==================== -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>[-WTR-] Data Hub — NOV 2026 SECTOR BREACH Inline Studio &amp; Calculator</title>
+<style>
+:root{--primary-color:#00bf63;--accent-green:#00e676;--bg-dark:#0b0f0d;--bg-panel:#121212;--bg-card:#18261e;--bg-inner:#0b1118;--border-dark:#1f3b2b;--text-main:#e0e6ed;--text-muted:#94a3b8;--text-gold:#ffd700;--text-cyan:#38bdf8;--text-orange:#f97316;--text-red:#ff5252;--youtube-red:#ff0000;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:auto;background-color:var(--bg-dark);}
+body{color:var(--text-main);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:10px;line-height:1.5;font-size:14.5px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
+.sentence-line-break{display:block;margin-top:8px;}
+.dossier-card{width:100%;max-width:1100px;margin:0 auto;background:var(--bg-panel);border:1px solid var(--border-dark);box-shadow:0 4px 25px rgba(0,255,128,0.05);display:flex;flex-direction:column;max-height:92vh;overflow:hidden;position:relative;}
+.dossier-card.archive-collapsed{max-height:none;}
+.dossier-card.unconstrained-height{max-height:none;}
+.dossier-card.unconstrained-height .brief-scroll-viewport{overflow-y:visible;max-height:none;}
+.locked-top-hud{flex-shrink:0;width:100%;background:#080c0a;z-index:50;box-shadow:0 6px 18px rgba(0,0,0,0.85);}
+.classification-bar{position:relative;background:var(--primary-color);color:#000;font-weight:900;text-align:center;letter-spacing:2.2px;font-size:13.5px;padding:6px 16px;text-transform:uppercase;font-family:"Arial Black",sans-serif;width:100%;display:flex;align-items:center;justify-content:center;min-height:38px;flex-shrink:0;}
+.class-bar-corner-stamp{position:absolute;left:0;top:0;bottom:0;background:#080c0a;color:#ffffff;padding:0 26px 0 16px;display:inline-flex;align-items:center;gap:8px;font-family:"Arial Black",sans-serif;font-size:13px;letter-spacing:1.8px;clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);border-right:2px solid var(--text-gold);box-shadow:4px 0 12px rgba(0,0,0,0.5);}
+.class-bar-corner-stamp::before{content:"■";color:var(--accent-green);font-size:11px;}
+.archive-collapse-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#080c0a;border:1px solid #000000;border-left:2px solid var(--text-gold);color:var(--accent-green);font-family:monospace;font-size:11.5px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:5px 12px;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.18s ease-in-out;box-shadow:0 2px 6px rgba(0,0,0,0.65);white-space:nowrap;}
+.archive-collapse-btn:hover{background:#14241b;color:#ffffff;border-color:var(--text-gold);box-shadow:0 0 10px rgba(0,0,0,0.85);}
+.dossier-card.archive-collapsed .archive-collapse-btn{background:#1a1605;border-color:var(--text-gold);color:var(--text-gold);}
+.dossier-card.archive-collapsed .archive-collapse-btn:hover{background:var(--text-gold);color:#000000;}
+@media (max-width:820px){.classification-bar{justify-content:space-between;padding:6px 8px 6px 0;font-size:11px;letter-spacing:0.8px;flex-wrap:wrap;gap:6px;}
+.class-bar-corner-stamp{position:static;padding:6px 14px;font-size:11px;}
+.archive-collapse-btn{position:static;transform:none;font-size:10.5px;padding:4px 9px;}
+}
+.file-tabs-rail{background:#080c0a;padding:8px 14px 0 14px;border-bottom:2px solid var(--primary-color);display:flex;align-items:flex-end;justify-content:space-between;gap:4px;flex-wrap:wrap;}
+.file-tabs-group{display:flex;align-items:flex-end;gap:4px;flex-wrap:wrap;}
+.dossier-card.archive-collapsed .file-tabs-rail{display:none;}
+.file-tab-btn{position:relative;background:linear-gradient(180deg,#16241c 0%,#0d1511 100%);color:var(--text-muted);border:none;padding:6px 10px 5px 10px;font-family:monospace;font-size:10.5px;font-weight:900;letter-spacing:0.4px;text-transform:uppercase;cursor:pointer;clip-path:polygon(7px 0,calc(100% - 7px) 0,100% 100%,0 100%);border-top:2px solid #2a4c39;transition:all 0.15s ease;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.file-tab-btn .tab-idx{color:var(--accent-green);font-size:10px;opacity:0.9;}
+.file-tab-btn:hover{background:linear-gradient(180deg,#1f3729 0%,#132219 100%);color:#ffffff;border-top-color:var(--accent-green);transform:translateY(-1px);}
+.file-tab-btn.active-file-tab{background:var(--primary-color);color:#000000;border-top-color:#ffffff;font-weight:900;}
+.file-tab-btn.active-file-tab .tab-idx{color:#000000;opacity:1;}
+.file-tab-btn.calc-tab{border-top-color:var(--text-gold);color:var(--text-gold);}
+.file-tab-btn.calc-tab .tab-idx{color:var(--text-gold);}
+.file-tab-btn.calc-tab.active-file-tab{background:var(--text-gold);color:#000000;}
+.file-tab-btn.calc-tab.active-file-tab .tab-idx{color:#000000;}
+.file-tab-btn.enemy-tab{border-top-color:var(--text-red);color:#fda4af;}
+.file-tab-btn.enemy-tab .tab-idx{color:var(--text-red);}
+.brief-scroll-viewport{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative;}
+.brief-scroll-viewport::-webkit-scrollbar{width:10px;}
+.brief-scroll-viewport::-webkit-scrollbar-track{background:#060a08;}
+.brief-scroll-viewport::-webkit-scrollbar-thumb{background:#1f3b2b;border:1px solid var(--accent-green);border-radius:4px;}
+.event-header{padding:18px 24px;border-bottom:2px solid var(--border-dark);background:#0e1411;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;transition:padding 0.2s ease;margin-bottom:16px;}
+.header-left-wrap{display:flex;align-items:center;gap:20px;flex:1 1 420px;min-width:280px;}
+.header-logo-link{width:90px;height:90px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#1f3b2b 0%,#0b1118 50%,#00bf63 100%);box-shadow:0 0 20px rgba(0,230,118,0.35),inset 0 0 8px rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:width 0.2s ease,height 0.2s ease,transform 0.18s ease,box-shadow 0.18s ease;text-decoration:none;}
+.header-logo-link:hover{transform:scale(1.05);box-shadow:0 0 28px rgba(0,230,118,0.75);}
+.header-logo-img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:2px solid #000;}
+.dossier-card.archive-collapsed .event-header{padding:12px 22px;border-bottom:none;margin-bottom:0;}
+.dossier-card.archive-collapsed .header-logo-link{width:62px;height:62px;}
+.event-header-text{flex:1;min-width:0;}
+.event-sub-tag{font-size:clamp(11px,1.25vw,13px);letter-spacing:1.3px;color:var(--accent-green);text-transform:uppercase;margin-bottom:6px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+@media (max-width:720px){.event-sub-tag{white-space:normal;}
+}
+.event-title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.event-main-title{font-family:"Arial Black",sans-serif;font-size:clamp(24px,3.8vw,35px);color:var(--accent-green);letter-spacing:1.5px;text-transform:uppercase;line-height:1.1;margin:0;cursor:pointer;}
+.event-meta-box{flex:0 0 auto;background:#080d0b;border:1px solid var(--border-dark);border-left:3px solid var(--accent-green);border-radius:4px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;min-width:285px;box-shadow:inset 0 0 10px rgba(0,0,0,0.75);}
+.meta-line{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:monospace;font-size:12.5px;color:var(--text-main);text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap;}
+.meta-line strong{font-weight:900;}
+@media (max-width:760px){.event-meta-box{width:100%;}
+}
+@media (max-width:640px){.header-left-wrap{flex-direction:column;align-items:flex-start;}
+}
+.brief-collapsible-body{display:block;}
+.dossier-card.archive-collapsed .brief-collapsible-body{display:none;}
+.dossier-section{padding:0 20px 24px 20px;clear:both;}
+.section-header-bar{background:var(--primary-color);color:#000;font-family:"Arial Black",sans-serif;font-size:15.5px;padding:8px 16px;text-transform:uppercase;letter-spacing:1.5px;display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:8px;cursor:pointer;user-select:none;transition:filter 0.15s ease;}
+.section-header-bar:hover{filter:brightness(1.08);}
+.section-header-right{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.section-header-bar span.subtext{font-family:"Arial Black",sans-serif;font-size:13px;letter-spacing:0.5px;}
+.section-min-arrow{background:rgba(0,0,0,0.22);color:#000;font-family:monospace;font-size:13px;font-weight:900;padding:2px 8px;border-radius:3px;border:1px solid rgba(0,0,0,0.35);transition:transform 0.2s ease;}
+.dossier-section.section-minimized .section-content-wrap{display:none !important;}
+.video-hub-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;}
+.video-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.video-card{background:var(--bg-card);border:1px solid var(--border-dark);padding:16px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;}
+.video-card h3{font-family:"Arial Black",sans-serif;font-size:15.5px;color:var(--accent-green);margin-bottom:8px;text-transform:uppercase;}
+.video-card p{font-size:14.5px;color:var(--text-muted);margin-bottom:12px;line-height:1.45;}
+.video-btn{display:inline-block;background:var(--youtube-red);color:#ffffff !important;text-decoration:none;font-weight:800;font-size:13.5px;padding:9px 16px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;box-shadow:0 2px 8px rgba(255,0,0,0.25);transition:background-color 0.15s ease-in-out;align-self:flex-start;cursor:pointer;}
+.video-btn:hover{background:#cc0000;}
+.video-note{color:var(--text-muted);font-size:12px;margin-top:10px;line-height:1.4;}
+.sitrep-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px 20px;font-size:15px;color:var(--text-main);}
+.sitrep-content-layout{display:flex;align-items:flex-start;gap:20px;}
+.sitrep-img-wrap{flex:0 0 auto;width:45%;max-width:65%;background:#060a08;border:1px solid rgba(0,230,118,0.35);border-radius:4px;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,0.75);cursor:pointer;transition:border-color 0.15s ease,transform 0.15s ease;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.sitrep-img-wrap:hover{border-color:var(--accent-green);transform:translateY(-1px);}
+.sitrep-img-wrap img{width:100%;height:auto;display:block;border-radius:3px;object-fit:contain;}
+.sitrep-text-col{flex:1 1 0%;min-width:0;display:flex;flex-direction:column;gap:12px;}
+@media (max-width:680px){.sitrep-content-layout{flex-direction:column;align-items:center;}
+.sitrep-img-wrap{width:100% !important;max-width:100% !important;}
+}
+.sitrep-quote{background:rgba(0,230,118,0.06);border-left:4px solid var(--accent-green);padding:12px 16px;font-style:italic;color:var(--text-gold);font-weight:700;font-size:15.5px;}
+.featured-full-box{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;}
+.featured-items-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:10px 16px;background:var(--bg-card);border:1px solid var(--border-dark);padding:16px;font-size:14px;}
+.featured-items-list li{position:relative;padding-left:18px;color:var(--text-main);}
+.featured-items-list li::before{content:"■";position:absolute;left:0;color:var(--accent-green);font-size:11px;}
+.mission-tracks-wrap{background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;padding:18px;display:flex;flex-direction:column;gap:18px;}
+.tracks-side-by-side-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch;}
+@media (max-width:820px){.tracks-side-by-side-grid{grid-template-columns:1fr;}
+}
+.track-block{background:var(--bg-card);border:1px solid var(--border-dark);border-left:4px solid var(--accent-green);padding:16px;border-radius:3px;display:flex;flex-direction:column;justify-content:space-between;transition:opacity 0.2s ease,border-color 0.2s ease,box-shadow 0.2s ease;}
+.track-block.incursion{border-left-color:var(--text-cyan);}
+.track-block.tactical{border-left-color:var(--text-red);}
+.track-block.active-selected-track{box-shadow:0 0 18px rgba(0,230,118,0.16),inset 0 0 8px rgba(0,230,118,0.06);}
+.track-block.inactive-track{opacity:0.6;}
+.track-header-line{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.track-title{font-family:"Arial Black",sans-serif;font-size:15px;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+.track-desc{font-size:14px;color:var(--text-main);margin-bottom:12px;line-height:1.45;}
+.mini-xp-table{width:100%;border-collapse:collapse;font-size:13.5px;background:#0b1118;border:1px solid var(--border-dark);}
+.mini-xp-table th,.mini-xp-table td{padding:8px 10px;border-bottom:1px solid #16241c;}
+.mini-xp-table th{background:#09110d;color:var(--text-muted);font-family:monospace;font-size:11px;text-transform:uppercase;text-align:left;}
+.mini-xp-table td.xp-val{text-align:right;color:var(--text-gold);font-family:monospace;font-weight:800;white-space:nowrap;}
+.mini-xp-table tr.locked-bonus-row{opacity:0.42;}
+.set-run-summary-strip{margin-top:12px;background:#080d0b;border:1px solid var(--border-dark);border-top:2px solid var(--text-cyan);border-radius:3px;padding:10px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;}
+.set-run-metric-lbl{font-family:monospace;font-size:10.5px;color:var(--text-muted);text-transform:uppercase;font-weight:700;}
+.set-run-metric-val{font-family:monospace;font-size:16px;font-weight:900;color:var(--text-cyan);margin-top:2px;}
+.proving-grounds-subbox{background:#0e1612;border:1px solid var(--border-dark);border-left:4px solid var(--text-orange);padding:16px;border-radius:3px;display:flex;flex-direction:column;gap:12px;width:100%;}
+.pg-chests-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media (max-width:720px){.pg-chests-grid{grid-template-columns:1fr;}
+}
+.chest-tier-card{border:1px solid var(--border-dark);border-radius:3px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.chest-tier-card.active-multiplier{box-shadow:0 0 14px rgba(255,215,0,0.35);border-color:var(--text-gold);}
+.chest-tier-head{padding:8px 12px;font-family:"Arial Black",sans-serif;font-size:12.5px;text-transform:uppercase;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.chest-none .chest-tier-head{background:#1f2937;color:#e5e7eb;}
+.chest-bronze .chest-tier-head{background:#cd7f32;color:#ffffff;}
+.chest-silver .chest-tier-head{background:#c0c0c0;color:#000000;}
+.chest-gold .chest-tier-head{background:#ffd700;color:#000000;}
+.chest-tier-body{background:var(--bg-card);padding:10px 12px;font-size:13px;color:var(--text-main);flex:1;}
+.calc-toolbar{background:#0e1913;border:1px solid var(--border-dark);border-top:none;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.btn-calc-action{background:#14241b;border:1px solid var(--accent-green);color:var(--accent-green);font-weight:800;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all 0.15s ease-in-out;display:inline-flex;align-items:center;gap:5px;}
+.btn-calc-action:hover{background:var(--primary-color);color:#000;}
+.btn-calc-action.btn-cyan{border-color:var(--text-cyan);color:var(--text-cyan);}
+.btn-calc-action.btn-cyan:hover{background:var(--text-cyan);color:#000;}
+.btn-calc-action.btn-gold{border-color:var(--text-gold);color:var(--text-gold);}
+.btn-calc-action.btn-gold:hover{background:var(--text-gold);color:#000;}
+.calc-hud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;padding:16px;background:var(--bg-inner);border-left:1px solid var(--border-dark);border-right:1px solid var(--border-dark);}
+.calc-stat-card{background:#0e1612;border:1px solid var(--border-dark);border-top:3px solid var(--stat-accent,var(--accent-green));border-radius:4px;padding:12px;text-align:center;}
+.calc-stat-lbl{font-family:monospace;font-size:11.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;}
+.calc-stat-val{font-family:monospace;font-size:23px;font-weight:900;margin-top:4px;color:var(--stat-accent,var(--accent-green));}
+.calc-stat-sub{font-family:monospace;font-size:11.5px;color:var(--text-muted);margin-top:3px;}
+.calc-bank-strip{background:#080d0b;border:1px solid var(--border-dark);border-top:none;padding:12px 16px;display:flex;flex-direction:column;gap:10px;}
+.calc-bank-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.calc-progress-track{width:100%;height:10px;background:#030504;border:1px solid var(--border-dark);border-radius:5px;overflow:hidden;}
+.calc-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#00bf63 0%,#38bdf8 100%);transition:width 0.2s ease;}
+.calc-presets-bar{background:#0b130f;border:1px solid var(--border-dark);border-top:none;padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.preset-pill-btn{background:#14241b;border:1px solid var(--border-dark);color:var(--text-main);font-size:11.5px;font-weight:800;padding:6px 11px;border-radius:3px;cursor:pointer;text-transform:uppercase;transition:all 0.15s ease;display:inline-flex;align-items:center;gap:5px;}
+.preset-pill-btn:hover{border-color:var(--accent-green);color:var(--accent-green);}
+.preset-pill-btn.addon-active{background:rgba(0,230,118,0.2);border-color:var(--accent-green);color:#ffffff;box-shadow:0 0 10px rgba(0,230,118,0.3);}
+.data-table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;}
+.data-table th,.data-table td{padding:10px 12px;border-bottom:1px solid #16241c;border-right:1px solid #16241c;vertical-align:middle;}
+.data-table th:last-child,.data-table td:last-child{border-right:none;}
+.data-table th{background:var(--bg-card);color:var(--accent-green);text-transform:uppercase;font-size:13px;letter-spacing:0.5px;font-weight:800;}
+.data-table tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+.data-table tr.unchecked-prize-row{opacity:0.42;}
+.qty-stepper{display:inline-flex;align-items:center;gap:4px;}
+.qty-step-btn{background:#182920;border:1px solid var(--border-dark);color:#fff;font-family:monospace;font-weight:900;font-size:12px;width:24px;height:26px;border-radius:3px;cursor:pointer;}
+.qty-step-btn:hover{background:var(--accent-green);color:#000;}
+.qty-input-box{width:48px;height:26px;background:#050806;border:1px solid var(--border-dark);color:var(--accent-green);text-align:center;font-family:monospace;font-weight:800;font-size:13px;border-radius:3px;}
+.store-unit-link{color:var(--text-main);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;}
+.store-unit-link:hover{color:var(--accent-green);text-decoration:underline;}
+.img-db-badge{display:inline-flex;align-items:center;gap:4px;font-family:monospace;font-size:10.5px;font-weight:800;color:var(--accent-green);background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.35);padding:2px 6px;border-radius:3px;text-transform:uppercase;}
+.unit-gallery-dynamic{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,255px));gap:18px;padding:20px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;justify-content:center;}
+.unit-gallery-4col{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px;padding:18px;background:var(--bg-inner);border:1px solid var(--border-dark);border-top:none;}
+.unit-poster-card{background:var(--bg-card);border:1px solid rgba(0,230,118,0.35);padding:10px;border-radius:4px;display:flex;flex-direction:column;align-items:center;text-decoration:none;cursor:pointer;transition:transform 0.15s ease,border-color 0.15s ease,box-shadow 0.15s ease;}
+.unit-poster-card:hover{border-color:var(--accent-green);box-shadow:0 0 18px rgba(0,230,118,0.4);transform:translateY(-2px);}
+.unit-poster-card.enemy-card{border-color:rgba(255,82,82,0.45);}
+.unit-poster-card.enemy-card:hover{border-color:var(--text-red);box-shadow:0 0 16px rgba(255,82,82,0.35);}
+.unit-poster-frame{width:100%;aspect-ratio:4 / 5;background:#060a08;border:1px solid var(--border-dark);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.unit-poster-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.unit-poster-title{margin-top:10px;font-family:"Arial Black",sans-serif;font-size:14.5px;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.8px;text-align:center;}
+.unit-poster-sub{margin-top:3px;font-family:monospace;font-size:11.5px;color:var(--text-gold);font-weight:800;text-transform:uppercase;text-align:center;}
+.unit-poster-caption{padding:10px 6px 4px 6px;text-align:center;width:100%;}
+.unit-poster-caption h4{color:var(--text-red);font-family:"Arial Black",sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.unit-poster-caption .hvt-badge{display:inline-block;color:var(--text-gold);background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.4);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:800;margin-bottom:6px;}
+.unit-poster-caption p{color:var(--text-main);font-size:13px;line-height:1.4;}
+.use-or-lose-bottom-banner{border:2px solid var(--text-red);background:rgba(255,82,82,0.1);color:#fca5a5;padding:16px 20px;margin:0 20px 24px 20px;font-size:14.5px;font-weight:800;text-align:center;letter-spacing:0.8px;text-transform:uppercase;border-radius:3px;box-shadow:0 0 16px rgba(255,82,82,0.2);}
+.side-quick-rail{position:absolute;right:18px;bottom:20px;z-index:60;display:flex;flex-direction:column;gap:6px;}
+.dossier-card.archive-collapsed .side-quick-rail{display:none;}
+.side-rail-btn{background:rgba(14,25,19,0.92);border:1px solid var(--accent-green);color:var(--accent-green);font-family:monospace;font-size:11px;font-weight:900;padding:6px 10px;border-radius:4px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.8);text-transform:uppercase;transition:all 0.15s ease;}
+.side-rail-btn:hover{background:var(--accent-green);color:#000;}
+.side-rail-btn.gold{border-color:var(--text-gold);color:var(--text-gold);}
+.side-rail-btn.gold:hover{background:var(--text-gold);color:#000;}
+.wtr-hover-preview-pod{position:fixed;z-index:100005;pointer-events:none;display:none;background:rgba(9,14,11,0.98);border:2px solid var(--accent-green);border-radius:6px;padding:10px;box-shadow:0 12px 35px rgba(0,0,0,0.95),0 0 20px rgba(0,230,118,0.35);flex-direction:column;gap:8px;width:240px;}
+.wtr-hover-preview-pod.show{display:flex;}
+.hover-pod-header{font-family:"Arial Black",sans-serif;font-size:11.5px;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #1f3b2b;padding-bottom:4px;text-align:center;}
+.hover-pod-frame{width:100%;aspect-ratio:4 / 5;background:#000;border:1px solid rgba(0,230,118,0.4);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hover-pod-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.hover-pod-sub{font-family:monospace;font-size:11px;color:var(--text-gold);text-align:center;font-weight:800;}
+.hover-pod-footer{font-family:monospace;font-size:10px;color:var(--text-cyan);text-align:center;font-weight:800;background:rgba(56,189,248,0.1);padding:4px;border-radius:3px;}
+.wtr-overlay-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(4,8,6,0.9);backdrop-filter:blur(4px);z-index:100010;display:none;align-items:center;justify-content:center;padding:18px;}
+.wtr-overlay-modal.open{display:flex;}
+.wtr-overlay-window{width:100%;max-width:1060px;max-height:92vh;background:#0d1210;border:2px solid var(--accent-green);border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.95),0 0 30px rgba(0,230,118,0.25);display:flex;flex-direction:column;overflow:hidden;}
+.wtr-overlay-topbar{background:linear-gradient(90deg,#0f2419 0%,#09120d 100%);border-bottom:2px solid var(--border-dark);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.wtr-overlay-title{font-family:"Arial Black",sans-serif;font-size:15px;color:var(--accent-green);text-transform:uppercase;letter-spacing:1.2px;}
+.wtr-overlay-actions{display:flex;align-items:center;gap:10px;}
+.wtr-overlay-close-btn{background:#dc2626;border:1px solid #fca5a5;color:#fff;font-family:monospace;font-size:12.5px;font-weight:900;padding:7px 14px;border-radius:3px;cursor:pointer;text-transform:uppercase;}
+.wtr-overlay-close-btn:hover{background:#ef4444;}
+.wtr-overlay-content{padding:20px;overflow-y:auto;flex:1;}
+.overlay-unit-grid{display:grid;grid-template-columns:240px 1fr 1.2fr;gap:20px;}
+@media (max-width:820px){.overlay-unit-grid{grid-template-columns:1fr;}
+}
+.overlay-stats-table{width:100%;border-collapse:collapse;font-size:14px;}
+.overlay-stats-table td{padding:6px 8px;border-bottom:1px solid #16241c;}
+.overlay-stats-lbl{color:var(--text-muted);font-weight:700;width:48%;}
+.overlay-stats-val{color:#fff;font-family:monospace;text-align:right;}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--accent-green);width:16px;height:16px;cursor:pointer;}
+</style>
+</head>
+<!-- ==================== END BLOCK 1: HEAD & CSS STYLES ==================== -->
+<!-- ==================== START BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
+<body>
+<!-- ==================== UNIVERSAL FLOATING HOVER THUMBNAIL POD ==================== -->
+<div class="wtr-hover-preview-pod" id="wtrHoverPreviewPod">
+<div class="hover-pod-header" id="hoverPodTitle">PREVIEW</div>
+<div class="hover-pod-frame"><img id="hoverPodImg" src="" alt="Thumbnail"></div>
+<div class="hover-pod-sub" id="hoverPodSub">WATCHTOWER INTEL</div>
+<div class="hover-pod-footer">🖱️ CLICK TO OPEN OVERLAY</div>
+</div>
+<!-- ==================== IN-PAGE FULL OVERLAY MODAL ==================== -->
+<div class="wtr-overlay-modal" id="wtrInPageOverlayModal" onclick="if(event.target===this) closeInPageOverlay()">
+<div class="wtr-overlay-window">
+<div class="wtr-overlay-topbar">
+<span class="wtr-overlay-title" id="overlayModalTitle">🖥️ WATCHTOWER INTEL OVERLAY</span>
+<div class="wtr-overlay-actions">
+<a id="overlayExternalBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-calc-action btn-cyan" style="text-decoration: none;">↗ Open Full Page in New Tab</a>
+<button type="button" class="wtr-overlay-close-btn" onclick="closeInPageOverlay()">✕ Close Overlay</button>
+</div>
+</div>
+<div class="wtr-overlay-content" id="overlayModalBody"></div>
+</div>
+</div>
+<!-- ==================== END BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
+<!-- ==================== START BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05 WITH GENERAL VS CONQUEROR TRACKS) ==================== -->
+<div id="dossier-view" style="width: 100%;">
+<div id="main-export-sector-breach" class="dossier-card" data-store-close="2026-11-25T10:00:00-08:00">
+<!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
+<div class="locked-top-hud">
+<div class="classification-bar">
+<span class="class-bar-corner-stamp" id="displayCornerStampTop">NOV 2026</span>
+<span id="displayClassBarTop">UNCLASSIFIED // SECTOR BREACH TACTICAL BRIEF</span>
+<button type="button" class="archive-collapse-btn" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
+<span id="archiveToggleIcon">▼</span>
+<span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
+</button>
+</div>
+<!-- Instant File-Folder Tab Locator Bar -->
+<nav class="file-tabs-rail" aria-label="Instant Section Locators">
+<div class="file-tabs-group">
+<button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
+<span class="tab-idx">01</span><span id="displayTab01Label">TOP</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToDossierSection('secVideoRecon', this)">
+<span class="tab-idx">02</span><span id="displayTab02Label">VIDEO RECON</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToDossierSection('secSitrep', this)">
+<span class="tab-idx">03</span><span id="displayTab03Label">SITREP</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToDossierSection('secFeatured', this)">
+<span class="tab-idx">04</span><span id="displayTab04Label">FEATURED</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToDossierSection('secMissionTracks', this)">
+<span class="tab-idx">05</span><span id="displayTab05Label">BREACH TRACKS</span>
+</button>
+<button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToDossierSection('integratedStoreCalcSection', this)">
+<span class="tab-idx">06</span><span id="displayTab06Label">🧮 STORE &amp; CALC</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToDossierSection('secNewUnits', this)">
+<span class="tab-idx">07</span><span id="displayTab07Label">NEW UNITS</span>
+</button>
+<button type="button" class="file-tab-btn" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToDossierSection('secUpdatedUnits', this)">
+<span class="tab-idx">08</span><span id="displayTab08Label">UPDATED UNITS</span>
+</button>
+<button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToDossierSection('secEnemyForces', this)">
+<span class="tab-idx">09</span><span id="displayTab09Label">CHALLENGES</span>
+</button>
+</div>
+<button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
+<span>↕ FULL PAGE</span>
+</button>
+</nav>
+</div>
+<!-- ==================== SELF-CONTAINED SCROLLING VIEWPORT ==================== -->
+<div class="brief-scroll-viewport" id="briefScrollViewport">
+<!-- SECTION 01: HEADER WITH INLINE EDITOR CHECKBOX -->
+<header class="event-header" id="secTopHeader">
+<div class="header-left-wrap">
+<a class="header-logo-link"
+id="wtrHomeLogoLink"
+href="https://sites.google.com/view/watchtower-data-hub/home"
+target="_blank"
+rel="noopener noreferrer"
+data-no-overlay="true"
+title="Return to [-WTR-] Data Hub Home">
+<img id="displayWtrLogoImg" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem" class="header-logo-img">
+</a>
+<div class="event-header-text">
+<div class="event-sub-tag"><span id="displayHeaderPrefix">[-WTR-] DATA HUB</span> |
+<a id="displaySourceLink"
+href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1041-sector-breach-october-2026/"
+data-preview-title="KIXEYE OFFICIAL SECTOR BREACH RELEASE NOTES"
+data-preview-sub="External KIXEYE Help Center"
+data-preview-img="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> |
+<a id="displayCalcJumpLink"
+href="javascript:void(0)"
+data-no-overlay="true"
+onclick="jumpToDossierSection('integratedStoreCalcSection')"
+style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
+</div>
+<div class="event-title-row">
+<h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">SECTOR BREACH</h1>
+</div>
+</div>
+</div>
+<div class="event-meta-box event-meta">
+<div class="meta-line">
+<strong id="displaySchedStartLabel" style="color: var(--text-cyan);">Starts:</strong>
+<span id="displaySchedStart">THU OCT 16, 2026 @ 10:00 AM PDT</span>
+</div>
+<div class="meta-line">
+<strong id="displaySchedEndLabel" style="color: var(--text-gold);">Ends:</strong>
+<span id="displaySchedEnd">WED OCT 20, 2026 @ 10:00 AM PDT</span>
+</div>
+<div class="meta-line">
+<strong id="displaySchedStoreLabel" style="color: var(--text-orange);">Store Closes:</strong>
+<span id="displaySchedStore">THU OCT 21, 2026 @ 10:00 AM PDT</span>
+</div>
+</div>
+</header>
+<!-- Collapsible Brief Content -->
+<div id="briefCollapsibleBody" class="brief-collapsible-body">
+<!-- SECTION 02: VIDEO RECON & GUIDES -->
+<section class="dossier-section" id="secVideoRecon">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarVideoTitle">VIDEO RECON &amp; GUIDES</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarVideoSub">YouTube Tactical Search (Direct Pop-Out)</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="video-hub-box">
+<div class="video-hub-grid">
+<div class="video-card">
+<div>
+<h3 id="displayVid1Title">Top Tier Guides</h3>
+<p id="displayVid1Desc">Actionable, zero-fluff content featuring clear step-by-step breakdowns covering Sector Breach Assault Platoons, Conqueror base pathing, and turret killzone strategies.</p>
+</div>
+<div>
+<a id="displayVidTopTier"
+href="https://www.youtube.com/results?search_query=War+Commander+Sector+Breach+%22Project_d88%22&amp;sp=EgIIAw%253D%253D"
+target="_blank"
+rel="noopener noreferrer"
+data-no-overlay="true"
+class="video-btn">▶ Top Tier YouTube Videos</a>
+<div class="video-note" id="displayVid1Note"><strong>Note:</strong> Quality videos take time to produce. If you don't see any content listed right away, please check back later.</div>
+</div>
+</div>
+<div class="video-card">
+<div>
+<h3 id="displayVid2Title">Watch Me Play</h3>
+<p id="displayVid2Desc">Casual gameplay runs and general Sector Breach Conqueror &amp; General track playthrough recordings set to background music from community creators.</p>
+</div>
+<div>
+<a id="displayVidWatchMe"
+href="https://www.youtube.com/results?search_query=War+Commander+Sector+Breach+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%253D%253D"
+target="_blank"
+rel="noopener noreferrer"
+data-no-overlay="true"
+class="video-btn">▶ Watch Me Play Videos</a>
+<div class="video-note" id="displayVid2Note"><strong>Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 03: SITUATION REPORT (ADJUSTABLE PICTURE FRAME + DOUBLE-SPACE LINE BREAKS) -->
+<section class="dossier-section" id="secSitrep">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarSitrepTitle">SITUATION REPORT &amp; BREACH BRIEFING</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarSitrepSub">Operational Intelligence &amp; Rogue Base Rules</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="sitrep-box">
+<div class="sitrep-content-layout" id="sitrepContentLayout">
+<div class="sitrep-img-wrap" id="displaySitrepImgWrap" onclick="openGenericLinkOverlay(masterState.mainTitle + ' // SITUATION REPORT', masterState.sitrepLead, masterState.sitrepImgUrl, '')">
+<img id="displaySitrepImg" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb" alt="Sector Breach Situation Report" onload="syncSitrepImageSizing()">
+</div>
+<div class="sitrep-text-col" id="displaySitrepTextCol">
+<p id="displaySitrepLead"></p>
+<div class="sitrep-quote" id="displaySitrepQuote"></div>
+<p id="displaySitrepBody"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 04: FEATURED ITEMS -->
+<section class="dossier-section" id="secFeatured">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarFeaturedTitle">FEATURED ITEMS</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarFeaturedSub">Sector Breach Store Highlights</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="featured-full-box">
+<ul class="featured-items-list" id="displayFeaturedItemsList"></ul>
+</div>
+</div>
+</section>
+<!-- SECTION 05: SECTOR BREACH TRACKS (GENERAL VS CONQUEROR) & CALCULATOR VARIABLES -->
+<section class="dossier-section" id="secMissionTracks">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarTracksTitle">BREACH TRACKS &amp; CALCULATOR VARIABLES</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarTracksSub">Compare General Set (61K XP) vs. Conqueror Set (164K XP) &amp; Active Boosts</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="mission-tracks-wrap">
+<!-- Side-by-Side: General Base Set vs Conqueror Base Set -->
+<div class="tracks-side-by-side-grid">
+<!-- Left Set: General Base Set -->
+<div class="track-block incursion inactive-track" id="trackBlockIncursion">
+<div>
+<div class="track-header-line">
+<label class="track-title" style="color: var(--text-cyan);">
+<input type="radio" name="activeCalcTrack" value="GENERAL" onchange="setActiveCalcTrack('GENERAL')">
+<span id="displayIncTitle">General Base Set (3-Base Set)</span>
+</label>
+<button type="button" class="preset-pill-btn" id="btnToggleAllIncBases" onclick="toggleAllTrackBases('GENERAL')">Toggle All 3</button>
+</div>
+<p class="track-desc" id="displayIncDesc"></p>
+<table class="mini-xp-table">
+<thead>
+<tr>
+<th style="width: 38px; text-align: center;">Use</th>
+<th id="displayIncTableHeader">General Target</th>
+<th style="text-align: right;">Base XP</th>
+</tr>
+</thead>
+<tbody>
+<tr id="rowIncB1">
+<td style="text-align: center;"><input type="checkbox" id="chkIncB1" checked onchange="setActiveCalcTrack('GENERAL'); recalculateSectorBreach();"></td>
+<td id="displayIncB1Label">General Base I (Any Order)</td>
+<td class="xp-val" id="valIncB1Xp">5,500 XP</td>
+</tr>
+<tr id="rowIncB2">
+<td style="text-align: center;"><input type="checkbox" id="chkIncB2" checked onchange="setActiveCalcTrack('GENERAL'); recalculateSectorBreach();"></td>
+<td id="displayIncB2Label">General Base II (Any Order)</td>
+<td class="xp-val" id="valIncB2Xp">5,500 XP</td>
+</tr>
+<tr id="rowIncB3">
+<td style="text-align: center;"><input type="checkbox" id="chkIncB3" checked onchange="setActiveCalcTrack('GENERAL'); recalculateSectorBreach();"></td>
+<td id="displayIncB3Label">General Base III (Any Order)</td>
+<td class="xp-val" id="valIncB3Xp">10,000 XP</td>
+</tr>
+<tr id="rowIncBonus">
+<td style="text-align: center;"><input type="checkbox" id="chkIncBonus" checked disabled></td>
+<td><strong id="displayIncBonusLabel" style="color: #ffffff;">General Set Completion Bonus (All Active Bases)</strong></td>
+<td class="xp-val" id="valIncBonus">40,000 XP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="set-run-summary-strip" style="border-top-color: var(--text-cyan);">
+<div>
+<div class="set-run-metric-lbl">General Set XP</div>
+<div class="set-run-metric-val" style="color: var(--text-cyan);" id="cmpIncXp">61,000</div>
+</div>
+<div>
+<div class="set-run-metric-lbl">General Sets Needed</div>
+<div class="set-run-metric-val" id="cmpIncRuns">17</div>
+</div>
+<div>
+<div class="set-run-metric-lbl">Daily Pace</div>
+<div class="set-run-metric-val" id="cmpIncDaily">4.3 / d</div>
+</div>
+</div>
+</div>
+<!-- Right Set: Conqueror Base Set -->
+<div class="track-block tactical active-selected-track" id="trackBlockTactical">
+<div>
+<div class="track-header-line">
+<label class="track-title" style="color: var(--text-red);">
+<input type="radio" name="activeCalcTrack" value="CONQUEROR" checked onchange="setActiveCalcTrack('CONQUEROR')">
+<span id="displayTacTitle">Conqueror Base Set (3-Base Elite Set)</span>
+</label>
+<button type="button" class="preset-pill-btn" id="btnToggleAllTacBases" onclick="toggleAllTrackBases('CONQUEROR')">Toggle All 3</button>
+</div>
+<p class="track-desc" id="displayTacDesc"></p>
+<table class="mini-xp-table">
+<thead>
+<tr>
+<th style="width: 38px; text-align: center;">Use</th>
+<th id="displayTacTableHeader">Conqueror Target</th>
+<th style="text-align: right;">Base XP</th>
+</tr>
+</thead>
+<tbody>
+<tr id="rowTacB1">
+<td style="text-align: center;"><input type="checkbox" id="chkTacB1" checked onchange="setActiveCalcTrack('CONQUEROR'); recalculateSectorBreach();"></td>
+<td id="displayTacB1Label">Conqueror Base I (Any Order)</td>
+<td class="xp-val" id="valTacB1Xp">17,000 XP</td>
+</tr>
+<tr id="rowTacB2">
+<td style="text-align: center;"><input type="checkbox" id="chkTacB2" checked onchange="setActiveCalcTrack('CONQUEROR'); recalculateSectorBreach();"></td>
+<td id="displayTacB2Label">Conqueror Base II (Any Order)</td>
+<td class="xp-val" id="valTacB2Xp">17,000 XP</td>
+</tr>
+<tr id="rowTacB3">
+<td style="text-align: center;"><input type="checkbox" id="chkTacB3" checked onchange="setActiveCalcTrack('CONQUEROR'); recalculateSectorBreach();"></td>
+<td id="displayTacB3Label">Conqueror Base III (Any Order)</td>
+<td class="xp-val" id="valTacB3Xp">30,000 XP</td>
+</tr>
+<tr id="rowTacBonus">
+<td style="text-align: center;"><input type="checkbox" id="chkTacBonus" checked disabled></td>
+<td><strong id="displayTacBonusLabel" style="color: #ffffff;">Conqueror Set Completion Bonus (All Active Bases)</strong></td>
+<td class="xp-val" id="valTacBonus">100,000 XP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="set-run-summary-strip" style="border-top-color: var(--text-red);">
+<div>
+<div class="set-run-metric-lbl">Conqueror Set XP</div>
+<div class="set-run-metric-val" style="color: var(--text-red);" id="cmpTacXp">164,000</div>
+</div>
+<div>
+<div class="set-run-metric-lbl">Conqueror Sets Needed</div>
+<div class="set-run-metric-val" id="cmpTacRuns">7</div>
+</div>
+<div>
+<div class="set-run-metric-lbl">Daily Pace</div>
+<div class="set-run-metric-val" id="cmpTacDaily">1.8 / d</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Optional XP Multiplier Selector -->
+<div class="proving-grounds-subbox">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+<span id="displayPgTitle" style="font-family: 'Arial Black', sans-serif; font-size: 15px; color: var(--text-orange); text-transform: uppercase;">Optional Event XP Boost Multiplier</span>
+<span id="displayPgRightSub" style="font-family: monospace; font-size: 12px; color: var(--text-gold); font-weight: 800;">SELECT ACTIVE XP MULTIPLIER (DEFAULT 1.0x)</span>
+</div>
+<p class="track-desc" id="displayPgDesc" style="margin-bottom: 4px;"></p>
+<div class="pg-chests-grid">
+<label class="chest-tier-card chest-none active-multiplier" id="cardMult10">
+<div class="chest-tier-head">
+<span><input type="radio" name="pgMultiplier" value="1.0" checked onchange="recalculateSectorBreach()"> <span id="displayChest10Title">STANDARD BREACH PAYOUT (DEFAULT)</span></span>
+<span>1.0x XP</span>
+</div>
+<div class="chest-tier-body" id="displayChest10Desc"></div>
+</label>
+<label class="chest-tier-card chest-bronze" id="cardMult12">
+<div class="chest-tier-head">
+<span><input type="radio" name="pgMultiplier" value="1.2" onchange="recalculateSectorBreach()"> <span id="displayChest12Title">1.2x XP BOOST ACTIVE</span></span>
+<span>1.2x XP BOOST</span>
+</div>
+<div class="chest-tier-body" id="displayChest12Desc"></div>
+</label>
+<label class="chest-tier-card chest-silver" id="cardMult15">
+<div class="chest-tier-head">
+<span><input type="radio" name="pgMultiplier" value="1.5" onchange="recalculateSectorBreach()"> <span id="displayChest15Title">1.5x XP BOOST ACTIVE</span></span>
+<span>1.5x XP BOOST</span>
+</div>
+<div class="chest-tier-body" id="displayChest15Desc"></div>
+</label>
+<label class="chest-tier-card chest-gold" id="cardMult20">
+<div class="chest-tier-head">
+<span><input type="radio" name="pgMultiplier" value="2.0" onchange="recalculateSectorBreach()"> <span id="displayChest20Title">2.0x DOUBLE XP BOOST ACTIVE</span></span>
+<span>2.0x XP BOOST</span>
+</div>
+<div class="chest-tier-body" id="displayChest20Desc"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== END BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05) ==================== -->
+<!-- ==================== START BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
+<!-- SECTION 06: INTEGRATED SECTOR BREACH STORE INVENTORY & INTERACTIVE CALCULATOR -->
+<section class="dossier-section" id="integratedStoreCalcSection">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarStoreTitle">SECTOR BREACH STORE &amp; INTERACTIVE CALCULATOR</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarStoreSub">Hover Any Unit for 4:5 Thumbnail • Click to Open In-Page Overlay</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<!-- Calculator Save / Load / Reset Bar -->
+<div class="calc-toolbar">
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+<span style="font-family: 'Arial Black', sans-serif; font-size: 13px; color: var(--accent-green); text-transform: uppercase;">🧮 LIVE SECTOR BREACH REQUISITION CALCULATOR</span>
+<span id="calcStatusToast" style="font-family: monospace; font-size: 12px; color: var(--text-gold); font-weight: 800;"></span>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<button type="button" class="btn-calc-action btn-cyan" onclick="exportSectorBreachCalcJson()">💾 Save Settings (.JSON)</button>
+<button type="button" class="btn-calc-action" onclick="document.getElementById('sectorBreachCalcFileInput').click()">📂 Load Settings (.JSON)</button>
+<button type="button" class="btn-calc-action btn-gold" onclick="resetSectorBreachCalcToDefault()">↺ Reset to Default</button>
+<input type="file" id="sectorBreachCalcFileInput" accept=".json" style="display: none;" onchange="importSectorBreachCalcJson(event)">
+</div>
+</div>
+<!-- 4-Card Live HUD Summary -->
+<div class="calc-hud-grid">
+<div class="calc-stat-card" style="--stat-accent: var(--accent-green);">
+<div class="calc-stat-lbl">Remaining XP Needed</div>
+<div class="calc-stat-val" id="hudRemainingXp">1,000,000</div>
+<div class="calc-stat-sub" id="hudTotalGoalSub">Selected Store Goal: 1,000,000 XP</div>
+</div>
+<div class="calc-stat-card" style="--stat-accent: var(--text-cyan);">
+<div class="calc-stat-lbl" id="hudActiveTrackLbl">Active Track (Conqueror)</div>
+<div class="calc-stat-val" id="hudActiveTrackXp">164,000 XP</div>
+<div class="calc-stat-sub" id="hudActiveMultSub">XP Multiplier: 1.0x</div>
+</div>
+<div class="calc-stat-card" style="--stat-accent: var(--text-red);">
+<div class="calc-stat-lbl">Total Set Runs Needed</div>
+<div class="calc-stat-val" id="hudTotalRuns">7</div>
+<div class="calc-stat-sub" id="hudAltTrackRunsSub">General Alt: 17 runs</div>
+</div>
+<div class="calc-stat-card" style="--stat-accent: var(--text-gold);">
+<div class="calc-stat-lbl" id="hudDailyPaceLbl">Daily Run Pace (4 Days)</div>
+<div class="calc-stat-val" id="hudDailyPace">1.8 / Day</div>
+<div class="calc-stat-sub" id="hudDailyXpSub">250,000 XP / day (4d)</div>
+</div>
+</div>
+<!-- Current Banked XP & Progress Bar -->
+<div class="calc-bank-strip">
+<div class="calc-bank-row">
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+<span style="font-family: monospace; font-size: 12px; font-weight: 900; color: var(--text-gold); text-transform: uppercase;">⚡ Current Event XP Banked:</span>
+<input type="number" id="calcBankedXpInput" min="0" step="1000" value="0" oninput="recalculateSectorBreach()" style="background: #050806; border: 1px solid var(--text-gold); color: #fff; font-family: monospace; font-weight: 900; padding: 5px 8px; width: 135px; text-align: right; border-radius: 3px;">
+<button type="button" class="btn-calc-action btn-gold" onclick="logOneCompletedSectorBreachRun()">+1 Completed Set (<span id="btnLogRunXp">+164,000</span>)</button>
+<button type="button" class="btn-calc-action" onclick="document.getElementById('calcBankedXpInput').value=0; recalculateSectorBreach();">Clear Bank</button>
+</div>
+<span id="calcProgressText" style="font-family: monospace; font-size: 12px; font-weight: 800; color: var(--text-cyan);">0% OF GOAL COMPLETED (0 / 1,000,000 XP)</span>
+</div>
+<div class="calc-progress-track">
+<div class="calc-progress-fill" id="calcProgressFill" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Dynamic Additive Quick Filter Add-On Pills & Smart Part Bundle Presets -->
+<div class="calc-presets-bar" id="dynamicAddonPillsBar"></div>
+<!-- Interactive Event Store Table -->
+<div style="overflow-x: auto;">
+<table class="data-table">
+<thead>
+<tr>
+<th style="width: 46px; text-align: center;">Use</th>
+<th style="text-align: left; width: 44%;">Item Designation (Hover for Thumbnail • Click for Overlay)</th>
+<th style="text-align: center; width: 20%;">Qty / Max Limit</th>
+<th style="text-align: right; width: 15%;">XP Cost</th>
+<th style="text-align: right; width: 15%;">Needed XP</th>
+</tr>
+</thead>
+<tbody id="sectorBreachStoreTbody"></tbody>
+<tfoot>
+<tr style="background: #070c09; font-weight: 900; border-top: 2px solid var(--border-dark);">
+<td colspan="3" style="text-align: right; font-family: monospace; color: var(--text-muted);">FULL STORE VALUE: <span id="storeFullValueTotal" style="color: #ffffff;">9,250,000</span> XP</td>
+<td style="text-align: right; font-family: monospace; color: var(--text-gold);">SELECTED GOAL:</td>
+<td id="storeSelectedGoalTotal" style="text-align: right; font-family: monospace; color: var(--accent-green); font-size: 15.5px;">1,000,000</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</section>
+<!-- SECTION 07: NEW FEATURED UNIT FOR THIS EVENT -->
+<section class="dossier-section" id="secNewUnits">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarNewUnitsTitle">NEW UNITS FOR THIS EVENT</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarNewUnitsSub">Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="unit-gallery-dynamic" id="newUnitsGalleryGrid"></div>
+</div>
+</section>
+<!-- SECTION 08: NEWLY UPDATED / SECONDARY UNITS -->
+<section class="dossier-section" id="secUpdatedUnits">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarUpdatedUnitsTitle">FEATURED &amp; UPDATED UNITS</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarUpdatedUnitsSub">Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="unit-gallery-dynamic" id="updatedUnitsGalleryGrid"></div>
+</div>
+</section>
+<!-- SECTION 09: SECTOR BREACH TACTICAL CHALLENGES & ROGUE BASE RULES (REPLACES ENEMY FORCES) -->
+<section class="dossier-section" id="secEnemyForces">
+<div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+<span id="displayBarEnemyTitle">TACTICAL CHALLENGES &amp; ROGUE BASE RULES</span>
+<div class="section-header-right">
+<span class="subtext" id="displayBarEnemySub">Sarkis Cloned Rogue Player Bases, Assault Platoons &amp; Set Completion Rules</span>
+<span class="section-min-arrow">▼</span>
+</div>
+</div>
+<div class="section-content-wrap">
+<div class="unit-gallery-4col" id="enemyForcesGalleryGrid"></div>
+</div>
+</section>
+<!-- USE IT OR LOSE IT AT THE VERY BOTTOM -->
+<div class="use-or-lose-bottom-banner" id="secUseOrLoseBanner">
+<div style="display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap;">
+<span id="displayWarningLeadText">⚠️ "USE IT OR LOSE IT" GRACE PERIOD IS ONLY 24 HOURS!</span>
+</div>
+PLEASE REDEEM ALL <span id="displayWarningEventName">SECTOR BREACH</span> XP PRIZES BY <span id="displayAlertDeadline" style="color: #ffffff; text-decoration: underline;">THURSDAY, OCTOBER 21, 2026 @ 10:00 AM PDT</span>.
+</div>
+</div>
+</div><!-- End Self-Contained Scrolling Viewport -->
+<!-- Floating Quick-Return Rail -->
+<div class="side-quick-rail">
+<button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('integratedStoreCalcSection')" title="Jump to Store & Calculator">🧮 CALC</button>
+<button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
+</div>
+</div>
+</div>
+<!-- ==================== END BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09) ==================== -->
+<!-- ==================== START BLOCK 5: JAVASCRIPT INLINE STUDIO & SECTOR BREACH CALCULATOR ENGINE ==================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+const MASTER_DB_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSk379392GW3-f73jQm1B1A12e1363_254k27j2-94k31767312904/pub?gid=1954434424&single=true&output=csv";
+const WTR_DATA_HUB_BASE = "https://sites.google.com/view/watchtower-data-hub/data-hub";
+const STORAGE_KEY_MASTER_CONFIG = "wtr_sector_breach_inline_studio_v10_2_config";
+const STORAGE_KEY_CALC_STATE    = "wtr_sector_breach_nov2026_calc_v10_2";
+const ARCHIVE_COLLAPSE_STORAGE_KEY = "wtr_sector_breach_nov2026_archive_collapsed";
+const BUILTIN_UNIT_ROSTER = {
+"JUGGERNAUT": {
+name: "JUGGERNAUT",
+faction: "RETALIATORS",
+unitType: "Unique Heavy Infantry",
+imageUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb",
+unlockCost: "100 Legendary Parts (1,000,000 XP)",
+upgradeCallout: "45 Upgrade Tokens (2,250,000 XP)",
+specialAbilities: "Manual Override, Armored Crest, Fallout, Adaptive Protocol",
+notes: "October 2026 Sector Breach Flagship Legendary Unit. Parts available in 1-Pack (10,000 XP), 4-Pack (40,000 XP), and 10-Pack (100,000 XP) bundles."
+},
+"WARLORD STORMWAIL": {
+name: "WARLORD STORMWAIL",
+faction: "VORTEX",
+unitType: "Warlord Heavy Aircraft",
+imageUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+unlockCost: "Event Store / Warlord Roster",
+upgradeCallout: "20 Warlord Upgrade Tokens (125,000 XP Each)",
+specialAbilities: "Tempest Barrage, High-Altitude Suppression, Warlord Plating",
+notes: "Featured Warlord upgrade target in the October 2026 Sector Breach Store (20 Tokens @ 125,000 XP each = 2,500,000 XP)."
+},
+"BANSHEE": {
+name: "LEGENDARY BANSHEE",
+faction: "PHANTOM",
+unitType: "Legendary Aircraft",
+imageUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+unlockCost: "Sector Breach / Event Archive",
+upgradeCallout: "Legendary Upgrade Tokens",
+specialAbilities: "Sonic Shriek, Evasive Thrusters, Precision Strike",
+notes: "Secondary featured Legendary unit in Sector Breach."
+},
+"WARLORD ROLLER": {
+name: "WARLORD ROLLER",
+faction: "SENTINEL",
+unitType: "Warlord Heavy Vehicle",
+imageUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+unlockCost: "Sector Breach / Event Archive",
+upgradeCallout: "Warlord Upgrade Tokens",
+specialAbilities: "Crushing Momentum, Reinforced Hull, Siege Breaker",
+notes: "Secondary featured Warlord unit in Sector Breach."
+}
+};
+let masterDbUnitsMap = { ...BUILTIN_UNIT_ROSTER };
+let masterDbUnitNames = Object.keys(BUILTIN_UNIT_ROSTER).sort();
+let masterState = {
+startCollapsedArchive: false,
+showVideo: true,
+showSitrep: true,
+showFeatured: true,
+showTracks: true,
+showStore: true,
+showNewUnits: true,
+showUpdatedUnits: true,
+showEnemyForces: true,
+showWarning: true,
+cornerStamp: "NOV 2026",
+classBar: "UNCLASSIFIED // SECTOR BREACH TACTICAL BRIEF",
+mainTitle: "SECTOR BREACH",
+eventDays: 4,
+headerPrefix: "[-WTR-] DATA HUB",
+sourceLinkLabel: "Data Source ↗",
+calcJumpLabel: "Interactive Store Calculator ↓",
+sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1041-sector-breach-october-2026/",
+wtrLogoImg: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+wtrLogoHref: "https://sites.google.com/view/watchtower-data-hub/home",
+schedStartLabel: "Starts:",
+schedStart: "THU OCT 16, 2026 @ 10:00 AM PDT",
+schedEndLabel: "Ends:",
+schedEnd: "WED OCT 20, 2026 @ 10:00 AM PDT",
+schedStoreLabel: "Store Closes:",
+schedStore: "THU OCT 21, 2026 @ 10:00 AM PDT",
+tab01Label: "TOP",
+tab02Label: "VIDEO RECON",
+tab03Label: "SITREP",
+tab04Label: "FEATURED",
+tab05Label: "BREACH TRACKS",
+tab06Label: "🧮 STORE & CALC",
+tab07Label: "NEW UNITS",
+tab08Label: "UPDATED UNITS",
+tab09Label: "CHALLENGES",
+barVideoTitle: "VIDEO RECON & GUIDES",
+barVideoSub: "YouTube Tactical Search (Direct Pop-Out)",
+vid1Title: "Top Tier Guides",
+vid1Desc: "Actionable, zero-fluff content featuring clear step-by-step breakdowns covering Sector Breach Assault Platoons, Conqueror base pathing, and turret killzone strategies.",
+vid1BtnText: "▶ Top Tier YouTube Videos",
+vidTopTier: "https://www.youtube.com/results?search_query=War+Commander+Sector+Breach+%22Project_d88%22&sp=EgIIAw%253D%253D",
+vid1Note: "**Note:** Quality videos take time to produce. If you don't see any content listed right away, please check back later.",
+vid2Title: "Watch Me Play",
+vid2Desc: "Casual gameplay runs and general Sector Breach Conqueror & General track playthrough recordings set to background music from community creators.",
+vid2BtnText: "▶ Watch Me Play Videos",
+vidWatchMe: "https://www.youtube.com/results?search_query=War+Commander+Sector+Breach+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&sp=EgIIAw%253D%253D",
+vid2Note: "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
+barSitrepTitle: "SITUATION REPORT & BREACH BRIEFING",
+barSitrepSub: "Operational Intelligence & Rogue Base Rules",
+showSitrepImg: true,
+sitrepImgUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb",
+sitrepImgMode: "MANUAL",
+sitrepImgWidthPct: 42,
+sitrepImgMaxH: 600,
+sitrepLead: "A rogue faction has stolen **Sarkis' cloning technology**, replicating high-level Commander base layouts across the sector!  In **Sector Breach**, Commanders must deploy designated **Assault Platoons** against these fortified PvE Rogue Player Bases to reclaim the sector and secure **Legendary Unit Parts & Upgrade Tokens**.",
+showSitrepQuote: true,
+sitrepQuote: "“Completing all 3 bases in a set awards the massive Set Completion Bonus (+40,000 XP on General, +100,000 XP on Conqueror)—and extra wins on any base roll over toward future sets!”",
+showSitrepBody: true,
+sitrepBody: "Choose between the **General Base Set** (**61,000 XP per full 3-base set**) or the elite **Conqueror Base Set** (**164,000 XP per full 3-base set**).  Bases I, II, and III can be attacked in any order without penalty.  Use the **Built-In Sector Breach Requisition Calculator** below to compare General vs. Conqueror runs and plan your Legendary Juggernaut & Warlord Stormwail upgrades.",
+barFeaturedTitle: "FEATURED ITEMS",
+barFeaturedSub: "Sector Breach Store Highlights",
+featuredItemsText: [
+"Legendary **Juggernaut** Unit Parts (1-Pack, 4-Pack & 10-Pack Bundles)",
+"Legendary **Juggernaut** Upgrade Tokens (45x Limit @ 50,000 XP)",
+"Juggernaut Tech: **Manual Override** (FREE), **Armored Crest**, **Fallout**, **Adaptive Protocol**",
+"**Warlord Stormwail** Upgrade Tokens (20x Limit @ 125,000 XP)",
+"**General Base Set** (61,000 XP per 3-Base Set w/ +40,000 XP Set Bonus)",
+"**Conqueror Base Set** (164,000 XP per 3-Base Set w/ +100,000 XP Set Bonus)"
+].join("\n"),
+barTracksTitle: "BREACH TRACKS & CALCULATOR VARIABLES",
+barTracksSub: "Compare General Set (61K XP) vs. Conqueror Set (164K XP) & Active Boosts",
+incTitle: "General Base Set (3-Base Set)",
+incDesc: "Accessible difficulty Rogue Player Base set (**Standard / Medium / Hard**).  Completing all 3 General bases in any order awards the **==+40,000 XP General Set Completion Bonus==** (**61,000 XP / Full Set**).",
+incTableHeader: "General Target",
+showIncB1: true,
+incB1Label: "General Base I (Any Order)",
+incB1Xp: 5500,
+showIncB2: true,
+incB2Label: "General Base II (Any Order)",
+incB2Xp: 5500,
+showIncB3: true,
+incB3Label: "General Base III (Any Order)",
+incB3Xp: 10000,
+incBonusLabel: "General Set Completion Bonus (All Active Bases)",
+incBonusXp: 40000,
+tacTitle: "Conqueror Base Set (3-Base Elite Set)",
+tacDesc: "High-level Rogue Player Base set (**Hard / Veteran**).  Completing all 3 Conqueror bases in any order awards the massive **==+100,000 XP Conqueror Set Completion Bonus==** (**164,000 XP / Full Set** — 2.7x faster).",
+tacTableHeader: "Conqueror Target",
+showTacB1: true,
+tacB1Label: "Conqueror Base I (Any Order)",
+tacB1Xp: 17000,
+showTacB2: true,
+tacB2Label: "Conqueror Base II (Any Order)",
+tacB2Xp: 17000,
+showTacB3: true,
+tacB3Label: "Conqueror Base III (Any Order)",
+tacB3Xp: 30000,
+tacBonusLabel: "Conqueror Set Completion Bonus (All Active Bases)",
+tacBonusXp: 100000,
+pgTitle: "Optional Event XP Boost Multiplier",
+pgRightSub: "SELECT ACTIVE XP MULTIPLIER (DEFAULT 1.0x)",
+pgDesc: "Sector Breach awards fixed XP per base and Set Completion Bonus.  If an active event-wide XP Boost or promotional multiplier is live, select it below to adjust all General and Conqueror set payouts automatically.",
+chest10Title: "STANDARD BREACH PAYOUT (DEFAULT)",
+chest10Desc: "**1.0x Base XP** — Standard Sector Breach payout (**61,000 XP** per General Set / **164,000 XP** per Conqueror Set).",
+chest12Title: "1.2x XP BOOST ACTIVE",
+chest12Desc: "**+20% Event XP Boost** — Adjusts full set payout to **73,200 XP** (General) / **196,800 XP** (Conqueror).",
+chest15Title: "1.5x XP BOOST ACTIVE",
+chest15Desc: "**+50% Event XP Boost** — Adjusts full set payout to **91,500 XP** (General) / **246,000 XP** (Conqueror).",
+chest20Title: "2.0x DOUBLE XP BOOST ACTIVE",
+chest20Desc: "**+100% Double XP Boost** — Adjusts full set payout to **122,000 XP** (General) / **328,000 XP** (Conqueror).",
+barStoreTitle: "SECTOR BREACH STORE & INTERACTIVE CALCULATOR",
+barStoreSub: "Hover Any Unit for 4:5 Thumbnail • Click to Open In-Page Overlay",
+storeCatalog: [
+{ item: "Legendary Juggernaut Part", maxLimit: 100, cost: 10000, costLabel: "10,000 / Each", unit: "JUGGERNAUT", defaultChecked: true },
+{ item: "Legendary Juggernaut Part (4-Pack)", maxLimit: 25, cost: 40000, costLabel: "40,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Legendary Juggernaut Part (10-Pack)", maxLimit: 10, cost: 100000, costLabel: "100,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Legendary Juggernaut Upgrade Token", maxLimit: 45, cost: 50000, costLabel: "50,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Juggernaut Tech: Manual Override", maxLimit: 1, cost: 0, costLabel: "FREE", unit: "JUGGERNAUT", defaultChecked: true },
+{ item: "Juggernaut Tech: Armored Crest", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Juggernaut Tech: Fallout", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Juggernaut Tech: Adaptive Protocol", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+{ item: "Warlord Stormwail Upgrade Token", maxLimit: 20, cost: 125000, costLabel: "125,000 / Each", unit: "WARLORD STORMWAIL", defaultChecked: false }
+],
+barNewUnitsTitle: "NEW UNITS FOR THIS EVENT",
+barNewUnitsSub: "Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay",
+newUnitsCards: [
+{
+title: "LEGENDARY JUGGERNAUT",
+subtitle: "RETALIATORS // UNIQUE HEAVY INFANTRY",
+linkedUnit: "JUGGERNAUT",
+customImgUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb"
+}
+],
+barUpdatedUnitsTitle: "FEATURED & UPDATED UNITS",
+barUpdatedUnitsSub: "Hover for Thumbnail • Click 4:5 Card to Open In-Page Overlay",
+updatedUnitsCards: [
+{
+title: "WARLORD STORMWAIL",
+subtitle: "VORTEX // 20x TOKENS @ 125,000 XP",
+linkedUnit: "WARLORD STORMWAIL",
+customImgUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+},
+{
+title: "LEGENDARY BANSHEE",
+subtitle: "PHANTOM // LEGENDARY AIRCRAFT",
+linkedUnit: "BANSHEE",
+customImgUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+},
+{
+title: "WARLORD ROLLER",
+subtitle: "SENTINEL // WARLORD HEAVY VEHICLE",
+linkedUnit: "WARLORD ROLLER",
+customImgUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+}
+],
+barEnemyTitle: "TACTICAL CHALLENGES & ROGUE BASE RULES",
+barEnemySub: "Sarkis Cloned Rogue Player Bases, Assault Platoons & Set Completion Rules",
+enemyForcesCards: [
+{
+title: "SARKIS CLONED ROGUE BASES",
+hvtBadge: "~ CLONED PVE DEFENSES ~",
+desc: "Targets are PvE clones of real high-level Commander base layouts featuring dense turret killzones, mines, and defender platoons.",
+imgUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb"
+},
+{
+title: "ASSAULT PLATOON DEPLOYMENT",
+hvtBadge: "~ GENERAL VS CONQUEROR ~",
+desc: "Attack using designated Assault Platoons. Choose between the accessible General Set (61,000 XP/set) or the elite Conqueror Set (164,000 XP/set).",
+imgUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+},
+{
+title: "ANY-ORDER SET PROGRESSION",
+hvtBadge: "~ ZERO REPEAT PENALTY ~",
+desc: "Bases I, II, and III can be hit in any order. Extra wins on any base automatically roll over and count toward future set completions.",
+imgUrl: "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+},
+{
+title: "SET COMPLETION BONUS CACHE",
+hvtBadge: "~ +40K / +100K XP CACHE ~",
+desc: "Completing all 3 bases in a set awards the massive Set Completion Bonus (+40,000 XP on General, +100,000 XP on Conqueror)—over 60% of total event XP.",
+imgUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb"
+}
+],
+warningLeadText: "⚠️ \"USE IT OR LOSE IT\" GRACE PERIOD IS ONLY 24 HOURS!",
+alertDeadline: "THURSDAY, OCTOBER 21, 2026 @ 10:00 AM PDT"
+};
+let sectorBreachCalcItemsState = [];
+function escapeHtmlSafe(str) {
+return String(str || "")
+.replace(/&/g, "&amp;")
+.replace(/</g, "&lt;")
+.replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;");
+}
+function parseInlineFormatting(rawText) {
+if (!rawText) return "";
+let s = escapeHtmlSafe(rawText);
+s = s.replace(/\*\*([\s\S]+?)\*\*/g, '<strong style="color:#ffffff;">$1</strong>');
+s = s.replace(/==([\s\S]+?)==/g, '<strong style="color:var(--text-gold);">$1</strong>');
+s = s.replace(/\+\+([\s\S]+?)\+\+/g, '<strong style="color:var(--accent-green);">$1</strong>');
+s = s.replace(/ {2,}/g, '<span class="sentence-line-break"></span>');
+s = s.replace(/\n/g, '<br>');
+return s;
+}
+function showStudioToast(msg) {
+const el = document.getElementById("status-toast");
+if (!el) return;
+el.textContent = msg;
+clearTimeout(window._studioToastTimer);
+window._studioToastTimer = setTimeout(() => { el.textContent = ""; }, 3500);
+}
+function showCalcToast(msg) {
+const el = document.getElementById("calcStatusToast");
+if (!el) return;
+el.textContent = msg;
+clearTimeout(window._calcToastTimer);
+window._calcToastTimer = setTimeout(() => { el.textContent = ""; }, 3200);
+}
+function applyBriefArchiveView(isCollapsed) {
+const card = document.getElementById("main-export-sector-breach");
+const icon = document.getElementById("archiveToggleIcon");
+const txt  = document.getElementById("archiveToggleText");
+if (!card) return;
+if (isCollapsed) {
+card.classList.add("archive-collapsed");
+if (icon) icon.textContent = "▶";
+if (txt) txt.textContent = "EXPAND BRIEF (OPEN DOSSIER)";
+} else {
+card.classList.remove("archive-collapsed");
+if (icon) icon.textContent = "▼";
+if (txt) txt.textContent = "COLLAPSE BRIEF (ARCHIVE)";
+}
+}
+function toggleBriefArchiveMode() {
+const card = document.getElementById("main-export-sector-breach");
+if (!card) return;
+const nextState = !card.classList.contains("archive-collapsed");
+applyBriefArchiveView(nextState);
+try { localStorage.setItem(ARCHIVE_COLLAPSE_STORAGE_KEY, nextState ? "1" : "0"); } catch (e) {}
+}
+function toggleViewportHeightMode() {
+const card = document.getElementById("main-export-sector-breach");
+const btn  = document.getElementById("btnToggleHeightMode");
+if (!card) return;
+const isUnconstrained = card.classList.toggle("unconstrained-height");
+if (btn) {
+btn.innerHTML = isUnconstrained ? "<span>🔒 LOCK HUD</span>" : "<span>↕ FULL PAGE</span>";
+}
+}
+function jumpToDossierSection(sectionId, tabBtn) {
+const card = document.getElementById("main-export-sector-breach");
+if (card && card.classList.contains("archive-collapsed")) {
+applyBriefArchiveView(false);
+}
+const target = document.getElementById(sectionId);
+const viewport = document.getElementById("briefScrollViewport");
+if (target) {
+target.classList.remove("section-minimized");
+const arrow = target.querySelector(".section-min-arrow");
+if (arrow) arrow.textContent = "▼";
+if (viewport && !card.classList.contains("unconstrained-height")) {
+const topPos = target.offsetTop - 8;
+viewport.scrollTo({ top: Math.max(0, topPos), behavior: "smooth" });
+} else {
+target.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+}
+if (tabBtn) {
+document.querySelectorAll(".file-tab-btn[data-target]").forEach(b => b.classList.remove("active-file-tab"));
+tabBtn.classList.add("active-file-tab");
+}
+}
+function toggleSectionMinimize(headerBar) {
+const section = headerBar.closest(".dossier-section");
+if (!section) return;
+const isMin = section.classList.toggle("section-minimized");
+const arrow = headerBar.querySelector(".section-min-arrow");
+if (arrow) arrow.textContent = isMin ? "▶" : "▼";
+}
+function toggleInlineEditor(editorId, isOpen) {
+const ed = document.getElementById(editorId);
+if (!ed) return;
+if (isOpen) {
+ed.classList.add("open");
+} else {
+ed.classList.remove("open");
+}
+}
+function toggleAllInlineEditors() {
+const editors = document.querySelectorAll(".inline-section-editor");
+const anyOpen = Array.from(editors).some(el => el.classList.contains("open"));
+const nextState = !anyOpen;
+editors.forEach(el => el.classList.toggle("open", nextState));
+document.querySelectorAll(".sec-edit-pill input[type='checkbox']").forEach(cb => { cb.checked = nextState; });
+showStudioToast(nextState ? "✏️ Opened All Section Editors" : "🔒 Closed All Section Editors");
+}
+function syncSitrepImageSizing() {
+const wrap = document.getElementById("displaySitrepImgWrap");
+const img  = document.getElementById("displaySitrepImg");
+if (!wrap || !img) return;
+if (!masterState.showSitrepImg || !masterState.sitrepImgUrl) {
+wrap.style.display = "none";
+return;
+}
+wrap.style.display = "flex";
+const pct = Math.max(15, Math.min(65, Number(masterState.sitrepImgWidthPct) || 42));
+const maxH = Number(masterState.sitrepImgMaxH) || 600;
+if (masterState.sitrepImgMode === "MANUAL") {
+wrap.style.width = pct + "%";
+img.style.maxHeight = maxH < 600 ? (maxH + "px") : "none";
+} else {
+wrap.style.width = "45%";
+img.style.maxHeight = "380px";
+}
+}
+function fetchMasterDbUnits(forceManual) {
+const pill = document.getElementById("masterDbStatusPill");
+if (pill) pill.textContent = "🗄️ MASTER_DB: Syncing...";
+if (typeof Papa === "undefined") {
+if (pill) pill.textContent = "🗄️ MASTER_DB: Built-In Roster (" + masterDbUnitNames.length + ")";
+return;
+}
+Papa.parse(MASTER_DB_CSV_URL, {
+download: true,
+header: true,
+skipEmptyLines: true,
+complete: function(results) {
+let count = 0;
+(results.data || []).forEach(row => {
+const rawName = (row["Unit Name"] || row["Name"] || row["UNIT"] || "").trim();
+if (!rawName) return;
+const key = rawName.toUpperCase();
+masterDbUnitsMap[key] = {
+name: rawName,
+faction: (row["Faction"] || row["FACTION"] || "CLASSIFIED").trim(),
+unitType: (row["Unit Type"] || row["Type"] || "Tactical Unit").trim(),
+imageUrl: (row["Image URL"] || row["Image"] || row["Thumbnail"] || "").trim() || (BUILTIN_UNIT_ROSTER[key] && BUILTIN_UNIT_ROSTER[key].imageUrl) || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
+unlockCost: (row["Unlock Cost"] || row["Unlock"] || "Event Store").trim(),
+upgradeCallout: (row["Upgrade Callout"] || row["Upgrade"] || "Upgrade Tokens").trim(),
+specialAbilities: (row["Special Abilities"] || row["Abilities"] || "Classified Tech").trim(),
+notes: (row["Notes"] || row["Description"] || "WatchToweR Intelligence Record.").trim()
+};
+count++;
+});
+masterDbUnitNames = Object.keys(masterDbUnitsMap).sort();
+if (pill) pill.textContent = "🗄️ MASTER_DB: " + masterDbUnitNames.length + " Units Ready";
+if (forceManual) {
+renderAdminStoreEditorList();
+renderAdminUnitCardsEditors();
+renderMasterToDom();
+showStudioToast("✅ Synced " + count + " Units from MASTER_DB");
+}
+},
+error: function() {
+if (pill) pill.textContent = "🗄️ MASTER_DB: Built-In (" + masterDbUnitNames.length + " Units)";
+}
+});
+}
+function resolveUnitFromMasterDb(unitKey) {
+if (!unitKey) return null;
+const clean = String(unitKey).trim().toUpperCase();
+if (masterDbUnitsMap[clean]) return masterDbUnitsMap[clean];
+for (const k of Object.keys(masterDbUnitsMap)) {
+if (k.includes(clean) || clean.includes(k)) return masterDbUnitsMap[k];
+}
+return {
+name: clean,
+faction: "SECTOR BREACH",
+unitType: "Featured Event Unit",
+imageUrl: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb",
+unlockCost: "Sector Breach Store",
+upgradeCallout: "Sector Breach Upgrade Tokens",
+specialAbilities: "Event Tech & Modifications",
+notes: "Featured unit in the Sector Breach Store."
+};
+}
+function bindHoverPodEvents() {
+const pod = document.getElementById("wtrHoverPreviewPod");
+if (!pod) return;
+document.addEventListener("mouseover", function(e) {
+const trigger = e.target.closest("[data-preview-title]");
+if (!trigger) return;
+const title = trigger.getAttribute("data-preview-title") || "PREVIEW";
+const sub   = trigger.getAttribute("data-preview-sub") || "WATCHTOWER INTEL";
+const img   = trigger.getAttribute("data-preview-img") || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
+document.getElementById("hoverPodTitle").textContent = title;
+document.getElementById("hoverPodSub").textContent   = sub;
+document.getElementById("hoverPodImg").src           = img;
+pod.classList.add("show");
+});
+document.addEventListener("mousemove", function(e) {
+if (!pod.classList.contains("show")) return;
+const pad = 18;
+let left = e.clientX + pad;
+let top  = e.clientY + pad;
+if (left + 255 > window.innerWidth) left = e.clientX - 255;
+if (top + 360 > window.innerHeight) top = Math.max(10, window.innerHeight - 365);
+pod.style.left = left + "px";
+pod.style.top  = top + "px";
+});
+document.addEventListener("mouseout", function(e) {
+const trigger = e.target.closest("[data-preview-title]");
+if (trigger && !trigger.contains(e.relatedTarget)) {
+pod.classList.remove("show");
+}
+});
+}
+function openUnitOverlay(unitKey, customImgOverride) {
+const unit = resolveUnitFromMasterDb(unitKey);
+if (!unit) return;
+const imgUrl = customImgOverride || unit.imageUrl || "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb";
+const modal = document.getElementById("wtrInPageOverlayModal");
+const titleEl = document.getElementById("overlayModalTitle");
+const bodyEl  = document.getElementById("overlayModalBody");
+const extBtn  = document.getElementById("overlayExternalBtn");
+if (!modal || !bodyEl) return;
+titleEl.textContent = "🛡️ UNIT DOSSIER // " + unit.name;
+extBtn.href = WTR_DATA_HUB_BASE + "?unit=" + encodeURIComponent(unit.name);
+const relatedItems = masterState.storeCatalog.filter(it => String(it.unit || "").toUpperCase() === String(unitKey || "").toUpperCase());
+const storeRowsHtml = relatedItems.length
+? relatedItems.map(it => `
+<tr>
+<td class="overlay-stats-lbl">${escapeHtmlSafe(it.item)}</td>
+<td class="overlay-stats-val" style="color:var(--text-gold);">${Number(it.maxLimit) || 1}x @ ${escapeHtmlSafe(it.costLabel || Number(it.cost).toLocaleString())}</td>
+</tr>`).join("")
+: `<tr><td colspan="2" style="color:var(--text-muted);">Featured in Sector Breach</td></tr>`;
+bodyEl.innerHTML = `
+<div class="overlay-unit-grid">
+<div class="unit-poster-frame" style="aspect-ratio:4/5; max-width:240px;">
+<img src="${escapeHtmlSafe(imgUrl)}" alt="${escapeHtmlSafe(unit.name)}">
+</div>
+<div>
+<h3 style="font-family:'Arial Black',sans-serif; color:var(--accent-green); font-size:18px; margin-bottom:10px; text-transform:uppercase;">${escapeHtmlSafe(unit.name)}</h3>
+<table class="overlay-stats-table">
+<tr><td class="overlay-stats-lbl">Faction</td><td class="overlay-stats-val" style="color:var(--text-cyan);">${escapeHtmlSafe(unit.faction)}</td></tr>
+<tr><td class="overlay-stats-lbl">Classification</td><td class="overlay-stats-val">${escapeHtmlSafe(unit.unitType)}</td></tr>
+<tr><td class="overlay-stats-lbl">Unlock Requirement</td><td class="overlay-stats-val" style="color:var(--text-gold);">${escapeHtmlSafe(unit.unlockCost)}</td></tr>
+<tr><td class="overlay-stats-lbl">Upgrade Path</td><td class="overlay-stats-val">${escapeHtmlSafe(unit.upgradeCallout)}</td></tr>
+<tr><td class="overlay-stats-lbl">Special Tech</td><td class="overlay-stats-val">${escapeHtmlSafe(unit.specialAbilities)}</td></tr>
+</table>
+<p style="margin-top:12px; font-size:13.5px; color:var(--text-main); line-height:1.45;">${escapeHtmlSafe(unit.notes)}</p>
+</div>
+<div>
+<h4 style="font-family:'Arial Black',sans-serif; color:var(--text-gold); font-size:14px; margin-bottom:8px; text-transform:uppercase;">Sector Breach Store Requisitions</h4>
+<table class="overlay-stats-table">${storeRowsHtml}</table>
+</div>
+</div>
+`;
+modal.classList.add("open");
+}
+function openGenericLinkOverlay(title, desc, imgUrl, externalUrl) {
+const modal = document.getElementById("wtrInPageOverlayModal");
+const titleEl = document.getElementById("overlayModalTitle");
+const bodyEl  = document.getElementById("overlayModalBody");
+const extBtn  = document.getElementById("overlayExternalBtn");
+if (!modal || !bodyEl) return;
+titleEl.textContent = "📡 INTEL BRIEF // " + (title || "SECTOR BREACH");
+if (externalUrl) {
+extBtn.style.display = "inline-flex";
+extBtn.href = externalUrl;
+} else {
+extBtn.style.display = "none";
+}
+bodyEl.innerHTML = `
+<div style="display:grid; grid-template-columns: minmax(220px, 320px) 1fr; gap:20px; align-items:start;">
+<div class="unit-poster-frame" style="aspect-ratio:4/5;">
+<img src="${escapeHtmlSafe(imgUrl || 'https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb')}" alt="${escapeHtmlSafe(title)}">
+</div>
+<div>
+<h3 style="font-family:'Arial Black',sans-serif; color:var(--accent-green); font-size:18px; margin-bottom:10px; text-transform:uppercase;">${escapeHtmlSafe(title)}</h3>
+<div style="font-size:15px; color:var(--text-main); line-height:1.55;">${parseInlineFormatting(desc || "")}</div>
+</div>
+</div>
+`;
+modal.classList.add("open");
+}
+function closeInPageOverlay() {
+const modal = document.getElementById("wtrInPageOverlayModal");
+if (modal) modal.classList.remove("open");
+}
+function setActiveCalcTrack(trackKey) {
+const radios = document.querySelectorAll('input[name="activeCalcTrack"]');
+radios.forEach(r => { r.checked = (r.value === trackKey); });
+recalculateSectorBreach();
+}
+function toggleAllTrackBases(trackKey) {
+if (trackKey === "GENERAL") {
+const cbs = ["chkIncB1", "chkIncB2", "chkIncB3"].map(id => document.getElementById(id)).filter(Boolean);
+const allChecked = cbs.every(c => c.checked);
+cbs.forEach(c => { c.checked = !allChecked; });
+setActiveCalcTrack("GENERAL");
+} else {
+const cbs = ["chkTacB1", "chkTacB2", "chkTacB3"].map(id => document.getElementById(id)).filter(Boolean);
+const allChecked = cbs.every(c => c.checked);
+cbs.forEach(c => { c.checked = !allChecked; });
+setActiveCalcTrack("CONQUEROR");
+}
+}
+function getSelectedPgMultiplier() {
+const checked = document.querySelector('input[name="pgMultiplier"]:checked');
+return checked ? (parseFloat(checked.value) || 1.0) : 1.0;
+}
+function computeTrackYield(trackKey, mult) {
+if (trackKey === "GENERAL") {
+const activeBases = [
+{ show: masterState.showIncB1, chkId: "chkIncB1", xp: Number(masterState.incB1Xp) || 0 },
+{ show: masterState.showIncB2, chkId: "chkIncB2", xp: Number(masterState.incB2Xp) || 0 },
+{ show: masterState.showIncB3, chkId: "chkIncB3", xp: Number(masterState.incB3Xp) || 0 }
+].filter(b => b.show);
+let sumBase = 0;
+let allActiveChecked = activeBases.length > 0;
+activeBases.forEach(b => {
+const el = document.getElementById(b.chkId);
+const isChecked = el ? el.checked : true;
+if (isChecked) sumBase += b.xp;
+else allActiveChecked = false;
+});
+const bonusRow = document.getElementById("rowIncBonus");
+const bonusChk = document.getElementById("chkIncBonus");
+if (bonusChk) bonusChk.checked = allActiveChecked;
+if (bonusRow) bonusRow.classList.toggle("locked-bonus-row", !allActiveChecked);
+const bonusXp = allActiveChecked ? (Number(masterState.incBonusXp) || 0) : 0;
+return Math.round((sumBase + bonusXp) * mult);
+} else {
+const activeBases = [
+{ show: masterState.showTacB1, chkId: "chkTacB1", xp: Number(masterState.tacB1Xp) || 0 },
+{ show: masterState.showTacB2, chkId: "chkTacB2", xp: Number(masterState.tacB2Xp) || 0 },
+{ show: masterState.showTacB3, chkId: "chkTacB3", xp: Number(masterState.tacB3Xp) || 0 }
+].filter(b => b.show);
+let sumBase = 0;
+let allActiveChecked = activeBases.length > 0;
+activeBases.forEach(b => {
+const el = document.getElementById(b.chkId);
+const isChecked = el ? el.checked : true;
+if (isChecked) sumBase += b.xp;
+else allActiveChecked = false;
+});
+const bonusRow = document.getElementById("rowTacBonus");
+const bonusChk = document.getElementById("chkTacBonus");
+if (bonusChk) bonusChk.checked = allActiveChecked;
+if (bonusRow) bonusRow.classList.toggle("locked-bonus-row", !allActiveChecked);
+const bonusXp = allActiveChecked ? (Number(masterState.tacBonusXp) || 0) : 0;
+return Math.round((sumBase + bonusXp) * mult);
+}
+}
+function initSectorBreachCalcItemsState() {
+sectorBreachCalcItemsState = masterState.storeCatalog.map(row => ({
+checked: Boolean(row.defaultChecked),
+qty: Number(row.maxLimit) || 1
+}));
+}
+function renderSectorBreachStoreTable() {
+const tbody = document.getElementById("sectorBreachStoreTbody");
+if (!tbody) return;
+if (sectorBreachCalcItemsState.length !== masterState.storeCatalog.length) {
+sectorBreachCalcItemsState = masterState.storeCatalog.map((row, idx) => {
+const prev = sectorBreachCalcItemsState[idx];
+return {
+checked: prev ? Boolean(prev.checked) : Boolean(row.defaultChecked),
+qty: prev ? Math.min(Number(row.maxLimit) || 1, Math.max(0, Number(prev.qty) || 0)) : (Number(row.maxLimit) || 1)
+};
+});
+}
+tbody.innerHTML = masterState.storeCatalog.map((row, idx) => {
+const st = sectorBreachCalcItemsState[idx] || { checked: Boolean(row.defaultChecked), qty: Number(row.maxLimit) || 1 };
+const maxL = Math.max(1, Number(row.maxLimit) || 1);
+const unitCost = Math.max(0, Number(row.cost) || 0);
+const rowXp = st.checked ? (st.qty * unitCost) : 0;
+const unitObj = resolveUnitFromMasterDb(row.unit);
+const thumbImg = (unitObj && unitObj.imageUrl) || "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb";
+const unitTag = row.unit
+? `<span class="img-db-badge" onclick="event.stopPropagation(); openUnitOverlay('${escapeHtmlSafe(row.unit)}')">🖼️ ${escapeHtmlSafe(row.unit)}</span>`
+: "";
+return `
+<tr id="storeRow_${idx}" class="${st.checked ? '' : 'unchecked-prize-row'}">
+<td style="text-align: center;">
+<input type="checkbox" id="storeChk_${idx}" ${st.checked ? "checked" : ""} onchange="onSectorBreachItemCheck(${idx}, this.checked)">
+</td>
+<td>
+<a class="store-unit-link"
+href="javascript:void(0)"
+data-preview-title="${escapeHtmlSafe(row.item)}"
+data-preview-sub="${escapeHtmlSafe((row.unit || 'SECTOR BREACH') + ' // ' + (row.costLabel || unitCost.toLocaleString() + ' XP'))}"
+data-preview-img="${escapeHtmlSafe(thumbImg)}"
+onclick="openUnitOverlay('${escapeHtmlSafe(row.unit || 'JUGGERNAUT')}')">
+<span>${escapeHtmlSafe(row.item)}</span>
+${unitTag}
+</a>
+</td>
+<td style="text-align: center;">
+<div class="qty-stepper">
+<button type="button" class="qty-step-btn" onclick="stepSectorBreachQty(${idx}, -1)">-</button>
+<input type="number" class="qty-input-box" id="storeQty_${idx}" min="0" max="${maxL}" value="${st.qty}" oninput="onSectorBreachQtyInput(${idx}, this.value)">
+<button type="button" class="qty-step-btn" onclick="stepSectorBreachQty(${idx}, 1)">+</button>
+<span style="font-family: monospace; font-size: 12px; color: var(--text-muted);">/ ${maxL}</span>
+</div>
+</td>
+<td style="text-align: right; font-family: monospace; color: var(--text-gold); font-weight: 700;">
+${escapeHtmlSafe(row.costLabel || (unitCost === 0 ? "FREE" : unitCost.toLocaleString()))}
+</td>
+<td id="storeNeed_${idx}" style="text-align: right; font-family: monospace; font-weight: 800; color: ${st.checked ? 'var(--accent-green)' : 'var(--text-muted)'};">
+${rowXp.toLocaleString()}
+</td>
+</tr>
+`;
+}).join("");
+renderDynamicAddonPills();
+}
+function onSectorBreachItemCheck(idx, isChecked) {
+if (!sectorBreachCalcItemsState[idx]) return;
+sectorBreachCalcItemsState[idx].checked = Boolean(isChecked);
+if (isChecked && sectorBreachCalcItemsState[idx].qty <= 0) {
+sectorBreachCalcItemsState[idx].qty = Number(masterState.storeCatalog[idx].maxLimit) || 1;
+const qInput = document.getElementById("storeQty_" + idx);
+if (qInput) qInput.value = sectorBreachCalcItemsState[idx].qty;
+}
+recalculateSectorBreach();
+}
+function stepSectorBreachQty(idx, delta) {
+if (!sectorBreachCalcItemsState[idx] || !masterState.storeCatalog[idx]) return;
+const maxL = Math.max(1, Number(masterState.storeCatalog[idx].maxLimit) || 1);
+const nextQty = Math.max(0, Math.min(maxL, (Number(sectorBreachCalcItemsState[idx].qty) || 0) + delta));
+sectorBreachCalcItemsState[idx].qty = nextQty;
+sectorBreachCalcItemsState[idx].checked = nextQty > 0;
+const qInput = document.getElementById("storeQty_" + idx);
+const cInput = document.getElementById("storeChk_" + idx);
+if (qInput) qInput.value = nextQty;
+if (cInput) cInput.checked = nextQty > 0;
+recalculateSectorBreach();
+}
+function onSectorBreachQtyInput(idx, rawVal) {
+if (!sectorBreachCalcItemsState[idx] || !masterState.storeCatalog[idx]) return;
+const maxL = Math.max(1, Number(masterState.storeCatalog[idx].maxLimit) || 1);
+const nextQty = Math.max(0, Math.min(maxL, parseInt(rawVal, 10) || 0));
+sectorBreachCalcItemsState[idx].qty = nextQty;
+sectorBreachCalcItemsState[idx].checked = nextQty > 0;
+const cInput = document.getElementById("storeChk_" + idx);
+if (cInput) cInput.checked = nextQty > 0;
+recalculateSectorBreach();
+}
+function selectJuggernautUnlockPreset() {
+masterState.storeCatalog.forEach((row, idx) => {
+const itemLow = String(row.item || "").toLowerCase();
+const isSinglePart = itemLow.includes("juggernaut part") && !itemLow.includes("4-pack") && !itemLow.includes("10-pack");
+const isFreeTech = Number(row.cost) === 0;
+const pick = isSinglePart || isFreeTech;
+sectorBreachCalcItemsState[idx] = {
+checked: pick,
+qty: Number(row.maxLimit) || 1
+};
+});
+renderSectorBreachStoreTable();
+recalculateSectorBreach();
+showCalcToast("⚡ Selected Juggernaut Unlock Goal (100 Parts = 1,000,000 XP)");
+}
+function toggleAllSectorBreachItems(checkAll) {
+masterState.storeCatalog.forEach((row, idx) => {
+sectorBreachCalcItemsState[idx] = {
+checked: Boolean(checkAll),
+qty: Number(row.maxLimit) || 1
+};
+});
+renderSectorBreachStoreTable();
+recalculateSectorBreach();
+showCalcToast(checkAll ? "✅ Selected Entire Store" : "🧹 Cleared Store Selection");
+}
+function toggleUnitAddonSelection(unitName) {
+const indices = [];
+masterState.storeCatalog.forEach((row, idx) => {
+if (String(row.unit || "").toUpperCase() === unitName.toUpperCase()) indices.push(idx);
+});
+if (!indices.length) return;
+const allChecked = indices.every(i => sectorBreachCalcItemsState[i] && sectorBreachCalcItemsState[i].checked);
+const nextState = !allChecked;
+indices.forEach(i => {
+sectorBreachCalcItemsState[i] = {
+checked: nextState,
+qty: Number(masterState.storeCatalog[i].maxLimit) || 1
+};
+});
+renderSectorBreachStoreTable();
+recalculateSectorBreach();
+}
+function renderDynamicAddonPills() {
+const bar = document.getElementById("dynamicAddonPillsBar");
+if (!bar) return;
+const units = [];
+masterState.storeCatalog.forEach(row => {
+const u = String(row.unit || "").trim().toUpperCase();
+if (u && !units.includes(u)) units.push(u);
+});
+const unitPillsHtml = units.map(u => {
+const indices = [];
+masterState.storeCatalog.forEach((r, i) => {
+if (String(r.unit || "").trim().toUpperCase() === u) indices.push(i);
+});
+const allActive = indices.length > 0 && indices.every(i => sectorBreachCalcItemsState[i] && sectorBreachCalcItemsState[i].checked);
+return `<button type="button" class="preset-pill-btn ${allActive ? 'addon-active' : ''}" onclick="toggleUnitAddonSelection('${escapeHtmlSafe(u)}')">${allActive ? '✓ ' : '+ '}${escapeHtmlSafe(u)}</button>`;
+}).join("");
+bar.innerHTML = `
+<span style="font-family:monospace; font-size:11px; color:var(--text-gold); font-weight:800; text-transform:uppercase;">⚡ Quick Requisition Presets:</span>
+<button type="button" class="preset-pill-btn" style="border-color:var(--text-gold); color:var(--text-gold);" onclick="selectJuggernautUnlockPreset()">🎯 Juggernaut Unlock (100 Parts = 1M XP)</button>
+${unitPillsHtml}
+<button type="button" class="preset-pill-btn" onclick="toggleAllSectorBreachItems(true)">Select All Store</button>
+<button type="button" class="preset-pill-btn" onclick="toggleAllSectorBreachItems(false)">Clear All</button>
+`;
+}
+function recalculateSectorBreach(skipAutoSave) {
+const mult = getSelectedPgMultiplier();
+[
+{ val: 1.0, id: "cardMult10" },
+{ val: 1.2, id: "cardMult12" },
+{ val: 1.5, id: "cardMult15" },
+{ val: 2.0, id: "cardMult20" }
+].forEach(m => {
+const c = document.getElementById(m.id);
+if (c) c.classList.toggle("active-multiplier", Math.abs(mult - m.val) < 0.01);
+});
+const setXpCell = (id, rawVal) => {
+const el = document.getElementById(id);
+if (el) el.textContent = Math.round((Number(rawVal) || 0) * mult).toLocaleString() + " XP";
+};
+setXpCell("valIncB1Xp", masterState.incB1Xp);
+setXpCell("valIncB2Xp", masterState.incB2Xp);
+setXpCell("valIncB3Xp", masterState.incB3Xp);
+setXpCell("valIncBonus", masterState.incBonusXp);
+setXpCell("valTacB1Xp", masterState.tacB1Xp);
+setXpCell("valTacB2Xp", masterState.tacB2Xp);
+setXpCell("valTacB3Xp", masterState.tacB3Xp);
+setXpCell("valTacBonus", masterState.tacBonusXp);
+const generalSetXp   = computeTrackYield("GENERAL", mult);
+const conquerorSetXp = computeTrackYield("CONQUEROR", mult);
+const activeTrackRadio = document.querySelector('input[name="activeCalcTrack"]:checked');
+const activeTrack = activeTrackRadio ? activeTrackRadio.value : "CONQUEROR";
+const blkInc = document.getElementById("trackBlockIncursion");
+const blkTac = document.getElementById("trackBlockTactical");
+if (blkInc && blkTac) {
+blkInc.classList.toggle("active-selected-track", activeTrack === "GENERAL");
+blkInc.classList.toggle("inactive-track", activeTrack !== "GENERAL");
+blkTac.classList.toggle("active-selected-track", activeTrack === "CONQUEROR");
+blkTac.classList.toggle("inactive-track", activeTrack !== "CONQUEROR");
+}
+let fullStoreXp = 0;
+let selectedGoalXp = 0;
+masterState.storeCatalog.forEach((row, idx) => {
+const maxL = Math.max(1, Number(row.maxLimit) || 1);
+const unitCost = Math.max(0, Number(row.cost) || 0);
+fullStoreXp += maxL * unitCost;
+const st = sectorBreachCalcItemsState[idx] || { checked: false, qty: maxL };
+const rowNeed = st.checked ? ((Number(st.qty) || 0) * unitCost) : 0;
+selectedGoalXp += rowNeed;
+const tr = document.getElementById("storeRow_" + idx);
+const needCell = document.getElementById("storeNeed_" + idx);
+if (tr) tr.classList.toggle("unchecked-prize-row", !st.checked);
+if (needCell) {
+needCell.textContent = rowNeed.toLocaleString();
+needCell.style.color = st.checked ? "var(--accent-green)" : "var(--text-muted)";
+}
+});
+const fullEl = document.getElementById("storeFullValueTotal");
+const goalEl = document.getElementById("storeSelectedGoalTotal");
+if (fullEl) fullEl.textContent = fullStoreXp.toLocaleString();
+if (goalEl) goalEl.textContent = selectedGoalXp.toLocaleString();
+const bankInput = document.getElementById("calcBankedXpInput");
+const bankedXp = Math.max(0, parseInt(bankInput ? bankInput.value : "0", 10) || 0);
+const remainingXp = Math.max(0, selectedGoalXp - bankedXp);
+const days = Math.max(1, Number(masterState.eventDays) || 4);
+const incRuns = generalSetXp > 0 ? Math.ceil(remainingXp / generalSetXp) : 0;
+const tacRuns = conquerorSetXp > 0 ? Math.ceil(remainingXp / conquerorSetXp) : 0;
+const cmpIncXpEl    = document.getElementById("cmpIncXp");
+const cmpIncRunsEl  = document.getElementById("cmpIncRuns");
+const cmpIncDailyEl = document.getElementById("cmpIncDaily");
+if (cmpIncXpEl)    cmpIncXpEl.textContent = generalSetXp.toLocaleString();
+if (cmpIncRunsEl)  cmpIncRunsEl.textContent = incRuns.toLocaleString();
+if (cmpIncDailyEl) cmpIncDailyEl.textContent = (incRuns / days).toFixed(1) + " / d";
+const cmpTacXpEl    = document.getElementById("cmpTacXp");
+const cmpTacRunsEl  = document.getElementById("cmpTacRuns");
+const cmpTacDailyEl = document.getElementById("cmpTacDaily");
+if (cmpTacXpEl)    cmpTacXpEl.textContent = conquerorSetXp.toLocaleString();
+if (cmpTacRunsEl)  cmpTacRunsEl.textContent = tacRuns.toLocaleString();
+if (cmpTacDailyEl) cmpTacDailyEl.textContent = (tacRuns / days).toFixed(1) + " / d";
+const activeRunXp = activeTrack === "GENERAL" ? generalSetXp : conquerorSetXp;
+const activeRuns  = activeTrack === "GENERAL" ? incRuns : tacRuns;
+const altRuns     = activeTrack === "GENERAL" ? tacRuns : incRuns;
+const altLabel    = activeTrack === "GENERAL" ? "Conqueror Alt: " : "General Alt: ";
+const setTxt = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+setTxt("hudRemainingXp", remainingXp.toLocaleString());
+setTxt("hudTotalGoalSub", "Selected Store Goal: " + selectedGoalXp.toLocaleString() + " XP");
+setTxt("hudActiveTrackLbl", "Active Track (" + (activeTrack === "GENERAL" ? "General" : "Conqueror") + ")");
+setTxt("hudActiveTrackXp", activeRunXp.toLocaleString() + " XP");
+setTxt("hudActiveMultSub", "XP Multiplier: " + mult.toFixed(1) + "x");
+setTxt("hudTotalRuns", activeRuns.toLocaleString());
+setTxt("hudAltTrackRunsSub", altLabel + altRuns.toLocaleString() + " sets");
+setTxt("hudDailyPaceLbl", "Daily Set Pace (" + days + " Days)");
+setTxt("hudDailyPace", (activeRuns / days).toFixed(1) + " / Day");
+setTxt("hudDailyXpSub", Math.ceil(remainingXp / days).toLocaleString() + " XP / day (" + days + "d)");
+setTxt("btnLogRunXp", "+" + activeRunXp.toLocaleString());
+const pct = selectedGoalXp > 0 ? Math.min(100, Math.round((bankedXp / selectedGoalXp) * 100)) : (bankedXp > 0 ? 100 : 0);
+setTxt("calcProgressText", pct + "% OF GOAL COMPLETED (" + bankedXp.toLocaleString() + " / " + selectedGoalXp.toLocaleString() + " XP)");
+const fill = document.getElementById("calcProgressFill");
+if (fill) fill.style.width = pct + "%";
+renderDynamicAddonPills();
+if (!skipAutoSave) saveSectorBreachCalcToLocal();
+}
+function logOneCompletedSectorBreachRun() {
+const mult = getSelectedPgMultiplier();
+const activeTrackRadio = document.querySelector('input[name="activeCalcTrack"]:checked');
+const activeTrack = activeTrackRadio ? activeTrackRadio.value : "CONQUEROR";
+const activeRunXp = computeTrackYield(activeTrack, mult);
+const bankInput = document.getElementById("calcBankedXpInput");
+if (!bankInput) return;
+const curr = Math.max(0, parseInt(bankInput.value, 10) || 0);
+bankInput.value = curr + activeRunXp;
+recalculateSectorBreach();
+showCalcToast("⚡ Logged +1 " + (activeTrack === "GENERAL" ? "General" : "Conqueror") + " Set (+" + activeRunXp.toLocaleString() + " XP)");
+}
+function saveSectorBreachCalcToLocal() {
+try {
+const activeTrackRadio = document.querySelector('input[name="activeCalcTrack"]:checked');
+const payload = {
+activeTrack: activeTrackRadio ? activeTrackRadio.value : "CONQUEROR",
+multiplier: getSelectedPgMultiplier(),
+bankedXp: parseInt(document.getElementById("calcBankedXpInput")?.value || "0", 10) || 0,
+items: sectorBreachCalcItemsState
+};
+localStorage.setItem(STORAGE_KEY_CALC_STATE, JSON.stringify(payload));
+} catch (e) {}
+}
+function loadSectorBreachCalcFromLocal() {
+try {
+const raw = localStorage.getItem(STORAGE_KEY_CALC_STATE);
+if (!raw) return;
+const data = JSON.parse(raw);
+if (data.activeTrack) {
+document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => {
+r.checked = (r.value === data.activeTrack);
+});
+}
+if (data.multiplier) {
+document.querySelectorAll('input[name="pgMultiplier"]').forEach(r => {
+r.checked = (Math.abs(parseFloat(r.value) - Number(data.multiplier)) < 0.01);
+});
+}
+if (typeof data.bankedXp === "number") {
+const b = document.getElementById("calcBankedXpInput");
+if (b) b.value = Math.max(0, data.bankedXp);
+}
+if (Array.isArray(data.items) && data.items.length === masterState.storeCatalog.length) {
+sectorBreachCalcItemsState = data.items.map((it, idx) => ({
+checked: Boolean(it.checked),
+qty: Math.min(Number(masterState.storeCatalog[idx].maxLimit) || 1, Math.max(0, Number(it.qty) || 0))
+}));
+}
+} catch (e) {}
+}
+function exportSectorBreachCalcJson() {
+const activeTrackRadio = document.querySelector('input[name="activeCalcTrack"]:checked');
+const payload = {
+event: masterState.mainTitle,
+exportedAt: new Date().toISOString(),
+activeTrack: activeTrackRadio ? activeTrackRadio.value : "CONQUEROR",
+multiplier: getSelectedPgMultiplier(),
+bankedXp: parseInt(document.getElementById("calcBankedXpInput")?.value || "0", 10) || 0,
+items: sectorBreachCalcItemsState
+};
+const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+const a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "wtr-sector-breach-calc-settings.json";
+a.click();
+showCalcToast("💾 Downloaded Calculator Settings (.JSON)");
+}
+function importSectorBreachCalcJson(event) {
+const file = event.target.files && event.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = function(e) {
+try {
+const data = JSON.parse(e.target.result);
+if (data.activeTrack) {
+document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => { r.checked = (r.value === data.activeTrack); });
+}
+if (data.multiplier) {
+document.querySelectorAll('input[name="pgMultiplier"]').forEach(r => {
+r.checked = (Math.abs(parseFloat(r.value) - Number(data.multiplier)) < 0.01);
+});
+}
+if (typeof data.bankedXp === "number") {
+const b = document.getElementById("calcBankedXpInput");
+if (b) b.value = Math.max(0, data.bankedXp);
+}
+if (Array.isArray(data.items)) {
+sectorBreachCalcItemsState = masterState.storeCatalog.map((row, idx) => {
+const incoming = data.items[idx];
+return incoming ? {
+checked: Boolean(incoming.checked),
+qty: Math.min(Number(row.maxLimit) || 1, Math.max(0, Number(incoming.qty) || 0))
+} : { checked: Boolean(row.defaultChecked), qty: Number(row.maxLimit) || 1 };
+});
+}
+renderSectorBreachStoreTable();
+recalculateSectorBreach();
+showCalcToast("📂 Loaded Calculator Settings (.JSON)");
+} catch (err) {
+showCalcToast("⚠️ Invalid Calculator JSON File");
+}
+};
+reader.readAsText(file);
+}
+function resetSectorBreachCalcToDefault() {
+try { localStorage.removeItem(STORAGE_KEY_CALC_STATE); } catch (e) {}
+document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => { r.checked = (r.value === "CONQUEROR"); });
+document.querySelectorAll('input[name="pgMultiplier"]').forEach(r => { r.checked = (r.value === "1.0"); });
+["chkIncB1", "chkIncB2", "chkIncB3", "chkTacB1", "chkTacB2", "chkTacB3"].forEach(id => {
+const el = document.getElementById(id);
+if (el) el.checked = true;
+});
+const b = document.getElementById("calcBankedXpInput");
+if (b) b.value = 0;
+initSectorBreachCalcItemsState();
+renderSectorBreachStoreTable();
+recalculateSectorBreach();
+showCalcToast("↺ Reset Calculator to Default (Conqueror Set // 1,000,000 XP Goal)");
+}
+function renderAdminStoreEditorList(){} function renderAdminUnitCardsEditors(){}
+function renderUnitGalleriesToDom() {
+const renderUnitCards = (arr, gridId) => {
+const grid = document.getElementById(gridId);
+if (!grid) return;
+grid.innerHTML = arr.map(card => {
+const unitObj = resolveUnitFromMasterDb(card.linkedUnit || card.title);
+const imgUrl = card.customImgUrl || (unitObj && unitObj.imageUrl) || "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb";
+const unitKey = card.linkedUnit || card.title || "JUGGERNAUT";
+return `
+<div class="unit-poster-card"
+data-preview-title="${escapeHtmlSafe(card.title)}"
+data-preview-sub="${escapeHtmlSafe(card.subtitle)}"
+data-preview-img="${escapeHtmlSafe(imgUrl)}"
+onclick="openUnitOverlay('${escapeHtmlSafe(unitKey)}', '${escapeHtmlSafe(imgUrl)}')">
+<div class="unit-poster-frame">
+<img src="${escapeHtmlSafe(imgUrl)}" alt="${escapeHtmlSafe(card.title)}">
+</div>
+<div class="unit-poster-title">${escapeHtmlSafe(card.title)}</div>
+<div class="unit-poster-sub">${escapeHtmlSafe(card.subtitle)}</div>
+</div>
+`;
+}).join("");
+};
+renderUnitCards(masterState.newUnitsCards, "newUnitsGalleryGrid");
+renderUnitCards(masterState.updatedUnitsCards, "updatedUnitsGalleryGrid");
+const enemyGrid = document.getElementById("enemyForcesGalleryGrid");
+if (enemyGrid) {
+enemyGrid.innerHTML = masterState.enemyForcesCards.map(c => {
+const img = c.imgUrl || "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb";
+return `
+<div class="unit-poster-card enemy-card"
+data-preview-title="${escapeHtmlSafe(c.title)}"
+data-preview-sub="${escapeHtmlSafe(c.hvtBadge)}"
+data-preview-img="${escapeHtmlSafe(img)}"
+onclick="openGenericLinkOverlay('${escapeHtmlSafe(c.title)}', '${escapeHtmlSafe(c.desc)}', '${escapeHtmlSafe(img)}', '')">
+<div class="unit-poster-frame">
+<img src="${escapeHtmlSafe(img)}" alt="${escapeHtmlSafe(c.title)}">
+</div>
+<div class="unit-poster-caption">
+<h4>${escapeHtmlSafe(c.title)}</h4>
+<div class="hvt-badge">${escapeHtmlSafe(c.hvtBadge)}</div>
+<p>${parseInlineFormatting(c.desc)}</p>
+</div>
+</div>
+`;
+}).join("");
+}
+}
+function syncInputsFromMasterState(){} function syncMasterFromInputs(){}
+function renderMasterToDom() {
+const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v ?? ""; };
+const setHtml = (id, v) => { const el = document.getElementById(id); if (el) el.innerHTML = parseInlineFormatting(v ?? ""); };
+const toggleSec = (secId, tabId, pillId, show) => {
+const s = document.getElementById(secId);
+const t = tabId ? document.getElementById(tabId) : null;
+const p = pillId ? document.getElementById(pillId) : null;
+if (s) s.style.display = show ? "" : "none";
+if (t) t.style.display = show ? "" : "none";
+if (p) p.classList.toggle("off", !show);
+};
+toggleSec("secVideoRecon", "tabBtnVideo", "pillShowVideo", masterState.showVideo);
+toggleSec("secSitrep", "tabBtnSitrep", "pillShowSitrep", masterState.showSitrep);
+toggleSec("secFeatured", "tabBtnFeatured", "pillShowFeatured", masterState.showFeatured);
+toggleSec("secMissionTracks", "tabBtnTracks", "pillShowTracks", masterState.showTracks);
+toggleSec("integratedStoreCalcSection", "tabBtnStore", "pillShowStore", masterState.showStore);
+toggleSec("secNewUnits", "tabBtnNewUnits", "pillShowNewUnits", masterState.showNewUnits);
+toggleSec("secUpdatedUnits", "tabBtnUpdatedUnits", "pillShowUpdatedUnits", masterState.showUpdatedUnits);
+toggleSec("secEnemyForces", "tabBtnEnemyForces", "pillShowEnemyForces", masterState.showEnemyForces);
+toggleSec("secUseOrLoseBanner", null, "pillShowWarning", masterState.showWarning);
+setTxt("displayCornerStampTop", masterState.cornerStamp);
+setTxt("displayClassBarTop", masterState.classBar);
+setTxt("displayMainTitle", masterState.mainTitle);
+setTxt("displayWarningEventName", masterState.mainTitle);
+setTxt("displayHeaderPrefix", masterState.headerPrefix);
+const srcLink = document.getElementById("displaySourceLink");
+if (srcLink) {
+srcLink.textContent = masterState.sourceLinkLabel;
+srcLink.href = masterState.sourceUrl;
+}
+setTxt("displayCalcJumpLink", masterState.calcJumpLabel);
+const logoImg = document.getElementById("displayWtrLogoImg");
+if (logoImg) logoImg.src = masterState.wtrLogoImg;
+const logoHref = document.getElementById("wtrHomeLogoLink");
+if (logoHref) logoHref.href = masterState.wtrLogoHref;
+setTxt("displaySchedStartLabel", masterState.schedStartLabel);
+setTxt("displaySchedStart", masterState.schedStart);
+setTxt("displaySchedEndLabel", masterState.schedEndLabel);
+setTxt("displaySchedEnd", masterState.schedEnd);
+setTxt("displaySchedStoreLabel", masterState.schedStoreLabel);
+setTxt("displaySchedStore", masterState.schedStore);
+setTxt("displayTab01Label", masterState.tab01Label);
+setTxt("displayTab02Label", masterState.tab02Label);
+setTxt("displayTab03Label", masterState.tab03Label);
+setTxt("displayTab04Label", masterState.tab04Label);
+setTxt("displayTab05Label", masterState.tab05Label);
+setTxt("displayTab06Label", masterState.tab06Label);
+setTxt("displayTab07Label", masterState.tab07Label);
+setTxt("displayTab08Label", masterState.tab08Label);
+setTxt("displayTab09Label", masterState.tab09Label);
+setTxt("displayBarVideoTitle", masterState.barVideoTitle);
+setTxt("displayBarVideoSub", masterState.barVideoSub);
+setTxt("displayVid1Title", masterState.vid1Title);
+setHtml("displayVid1Desc", masterState.vid1Desc);
+const v1Btn = document.getElementById("displayVidTopTier");
+if (v1Btn) { v1Btn.textContent = masterState.vid1BtnText; v1Btn.href = masterState.vidTopTier; }
+setHtml("displayVid1Note", masterState.vid1Note);
+setTxt("displayVid2Title", masterState.vid2Title);
+setHtml("displayVid2Desc", masterState.vid2Desc);
+const v2Btn = document.getElementById("displayVidWatchMe");
+if (v2Btn) { v2Btn.textContent = masterState.vid2BtnText; v2Btn.href = masterState.vidWatchMe; }
+setHtml("displayVid2Note", masterState.vid2Note);
+setTxt("displayBarSitrepTitle", masterState.barSitrepTitle);
+setTxt("displayBarSitrepSub", masterState.barSitrepSub);
+const sitImg = document.getElementById("displaySitrepImg");
+if (sitImg && sitImg.src !== masterState.sitrepImgUrl) sitImg.src = masterState.sitrepImgUrl;
+setTxt("lblSitrepWidthPct", masterState.sitrepImgWidthPct + "%");
+setTxt("lblSitrepMaxH", Number(masterState.sitrepImgMaxH) >= 600 ? "None" : (masterState.sitrepImgMaxH + "px"));
+syncSitrepImageSizing();
+setHtml("displaySitrepLead", masterState.sitrepLead);
+const qEl = document.getElementById("displaySitrepQuote");
+if (qEl) {
+qEl.style.display = masterState.showSitrepQuote ? "block" : "none";
+qEl.innerHTML = parseInlineFormatting(masterState.sitrepQuote);
+}
+const bEl = document.getElementById("displaySitrepBody");
+if (bEl) {
+bEl.style.display = masterState.showSitrepBody ? "block" : "none";
+bEl.innerHTML = parseInlineFormatting(masterState.sitrepBody);
+}
+setTxt("displayBarFeaturedTitle", masterState.barFeaturedTitle);
+setTxt("displayBarFeaturedSub", masterState.barFeaturedSub);
+const featUl = document.getElementById("displayFeaturedItemsList");
+if (featUl) {
+const lines = String(masterState.featuredItemsText || "").split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+featUl.innerHTML = lines.map(l => `<li>${parseInlineFormatting(l)}</li>`).join("");
+}
+setTxt("displayBarTracksTitle", masterState.barTracksTitle);
+setTxt("displayBarTracksSub", masterState.barTracksSub);
+setTxt("displayIncTitle", masterState.incTitle);
+setHtml("displayIncDesc", masterState.incDesc);
+setTxt("displayIncTableHeader", masterState.incTableHeader);
+setTxt("displayIncB1Label", masterState.incB1Label);
+setTxt("displayIncB2Label", masterState.incB2Label);
+setTxt("displayIncB3Label", masterState.incB3Label);
+setTxt("displayIncBonusLabel", masterState.incBonusLabel);
+const rIb1 = document.getElementById("rowIncB1"); if (rIb1) rIb1.style.display = masterState.showIncB1 ? "" : "none";
+const rIb2 = document.getElementById("rowIncB2"); if (rIb2) rIb2.style.display = masterState.showIncB2 ? "" : "none";
+const rIb3 = document.getElementById("rowIncB3"); if (rIb3) rIb3.style.display = masterState.showIncB3 ? "" : "none";
+setTxt("displayTacTitle", masterState.tacTitle);
+setHtml("displayTacDesc", masterState.tacDesc);
+setTxt("displayTacTableHeader", masterState.tacTableHeader);
+setTxt("displayTacB1Label", masterState.tacB1Label);
+setTxt("displayTacB2Label", masterState.tacB2Label);
+setTxt("displayTacB3Label", masterState.tacB3Label);
+setTxt("displayTacBonusLabel", masterState.tacBonusLabel);
+const rTb1 = document.getElementById("rowTacB1"); if (rTb1) rTb1.style.display = masterState.showTacB1 ? "" : "none";
+const rTb2 = document.getElementById("rowTacB2"); if (rTb2) rTb2.style.display = masterState.showTacB2 ? "" : "none";
+const rTb3 = document.getElementById("rowTacB3"); if (rTb3) rTb3.style.display = masterState.showTacB3 ? "" : "none";
+setTxt("displayPgTitle", masterState.pgTitle);
+setTxt("displayPgRightSub", masterState.pgRightSub);
+setHtml("displayPgDesc", masterState.pgDesc);
+setTxt("displayChest10Title", masterState.chest10Title);
+setHtml("displayChest10Desc", masterState.chest10Desc);
+setTxt("displayChest12Title", masterState.chest12Title);
+setHtml("displayChest12Desc", masterState.chest12Desc);
+setTxt("displayChest15Title", masterState.chest15Title);
+setHtml("displayChest15Desc", masterState.chest15Desc);
+setTxt("displayChest20Title", masterState.chest20Title);
+setHtml("displayChest20Desc", masterState.chest20Desc);
+setTxt("displayBarStoreTitle", masterState.barStoreTitle);
+setTxt("displayBarStoreSub", masterState.barStoreSub);
+setTxt("displayBarNewUnitsTitle", masterState.barNewUnitsTitle);
+setTxt("displayBarNewUnitsSub", masterState.barNewUnitsSub);
+setTxt("displayBarUpdatedUnitsTitle", masterState.barUpdatedUnitsTitle);
+setTxt("displayBarUpdatedUnitsSub", masterState.barUpdatedUnitsSub);
+setTxt("displayBarEnemyTitle", masterState.barEnemyTitle);
+setTxt("displayBarEnemySub", masterState.barEnemySub);
+setTxt("displayWarningLeadText", masterState.warningLeadText);
+setTxt("displayAlertDeadline", masterState.alertDeadline);
+renderUnitGalleriesToDom();
+recalculateSectorBreach();
+}
+window.addEventListener("DOMContentLoaded", function() {
+try {
+const savedCfg = localStorage.getItem(STORAGE_KEY_MASTER_CONFIG);
+if (savedCfg) {
+const parsed = JSON.parse(savedCfg);
+masterState = { ...masterState, ...parsed };
+}
+} catch (e) {}
+syncInputsFromMasterState();
+initSectorBreachCalcItemsState();
+loadSectorBreachCalcFromLocal();
+renderAdminStoreEditorList();
+renderAdminUnitCardsEditors();
+renderSectorBreachStoreTable();
+renderMasterToDom();
+bindHoverPodEvents();
+fetchMasterDbUnits(false);
+try {
+const savedArch = localStorage.getItem(ARCHIVE_COLLAPSE_STORAGE_KEY);
+if (savedArch === "1" || (savedArch === null && masterState.startCollapsedArchive)) {
+applyBriefArchiveView(true);
+}
+} catch (e) {}
+});
+</script>
+</body>
+</html>
+<!-- ==================== END BLOCK 5: JAVASCRIPT INLINE STUDIO & SECTOR BREACH CALCULATOR ENGINE ==================== -->

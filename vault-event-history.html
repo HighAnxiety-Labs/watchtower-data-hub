@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER VAULT EVENT HISTORY // SELF-POPULATING DIRECTORY INDEX v1.0 -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Vault — Self-Populating Event History Directory</title>
+  <script src="./directory-manifest.js"></script>
+  <style>
+    :root {
+      --bg-dark: #05070a;
+      --panel-bg: #0d1219;
+      --card-bg: #131b26;
+      --border-metal: #2a3b4c;
+      --text-main: #f0f6fc;
+      --text-muted: #9fb0c2;
+      --text-gold: #fde047;
+      --c-vault: #785dc8;
+      --c-skirmish: #4caf50;
+      --c-breach: #ff9800;
+      --c-holdout: #00bcd4;
+      --c-operations: #e53935;
+      --c-shadowops: #6b74d6;
+      --c-warpath: #ab47bc;
+      --c-upgrade: #38b2a6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      padding: 16px;
+      line-height: 1.5;
+    }
+    .vault-frame {
+      max-width: 1220px;
+      margin: 0 auto;
+      background: var(--panel-bg);
+      border: 2px solid var(--border-metal);
+      border-top: 4px solid var(--c-vault);
+      border-radius: 4px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+    .vault-header {
+      background: linear-gradient(180deg, #1b162e 0%, #0d1219 100%);
+      padding: 18px 24px;
+      border-bottom: 2px solid var(--border-metal);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .vault-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .vault-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 2px solid var(--c-vault);
+      object-fit: cover;
+      box-shadow: 0 0 16px rgba(120, 93, 200, 0.45);
+    }
+    .vault-subtag {
+      font-family: monospace;
+      font-size: 11.5px;
+      color: #c4b5fd;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    .vault-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: clamp(20px, 2.8vw, 28px);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #ffffff;
+    }
+    .vault-controls-bar {
+      background: #090d13;
+      border-bottom: 1px solid var(--border-metal);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cat-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .cat-pill-btn {
+      background: #131c27;
+      border: 1px solid var(--border-metal);
+      border-left: 3px solid var(--pill-color, var(--c-vault));
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      padding: 7px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cat-pill-btn:hover {
+      color: #ffffff;
+      border-color: var(--pill-color, var(--c-vault));
+      background: #1a2636;
+    }
+    .cat-pill-btn.active {
+      background: var(--pill-color, var(--c-vault));
+      color: #05070a;
+      border-color: #ffffff;
+      font-weight: 900;
+    }
+    .group-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .group-btn {
+      background: #131c27;
+      border: 1px solid var(--border-metal);
+      color: var(--text-gold);
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .group-btn.active {
+      background: var(--text-gold);
+      color: #05070a;
+      border-color: #ffffff;
+    }
+    .vault-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .vault-group-box {
+      border: 1px solid var(--border-metal);
+      border-radius: 4px;
+      background: #0a0f15;
+      overflow: hidden;
+    }
+    .vault-group-header {
+      background: linear-gradient(90deg, #16202c 0%, #0d141c 100%);
+      border-bottom: 1px solid var(--border-metal);
+      border-left: 4px solid var(--grp-color, var(--c-vault));
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Arial Black", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+    .vault-items-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .vault-event-row {
+      border-bottom: 1px solid #182330;
+      display: flex;
+      flex-direction: column;
+    }
+    .vault-event-row:last-child {
+      border-bottom: none;
+    }
+    .vault-label-bar {
+      padding: 11px 16px;
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .vault-label-bar:hover {
+      background: #1a2535;
+    }
+    .vault-label-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+    .vault-date-badge {
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      padding: 3px 9px;
+      border-radius: 3px;
+      background: rgba(253, 224, 71, 0.14);
+      border: 1px solid rgba(253, 224, 71, 0.45);
+      color: var(--text-gold);
+      white-space: nowrap;
+    }
+    .vault-cat-tag {
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .vault-event-title {
+      font-weight: 800;
+      font-size: 14.5px;
+      color: #ffffff;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .vault-file-hint {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .vault-label-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn-vault-action {
+      background: #0d151f;
+      border: 1px solid var(--border-metal);
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-vault-action:hover {
+      background: #38bdf8;
+      color: #05070a;
+      border-color: #ffffff;
+    }
+    .btn-vault-action.popout {
+      color: var(--text-gold);
+      border-color: rgba(253, 224, 71, 0.45);
+    }
+    .btn-vault-action.popout:hover {
+      background: var(--text-gold);
+      color: #05070a;
+    }
+    .vault-iframe-drawer {
+      display: none;
+      background: #040609;
+      border-top: 2px solid var(--c-vault);
+      padding: 10px;
+    }
+    .vault-iframe-drawer.open {
+      display: block;
+    }
+    .vault-iframe-Drawer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: #0d131b;
+      border: 1px solid var(--border-metal);
+      border-bottom: none;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-gold);
+      font-weight: 800;
+    }
+    .vault-embed-iframe {
+      width: 100%;
+      height: 820px;
+      border: 1px solid var(--border-metal);
+      background: #080b0f;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="vault-frame">
+    <header class="vault-header">
+      <div class="vault-header-left">
+        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-]" class="vault-logo">
+        <div>
+          <div class="vault-subtag">[-WTR-] VAULT // SELF-POPULATING ARCHIVE DIRECTORY</div>
+          <h1 class="vault-title" id="vaultPageHeading">EVENT HISTORY ARCHIVE</h1>
+        </div>
+      </div>
+      <div style="font-family:monospace; font-size:12px; color:var(--text-muted); text-align:right;">
+        <div id="vaultTotalCountBadge" style="color:var(--text-gold); font-weight:900;">SCANNING VAULT DIRECTORY...</div>
+        <div>Auto-collected from <code>published/vault/</code></div>
+      </div>
+    </header>
+
+    <div class="vault-controls-bar">
+      <div class="cat-pills-row" id="vaultCategoryPills"></div>
+      <div class="group-toggle-wrap">
+        <span style="font-family:monospace; font-size:11px; color:var(--text-muted); font-weight:800;">GROUP BY:</span>
+        <button type="button" class="group-btn active" id="btnGroupEvent" onclick="setVaultGroupMode('EVENT')">📂 Event Type</button>
+        <button type="button" class="group-btn" id="btnGroupYear" onclick="setVaultGroupMode('YEAR')">📅 Year / Month</button>
+      </div>
+    </div>
+
+    <div class="vault-body" id="vaultDirectoryBody"></div>
+  </div>
+
+  <script>
+    const VAULT_CATEGORIES = [
+      { key: "ALL",           label: "ALL ARCHIVES",       color: "#a78bfa" },
+      { key: "SKIRMISH",      label: "SKIRMISH",           color: "#4caf50" },
+      { key: "SECTOR_BREACH", label: "SECTOR BREACH",      color: "#ff9800" },
+      { key: "HOLDOUT",       label: "HOLDOUT",            color: "#00bcd4" },
+      { key: "OPERATIONS",    label: "OPERATIONS",         color: "#e53935" },
+      { key: "SHADOW_OPS",    label: "SHADOW OPS",         color: "#6b74d6" },
+      { key: "WARPATH",       label: "WARPATH",            color: "#ab47bc" },
+      { key: "UPGRADE_SALES", label: "UPGRADE & SALES",    color: "#38b2a6" }
+    ];
+
+    const MONTH_MAP = {
+      jan: { num: 1,  short: "JAN", full: "January" },
+      feb: { num: 2,  short: "FEB", full: "February" },
+      mar: { num: 3,  short: "MAR", full: "March" },
+      apr: { num: 4,  short: "APR", full: "April" },
+      may: { num: 5,  short: "MAY", full: "May" },
+      jun: { num: 6,  short: "JUN", full: "June" },
+      jul: { num: 7,  short: "JUL", full: "July" },
+      aug: { num: 8,  short: "AUG", full: "August" },
+      sep: { num: 9,  short: "SEP", full: "September" },
+      oct: { num: 10, short: "OCT", full: "October" },
+      nov: { num: 11, short: "NOV", full: "November" },
+      dec: { num: 12, short: "DEC", full: "December" }
+    };
+
+    let activeCategoryFilter = "ALL";
+    let activeGroupMode = "EVENT";
+    let discoveredVaultItems = [];
+
+    function parseVaultFilename(fileName) {
+      const cleanName = String(fileName || "").trim();
+      const lower = cleanName.toLowerCase();
+      const ignored = ["hub-home.html", "2026-calendar.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html"];
+      if (!lower.endsWith(".html") || ignored.includes(lower)) {
+        return null;
+      }
+
+      let catKey = "OPERATIONS";
+      if (lower.includes("skirmish")) catKey = "SKIRMISH";
+      else if (lower.includes("sector-breach") || lower.includes("breach")) catKey = "SECTOR_BREACH";
+      else if (lower.includes("holdout")) catKey = "HOLDOUT";
+      else if (lower.includes("shadow-ops") || lower.includes("shadow_ops") || lower.includes("shadowops")) catKey = "SHADOW_OPS";
+      else if (lower.includes("warpath")) catKey = "WARPATH";
+      else if (lower.includes("operation") || lower.includes("nightmare")) catKey = "OPERATIONS";
+      else if (lower.includes("upgrade") || lower.includes("building-sale") || lower.includes("sale-value")) catKey = "UPGRADE_SALES";
+      else return null;
+
+      let year = 2026;
+      let monthNum = 0;
+      let monthShort = "2026";
+      let monthFull = "2026";
+      let restSlug = cleanName.replace(/\.html$/i, "");
+
+      const m1 = restSlug.match(/^(\d{4})-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-(.+)$/i);
+      const m2 = !m1 ? restSlug.match(/^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-(.+)$/i) : null;
+
+      if (m1) {
+        year = parseInt(m1[1], 10);
+        const mInfo = MONTH_MAP[m1[2].toLowerCase()];
+        if (mInfo) { monthNum = mInfo.num; monthShort = mInfo.short; monthFull = mInfo.full; }
+        restSlug = m1[3];
+      } else if (m2) {
+        const mInfo = MONTH_MAP[m2[1].toLowerCase()];
+        if (mInfo) { monthNum = mInfo.num; monthShort = mInfo.short; monthFull = mInfo.full; }
+        restSlug = m2[2];
+      }
+
+      const readableTitle = restSlug
+        .replace(/=/g, ": ")
+        .replace(/-/g, " ")
+        .replace(/\boperation\s+/i, "OPERATION: ")
+        .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
+        .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
+        .toUpperCase();
+
+      const dateBadge = monthNum > 0 ? `${monthShort} ${year}` : `${year}`;
+      const monthGroupTitle = monthNum > 0 ? `${monthFull.toUpperCase()} ${year}` : `${year} ARCHIVES`;
+      const sortScore = (year * 100) + monthNum;
+
+      return {
+        fileName: cleanName,
+        url: `./vault/${encodeURIComponent(cleanName)}`,
+        catKey,
+        year,
+        monthNum,
+        dateBadge,
+        monthGroupTitle,
+        title: readableTitle,
+        fullLabel: `${dateBadge} • ${readableTitle}`,
+        sortScore
+      };
+    }
+
+    async function discoverVaultDirectoryFiles() {
+      const fileSet = new Set();
+      if (window.WTR_DIRECTORY_MANIFEST && Array.isArray(window.WTR_DIRECTORY_MANIFEST.vaultFiles)) {
+        window.WTR_DIRECTORY_MANIFEST.vaultFiles.forEach(f => fileSet.add(f));
+      }
+
+      if (window.location.protocol.startsWith("http")) {
+        try {
+          const resp = await fetch("./vault/", { cache: "no-store" });
+          if (resp.ok) {
+            const text = await resp.text();
+            const doc = new DOMParser().parseFromString(text, "text/html");
+            doc.querySelectorAll("a[href]").forEach(a => {
+              const href = decodeURIComponent(a.getAttribute("href") || "").split("?")[0].split("#")[0];
+              const base = href.split("/").filter(Boolean).pop() || "";
+              if (base.toLowerCase().endsWith(".html")) fileSet.add(base);
+            });
+          }
+        } catch (e) {}
+      }
+
+      discoveredVaultItems = Array.from(fileSet)
+        .map(parseVaultFilename)
+        .filter(Boolean)
+        .sort((a, b) => (b.sortScore - a.sortScore) || a.title.localeCompare(b.title));
+
+      renderCategoryPills();
+      renderVaultDirectory();
+    }
+
+    function renderCategoryPills() {
+      const row = document.getElementById("vaultCategoryPills");
+      const totalBadge = document.getElementById("vaultTotalCountBadge");
+      if (!row) return;
+
+      const counts = { ALL: discoveredVaultItems.length };
+      VAULT_CATEGORIES.forEach(c => {
+        if (c.key !== "ALL") counts[c.key] = discoveredVaultItems.filter(i => i.catKey === c.key).length;
+      });
+
+      if (totalBadge) {
+        totalBadge.textContent = `${discoveredVaultItems.length} ARCHIVED FILES IN VAULT`;
+      }
+
+      row.innerHTML = VAULT_CATEGORIES.map(c => {
+        const cnt = counts[c.key] || 0;
+        const isAct = activeCategoryFilter === c.key;
+        return `
+          <button type="button" class="cat-pill-btn ${isAct ? 'active' : ''}" style="--pill-color:${c.color};" onclick="selectVaultCategory('${c.key}')">
+            <span>${c.label}</span>
+            <span style="opacity:0.85;">(${cnt})</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function selectVaultCategory(catKey) {
+      activeCategoryFilter = catKey;
+      const catMeta = VAULT_CATEGORIES.find(c => c.key === catKey) || VAULT_CATEGORIES[0];
+      const heading = document.getElementById("vaultPageHeading");
+      if (heading) {
+        heading.textContent = catKey === "ALL" ? "EVENT HISTORY ARCHIVE (ALL CATEGORIES)" : `${catMeta.label} — EVENT HISTORY`;
+      }
+      renderCategoryPills();
+      renderVaultDirectory();
+    }
+
+    function setVaultGroupMode(mode) {
+      activeGroupMode = mode;
+      document.getElementById("btnGroupEvent")?.classList.toggle("active", mode === "EVENT");
+      document.getElementById("btnGroupYear")?.classList.toggle("active", mode === "YEAR");
+      renderVaultDirectory();
+    }
+
+    function toggleVaultItemDrawer(rowId, fileUrl) {
+      const drawer = document.getElementById(`drawer-${rowId}`);
+      const iframe = document.getElementById(`iframe-${rowId}`);
+      const btn = document.getElementById(`btn-${rowId}`);
+      if (!drawer || !iframe) return;
+
+      const isOpen = drawer.classList.toggle("open");
+      if (isOpen) {
+        if (!iframe.getAttribute("src") || iframe.getAttribute("src") === "about:blank") {
+          iframe.setAttribute("src", fileUrl);
+        }
+        if (btn) btn.innerHTML = "▲ Collapse Brief";
+      } else {
+        if (btn) btn.innerHTML = "🖥️ Expand in Iframe ▼";
+      }
+    }
+
+    function popOutVaultFile(fileUrl) {
+      const w = 1160, h = 880;
+      const left = Math.max(0, (window.screen.width - w) / 2);
+      const top = Math.max(0, (window.screen.height - h) / 2);
+      const win = window.open(fileUrl, "_blank", `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes`);
+      if (!win) window.open(fileUrl, "_blank");
+    }
+
+    function renderVaultDirectory() {
+      const container = document.getElementById("vaultDirectoryBody");
+      if (!container) return;
+
+      const filtered = activeCategoryFilter === "ALL"
+        ? discoveredVaultItems
+        : discoveredVaultItems.filter(i => i.catKey === activeCategoryFilter);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="padding:28px; text-align:center; font-family:monospace; color:var(--text-muted); border:1px dashed var(--border-metal); border-radius:4px;">No archived files found for this category in <code>published/vault/</code>.</div>`;
+        return;
+      }
+
+      const groups = [];
+      if (activeGroupMode === "YEAR") {
+        const byMonth = new Map();
+        filtered.forEach(item => {
+          if (!byMonth.has(item.monthGroupTitle)) {
+            byMonth.set(item.monthGroupTitle, { title: `📅 ${item.monthGroupTitle}`, color: "#a78bfa", items: [] });
+          }
+          byMonth.get(item.monthGroupTitle).items.push(item);
+        });
+        byMonth.forEach(g => groups.push(g));
+      } else {
+        VAULT_CATEGORIES.filter(c => c.key !== "ALL").forEach(cat => {
+          const catItems = filtered.filter(i => i.catKey === cat.key);
+          if (catItems.length > 0) {
+            groups.push({ title: `📂 ${cat.label}`, color: cat.color, items: catItems });
+          }
+        });
+      }
+
+      let rowCounter = 0;
+      container.innerHTML = groups.map(grp => {
+        const rowsHtml = grp.items.map(item => {
+          rowCounter++;
+          const rowId = `vrow-${rowCounter}`;
+          const catMeta = VAULT_CATEGORIES.find(c => c.key === item.catKey) || VAULT_CATEGORIES[0];
+          return `
+            <div class="vault-event-row">
+              <div class="vault-label-bar" onclick="toggleVaultItemDrawer('${rowId}', '${item.url}')">
+                <div class="vault-label-left">
+                  <span class="vault-date-badge">${item.dateBadge}</span>
+                  <span class="vault-cat-tag" style="background:${catMeta.color}22; color:${catMeta.color}; border:1px solid ${catMeta.color}88;">${catMeta.label}</span>
+                  <span class="vault-event-title">${item.title}</span>
+                  <span class="vault-file-hint">(${item.fileName})</span>
+                </div>
+                <div class="vault-label-actions" onclick="event.stopPropagation();">
+                  <button type="button" class="btn-vault-action" id="btn-${rowId}" onclick="toggleVaultItemDrawer('${rowId}', '${item.url}')">🖥️ Expand in Iframe ▼</button>
+                  <button type="button" class="btn-vault-action popout" onclick="popOutVaultFile('${item.url}')">↗ Pop-Out Full Page</button>
+                </div>
+              </div>
+              <div class="vault-iframe-drawer" id="drawer-${rowId}">
+                <div class="vault-iframe-Drawer-bar">
+                  <span>🖥️ ARCHIVE VIEWPORT // ${item.fullLabel}</span>
+                  <div style="display:flex; gap:8px;">
+                    <button type="button" class="btn-vault-action popout" onclick="popOutVaultFile('${item.url}')">↗ Pop-Out Full Window</button>
+                    <button type="button" class="btn-vault-action" onclick="toggleVaultItemDrawer('${rowId}', '${item.url}')">✕ Collapse</button>
+                  </div>
+                </div>
+                <iframe class="vault-embed-iframe" id="iframe-${rowId}" src="about:blank" loading="lazy"></iframe>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="vault-group-box">
+            <div class="vault-group-header" style="--grp-color:${grp.color};">
+              <span>${grp.title}</span>
+              <span style="font-family:monospace; font-size:12px; color:var(--text-gold);">${grp.items.length} ${grp.items.length === 1 ? 'FILE' : 'FILES'}</span>
+            </div>
+            <div class="vault-items-list">${rowsHtml}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    (function initFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const cat = (params.get("category") || "").toUpperCase().trim();
+      if (cat && VAULT_CATEGORIES.some(c => c.key === cat)) {
+        activeCategoryFilter = cat;
+        const catMeta = VAULT_CATEGORIES.find(c => c.key === cat);
+        const heading = document.getElementById("vaultPageHeading");
+        if (heading && catMeta && cat !== "ALL") {
+          heading.textContent = `${catMeta.label} — EVENT HISTORY`;
+        }
+      }
+      const grp = (params.get("group") || "").toUpperCase().trim();
+      if (grp === "YEAR" || grp === "EVENT") {
+        setVaultGroupMode(grp);
+      }
+      discoverVaultDirectoryFiles();
+    })();
+  </script>
+</body>
+</html>
+

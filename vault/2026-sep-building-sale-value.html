@@ -1,0 +1,446 @@
+<style>:root {
+      --bg-dark: #070c10;
+      --bg-surface: #0b141a;
+      --card-bg: rgba(10, 30, 42, 0.9);
+      --cyan-border: #00f0ff;
+      --cyan-dim: rgba(0, 240, 255, 0.15);
+      --gold: #ffd700;
+      --gold-dim: rgba(255, 215, 0, 0.15);
+      --text-white: #ffffff;
+      --text-cyan: #00f0ff;
+      --text-muted: #8a9ba8;
+      --font-stack: 'Arial', 'Helvetica', sans-serif;
+    }
+    body, .wt-container {
+      background-color: var(--bg-surface);
+      background: radial-gradient(circle at 50% 20%, #142834 0%, var(--bg-dark) 100%);
+      color: #e0f7fc;
+      font-family: var(--font-stack);
+      margin: 0;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    /* Event Briefing Header */
+    .event-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .header-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--text-cyan);
+      background: linear-gradient(180deg, #3a4d59 0%, #1e2b34 50%, #111920 100%);
+      border: 1.5px solid var(--cyan-border);
+      padding: 4px 16px;
+      text-transform: uppercase;
+      clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 100%, 0% 100%);
+      margin-bottom: 8px;
+    }
+    .event-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--text-white);
+      margin: 0 0 6px 0;
+      text-transform: uppercase;
+    }
+    .event-subtitle {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--text-cyan);
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+    }
+    /* Caution Box */
+    .caution-banner {
+      background: rgba(184, 134, 11, 0.12);
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      border-radius: 4px;
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #fce8a2;
+      margin: 0 auto 24px auto;
+      max-width: 1300px;
+      line-height: 1.4;
+      box-sizing: border-box;
+    }
+    /* 4-Column Responsive Layout */
+    .columns-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1300px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+    .column-card {
+      background: var(--card-bg);
+      border: 2px solid var(--cyan-border);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .column-header {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .tier-title {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .tier-sub {
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    /* Header Accents */
+    .header-p1 {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border-bottom-color: rgba(255, 215, 0, 0.3);
+    }
+    .header-p1 .tier-sub { color: #fff3a8; }
+    .header-p2 {
+      background: var(--cyan-dim);
+      color: var(--text-cyan);
+    }
+    .header-p2 .tier-sub { color: #a9f5ff; }
+    .header-p3 {
+      background: rgba(0, 150, 200, 0.15);
+      color: #38d8ff;
+      border-bottom-color: rgba(0, 150, 200, 0.3);
+    }
+    .header-p3 .tier-sub { color: #bfeeff; }
+    .header-p4 {
+      background: rgba(138, 155, 168, 0.12);
+      color: var(--text-muted);
+      border-bottom-color: rgba(138, 155, 168, 0.25);
+    }
+    .header-p4 .tier-sub { color: #a6b7c4; }
+    /* Card List */
+    .priority-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+    }
+    .priority-item {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
+    }
+    .priority-item:last-child {
+      border-bottom: none;
+    }
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .building-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .tier-70 {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .tier-50 {
+      background: var(--cyan-dim);
+      color: var(--text-cyan);
+      border: 1px solid var(--cyan-border);
+    }
+    .item-desc {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #b5c7d3;
+    }
+    /* Footer Note */
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 24px auto 0 auto;
+      max-width: 1300px;
+      line-height: 1.5;
+    }
+    @media (max-width: 1080px) {
+      .columns-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .columns-grid {
+        grid-template-columns: 1fr;
+      }
+    }</style>
+<div class="wt-container"><!-- EVENT BRIEFING & TIME HEADER -->
+  <div style="text-align: center; font-family: Arial, Helvetica, sans-serif; margin: 0 auto 24px auto; max-width: 960px;">
+    <div style="display: inline-block; font-size: 11px; font-weight: 900; letter-spacing: 2px; color: #00f0ff; background: linear-gradient(180deg, #3a4d59 0%, #1e2b34 50%, #111920 100%); border: 1.5px solid #00f0ff; padding: 4px 18px; text-transform: uppercase; clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 100%, 0% 100%); margin-bottom: 12px;">SALE EVALUATION BRIEFING</div>
+<!-- Main Title -->
+    <h1 style="font-size: 28px; font-weight: 900; letter-spacing: 3px; color: #ffffff; margin: 0 0 8px 0; text-transform: uppercase;">[-WTR-] GOLD UPGRADE VALUE MATRIX for:&nbsp;
+      <br>SEPT 2026 72-HOUR BUILDING SALE 
+      <br>
+    </h1>
+<!-- Subtitle -->
+    <div style="font-size: 13px; font-weight: bold; color: #00f0ff; letter-spacing: 1.5px; margin-bottom: 20px;">Preparation Phase: Command Center 22 (Arriving Sept 24)</div>
+<!-- Time Boxes -->
+    <div style="display: flex; justify-content: center; align-items: center; gap: 14px;"><!-- Start Time -->
+      <div style="background: rgba(10, 30, 42, 0.9); border: 1px solid #00f0ff; border-radius: 4px; padding: 6px 16px; text-align: center; min-width: 140px;">
+        <div style="font-size: 10px; font-weight: bold; color: #8a9ba8; letter-spacing: 1px; margin-bottom: 2px;">START TIME</div>
+        <div style="font-size: 13px; font-weight: 900; color: #ffffff;">Sept 21, 08:00 PDT</div>
+      </div>
+<!-- Arrow Divider --> 
+      <span style="color: #00f0ff; font-size: 12px; line-height: 1;">▶</span> <!-- End Time -->
+      <div style="background: rgba(10, 30, 42, 0.9); border: 1px solid #00f0ff; border-radius: 4px; padding: 6px 16px; text-align: center; min-width: 140px;">
+        <div style="font-size: 10px; font-weight: bold; color: #8a9ba8; letter-spacing: 1px; margin-bottom: 2px;">END TIME</div>
+        <div style="font-size: 13px; font-weight: 900; color: #ffffff;">Sept 24, 08:00 PDT</div>
+      </div>
+    </div>
+  </div>
+  <div class="event-subtitle" style="text-align: center;">Prioritized ROI Breakdown: Command Center 22 Rollout</div>
+<!-- 4 Columns Grid -->
+  <div class="columns-grid"><!-- TIER 1 -->
+    <div class="column-card">
+      <div class="column-header header-p1">
+        <div class="tier-title">TIER 1: CRITICAL</div>
+        <div class="tier-sub">Bottleneck &amp; Prereqs (Highest ROI)</div>
+      </div>
+      <ul class="priority-list">
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Command Center</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Mandatory push to CC21 if not already capped. Clears the gate for CC22 on day one.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Tech Center</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Massive timer reduction on the core research bottleneck required for combat readiness.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Weapons Lab</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Prerequisite for weapon systems and top-tier combat tech upgrades.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">War Factory</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Crucial production engine for fielding top-tier heavy armor and ground units.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Tactical Ops Center</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Expands deployment command limits and tactical strike support. Buffs ARC 1, 2 and (future) 3 units.</div>
+        </li>
+      </ul>
+    </div>
+<!-- TIER 2 -->
+    <div class="column-card">
+      <div class="column-header header-p2">
+        <div class="tier-title">TIER 2: ESSENTIAL</div>
+        <div class="tier-sub">Caps &amp; Fleet Infra (High ROI)</div>
+      </div>
+      <ul class="priority-list">
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Airfield</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Essential air infrastructure for high-speed PvP base clearing and event farming.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Aircraft Hangar</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Scales air wing capacity at a fraction of the standard Gold cost.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Barracks &amp; Academy</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Accelerates infantry research and output for infantry-heavy tactical compositions.</div>
+        </li>
+        <li class="priority-item">
+           <div class="item-top">
+            <span class="building-name">Mercenary Camp</span>
+            <span class="badge tier-70">70% OFF</span>
+         </div>
+         <div class="item-desc">Expands elite contract capacity and unlocks high-tier specialist units for event farming and tactical deployment.</div>
+       </li>
+<li class="priority-item">
+  <div class="item-top">
+    <span class="building-name">Armory</span>
+    <span class="badge tier-50">50% OFF</span>
+  </div>
+  <div class="item-desc">
+    Ground Unit Stash; Upgrade as needed, if you don't like to scrap old units, this is Essential.
+  </div>
+</li>
+<li class="priority-item">
+  <div class="item-top">
+    <span class="building-name">Radio Tower</span>
+    <span class="badge tier-70">70% OFF</span>
+  </div>
+  <div class="item-desc">
+    Increases the number of advanced scouts, if you actually need more then now's a good time.
+  </div>
+</li>
+      </ul>
+    </div>
+<!-- TIER 3: DEFENSIVE & COMBAT AURAS -->
+    <div class="column-card">
+      <div class="column-header header-p3">
+        <div class="tier-title">TIER 3: DEFENSIVE</div>
+        <div class="tier-sub">Base Anchors &amp; Buffs (Solid ROI)</div>
+      </div>
+      <ul class="priority-list">
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Skyguard</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Best cost-to-impact defensive upgrade; elite standalone anti-air perimeter anchor.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">The Agency</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Critical base-wide defensive buffs and damage mitigation multipliers against incoming raids.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Go-Go Bar</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">High-value defender combat aura; boosts DPS and responsiveness of defending platoons.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Defense Lab</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Direct stat amplifier for turret durability and overall perimeter performance.</div>
+        </li>
+<li class="priority-item">
+  <div class="item-top">
+    <span class="building-name">Workshop</span>
+    <span class="badge tier-70">70% OFF</span>
+  </div>
+  <div class="item-desc">
+    Defense Bastions, Each level upgrade unlock new levels on Bastions.
+  </div>
+</li>
+        <li class="priority-item">
+  <div class="item-top">
+    <span class="building-name">Mine Factory</span>
+    <span class="badge tier-70">70% OFF</span>
+  </div>
+  <div class="item-desc">
+    Scales landmine capacity and trap tech; low combat ROI as perimeter mines are easily cleared by current raid metas.
+  </div>
+</li><li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Dragon's Teeth &amp; Wire</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Minor pathing obstacles; builders are far better dedicated to hard combat structures.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Drone &amp; Missile Silos</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Heavy area-denial deterrents that punish slow ground pushes and clustered formations.</div>
+        </li>
+      </ul>
+    </div>
+<!-- TIER 4: LOW VALUE (DEPENALIZED / PASSIVE) -->
+    <div class="column-card">
+      <div class="column-header header-p4">
+        <div class="tier-title">TIER 4: LOW VALUE</div>
+        <div class="tier-sub">Passive / Obstacles (Deprioritize)</div>
+      </div>
+      <ul class="priority-list">
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Thorium Vault</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Prevents build stalling; raises Thorium capacity to meet upcoming CC22 construction costs.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Metal &amp; Oil Storage</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Ensures sufficient resource thresholds to absorb high-tier CC22 prerequisite upgrade costs.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Oil Pump &amp; Metal Fact.</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Passive generation rates pale in comparison to active event farming and raid crates.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Thorium Mine</span> 
+            <span class="badge tier-50">50% OFF</span>
+          </div>
+          <div class="item-desc">Slow yield rate does not justify premium Gold spending before CC22.</div>
+        </li>
+        <li class="priority-item">
+          <div class="item-top">
+            <span class="building-name">Construction Yard</span> 
+            <span class="badge tier-70">70% OFF</span>
+          </div>
+          <div class="item-desc">Highest raw Gold-to-timer value. Gates base build speeds, build queues, and structure caps. However requires too much time and effort to be of real value to the average player.</div>
+        </li>
+        <li class="priority-item">
+  <div class="item-top">
+    <span class="building-name">Airburst Cloud Launcher</span>
+    <span class="badge tier-50">50% OFF</span>
+  </div>
+  <div class="item-desc">
+    Elite anti-air area denial; saturates flight paths to shred clustered air wings and heavy bombers before reaching the core. Truth; it never worked, so ignore it until fixed.
+  </div>
+</li>  
+      </ul>
+    </div>
+  </div>
+<!-- Footer Disclaimer -->
+  <div class="footer-note">Discounted prices apply to Gold Upgrades only! Upgrades started before the sale will not reflect the discount. ROI stands for Return on Investment.
+</div>
+</div>

@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0b141a; font-family: 'Arial', 'Helvetica', sans-serif;">
+  <defs>
+    <!-- Dark Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#142834"/>
+      <stop offset="100%" stop-color="#070c10"/>
+    </radialGradient>
+
+    <!-- Header Metallic Gradient -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a4d59"/>
+      <stop offset="50%" stop-color="#1e2b34"/>
+      <stop offset="100%" stop-color="#111920"/>
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(10, 30, 42, 0.9)"/>
+      <stop offset="100%" stop-color="rgba(5, 15, 22, 0.95)"/>
+    </linearGradient>
+
+    <!-- Color Accents -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#ff8c00"/>
+    </linearGradient>
+
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0088cc"/>
+    </linearGradient>
+
+    <linearGradient id="grayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a0b0bc"/>
+      <stop offset="100%" stop-color="#4a5a66"/>
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <path d="M 0,100 L 1000,100 M 0,200 L 1000,200 M 0,300 L 1000,300 M 0,400 L 1000,400 M 0,500 L 1000,500" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+  <path d="M 333,0 L 333,650 M 666,0 L 666,650" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+
+  <!-- Top Banner / Header -->
+  <polygon points="120,15 880,15 860,75 140,75" fill="url(#headerGrad)" stroke="#00f0ff" stroke-width="1.5"/>
+  <text x="500" y="42" font-size="24" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="3">WatchToweR</text>
+  <text x="500" y="64" font-size="15" font-weight="bold" fill="#00f0ff" text-anchor="middle" letter-spacing="2">UPGRADE SALE: VALUE VS REWARD EVALUATION</text>
+
+  <!-- ================= COLUMN 1: HIGH VALUE (70% OFF) ================= -->
+  <g transform="translate(25, 95)">
+    <!-- Frame -->
+    <rect x="0" y="0" width="300" height="475" rx="8" fill="url(#cardBg)" stroke="url(#goldGrad)" stroke-width="2"/>
+    <path d="M 0,8 C 0,3.5 3.5,0 8,0 L 292,0 C 296.5,0 300,3.5 300,8 L 300,50 L 0,50 Z" fill="url(#goldGrad)" fill-opacity="0.2"/>
+    
+    <!-- Column Title -->
+    <text x="150" y="28" font-size="17" font-weight="900" fill="#ffd700" text-anchor="middle">🚀 HIGH VALUE</text>
+    <text x="150" y="44" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">70% DISCOUNT TIER</text>
+    
+    <!-- Body Content -->
+    <g transform="translate(15, 65)" font-size="12" fill="#e0f7fc">
+      <!-- Section 1 -->
+      <rect x="0" y="0" width="270" height="22" rx="4" fill="#ffd700" fill-opacity="0.15"/>
+      <text x="8" y="15" font-weight="bold" fill="#ffd700">Defenses (Bunker, Stronghold, Watchtower)</text>
+      <text x="8" y="33" fill="#b0c4de" font-size="11">• Critical for base survival during raids.</text>
+      <text x="8" y="47" fill="#b0c4de" font-size="11">• Max Gold savings per upgrade.</text>
+
+      <!-- Section 2 -->
+      <rect x="0" y="65" width="270" height="22" rx="4" fill="#ffd700" fill-opacity="0.15"/>
+      <text x="8" y="80" font-weight="bold" fill="#ffd700">Helipads (Delta &amp; Tango)</text>
+      <text x="8" y="98" fill="#b0c4de" font-size="11">• Crucial air mobility &amp; combat deployment.</text>
+      <text x="8" y="112" fill="#b0c4de" font-size="11">• Essential for air-focused strategies.</text>
+
+      <!-- Section 3 -->
+      <rect x="0" y="130" width="270" height="22" rx="4" fill="#ffd700" fill-opacity="0.15"/>
+      <text x="8" y="145" font-weight="bold" fill="#ffd700">Mine Factory &amp; Mercenary Camp</text>
+      <text x="8" y="163" fill="#b0c4de" font-size="11">• Unlocks resource generation &amp; spec-units.</text>
+      <text x="8" y="177" fill="#b0c4de" font-size="11">• Highest long-term ROI tier.</text>
+
+      <!-- Recommendation Box -->
+      <rect x="0" y="210" width="270" height="180" rx="6" fill="#070c10" stroke="#ffd700" stroke-width="1"/>
+      <text x="135" y="232" font-size="13" font-weight="900" fill="#ffd700" text-anchor="middle">PRIORITY RATING: 10/10</text>
+      <line x1="15" y1="242" x2="255" y2="242" stroke="#ffd700" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="15" y="262" font-size="11" font-weight="bold" fill="#ffffff">Recommendation:</text>
+      <text x="15" y="280" font-size="11" fill="#a0b0bc">Max out these 7 buildings FIRST.</text>
+      <text x="15" y="298" font-size="11" fill="#a0b0bc">The 70% price drop yields the</text>
+      <text x="15" y="316" font-size="11" fill="#a0b0bc">largest total Gold saved in the</text>
+      <text x="15" y="334" font-size="11" fill="#a0b0bc">entire sale event.</text>
+    </g>
+  </g>
+
+  <!-- ================= COLUMN 2: MODERATE VALUE (50% OFF) ================= -->
+  <g transform="translate(350, 95)">
+    <!-- Frame -->
+    <rect x="0" y="0" width="300" height="475" rx="8" fill="url(#cardBg)" stroke="url(#cyanGrad)" stroke-width="2"/>
+    <path d="M 0,8 C 0,3.5 3.5,0 8,0 L 292,0 C 296.5,0 300,3.5 300,8 L 300,50 L 0,50 Z" fill="url(#cyanGrad)" fill-opacity="0.2"/>
+    
+    <!-- Column Title -->
+    <text x="150" y="28" font-size="17" font-weight="900" fill="#00f0ff" text-anchor="middle">⚡ MODERATE VALUE</text>
+    <text x="150" y="44" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">50% DISCOUNT TIER</text>
+    
+    <!-- Body Content -->
+    <g transform="translate(15, 65)" font-size="12" fill="#e0f7fc">
+      <!-- Section 1 -->
+      <rect x="0" y="0" width="270" height="22" rx="4" fill="#00f0ff" fill-opacity="0.15"/>
+      <text x="8" y="15" font-weight="bold" fill="#00f0ff">Tech Center &amp; Academy</text>
+      <text x="8" y="33" fill="#b0c4de" font-size="11">• Core tech &amp; unit research progression.</text>
+      <text x="8" y="47" fill="#b0c4de" font-size="11">• Prevents mid-game bottlenecks.</text>
+
+      <!-- Section 2 -->
+      <rect x="0" y="65" width="270" height="22" rx="4" fill="#00f0ff" fill-opacity="0.15"/>
+      <text x="8" y="80" font-weight="bold" fill="#00f0ff">Armory &amp; Aircraft Hangar</text>
+      <text x="8" y="98" fill="#b0c4de" font-size="11">• Unit maintenance &amp; fleet capacity.</text>
+      <text x="8" y="112" fill="#b0c4de" font-size="11">• Keeps frontline forces operational.</text>
+
+      <!-- Section 3 -->
+      <rect x="0" y="130" width="270" height="22" rx="4" fill="#00f0ff" fill-opacity="0.15"/>
+      <text x="8" y="145" font-weight="bold" fill="#00f0ff">Skyguard &amp; Thorium Vault</text>
+      <text x="8" y="163" fill="#b0c4de" font-size="11">• High-tier anti-air defense &amp; storage.</text>
+      <text x="8" y="177" fill="#b0c4de" font-size="11">• Solid value for high-level players.</text>
+
+      <!-- Recommendation Box -->
+      <rect x="0" y="210" width="270" height="180" rx="6" fill="#070c10" stroke="#00f0ff" stroke-width="1"/>
+      <text x="135" y="232" font-size="13" font-weight="900" fill="#00f0ff" text-anchor="middle">PRIORITY RATING: 8/10</text>
+      <line x1="15" y1="242" x2="255" y2="242" stroke="#00f0ff" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="15" y="262" font-size="11" font-weight="bold" fill="#ffffff">Recommendation:</text>
+      <text x="15" y="280" font-size="11" fill="#a0b0bc">Target key progression structures.</text>
+      <text x="15" y="298" font-size="11" fill="#a0b0bc">While discount is lower, these</text>
+      <text x="15" y="316" font-size="11" fill="#a0b0bc">buildings gate overall base power</text>
+      <text x="15" y="334" font-size="11" fill="#a0b0bc">and technology levels.</text>
+    </g>
+  </g>
+
+  <!-- ================= COLUMN 3: LOWER PRIORITY (30% OFF) ================= -->
+  <g transform="translate(675, 95)">
+    <!-- Frame -->
+    <rect x="0" y="0" width="300" height="475" rx="8" fill="url(#cardBg)" stroke="url(#grayGrad)" stroke-width="2"/>
+    <path d="M 0,8 C 0,3.5 3.5,0 8,0 L 292,0 C 296.5,0 300,3.5 300,8 L 300,50 L 0,50 Z" fill="url(#grayGrad)" fill-opacity="0.2"/>
+    
+    <!-- Column Title -->
+    <text x="150" y="28" font-size="17" font-weight="900" fill="#a0b0bc" text-anchor="middle">⚖️ LOWER PRIORITY</text>
+    <text x="150" y="44" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">30% DISCOUNT TIER</text>
+    
+    <!-- Body Content -->
+    <g transform="translate(15, 65)" font-size="12" fill="#e0f7fc">
+      <!-- Section 1 -->
+      <rect x="0" y="0" width="270" height="22" rx="4" fill="#ffffff" fill-opacity="0.1"/>
+      <text x="8" y="15" font-weight="bold" fill="#a0b0bc">Storage (Metal &amp; Oil Storage)</text>
+      <text x="8" y="33" fill="#b0c4de" font-size="11">• Standard capacity upgrades.</text>
+      <text x="8" y="47" fill="#b0c4de" font-size="11">• Modest Gold savings margin.</text>
+
+      <!-- Section 2 -->
+      <rect x="0" y="65" width="270" height="22" rx="4" fill="#ffffff" fill-opacity="0.1"/>
+      <text x="8" y="80" font-weight="bold" fill="#a0b0bc">Production &amp; Utility (7 Buildings)</text>
+      <text x="8" y="98" fill="#b0c4de" font-size="11">• War Factory, Airfield, Barracks, etc.</text>
+      <text x="8" y="112" fill="#b0c4de" font-size="11">• Useful, but lower ROI priority.</text>
+
+      <!-- Section 3 -->
+      <rect x="0" y="130" width="270" height="22" rx="4" fill="#ffffff" fill-opacity="0.1"/>
+      <text x="8" y="145" font-weight="bold" fill="#a0b0bc">Go-Go Bar</text>
+      <text x="8" y="163" fill="#b0c4de" font-size="11">• Secondary utility structure.</text>
+      <text x="8" y="177" fill="#b0c4de" font-size="11">• Lowest overall upgrade priority.</text>
+
+      <!-- Recommendation Box -->
+      <rect x="0" y="210" width="270" height="180" rx="6" fill="#070c10" stroke="#a0b0bc" stroke-width="1"/>
+      <text x="135" y="232" font-size="13" font-weight="900" fill="#a0b0bc" text-anchor="middle">PRIORITY RATING: 5/10</text>
+      <line x1="15" y1="242" x2="255" y2="242" stroke="#a0b0bc" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="15" y="262" font-size="11" font-weight="bold" fill="#ffffff">Recommendation:</text>
+      <text x="15" y="280" font-size="11" fill="#a0b0bc">Upgrade only as needed for base</text>
+      <text x="15" y="298" font-size="11" fill="#a0b0bc">prerequisites or if you have</text>
+      <text x="15" y="316" font-size="11" fill="#a0b0bc">leftover Gold after maxing out</text>
+      <text x="15" y="334" font-size="11" fill="#a0b0bc">the 70% and 50% tiers.</text>
+    </g>
+  </g>
+
+  <!-- ================= FOOTER / CTA ================= -->
+  <g transform="translate(0, 585)">
+    <rect x="25" y="0" width="950" height="45" rx="6" fill="#142834" stroke="#00f0ff" stroke-width="1"/>
+    <text x="500" y="27" font-size="13" font-weight="bold" fill="#00f0ff" text-anchor="middle" letter-spacing="1">
+      SUMMARY: MAX OUT 70% TIER FIRST ➔ SELECT 50% TECH BUILDINGS ➔ FILL 30% TIER LAST
+    </text>
+  </g>
+</svg>
