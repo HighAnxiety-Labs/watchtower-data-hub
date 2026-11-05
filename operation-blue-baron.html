@@ -2167,11 +2167,11 @@
                     <div class="track-header-line">
                       <label class="track-title" style="color: var(--text-gold);">
                         <input type="radio" name="activeCalcTrack" value="INCURSION" onchange="setActiveCalcTrack('INCURSION')">
-                        <span id="displayIncTitle">Incursion Base Brief (3-Base Set)</span>
+                        <span id="displayIncTitle">Incursion Base Brief (2-Base Set)</span>
                       </label>
                       <button type="button" class="preset-pill-btn" id="btnToggleAllIncBases" onclick="toggleAllTrackBases('INCURSION')">Toggle All 2</button>
                     </div>
-                    <p class="track-desc" id="displayIncDesc">This set of bases is designed for a <strong style="color:#ffffff; font-weight:900;">Platoon of the newest Unit </strong>being offered in the current Main Event <strong style="color:#ffffff; font-weight:900;">(Argus)</strong>, and only <strong style="color:#ffffff; font-weight:900;">Equinox</strong> Units can be deployed. This set will also contain the story for the Main Event.<span class="sentence-line-break"></span>Completing all 3 bases (Base I–III) automatically unlocks the +4,000 XP Set Completion Bonus.</p>
+                    <p class="track-desc" id="displayIncDesc">This set of bases is designed for a <strong style="color:#ffffff; font-weight:900;">Platoon of the newest Unit</strong> being offered in the current Main Event <strong style="color:#ffffff; font-weight:900;">(Argus)</strong>, and only <strong style="color:#ffffff; font-weight:900;">Equinox</strong> Units can be deployed. This set will also contain the story for the Main Event.<span class="sentence-line-break"></span>Completing both bases (Base I &amp; II) automatically unlocks the <span class="hl-gold">+3,500 XP Set Completion Bonus</span>.</p>
                     <table class="mini-xp-table">
                       <thead>
                         <tr>
@@ -2184,12 +2184,12 @@
                         <tr id="rowIncB1">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB1" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
                           <td id="displayIncB1Label">Base I</td>
-                          <td class="xp-val" id="valIncB1Xp">2,000 XP</td>
+                          <td class="xp-val" id="valIncB1Xp">1,000 XP</td>
                         </tr>
                         <tr id="rowIncB2">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB2" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
                           <td id="displayIncB2Label">Base II (unlocked after Base I)</td>
-                          <td class="xp-val" id="valIncB2Xp">2,000 XP</td>
+                          <td class="xp-val" id="valIncB2Xp">1,500 XP</td>
                         </tr>
                         <tr id="rowIncB3" style="display: none;">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncB3" checked="" onchange="setActiveCalcTrack('INCURSION'); recalculateBlueBaron();"></td>
@@ -2199,7 +2199,7 @@
                         <tr id="rowIncBonus">
                           <td style="text-align: center;"><input type="checkbox" id="chkIncBonus" checked="" disabled=""></td>
                           <td><strong id="displayIncBonusLabel" style="color: #ffffff;">Set Completion Bonus (Requires Bases I–III)</strong></td>
-                          <td class="xp-val" id="valIncBonus">4,000 XP</td>
+                          <td class="xp-val" id="valIncBonus">3,500 XP</td>
                         </tr>
                       </tbody>
                     </table>
@@ -2986,7 +2986,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
 <script>
   const WTR_DOSSIER_RELEASE = "v10.2-DYNAMIC-BASES (2026-10-31)";
-  const MASTER_STORAGE_KEY = "wtr_main_event_master_studio_v10_2_dyn";
+  const MASTER_STORAGE_KEY = "wtr_main_event_master_studio_v10_3_inc2";
   const PLAYER_CALC_STORAGE_KEY = "wtr_blue_baron_nov2026_player_v10_2_dyn";
   const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
   const MASTER_DB_BASE_URL = "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html";
@@ -3015,7 +3015,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   };
 
   const defaultMasterState = {
-  "savedAt": 1793476762672,
+  "savedAt": 1793900000000,
   "startCollapsedArchive": false,
   "showVideo": true,
   "showSitrep": true,
@@ -3093,20 +3093,20 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "btDesc": "Designed for combat using **Units available in the Supply Store** or higher-tier forces, Basic Training Bases offer a holdout-style target experience.\n\n**Rewards Structure**\n**Base Experience:** Earn 200 XP for completing the target, plus an additional 200 XP for each of the 5 random crates that spawn within the base (up to 1,000 XP total).\n**First 5 Completions:** Unlocks ARGUS, DYAD, and Build Logistics for both.\n**Subsequent Runs: **After your 5th completion, the target awards XP only.",
   "btXpPerStage": 200,
   "btUnitsPerStage": 1,
-  "incTitle": "Incursion Base Brief (3-Base Set)",
-  "incDesc": "This set of bases is designed for a **Platoon of the newest Unit **being offered in the current Main Event **(Argus)**, and only **Equinox** Units can be deployed. This set will also contain the story for the Main Event.\nCompleting all 3 bases (Base I–III) automatically unlocks the +4,000 XP Set Completion Bonus.",
+  "incTitle": "Incursion Base Brief (2-Base Set)",
+  "incDesc": "This set of bases is designed for a **Platoon of the newest Unit** being offered in the current Main Event **(Argus)**, and only **Equinox** Units can be deployed. This set will also contain the story for the Main Event.\nCompleting both bases (Base I & II) automatically unlocks the ==+3,500 XP Set Completion Bonus==.",
   "incTableHeader": "Incursion Target",
   "showIncB1": true,
   "incB1Label": "Base I",
-  "incB1Xp": 2000,
+  "incB1Xp": 1000,
   "showIncB2": true,
   "incB2Label": "Base II (unlocked after Base I)",
-  "incB2Xp": 2000,
+  "incB2Xp": 1500,
   "showIncB3": false,
   "incB3Label": "Base III (unlocked after Base II)",
   "incB3Xp": 2000,
-  "incBonusLabel": "Set Completion Bonus (Requires Bases I–III)",
-  "incBonusXp": 4000,
+  "incBonusLabel": "Set Completion Bonus (Requires Base I & II)",
+  "incBonusXp": 3500,
   "tacTitle": "Tactical Strike Brief (2-Base Set + HVT)",
   "tacDesc": "The Tactical Strike Set is a more challenging set unlocked after completing both Incursion Bases, featuring the main event's storyline.\n\nDesigned for Platoons using previous units from the current Main Event (Dyads) and is not faction-locked.\n**High Value Target:** Each base includes one High Value Target worth an extra 4,000 XP.\n**Combat Behavior:** The target is aware of your pursuit and will attempt to escape if not eliminated quickly.",
   "tacTableHeader": "Tactical Strike Target",
@@ -4718,16 +4718,16 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     setVal("cfgIncTableHeader", masterState.incTableHeader);
     setChk("cfgShowIncB1", masterState.showIncB1 !== false);
     setVal("cfgIncB1Label", masterState.incB1Label);
-    setVal("cfgIncB1Xp", masterState.incB1Xp ?? 2000);
+    setVal("cfgIncB1Xp", masterState.incB1Xp ?? 1000);
     setChk("cfgShowIncB2", masterState.showIncB2 !== false);
     setVal("cfgIncB2Label", masterState.incB2Label);
-    setVal("cfgIncB2Xp", masterState.incB2Xp ?? 2000);
+    setVal("cfgIncB2Xp", masterState.incB2Xp ?? 1500);
     const incB3Chk = document.getElementById("cfgShowIncB3");
     if (incB3Chk) incB3Chk.checked = Boolean(masterState.showIncB3);
     setVal("cfgIncB3Label", masterState.incB3Label);
     setVal("cfgIncB3Xp", masterState.incB3Xp ?? 2000);
     setVal("cfgIncBonusLabel", masterState.incBonusLabel);
-    setVal("cfgIncBonusXp", masterState.incBonusXp ?? 4000);
+    setVal("cfgIncBonusXp", masterState.incBonusXp ?? 3500);
 
     setVal("cfgTacTitle", masterState.tacTitle);
     setVal("cfgTacDesc", masterState.tacDesc);
