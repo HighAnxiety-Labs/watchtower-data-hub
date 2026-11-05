@@ -2162,11 +2162,11 @@
               <div class="tracks-side-by-side-grid">
 
                 <!-- Left Set: Incursion Base Set -->
-                <div class="track-block incursion inactive-track" id="trackBlockIncursion">
+                <div class="track-block incursion active-selected-track" id="trackBlockIncursion">
                   <div>
                     <div class="track-header-line">
                       <label class="track-title" style="color: var(--text-gold);">
-                        <input type="radio" name="activeCalcTrack" value="INCURSION" onchange="setActiveCalcTrack('INCURSION')">
+                        <input type="checkbox" id="chkTrackIncursion" checked onchange="toggleActiveCalcTrack('INCURSION', this.checked)">
                         <span id="displayIncTitle">Incursion Base Brief (2-Base Set)</span>
                       </label>
                       <button type="button" class="preset-pill-btn" id="btnToggleAllIncBases" onclick="toggleAllTrackBases('INCURSION')">Toggle All 2</button>
@@ -2202,7 +2202,18 @@
                           <td class="xp-val" id="valIncBonus">3,500 XP</td>
                         </tr>
                       </tbody>
-                    </table>
+                                        </table>
+                    <div class="sets-completed-bar" style="display:flex; justify-content:space-between; align-items:center; gap:8px; background:#09110d; border:1px solid #1f3b2b; border-left:3px solid var(--text-gold); padding:8px 10px; margin-top:10px; border-radius:3px;">
+                      <span style="font-family:monospace; font-size:11.5px; font-weight:900; color:var(--text-gold); text-transform:uppercase;">ðŸ† Incursion Sets Completed:</span>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="qty-stepper">
+                          <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('INCURSION', -1)">-</button>
+                          <input type="number" id="incSetsCompletedInput" min="0" max="999" value="0" class="qty-input-box" style="width:54px;" oninput="syncSetsInputs('INCURSION', this.value)">
+                          <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('INCURSION', 1)">+</button>
+                        </div>
+                        <span id="incSetsEarnedXpBadge" style="font-family:monospace; font-size:12px; font-weight:900; color:var(--accent-green); min-width:86px; text-align:right;">+0 XP</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="set-run-summary-strip" style="border-top-color: var(--text-gold);">
@@ -2226,7 +2237,7 @@
                   <div>
                     <div class="track-header-line">
                       <label class="track-title" style="color: var(--text-red);">
-                        <input type="radio" name="activeCalcTrack" value="TACTICAL" checked="" onchange="setActiveCalcTrack('TACTICAL')">
+                        <input type="checkbox" id="chkTrackTactical" checked onchange="toggleActiveCalcTrack('TACTICAL', this.checked)">
                         <span id="displayTacTitle">Tactical Strike Brief (2-Base Set + HVT)</span>
                       </label>
                       <button type="button" class="preset-pill-btn" id="btnToggleAllTacBases" onclick="toggleAllTrackBases('TACTICAL')">Toggle Set</button>
@@ -2267,7 +2278,18 @@
                           <td class="xp-val" id="valTacHvt">8,000 XP</td>
                         </tr>
                       </tbody>
-                    </table>
+                                        </table>
+                    <div class="sets-completed-bar" style="display:flex; justify-content:space-between; align-items:center; gap:8px; background:#09110d; border:1px solid #1f3b2b; border-left:3px solid var(--text-red); padding:8px 10px; margin-top:10px; border-radius:3px;">
+                      <span style="font-family:monospace; font-size:11.5px; font-weight:900; color:var(--text-red); text-transform:uppercase;">ðŸ† Tactical Sets Completed:</span>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="qty-stepper">
+                          <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('TACTICAL', -1)">-</button>
+                          <input type="number" id="tacSetsCompletedInput" min="0" max="999" value="0" class="qty-input-box" style="width:54px;" oninput="syncSetsInputs('TACTICAL', this.value)">
+                          <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('TACTICAL', 1)">+</button>
+                        </div>
+                        <span id="tacSetsEarnedXpBadge" style="font-family:monospace; font-size:12px; font-weight:900; color:var(--accent-green); min-width:86px; text-align:right;">+0 XP</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="set-run-summary-strip" style="border-top-color: var(--text-red);">
@@ -2399,6 +2421,38 @@
                   <button type="button" class="btn-calc-action" onclick="document.getElementById('calcBankedXpInput').value=0; recalculateBlueBaron();">Clear Bank</button>
                 </div>
                 <span id="calcProgressText" style="font-family: monospace; font-size: 12px; font-weight: 800; color: var(--text-cyan);">0% OF GOAL COMPLETED (1,000 / 678,000 XP — Incl. +1,000 BT XP)</span>
+              </div>
+
+                            <!-- Synced Sets Completed Row Inside Calculator -->
+              <div class="calc-bank-row" style="border-top: 1px dashed #1f3b2b; padding-top: 8px;">
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <label style="font-family: monospace; font-size: 12px; font-weight: 900; color: var(--text-gold); display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                      <input type="checkbox" id="chkTrackIncursionCalc" checked onchange="toggleActiveCalcTrack('INCURSION', this.checked)">
+                      <span>ðŸ† Incursion Sets Done:</span>
+                    </label>
+                    <div class="qty-stepper">
+                      <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('INCURSION', -1)">-</button>
+                      <input type="number" id="incSetsCompletedCalc" min="0" max="999" value="0" class="qty-input-box" style="width:52px;" oninput="syncSetsInputs('INCURSION', this.value)">
+                      <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('INCURSION', 1)">+</button>
+                    </div>
+                    <span id="incSetsEarnedXpCalcBadge" style="font-family: monospace; font-size: 11.5px; font-weight: 900; color: var(--text-gold);">+0 XP</span>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <label style="font-family: monospace; font-size: 12px; font-weight: 900; color: var(--text-red); display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                      <input type="checkbox" id="chkTrackTacticalCalc" checked onchange="toggleActiveCalcTrack('TACTICAL', this.checked)">
+                      <span>ðŸ† Tactical Sets Done:</span>
+                    </label>
+                    <div class="qty-stepper">
+                      <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('TACTICAL', -1)">-</button>
+                      <input type="number" id="tacSetsCompletedCalc" min="0" max="999" value="0" class="qty-input-box" style="width:52px;" oninput="syncSetsInputs('TACTICAL', this.value)">
+                      <button type="button" class="qty-step-btn" onclick="stepTrackSetsCompleted('TACTICAL', 1)">+</button>
+                    </div>
+                    <span id="tacSetsEarnedXpCalcBadge" style="font-family: monospace; font-size: 11.5px; font-weight: 900; color: var(--text-red);">+0 XP</span>
+                  </div>
+                </div>
+                <span id="setsTotalEarnedBadge" style="font-family: monospace; font-size: 11.5px; font-weight: 900; color: var(--accent-green);">Sets Earned Credit: +0 XP</span>
               </div>
 
               <!-- Synced Basic Training Control Row Inside Calculator -->
@@ -3883,11 +3937,55 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     recalculateBlueBaron();
   }
 
-  function setActiveCalcTrack(trackKey) {
-    document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => {
-      r.checked = (r.value === trackKey);
-    });
+    function setActiveCalcTrack(trackKey) {
+    if (trackKey === "INCURSION") {
+      const el = document.getElementById("chkTrackIncursion");
+      if (el) el.checked = true;
+    } else if (trackKey === "TACTICAL") {
+      const el = document.getElementById("chkTrackTactical");
+      if (el) el.checked = true;
+    } else if (trackKey === "BOTH") {
+      const incEl = document.getElementById("chkTrackIncursion");
+      const tacEl = document.getElementById("chkTrackTactical");
+      if (incEl) incEl.checked = true;
+      if (tacEl) tacEl.checked = true;
+    }
     recalculateBlueBaron();
+  }
+
+  function toggleActiveCalcTrack(trackKey, isChecked) {
+    const incTop = document.getElementById("chkTrackIncursion");
+    const tacTop = document.getElementById("chkTrackTactical");
+    if (trackKey === "INCURSION" && incTop) incTop.checked = Boolean(isChecked);
+    if (trackKey === "TACTICAL" && tacTop) tacTop.checked = Boolean(isChecked);
+    // Ensure at least one track remains checked for run pacing
+    if (incTop && tacTop && !incTop.checked && !tacTop.checked) {
+      if (trackKey === "INCURSION") tacTop.checked = true;
+      else incTop.checked = true;
+    }
+    recalculateBlueBaron();
+  }
+
+  function syncSetsInputs(trackKey, rawVal) {
+    const clean = Math.max(0, parseInt(rawVal, 10) || 0);
+    if (trackKey === "INCURSION") {
+      const a = document.getElementById("incSetsCompletedInput");
+      const b = document.getElementById("incSetsCompletedCalc");
+      if (a) a.value = clean;
+      if (b) b.value = clean;
+    } else {
+      const a = document.getElementById("tacSetsCompletedInput");
+      const b = document.getElementById("tacSetsCompletedCalc");
+      if (a) a.value = clean;
+      if (b) b.value = clean;
+    }
+    recalculateBlueBaron();
+  }
+
+  function stepTrackSetsCompleted(trackKey, delta) {
+    const id = trackKey === "INCURSION" ? "incSetsCompletedInput" : "tacSetsCompletedInput";
+    const cur = Math.max(0, parseInt(document.getElementById(id)?.value, 10) || 0);
+    syncSetsInputs(trackKey, Math.max(0, cur + delta));
   }
 
   function toggleAllTrackBases(trackKey) {
@@ -3903,7 +4001,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         if (el) el.checked = !allChecked;
       });
     } else {
-      setActiveCalcTrack("TACTICAL");
+      setActiveCalcTrack("BOTH");
       const activeIds = [];
       if (masterState.showTacB1 !== false) activeIds.push("chkTacB1");
       if (masterState.showTacB2 !== false) activeIds.push("chkTacB2");
@@ -3923,8 +4021,11 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   }
 
   function getActiveTrackSelection() {
-    const sel = document.querySelector('input[name="activeCalcTrack"]:checked');
-    return sel ? sel.value : "TACTICAL";
+    const useInc = document.getElementById("chkTrackIncursion") ? Boolean(document.getElementById("chkTrackIncursion").checked) : true;
+    const useTac = document.getElementById("chkTrackTactical") ? Boolean(document.getElementById("chkTrackTactical").checked) : true;
+    if (useInc && useTac) return "BOTH";
+    if (useInc) return "INCURSION";
+    return "TACTICAL";
   }
 
   /* Computes dynamic Incursion & Tactical Strike XP based on enabled bases, custom base XP values & bonus XP */
@@ -4031,7 +4132,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     return { incRunXp, tacRunXp };
   }
 
-  function recalculateBlueBaron(skipAutoSave) {
+    function recalculateBlueBaron(skipAutoSave) {
     syncBasicTrainingUiLabels();
 
     let fullStoreXp = 0;
@@ -4045,13 +4146,47 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       const needed = item.checked ? (item.qty * item.cost) : 0;
       if (item.checked) selectedCount++;
       selectedGoalXp += needed;
-      const cell = document.getElementById(`storeNeededCell-${idx}`);
+      const cell = document.getElementById("storeNeededCell-" + idx);
       if (cell) cell.textContent = needed.toLocaleString();
     });
 
+    const mult = getSelectedPgMultiplier();
+    ["10", "12", "15", "20"].forEach(code => {
+      const cEl = document.getElementById("cardMult" + code);
+      if (cEl) cEl.classList.toggle("active-multiplier", Math.round(mult * 10) === parseInt(code, 10));
+    });
+
+    const { incRunXp, tacRunXp } = computeTrackRunBreakdown(mult);
+
+    const incSetsDone = Math.max(0, parseInt(document.getElementById("incSetsCompletedInput")?.value, 10) || 0);
+    const tacSetsDone = Math.max(0, parseInt(document.getElementById("tacSetsCompletedInput")?.value, 10) || 0);
+    const incCalcInp = document.getElementById("incSetsCompletedCalc");
+    if (incCalcInp && parseInt(incCalcInp.value, 10) !== incSetsDone) incCalcInp.value = incSetsDone;
+    const tacCalcInp = document.getElementById("tacSetsCompletedCalc");
+    if (tacCalcInp && parseInt(tacCalcInp.value, 10) !== tacSetsDone) tacCalcInp.value = tacSetsDone;
+
+    const incSetsXp = incSetsDone * incRunXp;
+    const tacSetsXp = tacSetsDone * tacRunXp;
+    const totalSetsXp = incSetsXp + tacSetsXp;
+
+    const incBadge = document.getElementById("incSetsEarnedXpBadge");
+    if (incBadge) incBadge.textContent = "+" + incSetsXp.toLocaleString() + " XP";
+    const incCalcBadge = document.getElementById("incSetsEarnedXpCalcBadge");
+    if (incCalcBadge) incCalcBadge.textContent = "+" + incSetsXp.toLocaleString() + " XP";
+
+    const tacBadge = document.getElementById("tacSetsEarnedXpBadge");
+    if (tacBadge) tacBadge.textContent = "+" + tacSetsXp.toLocaleString() + " XP";
+    const tacCalcBadge = document.getElementById("tacSetsEarnedXpCalcBadge");
+    if (tacCalcBadge) tacCalcBadge.textContent = "+" + tacSetsXp.toLocaleString() + " XP";
+
+    const setsTotBadge = document.getElementById("setsTotalEarnedBadge");
+    if (setsTotBadge) {
+      setsTotBadge.textContent = "Sets Earned Credit (" + incSetsDone + " Inc + " + tacSetsDone + " Tac): +" + totalSetsXp.toLocaleString() + " XP";
+    }
+
     const bankedXp = Math.max(0, parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0);
     const btEarnedXp = basicTrainingStages * getBtXpPerStage();
-    const totalCreditedXp = bankedXp + btEarnedXp;
+    const totalCreditedXp = bankedXp + btEarnedXp + totalSetsXp;
 
     const remainingXp = Math.max(0, selectedGoalXp - totalCreditedXp);
     const pct = selectedGoalXp > 0 ? Math.min(100, Math.round((totalCreditedXp / selectedGoalXp) * 100)) : 0;
@@ -4059,74 +4194,87 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     document.getElementById("storeFullValueTotal").textContent = fullStoreXp.toLocaleString();
     document.getElementById("storeSelectedGoalTotal").textContent = selectedGoalXp.toLocaleString();
     const counterEl = document.getElementById("storeSelectedCounter");
-    if (counterEl) counterEl.textContent = `${selectedCount} / ${storeState.length} Items Selected`;
-
-    const mult = getSelectedPgMultiplier();
-    ["10", "12", "15", "20"].forEach(code => {
-      const cEl = document.getElementById(`cardMult${code}`);
-      if (cEl) cEl.classList.toggle("active-multiplier", Math.round(mult * 10) === parseInt(code, 10));
-    });
-
-    const { incRunXp, tacRunXp } = computeTrackRunBreakdown(mult);
+    if (counterEl) counterEl.textContent = selectedCount + " / " + storeState.length + " Items Selected";
 
     const activeTrack = getActiveTrackSelection();
+    const useInc = activeTrack === "BOTH" || activeTrack === "INCURSION";
+    const useTac = activeTrack === "BOTH" || activeTrack === "TACTICAL";
+
+    const incChkCalc = document.getElementById("chkTrackIncursionCalc");
+    if (incChkCalc) incChkCalc.checked = useInc;
+    const tacChkCalc = document.getElementById("chkTrackTacticalCalc");
+    if (tacChkCalc) tacChkCalc.checked = useTac;
+
     const incBox = document.getElementById("trackBlockIncursion");
     const tacBox = document.getElementById("trackBlockTactical");
     if (incBox) {
-      incBox.classList.toggle("inactive-track", activeTrack !== "INCURSION");
-      incBox.classList.toggle("active-selected-track", activeTrack === "INCURSION");
+      incBox.classList.toggle("inactive-track", !useInc);
+      incBox.classList.toggle("active-selected-track", useInc);
     }
     if (tacBox) {
-      tacBox.classList.toggle("inactive-track", activeTrack !== "TACTICAL");
-      tacBox.classList.toggle("active-selected-track", activeTrack === "TACTICAL");
+      tacBox.classList.toggle("inactive-track", !useTac);
+      tacBox.classList.toggle("active-selected-track", useTac);
     }
 
     const incRuns = (incRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / incRunXp) : 0;
     const tacRuns = (tacRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / tacRunXp) : 0;
+    const combinedRunXp = incRunXp + tacRunXp;
+    const combinedRuns = (combinedRunXp > 0 && remainingXp > 0) ? Math.ceil(remainingXp / combinedRunXp) : 0;
 
     document.getElementById("cmpIncXp").textContent = incRunXp.toLocaleString();
     document.getElementById("cmpIncRuns").textContent = incRuns;
-    document.getElementById("cmpIncDaily").textContent = `${(incRuns / eventDays).toFixed(1)} / d`;
+    document.getElementById("cmpIncDaily").textContent = (incRuns / eventDays).toFixed(1) + " / d";
 
     document.getElementById("cmpTacXp").textContent = tacRunXp.toLocaleString();
     document.getElementById("cmpTacRuns").textContent = tacRuns;
-    document.getElementById("cmpTacDaily").textContent = `${(tacRuns / eventDays).toFixed(1)} / d`;
+    document.getElementById("cmpTacDaily").textContent = (tacRuns / eventDays).toFixed(1) + " / d";
 
-    const activeRunXp = activeTrack === "INCURSION" ? incRunXp : tacRunXp;
-    const activeRunsNeeded = activeTrack === "INCURSION" ? incRuns : tacRuns;
-    const altRunsNeeded = activeTrack === "INCURSION" ? tacRuns : incRuns;
-    const altTrackName = activeTrack === "INCURSION" ? "Tactical Strike" : "Incursion";
+    let activeRunXp = combinedRunXp;
+    let activeRunsNeeded = combinedRuns;
+    let trackLabelTxt = "Active Tracks (Incursion + Tactical)";
+    let altSubTxt = "Incursion Only: " + incRuns + " â€¢ Tactical Only: " + tacRuns;
+
+    if (activeTrack === "INCURSION") {
+      activeRunXp = incRunXp;
+      activeRunsNeeded = incRuns;
+      trackLabelTxt = "Active Track (Incursion)";
+      altSubTxt = "Tactical Alt: " + tacRuns + " runs â€¢ Both: " + combinedRuns;
+    } else if (activeTrack === "TACTICAL") {
+      activeRunXp = tacRunXp;
+      activeRunsNeeded = tacRuns;
+      trackLabelTxt = "Active Track (Tactical)";
+      altSubTxt = "Incursion Alt: " + incRuns + " runs â€¢ Both: " + combinedRuns;
+    }
 
     document.getElementById("hudRemainingXp").textContent = remainingXp.toLocaleString();
-    document.getElementById("hudTotalGoalSub").textContent = `Goal: ${selectedGoalXp.toLocaleString()} XP (BT Credit: +${btEarnedXp.toLocaleString()})`;
-    document.getElementById("hudActiveTrackLbl").textContent = `Active Track (${activeTrack === "INCURSION" ? "Incursion" : "Tactical"})`;
-    document.getElementById("hudActiveTrackXp").textContent = `${activeRunXp.toLocaleString()} XP`;
-    document.getElementById("hudActiveMultSub").textContent = `Proving Grounds Boost: ${mult.toFixed(1)}x`;
+    document.getElementById("hudTotalGoalSub").textContent = "Goal: " + selectedGoalXp.toLocaleString() + " XP (Credited: +" + totalCreditedXp.toLocaleString() + ")";
+    document.getElementById("hudActiveTrackLbl").textContent = trackLabelTxt;
+    document.getElementById("hudActiveTrackXp").textContent = activeRunXp.toLocaleString() + " XP";
+    document.getElementById("hudActiveMultSub").textContent = "Proving Grounds Boost: " + mult.toFixed(1) + "x";
     document.getElementById("hudTotalRuns").textContent = activeRunsNeeded;
-    document.getElementById("hudAltTrackRunsSub").textContent = `${altTrackName} Alt: ${altRunsNeeded} runs`;
-    document.getElementById("hudDailyPaceLbl").textContent = `Daily Run Pace (${eventDays} Days)`;
-    document.getElementById("hudDailyPace").textContent = `${(activeRunsNeeded / eventDays).toFixed(1)} / Day`;
-    document.getElementById("hudDailyXpSub").textContent = `${Math.ceil(remainingXp / eventDays).toLocaleString()} XP / day (${eventDays}d)`;
+    document.getElementById("hudAltTrackRunsSub").textContent = altSubTxt;
+    document.getElementById("hudDailyPaceLbl").textContent = "Daily Run Pace (" + eventDays + " Days)";
+    document.getElementById("hudDailyPace").textContent = (activeRunsNeeded / eventDays).toFixed(1) + " / Day";
+    document.getElementById("hudDailyXpSub").textContent = Math.ceil(remainingXp / eventDays).toLocaleString() + " XP / day (" + eventDays + "d)";
 
-    document.getElementById("btnLogRunXp").textContent = `+${activeRunXp.toLocaleString()}`;
-    document.getElementById("calcProgressText").textContent = `${pct}% OF GOAL COMPLETED (${totalCreditedXp.toLocaleString()} / ${selectedGoalXp.toLocaleString()} XP — Incl. +${btEarnedXp.toLocaleString()} BT XP)`;
-    document.getElementById("calcProgressFill").style.width = `${pct}%`;
+    document.getElementById("btnLogRunXp").textContent = "+" + activeRunXp.toLocaleString();
+    document.getElementById("calcProgressText").textContent = pct + "% OF GOAL COMPLETED (" + totalCreditedXp.toLocaleString() + " / " + selectedGoalXp.toLocaleString() + " XP â€” Incl. Sets & BT)";
+    document.getElementById("calcProgressFill").style.width = pct + "%";
 
     if (!skipAutoSave) {
       saveBlueBaronStateToBrowser();
     }
   }
 
-  function logOneCompletedBlueBaronRun() {
+    function logOneCompletedBlueBaronRun() {
     const activeTrack = getActiveTrackSelection();
-    const mult = getSelectedPgMultiplier();
-    const { incRunXp, tacRunXp } = computeTrackRunBreakdown(mult);
-    const addXp = activeTrack === "INCURSION" ? incRunXp : tacRunXp;
-
-    const inp = document.getElementById("calcBankedXpInput");
-    if (inp && addXp > 0) {
-      inp.value = (parseInt(inp.value, 10) || 0) + addXp;
-      recalculateBlueBaron();
+    if (activeTrack === "BOTH") {
+      stepTrackSetsCompleted("INCURSION", 1);
+      stepTrackSetsCompleted("TACTICAL", 1);
+    } else if (activeTrack === "INCURSION") {
+      stepTrackSetsCompleted("INCURSION", 1);
+    } else {
+      stepTrackSetsCompleted("TACTICAL", 1);
     }
   }
 
@@ -4963,13 +5111,15 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     applyYtCountToBadge(badgeEl, matched);
   }
 
-  function applyYtCountToBadge(badgeEl, matchedList) {
+    function applyYtCountToBadge(badgeEl, matchedList) {
     const count = Array.isArray(matchedList) ? matchedList.length : 0;
-    badgeEl.textContent = ();
+    badgeEl.textContent = "(" + count + ")";
     badgeEl.classList.toggle("has-videos", count > 0);
     if (count > 0) {
-      const lines = matchedList.map((v, i) => ${i + 1}.   -   ());
-      badgeEl.title =   Active Video in Search Window (Click to Refresh):\n + lines.join("\n");
+      const lines = matchedList.map(function(v, i) {
+        return (i + 1) + ". " + v.title + " - " + v.owner + " (" + v.pubTime + ")";
+      });
+      badgeEl.title = count + " Active Video" + (count === 1 ? "" : "s") + " in Search Window (Click to Refresh):\n" + lines.join("\n");
     } else {
       badgeEl.title = "0 Active Videos found in current search window (Click to Refresh)";
     }
@@ -5583,7 +5733,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       version: "10.2-DYNAMIC-BASES",
       savedAt: new Date().toISOString(),
       basicTrainingStages: basicTrainingStages,
-      bankedXp: parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0,
+      bankedXp: parseInt(document.getElementById("calcBankedXpInput")?.value, 10) || 0, incSetsCompleted: parseInt(document.getElementById("incSetsCompletedInput")?.value, 10) || 0, tacSetsCompleted: parseInt(document.getElementById("tacSetsCompletedInput")?.value, 10) || 0,
       activeTrack: getActiveTrackSelection(),
       pgMultiplier: getSelectedPgMultiplier(),
       tracks: {
@@ -5604,10 +5754,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     if (typeof data.basicTrainingStages === "number") {
       basicTrainingStages = Math.min(5, Math.max(0, parseInt(data.basicTrainingStages, 10) || 0));
     }
-    if (typeof data.bankedXp === "number") {
+    if (typeof data.incSetsCompleted === "number") { syncSetsInputs("INCURSION", data.incSetsCompleted); } if (typeof data.tacSetsCompleted === "number") { syncSetsInputs("TACTICAL", data.tacSetsCompleted); } if (typeof data.bankedXp === "number") {
       document.getElementById("calcBankedXpInput").value = data.bankedXp;
     }
-    if (data.activeTrack) {
+    if (data.activeTrack) { const incTop = document.getElementById("chkTrackIncursion"); const tacTop = document.getElementById("chkTrackTactical"); if (incTop) incTop.checked = (data.activeTrack === "BOTH" || data.activeTrack === "INCURSION"); if (tacTop) tacTop.checked = (data.activeTrack === "BOTH" || data.activeTrack === "TACTICAL"); } if (false) {
       document.querySelectorAll('input[name="activeCalcTrack"]').forEach(r => {
         r.checked = (r.value === data.activeTrack);
       });
@@ -5692,7 +5842,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     basicTrainingStages = 5;
     storeState = [];
     syncStoreStateFromMasterCatalog();
-    document.getElementById("calcBankedXpInput").value = 0;
+    document.getElementById("calcBankedXpInput").value = 0; syncSetsInputs("INCURSION", 0); syncSetsInputs("TACTICAL", 0);
     document.getElementById("chkIncB1").checked = true;
     document.getElementById("chkIncB2").checked = true;
     if (document.getElementById("chkIncB3")) document.getElementById("chkIncB3").checked = true;
@@ -5700,7 +5850,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     document.getElementById("chkTacB2").checked = true;
     if (document.getElementById("chkTacB3")) document.getElementById("chkTacB3").checked = true;
     document.getElementById("chkTacHvt").checked = true;
-    setActiveCalcTrack("TACTICAL");
+    setActiveCalcTrack("BOTH");
     document.querySelectorAll('input[name="pgMultiplier"]').forEach(r => { r.checked = (r.value === "1.0"); });
     renderBlueBaronStoreTable();
     recalculateBlueBaron();
