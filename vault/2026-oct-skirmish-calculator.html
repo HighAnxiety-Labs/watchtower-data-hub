@@ -1539,7 +1539,7 @@
   "metaText": "Data sourced from Kixeye releases • Created By: [-WTR-]HighAnxiety",
   "homeUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/command-center.html",
   "logoUrl": "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png",
-  "unitBriefsBaseUrl": "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs",
+  "unitBriefsBaseUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html",
   "prizes": [
     {
       "name": "Dixon Upgrade Tokens",
@@ -1822,7 +1822,7 @@
         openUnitDossierModal(unitRec);
         return;
       }
-      const base = (masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs").trim();
+      const base = (masterState.unitBriefsBaseUrl || "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html").trim();
       openSafeLink(`${base}?unit=${encodeURIComponent(p.linkedUnit)}`);
       return;
     }
@@ -1849,7 +1849,7 @@
     const uName = g("UNIT_NAME") || "UNIT DOSSIER";
     if (titleEl) titleEl.textContent = `${uName} — ${g("CLASSIFICATION") || "TACTICAL BRIEF"}`;
 
-    const baseBriefUrl = (masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs").trim();
+    const baseBriefUrl = (masterState.unitBriefsBaseUrl || "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html").trim();
     if (fullBtn) {
       fullBtn.setAttribute("data-url", `${baseBriefUrl}?unit=${encodeURIComponent(uName)}`);
     }
@@ -2167,7 +2167,7 @@
     setVal("cfgSubTag", masterState.subTag || "WatchToweR Data Hub // Tactical Grind Planner");
     setVal("cfgMetaText", masterState.metaText || "Data sourced from Kixeye releases • Created By: [-WTR-]HighAnxiety");
     setVal("cfgHomeUrl", masterState.homeUrl || "https://highanxiety-labs.github.io/watchtower-data-hub/command-center.html");
-    setVal("cfgUnitBriefsBaseUrl", masterState.unitBriefsBaseUrl || "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs");
+    setVal("cfgUnitBriefsBaseUrl", masterState.unitBriefsBaseUrl || "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html");
   }
 
   function applyMasterHeaderToDom() {

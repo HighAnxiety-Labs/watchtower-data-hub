@@ -5,7 +5,13 @@
 <!-- ==================== START BLOCK 1: HEAD & CSS STYLES ==================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>WatchToweR Data Hub - Master Command Grid</title>
+  <title>WatchToweR Command Center - Master Command Grid</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] WatchToweR Command Center">
+  <meta property="og:description" content="War Commander Strategic Deployment Grid • Live Event Timers, 6-Week Calendar, Unit & Building Briefs, and Tactical Guides.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <style>
   :root {
     --bg-dark: #05070a;
@@ -977,7 +983,7 @@
       accent: "var(--dir-btn1)", colorHex: "#2b8cbe",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "BLUEPRINT", title: "BUILDING BRIEF DB", url: "./building-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: true,  order: 2, symbol: "BLUEPRINT", title: "CC22 UPGRADE PATH", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/cc22-upgrade-path", embedCode: "" },
+        { enabled: true, isSubPage: true,  order: 2, symbol: "BLUEPRINT", title: "CC22 UPGRADE PATH", url: "./building-briefs.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "BLUEPRINT", title: "BASE DEFENSE & LAYOUTS", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
         { enabled: true, isSubPage: true,  order: 4, symbol: "ARCHIVE",   title: "CC22 PRE-RELEASE NOTES", url: "./cc-22-pre-release.html", embedCode: "", openInIframe: true }
       ]
@@ -1187,6 +1193,7 @@
 
     const standaloneMappings = [
       { secKey: "baseOps",        match: "BUILDING BRIEF", file: "./building-briefs.html",       defaultTitle: "BUILDING BRIEF DB",      defaultSym: "BLUEPRINT" },
+      { secKey: "baseOps",        match: "CC22 UPGRADE",   file: "./building-briefs.html",       defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
       { secKey: "baseOps",        match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
