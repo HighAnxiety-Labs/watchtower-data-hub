@@ -2036,7 +2036,7 @@
               <div class="video-hub-grid">
                 <div class="video-card">
                   <div>
-                    <h3><span id="displayVid1Title">Top Tier Guides</span> <span id="vid1MatchCount" class="yt-match-count" onclick="refreshYouTubeSearchCounts(true)" title="Checking YouTube Search Window...">(...)</span></h3>
+                    <h3><span id="vid1MatchCount" class="yt-match-count" onclick="refreshYouTubeSearchCounts(true)" title="Checking YouTube Search Window...">(0)</span> <span id="displayVid1Title">Top Tier Guides</span></h3>
                     <p id="displayVid1Desc">Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.</p>
                   </div>
                   <div>
@@ -2046,11 +2046,11 @@
                 </div>
                 <div class="video-card">
                   <div>
-                    <h3><span id="displayVid2Title">Watch Me Play</span> <span id="vid2MatchCount" class="yt-match-count" onclick="refreshYouTubeSearchCounts(true)" title="Checking YouTube Search Window...">(...)</span></h3>
+                    <h3><span id="vid2MatchCount" class="yt-match-count" onclick="refreshYouTubeSearchCounts(true)" title="Checking YouTube Search Window...">(0)</span> <span id="displayVid2Title">Watch Me Play</span></h3>
                     <p id="displayVid2Desc">Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
                   </div>
                   <div>
-                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
+                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
                     <div class="video-note" id="displayVid2Note"><strong style="color:#ffffff; font-weight:900;">Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
                   </div>
                 </div>
@@ -3153,7 +3153,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "vid2Title": "Watch Me Play",
   "vid2Desc": "Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.",
   "vid2BtnText": "▶ Watch Me Play Videos",
-  "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382&sp=EgIIAw%3D%3D",
+  "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29&sp=EgIIAw%3D%3D",
   "vid2Note": "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
   "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
   "tab01Label": "TOP",
@@ -5006,6 +5006,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   
   /* ==================== YOUTUBE 7-DAY SEARCH WINDOW ACTIVE VIDEO COUNTER ==================== */
   const ytCountCache = {};
+  const ytPayloadCache = {};
 
   const KNOWN_YT_CREATOR_TOKENS = [
     "project_d88", "projectd88", "furiousbull2", "furious bull2",
@@ -5018,12 +5019,11 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   function normalizeYtSearchUrl(rawUrl) {
     if (!rawUrl) return "";
     let url = String(rawUrl).trim().replace(/sp=EgIIAw%253D%253D/gi, "sp=EgIIAw%3D%3D");
-    // Strip blocked creator Siddy3382 from any cached or incoming search URLs
-    url = url.replace(/\+OR\+Siddy3382/gi, "").replace(/Siddy3382\+OR\+/gi, "");
+    // Strip blocked creator Siddy3382 and any trailing -Siddy3382 operator that breaks YouTube's parenthesized OR group
+    url = url.replace(/\+OR\+Siddy3382/gi, "").replace(/Siddy3382\+OR\+/gi, "").replace(/\+-Siddy3382/gi, "");
     // Upgrade legacy Operation: Blue Baron search queries that excluded videos without "Operation:" or quoted "Project_d88"
     url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+(?:%22|")Project_d88(?:%22|")/gi, "search_query=%22Blue+Baron%22+Project_d88");
-    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar%29/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382");
-    url = url.replace(/search_query=%22Blue\+Baron%22\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar\+OR\+SFW%29(?!\+-Siddy3382)/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382");
+    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar%29/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29");
     return url;
   }
 
@@ -5115,7 +5115,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     return false;
   }
 
-  async function fetchYouTubeSearchPayload(targetUrl) {
+  async function fetchYouTubeSearchPayload(targetUrl, forceRefresh = false) {
+    if (!forceRefresh && ytPayloadCache[targetUrl]) {
+      return ytPayloadCache[targetUrl];
+    }
     const endpoints = [
       { url: "https://r.jina.ai/" + targetUrl, timeout: 14000, type: "jina" },
       { url: "https://api.allorigins.win/raw?url=" + encodeURIComponent(targetUrl), timeout: 8000, type: "html" },
@@ -5129,8 +5132,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         clearTimeout(timer);
         if (res.ok) {
           const txt = await res.text();
-          if (txt && (txt.includes("watch?v=") || txt.includes("ytInitialData") || txt.includes("No more results"))) {
-            return { text: txt, type: ep.type };
+          if (txt && (txt.includes("watch?v=") || txt.includes("ytInitialData") || txt.includes("No more results") || txt.includes("No results found") || txt.includes("- YouTube"))) {
+            const result = { text: txt, type: ep.type };
+            ytPayloadCache[targetUrl] = result;
+            return result;
           }
         }
       } catch (e) {}
@@ -5312,20 +5317,33 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       return;
     }
 
-    badgeEl.textContent = "(...)";
     badgeEl.title = "Checking YouTube 7-Day Search Window...";
 
     const rules = parseYtSearchQueryRules(cleanUrl, masterState?.mainTitle || "");
-    const payload = await fetchYouTubeSearchPayload(cleanUrl);
-    const matched = payload ? extractMatchedVideosFromYtHtml(payload.text, rules) : null;
+    const mergedMap = new Map();
 
-    if (matched === null) {
-      badgeEl.textContent = "(?)";
-      badgeEl.classList.remove("has-videos");
-      badgeEl.title = "Click to re-check active YouTube videos in search window";
-      return;
+    // 1. Primary search URL check
+    const payload = await fetchYouTubeSearchPayload(cleanUrl, forceRefresh);
+    if (payload) {
+      const primaryMatches = extractMatchedVideosFromYtHtml(payload.text, rules) || [];
+      primaryMatches.forEach(v => { if (v && v.id) mergedMap.set(v.id, v); });
     }
 
+    // 2. If the query uses a multi-creator OR group or primary fetch returned 0/failed, also check the broad event search
+    //    and filter by the card's exact creator rules so Jina/YouTube boolean OR quirks never miss active videos
+    if (mergedMap.size === 0 || /\bOR\b/i.test(rules.rawQuery)) {
+      const evQuery = rules.eventPart || "Blue Baron";
+      const broadUrl = "https://www.youtube.com/results?search_query=%22" + encodeURIComponent(evQuery).replace(/%20/g, "+") + "%22+War+Commander&sp=EgIIAw%3D%3D";
+      if (broadUrl.toLowerCase() !== cleanUrl.toLowerCase()) {
+        const broadPayload = await fetchYouTubeSearchPayload(broadUrl, forceRefresh);
+        if (broadPayload) {
+          const broadMatches = extractMatchedVideosFromYtHtml(broadPayload.text, rules) || [];
+          broadMatches.forEach(v => { if (v && v.id && !mergedMap.has(v.id)) mergedMap.set(v.id, v); });
+        }
+      }
+    }
+
+    const matched = Array.from(mergedMap.values());
     ytCountCache[cleanUrl] = matched;
     applyYtCountToBadge(badgeEl, matched);
   }
@@ -5347,9 +5365,9 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   let ytRefreshDebounce = null;
   function refreshYouTubeSearchCounts(forceRefresh = false) {
     if (ytRefreshDebounce) clearTimeout(ytRefreshDebounce);
-    ytRefreshDebounce = setTimeout(() => {
-      updateSingleYouTubeCardCount(masterState?.vidTopTier, "vid1MatchCount", "displayVidTopTier", forceRefresh);
-      updateSingleYouTubeCardCount(masterState?.vidWatchMe, "vid2MatchCount", "displayVidWatchMe", forceRefresh);
+    ytRefreshDebounce = setTimeout(async () => {
+      await updateSingleYouTubeCardCount(masterState?.vidTopTier, "vid1MatchCount", "displayVidTopTier", forceRefresh);
+      await updateSingleYouTubeCardCount(masterState?.vidWatchMe, "vid2MatchCount", "displayVidWatchMe", forceRefresh);
     }, forceRefresh ? 50 : 350);
   }
 
