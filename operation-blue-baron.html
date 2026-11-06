@@ -1985,7 +1985,7 @@
           </a>
           <div class="event-header-text">
             <div class="event-sub-tag"><span id="displayHeaderPrefix">[-WTR-] DATA HUB</span> | 
-              <a id="displaySourceLink" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" data-preview-title="KIXEYE OFFICIAL RELEASE NOTES" data-preview-sub="External KIXEYE Help Center" data-preview-img="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> | 
+              <a id="displaySourceLink" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/" data-preview-title="KIXEYE OFFICIAL RELEASE NOTES" data-preview-sub="External KIXEYE Help Center" data-preview-img="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> | 
               <a id="displayCalcJumpLink" href="javascript:void(0)" data-no-overlay="true" onclick="jumpToDossierSection('integratedStoreCalcSection')" style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
             </div>
             <div class="event-title-row">
@@ -3155,7 +3155,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "vid2BtnText": "▶ Watch Me Play Videos",
   "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29&sp=EgIIAw%3D%3D",
   "vid2Note": "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
-  "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
+  "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/",
   "tab01Label": "TOP",
   "tab02Label": "VIDEO RECON",
   "tab03Label": "SITREP",
@@ -3719,8 +3719,8 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   function getUnitImageUrl(unitName, customOverride) {
     if ((customOverride || "").trim()) return formatImageUrl(customOverride);
     const rec = findUnitInMasterDb(unitName);
-    if (rec && (rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL)) {
-      return formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL);
+    if (rec && (rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL || rec.BUILDING_IMAGE_URL || rec.MAIN_IMAGE_URL || rec.IMG_URL)) {
+      return formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL || rec.BUILDING_IMAGE_URL || rec.MAIN_IMAGE_URL || rec.IMG_URL);
     }
     const norm = normalizeUnitKey(unitName);
     return FALLBACK_UNIT_IMAGES[norm] || "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
@@ -4401,14 +4401,20 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     const onyxUnits = [];
     const standardUnits = [];
+    const defaultHostileSet = new Set((defaultMasterState.enemyForcesCards || []).map(e => normalizeUnitKey(e.linkedUnit || e.name)));
+    ["HIVE COMMAND", "HIVE WATCHER", "CONDUIT", "VESPID", "FORAGER", "HIVE GUARD", "OBSERVER", "GRAND OBSERVER", "WITNESS", "GRAND WITNESS", "FORTRESS NODE", "GRAND CITADEL", "BRUTE", "ZOMBIE CATAPULT", "ZOMBIE ROCKETEER", "FLAME ZOMBIE", "BARON ANANSI"].forEach(k => defaultHostileSet.add(normalizeUnitKey(k)));
+
     masterDbUnitsCache.forEach(u => {
-      const combined = `${u.STAT_FACTION || ""} ${u.CLASSIFICATION || ""} ${u.CATEGORY || ""} ${u.STAT_BUILDING || ""} ${u.UNIT_NAME || ""}`.toUpperCase();
-      if (combined.includes("ONYX") || combined.includes("ZOMBIE") || combined.includes("ENEMY") || combined.includes("HOSTILE")) {
+      const uNorm = normalizeUnitKey(u.UNIT_NAME);
+      const combined = `${u.STAT_FACTION || ""} ${u.CLASSIFICATION || ""} ${u.CATEGORY || ""} ${u.STAT_BUILDING || ""} ${u.UNIT_DIVISION || ""} ${u.UNIT_NAME || ""}`.toUpperCase();
+      if (defaultHostileSet.has(uNorm) || combined.includes("ONYX") || combined.includes("ZOMBIE") || combined.includes("ENEMY") || combined.includes("HOSTILE") || combined.includes("HIVE")) {
         onyxUnits.push(u);
       } else {
         standardUnits.push(u);
       }
     });
+    onyxUnits.sort((a, b) => String(a.UNIT_NAME || "").localeCompare(String(b.UNIT_NAME || ""), undefined, { numeric: true, sensitivity: "base" }));
+    standardUnits.sort((a, b) => String(a.UNIT_NAME || "").localeCompare(String(b.UNIT_NAME || ""), undefined, { numeric: true, sensitivity: "base" }));
 
     if (onyxUnits.length > 0) {
       html += `<optgroup label="👾 ONYX / HOSTILE UNITS (MASTER_DB)">`;
@@ -4705,7 +4711,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         <div class="unit-card-editor-row" style="grid-template-columns: 70px 1.2fr 1.2fr 1.6fr auto;">
           <div class="pe-field">
             <label>Order</label>
-            <input type="number" min="1" value="${c.order || (idx + 1)}" oninput="updateUnitGalleryCard('${arrKey}', ${idx}, 'order', parseInt(this.value,10)||1)">
+            <input type="number" min="1" value="${c.order || (idx + 1)}" onchange="updateUnitGalleryCard('${arrKey}', ${idx}, 'order', parseInt(this.value,10)||1)">
           </div>
           <div class="pe-field">
             <label>Card Title</label>
@@ -4735,7 +4741,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         <div class="unit-card-editor-row" style="grid-template-columns: 64px 1fr 1.25fr 1fr 1.35fr 1.25fr auto; border-left-color: var(--text-red);">
           <div class="pe-field">
             <label>Order</label>
-            <input type="number" min="1" value="${e.order || (idx + 1)}" oninput="updateEnemyForceCard(${idx}, 'order', parseInt(this.value,10)||1)">
+            <input type="number" min="1" value="${e.order || (idx + 1)}" onchange="updateEnemyForceCard(${idx}, 'order', parseInt(this.value,10)||1)">
           </div>
           <div class="pe-field">
             <label>Enemy Name</label>
@@ -4765,8 +4771,44 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     }
   }
 
+  function resequenceCardArray(arr, movedIdx = -1, targetOrder = null) {
+    if (!Array.isArray(arr) || arr.length === 0) return;
+    if (movedIdx >= 0 && movedIdx < arr.length && targetOrder !== null) {
+      const movedCard = arr[movedIdx];
+      const others = arr
+        .map((item, i) => ({ item, i, ord: parseInt(item.order, 10) || (i + 1) }))
+        .filter(x => x.i !== movedIdx)
+        .sort((a, b) => (a.ord - b.ord) || (a.i - b.i))
+        .map(x => x.item);
+      const insertPos = Math.max(0, Math.min(others.length, (parseInt(targetOrder, 10) || 1) - 1));
+      others.splice(insertPos, 0, movedCard);
+      arr.length = 0;
+      others.forEach((c, idx) => {
+        c.order = idx + 1;
+        arr.push(c);
+      });
+    } else {
+      const sorted = arr
+        .map((item, i) => ({ item, i, ord: parseInt(item.order, 10) || (i + 1) }))
+        .sort((a, b) => (a.ord - b.ord) || (a.i - b.i))
+        .map(x => x.item);
+      arr.length = 0;
+      sorted.forEach((c, idx) => {
+        c.order = idx + 1;
+        arr.push(c);
+      });
+    }
+  }
+
   function updateUnitGalleryCard(arrKey, idx, field, val) {
     if (!masterState[arrKey] || !masterState[arrKey][idx]) return;
+    if (field === "order") {
+      resequenceCardArray(masterState[arrKey], idx, val);
+      renderAdminUnitGalleriesEditor();
+      renderUnitGalleriesDom();
+      persistMasterStateToLocal();
+      return;
+    }
     masterState[arrKey][idx][field] = val;
     renderUnitGalleriesDom();
     persistMasterStateToLocal();
@@ -4802,6 +4844,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       return;
     }
     masterState[arrKey].splice(idx, 1);
+    resequenceCardArray(masterState[arrKey]);
     renderAdminUnitGalleriesEditor();
     renderUnitGalleriesDom();
     persistMasterStateToLocal();
@@ -4809,6 +4852,13 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
   function updateEnemyForceCard(idx, field, val) {
     if (!masterState.enemyForcesCards?.[idx]) return;
+    if (field === "order") {
+      resequenceCardArray(masterState.enemyForcesCards, idx, val);
+      renderAdminUnitGalleriesEditor();
+      renderUnitGalleriesDom();
+      persistMasterStateToLocal();
+      return;
+    }
     masterState.enemyForcesCards[idx][field] = val;
     renderUnitGalleriesDom();
     persistMasterStateToLocal();
@@ -4846,6 +4896,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       return;
     }
     masterState.enemyForcesCards.splice(idx, 1);
+    resequenceCardArray(masterState.enemyForcesCards);
     renderAdminUnitGalleriesEditor();
     renderUnitGalleriesDom();
     persistMasterStateToLocal();
@@ -5120,7 +5171,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       return ytPayloadCache[targetUrl];
     }
     const endpoints = [
-      { url: "https://r.jina.ai/" + targetUrl, timeout: 14000, type: "jina" },
+      { url: "https://r.jina.ai/" + targetUrl, timeout: 25000, type: "jina" },
       { url: "https://api.allorigins.win/raw?url=" + encodeURIComponent(targetUrl), timeout: 8000, type: "html" },
       { url: "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(targetUrl), timeout: 8000, type: "html" }
     ];
@@ -5132,7 +5183,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         clearTimeout(timer);
         if (res.ok) {
           const txt = await res.text();
-          if (txt && (txt.includes("watch?v=") || txt.includes("ytInitialData") || txt.includes("No more results") || txt.includes("No results found") || txt.includes("- YouTube"))) {
+          if (txt && (txt.includes("watch?v=") || txt.includes("ytInitialData") || txt.includes("No more results") || txt.includes("No results found"))) {
             const result = { text: txt, type: ep.type };
             ytPayloadCache[targetUrl] = result;
             return result;
@@ -5171,6 +5222,8 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       if (seenIds.has(cur.videoId)) continue;
       const nextStart = (i + 1 < matches.length) ? matches[i + 1].startIndex : Math.min(activeZone.length, cur.startIndex + 1500);
       const block = activeZone.slice(cur.startIndex, nextStart);
+      // Strip embedded URLs from block so the search query URL inside description links never triggers false keyword/creator matches
+      const cleanBlockText = block.replace(/\]\(https?:\/\/[^)\s]+(?:\s+"[^"]*")?\)/g, "]");
 
       // Extract channel owner and handle URL
       let owner = "";
@@ -5182,22 +5235,22 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       }
 
       // Extract published time e.g. "8h ago", "Streamed 12h ago", "6d ago"
-      const timeMatch = block.match(/(?:Streamed\s+)?\b(\d+\s*(?:s|sec|second|m|min|minute|h|hr|hour|d|day|w|week|mo|month|y|year)s?\s+ago)\b/i);
+      const timeMatch = cleanBlockText.match(/(?:Streamed\s+)?\b(\d+\s*(?:s|sec|second|m|min|minute|h|hr|hour|d|day|w|week|mo|month|y|year)s?\s+ago)\b/i);
       const pubTime = timeMatch ? timeMatch[0].trim() : "";
-      const isLive = /\bLIVE\b/.test(block) && !pubTime;
+      const isLive = /\bLIVE\b/.test(cleanBlockText) && !pubTime;
 
       if (!isYtPubTimeWithin7Days(pubTime, isLive)) continue;
 
-      // Verify event keyword match
-      const textHaystack = (cur.title + " " + block + " " + owner + " " + handleUrl).toLowerCase();
+      // Verify event keyword match against clean text (excluding embedded search URLs)
+      const textHaystack = (cur.title + " " + cleanBlockText + " " + owner + " " + handleUrl).toLowerCase();
       if (rules.eventPart) {
         const eventWords = rules.eventPart.split(/\s+/).filter(w => w.length >= 3);
         const matchesEvent = eventWords.every(w => textHaystack.includes(w));
         if (!matchesEvent) continue;
       }
 
-      // Reject any blocked creators (e.g. Siddy3382)
-      const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + cur.title + " " + block);
+      // Check creator against owner, handleUrl, and video title ONLY (never the raw block which embeds the search_query URL)
+      const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + cur.title);
       if (BLOCKED_YT_CREATORS.some(b => creatorHaystack.includes(normAlnum(b)))) continue;
 
       // Verify creator match if creator handles/names were specified
@@ -5332,8 +5385,8 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     // 2. If the query uses a multi-creator OR group or primary fetch returned 0/failed, also check the broad event search
     //    and filter by the card's exact creator rules so Jina/YouTube boolean OR quirks never miss active videos
     if (mergedMap.size === 0 || /\bOR\b/i.test(rules.rawQuery)) {
-      const evQuery = rules.eventPart || "Blue Baron";
-      const broadUrl = "https://www.youtube.com/results?search_query=%22" + encodeURIComponent(evQuery).replace(/%20/g, "+") + "%22+War+Commander&sp=EgIIAw%3D%3D";
+      const rawEv = (rules.eventPart || "Blue Baron").replace(/\b\w/g, c => c.toUpperCase());
+      const broadUrl = "https://www.youtube.com/results?search_query=%22" + encodeURIComponent(rawEv).replace(/%20/g, "+") + "%22+War+Commander&sp=EgIIAw%3D%3D";
       if (broadUrl.toLowerCase() !== cleanUrl.toLowerCase()) {
         const broadPayload = await fetchYouTubeSearchPayload(broadUrl, forceRefresh);
         if (broadPayload) {
@@ -6455,38 +6508,213 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     }
   }
 
+  function fetchSheetMatrixUniversal(docId, gid, onSuccess, onError) {
+    const cleanId = (docId || "").trim();
+    const cleanGid = (gid || "0").trim();
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+
+    if (typeof Papa !== "undefined" && window.location.protocol !== "file:") {
+      Papa.parse(exportCsvUrl, {
+        download: true,
+        header: false,
+        skipEmptyLines: true,
+        complete: function(results) {
+          if (results && results.data && results.data.length > 1) {
+            onSuccess(results.data);
+          } else {
+            tryStage2GvizCsv();
+          }
+        },
+        error: function() {
+          tryStage2GvizCsv();
+        }
+      });
+    } else {
+      tryStage2GvizCsv();
+    }
+
+    function tryStage2GvizCsv() {
+      fetch(gvizCsvUrl, { method: "GET", credentials: "omit" })
+        .then(res => {
+          if (!res.ok) throw new Error("GVIZ HTTP " + res.status);
+          return res.text();
+        })
+        .then(csvText => {
+          if (csvText.trim().startsWith("<!DOCTYPE") || csvText.trim().startsWith("<html")) {
+            throw new Error("Sheet returned HTML login page");
+          }
+          const parsed = Papa.parse(csvText, { header: false, skipEmptyLines: true });
+          if (!parsed.data || parsed.data.length <= 1) throw new Error("Empty GVIZ CSV");
+          onSuccess(parsed.data);
+        })
+        .catch(() => {
+          tryStage3Jsonp();
+        });
+    }
+
+    function tryStage3Jsonp() {
+      const cbName = "wtrGvizCallback_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+      const script = document.createElement("script");
+      let completed = false;
+
+      const timer = setTimeout(() => {
+        if (completed) return;
+        completed = true;
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (onError) onError(new Error("Connection timed out or Sheet is private."));
+      }, 9000);
+
+      window[cbName] = function(response) {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+
+        if (!response || response.status === "error" || !response.table) {
+          if (onError) onError(new Error("Sheet rejected request or is not shared publicly."));
+          return;
+        }
+
+        const cols = response.table.cols || [];
+        const rows = response.table.rows || [];
+        const matrix = [];
+
+        const colLabels = cols.map(c => (c && c.label ? String(c.label).trim() : ""));
+        if (colLabels.some(l => l !== "")) {
+          matrix.push(colLabels);
+        }
+
+        rows.forEach(r => {
+          const cArr = (r && r.c) ? r.c : [];
+          const rowCells = cols.map((_, idx) => {
+            const cell = cArr[idx];
+            if (!cell || cell.v === null || cell.v === undefined) return "";
+            return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+          });
+          if (rowCells.some(val => val.trim() !== "")) {
+            matrix.push(rowCells);
+          }
+        });
+
+        onSuccess(matrix);
+      };
+
+      script.onerror = function() {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (onError) onError(new Error("Network or sharing error loading Google Sheet."));
+      };
+
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      document.head.appendChild(script);
+    }
+  }
+
+  function mergeLocalAndSeedMasterDbUnits(fetchedList = []) {
+    const mergedMap = new Map();
+    const upsertRec = (rec) => {
+      if (!rec) return;
+      const name = String(rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || rec.BUILDING_NAME || "").trim();
+      if (!name) return;
+      rec.UNIT_NAME = name;
+      const key = normalizeUnitKey(name);
+      if (!mergedMap.has(key)) {
+        mergedMap.set(key, Object.assign({}, rec));
+      } else {
+        const existing = mergedMap.get(key);
+        Object.keys(rec).forEach(k => {
+          if (!existing[k] && rec[k]) existing[k] = rec[k];
+        });
+      }
+    };
+
+    fetchedList.forEach(upsertRec);
+
+    ["wtr_unit_studio_master_v6_2_statlabels", "wtr_unit_studio_master_v6_faction", "wtr_unit_studio_master_v5", "wtr_building_studio_master_v5"].forEach(lsKey => {
+      try {
+        const raw = safeGetStorage(lsKey);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed?.cachedRoster)) parsed.cachedRoster.forEach(upsertRec);
+        if (parsed?.currentDraftRecord) upsertRec(parsed.currentDraftRecord);
+      } catch (e) {}
+    });
+
+    (defaultMasterState.enemyForcesCards || []).forEach(e => {
+      const uName = (e.linkedUnit || e.name || "").trim();
+      if (uName) {
+        upsertRec({
+          UNIT_NAME: uName,
+          STAT_FACTION: "ONYX",
+          CLASSIFICATION: "ONYX HOSTILE",
+          UNIT_IMAGE_URL: e.imgUrl || FALLBACK_UNIT_IMAGES[normalizeUnitKey(uName)] || "",
+          TALENT: e.desc || ""
+        });
+      }
+    });
+    Object.keys(FALLBACK_UNIT_IMAGES).forEach(uName => {
+      upsertRec({
+        UNIT_NAME: uName,
+        UNIT_IMAGE_URL: FALLBACK_UNIT_IMAGES[uName]
+      });
+    });
+
+    const out = Array.from(mergedMap.values());
+    out.sort((a, b) => String(a.UNIT_NAME || "").localeCompare(String(b.UNIT_NAME || ""), undefined, { numeric: true, sensitivity: "base" }));
+    return out;
+  }
+
   function fetchMasterDbUnits(showFeedback = false) {
     const pill = document.getElementById("masterDbStatusPill");
     if (pill) pill.textContent = "🗄️ MASTER_DB: Syncing...";
 
-    Papa.parse(`https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/export?format=csv&gid=${SHEET_MASTER_GID}`, {
-      download: true,
-      header: false,
-      skipEmptyLines: true,
-      complete: function(res) {
-        if (!res || !res.data || res.data.length <= 1) return;
-        const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
+    if (masterDbUnitsCache.length === 0) {
+      masterDbUnitsCache = mergeLocalAndSeedMasterDbUnits([]);
+      renderAdminStoreEditor();
+      renderAdminUnitGalleriesEditor();
+    }
+
+    fetchSheetMatrixUniversal(
+      SHEET_DOC_ID,
+      SHEET_MASTER_GID,
+      function(matrix) {
+        if (!matrix || matrix.length <= 1) {
+          masterDbUnitsCache = mergeLocalAndSeedMasterDbUnits([]);
+          if (pill) pill.textContent = `🗄️ MASTER_DB: ${masterDbUnitsCache.length} Seeded`;
+          return;
+        }
+        const headers = matrix[0].map(h => String(h || "").trim().toUpperCase());
         const units = [];
-        for (let r = 1; r < res.data.length; r++) {
+        for (let r = 1; r < matrix.length; r++) {
           const rec = {};
           headers.forEach((k, i) => {
-            if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim().replace(/^\x27/, "") : "";
+            if (k) rec[k] = matrix[r][i] !== undefined ? String(matrix[r][i]).trim().replace(/^\x27/, "") : "";
           });
-          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
-          const isBuilding = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
-          if (rec.UNIT_NAME && !isBuilding) units.push(rec);
+          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || rec.BUILDING_NAME || "";
+          if (rec.UNIT_NAME) units.push(rec);
         }
-        masterDbUnitsCache = units;
-        if (pill) pill.textContent = `🗄️ MASTER_DB: ${units.length} Units Linked`;
+        masterDbUnitsCache = mergeLocalAndSeedMasterDbUnits(units);
+        if (pill) pill.textContent = `🗄️ MASTER_DB: ${masterDbUnitsCache.length} Units Linked`;
         renderAdminStoreEditor();
         renderAdminUnitGalleriesEditor();
         renderUnitGalleriesDom();
-        if (showFeedback) showToast(`✅ Synced ${units.length} Units from MASTER_DB`);
+        if (showFeedback) showToast(`✅ Synced ${masterDbUnitsCache.length} Records from MASTER_DB`);
       },
-      error: function() {
-        if (pill) pill.textContent = "🗄️ MASTER_DB: Offline Fallback";
+      function() {
+        masterDbUnitsCache = mergeLocalAndSeedMasterDbUnits([]);
+        if (pill) pill.textContent = `🗄️ MASTER_DB: Offline (${masterDbUnitsCache.length} Cached)`;
+        renderAdminStoreEditor();
+        renderAdminUnitGalleriesEditor();
+        renderUnitGalleriesDom();
+        if (showFeedback) showToast(`⚠️ Sheet Offline — Using ${masterDbUnitsCache.length} Cached Records`);
       }
-    });
+    );
   }
 
   function loadPersistedMasterStateOnBoot() {
@@ -6509,6 +6737,11 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       masterState = Object.assign({}, defaultMasterState, vaultState);
     } else if (localState) {
       masterState = Object.assign({}, defaultMasterState, localState);
+    }
+    if (masterState.vidTopTier) masterState.vidTopTier = normalizeYtSearchUrl(masterState.vidTopTier);
+    if (masterState.vidWatchMe) masterState.vidWatchMe = normalizeYtSearchUrl(masterState.vidWatchMe);
+    if (!masterState.sourceUrl || masterState.sourceUrl.includes("/section/46-events")) {
+      masterState.sourceUrl = defaultMasterState.sourceUrl;
     }
   }
 
