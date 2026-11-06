@@ -2050,7 +2050,7 @@
                     <p id="displayVid2Desc">Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
                   </div>
                   <div>
-                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
+                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
                     <div class="video-note" id="displayVid2Note"><strong style="color:#ffffff; font-weight:900;">Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
                   </div>
                 </div>
@@ -3153,7 +3153,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "vid2Title": "Watch Me Play",
   "vid2Desc": "Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.",
   "vid2BtnText": "▶ Watch Me Play Videos",
-  "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29&sp=EgIIAw%3D%3D",
+  "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382&sp=EgIIAw%3D%3D",
   "vid2Note": "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
   "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
   "tab01Label": "TOP",
@@ -5010,15 +5010,20 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   const KNOWN_YT_CREATOR_TOKENS = [
     "project_d88", "projectd88", "furiousbull2", "furious bull2",
     "stormygamingyt", "stormygamingyt99", "stormy gaming yt",
-    "dot-sl1zo", "wcjbsamar", "wc jbsamar", "siddy3382", "sfw-wc", "sfw"
+    "dot-sl1zo", "wcjbsamar", "wc jbsamar", "sfw-wc", "sfw"
   ];
+
+  const BLOCKED_YT_CREATORS = ["siddy3382"];
 
   function normalizeYtSearchUrl(rawUrl) {
     if (!rawUrl) return "";
     let url = String(rawUrl).trim().replace(/sp=EgIIAw%253D%253D/gi, "sp=EgIIAw%3D%3D");
+    // Strip blocked creator Siddy3382 from any cached or incoming search URLs
+    url = url.replace(/\+OR\+Siddy3382/gi, "").replace(/Siddy3382\+OR\+/gi, "");
     // Upgrade legacy Operation: Blue Baron search queries that excluded videos without "Operation:" or quoted "Project_d88"
     url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+(?:%22|")Project_d88(?:%22|")/gi, "search_query=%22Blue+Baron%22+Project_d88");
-    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar%29/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29");
+    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar%29/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382");
+    url = url.replace(/search_query=%22Blue\+Baron%22\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar\+OR\+SFW%29(?!\+-Siddy3382)/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+SFW%29+-Siddy3382");
     return url;
   }
 
@@ -5041,7 +5046,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     while ((pm = parenRegex.exec(rawQuery)) !== null) {
       pm[1].split(/\s+OR\s+/i).forEach(part => {
         const clean = part.replace(/["']/g, "").trim().toLowerCase();
-        if (clean && !creators.includes(clean)) creators.push(clean);
+        if (clean && !BLOCKED_YT_CREATORS.includes(clean) && !creators.includes(clean)) creators.push(clean);
       });
     }
 
@@ -5051,7 +5056,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const quotedEvents = [];
     while ((qm = quoteRegex.exec(rawQuery)) !== null) {
       const val = qm[1].trim().toLowerCase();
-      if (!val) continue;
+      if (!val || BLOCKED_YT_CREATORS.includes(val)) continue;
       if (KNOWN_YT_CREATOR_TOKENS.includes(val) || /[_0-9]/.test(val)) {
         if (!creators.includes(val)) creators.push(val);
       } else {
@@ -5059,11 +5064,14 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       }
     }
 
-    // 3. Check unquoted tokens for known creator handles (e.g. Project_d88)
-    const strippedForTokens = rawQuery.replace(/\([^)]+\)/g, " ").replace(/"[^"]+"/g, " ");
+    // 3. Check unquoted tokens for known creator handles (e.g. Project_d88), ignoring negative -tokens
+    const strippedForTokens = rawQuery
+      .replace(/\([^)]+\)/g, " ")
+      .replace(/"[^"]+"/g, " ")
+      .replace(/(?:^|\s)-\S+/g, " ");
     strippedForTokens.split(/\s+/).forEach(tok => {
       const clean = tok.replace(/["']/g, "").trim().toLowerCase();
-      if (!clean) return;
+      if (!clean || BLOCKED_YT_CREATORS.includes(clean)) return;
       if (KNOWN_YT_CREATOR_TOKENS.includes(clean) || /project_?d88/i.test(clean)) {
         if (!creators.includes(clean)) creators.push(clean);
       }
@@ -5183,9 +5191,12 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         if (!matchesEvent) continue;
       }
 
+      // Reject any blocked creators (e.g. Siddy3382)
+      const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + cur.title + " " + block);
+      if (BLOCKED_YT_CREATORS.some(b => creatorHaystack.includes(normAlnum(b)))) continue;
+
       // Verify creator match if creator handles/names were specified
       if (rules.creators && rules.creators.length > 0) {
-        const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + cur.title + " " + block);
         const matchesCreator = rules.creators.some(c => creatorHaystack.includes(normAlnum(c)));
         if (!matchesCreator) continue;
       }
@@ -5260,8 +5271,10 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
           if (!matchesEvent) continue;
         }
 
+        const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + title);
+        if (BLOCKED_YT_CREATORS.some(b => creatorHaystack.includes(normAlnum(b)))) continue;
+
         if (rules.creators && rules.creators.length > 0) {
-          const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + title);
           const matchesCreator = rules.creators.some(c => creatorHaystack.includes(normAlnum(c)));
           if (!matchesCreator) continue;
         }
