@@ -2040,7 +2040,7 @@
                     <p id="displayVid1Desc">Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.</p>
                   </div>
                   <div>
-                    <a id="displayVidTopTier" href="https://www.youtube.com/results?search_query=Operation%3A+Blue+Baron+%22Project_d88%22&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Top Tier YouTube Videos</a>
+                    <a id="displayVidTopTier" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+Project_d88&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Top Tier YouTube Videos</a>
                     <div class="video-note" id="displayVid1Note"><strong style="color:#ffffff; font-weight:900;">Note:</strong> Quality videos take time to produce. If you don't see any content listed right away, please check back later.</div>
                   </div>
                 </div>
@@ -2050,7 +2050,7 @@
                     <p id="displayVid2Desc">Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.</p>
                   </div>
                   <div>
-                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=Operation%3A+Blue+Baron+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
+                    <a id="displayVidWatchMe" href="https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29&amp;sp=EgIIAw%3D%3D" target="_blank" rel="noopener noreferrer" data-no-overlay="true" class="video-btn">▶ Watch Me Play Videos</a>
                     <div class="video-note" id="displayVid2Note"><strong style="color:#ffffff; font-weight:900;">Event Creators (Last 7 Days):</strong> General YouTube search results for live runs, streams, and gameplay demos.</div>
                   </div>
                 </div>
@@ -3148,12 +3148,12 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   "vid1Title": "Top Tier Guides",
   "vid1Desc": "Actionable, zero-fluff content featuring clear step-by-step breakdowns covering unit compositions, workshop configurations, and attack strategies.",
   "vid1BtnText": "▶ Top Tier YouTube Videos",
-  "vidTopTier": "https://www.youtube.com/results?search_query=Operation%3A+Blue+Baron+%22Project_d88%22&sp=EgIIAw%3D%3D",
+  "vidTopTier": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+Project_d88&sp=EgIIAw%3D%3D",
   "vid1Note": "**Note:** Quality videos take time to produce. If you don't see any content listed right away, please check back later.",
   "vid2Title": "Watch Me Play",
   "vid2Desc": "Casual gameplay runs and general playthrough recordings set to background music from community creators across the active cycle.",
   "vid2BtnText": "▶ Watch Me Play Videos",
-  "vidWatchMe": "https://www.youtube.com/results?search_query=Operation%3A+Blue+Baron+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29&sp=EgIIAw%3D%3D",
+  "vidWatchMe": "https://www.youtube.com/results?search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29&sp=EgIIAw%3D%3D",
   "vid2Note": "**Event Creators (Last 7 Days):** General YouTube search results for live runs, streams, and gameplay demos.",
   "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
   "tab01Label": "TOP",
@@ -5007,10 +5007,19 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   /* ==================== YOUTUBE 7-DAY SEARCH WINDOW ACTIVE VIDEO COUNTER ==================== */
   const ytCountCache = {};
 
+  const KNOWN_YT_CREATOR_TOKENS = [
+    "project_d88", "projectd88", "furiousbull2", "furious bull2",
+    "stormygamingyt", "stormygamingyt99", "stormy gaming yt",
+    "dot-sl1zo", "wcjbsamar", "wc jbsamar", "siddy3382", "sfw-wc", "sfw"
+  ];
+
   function normalizeYtSearchUrl(rawUrl) {
     if (!rawUrl) return "";
-    // Fix double-encoded sp parameter (%253D -> %3D) so YouTube's This Week filter works properly
-    return String(rawUrl).trim().replace(/sp=EgIIAw%253D%253D/gi, "sp=EgIIAw%3D%3D");
+    let url = String(rawUrl).trim().replace(/sp=EgIIAw%253D%253D/gi, "sp=EgIIAw%3D%3D");
+    // Upgrade legacy Operation: Blue Baron search queries that excluded videos without "Operation:" or quoted "Project_d88"
+    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+(?:%22|")Project_d88(?:%22|")/gi, "search_query=%22Blue+Baron%22+Project_d88");
+    url = url.replace(/search_query=Operation(?:%3A|:)\+Blue\+Baron\+%28furiousbull2\+OR\+STORMYGAMINGYT\+OR\+DOT-sl1zo\+OR\+WCJBsamar%29/gi, "search_query=%22Blue+Baron%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Siddy3382+OR+SFW%29");
+    return url;
   }
 
   function parseYtSearchQueryRules(searchUrl, fallbackEventTitle) {
@@ -5026,30 +5035,53 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     }
 
     const creators = [];
-    // Extract quoted creator names e.g. "Project_d88"
-    const quoteRegex = /"([^"]+)"/g;
-    let qm;
-    while ((qm = quoteRegex.exec(rawQuery)) !== null) {
-      if (qm[1].trim()) creators.push(qm[1].trim().toLowerCase());
-    }
-    // Extract parenthesized OR groups e.g. (furiousbull2 OR STORMYGAMINGYT ...)
+    // 1. Extract parenthesized OR groups e.g. (furiousbull2 OR STORMYGAMINGYT ...)
     const parenRegex = /\(([^)]+)\)/g;
     let pm;
     while ((pm = parenRegex.exec(rawQuery)) !== null) {
       pm[1].split(/\s+OR\s+/i).forEach(part => {
         const clean = part.replace(/["']/g, "").trim().toLowerCase();
-        if (clean) creators.push(clean);
+        if (clean && !creators.includes(clean)) creators.push(clean);
       });
     }
 
-    let eventPart = rawQuery
-      .replace(/"[^"]+"/g, " ")
-      .replace(/\([^)]+\)/g, " ")
-      .replace(/operation\s*:/gi, " ")
-      .replace(/\bwar\s+commander\b/gi, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
+    // 2. Check quoted phrases: only treat as creator if it matches a known creator or handle pattern
+    const quoteRegex = /"([^"]+)"/g;
+    let qm;
+    const quotedEvents = [];
+    while ((qm = quoteRegex.exec(rawQuery)) !== null) {
+      const val = qm[1].trim().toLowerCase();
+      if (!val) continue;
+      if (KNOWN_YT_CREATOR_TOKENS.includes(val) || /[_0-9]/.test(val)) {
+        if (!creators.includes(val)) creators.push(val);
+      } else {
+        quotedEvents.push(val);
+      }
+    }
+
+    // 3. Check unquoted tokens for known creator handles (e.g. Project_d88)
+    const strippedForTokens = rawQuery.replace(/\([^)]+\)/g, " ").replace(/"[^"]+"/g, " ");
+    strippedForTokens.split(/\s+/).forEach(tok => {
+      const clean = tok.replace(/["']/g, "").trim().toLowerCase();
+      if (!clean) return;
+      if (KNOWN_YT_CREATOR_TOKENS.includes(clean) || /project_?d88/i.test(clean)) {
+        if (!creators.includes(clean)) creators.push(clean);
+      }
+    });
+
+    let eventPart = quotedEvents.length > 0
+      ? quotedEvents.join(" ")
+      : strippedForTokens
+          .replace(/operation\s*:/gi, " ")
+          .replace(/\bwar\s+commander\b/gi, " ")
+          .split(/\s+/)
+          .filter(w => {
+            const lw = w.toLowerCase();
+            return lw && !creators.includes(lw) && !KNOWN_YT_CREATOR_TOKENS.includes(lw);
+          })
+          .join(" ")
+          .trim()
+          .toLowerCase();
 
     if (!eventPart && fallbackEventTitle) {
       eventPart = String(fallbackEventTitle).replace(/operation\s*:/gi, " ").trim().toLowerCase();
@@ -5058,31 +5090,125 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     return { rawQuery, creators, eventPart };
   }
 
-  async function fetchYouTubeHtmlViaProxy(targetUrl) {
-    const proxies = [
-      "https://api.allorigins.win/raw?url=" + encodeURIComponent(targetUrl),
-      "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(targetUrl),
-      "https://corsproxy.io/?" + encodeURIComponent(targetUrl)
+  function isYtPubTimeWithin7Days(pubTime, isLive) {
+    if (isLive) return true;
+    if (!pubTime) return false;
+    const t = String(pubTime).trim();
+    if (/\b(just\s+now|live)\b/i.test(t)) return true;
+    // Matches "8h ago", "26 min ago", "Streamed 12h ago", "8 hours ago", etc.
+    if (/\b\d+\s*(?:s|sec|second|m|min|minute|h|hr|hour)s?\s+ago\b/i.test(t)) {
+      return true;
+    }
+    // Matches "1d ago", "6d ago", "Streamed 1d ago", "3 days ago", etc.
+    const dayMatch = t.match(/\b(\d+)\s*(?:d|days?)\s+ago\b/i);
+    if (dayMatch && parseInt(dayMatch[1], 10) <= 7) {
+      return true;
+    }
+    return false;
+  }
+
+  async function fetchYouTubeSearchPayload(targetUrl) {
+    const endpoints = [
+      { url: "https://r.jina.ai/" + targetUrl, timeout: 14000, type: "jina" },
+      { url: "https://api.allorigins.win/raw?url=" + encodeURIComponent(targetUrl), timeout: 8000, type: "html" },
+      { url: "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(targetUrl), timeout: 8000, type: "html" }
     ];
-    for (const pUrl of proxies) {
+    for (const ep of endpoints) {
       try {
         const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), 7500);
-        const res = await fetch(pUrl, { signal: ctrl.signal });
+        const timer = setTimeout(() => ctrl.abort(), ep.timeout);
+        const res = await fetch(ep.url, { signal: ctrl.signal });
         clearTimeout(timer);
         if (res.ok) {
           const txt = await res.text();
-          if (txt && txt.includes("ytInitialData")) return txt;
+          if (txt && (txt.includes("watch?v=") || txt.includes("ytInitialData") || txt.includes("No more results"))) {
+            return { text: txt, type: ep.type };
+          }
         }
       } catch (e) {}
     }
     return null;
   }
 
+  function extractMatchedVideosFromJinaMarkdown(mdText, rules) {
+    if (!mdText) return null;
+    // Stop before YouTube's unrelated fallback sections if present
+    let activeZone = mdText;
+    const cutoffMarkers = ["\nNo more results", "\nPeople also watched", "\nFor you\n", "\nPreviously watched"];
+    for (const marker of cutoffMarkers) {
+      const idx = activeZone.indexOf(marker);
+      if (idx !== -1) {
+        activeZone = activeZone.slice(0, idx);
+      }
+    }
+
+    const headingRegex = /### \[([^\]]+)\]\(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})[^)]*\)/g;
+    const matches = [];
+    let m;
+    while ((m = headingRegex.exec(activeZone)) !== null) {
+      matches.push({ title: m[1].trim(), videoId: m[2], startIndex: m.index });
+    }
+
+    const matchedVideos = [];
+    const seenIds = new Set();
+    const normAlnum = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+    for (let i = 0; i < matches.length; i++) {
+      const cur = matches[i];
+      if (seenIds.has(cur.videoId)) continue;
+      const nextStart = (i + 1 < matches.length) ? matches[i + 1].startIndex : Math.min(activeZone.length, cur.startIndex + 1500);
+      const block = activeZone.slice(cur.startIndex, nextStart);
+
+      // Extract channel owner and handle URL
+      let owner = "";
+      let handleUrl = "";
+      const chMatch = block.match(/\[([^\]]+)\]\(https:\/\/www\.youtube\.com\/(@[^)\s]+|channel\/[^)\s]+|c\/[^)\s]+|user\/[^)\s]+)\)/);
+      if (chMatch) {
+        owner = chMatch[1].trim();
+        handleUrl = "/" + chMatch[2].trim();
+      }
+
+      // Extract published time e.g. "8h ago", "Streamed 12h ago", "6d ago"
+      const timeMatch = block.match(/(?:Streamed\s+)?\b(\d+\s*(?:s|sec|second|m|min|minute|h|hr|hour|d|day|w|week|mo|month|y|year)s?\s+ago)\b/i);
+      const pubTime = timeMatch ? timeMatch[0].trim() : "";
+      const isLive = /\bLIVE\b/.test(block) && !pubTime;
+
+      if (!isYtPubTimeWithin7Days(pubTime, isLive)) continue;
+
+      // Verify event keyword match
+      const textHaystack = (cur.title + " " + block + " " + owner + " " + handleUrl).toLowerCase();
+      if (rules.eventPart) {
+        const eventWords = rules.eventPart.split(/\s+/).filter(w => w.length >= 3);
+        const matchesEvent = eventWords.every(w => textHaystack.includes(w));
+        if (!matchesEvent) continue;
+      }
+
+      // Verify creator match if creator handles/names were specified
+      if (rules.creators && rules.creators.length > 0) {
+        const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + cur.title + " " + block);
+        const matchesCreator = rules.creators.some(c => creatorHaystack.includes(normAlnum(c)));
+        if (!matchesCreator) continue;
+      }
+
+      seenIds.add(cur.videoId);
+      matchedVideos.push({
+        id: cur.videoId,
+        title: cur.title,
+        owner: owner || handleUrl.replace(/^\/@/, "") || "Creator",
+        pubTime: isLive ? "LIVE NOW" : pubTime
+      });
+    }
+
+    return matchedVideos;
+  }
+
   function extractMatchedVideosFromYtHtml(htmlText, rules) {
     if (!htmlText) return null;
+    if (!htmlText.includes("ytInitialData") && (htmlText.includes("### [") || htmlText.includes("Markdown Content:"))) {
+      return extractMatchedVideosFromJinaMarkdown(htmlText, rules);
+    }
     const match = htmlText.match(/var\s+ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
-    if (!match || !match[1]) return null;
+    if (!match || !match[1]) return extractMatchedVideosFromJinaMarkdown(htmlText, rules);
 
     let data;
     try {
@@ -5125,29 +5251,15 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
           (!pubTime && (v.thumbnailOverlays || []).some(o => o?.thumbnailOverlayTimeStatusRenderer?.style === "LIVE"))
         );
 
-        // 1. Verify video is within the 7-day search window
-        let withinWindow = isLive;
-        if (!withinWindow && pubTime) {
-          if (/\b(second|minute|hour)s?\s+ago\b/i.test(pubTime)) {
-            withinWindow = true;
-          } else {
-            const dayMatch = pubTime.match(/(\d+)\s+days?\s+ago/i);
-            if (dayMatch && parseInt(dayMatch[1], 10) <= 7) {
-              withinWindow = true;
-            }
-          }
-        }
-        if (!withinWindow) continue;
+        if (!isYtPubTimeWithin7Days(pubTime, isLive)) continue;
 
-        // 2. Verify event keyword match (prevents YouTube's unrelated fallback padding from counting)
-        const textHaystack = (title + " " + desc).toLowerCase();
+        const textHaystack = (title + " " + desc + " " + owner + " " + handleUrl).toLowerCase();
         if (rules.eventPart) {
           const eventWords = rules.eventPart.split(/\s+/).filter(w => w.length >= 3);
           const matchesEvent = eventWords.every(w => textHaystack.includes(w));
           if (!matchesEvent) continue;
         }
 
-        // 3. Verify creator match if creator handles/names were specified in the query
         if (rules.creators && rules.creators.length > 0) {
           const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + title);
           const matchesCreator = rules.creators.some(c => creatorHaystack.includes(normAlnum(c)));
@@ -5191,8 +5303,8 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     badgeEl.title = "Checking YouTube 7-Day Search Window...";
 
     const rules = parseYtSearchQueryRules(cleanUrl, masterState?.mainTitle || "");
-    const html = await fetchYouTubeHtmlViaProxy(cleanUrl);
-    const matched = extractMatchedVideosFromYtHtml(html, rules);
+    const payload = await fetchYouTubeSearchPayload(cleanUrl);
+    const matched = payload ? extractMatchedVideosFromYtHtml(payload.text, rules) : null;
 
     if (matched === null) {
       badgeEl.textContent = "(?)";
