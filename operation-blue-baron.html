@@ -5952,7 +5952,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const imgUrl = getUnitImageUrl(unitName);
     const targetHref = buildUnitDeepLinkUrl(unitName);
 
-    titleEl.textContent = `🖥️ MASTER_DB UNIT DOSSIER // ${unitName.toUpperCase()}`;
+    titleEl.textContent = `🖥️ MASTER_DB UNIT BRIEF // ${unitName.toUpperCase()}`;
     extBtn.href = targetHref;
     extBtn.style.display = "inline-flex";
     extBtn.onclick = function() {
@@ -6059,7 +6059,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         const unitName = a.getAttribute("data-unit");
         if (unitName) {
           const rec = findUnitInMasterDb(unitName);
-          const sub = rec ? `${rec.STAT_FACTION || 'Unit'} • ${rec.STAT_TYPE || 'Dossier'}` : "MASTER_DB Unit Dossier";
+          const sub = rec ? `${rec.STAT_FACTION || 'Unit'} • ${rec.STAT_TYPE || 'Brief'}` : "MASTER_DB Unit Brief";
           const customImg = a.getAttribute("data-preview-img") || "";
           showHoverThumbnail(e, unitName, sub, getUnitImageUrl(unitName, customImg));
         } else {
@@ -6395,7 +6395,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
   async function saveMasterFileToDisk(silentIfLinked = false) {
     const masterHtml = buildMasterHtmlSnapshotString();
-    const defaultMasterFilename = "2026_NOV_BLUE_BARON_DOSSIER_MASTER.html";
+    const defaultMasterFilename = "2026_NOV_BLUE_BARON_BRIEF_MASTER.html";
 
     try {
       if (window.showSaveFilePicker) {
@@ -6542,7 +6542,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     const exportBox = document.getElementById("exportOutputBox");
     const exportArea = document.getElementById("exportTextarea");
     const statusLabel = document.getElementById("exportStatusLabel");
-    const pubFilename = "2026_NOV_BLUE_BARON_DOSSIER_PUBLISHED.html";
+    const pubFilename = "2026_NOV_BLUE_BARON_BRIEF_PUBLISHED.html";
 
     if (exportBox && exportArea) {
       exportArea.value = cleanHtml;
