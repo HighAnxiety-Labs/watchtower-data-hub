@@ -459,7 +459,7 @@
         <div class="header-status-subrow">
           <div class="system-alert-pod glowing-home" id="systemAlertPod">
             <div class="alert-tag-badge" id="alertTagBadge"><span>⚡ ALERT: ACTIVE</span></div>
-            <div class="alert-text" id="systemAlertText">OCTOBER SKIRMISH &amp; OPERATION: BLUE BARON PREP: Deploy strike platoons across regional sectors.</div>
+            <div class="alert-text" id="systemAlertText">OPERATION: BLUE BARON LIVE NOW (NOV 5 – NOV 11): Deploy strike platoons across regional sectors.</div>
           </div>
         </div>
       </div>
@@ -598,13 +598,13 @@
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleWarpath" style="color: #be8ee0;">Warpath</span><span class="timer-status-badge" id="badge-warpath">Concluded</span></div>
               <div class="timer-clock-display" id="clock-warpath">CONCLUDED</div>
               <div class="timer-subtext" id="sub-warpath">Event Ended Oct 27, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnWarpath" data-url="./vault/2026-oct-warpath.html" data-clock-title="Warpath" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-archives);">🖥️ OPEN WARPATH BRIEF</button>
+              <button type="button" class="timer-brief-btn" id="clockBtnWarpath" data-url="./2026-dec-warpath-brief.html" data-clock-title="Warpath" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-archives);">🖥️ OPEN WARPATH BRIEF</button>
             </div>
             <div class="timer-card skirmish card-inherited" id="carouselCardSkirmish" style="display: flex; --dir-target-key: var(--dir-btn3); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleSkirmish" style="color: #71bf8d;">Skirmish</span><span class="timer-status-badge" id="badge-skirmish">Live Event</span></div>
+              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleSkirmish" style="color: #71bf8d;">Skirmish</span><span class="timer-status-badge" id="badge-skirmish">Upcoming</span></div>
               <div class="timer-clock-display" id="clock-skirmish">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-skirmish">Event Ends Nov 3, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnSkirmish" data-url="./skirmish.html" data-clock-title="Skirmish" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn3);">🖥️ OPEN SKIRMISH BRIEF</button>
+              <div class="timer-subtext" id="sub-skirmish">Launches Nov 27, 10:00 AM PT</div>
+              <button type="button" class="timer-brief-btn" id="clockBtnSkirmish" data-url="./2026-nov-skirmish-brief.html" data-clock-title="Skirmish" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn3);">🖥️ OPEN SKIRMISH BRIEF</button>
             </div>
             <div class="timer-card holdout card-inherited" id="carouselCardHoldout" style="display: flex; --dir-target-key: var(--dir-btn1); order: 0; opacity: 1;">
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleHoldout" style="color: #53bfd1;">Holdout</span><span class="timer-status-badge" id="badge-holdout">Upcoming</span></div>
@@ -613,9 +613,9 @@
               <button type="button" class="timer-brief-btn" id="clockBtnHoldout" data-url="./2026-nov-holdout-brief.html" data-clock-title="Holdout" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn1);">🖥️ OPEN HOLDOUT BRIEF</button>
             </div>
             <div class="timer-card nightmare card-inherited" id="carouselCardNightmare" style="display: flex; --dir-target-key: var(--dir-btn5); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e06c6c;">Operation: Blue Baron</span><span class="timer-status-badge" id="badge-nightmare">Upcoming</span></div>
+              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e06c6c;">Operation: Blue Baron</span><span class="timer-status-badge" id="badge-nightmare">Live Event</span></div>
               <div class="timer-clock-display" id="clock-nightmare">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-nightmare">Launches Nov 5, 10:00 AM PT</div>
+              <div class="timer-subtext" id="sub-nightmare">Event Ends Nov 11, 10:00 AM PT</div>
               <button type="button" class="timer-brief-btn" id="clockBtnNightmare" data-url="./operation-blue-baron.html" data-clock-title="Operation: Blue Baron" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn5);">🖥️ OPEN OPERATION: BLUE BARON BRIEF</button>
             </div>
           </div>
@@ -996,7 +996,7 @@
     "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "" },
     "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "" },
     "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "" },
-    "skirmish":  { "start": 1793379600000, "end": 1793728800000, "store": 1793815200000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "" },
+    "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "" },
     "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "" },
     "nightmare": { "start": 1793901600000, "end": 1794420000000, "store": 1794506400000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "" }
   };
@@ -1033,11 +1033,12 @@
     opBriefs: {
       accent: "var(--dir-btn4)", colorHex: "#c45a22",
       cards: [
-        { enabled: true, isSubPage: false, order: 1, symbol: "LIVE", title: "OPERATION: BLUE BARON", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
+        { enabled: true, isSubPage: false, order: 1, symbol: "LIVE", title: "NOV 2026 • OPERATION: BLUE BARON BRIEF", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
         { enabled: true, isSubPage: false, order: 2, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
         { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
         { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
-        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "OCTOBER SKIRMISH", url: "./skirmish.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
+        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" },
+        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "DEC 2026 • WARPATH BRIEF", url: "./2026-dec-warpath-brief.html", embedCode: "", openInIframe: true, eventCategory: "WARPATH" }
       ]
     },
     wtrArchives: {
@@ -1220,7 +1221,7 @@
       { secKey: "baseOps",        match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
-      { secKey: "opBriefs",       match: "SKIRMISH",       file: "./skirmish.html",              defaultTitle: "OCTOBER SKIRMISH",       defaultSym: "LIVE" },
+      { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
       { secKey: "wtrArchives",    match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "adminBug",       match: "BROKEN",         file: "./whats-broken.html",          defaultTitle: "WHAT'S BROKEN IN WC",    defaultSym: "BUG" },
@@ -2375,9 +2376,9 @@
           },
           { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",             startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "NOV 18, 2026", briefUrl: "./2026-nov-holdout-brief.html", sourceUrl: "" },
           { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",       startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "NOV 25, 2026", briefUrl: "./2026-nov-sector-breach-brief.html", sourceUrl: "" },
-          { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "./vault/2026-oct-warpath.html", sourceUrl: "" },
-          { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./skirmish.html", sourceUrl: "" },
-          { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",         startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
+          { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "./2026-dec-warpath-brief.html", sourceUrl: "" },
+          { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./vault/2026-oct-skirmish-brief.html", sourceUrl: "" },
+          { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: true,  label: "Skirmish II",         startDate: "NOV 27, 2026", endDate: "DEC 1, 2026",  storeDate: "DEC 2, 2026", briefUrl: "./2026-nov-skirmish-brief.html", sourceUrl: "" },
           { key: "future",    tier: "main",  hex: "#ff2a85", enabled: false, label: "Special / New Event", startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
           { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
           { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
@@ -2413,12 +2414,12 @@
           "24": { resource: "Iridium",    events: [{ type: "breach", text: "Sector Breach" }, { type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
           "25": { resource: "Medal/Adv",  events: [{ type: "breach", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase2", text: "Ch.1 / Phase 2" }, { type: "bases", text: "Siren • Valiant Mk.II • Broadside • Nomad" }] },
           "26": { resource: "Iridium",    events: [{ type: "phase2", text: "Ch.1 / Phase 2" }] },
-          "27": { resource: "Medal/Adv",  events: [{ type: "phase2", text: "Ch.1 / Phase 2 Ends" }, { type: "phase3", text: "Ch.1 / Phase 3 Begins" }] },
-          "28": { resource: "Iridium",    events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
-          "29": { resource: "Iridium",    events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
-          "30": { resource: "Medal/Adv",  events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "next_1": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "next_2": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "27": { resource: "Medal/Adv",  events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase2", text: "Ch.1 / Phase 2 Ends" }, { type: "phase3", text: "Ch.1 / Phase 3 Begins" }] },
+          "28": { resource: "Iridium",    events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }] },
+          "29": { resource: "Iridium",    events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }] },
+          "30": { resource: "Medal/Adv",  events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "next_1": { resource: "Iridium",   events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "next_2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
           "next_3": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
           "next_4": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] },
           "next_5": { resource: "Iridium",   events: [] }
@@ -2429,8 +2430,8 @@
         sourceUrl: "",
         legendItems: [],
         daysData: {
-          "1": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "2": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "1": { resource: "Iridium",   events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
           "3": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
           "4": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] }
         }
@@ -5448,12 +5449,19 @@
   }
 
   /* ==================== SELF-POPULATING EVENT GUIDES & VAULT EVENT HISTORY ENGINE ==================== */
+  /* [-WTR-] STANDARD EVENT LIFECYCLE RULE:
+   * When the new calendar is released, any Concluded events are moved to [-WTR-] Vault (wtrArchives)
+   * when a NEW Event starts, and replaced under EVENT BRIEFS (opBriefs) with a Pre-Release Holding Brief
+   * for the same event category coming forthcoming.
+   */
   const WTR_DEFAULT_DIRECTORY_MANIFEST = {
     activeFiles: [
       "2026-calendar.html",
+      "2026-dec-warpath-brief.html",
       "2026-nov-holdout-brief.html",
       "2026-nov-shadow-ops-brief.html",
       "2026-nov-sector-breach-brief.html",
+      "2026-nov-skirmish-brief.html",
       "building-briefs.html",
       "cc-22-pre-release.html",
       "command-center.html",
@@ -5746,12 +5754,12 @@
         scheduleHint: `🛒 STORE OPEN • CLOSES ${fmt(storeMs).toUpperCase()}`
       };
     }
-    // 4. Concluded (event ended, waiting for next cycle or archive)
+    // 4. Forthcoming Pre-Release Holder (previous run concluded & moved to Vault; awaiting next calendar date)
     return {
       stagePriority: 4,
-      targetTime: -endMs,
+      targetTime: Number.MAX_SAFE_INTEGER - catOrder,
       catOrder,
-      scheduleHint: `⏹️ CONCLUDED • ENDED ${fmt(endMs).toUpperCase()}`
+      scheduleHint: `🔒 PRE-RELEASE HOLDER • FORTHCOMING (DATES TBD)`
     };
   }
 
@@ -5784,22 +5792,26 @@
       .map(f => parseWtrDirectoryFile(f, ""))
       .filter(item => item && eventCategoriesOrder.includes(item.category));
 
-    // Deduplicate active files if both a standalone module (e.g. operation-blue-baron.html) and dated brief exist
+    // [-WTR-] STANDARD EVENT LIFECYCLE RULE:
+    // When the new calendar is released, any Concluded events are moved to [-WTR-] Vault when a NEW Event starts,
+    // and replaced under EVENT BRIEFS (opBriefs) with a Pre-Release Holding Brief for the same event coming forthcoming.
     const dedupedByCategory = new Map();
     rawActiveParsed.forEach(ev => {
       const lowerFile = ev.fileName.toLowerCase();
       if (lowerFile === "operation-blue-baron.html") {
         ev.title = "NOV 2026 • OPERATION: BLUE BARON BRIEF";
+        ev.sortScore = 202611;
       } else if (lowerFile === "skirmish.html") {
-        ev.title = "OCT 2026 • SKIRMISH BRIEF";
+        ev.title = "NOV 2026 • SKIRMISH BRIEF";
+        ev.sortScore = 202611;
       }
       const existing = dedupedByCategory.get(ev.category);
       if (!existing) {
         dedupedByCategory.set(ev.category, ev);
       } else {
-        // Prefer the standalone file (operation-blue-baron.html / skirmish.html) or higher sortScore
-        const isStandalone = (lowerFile === "operation-blue-baron.html" || lowerFile === "skirmish.html");
-        if (isStandalone || ev.sortScore > existing.sortScore) {
+        // Prefer the newest dated Pre-Release Holding Brief or active standalone brief
+        const isDatedBrief = /^20\d\d-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-/i.test(lowerFile);
+        if (ev.sortScore > existing.sortScore || (ev.sortScore === existing.sortScore && isDatedBrief)) {
           dedupedByCategory.set(ev.category, ev);
         }
       }
