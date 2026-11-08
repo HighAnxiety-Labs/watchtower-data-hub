@@ -4,7 +4,6 @@ window.WTR_DIRECTORY_MANIFEST = {
   generatedAt: "2026-11-07T11:55:00-08:00",
   activeFiles: [
     "2026-calendar.html",
-    "2026-dec-warpath-brief.html",
     "2026-nov-holdout-brief.html",
     "2026-nov-sector-breach-brief.html",
     "2026-nov-shadow-ops-brief.html",
