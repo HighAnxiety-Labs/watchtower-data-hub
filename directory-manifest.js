@@ -13,6 +13,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "cc-22-pre-release.html",
     "command-center.html",
     "hub-home.html",
+    "index.html",
     "operation-blue-baron.html",
     "report-war-crimes.html",
     "skirmish.html",

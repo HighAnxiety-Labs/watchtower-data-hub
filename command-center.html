@@ -2235,7 +2235,7 @@
       order: sec.cards.length + 1,
       symbol: defaultSym,
       title: asSubBranch ? "NEW SUB-PAGE BRANCH" : "NEW PAGE LINK",
-      url: "https://highanxiety-labs.github.io/watchtower-data-hub/command-center.html",
+      url: "https://highanxiety-labs.github.io/watchtower-data-hub/",
       embedCode: ""
     });
 
@@ -5302,7 +5302,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "command-center.html";
+      a.download = "index.html";
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showMasterToastBanner(verifySummary, "#22d3ee");
@@ -5466,6 +5466,7 @@
       "cc-22-pre-release.html",
       "command-center.html",
       "hub-home.html",
+      "index.html",
       "operation-blue-baron.html",
       "report-war-crimes.html",
       "skirmish.html",
