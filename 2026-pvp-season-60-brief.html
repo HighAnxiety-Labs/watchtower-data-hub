@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER EVENT BRIEF PUBLISHED // PVP SEASON 60 (NOV 12 – DEC 30, 2026) -->
+<html lang="en"><head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — PVP SEASON 60 Operational Brief (NOV 12 – DEC 30, 2026)</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Data Hub — PVP SEASON 60 Operational Brief">
+  <meta property="og:description" content="PvP Season 60 Operational Brief — Starts Nov 12, 2026 @ 11:00 AM PST • Ends Dec 30, 2026 @ 10:00 AM PST. Medals & Blood Thorium Payouts.">
+  <meta property="og:image" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2c4dee5-de78-4cad-97ad-4e0774baf53c">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2c4dee5-de78-4cad-97ad-4e0774baf53c">
+  <style>
+  :root {
+    --primary-color: #00bf63;
+    --primary-bar-bg: #1e7a46;
+    --accent-green: #00e676;
+    --theme-glow: rgba(46, 184, 103, 0.28);
+    --tab-top-border: #1f5233;
+    --corner-block-width: 280px;
+    --bg-dark: #0b0f0d;
+    --bg-panel: #121212;
+    --bg-header: #0c1117;
+    --bg-card: #18261e;
+    --bg-inner: #0b1118;
+    --border-dark: #1f3b2b;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --text-gold: #ffd700;
+    --text-cyan: #38bdf8;
+    --text-orange: #f97316;
+    --text-red: #ff5252;
+    --text-thorium: #ff2a85;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: auto;
+    background-color: var(--bg-dark);
+  }
+  body {
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* ==================== LOCKED-HUD BRIEF FRAME ==================== */
+  .dossier-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 25px rgba(0, 255, 128, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-height: 92vh;
+    overflow: hidden;
+    position: relative;
+  }
+  .dossier-card.archive-collapsed {
+    max-height: none;
+  }
+  .dossier-card.unconstrained-height {
+    max-height: none;
+  }
+  .dossier-card.unconstrained-height .brief-scroll-viewport {
+    overflow-y: visible;
+    max-height: none;
+  }
+
+  /* ==================== LOCKED TOP HUD: 4-CORNER CLASSIFICATION BAR + FILE TABS ==================== */
+  .locked-top-hud {
+    flex-shrink: 0;
+    width: 100%;
+    background: #080c0a;
+    z-index: 50;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  }
+
+  .bar-solid-label {
+    color: #ffffff;
+    text-shadow:
+      -1px -1px 0 #000,
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+       0px  2px 5px rgba(0, 0, 0, 0.85);
+  }
+
+  .classification-bar {
+    position: relative;
+    background: var(--primary-bar-bg);
+    color: #ffffff;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 13px;
+    padding: 6px calc(var(--corner-block-width) + 12px);
+    text-transform: uppercase;
+    font-family: "Arial Black", sans-serif;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .corner-block-4 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--corner-block-width);
+    background: #080c0a;
+    color: #e2e8f0;
+    text-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Arial Black", sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  .corner-top-left {
+    left: 0;
+    justify-content: flex-start;
+    padding: 0 22px 0 16px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
+  }
+  .corner-top-left::before {
+    content: "■";
+    color: #34c772;
+    font-size: 11px;
+  }
+
+  .corner-top-right {
+    right: 0;
+    justify-content: flex-end;
+    padding: 0 16px 0 22px;
+    border: none;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 11.5px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: #34c772;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+    transition: all 0.18s ease-in-out;
+  }
+  .corner-top-right:hover {
+    background: #14241b;
+    color: #ffffff;
+  }
+  .dossier-card.archive-collapsed .corner-top-right {
+    background: #1a1605;
+    color: var(--text-gold);
+  }
+  .dossier-card.archive-collapsed .corner-top-right:hover {
+    background: var(--text-gold);
+    color: #000000;
+  }
+
+  .corner-bottom-left {
+    left: 0;
+    justify-content: flex-start;
+    padding: 0 22px 0 16px;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
+  }
+  .corner-bottom-left::before {
+    content: "■";
+    color: #34c772;
+    font-size: 11px;
+  }
+  .corner-bottom-left .clock-lbl {
+    color: var(--text-gold);
+    font-size: 11.5px;
+    letter-spacing: 1px;
+  }
+  .corner-bottom-left .dyn-clock-readout {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 900;
+    color: #34c772;
+    letter-spacing: 1px;
+    text-transform: none;
+  }
+
+  .corner-bottom-right {
+    right: 0;
+    justify-content: flex-end;
+    padding: 0 16px 0 22px;
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    color: #34c772;
+    clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+  }
+  .corner-bottom-right::before {
+    content: "■";
+    color: #34c772;
+    font-size: 11px;
+  }
+
+  .bottom-clock-bar-m1 {
+    position: relative;
+    background: var(--primary-bar-bg);
+    font-family: "Arial Black", sans-serif;
+    font-size: 12.5px;
+    padding: 6px calc(var(--corner-block-width) + 12px);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 38px;
+    border-top: 2px solid rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: 40;
+  }
+
+  @keyframes radarSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes beaconPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.88); }
+  }
+
+  @keyframes barScanSweep {
+    0% { left: -35%; }
+    100% { left: 115%; }
+  }
+
+  .logo-radar-ring::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, transparent 260deg, var(--accent-green) 360deg);
+    animation: radarSpin 4s linear infinite;
+    z-index: 1;
+    opacity: 0.75;
+  }
+
+  .live-beacon-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #34c772;
+    box-shadow: 0 0 8px #34c772;
+    display: inline-block;
+    animation: beaconPulse 1.8s ease-in-out infinite;
+  }
+
+  .scanline-shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 28%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.16) 50%, transparent 100%);
+    transform: skewX(-25deg);
+    animation: barScanSweep 5.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .header-classified-watermark {
+    position: absolute;
+    right: 310px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-8deg);
+    font-family: "Arial Black", sans-serif;
+    font-size: 36px;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.025);
+    border: 3px solid rgba(255, 255, 255, 0.03);
+    padding: 2px 14px;
+    border-radius: 4px;
+    pointer-events: none;
+    user-select: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 960px) {
+    .header-classified-watermark { display: none; }
+    .classification-bar,
+    .bottom-clock-bar-m1 {
+      padding: 6px 8px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .corner-block-4 {
+      position: static;
+      width: auto;
+      padding: 4px 14px;
+    }
+  }
+
+  /* ==================== INSTANT FILE-FOLDER TAB LOCATOR BAR ==================== */
+  .file-tabs-rail {
+    background: #080c0a;
+    padding: 8px 14px 0 14px;
+    border-bottom: 2px solid var(--primary-color);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .file-tabs-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .dossier-card.archive-collapsed .file-tabs-rail {
+    display: none;
+  }
+  .file-tab-btn {
+    position: relative;
+    background: linear-gradient(180deg, #16241c 0%, #0d1511 100%);
+    color: var(--text-muted);
+    border: none;
+    padding: 6px 10px 5px 10px;
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 100%, 0 100%);
+    border-top: 2px solid #2a4c39;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  .file-tab-btn .tab-idx {
+    color: var(--accent-green);
+    font-size: 10px;
+    opacity: 0.9;
+  }
+  .file-tab-btn:hover {
+    background: linear-gradient(180deg, #1f3729 0%, #132219 100%);
+    color: #ffffff;
+    border-top-color: var(--accent-green);
+    transform: translateY(-1px);
+  }
+  .file-tab-btn.active-file-tab {
+    background: var(--primary-color);
+    color: #000000;
+    border-top-color: #ffffff;
+    font-weight: 900;
+  }
+  .file-tab-btn.active-file-tab .tab-idx {
+    color: #000000;
+    opacity: 1;
+  }
+  .file-tab-btn.gold-tab {
+    border-top-color: var(--text-gold);
+    color: var(--text-gold);
+  }
+  .file-tab-btn.gold-tab .tab-idx {
+    color: var(--text-gold);
+  }
+  .file-tab-btn.gold-tab.active-file-tab {
+    background: var(--text-gold);
+    color: #000000;
+  }
+  .file-tab-btn.gold-tab.active-file-tab .tab-idx {
+    color: #000000;
+  }
+  .file-tab-btn.thorium-tab {
+    border-top-color: var(--text-thorium);
+    color: #ff6ea7;
+  }
+  .file-tab-btn.thorium-tab .tab-idx {
+    color: var(--text-thorium);
+  }
+  .file-tab-btn.thorium-tab.active-file-tab {
+    background: var(--text-thorium);
+    color: #ffffff;
+  }
+  .file-tab-btn.thorium-tab.active-file-tab .tab-idx {
+    color: #ffffff;
+  }
+
+  /* ==================== INTERNAL SCROLLING VIEWPORT ==================== */
+  .brief-scroll-viewport {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    position: relative;
+  }
+  .brief-scroll-viewport::-webkit-scrollbar {
+    width: 10px;
+  }
+  .brief-scroll-viewport::-webkit-scrollbar-track {
+    background: #060a08;
+  }
+  .brief-scroll-viewport::-webkit-scrollbar-thumb {
+    background: #1f3b2b;
+    border: 1px solid var(--accent-green);
+    border-radius: 4px;
+  }
+
+  /* ==================== EVENT HERO HEADER ==================== */
+  .event-header {
+    padding: 18px 24px;
+    border-bottom: 2px solid var(--border-dark);
+    background: var(--bg-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    transition: padding 0.2s ease;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .header-left-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1 1 420px;
+    min-width: 280px;
+  }
+  .header-logo-link {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #1f3b2b 0%, #0b1118 50%, #00bf63 100%);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.35), inset 0 0 8px rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: width 0.2s ease, height 0.2s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    text-decoration: none;
+    position: relative;
+  }
+  .header-logo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px rgba(0, 230, 118, 0.75);
+  }
+  .header-logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #000;
+    position: relative;
+    z-index: 2;
+  }
+  .dossier-card.archive-collapsed .event-header {
+    padding: 18px 24px;
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .dossier-card.archive-collapsed .side-quick-rail {
+    display: none;
+  }
+  .event-header-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .event-sub-tag {
+    font-size: clamp(11px, 1.25vw, 13px);
+    letter-spacing: 1.3px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media (max-width: 720px) {
+    .event-sub-tag {
+      white-space: normal;
+    }
+  }
+  .event-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .event-main-title {
+    font-family: "Arial Black", sans-serif;
+    font-size: clamp(24px, 3.8vw, 35px);
+    color: var(--accent-green);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .event-meta-box {
+    flex: 0 0 auto;
+    background: #080d0b;
+    border: 1px solid var(--border-dark);
+    border-left: 3px solid var(--accent-green);
+    border-radius: 4px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 310px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.75);
+  }
+  .meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-family: monospace;
+    font-size: 12.5px;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .meta-line strong {
+    font-weight: 900;
+  }
+  @media (max-width: 760px) {
+    .event-meta-box {
+      width: 100%;
+    }
+  }
+  @media (max-width: 640px) {
+    .header-left-wrap {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .brief-collapsible-body {
+    display: block;
+  }
+  .dossier-card.archive-collapsed .brief-collapsible-body {
+    display: none;
+  }
+
+  /* ==================== SECTION CONTAINERS & COLLAPSIBLE BARS ==================== */
+  .dossier-section {
+    padding: 0 20px 24px 20px;
+    clear: both;
+  }
+  .section-header-bar {
+    background: var(--primary-color);
+    color: #000;
+    font-family: "Arial Black", sans-serif;
+    font-size: 15.5px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.15s ease;
+  }
+  .section-header-bar:hover {
+    filter: brightness(1.08);
+  }
+  .section-header-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .section-header-bar span.subtext {
+    font-family: "Arial Black", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .section-min-arrow {
+    background: rgba(0, 0, 0, 0.22);
+    color: #000;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease;
+  }
+  .dossier-section.section-minimized .section-content-wrap {
+    display: none !important;
+  }
+
+  .section-box {
+    background: var(--bg-inner);
+    border: 1px solid var(--border-dark);
+    border-top: none;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: var(--text-main);
+  }
+
+  .sitrep-quote {
+    border-left: 3px solid var(--accent-green);
+    padding: 10px 14px;
+    margin: 0 0 14px 0;
+    color: #ffffff;
+    font-style: italic;
+    background: rgba(0, 191, 99, 0.08);
+    font-size: 15.5px;
+  }
+
+  /* ==================== MECHANICS CARDS GRID ==================== */
+  .mech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .mech-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-left: 4px solid var(--accent-green);
+    padding: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mech-card.gold-border {
+    border-left-color: var(--text-gold);
+  }
+  .mech-card.thorium-border {
+    border-left-color: var(--text-thorium);
+  }
+  .mech-card h3 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 15px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .mech-card.gold-border h3 {
+    color: var(--text-gold);
+  }
+  .mech-card.thorium-border h3 {
+    color: #ff6ea7;
+  }
+  .mech-card p {
+    font-size: 14.2px;
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+
+  /* ==================== CLASS A/B/C PILLARS ==================== */
+  .alliance-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+  }
+  @media (max-width: 780px) {
+    .alliance-classes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .class-pillar {
+    background: linear-gradient(180deg, #15231b 0%, #0b120e 100%);
+    border: 1px solid var(--border-dark);
+    border-top: 3px solid var(--text-gold);
+    border-radius: 4px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .class-pillar.silver {
+    border-top-color: #cbd5e1;
+  }
+  .class-pillar.bronze {
+    border-top-color: #f97316;
+  }
+  .class-pillar-title {
+    font-family: "Arial Black", sans-serif;
+    font-size: 17px;
+    color: var(--text-gold);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .class-pillar.silver .class-pillar-title { color: #e2e8f0; }
+  .class-pillar.bronze .class-pillar-title { color: #fb923c; }
+  .class-pillar-sub {
+    font-family: monospace;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .class-pillar-desc {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* ==================== PAYOUT TABLES & GRAPHIC FRAMES ==================== */
+  .payout-graphic-frame {
+    width: 100%;
+    background: #060a08;
+    border: 1px solid rgba(0, 230, 118, 0.35);
+    border-radius: 4px;
+    padding: 6px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.75);
+  }
+  .payout-graphic-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 3px;
+  }
+
+  .wtr-payout-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+  }
+  .wtr-payout-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #09100c;
+  }
+  .wtr-payout-table th {
+    background: #13241b;
+    color: var(--accent-green);
+    font-family: "Arial Black", sans-serif;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--primary-color);
+  }
+  .wtr-payout-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #16261d;
+    color: var(--text-main);
+  }
+  .wtr-payout-table tr:hover td {
+    background: rgba(0, 230, 118, 0.06);
+  }
+  .rank-badge {
+    font-family: "Arial Black", sans-serif;
+    font-size: 13px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .rank-gold { background: rgba(255, 215, 0, 0.16); color: var(--text-gold); border: 1px solid rgba(255, 215, 0, 0.45); }
+  .rank-silver { background: rgba(226, 232, 240, 0.14); color: #e2e8f0; border: 1px solid rgba(226, 232, 240, 0.4); }
+  .rank-bronze { background: rgba(249, 115, 22, 0.16); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.45); }
+  .rank-elite { background: rgba(255, 42, 133, 0.18); color: #ff6ea7; border: 1px solid rgba(255, 42, 133, 0.5); }
+
+  .val-medals {
+    font-family: monospace;
+    font-weight: 900;
+    color: var(--text-gold);
+    font-size: 14.5px;
+  }
+  .val-thorium {
+    font-family: monospace;
+    font-weight: 900;
+    color: #ff6ea7;
+    font-size: 15px;
+  }
+  .val-infamy {
+    font-family: monospace;
+    font-weight: 800;
+    color: var(--text-cyan);
+  }
+
+  /* ==================== CRITICAL ALLIANCE PAYOUT WARNING BANNER ==================== */
+  .use-or-lose-bottom-banner {
+    margin: 0 20px 20px 20px;
+    background: linear-gradient(90deg, #3b0a14 0%, #590d1d 50%, #3b0a14 100%);
+    border: 2px solid var(--text-red);
+    color: var(--text-gold);
+    font-family: "Arial Black", sans-serif;
+    font-size: 14.5px;
+    text-align: center;
+    padding: 14px 18px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(255, 82, 82, 0.25);
+  }
+
+  /* ==================== FLOATING QUICK-RETURN RAIL ==================== */
+  .side-quick-rail {
+    position: fixed;
+    right: 18px;
+    bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 90;
+  }
+  .side-rail-btn {
+    background: rgba(12, 22, 16, 0.92);
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: monospace;
+    font-size: 11.5px;
+    font-weight: 900;
+    padding: 8px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+    transition: all 0.15s ease;
+    text-transform: uppercase;
+  }
+  .side-rail-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+  }
+  .side-rail-btn.gold {
+    border-color: var(--text-gold);
+    color: var(--text-gold);
+  }
+  .side-rail-btn.gold:hover {
+    background: var(--text-gold);
+    color: #000;
+  }
+  </style>
+</head>
+<body>
+
+<div id="dossier-view" style="width: 100%;">
+  <div id="main-export-pvp-season-60" class="dossier-card" data-event-start="2026-11-12T11:00:00-08:00" data-event-end="2026-12-30T10:00:00-08:00">
+
+    <!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
+    <div class="locked-top-hud">
+      <div class="classification-bar scanline-shimmer">
+        <span class="corner-block-4 corner-top-left" id="displayCornerStampTop">NOV – DEC 2026</span>
+        <span class="bar-solid-label" id="displayClassBarTop">UNCLASSIFIED // PVP SEASON 60</span>
+        <button type="button" class="corner-block-4 corner-top-right" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
+          <span id="archiveToggleIcon">▲</span>
+          <span id="archiveToggleText">COLLAPSE BRIEF (ARCHIVE)</span>
+        </button>
+      </div>
+
+      <!-- Instant File-Folder Tab Locator Bar -->
+      <nav class="file-tabs-rail" aria-label="Instant Section Locators">
+        <div class="file-tabs-group">
+          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
+            <span class="tab-idx">01</span><span>TOP</span>
+          </button>
+          <button type="button" class="file-tab-btn" id="tabBtnOverview" data-target="secSeasonOverview" onclick="jumpToDossierSection('secSeasonOverview', this)">
+            <span class="tab-idx">02</span><span>OVERVIEW &amp; DRIP</span>
+          </button>
+          <button type="button" class="file-tab-btn" id="tabBtnAlliancePvp" data-target="secAlliancePvp" onclick="jumpToDossierSection('secAlliancePvp', this)">
+            <span class="tab-idx">03</span><span>ALLIANCE PVP</span>
+          </button>
+          <button type="button" class="file-tab-btn gold-tab" id="tabBtnAlliancePayouts" data-target="secAlliancePayouts" onclick="jumpToDossierSection('secAlliancePayouts', this)">
+            <span class="tab-idx">04</span><span>🏆 ALLIANCE PAYOUTS</span>
+          </button>
+          <button type="button" class="file-tab-btn thorium-tab" id="tabBtnPlayerPayouts" data-target="secPlayerPayouts" onclick="jumpToDossierSection('secPlayerPayouts', this)">
+            <span class="tab-idx">05</span><span>💎 PLAYER PAYOUTS</span>
+          </button>
+        </div>
+        <button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
+          <span>↕ FULL PAGE</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- ==================== SELF-CONTAINED SCROLLING VIEWPORT ==================== -->
+    <div class="brief-scroll-viewport" id="briefScrollViewport">
+
+      <!-- SECTION 01: HEADER -->
+      <header class="event-header" id="secTopHeader">
+        <div class="header-classified-watermark" id="displayHeaderWatermark">UNCLASSIFIED</div>
+        <div class="header-left-wrap">
+          <a class="header-logo-link logo-radar-ring" id="wtrHomeLogoLink" href="https://highanxiety-labs.github.io/watchtower-data-hub/" target="_blank" rel="noopener noreferrer" title="Return to [-WTR-] Data Hub Home">
+            <img id="displayWtrLogoImg" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem" class="header-logo-img">
+          </a>
+          <div class="event-header-text">
+            <div class="event-sub-tag"><span>[-WTR-] DATA HUB</span> | 
+              <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" target="_blank" rel="noopener noreferrer" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> | 
+              <a href="javascript:void(0)" onclick="jumpToDossierSection('secPlayerPayouts')" style="color: var(--text-gold); text-decoration: none;">Medals &amp; Blood Thorium Payouts ↓</a>
+            </div>
+            <div class="event-title-row">
+              <h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">PVP SEASON 60</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stacked & Boxed Schedule on the Right of the Title Page -->
+        <div class="event-meta-box event-meta">
+          <div class="meta-line">
+            <strong style="color: var(--text-cyan);">Starts:</strong>
+            <span>THU NOV 12, 2026 @ 11:00 AM PST</span>
+          </div>
+          <div class="meta-line">
+            <strong style="color: var(--text-gold);">Ends:</strong>
+            <span>WED DEC 30, 2026 @ 10:00 AM PST</span>
+          </div>
+          <div class="meta-line">
+            <strong style="color: var(--text-thorium);">Payouts:</strong>
+            <span>BASE POP-UP AT SEASON END</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Collapsible Brief Content -->
+      <div id="briefCollapsibleBody" class="brief-collapsible-body">
+
+        <!-- SECTION 02: SEASON OVERVIEW, DEFENSIVE OFFERS & INFAMY DRIP -->
+        <section class="dossier-section" id="secSeasonOverview">
+          <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+            <span>SEASON 60 OVERVIEW &amp; INFAMY MECHANICS</span>
+            <div class="section-header-right">
+              <span class="subtext">Medals • Blood Thorium • Infamy Drip</span>
+              <span class="section-min-arrow">▼</span>
+            </div>
+          </div>
+          <div class="section-content-wrap">
+            <div class="section-box">
+              <blockquote class="sitrep-quote">
+                "Get stocked up on Medals and Blood Thorium to upgrade those Legendary Units and Tech."
+              </blockquote>
+              <p style="margin-bottom: 12px;">
+                <strong>PvP Season 60</strong> launches immediately following downtime on <strong>Thursday, November 12, 2026 @ 11:00 AM PST</strong> and runs for 48 days through <strong>Wednesday, December 30, 2026 @ 10:00 AM PST</strong>. Compete across Individual Infamy Divisions and Alliance Leaderboards to earn massive <strong>Medal</strong> caches and <strong>Blood Thorium</strong> rewards.
+              </p>
+
+              <div class="mech-grid">
+                <div class="mech-card gold-border">
+                  <h3>🛡️ Defensive Units Offers</h3>
+                  <p>
+                    Boost your defense with special time-sensitive deals on powerful defensive units! These special offers are available for a short time. Don't miss your chance to secure high-value tactical reinforcements at a special price before they rotate out. Check the in-game offers tab right now to claim yours before time runs out!
+                  </p>
+                </div>
+                <div class="mech-card thorium-border">
+                  <h3>💧 Infamy Drip</h3>
+                  <p>
+                    Earn Infamy in between attacks. A percentage of a player’s Infamy is dripped back to them, <strong>only when they are unbubbled and their base is active</strong>. The more Infamy a player has, the more that will drip back.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 03: ALLIANCE PVP CLASSES & TOP-3 LEADERBOARD RULE -->
+        <section class="dossier-section" id="secAlliancePvp">
+          <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+            <span>ALLIANCE PVP CLASSES &amp; LEADERBOARD RULES</span>
+            <div class="section-header-right">
+              <span class="subtext">Class A • Class B • Class C</span>
+              <span class="section-min-arrow">▼</span>
+            </div>
+          </div>
+          <div class="section-content-wrap">
+            <div class="section-box">
+              <p style="margin-bottom: 12px;">
+                Alliances compete in three different classes based on Alliance size. Please note that KIXEYE has made a change so that <strong>your Alliance will only appear in one of the three classes below, based on the highest prize your Alliance would receive</strong>. This only occurs when your Alliance is within the <strong>Top 3</strong> of one of the classes. If your Alliance is not within the Top 3, it will still appear on all three Leaderboards.
+              </p>
+
+              <div class="alliance-classes-grid">
+                <div class="class-pillar">
+                  <div class="class-pillar-title">CLASS A</div>
+                  <div class="class-pillar-sub">Full Roster Tier</div>
+                  <div class="class-pillar-desc">Total Infamy contribution of <span style="color: var(--text-gold);">ALL MEMBERS</span></div>
+                </div>
+                <div class="class-pillar silver">
+                  <div class="class-pillar-title">CLASS B</div>
+                  <div class="class-pillar-sub">100-Member Tier</div>
+                  <div class="class-pillar-desc">Total Infamy contribution of <span style="color: #38bdf8;">TOP 100 MEMBERS</span></div>
+                </div>
+                <div class="class-pillar bronze">
+                  <div class="class-pillar-title">CLASS C</div>
+                  <div class="class-pillar-sub">50-Member Tier</div>
+                  <div class="class-pillar-desc">Total Infamy contribution of <span style="color: #fb923c;">TOP 50 MEMBERS</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 04: ALLIANCE PAYOUTS -->
+        <section class="dossier-section" id="secAlliancePayouts">
+          <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+            <span>ALLIANCE LEADERBOARD PAYOUTS</span>
+            <div class="section-header-right">
+              <span class="subtext">Accolades &amp; Medal Payouts by Class</span>
+              <span class="section-min-arrow">▼</span>
+            </div>
+          </div>
+          <div class="section-content-wrap">
+            <div class="section-box">
+              <p style="margin-bottom: 14px;">
+                When the season ends, players and alliances who place on the leaderboard will get a pop-up in their base showing the rank and prizes earned. Medals and Accolades will be paid out at the conclusion of each Season, according to your alliance's final leaderboard ranking position.
+              </p>
+
+              <!-- Official KIXEYE Alliance Payouts Graphic -->
+              <div class="payout-graphic-frame">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2c4dee5-de78-4cad-97ad-4e0774baf53c" alt="PvP Season 60 Alliance Payouts Table">
+              </div>
+
+              <!-- Structured HTML Alliance Payouts Table -->
+              <div class="wtr-payout-table-wrap">
+                <table class="wtr-payout-table">
+                  <thead>
+                    <tr>
+                      <th>Global Rank</th>
+                      <th>Class A (All Members)</th>
+                      <th>Class B (Top 100 Members)</th>
+                      <th>Class C (Top 50 Members)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="rank-badge rank-gold">🥇 1ST PLACE</span></td>
+                      <td>Gold 1st Accolade + <span class="val-medals">600,000 Medals</span></td>
+                      <td>Silver 1st Accolade + <span class="val-medals">300,000 Medals</span></td>
+                      <td>Bronze 1st Accolade + <span class="val-medals">100,000 Medals</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-silver">🥈 2ND PLACE</span></td>
+                      <td>Gold 2nd Accolade + <span class="val-medals">505,000 Medals</span></td>
+                      <td>Silver 2nd Accolade + <span class="val-medals">255,000 Medals</span></td>
+                      <td>Bronze 2nd Accolade + <span class="val-medals">85,000 Medals</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-bronze">🥉 3RD PLACE</span></td>
+                      <td>Gold 3rd Accolade + <span class="val-medals">450,000 Medals</span></td>
+                      <td>Silver 3rd Accolade + <span class="val-medals">225,000 Medals</span></td>
+                      <td>Bronze 3rd Accolade + <span class="val-medals">75,000 Medals</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 05: INDIVIDUAL PLAYER PAYOUTS -->
+        <section class="dossier-section" id="secPlayerPayouts">
+          <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
+            <span>INDIVIDUAL PLAYER PAYOUTS (MEDALS &amp; BLOOD THORIUM)</span>
+            <div class="section-header-right">
+              <span class="subtext">Infamy Thresholds • Blood Thorium • Leaderboard Medals</span>
+              <span class="section-min-arrow">▼</span>
+            </div>
+          </div>
+          <div class="section-content-wrap">
+            <div class="section-box">
+              <!-- Official KIXEYE Individual Player Payouts Graphic -->
+              <div class="payout-graphic-frame">
+                <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/34da6a86-6505-4629-abb7-748d4d65ef20.png" alt="PvP Season 60 Individual Player Payouts Table">
+              </div>
+
+              <!-- Structured HTML Individual Player Payouts Table -->
+              <div class="wtr-payout-table-wrap">
+                <table class="wtr-payout-table">
+                  <thead>
+                    <tr>
+                      <th>Title / Division</th>
+                      <th>Infamy Threshold</th>
+                      <th style="text-align: right;">Threshold Medals</th>
+                      <th style="text-align: right;">Blood Thorium</th>
+                      <th style="text-align: right;">Leaderboard Medals</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="rank-badge rank-elite">👑 TOP PLAYER</span></td>
+                      <td class="val-infamy">Rank #1 Global</td>
+                      <td style="text-align: right; color: var(--text-muted);">—</td>
+                      <td style="text-align: right;" class="val-thorium">31</td>
+                      <td style="text-align: right;" class="val-medals">800,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-elite">🔥 TOP 50</span></td>
+                      <td class="val-infamy">Top 50 Global</td>
+                      <td style="text-align: right; color: var(--text-muted);">—</td>
+                      <td style="text-align: right;" class="val-thorium">25</td>
+                      <td style="text-align: right;" class="val-medals">700,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-elite">⚡ TOP 500</span></td>
+                      <td class="val-infamy">Top 500 Global</td>
+                      <td style="text-align: right; color: var(--text-muted);">—</td>
+                      <td style="text-align: right;" class="val-thorium">17</td>
+                      <td style="text-align: right;" class="val-medals">600,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-gold">GOLD I</span></td>
+                      <td class="val-infamy">8,000+</td>
+                      <td style="text-align: right;" class="val-medals">260,000</td>
+                      <td style="text-align: right;" class="val-thorium">10</td>
+                      <td style="text-align: right;" class="val-medals">500,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-gold">GOLD II</span></td>
+                      <td class="val-infamy">6,000 – 7,999</td>
+                      <td style="text-align: right;" class="val-medals">240,000</td>
+                      <td style="text-align: right;" class="val-thorium">8</td>
+                      <td style="text-align: right;" class="val-medals">400,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-gold">GOLD III</span></td>
+                      <td class="val-infamy">3,600 – 5,999</td>
+                      <td style="text-align: right;" class="val-medals">200,000</td>
+                      <td style="text-align: right;" class="val-thorium">6</td>
+                      <td style="text-align: right;" class="val-medals">300,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-silver">SILVER I</span></td>
+                      <td class="val-infamy">2,800 – 3,599</td>
+                      <td style="text-align: right;" class="val-medals">160,000</td>
+                      <td style="text-align: right;" class="val-thorium">5</td>
+                      <td style="text-align: right;" class="val-medals">225,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-silver">SILVER II</span></td>
+                      <td class="val-infamy">2,100 – 2,799</td>
+                      <td style="text-align: right;" class="val-medals">120,000</td>
+                      <td style="text-align: right;" class="val-thorium">4</td>
+                      <td style="text-align: right;" class="val-medals">200,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-silver">SILVER III</span></td>
+                      <td class="val-infamy">1,500 – 2,099</td>
+                      <td style="text-align: right;" class="val-medals">100,000</td>
+                      <td style="text-align: right;" class="val-thorium">3</td>
+                      <td style="text-align: right;" class="val-medals">175,000</td>
+                    </tr>
+                    <tr>
+                      <td><span class="rank-badge rank-bronze">BRONZE</span></td>
+                      <td class="val-infamy">1 – 1,499</td>
+                      <td style="text-align: right;" class="val-medals">80,000</td>
+                      <td style="text-align: right;" class="val-thorium">2</td>
+                      <td style="text-align: right;" class="val-medals">150,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ALLIANCE MEMBERSHIP PAYOUT WARNING BANNER -->
+        <div class="use-or-lose-bottom-banner" id="secUseOrLoseBanner">
+          <div>⚠️ CRITICAL ALLIANCE PAYOUT ELIGIBILITY RULE ⚠️</div>
+          <div style="color: #ffffff; margin-top: 4px;">
+            ONLY PLAYERS IN THE ALLIANCE AT THE TIME THE SEASON ENDS (<span style="text-decoration: underline;">WEDNESDAY, DECEMBER 30, 2026 @ 10:00 AM PST</span>) WILL BE AWARDED ALLIANCE PRIZES.
+          </div>
+        </div>
+
+      </div><!-- End Collapsible Body -->
+
+    </div><!-- End Self-Contained Scrolling Viewport -->
+
+    <!-- ==================== BOTTOM 2-CORNER CLASSIFICATION BAR ==================== -->
+    <div class="bottom-clock-bar-m1 scanline-shimmer" id="bottomClassificationBar">
+      <span class="corner-block-4 corner-bottom-left">
+        <span class="clock-lbl" id="bottomClockLabel">T-MINUS:</span>
+        <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
+      </span>
+      <span class="bar-solid-label" id="displayBottomBarMsg">KIXEYE DATA SUBJECT TO CORRECTIONS &amp; CHANGES</span>
+      <span class="corner-block-4 corner-bottom-right" id="bottomStatusCorner">
+        <span class="live-beacon-dot" id="bottomStatusDot"></span>
+        <span id="bottomStatusText">STATUS: UPCOMING</span>
+      </span>
+    </div>
+
+    <!-- Floating Quick-Return Rail -->
+    <div class="side-quick-rail">
+      <button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('secPlayerPayouts')" title="Jump to Player Payouts">💎 PAYOUTS</button>
+      <button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleBriefArchiveMode() {
+    const card = document.getElementById("main-export-pvp-season-60");
+    const icon = document.getElementById("archiveToggleIcon");
+    const txt = document.getElementById("archiveToggleText");
+    if (!card) return;
+    const isCollapsed = card.classList.toggle("archive-collapsed");
+    if (icon) icon.textContent = isCollapsed ? "▼" : "▲";
+    if (txt) txt.textContent = isCollapsed ? "EXPAND BRIEF (ARCHIVE)" : "COLLAPSE BRIEF (ARCHIVE)";
+  }
+
+  function toggleViewportHeightMode() {
+    const card = document.getElementById("main-export-pvp-season-60");
+    const btn = document.getElementById("btnToggleHeightMode");
+    if (!card) return;
+    const isFull = card.classList.toggle("unconstrained-height");
+    if (btn) {
+      btn.innerHTML = isFull ? "<span>↕ LOCKED HUD</span>" : "<span>↕ FULL PAGE</span>";
+    }
+  }
+
+  function toggleSectionMinimize(barEl) {
+    if (!barEl) return;
+    const sec = barEl.closest(".dossier-section");
+    if (!sec) return;
+    const isMin = sec.classList.toggle("section-minimized");
+    const arrow = barEl.querySelector(".section-min-arrow");
+    if (arrow) arrow.textContent = isMin ? "▶" : "▼";
+  }
+
+  function jumpToDossierSection(sectionId, tabBtn) {
+    const card = document.getElementById("main-export-pvp-season-60");
+    if (card && card.classList.contains("archive-collapsed")) {
+      toggleBriefArchiveMode();
+    }
+    const target = document.getElementById(sectionId);
+    if (target) {
+      if (target.classList.contains("section-minimized")) {
+        target.classList.remove("section-minimized");
+        const arrow = target.querySelector(".section-min-arrow");
+        if (arrow) arrow.textContent = "▼";
+      }
+      const viewport = document.getElementById("briefScrollViewport");
+      if (viewport && (!card || !card.classList.contains("unconstrained-height"))) {
+        const topPos = target.offsetTop;
+        viewport.scrollTo({ top: Math.max(0, topPos - 8), behavior: "smooth" });
+      } else {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    if (tabBtn) {
+      document.querySelectorAll(".file-tab-btn").forEach(btn => {
+        if (btn.id !== "btnToggleHeightMode") btn.classList.remove("active-file-tab");
+      });
+      tabBtn.classList.add("active-file-tab");
+    }
+  }
+
+  function updatePvp60Countdown() {
+    const startMs = new Date("2026-11-12T11:00:00-08:00").getTime();
+    const endMs = new Date("2026-12-30T10:00:00-08:00").getTime();
+    const now = Date.now();
+
+    const lblEl = document.getElementById("bottomClockLabel");
+    const valEl = document.getElementById("liveEventCountdown");
+    const statusTxt = document.getElementById("bottomStatusText");
+    const statusDot = document.getElementById("bottomStatusDot");
+    if (!valEl) return;
+
+    function fmtDiff(diff) {
+      const totalSec = Math.max(0, Math.floor(diff / 1000));
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      return d + "d " + h + "h " + String(m).padStart(2, "0") + "m " + s + "s";
+    }
+
+    if (now < startMs) {
+      if (lblEl) lblEl.textContent = "T-MINUS:";
+      valEl.textContent = fmtDiff(startMs - now);
+      valEl.style.color = "#38bdf8";
+      if (statusTxt) {
+        statusTxt.textContent = "STATUS: UPCOMING";
+        statusTxt.style.color = "#38bdf8";
+      }
+      if (statusDot) {
+        statusDot.style.background = "#38bdf8";
+        statusDot.style.boxShadow = "0 0 8px #38bdf8";
+      }
+    } else if (now < endMs) {
+      if (lblEl) lblEl.textContent = "ENDS IN:";
+      valEl.textContent = fmtDiff(endMs - now);
+      valEl.style.color = "#34c772";
+      if (statusTxt) {
+        statusTxt.textContent = "STATUS: ACTIVE";
+        statusTxt.style.color = "#34c772";
+      }
+      if (statusDot) {
+        statusDot.style.background = "#34c772";
+        statusDot.style.boxShadow = "0 0 8px #34c772";
+      }
+    } else {
+      if (lblEl) lblEl.textContent = "SEASON:";
+      valEl.textContent = "ENDED";
+      valEl.style.color = "#94a3b8";
+      if (statusTxt) {
+        statusTxt.textContent = "STATUS: ARCHIVED";
+        statusTxt.style.color = "#94a3b8";
+      }
+      if (statusDot) {
+        statusDot.style.background = "#94a3b8";
+        statusDot.style.boxShadow = "none";
+      }
+    }
+  }
+
+  updatePvp60Countdown();
+  setInterval(updatePvp60Countdown, 1000);
+</script>
+</body>
+</html>
