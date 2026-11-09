@@ -257,6 +257,7 @@
   .timer-card.warpath { border-left-color: var(--c-warpath); }
   .timer-card.skirmish { border-left-color: var(--c-skirmish); }
   .timer-card.shadowops { border-left-color: var(--c-shadowops); }
+  .timer-card.future { border-left-color: var(--c-future); }
   .timer-card-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .timer-card-title { font-size: 13.5px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; }
   .timer-status-badge { font-size: 11px; font-family: monospace; font-weight: 800; padding: 3px 7px; border-radius: 2px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-metal); color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
@@ -278,12 +279,12 @@
   .side-compress-btn.active .rail-text { color: var(--text-gold); }
   .calendar-main-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 
-  /* 2-Week Window Default (280px = 2 Locked 124px Week Rows + Gap) vs. 4-Week Expanded */
-  .calendar-viewport { max-height: 282px; overflow-y: hidden; scroll-behavior: smooth; border: 2px solid var(--border-metal); background: #06090d; padding: 12px; border-radius: 4px; box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.9); }
+  /* 2-Week Window Default (306px = 2 Locked 136px Week Rows + Gap) vs. 4-Week Expanded */
+  .calendar-viewport { max-height: 306px; overflow-y: hidden; scroll-behavior: smooth; border: 2px solid var(--border-metal); background: #06090d; padding: 12px; border-radius: 4px; box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.9); }
   .terminal-frame.expanded .calendar-viewport { max-height: none; overflow-y: visible; }
   .weekday-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin-bottom: 8px; text-align: center; font-family: monospace; font-weight: 900; font-size: 13px; color: var(--lead-accent); letter-spacing: 2px; text-transform: uppercase; }
-  .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-auto-rows: 124px; gap: 8px; }
-  .day-cell { background: linear-gradient(180deg, #131a24 0%, #0b1016 100%); border: 1px solid var(--border-metal); height: 124px; min-height: 124px; max-height: 124px; min-width: 0; max-width: 100%; padding: 7px; display: flex; flex-direction: column; gap: 5px; position: relative; overflow: visible; border-radius: 2px; }
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-auto-rows: 136px; gap: 8px; }
+  .day-cell { background: linear-gradient(180deg, #131a24 0%, #0b1016 100%); border: 1px solid var(--border-metal); height: 136px; min-height: 136px; max-height: 136px; min-width: 0; max-width: 100%; padding: 6px 7px; display: flex; flex-direction: column; gap: 4px; position: relative; overflow: visible; border-radius: 2px; }
   .day-cell.past-day { background: #06080c; border-color: rgba(34, 50, 68, 0.25); opacity: 0.42; }
   .day-cell.blank-day, .day-cell.inactive { background: rgba(15, 21, 29, 0.35); border: 1px dashed rgba(42, 59, 76, 0.35); opacity: 0.35; }
   .day-cell.spillover-active { background: rgba(14, 21, 30, 0.75); border: 1px dashed rgba(56, 189, 248, 0.45); opacity: 0.85; }
@@ -295,15 +296,15 @@
   .resource-badge.res-medal { background: linear-gradient(90deg, rgba(245, 158, 11, 0.22) 0%, rgba(234, 179, 8, 0.16) 100%); color: #fde047; border-color: #fbbf24; }
   .resource-badge.res-main { background: rgba(229, 57, 53, 0.24); color: #fca5a5; border-color: #ef4444; }
 
-  /* 3-Track Continuous Beam Lanes Inside Home Calendar */
-  .day-tracks-wrap { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
-  .track-empty-slot { height: 24px; min-height: 24px; max-height: 24px; visibility: hidden; pointer-events: none; }
-  .track-split-handover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3px; height: 24px; min-height: 24px; max-height: 24px; align-items: stretch; }
+  /* 4-Track Continuous Beam Lanes Inside Home Calendar */
+  .day-tracks-wrap { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+  .track-empty-slot { height: 22px; min-height: 22px; max-height: 22px; visibility: hidden; pointer-events: none; }
+  .track-split-handover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3px; height: 22px; min-height: 22px; max-height: 22px; align-items: stretch; }
   .event-tag {
     --beam-rgb: 0, 188, 212;
     --beam-hex: #00bcd4;
     --beam-text: #ffffff;
-    height: 24px; min-height: 24px; max-height: 24px; min-width: 0;
+    height: 22px; min-height: 22px; max-height: 22px; min-width: 0;
     font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.45px;
     padding: 0 6px; display: flex; align-items: center; justify-content: center;
     line-height: 1; white-space: nowrap; overflow: visible; position: relative; z-index: 6;
@@ -511,7 +512,7 @@
       <button type="button" class="brief-btn" id="btnUtil4" data-sec="opBriefs" data-color="#c45a22" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #c45a22;"></span><span id="txtUtil4">EVENT BRIEFS</span></span>
-          <span class="brief-btn-mod-count" id="modCount-opBriefs">5 MODULES</span>
+          <span class="brief-btn-mod-count" id="modCount-opBriefs">6 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -617,6 +618,12 @@
               <div class="timer-clock-display" id="clock-nightmare">--d --h --m --s</div>
               <div class="timer-subtext" id="sub-nightmare">Event Ends Nov 11, 10:00 AM PT</div>
               <button type="button" class="timer-brief-btn" id="clockBtnNightmare" data-url="./operation-blue-baron.html" data-clock-title="Operation: Blue Baron" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn5);">🖥️ OPEN OPERATION: BLUE BARON BRIEF</button>
+            </div>
+            <div class="timer-card future card-inherited" id="carouselCardFuture" style="display: flex; --dir-target-key: var(--c-future); order: 0; opacity: 1;">
+              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleFuture" style="color: #ff6ea7;">PVP Season 60</span><span class="timer-status-badge" id="badge-future">Upcoming</span></div>
+              <div class="timer-clock-display" id="clock-future">--d --h --m --s</div>
+              <div class="timer-subtext" id="sub-future">Launches Nov 12, 9:00 AM PT</div>
+              <button type="button" class="timer-brief-btn" id="clockBtnFuture" data-url="./2026-pvp-season-60-brief.html" data-clock-title="PVP Season 60" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--c-future);">🖥️ OPEN PVP SEASON 60 BRIEF</button>
             </div>
           </div>
         </div>
@@ -998,7 +1005,8 @@
     "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "" },
     "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "" },
     "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "" },
-    "nightmare": { "start": 1793901600000, "end": 1794420000000, "store": 1794506400000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "" }
+    "nightmare": { "start": 1793901600000, "end": 1794420000000, "store": 1794506400000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "" },
+    "future":    { "start": 1794510000000, "end": 1798653600000, "store": 1798653600000, "noStore": true,  "color": "var(--c-future)",    "bg": "rgba(255, 42, 133, 0.16)",  "customSubtext": "" }
   };
 
   const defaultWorkspaceData = {
@@ -1034,10 +1042,11 @@
       accent: "var(--dir-btn4)", colorHex: "#c45a22",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "LIVE", title: "NOV 2026 • OPERATION: BLUE BARON BRIEF", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
-        { enabled: true, isSubPage: false, order: 2, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
-        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
-        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
-        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
+        { enabled: true, isSubPage: false, order: 2, symbol: "LIVE", title: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", url: "./2026-pvp-season-60-brief.html", embedCode: "", openInIframe: true, eventCategory: "PVP_SEASON" },
+        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
+        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
+        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
+        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
       ]
     },
     wtrArchives: {
@@ -1127,6 +1136,7 @@
       { match: "SECTOR STATUS",   sym: "UPDATED" },
       { match: "SKIRMISH",        sym: "LIVE" },
       { match: "BLUE BARON",      sym: "LIVE" },
+      { match: "PVP SEASON",      sym: "LIVE" },
       { match: "UPGRADE/SALES",   sym: "CALCULATOR" },
       { match: "MONTHLY ARCHIVE", sym: "ARCHIVE" },
       { match: "GOOGLE FILES",    sym: "ARCHIVE" },
@@ -1222,6 +1232,7 @@
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
+      { secKey: "opBriefs",       match: "PVP SEASON",     file: "./2026-pvp-season-60-brief.html", defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
       { secKey: "wtrArchives",    match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "adminBug",       match: "BROKEN",         file: "./whats-broken.html",          defaultTitle: "WHAT'S BROKEN IN WC",    defaultSym: "BUG" },
       { secKey: "adminBug",       match: "WAR CRIMES",     file: "./report-war-crimes.html",     defaultTitle: "REPORT WAR CRIMES",      defaultSym: "UPCOMING" }
@@ -2378,7 +2389,7 @@
           { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",             startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "./vault/2026-oct-warpath.html", sourceUrl: "" },
           { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./vault/2026-oct-skirmish-brief.html", sourceUrl: "" },
           { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: true,  label: "Skirmish II",         startDate: "NOV 27, 2026", endDate: "DEC 1, 2026",  storeDate: "DEC 2, 2026", briefUrl: "./2026-nov-skirmish-brief.html", sourceUrl: "" },
-          { key: "future",    tier: "main",  hex: "#ff2a85", enabled: false, label: "Special / New Event", startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
+          { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",       startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A",         briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
           { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
           { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
           { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3", startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
@@ -2426,8 +2437,10 @@
       },
       "12": {
         mainTitle: "DECEMBER 2026",
-        sourceUrl: "",
-        legendItems: [],
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/",
+        legendItems: [
+          { key: "future", tier: "main", hex: "#ff2a85", enabled: true, label: "PVP Season 60", startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" }
+        ],
         daysData: {
           "1": { resource: "Iridium",   events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
           "2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
@@ -2707,10 +2720,11 @@
         { cfgIdx: 3, key: "warpath",   win: pickBestSequentialWindow(["warpath"]) },
         { cfgIdx: 4, key: "skirmish",  win: pickBestSequentialWindow(["skirmish1", "skirmish2"]) },
         { cfgIdx: 5, key: "holdout",   win: pickBestSequentialWindow(["holdout"]) },
-        { cfgIdx: 6, key: "nightmare", win: pickBestSequentialWindow(["nightmare"]) }
+        { cfgIdx: 6, key: "nightmare", win: pickBestSequentialWindow(["nightmare"]) },
+        { cfgIdx: 7, key: "future",    win: pickBestSequentialWindow(["future"]) }
       ];
 
-      const linkInputIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare"];
+      const linkInputIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare", "linkFuture"];
 
       clockMappings.forEach(cm => {
         const i = cm.cfgIdx;
@@ -3047,9 +3061,10 @@
     analyzeHomeBeamSpans(rawCells, mVault.legendItems);
 
     rawCells.forEach(cell => {
-      cell.track1 = cell.events.filter(e => resolveHomeEventMeta(e.type, mVault.legendItems).group === "primary");
+      cell.track1 = cell.events.filter(e => resolveHomeEventMeta(e.type, mVault.legendItems).group === "primary" && e.type !== "future");
       cell.track2 = cell.events.filter(e => resolveHomeEventMeta(e.type, mVault.legendItems).group === "phases");
       cell.track3 = cell.events.filter(e => resolveHomeEventMeta(e.type, mVault.legendItems).group === "bases");
+      cell.track4 = cell.events.filter(e => e.type === "future");
     });
 
     const hasTrackType = (cellIdx, trackProp, typeKey) => {
@@ -3071,7 +3086,7 @@
       const isSundayCol = (idx % 7 === 0);
       const isSaturdayCol = (idx % 7 === 6);
       const resClass = getHomeResourceBadgeClass(cell.resLabel);
-      const hasPhaseOrBasesBelow = cell.track2.length > 0 || cell.track3.length > 0;
+      const hasPhaseOrBasesBelow = cell.track2.length > 0 || cell.track3.length > 0 || cell.track4.length > 0;
 
       let track1Html = "";
       if (cell.track1.length > 0) {
@@ -3103,7 +3118,7 @@
         const connL = !isSundayCol && hasTrackType(idx - 1, "track2", ph.type);
         const connR = !isSaturdayCol && hasTrackType(idx + 1, "track2", ph.type);
         track2Html = renderHomeSingleBeamBar(ph, connL, connR, mVault.legendItems);
-      } else if (cell.track3.length > 0) {
+      } else if (cell.track3.length > 0 || cell.track4.length > 0) {
         track2Html = `<div class="track-empty-slot"></div>`;
       }
 
@@ -3112,6 +3127,17 @@
         track3Html = cell.track3.map(ev => {
           const connL = !isSundayCol && hasTrackType(idx - 1, "track3", ev.type);
           const connR = !isSaturdayCol && hasTrackType(idx + 1, "track3", ev.type);
+          return renderHomeSingleBeamBar(ev, connL, connR, mVault.legendItems);
+        }).join("");
+      } else if (cell.track4.length > 0) {
+        track3Html = `<div class="track-empty-slot"></div>`;
+      }
+
+      let track4Html = "";
+      if (cell.track4.length > 0) {
+        track4Html = cell.track4.map(ev => {
+          const connL = !isSundayCol && hasTrackType(idx - 1, "track4", ev.type);
+          const connR = !isSaturdayCol && hasTrackType(idx + 1, "track4", ev.type);
           return renderHomeSingleBeamBar(ev, connL, connR, mVault.legendItems);
         }).join("");
       }
@@ -3133,6 +3159,7 @@
             ${track1Html}
             ${track2Html}
             ${track3Html}
+            ${track4Html}
           </div>
         </div>
       `;
@@ -3678,7 +3705,8 @@
       { cfgIdx: 3, legKeys: ["warpath"],   linkId: "linkWarpath" },
       { cfgIdx: 4, legKeys: ["skirmish1", "skirmish2"], linkId: "linkSkirmish" },
       { cfgIdx: 5, legKeys: ["holdout"],   linkId: "linkHoldout" },
-      { cfgIdx: 6, legKeys: ["nightmare"], linkId: "linkNightmare" }
+      { cfgIdx: 6, legKeys: ["nightmare"], linkId: "linkNightmare" },
+      { cfgIdx: 7, legKeys: ["future"],    linkId: "linkFuture" }
     ];
 
     clockToLegendMap.forEach(cm => {
@@ -4231,7 +4259,8 @@
       { key: "warpath",   cardId: "carouselCardWarpath",   titleId: "clockTitleWarpath",   btnId: "clockBtnWarpath" },
       { key: "skirmish",  cardId: "carouselCardSkirmish",  titleId: "clockTitleSkirmish",  btnId: "clockBtnSkirmish" },
       { key: "holdout",   cardId: "carouselCardHoldout",   titleId: "clockTitleHoldout",   btnId: "clockBtnHoldout" },
-      { key: "nightmare", cardId: "carouselCardNightmare", titleId: "clockTitleNightmare", btnId: "clockBtnNightmare" }
+      { key: "nightmare", cardId: "carouselCardNightmare", titleId: "clockTitleNightmare", btnId: "clockBtnNightmare" },
+      { key: "future",    cardId: "carouselCardFuture",    titleId: "clockTitleFuture",    btnId: "clockBtnFuture" }
     ];
 
     const recoveredClocks = clockDefs.map(c => {
@@ -4328,7 +4357,8 @@
       { key: "warpath",   id: "carouselCardWarpath",   titleId: "clockTitleWarpath",   cfgIdx: 3, btnId: "clockBtnWarpath",   linkId: "linkWarpath" },
       { key: "skirmish",  id: "carouselCardSkirmish",  titleId: "clockTitleSkirmish",  cfgIdx: 4, btnId: "clockBtnSkirmish",  linkId: "linkSkirmish" },
       { key: "holdout",   id: "carouselCardHoldout",   titleId: "clockTitleHoldout",   cfgIdx: 5, btnId: "clockBtnHoldout",   linkId: "linkHoldout" },
-      { key: "nightmare", id: "carouselCardNightmare", titleId: "clockTitleNightmare", cfgIdx: 6, btnId: "clockBtnNightmare", linkId: "linkNightmare" }
+      { key: "nightmare", id: "carouselCardNightmare", titleId: "clockTitleNightmare", cfgIdx: 6, btnId: "clockBtnNightmare", linkId: "linkNightmare" },
+      { key: "future",    id: "carouselCardFuture",    titleId: "clockTitleFuture",    cfgIdx: 7, btnId: "clockBtnFuture",    linkId: "linkFuture" }
     ];
     clocks.forEach(c => {
       const i = c.cfgIdx;
@@ -4462,9 +4492,9 @@
       workspaces: workspaceCardsState,
       syncedCalendarVault: syncedCalendarVault
     };
-    const clockKeys = ["breach", "shadowops", "warpath", "skirmish", "holdout", "nightmare"];
-    const linkIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare"];
-    for (let i = 1; i <= 6; i++) {
+    const clockKeys = ["breach", "shadowops", "warpath", "skirmish", "holdout", "nightmare", "future"];
+    const linkIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare", "linkFuture"];
+    for (let i = 1; i <= 7; i++) {
       const k = clockKeys[i - 1];
       const startVal = document.getElementById(`cfgClock${i}Start`)?.value ?? "";
       const endVal = document.getElementById(`cfgClock${i}End`)?.value ?? "";
@@ -4558,6 +4588,7 @@
       { match: "SECTOR STATUS",   sym: "UPDATED" },
       { match: "SKIRMISH",        sym: "LIVE" },
       { match: "BLUE BARON",      sym: "LIVE" },
+      { match: "PVP SEASON",      sym: "LIVE" },
       { match: "UPGRADE/SALES",   sym: "CALCULATOR" },
       { match: "MONTHLY ARCHIVE", sym: "ARCHIVE" },
       { match: "GOOGLE FILES",    sym: "ARCHIVE" },
@@ -4764,7 +4795,8 @@
       { key: "warpath",   cardId: "carouselCardWarpath",   titleId: "clockTitleWarpath",   btnId: "clockBtnWarpath",   linkId: "linkWarpath" },
       { key: "skirmish",  cardId: "carouselCardSkirmish",  titleId: "clockTitleSkirmish",  btnId: "clockBtnSkirmish",  linkId: "linkSkirmish" },
       { key: "holdout",   cardId: "carouselCardHoldout",   titleId: "clockTitleHoldout",   btnId: "clockBtnHoldout",   linkId: "linkHoldout" },
-      { key: "nightmare", cardId: "carouselCardNightmare", titleId: "clockTitleNightmare", btnId: "clockBtnNightmare", linkId: "linkNightmare" }
+      { key: "nightmare", cardId: "carouselCardNightmare", titleId: "clockTitleNightmare", btnId: "clockBtnNightmare", linkId: "linkNightmare" },
+      { key: "future",    cardId: "carouselCardFuture",    titleId: "clockTitleFuture",    btnId: "clockBtnFuture",    linkId: "linkFuture" }
     ];
 
     if (Array.isArray(state.clocks)) {
@@ -4873,6 +4905,7 @@
       document.getElementById("clockBtnSkirmish"),
       document.getElementById("clockBtnHoldout"),
       document.getElementById("clockBtnNightmare"),
+      document.getElementById("clockBtnFuture"),
       document.getElementById("btnCarouselPrev"),
       document.getElementById("btnCarouselNext"),
       document.getElementById("sideCompressBtn"),
@@ -5040,7 +5073,7 @@
   }
 
   function ensureManualClockOrderInputsExist() {
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 7; i++) {
       if (document.getElementById(`cfgClock${i}Order`)) continue;
       const enInput = document.getElementById(`cfgClock${i}Enabled`);
       const toggleLabel = enInput ? enInput.closest("label.toggle-row") : null;
@@ -5065,7 +5098,8 @@
       { key: 'warpath',   cfgIdx: 3, elId: 'clock-warpath',   subId: 'sub-warpath',   badgeId: 'badge-warpath',   cardId: 'carouselCardWarpath' },
       { key: 'skirmish',  cfgIdx: 4, elId: 'clock-skirmish',  subId: 'sub-skirmish',  badgeId: 'badge-skirmish',  cardId: 'carouselCardSkirmish' },
       { key: 'holdout',   cfgIdx: 5, elId: 'clock-holdout',   subId: 'sub-holdout',   badgeId: 'badge-holdout',   cardId: 'carouselCardHoldout' },
-      { key: 'nightmare', cfgIdx: 6, elId: 'clock-nightmare', subId: 'sub-nightmare', badgeId: 'badge-nightmare', cardId: 'carouselCardNightmare' }
+      { key: 'nightmare', cfgIdx: 6, elId: 'clock-nightmare', subId: 'sub-nightmare', badgeId: 'badge-nightmare', cardId: 'carouselCardNightmare' },
+      { key: 'future',    cfgIdx: 7, elId: 'clock-future',    subId: 'sub-future',    badgeId: 'badge-future',    cardId: 'carouselCardFuture' }
     ];
 
     const sortQueue = [];
@@ -5395,8 +5429,8 @@
       });
     });
 
-    // 2. Validate & Update All 6 Event Countdown Clocks
-    const clockLinkIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare"];
+    // 2. Validate & Update All 7 Event Countdown Clocks
+    const clockLinkIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare", "linkFuture"];
     clockLinkIds.forEach((id, idx) => {
       const el = document.getElementById(id);
       if (el) {
@@ -5463,6 +5497,7 @@
       "2026-nov-shadow-ops-brief.html",
       "2026-nov-sector-breach-brief.html",
       "2026-nov-skirmish-brief.html",
+      "2026-pvp-season-60-brief.html",
       "building-briefs.html",
       "cc-22-pre-release.html",
       "command-center.html",
@@ -5527,6 +5562,7 @@
     else if (lower.includes("holdout")) category = "HOLDOUT";
     else if (lower.includes("shadow-ops") || lower.includes("shadow_ops") || lower.includes("shadowops")) category = "SHADOW_OPS";
     else if (lower.includes("warpath")) category = "WARPATH";
+    else if (lower.includes("pvp-season") || lower.includes("pvp_season") || lower.includes("pvp")) category = "PVP_SEASON";
     else if (lower.includes("operation") || lower.includes("nightmare")) category = "OPERATIONS";
     else if (lower.includes("upgrade") || lower.includes("building-sale") || lower.includes("sale-value")) category = "UPGRADE_SALES";
     if (!category) return null;
@@ -5658,6 +5694,7 @@
       else if (hintUp.includes("HOLDOUT")) targetCat = "HOLDOUT";
       else if (hintUp.includes("SHADOW")) targetCat = "SHADOW_OPS";
       else if (hintUp.includes("WARPATH")) targetCat = "WARPATH";
+      else if (hintUp.includes("PVP") || hintUp.includes("SEASON")) targetCat = "PVP_SEASON";
       else if (hintUp.includes("OPERATION") || hintUp.includes("BARON") || hintUp.includes("NIGHTMARE")) targetCat = "OPERATIONS";
 
       if (targetCat && window._wtrDiscoveredDirectory) {
@@ -5687,6 +5724,7 @@
     if (combined.includes("holdout")) return "HOLDOUT";
     if (combined.includes("shadow-ops") || combined.includes("shadow ops") || combined.includes("shadowops")) return "SHADOW_OPS";
     if (combined.includes("warpath")) return "WARPATH";
+    if (combined.includes("pvp-season") || combined.includes("pvp season") || combined.includes("pvp")) return "PVP_SEASON";
     if (combined.includes("operation") || combined.includes("blue baron") || combined.includes("blue-baron") || combined.includes("nightmare")) return "OPERATIONS";
     return "";
   }
@@ -5699,6 +5737,7 @@
       case "SECTOR_BREACH": return "breach";
       case "SKIRMISH":      return "skirmish";
       case "WARPATH":       return "warpath";
+      case "PVP_SEASON":    return "future";
       default:              return null;
     }
   }
@@ -5709,11 +5748,12 @@
     const sched = (schedKey && typeof eventSchedules === "object") ? eventSchedules[schedKey] : null;
     const catOrder = {
       OPERATIONS: 1,
-      HOLDOUT: 2,
-      SHADOW_OPS: 3,
-      SECTOR_BREACH: 4,
-      SKIRMISH: 5,
-      WARPATH: 6
+      PVP_SEASON: 2,
+      HOLDOUT: 3,
+      SHADOW_OPS: 4,
+      SECTOR_BREACH: 5,
+      SKIRMISH: 6,
+      WARPATH: 7
     }[cat] || 99;
 
     if (!sched || !sched.start) {
@@ -5788,7 +5828,7 @@
 
   function applySelfPopulatedDirectoriesToHub(activeFileNames, vaultFileNames) {
     const prefix = getWtrPublishedPrefix();
-    const eventCategoriesOrder = ["OPERATIONS", "HOLDOUT", "SECTOR_BREACH", "SKIRMISH", "SHADOW_OPS", "WARPATH"];
+    const eventCategoriesOrder = ["OPERATIONS", "PVP_SEASON", "HOLDOUT", "SECTOR_BREACH", "SKIRMISH", "SHADOW_OPS", "WARPATH"];
 
     const rawActiveParsed = (activeFileNames || [])
       .map(f => parseWtrDirectoryFile(f, ""))
@@ -5805,6 +5845,9 @@
         ev.sortScore = 202611;
       } else if (lowerFile === "skirmish.html") {
         ev.title = "NOV 2026 • SKIRMISH BRIEF";
+        ev.sortScore = 202611;
+      } else if (lowerFile === "2026-pvp-season-60-brief.html") {
+        ev.title = "NOV–DEC 2026 • PVP SEASON 60 BRIEF";
         ev.sortScore = 202611;
       }
       const existing = dedupedByCategory.get(ev.category);

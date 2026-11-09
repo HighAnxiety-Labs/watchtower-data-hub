@@ -1250,18 +1250,18 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
-  /* Strictly Locked 7-Column x 124px Row Grid — Calendar Days Can NEVER Change Shape! */
+  /* Strictly Locked 7-Column x 136px Row Grid — Calendar Days Can NEVER Change Shape! */
   .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-auto-rows: 124px;
+    grid-auto-rows: 136px;
     gap: 8px;
   }
   @media (max-width: 860px) {
     .weekday-row { display: none; }
     .calendar-grid {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      grid-auto-rows: 124px;
+      grid-auto-rows: 136px;
     }
   }
 
@@ -1269,15 +1269,15 @@
   .day-cell {
     background: var(--card-bg);
     border: 1px solid var(--border-metal);
-    height: 124px;
-    min-height: 124px;
-    max-height: 124px;
+    height: 136px;
+    min-height: 136px;
+    max-height: 136px;
     min-width: 0;
     max-width: 100%;
-    padding: 7px;
+    padding: 6px 7px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     position: relative;
     overflow: visible;
     transition: border-color 0.2s ease, opacity 0.2s ease;
@@ -1369,18 +1369,18 @@
     box-shadow: 0 0 8px rgba(239, 68, 68, 0.28);
   }
 
-  /* ==================== 3-TRACK FIXED LANE ARCHITECTURE & MULTI-DAY FLOATING SPAN LABELS ==================== */
+  /* ==================== 4-TRACK FIXED LANE ARCHITECTURE & MULTI-DAY FLOATING SPAN LABELS ==================== */
   .day-tracks-wrap {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     flex: 1;
     min-width: 0;
   }
   .track-empty-slot {
-    height: 24px;
-    min-height: 24px;
-    max-height: 24px;
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
     visibility: hidden;
     pointer-events: none;
   }
@@ -1388,20 +1388,20 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 3px;
-    height: 24px;
-    min-height: 24px;
-    max-height: 24px;
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
     align-items: stretch;
   }
 
-  /* Base Event Beam Bar: Fixed 24px Height & Zero Layout Push */
+  /* Base Event Beam Bar: Fixed 22px Height & Zero Layout Push */
   .event-tag {
     --beam-rgb: 0, 188, 212;
     --beam-hex: #00bcd4;
     --beam-text: #ffffff;
-    height: 24px;
-    min-height: 24px;
-    max-height: 24px;
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
     min-width: 0;
     font-size: 9.5px;
     font-weight: 800;
@@ -3135,7 +3135,7 @@
       { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",               startDate: "TBD",          endDate: "TBD",          storeDate: "N/A", briefUrl: "", sourceUrl: "" },
       { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish I",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "", sourceUrl: "" },
       { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",           startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
-      { key: "future",    tier: "main",  hex: "#ff2a85", enabled: false, label: "Special / New Event",   startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
+      { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",         startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
       { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1",   startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
       { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2",   startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
       { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3",   startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
@@ -3183,6 +3183,16 @@
 
   function createDecember2026Seed() {
     const dec = createBlankMonthPayload(2026, 12);
+    const decFuture = (dec.legendItems || []).find(it => it.key === "future");
+    if (decFuture) {
+      decFuture.enabled = true;
+      decFuture.label = "PVP Season 60";
+      decFuture.startDate = "NOV 12, 2026";
+      decFuture.endDate = "DEC 30, 2026";
+      decFuture.storeDate = "N/A";
+      decFuture.briefUrl = "./2026-pvp-season-60-brief.html";
+      decFuture.sourceUrl = "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/";
+    }
     dec.daysData["1"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
     dec.daysData["2"] = { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
     dec.daysData["3"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] };
@@ -3271,11 +3281,13 @@
     },
     {
       "key": "future",
-      "enabled": false,
-      "label": "Special / New Event",
-      "startDate": "TBD",
-      "endDate": "TBD",
-      "storeDate": "TBD"
+      "enabled": true,
+      "label": "PVP Season 60",
+      "startDate": "NOV 12, 2026",
+      "endDate": "DEC 30, 2026",
+      "storeDate": "N/A",
+      "briefUrl": "./2026-pvp-season-60-brief.html",
+      "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
     },
     {
       "key": "phase1",
@@ -4236,7 +4248,7 @@
         },
         {
           "key": "warpath",
-          "enabled": true,
+          "enabled": false,
           "label": "Warpath",
           "startDate": "TBD",
           "endDate": "TBD",
@@ -5012,7 +5024,7 @@
         },
         {
           "key": "warpath",
-          "enabled": true,
+          "enabled": false,
           "label": "Warpath",
           "startDate": "TBD",
           "endDate": "TBD",
@@ -6378,7 +6390,7 @@
         },
         {
           "key": "warpath",
-          "enabled": true,
+          "enabled": false,
           "label": "Warpath",
           "startDate": "TBD",
           "endDate": "TBD",
@@ -7782,11 +7794,13 @@
         },
         {
           "key": "future",
-          "enabled": false,
-          "label": "Special / New Event",
-          "startDate": "TBD",
-          "endDate": "TBD",
-          "storeDate": "TBD"
+          "enabled": true,
+          "label": "PVP Season 60",
+          "startDate": "NOV 12, 2026",
+          "endDate": "DEC 30, 2026",
+          "storeDate": "N/A",
+          "briefUrl": "./2026-pvp-season-60-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
         },
         {
           "key": "phase1",
@@ -8143,7 +8157,7 @@
         },
         {
           "key": "warpath",
-          "enabled": true,
+          "enabled": false,
           "label": "Warpath",
           "startDate": "TBD",
           "endDate": "TBD",
@@ -8167,11 +8181,13 @@
         },
         {
           "key": "future",
-          "enabled": false,
-          "label": "Special / New Event",
-          "startDate": "TBD",
-          "endDate": "TBD",
-          "storeDate": "TBD"
+          "enabled": true,
+          "label": "PVP Season 60",
+          "startDate": "NOV 12, 2026",
+          "endDate": "DEC 30, 2026",
+          "storeDate": "N/A",
+          "briefUrl": "./2026-pvp-season-60-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
         },
         {
           "key": "phase1",
@@ -8739,7 +8755,7 @@
       if (storeUtc <= endUtc) storeUtc = null;
     }
 
-    const maxSpanDays = 45;
+    const maxSpanDays = 65;
     const totalActiveDays = Math.min(maxSpanDays, Math.round((endUtc - startUtc) / 86400000) + 1);
     const totalStoreTailDays = storeUtc ? Math.min(10, Math.round((storeUtc - endUtc) / 86400000)) : 0;
 
@@ -9605,8 +9621,25 @@
 
     const enabledMap = {};
     const storeDatesByType = {};
+    const activeLegendSpans = [];
     (calState.legendItems || []).forEach(it => {
       enabledMap[it.key] = Boolean(it.enabled);
+      if (it.enabled) {
+        const sP = parseFlexibleLegendDate(it.startDate, year, month);
+        const eP = parseFlexibleLegendDate(it.endDate, sP ? sP.year : year, sP ? sP.month : month);
+        if (sP && eP) {
+          const sUtc = Date.UTC(sP.year, sP.month - 1, sP.day);
+          const eUtc = Date.UTC(eP.year, eP.month - 1, eP.day);
+          if (eUtc >= sUtc) {
+            activeLegendSpans.push({
+              key: it.key,
+              label: (it.label || "").replace(/\s+[I]{1,3}$/, ""),
+              startUtc: sUtc,
+              endUtc: eUtc
+            });
+          }
+        }
+      }
       if (it.enabled && it.storeDate) {
         const eP = parseFlexibleLegendDate(it.endDate, year, month);
         const stP = parseFlexibleLegendDate(it.storeDate, eP ? eP.year : year, eP ? eP.month : month);
@@ -9620,6 +9653,17 @@
       }
     });
 
+    const projectLegendSpansOntoCell = (cellUtc, evList) => {
+      activeLegendSpans.forEach(sp => {
+        if (cellUtc >= sp.startUtc && cellUtc <= sp.endUtc) {
+          if (!evList.some(e => e.type === sp.key)) {
+            evList.push({ type: sp.key, text: sp.label });
+          }
+        }
+      });
+      return evList;
+    };
+
     const rawCells = [];
 
     // 1A. Leading padding days from previous month
@@ -9627,14 +9671,15 @@
       const prevNum = daysInPrevMonth - p;
       const pYear = month === 1 ? year - 1 : year;
       const pMonth = month === 1 ? 12 : month - 1;
+      const pUtc = Date.UTC(pYear, pMonth - 1, prevNum);
       const spillRec = resolveAdjacentSpilloverDay(year, month, "prev", prevNum);
-      const evList = (spillRec?.events || []).map(e => normalizeEventItem(e, prevNum)).filter(Boolean);
+      const evList = projectLegendSpansOntoCell(pUtc, (spillRec?.events || []).map(e => normalizeEventItem(e, prevNum)).filter(Boolean));
       rawCells.push({
         cellType: evList.length > 0 ? "spillover-active" : "inactive",
         dataDayAttr: `prev_${prevNum}`,
         dayLabel: `${prevMonthAbbr} ${String(prevNum).padStart(2, '0')}`,
-        resLabel: evList.length > 0 ? (spillRec.resource || getDefaultResourceForWeekday(pYear, pMonth, prevNum)) : "",
-        utcMs: Date.UTC(pYear, pMonth - 1, prevNum),
+        resLabel: evList.length > 0 ? (spillRec?.resource || getDefaultResourceForWeekday(pYear, pMonth, prevNum)) : "",
+        utcMs: pUtc,
         events: evList
       });
     }
@@ -9646,9 +9691,9 @@
         events: []
       };
       const curUtc = Date.UTC(year, month - 1, d);
-      const evList = (dayRec.events || [])
+      const evList = projectLegendSpansOntoCell(curUtc, (dayRec.events || [])
         .map(e => normalizeEventItem(e, d))
-        .filter(e => e && enabledMap[e.type] !== false);
+        .filter(e => e && enabledMap[e.type] !== false));
 
       Object.keys(storeDatesByType).forEach(tKey => {
         const range = storeDatesByType[tKey];
@@ -9679,14 +9724,15 @@
     for (let t = 1; t <= trailingCount; t++) {
       const nYear = month === 12 ? year + 1 : year;
       const nMonth = month === 12 ? 1 : month + 1;
+      const nUtc = Date.UTC(nYear, nMonth - 1, t);
       const spillRec = resolveAdjacentSpilloverDay(year, month, "next", t);
-      const evList = (spillRec?.events || []).map(e => normalizeEventItem(e, t)).filter(Boolean);
+      const evList = projectLegendSpansOntoCell(nUtc, (spillRec?.events || []).map(e => normalizeEventItem(e, t)).filter(Boolean));
       rawCells.push({
         cellType: evList.length > 0 ? "spillover-active" : "inactive",
         dataDayAttr: `next_${t}`,
         dayLabel: `${nextMonthAbbr} ${String(t).padStart(2, '0')}`,
-        resLabel: evList.length > 0 ? (spillRec.resource || getDefaultResourceForWeekday(nYear, nMonth, t)) : "",
-        utcMs: Date.UTC(nYear, nMonth - 1, t),
+        resLabel: evList.length > 0 ? (spillRec?.resource || getDefaultResourceForWeekday(nYear, nMonth, t)) : "",
+        utcMs: nUtc,
         events: evList
       });
     }
@@ -9694,11 +9740,12 @@
     // Step 2: Run the Multi-Day Span Analyzer
     analyzeAndAssignBeamLabels(rawCells);
 
-    // Step 3: Partition each cell's events into the 3 Dedicated Horizontal Tracks using getDynamicEventMeta
+    // Step 3: Partition each cell's events into the 4 Dedicated Horizontal Tracks using getDynamicEventMeta
     rawCells.forEach(cell => {
-      cell.track1 = cell.events.filter(e => getDynamicEventMeta(e.type).group === "primary");
+      cell.track1 = cell.events.filter(e => getDynamicEventMeta(e.type).group === "primary" && e.type !== "future");
       cell.track2 = cell.events.filter(e => getDynamicEventMeta(e.type).group === "phases");
       cell.track3 = cell.events.filter(e => getDynamicEventMeta(e.type).group === "bases");
+      cell.track4 = cell.events.filter(e => e.type === "future");
     });
 
     const hasTrackType = (cellIdx, trackProp, typeKey) => {
@@ -9721,7 +9768,7 @@
       const isSundayCol = (idx % 7 === 0);
       const isSaturdayCol = (idx % 7 === 6);
       const resClass = getResourceBadgeClass(cell.resLabel);
-      const hasPhaseOrBasesBelow = cell.track2.length > 0 || cell.track3.length > 0;
+      const hasPhaseOrBasesBelow = cell.track2.length > 0 || cell.track3.length > 0 || cell.track4.length > 0;
 
       // Track 1: Main Tier Events + Store Fade Tail
       let track1Html = "";
@@ -9757,7 +9804,7 @@
         const connL = !isSundayCol && hasTrackType(idx - 1, "track2", ph.type);
         const connR = !isSaturdayCol && hasTrackType(idx + 1, "track2", ph.type);
         track2Html = renderSingleBeamBar(ph, connL, connR);
-      } else if (cell.track3.length > 0) {
+      } else if (cell.track3.length > 0 || cell.track4.length > 0) {
         track2Html = `<div class="track-empty-slot"></div>`;
       }
 
@@ -9767,6 +9814,18 @@
         track3Html = cell.track3.map(ev => {
           const connL = !isSundayCol && hasTrackType(idx - 1, "track3", ev.type);
           const connR = !isSaturdayCol && hasTrackType(idx + 1, "track3", ev.type);
+          return renderSingleBeamBar(ev, connL, connR);
+        }).join("");
+      } else if (cell.track4.length > 0) {
+        track3Html = `<div class="track-empty-slot"></div>`;
+      }
+
+      // Track 4: PVP Season / Special Event
+      let track4Html = "";
+      if (cell.track4.length > 0) {
+        track4Html = cell.track4.map(ev => {
+          const connL = !isSundayCol && hasTrackType(idx - 1, "track4", ev.type);
+          const connR = !isSaturdayCol && hasTrackType(idx + 1, "track4", ev.type);
           return renderSingleBeamBar(ev, connL, connR);
         }).join("");
       }
@@ -9782,6 +9841,7 @@
             ${track1Html}
             ${track2Html}
             ${track3Html}
+            ${track4Html}
           </div>
         </div>
       `;
