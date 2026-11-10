@@ -1,7 +1,7 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub directory scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-  generatedAt: "2026-11-10T12:57:00-08:00",
+  generatedAt: "2026-11-10T14:25:00-08:00",
   activeFiles: [
     "2026-calendar.html",
     "2026-nov-holdout-brief.html",
@@ -25,6 +25,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "sector-status-sheet.html",
     "skirmish.html",
     "unit-briefs.html",
+    "unit-matchup.html",
     "vault-event-history.html",
     "video-recon.html",
     "whats-broken.html"

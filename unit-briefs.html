@@ -74,6 +74,98 @@
   }
   .selector-status.error { color: #ff5252; border-color: #ff5252; background: rgba(255, 82, 82, 0.1); }
 
+  /* ==================== QUICK MATCHUP BUTTON & HOVER TEXT BRIEF ==================== */
+  .matchup-hover-wrap { position: relative; display: inline-flex; align-items: center; }
+  .matchup-top-btn {
+    background: rgba(255, 215, 0, 0.12);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.65);
+    padding: 6px 11px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: all 0.18s ease;
+  }
+  .matchup-top-btn:hover {
+    background: rgba(255, 215, 0, 0.25);
+    border-color: #ffd700;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+  }
+  .matchup-hover-card {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    width: 430px;
+    max-width: calc(100vw - 32px);
+    max-height: 410px;
+    overflow-y: auto;
+    background: #080e13;
+    border: 1px solid #ffd700;
+    border-top: 3px solid #ffd700;
+    border-radius: 5px;
+    padding: 11px 13px;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.92);
+    z-index: 999;
+    cursor: pointer;
+  }
+  .matchup-hover-card::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
+  .matchup-hover-wrap.open .matchup-hover-card { display: block; }
+  .mh-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #1a3324;
+  }
+  .mh-title { font-size: 12.5px; font-weight: 900; color: #ffffff; letter-spacing: 0.7px; text-transform: uppercase; }
+  .mh-hint { font-size: 10.5px; font-weight: 700; color: #ffd700; white-space: nowrap; }
+  .mh-group { margin-bottom: 8px; }
+  .mh-group:last-child { margin-bottom: 0; }
+  .mh-group-lbl {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .mh-group-lbl.red { color: #ff5252; }
+  .mh-group-lbl.green { color: #00e676; }
+  .mh-group-lbl.yellow { color: #ffd700; }
+  .mh-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    line-height: 1.35;
+  }
+  .mh-name-pill {
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    transition: filter 0.15s ease;
+  }
+  .mh-name-pill:hover { filter: brightness(1.25); text-decoration: underline; }
+  .mh-name-pill.red { color: #ff8a80; background: rgba(255, 82, 82, 0.13); border: 1px solid rgba(255, 82, 82, 0.4); }
+  .mh-name-pill.green { color: #69f0ae; background: rgba(0, 230, 118, 0.12); border: 1px solid rgba(0, 230, 118, 0.38); }
+  .mh-name-pill.yellow { color: #fde047; background: rgba(255, 215, 0, 0.11); border: 1px solid rgba(255, 215, 0, 0.36); }
+  .mh-empty { font-size: 11.5px; color: #78909c; font-style: italic; }
+
   /* ==================== REPORT CARD STYLES ==================== */
   .report-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05); overflow: hidden; }
   .classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
@@ -209,6 +301,14 @@
     </div>
     <div class="panel-section">
       <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
+      <div class="matchup-hover-wrap" id="matchupHoverWrap"
+           onmouseenter="openMatchupBriefHover()"
+           onmouseleave="closeMatchupBriefHover()">
+        <button type="button" id="btnTopMatchup" class="matchup-top-btn" onclick="openMatchupInPageView()">
+          MATCHUP
+        </button>
+        <div id="matchupHoverCard" class="matchup-hover-card" onclick="openMatchupInPageView()"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -417,6 +517,7 @@
   let filteredUnits = [];
   let currentDivision = 'ALL';
   let activeUnitTitle = 'Unit';
+  let activeUnitRecord = null;
 
   function showStatusMsg(msg, isError = false) {
     const statusBox = document.getElementById('loadStatus');
@@ -903,6 +1004,7 @@
 
     const unitName = cleanVal(data['UNIT_NAME']);
     activeUnitTitle = unitName || 'Unit';
+    activeUnitRecord = data;
     const activeFilterVal = (document.getElementById('divisionSelect')?.value || currentDivision || '').toUpperCase();
     const isContractor = activeFilterVal.includes('CONTRACTOR') || isContractorRecord(data);
 
@@ -1323,6 +1425,168 @@
     if (infusionSection && (!infusionGrid || infusionGrid.children.length === 0) && (!infusionOverview || isBlank(infusionOverview.textContent))) {
       infusionSection.style.display = 'none';
     }
+  }
+
+  /* ==================== TOP MATCHUP HOVER BRIEF & IN-PAGE LAUNCHER ==================== */
+  function mhParseNum(raw) {
+    if (!raw) return 0;
+    const nums = String(raw).replace(/,/g, '').match(/\d+(\.\d+)?/g);
+    return (nums && nums.length) ? (parseFloat(nums[nums.length - 1]) || 0) : 0;
+  }
+
+  function mhGetMaxStat(rec, baseKey, fallbackVal) {
+    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]);
+    if (maxDirect) return mhParseNum(maxDirect) || fallbackVal;
+    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
+    if (rangeStr) {
+      const v = mhParseNum(rangeStr);
+      if (v > 0) return v;
+    }
+    return fallbackVal;
+  }
+
+  function mhNormArmor(raw) {
+    const s = String(raw || '').toUpperCase();
+    if (s.includes('LIGHT')) return 'LIGHT';
+    if (s.includes('MEDIUM')) return 'MEDIUM';
+    if (s.includes('HEAVY')) return 'HEAVY';
+    return 'STANDARD';
+  }
+
+  function mhNormDamage(raw) {
+    const s = String(raw || '').toUpperCase();
+    if (s.includes('AREA') || s.includes('SPLASH') || s.includes('EXPLOSIVE')) return 'AREA';
+    if (s.includes('SUSTAIN') || s.includes('BALLISTIC')) return 'SUSTAIN';
+    if (s.includes('BURST') || s.includes('PENETRAT')) return 'BURST';
+    return 'STANDARD';
+  }
+
+  function mhGetDomain(rec) {
+    const hay = `${rec.STAT_BUILDING || ''} ${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''}`.toUpperCase();
+    return (hay.includes('AIR') || hay.includes('HANGAR') || hay.includes('HANGER') || hay.includes('HELI') || hay.includes('PLANE')) ? 'AIR' : 'GROUND';
+  }
+
+  function mhCanHit(attacker, defDomain) {
+    const t = String(attacker.STAT_TARGETS || 'Ground & Air').toUpperCase();
+    if (!t || t.includes('BOTH') || (t.includes('GROUND') && t.includes('AIR')) || t.includes('ALL')) return true;
+    if (defDomain === 'AIR') return t.includes('AIR');
+    return t.includes('GROUND') || !t.includes('AIR ONLY');
+  }
+
+  function mhArmorMult(dmg, arm) {
+    if ((dmg === 'AREA' && arm === 'LIGHT') || (dmg === 'SUSTAIN' && arm === 'MEDIUM') || (dmg === 'BURST' && arm === 'HEAVY')) return 2.0;
+    return 1.0;
+  }
+
+  function mhQuickWinPct(me, opp) {
+    const domA = mhGetDomain(me), domB = mhGetDomain(opp);
+    const aHitsB = mhCanHit(me, domB), bHitsA = mhCanHit(opp, domA);
+    if (!aHitsB && bHitsA) return 2;
+    if (aHitsB && !bHitsA) return 98;
+    if (!aHitsB && !bHitsA) return 50;
+
+    const hpA = mhGetMaxStat(me, 'STAT_HP_RANGE', 50000);
+    const hpB = mhGetMaxStat(opp, 'STAT_HP_RANGE', 50000);
+    const dpsA = mhGetMaxStat(me, 'STAT_DPS_RANGE', 3500) * mhArmorMult(mhNormDamage(me.STAT_DAMAGE_TYPE), mhNormArmor(opp.STAT_ARMOR_TYPE));
+    const dpsB = mhGetMaxStat(opp, 'STAT_DPS_RANGE', 3500) * mhArmorMult(mhNormDamage(opp.STAT_DAMAGE_TYPE), mhNormArmor(me.STAT_ARMOR_TYPE));
+    const rngA = mhParseNum(me.STAT_RANGE) || 350, rngB = mhParseNum(opp.STAT_RANGE) || 350;
+    const spdA = mhParseNum(me.STAT_SPEED) || 30, spdB = mhParseNum(opp.STAT_SPEED) || 30;
+
+    const freeA = rngA > rngB ? Math.min(6, (rngA - rngB) / Math.max(12, spdB * 2.4)) : 0;
+    const freeB = rngB > rngA ? Math.min(6, (rngB - rngA) / Math.max(12, spdA * 2.4)) : 0;
+
+    const ttkA = dpsA > 0 ? (freeA + Math.max(0, hpB - dpsA * freeA) / dpsA) : Infinity;
+    const ttkB = dpsB > 0 ? (freeB + Math.max(0, hpA - dpsB * freeB) / dpsB) : Infinity;
+    const ratio = Math.log((1 / Math.max(0.25, ttkA)) / (1 / Math.max(0.25, ttkB)));
+    return Math.round(Math.min(97, Math.max(3, 100 / (1 + Math.exp(-2.35 * ratio)))));
+  }
+
+  function openMatchupBriefHover() {
+    const wrap = document.getElementById('matchupHoverWrap');
+    const card = document.getElementById('matchupHoverCard');
+    if (!wrap || !card) return;
+
+    if (!activeUnitRecord || !activeUnitRecord.UNIT_NAME) {
+      card.innerHTML = `<div class="mh-empty">Select a unit to preview matchup intelligence.</div>`;
+      wrap.classList.add('open');
+      return;
+    }
+
+    if (isContractorRecord(activeUnitRecord)) {
+      card.innerHTML = `
+        <div class="mh-header">
+          <span class="mh-title">${escapeAttr(activeUnitRecord.UNIT_NAME)}</span>
+          <span class="mh-hint">Click to Open Matchup ↗</span>
+        </div>
+        <div class="mh-empty">Contractor / Support record — click MATCHUP to compare combat units.</div>
+      `;
+      wrap.classList.add('open');
+      return;
+    }
+
+    const reds = [], greens = [], yellows = [];
+    globalMatrixCache.forEach(opp => {
+      if (!opp || !opp.UNIT_NAME || opp.UNIT_NAME === activeUnitRecord.UNIT_NAME) return;
+      if (isPureBuildingRecord(opp) || isContractorRecord(opp)) return;
+      const winPct = mhQuickWinPct(activeUnitRecord, opp);
+      if (winPct < 45) reds.push({ name: opp.UNIT_NAME, winPct });
+      else if (winPct >= 55) greens.push({ name: opp.UNIT_NAME, winPct });
+      else yellows.push({ name: opp.UNIT_NAME, winPct });
+    });
+
+    reds.sort((a, b) => a.winPct - b.winPct);
+    greens.sort((a, b) => b.winPct - a.winPct);
+    yellows.sort((a, b) => a.name.localeCompare(b.name));
+
+    const renderList = (arr, cls) => {
+      if (!arr.length) return `<span class="mh-empty">None</span>`;
+      return arr.map(u =>
+        `<span class="mh-name-pill ${cls}" onclick="event.stopPropagation(); openMatchupInPageView('${escapeAttr(u.name).replace(/'/g, "\\'")}')">${escapeAttr(u.name)}</span>`
+      ).join('');
+    };
+
+    card.innerHTML = `
+      <div class="mh-header">
+        <span class="mh-title">⚔️ ${escapeAttr(activeUnitRecord.UNIT_NAME)}</span>
+        <span class="mh-hint">Click to Open Simulator ↗</span>
+      </div>
+      <div class="mh-group">
+        <div class="mh-group-lbl red">🔴 Avoid — Threats (${reds.length})</div>
+        <div class="mh-names">${renderList(reds, 'red')}</div>
+      </div>
+      <div class="mh-group">
+        <div class="mh-group-lbl green">🟢 Kill — Easy Targets (${greens.length})</div>
+        <div class="mh-names">${renderList(greens, 'green')}</div>
+      </div>
+      <div class="mh-group">
+        <div class="mh-group-lbl yellow">🟡 Even — 50/50 Duels (${yellows.length})</div>
+        <div class="mh-names">${renderList(yellows, 'yellow')}</div>
+      </div>
+    `;
+    wrap.classList.add('open');
+  }
+
+  function closeMatchupBriefHover() {
+    const wrap = document.getElementById('matchupHoverWrap');
+    if (wrap) wrap.classList.remove('open');
+  }
+
+  function openMatchupInPageView(optionalOpponentName) {
+    const myName = (activeUnitRecord && !isContractorRecord(activeUnitRecord) && activeUnitRecord.UNIT_NAME) ? activeUnitRecord.UNIT_NAME : '';
+    const params = new URLSearchParams();
+    if (myName) params.set('unitA', myName);
+    if (optionalOpponentName) params.set('unitB', optionalOpponentName);
+    const qs = params.toString();
+    const targetUrl = `./unit-matchup.html${qs ? '?' + qs : ''}`;
+
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
+        window.parent.openInlineModuleViewport('UNIT MATCHUP SIMULATOR', '#c29829', null, targetUrl, targetUrl);
+        return;
+      }
+    } catch (e) {}
+
+    window.location.href = targetUrl;
   }
 </script>
 </body>

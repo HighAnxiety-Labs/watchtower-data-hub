@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<!-- [-WTR-] WATCHTOWER OPERATIONAL INTEL PUBLISHED // UNIT THREAT RADAR & HEAD-TO-HEAD MATCHUP SIMULATOR -->
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — Unit Threat Radar &amp; Matchup Simulator</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Data Hub — Unit Threat Radar & Matchup Simulator">
+  <meta property="og:description" content="Select any War Commander unit to instantly spot RED Threat units to avoid and GREEN Easy Kill targets. Hover for tactical strong/weak points or click any 4:5 thumbnail for full head-to-head stats & Workshop counters.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --bg-void: #03060a;
+      --bg-panel: #080e16;
+      --bg-card: #0b131e;
+      --border-dim: #18293d;
+
+      --red-main: #ff4d5a;
+      --red-dim: rgba(255, 77, 90, 0.15);
+      --red-border: rgba(255, 77, 90, 0.72);
+
+      --green-main: #00e676;
+      --green-dim: rgba(0, 230, 118, 0.14);
+      --green-border: rgba(0, 230, 118, 0.72);
+
+      --amber-main: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, 0.15);
+      --amber-border: rgba(245, 158, 11, 0.65);
+
+      --blue-main: #38bdf8;
+      --blue-dim: rgba(56, 189, 248, 0.14);
+      --blue-border: rgba(56, 189, 248, 0.6);
+
+      --gold-main: #ffd700;
+      --gold-border: rgba(255, 215, 0, 0.55);
+
+      --text-main: #e5eef7;
+      --text-muted: #8fa6bc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-void);
+      background-image:
+        radial-gradient(circle at 20% 8%, rgba(0, 230, 118, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 80% 8%, rgba(255, 77, 90, 0.07) 0%, transparent 45%),
+        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      padding: 16px 16px 36px;
+      overflow-x: hidden;
+    }
+
+    .board-shell {
+      max-width: 1340px;
+      margin: 0 auto;
+    }
+
+    /* 4-Corner Classification Bars */
+    .class-bar {
+      display: grid;
+      grid-template-columns: 270px 1fr 270px;
+      align-items: stretch;
+      height: 42px;
+      background: #060b12;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      user-select: none;
+    }
+    .class-bar-top { border-radius: 6px 6px 0 0; }
+    .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
+
+    .corner-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: #b9f6ca;
+      background: linear-gradient(180deg, rgba(0, 230, 118, 0.2), rgba(0, 230, 118, 0.06));
+      padding: 0 12px;
+    }
+    .class-bar-top .corner-left {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-top .corner-right {
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-left {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-right {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.6px;
+      color: var(--green-main);
+      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      text-align: center;
+      padding: 0 8px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-main);
+      box-shadow: 0 0 8px var(--green-main);
+    }
+    .nav-bar-btn {
+      background: rgba(0, 0, 0, 0.45);
+      color: #b9f6ca;
+      border: 1px solid rgba(0, 230, 118, 0.42);
+      border-radius: 3px;
+      padding: 3px 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .nav-bar-btn:hover {
+      background: rgba(0, 230, 118, 0.22);
+      color: #ffffff;
+    }
+
+    /* Main Panel */
+    .brief-frame {
+      background: var(--bg-panel);
+      border-left: 1px solid rgba(0, 230, 118, 0.32);
+      border-right: 1px solid rgba(0, 230, 118, 0.32);
+      padding: 20px;
+    }
+
+    /* Active Unit Command Deck */
+    .commander-deck {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 18px;
+      align-items: center;
+      background: linear-gradient(180deg, #0b1522 0%, #070d15 100%);
+      border: 1px solid rgba(255, 215, 0, 0.42);
+      border-top: 3px solid var(--gold-main);
+      border-radius: 6px;
+      padding: 15px 18px;
+      margin-bottom: 16px;
+    }
+
+    /* STRICT 4:5 FULL-PICTURE PORTRAIT FRAME */
+    .portrait-4x5 {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: radial-gradient(circle at 50% 35%, #112031 0%, #03060a 100%);
+      border: 1px solid rgba(255, 215, 0, 0.45);
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .portrait-4x5 img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .portrait-fallback {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 8px;
+      line-height: 1.35;
+    }
+
+    .deck-right {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .deck-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .deck-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--gold-main);
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+    .deck-unit-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 23px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1px;
+      line-height: 1.15;
+    }
+    .deck-controls-row {
+      display: grid;
+      grid-template-columns: 152px 138px minmax(190px, 1.4fr) 118px 124px;
+      gap: 9px;
+      align-items: center;
+    }
+    .ctrl-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .ctrl-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .wtr-select, .wtr-input {
+      background: #050a10;
+      color: #ffffff;
+      border: 1px solid #243b55;
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      outline: none;
+      width: 100%;
+    }
+    .wtr-select:focus, .wtr-input:focus {
+      border-color: var(--gold-main);
+    }
+
+    .unit-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+    }
+    .meta-chip {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: #0f1b29;
+      border: 1px solid #243b55;
+      color: #cfe2f3;
+    }
+    .meta-chip.gold {
+      color: var(--gold-main);
+      border-color: rgba(255, 215, 0, 0.45);
+      background: rgba(255, 215, 0, 0.09);
+    }
+    .meta-chip.gen {
+      color: var(--blue-main);
+      border-color: var(--blue-border);
+      background: var(--blue-dim);
+    }
+    .brief-jump-link {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--gold-main);
+      text-decoration: none;
+      border: 1px solid rgba(255, 215, 0, 0.38);
+      background: rgba(255, 215, 0, 0.08);
+      padding: 3px 9px;
+      border-radius: 3px;
+      transition: all 0.18s ease;
+    }
+    .brief-jump-link:hover {
+      background: rgba(255, 215, 0, 0.22);
+      color: #ffffff;
+    }
+
+    /* Filter & Legend Bar */
+    .radar-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: #060b12;
+      border: 1px solid var(--border-dim);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .radar-pill {
+      background: #0c1521;
+      color: #c8d8e8;
+      border: 1px solid #223850;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .radar-pill:hover { border-color: #4b6b8e; color: #ffffff; }
+    .radar-pill.active-all { border-color: var(--gold-main); color: var(--gold-main); background: rgba(255, 215, 0, 0.1); }
+    .radar-pill.active-red { border-color: var(--red-main); color: #ffd5d8; background: var(--red-dim); box-shadow: 0 0 10px rgba(255, 77, 90, 0.2); }
+    .radar-pill.active-green { border-color: var(--green-main); color: #ccfbe1; background: var(--green-dim); box-shadow: 0 0 10px rgba(0, 230, 118, 0.2); }
+    .radar-pill.active-amber { border-color: var(--amber-main); color: #fef08a; background: var(--amber-dim); }
+
+    .radar-search-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .helper-banner {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ==========================================================================
+       4:5 THUMBNAIL RADAR GRID (RED = AVOID THREAT, GREEN = EASY KILL)
+       ========================================================================== */
+    .thumb-radar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+      gap: 14px;
+    }
+
+    .thumb-tile {
+      position: relative;
+      background: #060b11;
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    .thumb-tile:hover {
+      transform: translateY(-4px) scale(1.02);
+      z-index: 4;
+    }
+
+    /* THREAT = RED */
+    .thumb-tile.threat-red {
+      border: 2px solid var(--red-border);
+      box-shadow: 0 4px 14px rgba(255, 77, 90, 0.18), inset 0 0 16px rgba(255, 77, 90, 0.12);
+    }
+    .thumb-tile.threat-red:hover {
+      border-color: #ff6b76;
+      box-shadow: 0 8px 24px rgba(255, 77, 90, 0.42), inset 0 0 20px rgba(255, 77, 90, 0.2);
+    }
+
+    /* EASY KILL = GREEN */
+    .thumb-tile.kill-green {
+      border: 2px solid var(--green-border);
+      box-shadow: 0 4px 14px rgba(0, 230, 118, 0.16), inset 0 0 16px rgba(0, 230, 118, 0.1);
+    }
+    .thumb-tile.kill-green:hover {
+      border-color: #4ade80;
+      box-shadow: 0 8px 24px rgba(0, 230, 118, 0.38), inset 0 0 20px rgba(0, 230, 118, 0.18);
+    }
+
+    /* CONTESTED = AMBER */
+    .thumb-tile.even-amber {
+      border: 2px solid var(--amber-border);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.14);
+    }
+    .thumb-tile.even-amber:hover {
+      border-color: #fbbf24;
+      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.34);
+    }
+
+    .thumb-img-box {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: radial-gradient(circle at 50% 38%, #101e2e 0%, #03060a 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .thumb-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .thumb-status-tag {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+    .threat-red .thumb-status-tag {
+      background: rgba(165, 18, 32, 0.92);
+      color: #ffffff;
+      border: 1px solid rgba(255, 120, 130, 0.7);
+    }
+    .kill-green .thumb-status-tag {
+      background: rgba(6, 115, 58, 0.92);
+      color: #ffffff;
+      border: 1px solid rgba(110, 255, 175, 0.7);
+    }
+    .even-amber .thumb-status-tag {
+      background: rgba(146, 84, 6, 0.92);
+      color: #ffffff;
+      border: 1px solid rgba(253, 224, 71, 0.65);
+    }
+
+    .thumb-gen-tag {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: rgba(5, 12, 22, 0.88);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .radar-empty-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 28px 16px;
+      background: #070d15;
+      border: 1px dashed #243b55;
+      border-radius: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .thumb-name-plate {
+      padding: 7px 7px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .threat-red .thumb-name-plate { background: linear-gradient(180deg, rgba(130, 18, 30, 0.52), rgba(15, 8, 12, 0.95)); }
+    .kill-green .thumb-name-plate { background: linear-gradient(180deg, rgba(8, 105, 52, 0.48), rgba(7, 15, 12, 0.95)); }
+    .even-amber .thumb-name-plate { background: linear-gradient(180deg, rgba(120, 72, 10, 0.45), rgba(14, 12, 8, 0.95)); }
+
+    /* ==========================================================================
+       FLOATING HOVER BRIEF TOOLTIP
+       ========================================================================== */
+    .hover-brief-card {
+      position: fixed;
+      z-index: 950;
+      width: 320px;
+      pointer-events: none;
+      background: rgba(6, 12, 20, 0.97);
+      border: 1px solid var(--gold-main);
+      border-radius: 7px;
+      padding: 12px 14px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.92);
+      display: none;
+    }
+    .hover-brief-card.is-red { border-color: var(--red-main); border-top: 3px solid var(--red-main); }
+    .hover-brief-card.is-green { border-color: var(--green-main); border-top: 3px solid var(--green-main); }
+    .hover-brief-card.is-amber { border-color: var(--amber-main); border-top: 3px solid var(--amber-main); }
+
+    .hb-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .hb-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .hb-verdict {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .is-red .hb-verdict { background: var(--red-dim); color: #ff858e; border: 1px solid var(--red-border); }
+    .is-green .hb-verdict { background: var(--green-dim); color: #6ee7b7; border: 1px solid var(--green-border); }
+    .is-amber .hb-verdict { background: var(--amber-dim); color: #fde047; border: 1px solid var(--amber-border); }
+
+    .hb-submeta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #18293d;
+    }
+    .hb-sec-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 6px 0 3px;
+    }
+    .hb-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12.8px;
+      line-height: 1.32;
+    }
+    .hb-ws-tip {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(255, 215, 0, 0.3);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      color: var(--gold-main);
+    }
+    .hb-click-hint {
+      margin-top: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: #93c5fd;
+      text-align: right;
+    }
+
+    /* ==========================================================================
+       FULL HEAD-TO-HEAD STATS & WORKSHOP POP-UP MODAL
+       ========================================================================== */
+    .matchup-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(2, 5, 10, 0.86);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 22px 14px;
+      overflow-y: auto;
+    }
+    .matchup-modal-backdrop.open {
+      display: flex;
+    }
+    .matchup-modal-dialog {
+      width: 100%;
+      max-width: 1240px;
+      background: var(--bg-panel);
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      border-top: 3px solid var(--gold-main);
+      border-radius: 8px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95);
+      padding: 18px 20px 22px;
+      margin: auto 0;
+    }
+    .modal-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-dim);
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1.2px;
+    }
+    .close-modal-btn {
+      background: rgba(255, 77, 90, 0.16);
+      color: #ff9ea5;
+      border: 1px solid var(--red-border);
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .close-modal-btn:hover {
+      background: var(--red-main);
+      color: #ffffff;
+    }
+
+    /* Modal Head-to-Head Deck (With 4:5 Portraits) */
+    .modal-fighters-deck {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 14px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+    .fighter-card {
+      background: var(--bg-card);
+      border-radius: 6px;
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 102px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .fighter-card.you-card {
+      border: 1px solid var(--green-border);
+      border-top: 3px solid var(--green-main);
+    }
+    .fighter-card.opp-card {
+      border: 1px solid var(--red-border);
+      border-top: 3px solid var(--red-main);
+    }
+    .fighter-info {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .fighter-role-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .role-pill {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+    }
+    .you-card .role-pill { background: var(--green-dim); color: var(--green-main); border: 1px solid var(--green-border); }
+    .opp-card .role-pill { background: var(--red-dim); color: var(--red-main); border: 1px solid var(--red-border); }
+
+    .vs-center-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .vs-emblem {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #17283b 0%, #070d15 100%);
+      border: 2px solid var(--gold-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--gold-main);
+    }
+    .swap-btn {
+      background: #0d1825;
+      color: #dbe9f6;
+      border: 1px solid #2b4460;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .swap-btn:hover { border-color: var(--gold-main); color: var(--gold-main); }
+
+    /* Verdict & Tug-of-War inside Modal */
+    .verdict-panel {
+      background: linear-gradient(180deg, #0b1420 0%, #070d15 100%);
+      border: 1px solid #223850;
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .verdict-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .win-pct-side {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 21px;
+      font-weight: 900;
+    }
+    .win-pct-side.you { color: var(--green-main); }
+    .win-pct-side.opp { color: var(--red-main); }
+    .verdict-headline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--gold-main);
+      letter-spacing: 0.9px;
+      text-align: center;
+    }
+    .tug-bar {
+      width: 100%;
+      height: 18px;
+      border-radius: 9px;
+      background: #05090f;
+      border: 1px solid #263d57;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+    .tug-fill-you {
+      background: linear-gradient(90deg, #059669 0%, #00e676 100%);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .tug-fill-opp {
+      background: linear-gradient(90deg, #ff4d5a 0%, #991b26 100%);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .tug-midline {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.6);
+      transform: translateX(-1px);
+    }
+    .verdict-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .v-metric {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid #192b3f;
+      border-radius: 4px;
+      padding: 7px 9px;
+      text-align: center;
+    }
+    .v-metric-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .v-metric-val {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+
+    .mid-analysis-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .sub-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: 6px;
+      padding: 13px 15px;
+    }
+    .section-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-dim);
+      padding-bottom: 7px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .section-hdr h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 1.1px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+    .section-hdr span {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .stat-comp-row {
+      display: grid;
+      grid-template-columns: 1fr 132px 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.045);
+      font-size: 14px;
+    }
+    .stat-comp-row:last-child { border-bottom: none; }
+    .stat-val-left { text-align: right; font-weight: 700; color: #d7e5f2; }
+    .stat-val-right { text-align: left; font-weight: 700; color: #d7e5f2; }
+    .stat-val-left.win { color: var(--green-main); font-weight: 800; }
+    .stat-val-right.win { color: var(--red-main); font-weight: 800; }
+    .stat-center-lbl {
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      background: #070d14;
+      border: 1px solid #1a2c40;
+      border-radius: 3px;
+      padding: 3px 6px;
+      text-transform: uppercase;
+    }
+
+    .pros-cons-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .pc-box {
+      background: #070d15;
+      border-radius: 5px;
+      padding: 10px 11px;
+      border: 1px solid #18293d;
+    }
+    .pc-box.you-pc { border-top: 2px solid var(--green-main); }
+    .pc-box.opp-pc { border-top: 2px solid var(--red-main); }
+    .pc-unit-hdr {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+    .you-pc .pc-unit-hdr { color: var(--green-main); }
+    .opp-pc .pc-unit-hdr { color: var(--red-main); }
+    .pc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12.8px;
+      line-height: 1.34;
+    }
+    .pc-item { padding: 5px 7px; border-radius: 3px; background: rgba(255,255,255,0.02); }
+    .pc-item.pro { border-left: 3px solid var(--green-main); color: #dbfbe6; }
+    .pc-item.con { border-left: 3px solid #f97316; color: #fed7aa; }
+
+    /* Best Workshop Advisor inside Modal */
+    .workshop-advisor-panel {
+      background: linear-gradient(180deg, #0a131f 0%, #070d15 100%);
+      border: 1px solid rgba(255, 215, 0, 0.42);
+      border-radius: 6px;
+      padding: 15px;
+    }
+    .ws-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .ws-unit-col {
+      background: #060b12;
+      border: 1px solid #1a2c42;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .ws-unit-col.you-ws { border-top: 3px solid var(--green-main); }
+    .ws-unit-col.opp-ws { border-top: 3px solid var(--red-main); }
+    .ws-col-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .ws-col-title { font-family: 'Orbitron', sans-serif; font-size: 12.5px; font-weight: 800; color: #ffffff; }
+    .ws-sub-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      color: var(--gold-main);
+      text-transform: uppercase;
+      margin: 9px 0 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .ws-cards-list { display: flex; flex-direction: column; gap: 7px; }
+    .ws-card {
+      background: #0b1420;
+      border: 1px solid #1d3148;
+      border-radius: 5px;
+      padding: 9px 11px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .ws-card:hover { border-color: #3b5c80; }
+    .ws-card.recommended {
+      border-color: var(--gold-border);
+      background: linear-gradient(90deg, rgba(255, 215, 0, 0.12) 0%, rgba(11, 20, 32, 0.95) 100%);
+    }
+    .ws-card.equipped { outline: 1.5px solid var(--green-main); }
+    .ws-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 3px; }
+    .ws-card-name { font-weight: 800; font-size: 14px; color: #ffffff; text-transform: uppercase; }
+    .ws-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+    .ws-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .ws-pill.best { background: rgba(255, 215, 0, 0.2); color: var(--gold-main); border: 1px solid var(--gold-border); }
+    .ws-pill.equip { background: var(--green-dim); color: var(--green-main); border: 1px solid var(--green-border); }
+    .ws-pill.slot { background: #101e2e; color: #9bb4cc; border: 1px solid #243b55; }
+    .ws-card-desc { font-size: 12.8px; color: #c5d6e6; line-height: 1.35; }
+    .ws-why { margin-top: 5px; font-family: 'Share Tech Mono', monospace; font-size: 10.5px; color: #fde047; }
+    .ws-empty { font-size: 12.5px; color: var(--text-muted); font-style: italic; padding: 7px; border: 1px dashed #1f3349; border-radius: 4px; }
+
+    @media (max-width: 1080px) {
+      .deck-controls-row { grid-template-columns: 1fr 1fr; }
+      .deck-controls-row .unit-picker-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 980px) {
+      .modal-fighters-deck { grid-template-columns: 1fr; }
+      .vs-center-col { flex-direction: row; }
+      .mid-analysis-grid, .ws-columns, .pros-cons-split { grid-template-columns: 1fr; }
+      .verdict-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .class-bar { grid-template-columns: 200px 1fr 200px; }
+    }
+    @media (max-width: 640px) {
+      .commander-deck { grid-template-columns: 92px 1fr; padding: 12px; gap: 12px; }
+      .deck-controls-row { grid-template-columns: 1fr; }
+      .deck-controls-row .unit-picker-col { grid-column: auto; }
+      .thumb-radar-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+      .class-bar { grid-template-columns: 1fr; height: auto; padding: 8px; gap: 6px; }
+      .corner-tab { clip-path: none !important; border: none !important; }
+      .hover-brief-card { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="board-shell">
+
+  <!-- TOP 4-CORNER BAR -->
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left">
+      <button type="button" class="nav-bar-btn" onclick="returnToCommandCenter()">← HUB</button>
+      <span class="status-dot"></span>
+      <span>[-WTR-] THREAT RADAR</span>
+    </div>
+    <div class="class-center">
+      UNIT THREAT RADAR &amp; HEAD-TO-HEAD MATCHUP SIMULATOR
+    </div>
+    <div class="corner-tab corner-right">
+      <span id="topSyncBadge">MASTER_DB</span>
+      <button type="button" class="nav-bar-btn" onclick="popOutFullWindow()">↗ POP-OUT</button>
+    </div>
+  </header>
+
+  <main class="brief-frame">
+    <!-- STEP 1: SELECT YOUR UNIT (4:5 PORTRAIT + SIMPLE PICKER) -->
+    <section class="commander-deck">
+      <div class="portrait-4x5" id="myHeroPortrait"></div>
+
+      <div class="deck-right">
+        <div class="deck-top-row">
+          <div>
+            <div class="deck-eyebrow">⚡ SELECT YOUR ACTIVE UNIT // THREAT &amp; TARGET RADAR</div>
+            <div class="deck-unit-name" id="myHeroNameDisplay">LOADING...</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span class="meta-chip" id="dbStatusText" style="color:#b9f6ca; border-color:rgba(0,230,118,0.4);">Syncing MASTER_DB...</span>
+            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Unit Brief</a>
+          </div>
+        </div>
+
+        <div class="deck-controls-row">
+          <div class="ctrl-group">
+            <label class="ctrl-lbl" for="myDivFilter">Your Division</label>
+            <select id="myDivFilter" class="wtr-select" onchange="populateMyUnitSelect(false)">
+              <option value="ALL">All Divisions</option>
+              <option value="INFANTRY">Academy / Infantry</option>
+              <option value="VEHICLE">War Factory / Vehicles</option>
+              <option value="AIR">Airfield / Aircraft</option>
+              <option value="MERCENARY">Mercenary</option>
+            </select>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-lbl" for="myGenFilter">Generation</label>
+            <select id="myGenFilter" class="wtr-select" onchange="populateMyUnitSelect(false)">
+              <option value="ALL">All Generations</option>
+              <option value="ARC_1">Arc 1</option>
+              <option value="ARC_2">Arc 2</option>
+              <option value="ARC_3">Arc 3</option>
+              <option value="LEGACY">Legacy / Pre-Arc</option>
+            </select>
+          </div>
+
+          <div class="ctrl-group unit-picker-col">
+            <label class="ctrl-lbl" for="myUnitSelect">Select Your Unit</label>
+            <select id="myUnitSelect" class="wtr-select" onchange="onMyUnitChanged()"></select>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-lbl" for="myLevelSelect">Your Unit Level</label>
+            <select id="myLevelSelect" class="wtr-select" onchange="renderRadarGrid()">
+              <option value="1">Level 1</option>
+              <option value="10">Level 10</option>
+              <option value="20">Level 20</option>
+              <option value="MAX" selected>MAX Level</option>
+            </select>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-lbl" for="oppGridLevelSelect">Enemy Grid Level</label>
+            <select id="oppGridLevelSelect" class="wtr-select" onchange="renderRadarGrid()">
+              <option value="1">Level 1</option>
+              <option value="10">Level 10</option>
+              <option value="20">Level 20</option>
+              <option value="MAX" selected>MAX Level</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="unit-chip-row" id="myHeroMetaChips"></div>
+      </div>
+    </section>
+
+    <!-- FILTER PILLS: RED THREATS vs GREEN EASY KILLS -->
+    <div class="radar-toolbar">
+      <div class="filter-pills">
+        <button type="button" class="radar-pill active-all" id="pillFilterAll" onclick="setRadarFilter('ALL')">
+          ALL OPPONENTS (<span id="cntAll">0</span>)
+        </button>
+        <button type="button" class="radar-pill" id="pillFilterRed" onclick="setRadarFilter('RED')">
+          🔴 AVOID • THREATS (<span id="cntRed">0</span>)
+        </button>
+        <button type="button" class="radar-pill" id="pillFilterGreen" onclick="setRadarFilter('GREEN')">
+          🟢 EASY KILLS (<span id="cntGreen">0</span>)
+        </button>
+        <button type="button" class="radar-pill" id="pillFilterAmber" onclick="setRadarFilter('AMBER')">
+          🟡 EVEN DUELS (<span id="cntAmber">0</span>)
+        </button>
+      </div>
+
+      <div class="radar-search-group">
+        <select id="oppDivFilter" class="wtr-select" style="width: 152px; padding: 5px 8px; font-size: 13.5px;" aria-label="Filter Enemy Division" onchange="renderRadarGrid()">
+          <option value="ALL">All Enemy Types</option>
+          <option value="INFANTRY">Enemy Infantry</option>
+          <option value="VEHICLE">Enemy Vehicles</option>
+          <option value="AIR">Enemy Aircraft</option>
+          <option value="MERCENARY">Enemy Mercenaries</option>
+        </select>
+        <select id="oppGenFilter" class="wtr-select" style="width: 145px; padding: 5px 8px; font-size: 13.5px;" aria-label="Filter Enemy Generation" onchange="renderRadarGrid()">
+          <option value="ALL">All Enemy Gens</option>
+          <option value="ARC_1">Arc 1 Enemies</option>
+          <option value="ARC_2">Arc 2 Enemies</option>
+          <option value="ARC_3">Arc 3 Enemies</option>
+          <option value="LEGACY">Legacy / Pre-Arc</option>
+        </select>
+        <input type="text" id="radarSearchInput" class="wtr-input" style="width: 180px; padding: 5px 9px; font-size: 13.5px;" placeholder="🔍 Filter enemy unit..." oninput="renderRadarGrid()">
+      </div>
+    </div>
+
+    <div class="helper-banner">
+      <span>🔴 <strong style="color:var(--red-main);">RED BORDER</strong> = Threat (Avoid Contact) &nbsp;|&nbsp; 🟢 <strong style="color:var(--green-main);">GREEN BORDER</strong> = Easy Kill &nbsp;|&nbsp; 🟡 <strong style="color:var(--amber-main);">AMBER</strong> = Even 50/50 Duel</span>
+      <span>🖱️ <strong>Hover</strong> any thumbnail for Quick Strong/Weak Brief • <strong>Click</strong> thumbnail for Full Stats &amp; Workshop Pop-Up</span>
+    </div>
+
+    <!-- 4:5 THUMBNAIL RADAR GRID -->
+    <section class="thumb-radar-grid" id="thumbRadarGrid"></section>
+  </main>
+
+  <!-- BOTTOM 4-CORNER BAR -->
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left">
+      <span>[-WTR-] DATA HUB</span>
+    </div>
+    <div class="class-center">
+      BY PLAYERS FOR PLAYERS // 01.1 UNIT MATCHUP SUB-MODULE
+    </div>
+    <div class="corner-tab corner-right">
+      <button type="button" class="nav-bar-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
+    </div>
+  </footer>
+
+</div>
+
+<!-- FLOATING HOVER BRIEF -->
+<div class="hover-brief-card" id="hoverBriefCard"></div>
+
+<!-- POP-UP MODAL: FULL HEAD-TO-HEAD STATS & WORKSHOP ADVISOR -->
+<div class="matchup-modal-backdrop" id="matchupModalBackdrop" onclick="onModalBackdropClick(event)">
+  <div class="matchup-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalMatchupTitle">
+    <div class="modal-top-bar">
+      <div class="modal-title" id="modalMatchupTitle">⚔️ HEAD-TO-HEAD COMBAT &amp; WORKSHOP ANALYSIS</div>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <span class="meta-chip gold" title="Tac Ops Center & Gold Store player boosts queued for Phase 2">🔒 Phase 2 Ready: Tac Ops &amp; Gold Boosts</span>
+        <button type="button" class="close-modal-btn" onclick="closeMatchupModal()">✕ BACK TO THUMBNAIL RADAR</button>
+      </div>
+    </div>
+
+    <div class="modal-fighters-deck">
+      <!-- YOUR UNIT -->
+      <div class="fighter-card you-card">
+        <div class="portrait-4x5" id="modalYouPortrait"></div>
+        <div class="fighter-info">
+          <div class="fighter-role-row">
+            <span class="role-pill">🟢 YOUR UNIT</span>
+            <span style="font-family:'Share Tech Mono',monospace; font-size:10.5px; color:var(--text-muted);" id="modalYouWsCount">0 Workshops</span>
+          </div>
+          <div class="unit-meta-title" style="font-family:'Orbitron',sans-serif; font-size:17px; font-weight:800; color:#fff;" id="modalYouName"></div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <select id="modalYouLvl" class="wtr-select" style="width:110px; padding:4px 8px; font-size:13px;" aria-label="Your Unit Level in Modal" onchange="recalculateModalMatchup()">
+              <option value="1">Lvl 1</option>
+              <option value="10">Lvl 10</option>
+              <option value="20">Lvl 20</option>
+              <option value="MAX" selected>MAX Lvl</option>
+            </select>
+            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalYouUnit?.UNIT_NAME)" class="brief-jump-link" id="modalYouBriefLink">📖 Unit Brief</a>
+          </div>
+          <div class="unit-chip-row" id="modalYouChips"></div>
+        </div>
+      </div>
+
+      <div class="vs-center-col">
+        <div class="vs-emblem">VS</div>
+        <button type="button" class="swap-btn" onclick="swapModalUnits()">⇄ SWAP</button>
+      </div>
+
+      <!-- CLICKED OPPONENT -->
+      <div class="fighter-card opp-card">
+        <div class="portrait-4x5" id="modalOppPortrait"></div>
+        <div class="fighter-info">
+          <div class="fighter-role-row">
+            <span class="role-pill">🔴 TARGET OPPONENT</span>
+            <span style="font-family:'Share Tech Mono',monospace; font-size:10.5px; color:var(--text-muted);" id="modalOppWsCount">0 Workshops</span>
+          </div>
+          <div class="unit-meta-title" style="font-family:'Orbitron',sans-serif; font-size:17px; font-weight:800; color:#fff;" id="modalOppName"></div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <select id="modalOppLvl" class="wtr-select" style="width:110px; padding:4px 8px; font-size:13px;" aria-label="Opponent Level in Modal" onchange="recalculateModalMatchup()">
+              <option value="1">Lvl 1</option>
+              <option value="10">Lvl 10</option>
+              <option value="20">Lvl 20</option>
+              <option value="MAX" selected>MAX Lvl</option>
+            </select>
+            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalOppUnit?.UNIT_NAME)" class="brief-jump-link" id="modalOppBriefLink">📖 Unit Brief</a>
+          </div>
+          <div class="unit-chip-row" id="modalOppChips"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VICTORY TUG-OF-WAR -->
+    <section class="verdict-panel">
+      <div class="verdict-top">
+        <div class="win-pct-side you" id="modalYouWinPct">50%</div>
+        <div class="verdict-headline" id="modalVerdictHeadline">ENGAGEMENT SIMULATION</div>
+        <div class="win-pct-side opp" id="modalOppWinPct">50%</div>
+      </div>
+      <div class="tug-bar">
+        <div class="tug-fill-you" id="modalTugYou" style="width: 50%;"></div>
+        <div class="tug-fill-opp" id="modalTugOpp" style="width: 50%;"></div>
+        <div class="tug-midline"></div>
+      </div>
+      <div class="verdict-metrics-grid" id="modalMetricsGrid"></div>
+    </section>
+
+    <!-- STATS + PROS & CONS -->
+    <section class="mid-analysis-grid">
+      <div class="sub-panel">
+        <div class="section-hdr">
+          <h2>📊 Combat Stat Delta</h2>
+          <span>Includes Equipped Workshop Modifiers</span>
+        </div>
+        <div id="modalStatRows"></div>
+      </div>
+
+      <div class="sub-panel">
+        <div class="section-hdr">
+          <h2>🎯 Matchup Pros &amp; Cons</h2>
+          <span>Armor • Range • Target Domain • Speed</span>
+        </div>
+        <div class="pros-cons-split">
+          <div class="pc-box you-pc">
+            <div class="pc-unit-hdr" id="modalYouPcTitle">Your Unit</div>
+            <ul class="pc-list" id="modalYouPcList"></ul>
+          </div>
+          <div class="pc-box opp-pc">
+            <div class="pc-unit-hdr" id="modalOppPcTitle">Opponent</div>
+            <ul class="pc-list" id="modalOppPcList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST WORKSHOP ADVISOR -->
+    <section class="workshop-advisor-panel">
+      <div class="section-hdr" style="border-bottom-color: rgba(255,215,0,0.28);">
+        <h2>🔧 Best Workshop Configuration For This Duel</h2>
+        <span>★ Gold = Recommended Counter • Click Any Card to Equip/Unequip</span>
+      </div>
+      <div class="ws-columns">
+        <div class="ws-unit-col you-ws">
+          <div class="ws-col-top">
+            <div class="ws-col-title" id="modalYouWsHdr">Your Workshops</div>
+            <button type="button" class="swap-btn" onclick="autoEquipModalSide('you')">★ Auto-Equip Best</button>
+          </div>
+          <div id="modalYouWsList"></div>
+        </div>
+        <div class="ws-unit-col opp-ws">
+          <div class="ws-col-top">
+            <div class="ws-col-title" id="modalOppWsHdr">Opponent Workshops</div>
+            <button type="button" class="swap-btn" onclick="autoEquipModalSide('opp')">★ Auto-Equip Best</button>
+          </div>
+          <div id="modalOppWsList"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  const SHEET_CONFIG = {
+    docId: '1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc',
+    gid: '444355456'
+  };
+
+  const FALLBACK_UNITS = [
+    {
+      UNIT_NAME: 'JUGGERNAUT',
+      STAT_GENERATION: 'Arc 2',
+      STAT_FACTION: 'Sentinels',
+      STAT_TYPE: 'Heavy Vehicle',
+      STAT_ARMOR_TYPE: 'Heavy',
+      STAT_DAMAGE_TYPE: 'Burst',
+      STAT_TARGETS: 'Ground & Air',
+      STAT_BUILDING: 'War Factory',
+      STAT_HP_RANGE_1: '95,000', STAT_HP_RANGE_10: '140,000', STAT_HP_RANGE_20: '195,000', STAT_HP_RANGE_MAX: '250,000',
+      STAT_DPS_RANGE_1: '4,800', STAT_DPS_RANGE_10: '7,200', STAT_DPS_RANGE_20: '10,400', STAT_DPS_RANGE_MAX: '13,500',
+      STAT_SPEED: '28', STAT_RANGE: '410', STAT_SPLASH: '45',
+      WORKSHOP_1_TITLE: 'Siege Sabot Shells', WORKSHOP_1_TAG: 'Offense Slot', WORKSHOP_1_DESC: '+20% Damage against Heavy Armor Vehicles and +35 Range.',
+      WORKSHOP_2_TITLE: 'Reactive Ablative Plating', WORKSHOP_2_TAG: 'Defense Slot', WORKSHOP_2_DESC: 'Grants 25% Damage Reduction against Burst and Sustain weapons.',
+      WORKSHOP_3_TITLE: 'Overdrive Thrusters', WORKSHOP_3_TAG: 'Mobility Slot', WORKSHOP_3_DESC: '+25% Max Speed to close range gaps faster.',
+      FACTION_WS_1_FACTION: 'Equinox', FACTION_WS_1_TALENT: '+15% Damage & 15% Damage Reduction vs Equinox units.',
+      FACTION_WS_2_FACTION: 'Rangers', FACTION_WS_2_TALENT: '+15% Damage & 15% Damage Reduction vs Rangers units.',
+      FACTION_WS_3_FACTION: 'Corpus', FACTION_WS_3_TALENT: '+15% Damage & 15% Damage Reduction vs Corpus units.',
+      FACTION_WS_4_FACTION: 'Sentinels', FACTION_WS_4_TALENT: '+15% Damage & 15% Damage Reduction vs Sentinels units.'
+    },
+    {
+      UNIT_NAME: 'STORMWAIL',
+      STAT_GENERATION: 'Arc 2',
+      STAT_FACTION: 'Equinox',
+      STAT_TYPE: 'Gunship Aircraft',
+      STAT_ARMOR_TYPE: 'Medium',
+      STAT_DAMAGE_TYPE: 'Sustain (Former Energy)',
+      STAT_TARGETS: 'Ground & Air',
+      STAT_BUILDING: 'Aircraft Hangar',
+      STAT_HP_RANGE_1: '68,000', STAT_HP_RANGE_10: '102,000', STAT_HP_RANGE_20: '142,000', STAT_HP_RANGE_MAX: '180,000',
+      STAT_DPS_RANGE_1: '5,600', STAT_DPS_RANGE_10: '8,400', STAT_DPS_RANGE_20: '11,900', STAT_DPS_RANGE_MAX: '15,200',
+      STAT_SPEED: '48', STAT_RANGE: '450', STAT_SPLASH: '30',
+      WORKSHOP_1_TITLE: 'Harmonic Arc Array', WORKSHOP_1_TAG: 'Weapon Slot', WORKSHOP_1_DESC: '+18% Sustain Damage and +40 Range for kiting slower ground armor.',
+      WORKSHOP_2_TITLE: 'Phase Shroud Countermeasures', WORKSHOP_2_TAG: 'Defense Slot', WORKSHOP_2_DESC: '20% Damage Reduction against Anti-Air Burst projectiles and +15% Health.',
+      FACTION_WS_1_FACTION: 'Equinox', FACTION_WS_1_TALENT: '+15% Damage & 15% Damage Reduction vs Equinox units.',
+      FACTION_WS_2_FACTION: 'Rangers', FACTION_WS_2_TALENT: '+15% Damage & 15% Damage Reduction vs Rangers units.',
+      FACTION_WS_3_FACTION: 'Corpus', FACTION_WS_3_TALENT: '+15% Damage & 15% Damage Reduction vs Corpus units.',
+      FACTION_WS_4_FACTION: 'Sentinels', FACTION_WS_4_TALENT: '+15% Damage & 15% Damage Reduction vs Sentinels units.'
+    },
+    {
+      UNIT_NAME: 'ACHILLES',
+      STAT_GENERATION: 'Arc 1',
+      STAT_FACTION: 'Rangers',
+      STAT_TYPE: 'Assault Infantry',
+      STAT_ARMOR_TYPE: 'Light',
+      STAT_DAMAGE_TYPE: 'Burst',
+      STAT_TARGETS: 'Ground & Air',
+      STAT_BUILDING: 'Academy',
+      STAT_HP_RANGE_1: '42,000', STAT_HP_RANGE_10: '64,000', STAT_HP_RANGE_20: '92,000', STAT_HP_RANGE_MAX: '122,000',
+      STAT_DPS_RANGE_1: '6,100', STAT_DPS_RANGE_10: '9,100', STAT_DPS_RANGE_20: '12,800', STAT_DPS_RANGE_MAX: '16,400',
+      STAT_SPEED: '38', STAT_RANGE: '475', STAT_SPLASH: '0',
+      WORKSHOP_1_TITLE: 'Depleted Tungsten Sabots', WORKSHOP_1_TAG: 'Ammo Slot', WORKSHOP_1_DESC: '+25% Burst Damage against Heavy & Medium Armor.',
+      WORKSHOP_2_TITLE: 'Blast-Weave Exo Suit', WORKSHOP_2_TAG: 'Armor Slot', WORKSHOP_2_DESC: '30% Damage Reduction against Area splash damage and +20% Health.',
+      FACTION_WS_1_FACTION: 'Equinox', FACTION_WS_1_TALENT: '+15% Damage & 15% Damage Reduction vs Equinox units.',
+      FACTION_WS_2_FACTION: 'Rangers', FACTION_WS_2_TALENT: '+15% Damage & 15% Damage Reduction vs Rangers units.',
+      FACTION_WS_3_FACTION: 'Corpus', FACTION_WS_3_TALENT: '+15% Damage & 15% Damage Reduction vs Corpus units.',
+      FACTION_WS_4_FACTION: 'Sentinels', FACTION_WS_4_TALENT: '+15% Damage & 15% Damage Reduction vs Sentinels units.'
+    },
+    {
+      UNIT_NAME: 'VOIDHAMMER',
+      STAT_GENERATION: 'Arc 3',
+      STAT_FACTION: 'Corpus',
+      STAT_TYPE: 'Artillery Vehicle',
+      STAT_ARMOR_TYPE: 'Medium',
+      STAT_DAMAGE_TYPE: 'Area',
+      STAT_TARGETS: 'Ground',
+      STAT_BUILDING: 'War Factory',
+      STAT_HP_RANGE_1: '74,000', STAT_HP_RANGE_10: '110,000', STAT_HP_RANGE_20: '154,000', STAT_HP_RANGE_MAX: '198,000',
+      STAT_DPS_RANGE_1: '5,200', STAT_DPS_RANGE_10: '7,900', STAT_DPS_RANGE_20: '11,200', STAT_DPS_RANGE_MAX: '14,600',
+      STAT_SPEED: '26', STAT_RANGE: '510', STAT_SPLASH: '85',
+      WORKSHOP_1_TITLE: 'Thermobaric Cluster Payload', WORKSHOP_1_TAG: 'Ordnance Slot', WORKSHOP_1_DESC: '+22% Area Damage and wider splash radius vs Light Infantry.',
+      WORKSHOP_2_TITLE: 'Composite Flak Skirt', WORKSHOP_2_TAG: 'Chassis Slot', WORKSHOP_2_DESC: '25% Damage Reduction against Sustain fire and +15% Health.',
+      FACTION_WS_1_FACTION: 'Equinox', FACTION_WS_1_TALENT: '+15% Damage & 15% Damage Reduction vs Equinox units.',
+      FACTION_WS_2_FACTION: 'Rangers', FACTION_WS_2_TALENT: '+15% Damage & 15% Damage Reduction vs Rangers units.',
+      FACTION_WS_3_FACTION: 'Corpus', FACTION_WS_3_TALENT: '+15% Damage & 15% Damage Reduction vs Corpus units.',
+      FACTION_WS_4_FACTION: 'Sentinels', FACTION_WS_4_TALENT: '+15% Damage & 15% Damage Reduction vs Sentinels units.'
+    }
+  ];
+
+  let allCombatUnits = [...FALLBACK_UNITS];
+  let activeRadarFilter = 'ALL';
+  let currentEvaluatedRows = [];
+
+  /* Modal State */
+  let modalYouUnit = null;
+  let modalOppUnit = null;
+  let modalEquipped = { you: new Set(), opp: new Set() };
+
+  function cleanVal(v) {
+    if (!v) return '';
+    const t = String(v).trim();
+    return (t === '-' || t === '—' || t === 'N/A' || t.startsWith('{{')) ? '' : t;
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function formatImageUrl(url) {
+    if (!url) return '';
+    let clean = String(url).trim().replace(/^'+/, '');
+    const formulaMatch = clean.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) clean = formulaMatch[1].trim();
+    const driveMatch = clean.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1] && !clean.startsWith('data:')) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    if (!/^(?:https?:|data:|blob:)/i.test(clean)) {
+      const loc = decodeURIComponent(window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+      const base = loc.includes('/masters/') ? '../published/watchtower-data-hub/assets/images/' : './assets/images/';
+      const stripped = clean.replace(/\\/g, '/').replace(/^(?:\.\.\/|\.\/)+/, '').replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, '');
+      return base + stripped;
+    }
+    return clean;
+  }
+
+  function getUnitImage(rec) {
+    return formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL);
+  }
+
+  function render4x5PortraitHtml(rec) {
+    const imgUrl = getUnitImage(rec);
+    const fallbackLabel = escapeHtml(rec.UNIT_NAME || cleanVal(rec.STAT_TYPE) || 'UNIT');
+    if (!imgUrl) {
+      return `<div class="portrait-fallback">${fallbackLabel}</div>`;
+    }
+    return `<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(rec.UNIT_NAME)}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=portrait-fallback>${fallbackLabel}</div>'">`;
+  }
+
+  function isContractorRecord(rec) {
+    const hay = `${rec.STAT_BUILDING || ''} ${rec.CLASSIFICATION || ''} ${rec.STAT_GENERATION || ''} ${rec.STAT_FACTION || ''} ${rec.STAT_TYPE || ''}`.toUpperCase();
+    return hay.includes('CONTRACTOR') || hay.includes('DIPLOMAC') || hay.includes('DEPLOMANC') || hay.includes('AGENCY');
+  }
+
+  function isPureBuildingRecord(rec) {
+    const hasCombat = Boolean(
+      rec.STAT_FACTION || rec.STAT_ARMOR_TYPE || rec.STAT_DAMAGE_TYPE ||
+      rec.STAT_DPS_RANGE || rec.STAT_DPS_RANGE_MAX || rec.STAT_HP_RANGE || rec.STAT_HP_RANGE_MAX
+    );
+    return !hasCombat;
+  }
+
+  function getDivisionBucket(rec) {
+    const hay = `${rec.STAT_BUILDING || ''} ${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.STAT_FACTION || ''} ${rec.UNIT_DIVISION || ''}`.toUpperCase();
+    if (hay.includes('MERCENARY')) return 'MERCENARY';
+    if (hay.includes('AIR') || hay.includes('HANGAR') || hay.includes('HANGER') || hay.includes('HELI') || hay.includes('PLANE')) return 'AIR';
+    if (hay.includes('ACADEMY') || hay.includes('BARRACK') || hay.includes('INFANTRY') || hay.includes('SOLDIER')) return 'INFANTRY';
+    if (hay.includes('FACTORY') || hay.includes('TECH CENTER') || hay.includes('VEHICLE') || hay.includes('TANK') || hay.includes('ARTILLERY') || hay.includes('MECH')) return 'VEHICLE';
+    return 'OTHER';
+  }
+
+  function getGenerationBucket(rec) {
+    const hay = `${rec.STAT_GENERATION || ''} ${rec.CLASSIFICATION || ''}`.toUpperCase();
+    if (/\bARC\s*(?:3|III)\b/.test(hay)) return 'ARC_3';
+    if (/\bARC\s*(?:2|II)\b/.test(hay)) return 'ARC_2';
+    if (/\bARC\s*(?:1|I)\b/.test(hay)) return 'ARC_1';
+    return 'LEGACY';
+  }
+
+  function getGenerationLabel(rec) {
+    const bucket = getGenerationBucket(rec);
+    if (bucket === 'ARC_3') return 'Arc 3';
+    if (bucket === 'ARC_2') return 'Arc 2';
+    if (bucket === 'ARC_1') return 'Arc 1';
+    return cleanVal(rec.STAT_GENERATION) || 'Legacy';
+  }
+
+  /* 3-Stage Bulletproof Google Sheet Reader */
+  function fetchSheetMatrixUniversal(docId, gid, onSuccess, onError) {
+    const cleanId = (docId || '').trim();
+    const cleanGid = (gid || '0').trim();
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+
+    if (window.Papa) {
+      Papa.parse(exportCsvUrl, {
+        download: true,
+        header: false,
+        skipEmptyLines: true,
+        complete: res => {
+          if (res && res.data && res.data.length > 1) onSuccess(res.data);
+          else tryStage2GvizCsv();
+        },
+        error: tryStage2GvizCsv
+      });
+    } else {
+      tryStage2GvizCsv();
+    }
+
+    function tryStage2GvizCsv() {
+      fetch(gvizCsvUrl, { method: 'GET', credentials: 'omit' })
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(txt => {
+          if (txt.trim().startsWith('<')) throw new Error('HTML');
+          const p = Papa.parse(txt, { header: false, skipEmptyLines: true });
+          if (!p.data || p.data.length <= 1) throw new Error('Empty');
+          onSuccess(p.data);
+        })
+        .catch(tryStage3Jsonp);
+    }
+
+    function tryStage3Jsonp() {
+      const cbName = 'wtrMatchupGviz_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+      const script = document.createElement('script');
+      let completed = false;
+      const timer = setTimeout(() => {
+        if (completed) return;
+        completed = true;
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError();
+      }, 8000);
+
+      window[cbName] = function(response) {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (!response || response.status === 'error' || !response.table) return onError();
+        const cols = response.table.cols || [];
+        const rows = response.table.rows || [];
+        const matrix = [];
+        const colLabels = cols.map(c => (c && c.label ? String(c.label).trim() : ''));
+        if (colLabels.some(l => l !== '')) matrix.push(colLabels);
+        rows.forEach(r => {
+          const cArr = (r && r.c) ? r.c : [];
+          const rowCells = cols.map((_, idx) => {
+            const cell = cArr[idx];
+            if (!cell || cell.v === null || cell.v === undefined) return '';
+            return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+          });
+          if (rowCells.some(val => val.trim() !== '')) matrix.push(rowCells);
+        });
+        onSuccess(matrix);
+      };
+      script.onerror = () => {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError();
+      };
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      document.head.appendChild(script);
+    }
+  }
+
+  function fetchMasterDb() {
+    fetchSheetMatrixUniversal(
+      SHEET_CONFIG.docId,
+      SHEET_CONFIG.gid,
+      function(matrix) {
+        if (!matrix || matrix.length <= 1) return;
+        const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
+        const parsedUnits = [];
+        for (let r = 1; r < matrix.length; r++) {
+          const rec = {};
+          headers.forEach((k, idx) => {
+            let v = matrix[r][idx] !== undefined ? String(matrix[r][idx]).trim() : '';
+            if (v.startsWith("'")) v = v.slice(1);
+            if (k) rec[k] = v;
+          });
+          rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '';
+          if (rec.UNIT_NAME && !isPureBuildingRecord(rec) && !isContractorRecord(rec)) {
+            parsedUnits.push(rec);
+          }
+        }
+        if (parsedUnits.length >= 2) {
+          allCombatUnits = parsedUnits;
+          document.getElementById('dbStatusText').textContent = `✅ MASTER_DB Live (${parsedUnits.length} Units)`;
+          document.getElementById('topSyncBadge').textContent = `${parsedUnits.length} UNITS`;
+          populateMyUnitSelect(true);
+          applyUrlParams();
+          onMyUnitChanged();
+        }
+      },
+      function() {
+        document.getElementById('dbStatusText').textContent = `⚡ Fallback Roster (${allCombatUnits.length} Units)`;
+      }
+    );
+  }
+
+  function applyUrlParams() {
+    try {
+      const p = new URLSearchParams(window.location.search);
+      const uA = (p.get('unitA') || p.get('unit') || p.get('a') || '').trim().toUpperCase();
+      const uB = (p.get('unitB') || p.get('b') || '').trim().toUpperCase();
+      if (uA) {
+        const mA = allCombatUnits.find(u => u.UNIT_NAME.toUpperCase() === uA || u.UNIT_NAME.toUpperCase().includes(uA));
+        if (mA) document.getElementById('myUnitSelect').value = mA.UNIT_NAME;
+      }
+      if (uB) {
+        const mB = allCombatUnits.find(u => u.UNIT_NAME.toUpperCase() === uB || u.UNIT_NAME.toUpperCase().includes(uB));
+        if (mB) setTimeout(() => openMatchupModalByName(mB.UNIT_NAME), 80);
+      }
+    } catch (e) {}
+  }
+
+  function populateMyUnitSelect(preserve = false) {
+    const divVal = document.getElementById('myDivFilter').value;
+    const genVal = document.getElementById('myGenFilter').value;
+    const sel = document.getElementById('myUnitSelect');
+    const prev = sel.value;
+    const list = allCombatUnits.filter(u =>
+      (divVal === 'ALL' || getDivisionBucket(u) === divVal) &&
+      (genVal === 'ALL' || getGenerationBucket(u) === genVal)
+    );
+    if (list.length === 0) {
+      sel.innerHTML = `<option value="">No units in selected Division + Generation</option>`;
+      onMyUnitChanged();
+      return;
+    }
+    sel.innerHTML = list.map(u => `<option value="${escapeHtml(u.UNIT_NAME)}">${escapeHtml(u.UNIT_NAME)}</option>`).join('');
+    if (preserve && list.some(u => u.UNIT_NAME === prev)) sel.value = prev;
+    else sel.selectedIndex = 0;
+    onMyUnitChanged();
+  }
+
+  function getMySelectedUnit() {
+    const name = document.getElementById('myUnitSelect').value;
+    if (!name) return null;
+    return allCombatUnits.find(u => u.UNIT_NAME === name) || allCombatUnits[0];
+  }
+
+  function onMyUnitChanged() {
+    const me = getMySelectedUnit();
+    if (!me) {
+      document.getElementById('myHeroPortrait').innerHTML = `<div class="portrait-fallback">NO UNIT<br>MATCHED</div>`;
+      document.getElementById('myHeroNameDisplay').textContent = 'NO UNIT IN FILTER';
+      document.getElementById('myHeroMetaChips').innerHTML = `<span class="meta-chip">Adjust Division or Generation filter above</span>`;
+      document.getElementById('cntAll').textContent = '0';
+      document.getElementById('cntRed').textContent = '0';
+      document.getElementById('cntGreen').textContent = '0';
+      document.getElementById('cntAmber').textContent = '0';
+      document.getElementById('thumbRadarGrid').innerHTML = `<div class="radar-empty-msg">No active unit matches your selected Division + Generation combination.</div>`;
+      return;
+    }
+    document.getElementById('myHeroPortrait').innerHTML = render4x5PortraitHtml(me);
+    document.getElementById('myHeroNameDisplay').textContent = me.UNIT_NAME;
+    document.getElementById('myUnitBriefLink').href = `./unit-briefs.html?unit=${encodeURIComponent(me.UNIT_NAME)}`;
+
+    const genLbl = getGenerationLabel(me);
+    const fac = cleanVal(me.STAT_FACTION) || 'Unaligned';
+    const uType = cleanVal(me.STAT_TYPE) || getDivisionBucket(me);
+    const armor = cleanVal(me.STAT_ARMOR_TYPE) || 'Standard';
+    const dmg = cleanVal(me.STAT_DAMAGE_TYPE) || 'Standard';
+    const rng = cleanVal(me.STAT_RANGE) || '—';
+
+    document.getElementById('myHeroMetaChips').innerHTML = `
+      <span class="meta-chip gen">${escapeHtml(genLbl)}</span>
+      <span class="meta-chip gold">${escapeHtml(fac)}</span>
+      <span class="meta-chip">${escapeHtml(uType)}</span>
+      <span class="meta-chip">🛡️ Armor: ${escapeHtml(armor)}</span>
+      <span class="meta-chip">💥 Weapon: ${escapeHtml(dmg)}</span>
+      <span class="meta-chip">🎯 Range: ${escapeHtml(rng)}</span>
+    `;
+    renderRadarGrid();
+  }
+
+  /* ==================== COMBAT MATH ENGINE ==================== */
+  function parseNumeric(raw) {
+    if (!raw) return 0;
+    const nums = String(raw).replace(/,/g, '').match(/\d+(\.\d+)?/g);
+    if (!nums || !nums.length) return 0;
+    return parseFloat(nums[nums.length - 1]) || 0;
+  }
+
+  function parseRangeStatForTier(rec, baseKey, tier) {
+    const specific = cleanVal(rec[`${baseKey}_${tier}`]);
+    if (specific) return parseNumeric(specific);
+    if (tier !== 'MAX') {
+      const upgKey = baseKey.includes('HP') ? `UPGRADE_HP_${tier}` : `UPGRADE_DPS_${tier}`;
+      if (cleanVal(rec[upgKey])) return parseNumeric(rec[upgKey]);
+    }
+    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
+    if (rangeStr) {
+      const nums = rangeStr.replace(/,/g, '').match(/\d+(\.\d+)?/g);
+      if (nums && nums.length >= 2) {
+        const minV = parseFloat(nums[0]);
+        const maxV = parseFloat(nums[nums.length - 1]);
+        if (tier === '1') return minV;
+        if (tier === '10') return Math.round(minV + (maxV - minV) * 0.35);
+        if (tier === '20') return Math.round(minV + (maxV - minV) * 0.72);
+        return maxV;
+      }
+      if (nums && nums.length === 1) return parseFloat(nums[0]);
+    }
+    const maxFallback = cleanVal(rec[`${baseKey}_MAX`]);
+    if (maxFallback) {
+      const m = parseNumeric(maxFallback);
+      if (tier === '1') return Math.round(m * 0.42);
+      if (tier === '10') return Math.round(m * 0.64);
+      if (tier === '20') return Math.round(m * 0.84);
+      return m;
+    }
+    return 0;
+  }
+
+  function normalizeArmor(raw) {
+    const s = String(raw || '').toUpperCase();
+    if (s.includes('LIGHT')) return 'LIGHT';
+    if (s.includes('MEDIUM')) return 'MEDIUM';
+    if (s.includes('HEAVY')) return 'HEAVY';
+    return 'STANDARD';
+  }
+
+  function normalizeDamage(raw) {
+    const s = String(raw || '').toUpperCase();
+    const isEnergy = s.includes('ENERGY');
+    let core = 'STANDARD';
+    if (s.includes('AREA') || s.includes('SPLASH') || s.includes('EXPLOSIVE')) core = 'AREA';
+    else if (s.includes('SUSTAIN') || s.includes('BALLISTIC')) core = 'SUSTAIN';
+    else if (s.includes('BURST') || s.includes('PENETRAT')) core = 'BURST';
+    return { core, isEnergy, rawLabel: cleanVal(raw) || core };
+  }
+
+  function getDomain(rec) {
+    return getDivisionBucket(rec) === 'AIR' ? 'AIR' : 'GROUND';
+  }
+
+  function canHitDomain(attackerRec, defenderDomain) {
+    const t = String(attackerRec.STAT_TARGETS || 'Ground & Air').toUpperCase();
+    if (!t || t.includes('BOTH') || (t.includes('GROUND') && t.includes('AIR')) || t.includes('ALL')) return true;
+    if (defenderDomain === 'AIR') return t.includes('AIR');
+    return t.includes('GROUND') || !t.includes('AIR ONLY');
+  }
+
+  function computeArmorMult(dmgCore, targetArmor) {
+    if (
+      (dmgCore === 'AREA' && targetArmor === 'LIGHT') ||
+      (dmgCore === 'SUSTAIN' && targetArmor === 'MEDIUM') ||
+      (dmgCore === 'BURST' && targetArmor === 'HEAVY')
+    ) return 2.0;
+    return 1.0;
+  }
+
+  function evaluateWorkshopsAgainstOpponent(unit, opponent) {
+    const oppFaction = cleanVal(opponent.STAT_FACTION).toUpperCase();
+    const oppArmor = normalizeArmor(opponent.STAT_ARMOR_TYPE);
+    const oppDmg = normalizeDamage(opponent.STAT_DAMAGE_TYPE);
+    const myArmor = normalizeArmor(unit.STAT_ARMOR_TYPE);
+    const oppDomain = getDomain(opponent);
+    const oppDiv = getDivisionBucket(opponent);
+    const myRange = parseNumeric(unit.STAT_RANGE);
+    const oppRange = parseNumeric(opponent.STAT_RANGE);
+
+    const oppCountersMyArmor =
+      (oppDmg.core === 'AREA' && myArmor === 'LIGHT') ||
+      (oppDmg.core === 'SUSTAIN' && myArmor === 'MEDIUM') ||
+      (oppDmg.core === 'BURST' && myArmor === 'HEAVY');
+
+    const unitWorkshops = [];
+    for (let i = 1; i <= 6; i++) {
+      const title = cleanVal(unit[`WORKSHOP_${i}_TITLE`]) || cleanVal(unit[`TECH_${i}_TITLE`]);
+      const tag = cleanVal(unit[`WORKSHOP_${i}_TAG`]) || cleanVal(unit[`TECH_${i}_TAG`]) || `Workshop #${i}`;
+      const desc = cleanVal(unit[`WORKSHOP_${i}_DESC`]) || cleanVal(unit[`TECH_${i}_DESC`]);
+      if (!title && !desc) continue;
+
+      const hay = `${title} ${tag} ${desc}`.toUpperCase();
+      let score = 10;
+      const reasons = [];
+
+      if (oppCountersMyArmor && (hay.includes('REDUCTION') || hay.includes('SHIELD') || hay.includes('ARMOR') || hay.includes('RESIST') || hay.includes('HEALTH') || hay.includes('HP'))) {
+        score += 40;
+        reasons.push(`Mitigates ${opponent.UNIT_NAME}'s 2.0x ${oppDmg.core} counter`);
+      }
+      if (hay.includes(oppDmg.core)) {
+        score += 35;
+        reasons.push(`Directly counters ${oppDmg.core} damage`);
+      }
+      if (hay.includes(oppArmor) && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('PIERC'))) {
+        score += 35;
+        reasons.push(`Bonus offense vs ${oppArmor} Armor`);
+      }
+      if (oppRange > myRange && (hay.includes('RANGE') || hay.includes('SPEED') || hay.includes('THRUSTER') || hay.includes('OPTIC'))) {
+        score += 30;
+        reasons.push(`Closes ${oppRange - myRange} range deficit`);
+      }
+      if (oppDomain === 'AIR' && hay.includes('AIR')) {
+        score += 32;
+        reasons.push('Tailored for Air targets');
+      }
+      if (oppDiv === 'VEHICLE' && (hay.includes('VEHICLE') || hay.includes('ARMOR'))) {
+        score += 22;
+        reasons.push('Effective vs Armored Vehicles');
+      }
+      if (oppDiv === 'INFANTRY' && (hay.includes('INFANTRY') || hay.includes('SPLASH') || hay.includes('AREA'))) {
+        score += 22;
+        reasons.push('High lethality vs Infantry squads');
+      }
+      if (score === 10 && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('FIRE RATE'))) {
+        score += 18;
+        reasons.push('Boosts head-to-head DPS');
+      }
+
+      unitWorkshops.push({ key: `WS_${i}`, kind: 'UNIT_WS', title: title || `Workshop Slot ${i}`, tag, desc, score, reasons });
+    }
+
+    const maxWsScore = unitWorkshops.reduce((m, w) => Math.max(m, w.score), 0);
+    unitWorkshops.forEach(w => {
+      w.recommended = (w.score >= 28 && w.score >= maxWsScore - 8) || (maxWsScore < 28 && w.score === maxWsScore && unitWorkshops.length > 0);
+    });
+
+    const factionWorkshops = [];
+    for (let i = 1; i <= 4; i++) {
+      const fac = cleanVal(unit[`FACTION_WS_${i}_FACTION`]);
+      const talent = cleanVal(unit[`FACTION_WS_${i}_TALENT`]) || cleanVal(unit[`FACTION_WS_${i}_DESC`]);
+      if (!fac && !talent) continue;
+      const facUpper = fac.toUpperCase();
+      const isMatch = oppFaction && (facUpper.includes(oppFaction) || oppFaction.includes(facUpper));
+      factionWorkshops.push({
+        key: `FWS_${i}`,
+        kind: 'FACTION_WS',
+        title: fac || `Faction Tech #${i}`,
+        tag: 'Faction Workshop',
+        desc: talent || `Specialized Faction Workshop bonus (${fac}).`,
+        score: isMatch ? 100 : 5,
+        recommended: Boolean(isMatch),
+        reasons: isMatch ? [`Exact Faction Counter vs ${cleanVal(opponent.STAT_FACTION)}`] : []
+      });
+    }
+
+    return { unitWorkshops, factionWorkshops };
+  }
+
+  function extractWorkshopModifiers(wsItem, opponent) {
+    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+    const txt = `${wsItem.title} ${wsItem.desc}`;
+    if (wsItem.kind === 'FACTION_WS') {
+      const oppFac = cleanVal(opponent.STAT_FACTION).toUpperCase();
+      if (oppFac && wsItem.title.toUpperCase().includes(oppFac)) {
+        const dmgM = txt.match(/\+?(\d+)%\s*Damage\b/i);
+        const drM = txt.match(/(\d+)%\s*Damage\s*Reduction/i);
+        mod.dmgPct += dmgM ? parseFloat(dmgM[1]) : 12;
+        mod.drPct += drM ? parseFloat(drM[1]) : 12;
+      }
+      return mod;
+    }
+    const pctMatches = [...txt.matchAll(/\+?(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,24})/g)];
+    pctMatches.forEach(m => {
+      const val = parseFloat(m[1]) || 0;
+      const lbl = m[2].toUpperCase();
+      if (lbl.includes('REDUCTION') || lbl.includes('RESIST')) mod.drPct += val;
+      else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) mod.dmgPct += val;
+      else if (lbl.includes('HEALTH') || lbl.includes('HP')) mod.hpPct += val;
+      else if (lbl.includes('RANGE')) mod.rangePct += val;
+      else if (lbl.includes('SPEED')) mod.speedPct += val;
+    });
+    const flatRange = txt.match(/\+(\d+)\s*Range/i);
+    if (flatRange) mod.rangeFlat += parseFloat(flatRange[1]) || 0;
+    if (mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
+      const upper = txt.toUpperCase();
+      if (upper.includes('SHIELD') || upper.includes('ARMOR') || upper.includes('DEFEN')) mod.drPct = 10;
+      else mod.dmgPct = 10;
+    }
+    return mod;
+  }
+
+  function buildProfile(unit, opponent, tier, equippedSet) {
+    const wsEval = evaluateWorkshopsAgainstOpponent(unit, opponent);
+    const allWs = [...wsEval.unitWorkshops, ...wsEval.factionWorkshops];
+    const totals = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+
+    if (equippedSet) {
+      allWs.forEach(item => {
+        if (equippedSet.has(item.key)) {
+          const m = extractWorkshopModifiers(item, opponent);
+          totals.dmgPct += m.dmgPct;
+          totals.hpPct += m.hpPct;
+          totals.drPct += m.drPct;
+          totals.rangeFlat += m.rangeFlat;
+          totals.rangePct += m.rangePct;
+          totals.speedPct += m.speedPct;
+        }
+      });
+    }
+    totals.drPct = Math.min(65, totals.drPct);
+
+    const baseHp = parseRangeStatForTier(unit, 'STAT_HP_RANGE', tier) || 50000;
+    const baseDps = parseRangeStatForTier(unit, 'STAT_DPS_RANGE', tier) || 3500;
+    const baseRange = parseNumeric(unit.STAT_RANGE) || 350;
+    const baseSpeed = parseNumeric(unit.STAT_SPEED) || 30;
+    const splash = parseNumeric(unit.STAT_SPLASH) || 0;
+
+    return {
+      unit, tier, wsEval,
+      equippedCount: equippedSet ? equippedSet.size : 0,
+      hp: Math.round(baseHp * (1 + totals.hpPct / 100)),
+      rawDps: Math.round(baseDps * (1 + totals.dmgPct / 100)),
+      range: Math.round(baseRange * (1 + totals.rangePct / 100) + totals.rangeFlat),
+      speed: Math.round(baseSpeed * (1 + totals.speedPct / 100)),
+      splash,
+      drPct: totals.drPct,
+      dmgInfo: normalizeDamage(unit.STAT_DAMAGE_TYPE),
+      armorType: normalizeArmor(unit.STAT_ARMOR_TYPE),
+      domain: getDomain(unit)
+    };
+  }
+
+  function simulateDuel(A, B) {
+    const aCanHitB = canHitDomain(A.unit, B.domain);
+    const bCanHitA = canHitDomain(B.unit, A.domain);
+
+    const aArmorMult = computeArmorMult(A.dmgInfo.core, B.armorType);
+    const bArmorMult = computeArmorMult(B.dmgInfo.core, A.armorType);
+
+    const bEffectiveDr = Math.max(0, B.drPct - (A.dmgInfo.isEnergy ? 25 : 0));
+    const aEffectiveDr = Math.max(0, A.drPct - (B.dmgInfo.isEnergy ? 25 : 0));
+
+    const aEffDps = aCanHitB ? Math.round(A.rawDps * aArmorMult * (1 - bEffectiveDr / 100)) : 0;
+    const bEffDps = bCanHitA ? Math.round(B.rawDps * bArmorMult * (1 - aEffectiveDr / 100)) : 0;
+
+    const aFreeSec = (aCanHitB && A.range > B.range) ? Math.min(6, (A.range - B.range) / Math.max(12, B.speed * 2.4)) : 0;
+    const bFreeSec = (bCanHitA && B.range > A.range) ? Math.min(6, (B.range - A.range) / Math.max(12, A.speed * 2.4)) : 0;
+
+    const bHpAfterApproach = Math.max(0, B.hp - aEffDps * aFreeSec);
+    const aHpAfterApproach = Math.max(0, A.hp - bEffDps * bFreeSec);
+
+    const aTtk = aEffDps > 0 ? (aFreeSec + bHpAfterApproach / aEffDps) : Infinity;
+    const bTtk = bEffDps > 0 ? (bFreeSec + aHpAfterApproach / bEffDps) : Infinity;
+
+    let youWinPct = 50;
+    if (!aCanHitB && bCanHitA) youWinPct = 2;
+    else if (aCanHitB && !bCanHitA) youWinPct = 98;
+    else if (!aCanHitB && !bCanHitA) youWinPct = 50;
+    else {
+      const powerA = 1 / Math.max(0.25, aTtk);
+      const powerB = 1 / Math.max(0.25, bTtk);
+      const ratio = Math.log(powerA / powerB);
+      youWinPct = Math.round(Math.min(97, Math.max(3, 100 / (1 + Math.exp(-2.35 * ratio)))));
+    }
+
+    let bucket = 'AMBER';
+    if (youWinPct < 45) bucket = 'RED';
+    else if (youWinPct >= 55) bucket = 'GREEN';
+
+    return {
+      A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult, aEffDps, bEffDps,
+      aFreeSec, bFreeSec, aTtk, bTtk, youWinPct, oppWinPct: 100 - youWinPct, bucket
+    };
+  }
+
+  /* ==================== THUMBNAIL RADAR RENDERER ==================== */
+  function setRadarFilter(f) {
+    activeRadarFilter = f;
+    document.getElementById('pillFilterAll').className = 'radar-pill' + (f === 'ALL' ? ' active-all' : '');
+    document.getElementById('pillFilterRed').className = 'radar-pill' + (f === 'RED' ? ' active-red' : '');
+    document.getElementById('pillFilterGreen').className = 'radar-pill' + (f === 'GREEN' ? ' active-green' : '');
+    document.getElementById('pillFilterAmber').className = 'radar-pill' + (f === 'AMBER' ? ' active-amber' : '');
+    renderRadarGrid();
+  }
+
+  function renderRadarGrid() {
+    const me = getMySelectedUnit();
+    if (!me) return;
+    const myTier = document.getElementById('myLevelSelect').value;
+    const oppTier = document.getElementById('oppGridLevelSelect').value;
+    const oppDiv = document.getElementById('oppDivFilter').value;
+    const oppGen = document.getElementById('oppGenFilter').value;
+    const q = (document.getElementById('radarSearchInput').value || '').trim().toLowerCase();
+
+    const evaluated = [];
+    let cntRed = 0, cntGreen = 0, cntAmber = 0;
+
+    allCombatUnits.forEach(opp => {
+      if (opp.UNIT_NAME === me.UNIT_NAME) return;
+      if (oppDiv !== 'ALL' && getDivisionBucket(opp) !== oppDiv) return;
+      if (oppGen !== 'ALL' && getGenerationBucket(opp) !== oppGen) return;
+      if (q && !(`${opp.UNIT_NAME} ${opp.STAT_FACTION || ''} ${opp.STAT_TYPE || ''} ${opp.STAT_GENERATION || ''}`.toLowerCase().includes(q))) return;
+
+      const profA = buildProfile(me, opp, myTier, null);
+      const profB = buildProfile(opp, me, oppTier, null);
+      const duel = simulateDuel(profA, profB);
+
+      if (duel.bucket === 'RED') cntRed++;
+      else if (duel.bucket === 'GREEN') cntGreen++;
+      else cntAmber++;
+
+      evaluated.push({ opp, duel });
+    });
+
+    document.getElementById('cntAll').textContent = evaluated.length;
+    document.getElementById('cntRed').textContent = cntRed;
+    document.getElementById('cntGreen').textContent = cntGreen;
+    document.getElementById('cntAmber').textContent = cntAmber;
+
+    const filtered = evaluated.filter(item => activeRadarFilter === 'ALL' || item.duel.bucket === activeRadarFilter);
+
+    // Sort: Threats first (most dangerous -> least), then Even, then Easy Kills (easiest -> closest)
+    filtered.sort((x, y) => x.duel.youWinPct - y.duel.youWinPct);
+    if (activeRadarFilter === 'GREEN') {
+      filtered.sort((x, y) => y.duel.youWinPct - x.duel.youWinPct);
+    }
+
+    currentEvaluatedRows = filtered;
+
+    const grid = document.getElementById('thumbRadarGrid');
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="radar-empty-msg">No enemy units match the current Division / Generation / Threat filter.</div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map((row, idx) => {
+      const b = row.duel.bucket;
+      const cls = b === 'RED' ? 'threat-red' : (b === 'GREEN' ? 'kill-green' : 'even-amber');
+      const tagText = b === 'RED' ? 'AVOID' : (b === 'GREEN' ? 'EASY KILL' : 'EVEN');
+      const genTag = getGenerationLabel(row.opp);
+      return `
+        <div class="thumb-tile ${cls}"
+             onmouseenter="showHoverBrief(event, ${idx})"
+             onmousemove="moveHoverBrief(event)"
+             onmouseleave="hideHoverBrief()"
+             onclick="openMatchupModal(${idx})">
+          <div class="thumb-img-box">
+            ${render4x5PortraitHtml(row.opp)}
+            <span class="thumb-status-tag">${tagText}</span>
+            <span class="thumb-gen-tag">${escapeHtml(genTag)}</span>
+          </div>
+          <div class="thumb-name-plate">${escapeHtml(row.opp.UNIT_NAME)}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  /* ==================== HOVER QUICK BRIEF ==================== */
+  function buildHoverBriefPoints(duel) {
+    const strong = [];
+    const weak = [];
+    const { A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult } = duel;
+
+    if (!aCanHitB && bCanHitA) strong.push(`Untouchable ${B.domain} target — ${A.unit.UNIT_NAME} cannot hit it!`);
+    if (aCanHitB && !bCanHitA) weak.push(`Cannot fire back at your ${A.domain} unit!`);
+
+    if (bArmorMult >= 2.0) strong.push(`2.0x ${B.dmgInfo.core} counter shreds your ${A.armorType} Armor.`);
+    if (aArmorMult >= 2.0) weak.push(`Vulnerable (2.0x) to your ${A.dmgInfo.core} weapon.`);
+
+    if (B.range > A.range + 12) strong.push(`Outranges you by +${B.range - A.range} (strikes first).`);
+    else if (A.range > B.range + 12) weak.push(`Outranged by you (-${A.range - B.range} Range).`);
+
+    if (B.speed > A.speed + 5) strong.push(`Faster mover (+${B.speed - A.speed} Speed) — can kite/chase.`);
+    else if (A.speed > B.speed + 5) weak.push(`Slower than you (-${A.speed - B.speed} Speed).`);
+
+    if (B.hp > A.hp * 1.18) strong.push(`+${Math.round((B.hp / A.hp - 1) * 100)}% heavier HP pool than yours.`);
+    else if (A.hp > B.hp * 1.18) weak.push(`${Math.round((1 - B.hp / A.hp) * 100)}% smaller HP pool than yours.`);
+
+    if (B.rawDps > A.rawDps * 1.15) strong.push(`Higher raw firepower (${B.rawDps.toLocaleString()} DPS).`);
+    else if (A.rawDps > B.rawDps * 1.15) weak.push(`Lower raw DPS (${B.rawDps.toLocaleString()} vs ${A.rawDps.toLocaleString()}).`);
+
+    if (!strong.length) strong.push('No major stat advantage over your unit.');
+    if (!weak.length) weak.push('No obvious stat weakness — rely on Workshop counters.');
+
+    const bestWs = A.wsEval.unitWorkshops.find(w => w.recommended) || A.wsEval.factionWorkshops.find(w => w.recommended);
+    return { strong: strong.slice(0, 3), weak: weak.slice(0, 3), bestWs };
+  }
+
+  function showHoverBrief(ev, idx) {
+    const row = currentEvaluatedRows[idx];
+    if (!row) return;
+    const card = document.getElementById('hoverBriefCard');
+    const { opp, duel } = row;
+    const pts = buildHoverBriefPoints(duel);
+
+    const modeCls = duel.bucket === 'RED' ? 'is-red' : (duel.bucket === 'GREEN' ? 'is-green' : 'is-amber');
+    const verdictLbl = duel.bucket === 'RED'
+      ? `🔴 THREAT (${duel.youWinPct}% WIN)`
+      : (duel.bucket === 'GREEN' ? `🟢 EASY KILL (${duel.youWinPct}% WIN)` : `🟡 EVEN (${duel.youWinPct}% WIN)`);
+
+    card.className = `hover-brief-card ${modeCls}`;
+    card.innerHTML = `
+      <div class="hb-hdr">
+        <span class="hb-name">${escapeHtml(opp.UNIT_NAME)}</span>
+        <span class="hb-verdict">${verdictLbl}</span>
+      </div>
+      <div class="hb-submeta">
+        <span style="color:#7dd3fc;">${escapeHtml(getGenerationLabel(opp))}</span> • ${escapeHtml(cleanVal(opp.STAT_FACTION) || 'Unaligned')} • ${escapeHtml(cleanVal(opp.STAT_TYPE) || getDivisionBucket(opp))} • 🛡️ ${escapeHtml(cleanVal(opp.STAT_ARMOR_TYPE) || 'Std')}
+      </div>
+      <div class="hb-sec-lbl" style="color:#ff858e;">⚠️ Enemy Strong Points vs You</div>
+      <ul class="hb-bullets">
+        ${pts.strong.map(s => `<li style="color:#ffd5d8;">• ${escapeHtml(s)}</li>`).join('')}
+      </ul>
+      <div class="hb-sec-lbl" style="color:#6ee7b7;">✅ Enemy Weaknesses You Exploit</div>
+      <ul class="hb-bullets">
+        ${pts.weak.map(w => `<li style="color:#d1fae5;">• ${escapeHtml(w)}</li>`).join('')}
+      </ul>
+      ${pts.bestWs ? `<div class="hb-ws-tip">★ Best Workshop: ${escapeHtml(pts.bestWs.title)}</div>` : ''}
+      <div class="hb-click-hint">🖱️ Click thumbnail for Full Stats &amp; Workshops</div>
+    `;
+    card.style.display = 'block';
+    moveHoverBrief(ev);
+  }
+
+  function moveHoverBrief(ev) {
+    const card = document.getElementById('hoverBriefCard');
+    if (card.style.display !== 'block') return;
+    const pad = 16;
+    const rect = card.getBoundingClientRect();
+    let left = ev.clientX + 18;
+    let top = ev.clientY + 14;
+    if (left + rect.width + pad > window.innerWidth) {
+      left = Math.max(pad, ev.clientX - rect.width - 18);
+    }
+    if (top + rect.height + pad > window.innerHeight) {
+      top = Math.max(pad, window.innerHeight - rect.height - pad);
+    }
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function hideHoverBrief() {
+    document.getElementById('hoverBriefCard').style.display = 'none';
+  }
+
+  /* ==================== POP-UP FULL STATS & WORKSHOP MODAL ==================== */
+  function openMatchupModal(idx) {
+    hideHoverBrief();
+    const row = currentEvaluatedRows[idx];
+    if (!row) return;
+    launchModalWithUnits(getMySelectedUnit(), row.opp);
+  }
+
+  function openMatchupModalByName(oppName) {
+    const opp = allCombatUnits.find(u => u.UNIT_NAME === oppName);
+    if (opp) launchModalWithUnits(getMySelectedUnit(), opp);
+  }
+
+  function launchModalWithUnits(youU, oppU) {
+    modalYouUnit = youU;
+    modalOppUnit = oppU;
+    document.getElementById('modalYouLvl').value = document.getElementById('myLevelSelect').value;
+    document.getElementById('modalOppLvl').value = document.getElementById('oppGridLevelSelect').value;
+
+    // Default auto-equip top recommended counter workshops
+    const yEval = evaluateWorkshopsAgainstOpponent(youU, oppU);
+    const oEval = evaluateWorkshopsAgainstOpponent(oppU, youU);
+    modalEquipped.you = new Set([
+      ...yEval.unitWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key),
+      ...yEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
+    ]);
+    modalEquipped.opp = new Set([
+      ...oEval.unitWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key),
+      ...oEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
+    ]);
+
+    document.getElementById('matchupModalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    recalculateModalMatchup();
+  }
+
+  function closeMatchupModal() {
+    document.getElementById('matchupModalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function onModalBackdropClick(ev) {
+    if (ev.target && ev.target.id === 'matchupModalBackdrop') {
+      closeMatchupModal();
+    }
+  }
+
+  document.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') closeMatchupModal();
+  });
+
+  function swapModalUnits() {
+    if (!modalYouUnit || !modalOppUnit) return;
+    const tmp = modalYouUnit;
+    modalYouUnit = modalOppUnit;
+    modalOppUnit = tmp;
+
+    const yL = document.getElementById('modalYouLvl');
+    const oL = document.getElementById('modalOppLvl');
+    const tL = yL.value;
+    yL.value = oL.value;
+    oL.value = tL;
+
+    launchModalWithUnits(modalYouUnit, modalOppUnit);
+  }
+
+  function autoEquipModalSide(side) {
+    const myU = side === 'you' ? modalYouUnit : modalOppUnit;
+    const otherU = side === 'you' ? modalOppUnit : modalYouUnit;
+    const ev = evaluateWorkshopsAgainstOpponent(myU, otherU);
+    modalEquipped[side] = new Set([
+      ...ev.unitWorkshops.filter(w => w.recommended).map(w => w.key),
+      ...ev.factionWorkshops.filter(w => w.recommended).map(w => w.key)
+    ]);
+    recalculateModalMatchup();
+  }
+
+  function toggleModalWorkshop(side, key) {
+    if (modalEquipped[side].has(key)) modalEquipped[side].delete(key);
+    else modalEquipped[side].add(key);
+    recalculateModalMatchup();
+  }
+
+  function renderModalFighterCard(prefix, rec) {
+    document.getElementById(`modal${prefix}Portrait`).innerHTML = render4x5PortraitHtml(rec);
+    document.getElementById(`modal${prefix}Name`).textContent = rec.UNIT_NAME;
+    document.getElementById(`modal${prefix}BriefLink`).href = `./unit-briefs.html?unit=${encodeURIComponent(rec.UNIT_NAME)}`;
+    document.getElementById(`modal${prefix}Chips`).innerHTML = `
+      <span class="meta-chip gen">${escapeHtml(getGenerationLabel(rec))}</span>
+      <span class="meta-chip gold">${escapeHtml(cleanVal(rec.STAT_FACTION) || 'Unaligned')}</span>
+      <span class="meta-chip">🛡️ ${escapeHtml(cleanVal(rec.STAT_ARMOR_TYPE) || 'Std')}</span>
+      <span class="meta-chip">💥 ${escapeHtml(cleanVal(rec.STAT_DAMAGE_TYPE) || 'Std')}</span>
+    `;
+  }
+
+  function recalculateModalMatchup() {
+    if (!modalYouUnit || !modalOppUnit) return;
+    renderModalFighterCard('You', modalYouUnit);
+    renderModalFighterCard('Opp', modalOppUnit);
+
+    const youTier = document.getElementById('modalYouLvl').value;
+    const oppTier = document.getElementById('modalOppLvl').value;
+
+    const A = buildProfile(modalYouUnit, modalOppUnit, youTier, modalEquipped.you);
+    const B = buildProfile(modalOppUnit, modalYouUnit, oppTier, modalEquipped.opp);
+    const d = simulateDuel(A, B);
+
+    document.getElementById('modalYouWsCount').textContent = `${A.equippedCount} Workshop${A.equippedCount === 1 ? '' : 's'} Equipped`;
+    document.getElementById('modalOppWsCount').textContent = `${B.equippedCount} Workshop${B.equippedCount === 1 ? '' : 's'} Equipped`;
+
+    let headline = '';
+    if (!d.aCanHitB && d.bCanHitA) {
+      headline = `🔴 AVOID CONTACT — ${modalYouUnit.UNIT_NAME} CANNOT TARGET ${B.domain}`;
+    } else if (d.aCanHitB && !d.bCanHitA) {
+      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} CANNOT TARGET ${A.domain}`;
+    } else if (d.youWinPct >= 55) {
+      const remHp = Math.max(4, Math.round((1 - (d.aTtk / d.bTtk)) * 100));
+      headline = `🟢 EASY KILL: ${modalYouUnit.UNIT_NAME} WINS (${d.youWinPct}% • ~${remHp}% HP LEFT)`;
+    } else if (d.youWinPct < 45) {
+      const remHp = Math.max(4, Math.round((1 - (d.bTtk / d.aTtk)) * 100));
+      headline = `🔴 THREAT ALERT: ${modalOppUnit.UNIT_NAME} WINS (${d.oppWinPct}% • ~${remHp}% HP LEFT)`;
+    } else {
+      headline = `🟡 EVEN 50/50 DUEL — WORKSHOPS & MICRO DECIDE`;
+    }
+
+    document.getElementById('modalYouWinPct').textContent = `${d.youWinPct}%`;
+    document.getElementById('modalOppWinPct').textContent = `${d.oppWinPct}%`;
+    document.getElementById('modalVerdictHeadline').textContent = headline;
+    document.getElementById('modalTugYou').style.width = `${d.youWinPct}%`;
+    document.getElementById('modalTugOpp').style.width = `${d.oppWinPct}%`;
+
+    document.getElementById('modalMetricsGrid').innerHTML = `
+      <div class="v-metric">
+        <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Armor Mult</div>
+        <div class="v-metric-val" style="color:${d.aArmorMult > 1 ? '#00e676' : '#e5eef7'}">${d.aArmorMult.toFixed(1)}x (${A.dmgInfo.core} → ${B.armorType})</div>
+      </div>
+      <div class="v-metric">
+        <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Time-To-Kill</div>
+        <div class="v-metric-val">${isFinite(d.aTtk) ? d.aTtk.toFixed(1) + 's' : 'Cannot Hit'}</div>
+      </div>
+      <div class="v-metric">
+        <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Time-To-Kill</div>
+        <div class="v-metric-val">${isFinite(d.bTtk) ? d.bTtk.toFixed(1) + 's' : 'Cannot Hit'}</div>
+      </div>
+      <div class="v-metric">
+        <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Armor Mult</div>
+        <div class="v-metric-val" style="color:${d.bArmorMult > 1 ? '#ff4d5a' : '#e5eef7'}">${d.bArmorMult.toFixed(1)}x (${B.dmgInfo.core} → ${A.armorType})</div>
+      </div>
+    `;
+
+    const statRows = [
+      { lbl: 'Hitpoints (HP)', a: A.hp, b: B.hp, fmt: v => v.toLocaleString() },
+      { lbl: 'Base / Buffed DPS', a: A.rawDps, b: B.rawDps, fmt: v => v.toLocaleString() },
+      { lbl: 'Effective Counter DPS', a: d.aEffDps, b: d.bEffDps, fmt: v => v.toLocaleString() },
+      { lbl: 'Weapon Range', a: A.range, b: B.range, fmt: v => v.toLocaleString() },
+      { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
+      { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },
+      { lbl: 'Splash Radius', a: A.splash, b: B.splash, fmt: v => v > 0 ? v : 'Single' }
+    ];
+    document.getElementById('modalStatRows').innerHTML = statRows.map(r => `
+      <div class="stat-comp-row">
+        <div class="stat-val-left ${r.a > r.b ? 'win' : ''}">${r.fmt(r.a)}</div>
+        <div class="stat-center-lbl">${r.lbl}</div>
+        <div class="stat-val-right ${r.b > r.a ? 'win' : ''}">${r.fmt(r.b)}</div>
+      </div>
+    `).join('');
+
+    renderModalProsCons('You', A, B, d.aCanHitB, d.bCanHitA, d.aArmorMult, d.bArmorMult, d.aFreeSec);
+    renderModalProsCons('Opp', B, A, d.bCanHitA, d.aCanHitB, d.bArmorMult, d.aArmorMult, d.bFreeSec);
+    renderModalWorkshops('you', 'You', modalYouUnit.UNIT_NAME, modalOppUnit.UNIT_NAME, A.wsEval);
+    renderModalWorkshops('opp', 'Opp', modalOppUnit.UNIT_NAME, modalYouUnit.UNIT_NAME, B.wsEval);
+  }
+
+  function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMult, oppMult, myFreeSec) {
+    document.getElementById(`modal${prefix}PcTitle`).textContent = `${me.unit.UNIT_NAME} (${me.tier === 'MAX' ? 'MAX' : 'Lvl ' + me.tier})`;
+    const items = [];
+    if (!meCanHit) items.push({ type: 'con', text: `Cannot target ${opp.domain} units.` });
+    if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} cannot fire at ${me.domain}.` });
+    if (myMult >= 2.0) items.push({ type: 'pro', text: `2.0x Counter Multiplier: ${me.dmgInfo.core} shreds ${opp.armorType} Armor.` });
+    if (oppMult >= 2.0) items.push({ type: 'con', text: `Takes 2.0x counter damage from ${opp.unit.UNIT_NAME}'s ${opp.dmgInfo.core}.` });
+    if (me.dmgInfo.isEnergy) items.push({ type: 'pro', text: `Legacy Energy Perk: Pierces 25% flat Damage Reduction.` });
+    if (me.range > opp.range + 10) items.push({ type: 'pro', text: `+${me.range - opp.range} Range Edge (~${myFreeSec.toFixed(1)}s free first-strike).` });
+    else if (opp.range > me.range + 10) items.push({ type: 'con', text: `Outranged by ${opp.range - me.range} — takes approach fire.` });
+    if (me.speed > opp.speed + 4) items.push({ type: 'pro', text: `+${me.speed - opp.speed} Speed edge for kiting/retreat.` });
+    else if (opp.speed > me.speed + 4) items.push({ type: 'con', text: `Slower (-${opp.speed - me.speed} Speed) — vulnerable to kiting.` });
+    if (me.hp > opp.hp * 1.15) items.push({ type: 'pro', text: `+${Math.round((me.hp / opp.hp - 1) * 100)}% larger HP pool.` });
+    if (!items.length) items.push({ type: 'pro', text: 'Even stat profile — equip Recommended Workshops below.' });
+
+    document.getElementById(`modal${prefix}PcList`).innerHTML = items.map(it =>
+      `<li class="pc-item ${it.type}">${it.type === 'pro' ? '✅ ' : '⚠️ '}${escapeHtml(it.text)}</li>`
+    ).join('');
+  }
+
+  function renderModalWorkshops(sideKey, domPrefix, myName, oppName, wsEval) {
+    document.getElementById(`modal${domPrefix}WsHdr`).textContent = `${myName} vs ${oppName}`;
+    const renderCard = item => {
+      const isEq = modalEquipped[sideKey].has(item.key);
+      return `
+        <div class="ws-card ${item.recommended ? 'recommended' : ''} ${isEq ? 'equipped' : ''}" onclick="toggleModalWorkshop('${sideKey}', '${item.key}')">
+          <div class="ws-card-head">
+            <div class="ws-card-name">${escapeHtml(item.title)}</div>
+            <div class="ws-badges">
+              ${item.recommended ? `<span class="ws-pill best">★ BEST VS ${escapeHtml(oppName)}</span>` : `<span class="ws-pill slot">${escapeHtml(item.tag)}</span>`}
+              ${isEq ? `<span class="ws-pill equip">✓ EQUIPPED</span>` : ''}
+            </div>
+          </div>
+          <div class="ws-card-desc">${escapeHtml(item.desc)}</div>
+          ${item.reasons.length ? `<div class="ws-why">↳ Why: ${escapeHtml(item.reasons.join(' • '))}</div>` : ''}
+        </div>
+      `;
+    };
+
+    const uHtml = wsEval.unitWorkshops.length
+      ? `<div class="ws-cards-list">${wsEval.unitWorkshops.map(renderCard).join('')}</div>`
+      : `<div class="ws-empty">No Unit Workshop slots listed in MASTER_DB for ${escapeHtml(myName)}.</div>`;
+    const fHtml = wsEval.factionWorkshops.length
+      ? `<div class="ws-cards-list">${wsEval.factionWorkshops.map(renderCard).join('')}</div>`
+      : `<div class="ws-empty">No Faction Workshop slots listed in MASTER_DB for ${escapeHtml(myName)}.</div>`;
+
+    document.getElementById(`modal${domPrefix}WsList`).innerHTML = `
+      <div class="ws-sub-label"><span>⚙️ Unit Workshop Tech</span><span>Click to Toggle</span></div>
+      ${uHtml}
+      <div class="ws-sub-label"><span>🏛️ Faction Workshop Counter</span><span>Matches Opponent Faction</span></div>
+      ${fHtml}
+    `;
+  }
+
+  function openUnitBriefInPage(ev, unitName) {
+    if (ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1)) return true;
+    if (ev) ev.preventDefault();
+    const targetUrl = unitName ? `./unit-briefs.html?unit=${encodeURIComponent(unitName)}` : './unit-briefs.html';
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
+        window.parent.openInlineModuleViewport('UNIT BRIEFS ENGINE', '#c29829', null, targetUrl, targetUrl);
+        return false;
+      }
+    } catch (e) {}
+    window.location.href = targetUrl;
+    return false;
+  }
+
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+
+  function popOutFullWindow() {
+    const url = window.location.href;
+    const w = 1340, h = 920;
+    const left = Math.max(0, (window.screen.width - w) / 2);
+    const top = Math.max(0, (window.screen.height - h) / 2);
+    window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    populateMyUnitSelect(false);
+    fetchMasterDb();
+  });
+</script>
+</body>
+</html>

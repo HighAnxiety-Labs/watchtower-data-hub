@@ -1021,9 +1021,10 @@
     tacticalBriefs: {
       accent: "var(--dir-btn2)", colorHex: "#c29829",
       cards: [
-        { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE", title: "UNIT BRIEFS ENGINE", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 2, symbol: "NEW",      title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",      title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "UNIT BRIEFS ENGINE", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: true,  order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
       ]
     },
     opIntel: {
@@ -1126,6 +1127,7 @@
       { match: "CC22 UPGRADE",    sym: "BLUEPRINT" },
       { match: "PRE-RELEASE",     sym: "ARCHIVE" },
       { match: "UNIT BRIEF",      sym: "DATABASE" },
+      { match: "MATCHUP",         sym: "CALCULATOR" },
       { match: "UNIT HISTORY",    sym: "ARCHIVE" },
       { match: "PLATOON",         sym: "NEW" },
       { match: "KEYBOARD",        sym: "NEW" },
@@ -1233,7 +1235,38 @@
       targetWorkspaces.tacticalBriefs.cards = targetWorkspaces.tacticalBriefs.cards.filter(
         c => !String(c?.title || "").toUpperCase().includes("UNIT HISTORY ARCHIVE")
       );
-      targetWorkspaces.tacticalBriefs.cards.forEach((c, idx) => { c.order = idx + 1; });
+      const tCards = targetWorkspaces.tacticalBriefs.cards;
+      const ubIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UNIT BRIEF"));
+      const umIdx = tCards.findIndex(c =>
+        String(c?.title || "").toUpperCase().includes("MATCHUP") ||
+        String(c?.url || "").toLowerCase().includes("unit-matchup")
+      );
+      if (umIdx === -1) {
+        const umCard = {
+          enabled: true,
+          isSubPage: true,
+          order: 2,
+          symbol: "CALCULATOR",
+          title: "UNIT MATCHUP SIMULATOR",
+          url: "./unit-matchup.html",
+          embedCode: "",
+          openInIframe: true
+        };
+        if (ubIdx !== -1) {
+          tCards.splice(ubIdx + 1, 0, umCard);
+        } else {
+          tCards.unshift(umCard);
+        }
+      } else {
+        tCards[umIdx].isSubPage = true;
+        tCards[umIdx].enabled = true;
+        if (ubIdx !== -1 && umIdx !== ubIdx + 1) {
+          const [umCard] = tCards.splice(umIdx, 1);
+          const newUbIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UNIT BRIEF"));
+          tCards.splice(newUbIdx + 1, 0, umCard);
+        }
+      }
+      tCards.forEach((c, idx) => { c.order = idx + 1; });
     }
     if (targetWorkspaces.wtrArchives && Array.isArray(targetWorkspaces.wtrArchives.cards)) {
       targetWorkspaces.wtrArchives.cards = targetWorkspaces.wtrArchives.cards.filter(
@@ -1281,6 +1314,7 @@
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "tacticalBriefs", match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW", ensurePresent: true },
+      { secKey: "tacticalBriefs", match: "MATCHUP",        urlHint: "unit-matchup",          file: "./unit-matchup.html",            defaultTitle: "UNIT MATCHUP SIMULATOR", defaultSym: "CALCULATOR", ensurePresent: true },
       { secKey: "opIntel",        match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",  urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",     defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED",    ensurePresent: true },
       { secKey: "opIntel",        match: "DAMAGE TYPE",    urlHint: "damage-type",           file: "./damage-type.html",             defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR", ensurePresent: true },
@@ -4648,6 +4682,7 @@
       { match: "CC22 UPGRADE",    sym: "BLUEPRINT" },
       { match: "PRE-RELEASE",     sym: "ARCHIVE" },
       { match: "UNIT BRIEF",      sym: "DATABASE" },
+      { match: "MATCHUP",         sym: "CALCULATOR" },
       { match: "UNIT HISTORY",    sym: "ARCHIVE" },
       { match: "PLATOON",         sym: "NEW" },
       { match: "KEYBOARD",        sym: "NEW" },
@@ -5593,6 +5628,7 @@
       "sector-status-sheet.html",
       "skirmish.html",
       "unit-briefs.html",
+      "unit-matchup.html",
       "vault-event-history.html",
       "video-recon.html",
       "whats-broken.html"
@@ -5643,7 +5679,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
