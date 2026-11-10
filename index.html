@@ -1023,8 +1023,8 @@
       accent: "var(--dir-btn2)", colorHex: "#c29829",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE", title: "UNIT BRIEFS ENGINE", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 2, symbol: "NEW",      title: "PLATOON FORMATIONS GUIDE", url: "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/platoon-guide", embedCode: "" },
-        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",      title: "KEYBOARD COMMANDS", url: "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/keyboard-commands", embedCode: "" }
+        { enabled: true, isSubPage: false, order: 2, symbol: "NEW",      title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",      title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
       ]
     },
     opIntel: {
@@ -1230,6 +1230,8 @@
       { secKey: "baseOps",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE & LAYOUTS", defaultSym: "BLUEPRINT" },
       { secKey: "baseOps",        match: "PRE-RELEASE",    urlHint: "cc-22-pre-release",     file: "./cc-22-pre-release.html",       defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
+      { secKey: "tacticalBriefs", match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW", ensurePresent: true },
+      { secKey: "tacticalBriefs", match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW", ensurePresent: true },
       { secKey: "opIntel",        match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",  urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",     defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED",    ensurePresent: true },
       { secKey: "opIntel",        match: "DAMAGE TYPE",    urlHint: "damage-type",           file: "./damage-type.html",             defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR", ensurePresent: true },
@@ -5534,7 +5536,9 @@
       "faction-intel.html",
       "hub-home.html",
       "index.html",
+      "keyboard-commands.html",
       "operation-blue-baron.html",
+      "platoon-guide.html",
       "report-war-crimes.html",
       "sector-status-sheet.html",
       "skirmish.html",
@@ -5589,7 +5593,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
