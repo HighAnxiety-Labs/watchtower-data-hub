@@ -1033,7 +1033,7 @@
         { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/damage-type", embedCode: "" },
-        { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/faction-intel", embedCode: "" },
+        { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
         { enabled: true, isSubPage: false, order: 6, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/video-recon", embedCode: "" }
       ]
@@ -1231,6 +1231,7 @@
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",  file: "./sector-status-sheet.html",   defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED" },
+      { secKey: "opIntel",        match: "FACTION",        file: "./faction-intel.html",         defaultTitle: "FACTION INTEL",          defaultSym: "DATABASE" },
       { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "PVP SEASON",     file: "./2026-pvp-season-60-brief.html", defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
@@ -1239,10 +1240,16 @@
       { secKey: "adminBug",       match: "WAR CRIMES",     file: "./report-war-crimes.html",     defaultTitle: "REPORT WAR CRIMES",      defaultSym: "UPCOMING" }
     ];
 
+    const isGsiteEmbed = window.location.hostname.includes("googleusercontent.com") || window.location.protocol === "blob:";
     standaloneMappings.forEach(m => {
       const sec = targetWorkspaces[m.secKey];
       if (!sec || !Array.isArray(sec.cards)) return;
-      let card = sec.cards.find(c => String(c?.title || "").toUpperCase().includes(m.match));
+      const resolvedUrl = isGsiteEmbed ? m.file.replace(/^\.\//, "https://highanxiety-labs.github.io/watchtower-data-hub/") : m.file;
+      let card = sec.cards.find(c =>
+        String(c?.title || "").toUpperCase().includes(m.match) ||
+        (m.match === "SECTOR STATUS" && String(c?.url || "").toLowerCase().includes("sector-status-sheet")) ||
+        (m.match === "FACTION" && String(c?.url || "").toLowerCase().includes("faction-intel"))
+      );
       if (!card && m.ensureFirst) {
         card = {
           enabled: true,
@@ -1250,14 +1257,14 @@
           order: 1,
           symbol: m.defaultSym,
           title: m.defaultTitle,
-          url: m.file,
+          url: resolvedUrl,
           embedCode: "",
           openInIframe: true
         };
         sec.cards.unshift(card);
         sec.cards.forEach((c, idx) => { c.order = idx + 1; });
       } else if (card) {
-        card.url = m.file;
+        card.url = resolvedUrl;
         card.embedCode = "";
         card.openInIframe = true;
       }
@@ -5502,6 +5509,7 @@
       "building-briefs.html",
       "cc-22-pre-release.html",
       "command-center.html",
+      "faction-intel.html",
       "hub-home.html",
       "index.html",
       "operation-blue-baron.html",
@@ -5538,6 +5546,9 @@
   };
 
   function getWtrPublishedPrefix() {
+    if (window.location.hostname.includes("googleusercontent.com") || window.location.protocol === "blob:") {
+      return "https://highanxiety-labs.github.io/watchtower-data-hub/";
+    }
     const p = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/").toLowerCase();
     if (p.includes("/masters/") || p.includes("wtr data hub admin page")) {
       return "../published/watchtower-data-hub/";
@@ -5555,7 +5566,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
