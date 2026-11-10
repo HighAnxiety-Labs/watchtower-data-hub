@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER OPERATIONAL INTEL PUBLISHED // DAMAGE TYPE MATRIX & ARMOR REWORK -->
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — Damage Type Matrix &amp; Armor Rework</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Data Hub — War Commander Damage Type Matrix & Armor Rework">
+  <meta property="og:description" content="Interactive 3x3 Damage Type & Armor Multiplier Matrix (Area, Sustain, Burst vs Light, Medium, Heavy Armor), Legacy Energy/Fire Conversions, and Damage Simulator.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-void: #03060a;
+    --bg-panel: #080e16;
+    --bg-card: #0b131d;
+    --bg-card-hover: #0f1a28;
+    --border-dim: #172638;
+    --theme-accent: #3d9e65;
+    --theme-accent-bright: #00e676;
+    --theme-accent-dim: rgba(61, 158, 101, 0.16);
+    --theme-accent-glow: rgba(0, 230, 118, 0.45);
+
+    /* Damage Type Signature Colors (Matching Original Page) */
+    --dmg-area: #f0883e;
+    --dmg-area-bg: rgba(240, 136, 62, 0.12);
+    --dmg-sustain: #38bdf8;
+    --dmg-sustain-bg: rgba(56, 189, 248, 0.12);
+    --dmg-burst: #ff6b6b;
+    --dmg-burst-bg: rgba(255, 107, 107, 0.12);
+
+    /* Legacy Conversion Tag Colors */
+    --leg-energy: #1f6feb;
+    --leg-fire: #bd561d;
+    --leg-removed: #6e7681;
+
+    --text-main: #e2ecf5;
+    --text-muted: #8fa6bc;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-void);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(61, 158, 101, 0.10) 0%, transparent 55%),
+      linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px, 28px 28px;
+    color: var(--text-main);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    padding: 18px 18px 36px;
+    overflow-x: hidden;
+  }
+
+  .board-shell {
+    max-width: 1220px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ==========================================================================
+     4-CORNER OPPOSING-ANGLE CLASSIFICATION HEADER & FOOTER
+     ========================================================================== */
+  .class-bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: 270px 1fr 270px;
+    align-items: stretch;
+    height: 44px;
+    background: #060b11;
+    border: 1px solid rgba(40, 199, 111, 0.45);
+    box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 15px rgba(40, 199, 111, 0.08);
+    z-index: 30;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .class-bar-top {
+    border-radius: 6px 6px 0 0;
+  }
+
+  .class-bar-bottom {
+    border-radius: 0 0 6px 6px;
+    margin-top: -1px;
+  }
+
+  .corner-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #b9f6ca;
+    background: linear-gradient(180deg, rgba(40, 199, 111, 0.22), rgba(40, 199, 111, 0.08));
+    padding: 0 14px;
+    z-index: 2;
+  }
+
+  .class-bar-top .corner-left {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+    border-right: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-top .corner-right {
+    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+    border-left: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-bottom .corner-left {
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+    border-right: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-bottom .corner-right {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+    border-left: 1px solid rgba(40, 199, 111, 0.4);
+  }
+
+  .class-center {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--theme-accent-bright);
+    text-shadow: 0 0 10px rgba(40, 199, 111, 0.5);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--theme-accent-bright);
+    box-shadow: 0 0 8px var(--theme-accent-bright);
+    animation: pulseDot 2s infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+
+  .collapse-toggle-btn {
+    background: rgba(40, 199, 111, 0.14);
+    border: 1px solid rgba(40, 199, 111, 0.55);
+    color: #d0f8df;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .collapse-toggle-btn:hover {
+    background: var(--theme-accent-bright);
+    color: #030906;
+    box-shadow: 0 0 12px var(--theme-accent-glow);
+  }
+
+  /* Center 90px Spinning Radar Logo */
+  .radar-logo-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #07130d 0%, #03070a 80%);
+    border: 2px solid var(--theme-accent-bright);
+    box-shadow: 0 0 24px rgba(40, 199, 111, 0.45), inset 0 0 14px rgba(40, 199, 111, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 45;
+    overflow: hidden;
+  }
+  .radar-logo-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(40, 199, 111, 0.55);
+    animation: spinRing 18s linear infinite;
+  }
+  .radar-logo-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 70%, rgba(40, 199, 111, 0.38) 100%);
+    animation: spinRing 4s linear infinite;
+  }
+  .radar-logo-wrap img {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ==========================================================================
+     COLLAPSIBLE MIDDLE BODY
+     ========================================================================== */
+  .brief-middle-body {
+    background: rgba(7, 12, 19, 0.94);
+    border-left: 1px solid rgba(40, 199, 111, 0.35);
+    border-right: 1px solid rgba(40, 199, 111, 0.35);
+    padding: 48px 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .board-shell.is-collapsed .brief-middle-body {
+    display: none;
+  }
+  .board-shell.is-collapsed .class-bar-bottom {
+    margin-top: 6px;
+  }
+
+  .watermark-stamp {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-14deg);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(44px, 7vw, 104px);
+    font-weight: 900;
+    letter-spacing: 14px;
+    color: rgba(40, 199, 111, 0.025);
+    border: 4px solid rgba(40, 199, 111, 0.025);
+    padding: 12px 38px;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .content-layer {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ==========================================================================
+     HERO HEADER & NAVIGATION
+     ========================================================================== */
+  .hero-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-dim);
+    margin-bottom: 20px;
+  }
+
+  .hero-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--theme-accent-bright);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hub-nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(40, 199, 111, 0.14);
+    border: 1px solid rgba(40, 199, 111, 0.45);
+    color: #b9f6ca;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .hub-nav-pill:hover {
+    background: var(--theme-accent-bright);
+    color: #020905;
+    box-shadow: 0 0 10px var(--theme-accent-glow);
+  }
+  .hub-nav-pill.popout-pill {
+    border-color: rgba(0, 229, 255, 0.55);
+    background: rgba(0, 229, 255, 0.12);
+    color: #7df9ff;
+  }
+  .hub-nav-pill.popout-pill:hover {
+    background: #00e5ff;
+    color: #010a0f;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+  }
+
+  .system-update-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #238636;
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 0 0 16px rgba(0, 230, 118, 0.28);
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 880px;
+    line-height: 1.5;
+  }
+  .hero-subtitle strong {
+    color: #ffffff;
+  }
+
+  /* ==========================================================================
+     CORE 3 DAMAGE TYPE CARDS
+     ========================================================================== */
+  .damage-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .dmg-card {
+    background: linear-gradient(145deg, #0d1622 0%, #080d14 100%);
+    border: 1px solid #1e3246;
+    border-top: 4px solid var(--dmg-color, #00e676);
+    border-radius: 6px;
+    padding: 20px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .dmg-card:hover,
+  .dmg-card.active {
+    transform: translateY(-2px);
+    border-color: var(--dmg-color, #00e676);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.75), 0 0 18px var(--dmg-bg, rgba(0, 230, 118, 0.2));
+    background: linear-gradient(145deg, #121f30 0%, #091019 100%);
+  }
+
+  .dmg-card-type {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dmg-color, #ffffff);
+    margin-bottom: 8px;
+  }
+
+  .dmg-card-mult {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 900;
+    color: #56d364;
+    text-shadow: 0 0 14px rgba(86, 211, 100, 0.35);
+    margin-bottom: 6px;
+  }
+
+  .dmg-card-target {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #e2ecf5;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .dmg-card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ==========================================================================
+     TWO-COLUMN WORKSPACE: 3x3 MATRIX TABLE + INTERACTIVE DAMAGE CALCULATOR
+     ========================================================================== */
+  .matrix-workspace {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 20px;
+    margin-bottom: 24px;
+    align-items: stretch;
+  }
+
+  .panel-box {
+    background: #0a111a;
+    border: 1px solid #1d3044;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-box-head {
+    background: #0e1926;
+    border-bottom: 1px solid #1d3044;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .panel-box-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-box-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--theme-accent-bright);
+    text-transform: uppercase;
+  }
+
+  /* 3x3 Matrix Table */
+  .matrix-table-wrap {
+    padding: 16px;
+    overflow-x: auto;
+    flex: 1;
+  }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 14.5px;
+  }
+
+  .matrix-table th,
+  .matrix-table td {
+    padding: 12px 10px;
+    border: 1px solid #172738;
+  }
+
+  .matrix-table th {
+    background: #070d14;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: #9fb4c7;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .matrix-row-lbl {
+    text-align: left !important;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    background: #080f17;
+    white-space: nowrap;
+  }
+
+  .cell-2x {
+    background: rgba(86, 211, 100, 0.16);
+    border: 1px solid rgba(86, 211, 100, 0.55) !important;
+    color: #56d364;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    box-shadow: inset 0 0 12px rgba(86, 211, 100, 0.12);
+  }
+
+  .cell-1x {
+    color: #6e8499;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+  }
+
+  .matrix-row-highlight td {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Interactive Damage Calculator */
+  .calc-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .calc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .calc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .calc-field label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #8fa6bc;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  .calc-select,
+  .calc-input {
+    background: #050a10;
+    border: 1px solid #22384f;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 7px 10px;
+    outline: none;
+  }
+  .calc-select:focus,
+  .calc-input:focus {
+    border-color: var(--theme-accent-bright);
+  }
+
+  .calc-result-banner {
+    background: linear-gradient(135deg, #091914 0%, #060d14 100%);
+    border: 1px solid rgba(0, 230, 118, 0.45);
+    border-left: 4px solid var(--theme-accent-bright);
+    border-radius: 5px;
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .calc-res-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .calc-res-lbl {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10.5px;
+    color: #8fa6bc;
+    text-transform: uppercase;
+  }
+  .calc-res-notes {
+    font-size: 13px;
+    color: #b9f6ca;
+    font-weight: 600;
+  }
+  .calc-res-val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #56d364;
+    text-align: right;
+  }
+
+  /* ==========================================================================
+     LEGACY TYPE CONVERSIONS & REMOVALS SECTION
+     ========================================================================== */
+  .legacy-section {
+    background: #0a111a;
+    border: 1px solid #1d3044;
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+  }
+
+  .legacy-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .legacy-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .legacy-lead {
+    font-size: 15.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .legacy-lead strong {
+    color: #ffffff;
+  }
+
+  .legacy-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legacy-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    background: #060b11;
+    border: 1px solid #1b2c3f;
+    border-radius: 6px;
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: #d6e2ec;
+  }
+
+  .legacy-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    min-width: 88px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .legacy-tag.energy { background-color: var(--leg-energy); box-shadow: 0 0 10px rgba(31, 111, 235, 0.35); }
+  .legacy-tag.fire   { background-color: var(--leg-fire);   box-shadow: 0 0 10px rgba(189, 86, 29, 0.35); }
+  .legacy-tag.tech   { background-color: var(--leg-removed); }
+
+  /* ==========================================================================
+     COLLAPSIBLE TACTICAL NOTEPAD & SHORTCUT BAR
+     ========================================================================== */
+  .bottom-utility-bar {
+    background: #080f17;
+    border: 1px solid #1b2d40;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .utility-bar-top {
+    padding: 11px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tool-btn {
+    background: #0d1824;
+    border: 1px solid #23394f;
+    color: #c7d8e8;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11.5px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .tool-btn:hover {
+    border-color: var(--theme-accent-bright);
+    color: #ffffff;
+    background: rgba(0, 230, 118, 0.12);
+  }
+
+  .notepad-drawer {
+    display: none;
+    padding: 14px 16px;
+    background: #05090e;
+    border-top: 1px dashed #1f3349;
+  }
+  .notepad-drawer.open {
+    display: block;
+  }
+  .notepad-textarea {
+    width: 100%;
+    min-height: 78px;
+    background: #091018;
+    border: 1px solid #1f3246;
+    border-radius: 4px;
+    color: #e2ecf5;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 8px 12px;
+    resize: vertical;
+    outline: none;
+  }
+  .notepad-textarea:focus {
+    border-color: var(--theme-accent-bright);
+  }
+
+  @media (max-width: 920px) {
+    .matrix-workspace {
+      grid-template-columns: 1fr;
+    }
+    .class-bar {
+      grid-template-columns: 185px 1fr 185px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .damage-cards-grid {
+      grid-template-columns: 1fr;
+    }
+    .calc-row {
+      grid-template-columns: 1fr;
+    }
+    .class-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+    .class-center {
+      display: none;
+    }
+    .radar-logo-wrap {
+      width: 68px;
+      height: 68px;
+    }
+    .radar-logo-wrap img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="board-shell" id="boardShell">
+
+  <!-- ==================== TOP 4-CORNER CLASSIFICATION BAR ==================== -->
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left">
+      <span class="status-dot"></span>
+      <span>WATCHTOWER // INTEL</span>
+    </div>
+
+    <div class="class-center">
+      UNCLASSIFIED // DAMAGE &amp; ARMOR SYSTEM MATRIX
+    </div>
+
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" id="collapseBtn" type="button" onclick="toggleBoardCollapse()">
+        [—] COLLAPSE BRIEF
+      </button>
+    </div>
+
+    <div class="radar-logo-wrap" title="WatchToweR Command Center">
+      <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Logo">
+    </div>
+  </header>
+
+  <!-- ==================== COLLAPSIBLE MIDDLE BODY ==================== -->
+  <main class="brief-middle-body" id="briefMiddleBody">
+    <div class="watermark-stamp">DAMAGE MATRIX</div>
+
+    <div class="content-layer">
+      <!-- HERO HEADER -->
+      <div class="hero-header">
+        <div class="hero-title-block">
+          <div class="hero-eyebrow">
+            <a href="./index.html" class="hub-nav-pill" id="backToHubLink">◂ COMMAND CENTER</a>
+            <a href="./damage-type.html" target="_blank" rel="noopener" class="hub-nav-pill popout-pill" title="Open Damage Type Matrix in a full standalone browser tab">↗ POP-OUT FULL WINDOW</a>
+            <span class="system-update-badge">⚡ WatchTower System Update</span>
+          </div>
+          <h1 class="hero-title">DAMAGE TYPE SIMPLIFICATION &amp; ARMOR MATRIX</h1>
+          <p class="hero-subtitle">
+            Our damage system is streamlined to cut through the complexity of thousands of tech effects, unit multipliers, and sub-types. Moving forward, the core combat system features <strong>3 Damage Types</strong> and <strong>3 Armor Types</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 CORE DAMAGE TYPE CARDS (CLICK TO SELECT IN SIMULATOR) -->
+      <div class="damage-cards-grid">
+        <div class="dmg-card" id="card-AREA" style="--dmg-color: var(--dmg-area); --dmg-bg: var(--dmg-area-bg);" onclick="selectDamageTypeCard('AREA')">
+          <div class="dmg-card-type">💥 Area Damage</div>
+          <div class="dmg-card-mult">2x Damage</div>
+          <div class="dmg-card-target">vs LIGHT Armor</div>
+          <p class="dmg-card-desc">Explosive &amp; splash ordnance engineered to shred Light Armor infantry, light vehicles, and clustered formations.</p>
+        </div>
+
+        <div class="dmg-card" id="card-SUSTAIN" style="--dmg-color: var(--dmg-sustain); --dmg-bg: var(--dmg-sustain-bg);" onclick="selectDamageTypeCard('SUSTAIN')">
+          <div class="dmg-card-type">⚡ Sustain Damage</div>
+          <div class="dmg-card-mult">2x Damage</div>
+          <div class="dmg-card-target">vs MEDIUM Armor</div>
+          <p class="dmg-card-desc">Continuous rapid-fire weaponry optimized to melt Medium Armor skirmishers, gunships, and strike vehicles.</p>
+        </div>
+
+        <div class="dmg-card" id="card-BURST" style="--dmg-color: var(--dmg-burst); --dmg-bg: var(--dmg-burst-bg);" onclick="selectDamageTypeCard('BURST')">
+          <div class="dmg-card-type">🎯 Burst Damage</div>
+          <div class="dmg-card-mult">2x Damage</div>
+          <div class="dmg-card-target">vs HEAVY Armor</div>
+          <p class="dmg-card-desc">High-impact armor-piercing payloads built to crack Heavy Armor tanks, dreadnoughts, and fortified walkers.</p>
+        </div>
+      </div>
+
+      <!-- 3x3 MATRIX TABLE + INTERACTIVE DAMAGE SIMULATOR -->
+      <div class="matrix-workspace">
+        <div class="panel-box">
+          <div class="panel-box-head">
+            <span class="panel-box-title">📊 3×3 DAMAGE VS. ARMOR MULTIPLIER MATRIX</span>
+            <span class="panel-box-sub">CLICK ANY ROW TO TEST</span>
+          </div>
+          <div class="matrix-table-wrap">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th style="text-align:left;">Weapon Damage Type</th>
+                  <th>vs LIGHT Armor</th>
+                  <th>vs MEDIUM Armor</th>
+                  <th>vs HEAVY Armor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="row-AREA" onclick="selectDamageTypeCard('AREA')" style="cursor:pointer;">
+                  <td class="matrix-row-lbl" style="color: var(--dmg-area);">💥 AREA DAMAGE</td>
+                  <td class="cell-2x">2.0x DMG</td>
+                  <td class="cell-1x">1.0x Base</td>
+                  <td class="cell-1x">1.0x Base</td>
+                </tr>
+                <tr id="row-SUSTAIN" onclick="selectDamageTypeCard('SUSTAIN')" style="cursor:pointer;">
+                  <td class="matrix-row-lbl" style="color: var(--dmg-sustain);">⚡ SUSTAIN DAMAGE</td>
+                  <td class="cell-1x">1.0x Base</td>
+                  <td class="cell-2x">2.0x DMG</td>
+                  <td class="cell-1x">1.0x Base</td>
+                </tr>
+                <tr id="row-BURST" onclick="selectDamageTypeCard('BURST')" style="cursor:pointer;">
+                  <td class="matrix-row-lbl" style="color: var(--dmg-burst);">🎯 BURST DAMAGE</td>
+                  <td class="cell-1x">1.0x Base</td>
+                  <td class="cell-1x">1.0x Base</td>
+                  <td class="cell-2x">2.0x DMG</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE DAMAGE & PERK CALCULATOR -->
+        <div class="panel-box">
+          <div class="panel-box-head">
+            <span class="panel-box-title">🧮 TACTICAL DAMAGE &amp; PERK SIMULATOR</span>
+            <span class="panel-box-sub">LIVE MULTIPLIER CHECK</span>
+          </div>
+          <div class="calc-body">
+            <div class="calc-row">
+              <div class="calc-field">
+                <label for="simDmgType">1. Attacking Damage Type</label>
+                <select id="simDmgType" class="calc-select" onchange="updateSimulator()">
+                  <option value="AREA">💥 Area Damage</option>
+                  <option value="SUSTAIN">⚡ Sustain Damage</option>
+                  <option value="BURST">🎯 Burst Damage</option>
+                </select>
+              </div>
+              <div class="calc-field">
+                <label for="simArmorType">2. Target Armor / Class</label>
+                <select id="simArmorType" class="calc-select" onchange="updateSimulator()">
+                  <option value="LIGHT">🛡️ Light Armor</option>
+                  <option value="MEDIUM">🛡️ Medium Armor</option>
+                  <option value="HEAVY">🛡️ Heavy Armor</option>
+                  <option value="BUILDING_ZOMBIE">🏚️ Building / Zombie</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="calc-row">
+              <div class="calc-field">
+                <label for="simLegacyPerk">3. Legacy Weapon Perk</label>
+                <select id="simLegacyPerk" class="calc-select" onchange="updateSimulator()">
+                  <option value="NONE">Standard (No Legacy Perk)</option>
+                  <option value="ENERGY">⚡ Former Energy (+25% Flat DR Piercing)</option>
+                  <option value="FIRE">🔥 Former Fire (2x vs Zombies/Buildings)</option>
+                </select>
+              </div>
+              <div class="calc-field">
+                <label for="simBaseDps">4. Base Weapon DPS / Shot</label>
+                <input type="number" id="simBaseDps" class="calc-input" value="1000" min="1" step="100" oninput="updateSimulator()">
+              </div>
+            </div>
+
+            <div class="calc-result-banner">
+              <div class="calc-res-left">
+                <span class="calc-res-lbl" id="simMatchupLabel">AREA DAMAGE VS LIGHT ARMOR</span>
+                <span class="calc-res-notes" id="simPerkNotes">Optimal Armor Matchup (2.0x Multiplier)</span>
+              </div>
+              <div class="calc-res-val" id="simTotalOutput">2,000 DPS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEGACY TYPE CONVERSIONS & REMOVALS -->
+      <section class="legacy-section">
+        <div class="legacy-head">
+          <h2 class="legacy-title">🔄 Legacy Type Conversions &amp; Removals</h2>
+          <span style="font-family:'Share Tech Mono',monospace; font-size:11.5px; color:#8fa6bc;">PERMANENT COMBAT REWORK RULES</span>
+        </div>
+        <p class="legacy-lead">
+          <strong>Fire</strong> and <strong>Energy</strong> damage types have been removed. All weapons previously utilizing them have been migrated to the three core types and granted replacement perks:
+        </p>
+
+        <ul class="legacy-list">
+          <li class="legacy-item">
+            <span class="legacy-tag energy">ENERGY</span>
+            <span>All former energy weapons now grant <strong>25% Flat Damage Reduction Piercing</strong>.</span>
+          </li>
+          <li class="legacy-item">
+            <span class="legacy-tag fire">FIRE</span>
+            <span>All former fire weapons now deal a <strong>2x Damage Boost</strong> against Zombies and Buildings.</span>
+          </li>
+          <li class="legacy-item">
+            <span class="legacy-tag tech">REMOVED</span>
+            <span><strong>Weapon Tech</strong> has been removed entirely — thorium armor, solar damage, and related tech trees no longer require tracking.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- BOTTOM UTILITY BAR & PERSONAL TACTICAL NOTEPAD -->
+      <div class="bottom-utility-bar">
+        <div class="utility-bar-top">
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <span style="font-family:'Share Tech Mono',monospace; font-size:11.5px; color:#b9f6ca;">⚡ QUICK REFERENCE:</span>
+            <span style="font-size:14px; color:#8fa6bc;">Area → Light (2x) &nbsp;|&nbsp; Sustain → Medium (2x) &nbsp;|&nbsp; Burst → Heavy (2x)</span>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="tool-btn" id="btnToggleNotes" onclick="toggleDamageNotepad()">📝 OPEN DAMAGE TECH NOTEPAD</button>
+            <a href="./unit-briefs.html" class="tool-btn">⚔️ OPEN UNIT BRIEFS ENGINE ↗</a>
+          </div>
+        </div>
+        <div class="notepad-drawer" id="dmgNotepadDrawer">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--theme-accent-bright);">
+            <span>📝 PERSONAL DAMAGE MATCHUP &amp; UNIT COUNTER NOTES</span>
+            <span style="color:#8fa6bc;">Auto-Saved Locally</span>
+          </div>
+          <textarea id="dmgNotesTextarea" class="notepad-textarea" placeholder="Log unit counter notes, former Energy/Fire weapon conversions, or base defense turret armor matchups..." oninput="saveDamageNotes(this.value)"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== BOTTOM 4-CORNER CLASSIFICATION BAR ==================== -->
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left">
+      <span>[-WTR-] DATA HUB</span>
+    </div>
+
+    <div class="class-center">
+      BY PLAYERS FOR PLAYERS // COMBAT GUIDES DIVISION
+    </div>
+
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ▲ TOP OF BRIEF
+      </button>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const DMG_NOTES_STORAGE_KEY = "wtr_damage_type_notes_v1";
+
+  function toggleBoardCollapse() {
+    const shell = document.getElementById("boardShell");
+    const btn = document.getElementById("collapseBtn");
+    const collapsed = shell.classList.toggle("is-collapsed");
+    btn.textContent = collapsed ? "[+] EXPAND BRIEF" : "[—] COLLAPSE BRIEF";
+  }
+
+  function selectDamageTypeCard(dmgType) {
+    const sel = document.getElementById("simDmgType");
+    const armorSel = document.getElementById("simArmorType");
+    if (sel) sel.value = dmgType;
+    if (armorSel) {
+      if (dmgType === "AREA") armorSel.value = "LIGHT";
+      else if (dmgType === "SUSTAIN") armorSel.value = "MEDIUM";
+      else if (dmgType === "BURST") armorSel.value = "HEAVY";
+    }
+    updateSimulator();
+  }
+
+  function updateSimulator() {
+    const dmg = document.getElementById("simDmgType").value;
+    const armor = document.getElementById("simArmorType").value;
+    const perk = document.getElementById("simLegacyPerk").value;
+    const baseDps = Math.max(0, parseFloat(document.getElementById("simBaseDps").value) || 0);
+
+    ["AREA", "SUSTAIN", "BURST"].forEach(k => {
+      const card = document.getElementById(`card-${k}`);
+      const row = document.getElementById(`row-${k}`);
+      if (card) card.classList.toggle("active", k === dmg);
+      if (row) row.classList.toggle("matrix-row-highlight", k === dmg);
+    });
+
+    let mult = 1.0;
+    const notes = [];
+
+    if (
+      (dmg === "AREA" && armor === "LIGHT") ||
+      (dmg === "SUSTAIN" && armor === "MEDIUM") ||
+      (dmg === "BURST" && armor === "HEAVY")
+    ) {
+      mult *= 2.0;
+      notes.push("2x Counter-Armor Matchup");
+    } else {
+      notes.push("1x Standard Armor Matchup");
+    }
+
+    if (perk === "FIRE" && armor === "BUILDING_ZOMBIE") {
+      mult *= 2.0;
+      notes.push("+ 2x Former Fire Boost vs Buildings/Zombies");
+    } else if (perk === "FIRE") {
+      notes.push("Former Fire (2x triggers vs Zombies/Buildings)");
+    }
+
+    if (perk === "ENERGY") {
+      notes.push("+ 25% Flat DR Piercing Active");
+    }
+
+    const finalDps = Math.round(baseDps * mult);
+    document.getElementById("simMatchupLabel").textContent = `${dmg} DAMAGE VS ${armor.replace("_", " / ")} (${mult.toFixed(1)}x)`;
+    document.getElementById("simPerkNotes").textContent = notes.join(" • ");
+    document.getElementById("simTotalOutput").textContent = `${finalDps.toLocaleString()} DPS`;
+  }
+
+  function toggleDamageNotepad() {
+    const drawer = document.getElementById("dmgNotepadDrawer");
+    const btn = document.getElementById("btnToggleNotes");
+    const isOpen = drawer.classList.toggle("open");
+    btn.textContent = isOpen ? "📝 CLOSE DAMAGE TECH NOTEPAD" : "📝 OPEN DAMAGE TECH NOTEPAD";
+  }
+
+  function saveDamageNotes(val) {
+    try {
+      localStorage.setItem(DMG_NOTES_STORAGE_KEY, val || "");
+    } catch (e) {}
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const inIframe = (window.self !== window.top);
+    const backLink = document.getElementById("backToHubLink");
+    if (inIframe && backLink) {
+      backLink.style.display = "none";
+    }
+    try {
+      const saved = localStorage.getItem(DMG_NOTES_STORAGE_KEY);
+      if (saved) {
+        document.getElementById("dmgNotesTextarea").value = saved;
+      }
+    } catch (e) {}
+    updateSimulator();
+  });
+</script>
+</body>
+</html>

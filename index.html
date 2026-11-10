@@ -1032,7 +1032,7 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/damage-type", embedCode: "" },
+        { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
         { enabled: true, isSubPage: false, order: 6, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/video-recon", embedCode: "" }
@@ -1231,6 +1231,7 @@
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",  file: "./sector-status-sheet.html",   defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED" },
+      { secKey: "opIntel",        match: "DAMAGE TYPE",    file: "./damage-type.html",           defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR" },
       { secKey: "opIntel",        match: "FACTION",        file: "./faction-intel.html",         defaultTitle: "FACTION INTEL",          defaultSym: "DATABASE" },
       { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
@@ -1248,6 +1249,7 @@
       let card = sec.cards.find(c =>
         String(c?.title || "").toUpperCase().includes(m.match) ||
         (m.match === "SECTOR STATUS" && String(c?.url || "").toLowerCase().includes("sector-status-sheet")) ||
+        (m.match === "DAMAGE TYPE" && String(c?.url || "").toLowerCase().includes("damage-type")) ||
         (m.match === "FACTION" && String(c?.url || "").toLowerCase().includes("faction-intel"))
       );
       if (!card && m.ensureFirst) {
@@ -1353,10 +1355,9 @@
           card.embedCode = "";
           fixedCount++;
         }
-        if (!card.url || card.url.includes("operational-briefs")) {
-          card.url = "https://sites.google.com/view/watchtower-data-hub/operational-intel/damage-type";
-          fixedCount++;
-        }
+        const isGsiteEmbed = window.location.hostname.includes("googleusercontent.com") || window.location.protocol === "blob:";
+        card.url = isGsiteEmbed ? "https://highanxiety-labs.github.io/watchtower-data-hub/damage-type.html" : "./damage-type.html";
+        card.openInIframe = true;
       }
     });
 
@@ -5509,6 +5510,7 @@
       "building-briefs.html",
       "cc-22-pre-release.html",
       "command-center.html",
+      "damage-type.html",
       "faction-intel.html",
       "hub-home.html",
       "index.html",
@@ -5566,7 +5568,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
