@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Base Defense Planning — Zone Control & Choke Architecture</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Base Defense Planning — Combat Guides">
+  <meta property="og:description" content="War Commander Base Defense Planning • Layered Perimeter Strategy, Chokepoint Kill Zones, Ordnance Deployment Matrix, and Command Lab Tech Allocation.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <style>
+    :root {
+      --bg-dark: #070a0f;
+      --panel-bg: #0d121a;
+      --card-bg: #131a24;
+      --card-alt: #18212e;
+      --border-metal: #263445;
+      --border-highlight: #3a506b;
+      --text-main: #d1d9e6;
+      --text-bright: #f0f6fc;
+      --text-muted: #8b9bb4;
+      --accent-green: #2ea043;
+      --accent-emerald: #10b981;
+      --accent-cyan: #38bdf8;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --table-header: #1a2433;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 14px;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(46, 160, 67, 0.08) 0%, transparent 60%),
+        linear-gradient(rgba(38, 52, 69, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(38, 52, 69, 0.25) 1px, transparent 1px);
+      background-size: 100% 100%, 32px 32px, 32px 32px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .master-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      background: var(--panel-bg);
+      border: 2px solid var(--border-metal);
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    /* 4-Corner Opposing-Angle Classification Header & Footer */
+    .classification-bar {
+      background: linear-gradient(90deg, #1b7a43 0%, #2ea043 50%, #1b7a43 100%);
+      color: #040806;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+      font-size: 12.5px;
+      letter-spacing: 2.5px;
+      text-align: center;
+      padding: 7px 16px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #4ade80;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
+    }
+
+    .classification-bar.footer-bar {
+      border-bottom: none;
+      border-top: 2px solid #4ade80;
+      clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+      margin-top: 12px;
+    }
+
+    /* Top Tactical Navigation Bar (In-Page + Pop-Out Support) */
+    .top-utility-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(6, 10, 15, 0.92);
+      border-bottom: 1px solid var(--border-metal);
+    }
+
+    .util-left, .util-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tactical-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #121b26;
+      color: var(--text-bright);
+      border: 1px solid var(--border-highlight);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tactical-btn:hover {
+      background: var(--accent-green);
+      color: #040806;
+      border-color: #86efac;
+      box-shadow: 0 0 12px rgba(46, 160, 67, 0.45);
+    }
+
+    .tactical-btn.btn-cyan {
+      border-color: rgba(56, 189, 248, 0.5);
+      color: var(--accent-cyan);
+    }
+
+    .tactical-btn.btn-cyan:hover {
+      background: var(--accent-cyan);
+      color: #04080c;
+      border-color: #bae6fd;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+    }
+
+    .status-pill {
+      font-family: monospace;
+      font-size: 11.5px;
+      color: #4ade80;
+      background: rgba(46, 160, 67, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* Hero Banner with 90px Spinning Radar Emblem */
+    .hero-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px 28px;
+      background: linear-gradient(180deg, rgba(20, 30, 42, 0.9) 0%, rgba(13, 18, 26, 0.95) 100%);
+      border-bottom: 2px solid var(--border-metal);
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .logo-radar-wrap {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, #2ea043 0%, #0f1722 50%, #38bdf8 100%);
+      box-shadow: 0 0 22px rgba(46, 160, 67, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.85);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-radar-wrap::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(74, 222, 128, 0.55);
+      animation: radarSpin 14s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes radarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-radar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #05070a;
+      display: block;
+    }
+
+    .hero-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      background: rgba(46, 160, 67, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.45);
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .hero-titles h1 {
+      color: var(--text-bright);
+      font-size: clamp(24px, 3.6vw, 36px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      color: var(--accent-cyan);
+      font-family: monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    /* Quick Jump Bar */
+    .quick-jump-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 28px;
+      background: #090d13;
+      border-bottom: 1px solid var(--border-metal);
+    }
+
+    .jump-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .jump-pill {
+      background: #131b26;
+      border: 1px solid var(--border-metal);
+      color: var(--text-main);
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .jump-pill:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-bright);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    /* Main Content Container */
+    .content-container {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+
+    .section-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-metal);
+      padding-bottom: 10px;
+    }
+
+    .section-title {
+      color: var(--text-bright);
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      border-left: 4px solid var(--accent-green);
+      padding-left: 12px;
+    }
+
+    .section-meta {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-metal);
+      border-top: 3px solid var(--card-accent, var(--accent-green));
+      border-radius: 6px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--card-accent, var(--accent-green));
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-bright);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-metal);
+      padding-bottom: 10px;
+    }
+
+    .priority-tag {
+      font-family: monospace;
+      font-size: 11.5px;
+      padding: 3px 9px;
+      border-radius: 3px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+
+    .tag-mid {
+      background: rgba(245, 158, 11, 0.18);
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+    }
+
+    .tag-high {
+      background: rgba(239, 68, 68, 0.18);
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+    }
+
+    .tag-key {
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+    }
+
+    /* 4:5 Blueprint Image Frame */
+    .image-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background-color: #080b10;
+      border: 1px solid var(--border-highlight);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .image-frame:hover img {
+      transform: scale(1.03);
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(5, 8, 12, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: var(--accent-cyan);
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    /* Tactical Lists */
+    ul.tactical-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.tactical-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      font-size: 14.5px;
+    }
+
+    ul.tactical-list li:last-child {
+      border-bottom: none;
+    }
+
+    ul.tactical-list li strong {
+      color: var(--text-bright);
+    }
+
+    ul.tactical-list li em {
+      color: var(--accent-cyan);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* Structured Layout Matrix Table */
+    .matrix-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .filter-btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #121a24;
+      border: 1px solid var(--border-metal);
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(46, 160, 67, 0.2);
+      color: #4ade80;
+      border-color: #4ade80;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-metal);
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: left;
+      min-width: 680px;
+    }
+
+    th, td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border-metal);
+    }
+
+    th {
+      background-color: var(--table-header);
+      color: var(--accent-cyan);
+      font-family: monospace;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    tbody tr {
+      transition: background-color 0.15s ease;
+    }
+
+    tbody tr:hover {
+      background-color: rgba(56, 189, 248, 0.05);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ordnance-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent-cyan);
+      font-family: monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    /* Blueprint Lightbox Modal */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 10, 0.92);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+    }
+
+    .lightbox-box {
+      max-width: 820px;
+      width: 100%;
+      background: var(--panel-bg);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lightbox-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #080c12;
+      border-bottom: 1px solid var(--border-metal);
+    }
+
+    .lightbox-title {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .lightbox-body {
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      background: #05070a;
+      max-height: 82vh;
+      overflow: auto;
+    }
+
+    .lightbox-body img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner, .content-container {
+        padding: 18px;
+      }
+      .quick-jump-bar {
+        padding: 10px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="master-shell">
+    <!-- Top 4-Corner Classification Bar -->
+    <div class="classification-bar">
+      [-WTR-] WATCHTOWER COMMAND PROTOCOL // COMBAT GUIDES // BASE DEFENSE &amp; CHOKE ARCHITECTURE BRIEF
+    </div>
+
+    <!-- Top Utility Bar (Seamless In-Page & Pop-Out Controls) -->
+    <div class="top-utility-bar">
+      <div class="util-left">
+        <button type="button" class="tactical-btn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
+        <span class="status-pill">🏗️ LAYERED PERIMETER DOCTRINE • CC22 READY</span>
+      </div>
+      <div class="util-right">
+        <button type="button" class="tactical-btn btn-cyan" id="btnPopOutWindow" onclick="popOutFullWindow()">↗ POP-OUT FULL WINDOW</button>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-left">
+        <div class="logo-radar-wrap">
+          <img class="logo-radar-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Emblem">
+        </div>
+        <div class="hero-titles">
+          <span class="hero-kicker">WatchToweR Command Protocol</span>
+          <h1>Base Defense Planning</h1>
+          <div class="hero-subtitle">Zone Control • Choke Architecture • Tech Synergies</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Section Jump Bar -->
+    <nav class="quick-jump-bar" aria-label="Section Navigation">
+      <div class="jump-pills">
+        <a href="#sec-perimeter" class="jump-pill">01 // Layered Perimeter Strategy</a>
+        <a href="#sec-matrix" class="jump-pill">02 // Tactical Deployment Matrix</a>
+        <a href="#sec-tech" class="jump-pill">03 // Command Lab Tech Allocation</a>
+      </div>
+      <span style="font-family:monospace; font-size:11.5px; color:var(--text-muted);">💡 Click any perimeter blueprint to enlarge</span>
+    </nav>
+
+    <div class="content-container">
+      <!-- SECTION 1: LAYERED PERIMETER ARCHITECTURE -->
+      <section id="sec-perimeter">
+        <div class="section-header-row">
+          <h2 class="section-title">1. Layered Perimeter Strategy</h2>
+          <span class="section-meta">3-TIER DEFENSE-IN-DEPTH ARCHITECTURE</span>
+        </div>
+
+        <div class="grid-3">
+          <!-- Outer Ring -->
+          <article class="card" style="--card-accent: var(--accent-gold);">
+            <div class="image-frame" onclick="openBlueprintLightbox('https://share1.cloudhq-mkt3.net/08a66c94b704ef.jpeg', 'OUTER RING: DELAY & DECELERATE (TIER 1)')">
+              <img src="https://share1.cloudhq-mkt3.net/08a66c94b704ef.jpeg" alt="Outer Perimeter Blueprint" width="1200" height="1490">
+              <span class="zoom-hint">🔍 ENLARGE BLUEPRINT</span>
+            </div>
+            <h3 class="card-header">
+              <span>Outer Ring: Delay &amp; Decelerate</span>
+              <span class="priority-tag tag-mid">Tier 1</span>
+            </h3>
+            <ul class="tactical-list">
+              <li><strong>Objective:</strong> Strip shields and slow assault velocity.</li>
+              <li><strong>Key Weapon:</strong> <em>Chronos Rockets</em> to force wide AoE deceleration grids.</li>
+              <li><strong>Targeting:</strong> Set initial fire arcs at 1,100 range to break frontline momentum before wall contact.</li>
+              <li><strong>Obstacles:</strong> Staggered ablative barriers to induce unit rerouting.</li>
+            </ul>
+          </article>
+
+          <!-- Funnel Core -->
+          <article class="card" style="--card-accent: var(--accent-red);">
+            <div class="image-frame" onclick="openBlueprintLightbox('https://share1.cloudhq-mkt3.net/0578e18c9925cf.jpeg', 'MID-SECTOR: CHOKE & DISSOLVE (KILL ZONE)')">
+              <img src="https://share1.cloudhq-mkt3.net/0578e18c9925cf.jpeg" alt="Chokepoint Kill Zone" width="1200" height="1490">
+              <span class="zoom-hint">🔍 ENLARGE BLUEPRINT</span>
+            </div>
+            <h3 class="card-header">
+              <span>Mid-Sector: Choke &amp; Dissolve</span>
+              <span class="priority-tag tag-high">Kill Zone</span>
+            </h3>
+            <ul class="tactical-list">
+              <li><strong>Objective:</strong> Maximize sustained DPS on packed enemy columns.</li>
+              <li><strong>Key Weapon:</strong> <em>Acid Rain Rockets</em> (4,400 DPS AoE corrosive burn).</li>
+              <li><strong>Geometry:</strong> Form an angled bottleneck funneling targets through interlocking crossfires.</li>
+              <li><strong>Support:</strong> Anti-swarm splash batteries overlapping heavy entry corridors.</li>
+            </ul>
+          </article>
+
+          <!-- Command Citadel -->
+          <article class="card" style="--card-accent: var(--accent-cyan);">
+            <div class="image-frame" onclick="openBlueprintLightbox('https://share1.cloudhq-mkt3.net/171d5396746c23.jpeg', 'CITADEL: HIGH-ARMOR BREACH DEFENSE (CORE)')">
+              <img src="https://share1.cloudhq-mkt3.net/171d5396746c23.jpeg" alt="Inner Core Bastion" width="1200" height="1490">
+              <span class="zoom-hint">🔍 ENLARGE BLUEPRINT</span>
+            </div>
+            <h3 class="card-header">
+              <span>Citadel: High-Armor Breach Defense</span>
+              <span class="priority-tag tag-key">Core</span>
+            </h3>
+            <ul class="tactical-list">
+              <li><strong>Objective:</strong> Immediate elimination of super-heavies and breach tanks.</li>
+              <li><strong>Key Weapon:</strong> <em>Tungsten Rockets</em> (4,240 kinetic anti-armor DPS).</li>
+              <li><strong>Fortification:</strong> Deep bracing attachments, hardened defense labs, and redundant power nodes.</li>
+              <li><strong>Contingency:</strong> Dark Shadow smoke modules to enforce a 75% target miss chance during breaches.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 2: TACTICAL DEFENSE DEPLOYMENT MATRIX -->
+      <section id="sec-matrix">
+        <div class="section-header-row">
+          <h2 class="section-title">2. Tactical Defense Deployment Matrix</h2>
+          <div class="filter-btn-group">
+            <button type="button" class="filter-btn active" onclick="filterDefenseMatrix('ALL', this)">All Sectors (4)</button>
+            <button type="button" class="filter-btn" onclick="filterDefenseMatrix('OUTER', this)">Outer Flanks</button>
+            <button type="button" class="filter-btn" onclick="filterDefenseMatrix('BOTTLENECK', this)">Central Bottleneck</button>
+            <button type="button" class="filter-btn" onclick="filterDefenseMatrix('GATEHOUSE', this)">Gatehouse Choke</button>
+            <button type="button" class="filter-btn" onclick="filterDefenseMatrix('CITADEL', this)">Command Citadel</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Sector / Node</th>
+                <th>Threat Classification</th>
+                <th>Primary Ordnance</th>
+                <th>Countermeasure Pairing</th>
+                <th>Operational Protocol</th>
+              </tr>
+            </thead>
+            <tbody id="defenseMatrixBody">
+              <tr data-zone="OUTER">
+                <td><strong style="color:var(--accent-gold);">Outer Flanks</strong></td>
+                <td>Fast Escorts, Light Swarms</td>
+                <td><span class="ordnance-badge">Chronos Payload (Splash)</span></td>
+                <td>Anti-Infantry Mines</td>
+                <td>Trap units in stasis grid; allow perimeter AoE turrets to pick off flanks.</td>
+              </tr>
+              <tr data-zone="BOTTLENECK">
+                <td><strong style="color:var(--accent-red);">Central Bottleneck</strong></td>
+                <td>Massed Formations, Support Armor</td>
+                <td><span class="ordnance-badge">Acid Rain Payload</span></td>
+                <td>Desync Beacon Neutralizers</td>
+                <td>Layer persistent corrosive pools across narrow terrain intersections.</td>
+              </tr>
+              <tr data-zone="GATEHOUSE">
+                <td><strong style="color:#4ade80;">Gatehouse Choke</strong></td>
+                <td>Heavy Walkers, Breaching Siege units</td>
+                <td><span class="ordnance-badge">Tungsten AP Rockets</span></td>
+                <td>Master Key Deterrents</td>
+                <td>Focus concentrated kinetic volleys to core armor plating on arrival.</td>
+              </tr>
+              <tr data-zone="CITADEL">
+                <td><strong style="color:var(--accent-cyan);">Command Citadel</strong></td>
+                <td>Air Drops, Infiltration Squads</td>
+                <td><span class="ordnance-badge">Dark Shadow Modules</span></td>
+                <td>Overlapping Braced Turrets</td>
+                <td>Drop emergency concealment to force 75% enemy miss penalty during point defense.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3: CRITICAL UPGRADE PRIORITIES -->
+      <section id="sec-tech">
+        <div class="section-header-row">
+          <h2 class="section-title">3. Command Lab Tech Allocation</h2>
+          <span class="section-meta">DEFENSE LAB RESEARCH &amp; TURRET REDUNDANCY</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="--card-accent: var(--accent-green);">
+            <h3 class="card-header">
+              <span>Priority 1: Ordnance Splash Radius</span>
+              <span class="priority-tag tag-key">LVL 50+ LAB</span>
+            </h3>
+            <p style="font-size: 14.5px; color: var(--text-main);">
+              Keep Defense Lab research progressing toward level 50+ to expand blast splash profiles from <strong style="color:var(--text-bright);">165 to 300</strong>. Wider area coverage ensures choke points remain fully saturated without requiring additional weapon nodes.
+            </p>
+          </div>
+          <div class="card" style="--card-accent: var(--accent-cyan);">
+            <h3 class="card-header">
+              <span>Priority 2: Bracing vs. Desync Redundancy</span>
+              <span class="priority-tag tag-high">ANTI-DESYNC</span>
+            </h3>
+            <p style="font-size: 14.5px; color: var(--text-main);">
+              Avoid placing high-value shielded turrets in isolated single clusters. Desync payloads strip absorption mitigation instantly; stagger key defensive bastions so one neutralization doesn't collapse an entire sector.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom 4-Corner Classification Bar -->
+    <div class="classification-bar footer-bar">
+      [-WTR-] WATCHTOWER COMMAND CENTER // BASE DEFENSE &amp; LAYOUTS BRIEF // END OF TRANSMISSION
+    </div>
+  </div>
+
+  <!-- Blueprint Lightbox Modal -->
+  <div class="lightbox-overlay" id="blueprintLightbox" onclick="closeBlueprintLightbox()">
+    <div class="lightbox-box" onclick="event.stopPropagation()">
+      <div class="lightbox-top">
+        <span class="lightbox-title" id="lightboxTitle">BLUEPRINT INSPECTION</span>
+        <button type="button" class="tactical-btn" onclick="closeBlueprintLightbox()">✕ CLOSE</button>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged Perimeter Blueprint">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterDefenseMatrix(zone, btnEl) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      document.querySelectorAll('#defenseMatrixBody tr').forEach(row => {
+        if (zone === 'ALL' || row.getAttribute('data-zone') === zone) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function openBlueprintLightbox(imgUrl, titleText) {
+      const overlay = document.getElementById('blueprintLightbox');
+      const img = document.getElementById('lightboxImg');
+      const title = document.getElementById('lightboxTitle');
+      if (img) img.src = imgUrl;
+      if (title) title.textContent = titleText || 'BLUEPRINT INSPECTION';
+      if (overlay) overlay.classList.add('open');
+    }
+
+    function closeBlueprintLightbox() {
+      const overlay = document.getElementById('blueprintLightbox');
+      if (overlay) overlay.classList.remove('open');
+    }
+
+    function returnToCommandCenter() {
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+          window.parent.closeInlineModuleViewport();
+          return;
+        }
+      } catch (e) {}
+      window.location.href = './index.html';
+    }
+
+    function popOutFullWindow() {
+      const url = window.location.href;
+      const w = 1220, h = 900;
+      const left = Math.max(0, (window.screen.width - w) / 2);
+      const top = Math.max(0, (window.screen.height - h) / 2);
+      window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeBlueprintLightbox();
+    });
+  </script>
+</body>
+</html>

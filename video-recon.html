@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Video Recon Desk — WatchToweR Video Intelligence</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Video Recon Desk — WatchToweR Video Intelligence">
+  <meta property="og:description" content="Curated tactical combat footage, PvE event run walkthroughs, external utility suites, and community content creator reconnaissance for War Commander commanders.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <style>
+    :root {
+      --bg-dark: #070a0f;
+      --panel-bg: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #2a3543;
+      --border-highlight: #3d4f65;
+      --text-main: #c9d1d9;
+      --text-bright: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-red: #f85149;
+      --accent-orange: #d29922;
+      --tool-accent: #238636;
+      --tool-border: #2ea043;
+      --tool-text: #3fb950;
+      --yt-red: #da3633;
+      --yt-hover: #b62324;
+      --yt-text: #ff7b72;
+      --blue-border: #388bfd;
+      --blue-hover: #1f6feb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 14px;
+      line-height: 1.55;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(218, 54, 51, 0.08) 0%, transparent 60%),
+        linear-gradient(rgba(42, 53, 67, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 53, 67, 0.25) 1px, transparent 1px);
+      background-size: 100% 100%, 32px 32px, 32px 32px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .master-shell {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      background-color: var(--panel-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    /* 4-Corner Opposing-Angle Classification Header & Footer */
+    .classification-bar {
+      background: linear-gradient(90deg, #8b1e1e 0%, #da3633 50%, #8b1e1e 100%);
+      color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+      font-size: 12.5px;
+      letter-spacing: 2.5px;
+      text-align: center;
+      padding: 7px 16px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #ff7b72;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
+    }
+
+    .classification-bar.footer-bar {
+      border-bottom: none;
+      border-top: 2px solid #ff7b72;
+      clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+      margin-top: 12px;
+    }
+
+    /* Top Utility Bar */
+    .top-utility-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(7, 10, 15, 0.94);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .util-left, .util-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tactical-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #141c26;
+      color: var(--text-bright);
+      border: 1px solid var(--border-highlight);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tactical-btn:hover {
+      background: var(--yt-red);
+      color: #ffffff;
+      border-color: #ff7b72;
+      box-shadow: 0 0 12px rgba(218, 54, 51, 0.45);
+    }
+
+    .tactical-btn.btn-cyan {
+      border-color: rgba(88, 166, 255, 0.5);
+      color: var(--accent);
+    }
+
+    .tactical-btn.btn-cyan:hover {
+      background: var(--blue-hover);
+      color: #ffffff;
+      border-color: #79c0ff;
+    }
+
+    .status-pill {
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--yt-text);
+      background: rgba(218, 54, 51, 0.14);
+      border: 1px solid rgba(255, 123, 114, 0.35);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px 28px;
+      background: linear-gradient(180deg, rgba(24, 31, 42, 0.92) 0%, rgba(13, 17, 23, 0.96) 100%);
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .logo-radar-wrap {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, #da3633 0%, #0d1117 50%, #58a6ff 100%);
+      box-shadow: 0 0 22px rgba(218, 54, 51, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.85);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-radar-wrap::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255, 123, 114, 0.55);
+      animation: radarSpin 14s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes radarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-radar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #05070a;
+      display: block;
+    }
+
+    .hero-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .header-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background-color: var(--accent-red);
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-titles h1 {
+      color: #ffffff;
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 780px;
+    }
+
+    /* Filter & Search Bar */
+    .recon-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 28px;
+      background: #090d12;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      background: #141a23;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill.active, .filter-pill:hover {
+      background: rgba(218, 54, 51, 0.18);
+      color: #ffffff;
+      border-color: var(--yt-red);
+    }
+
+    .search-input {
+      background: #0d131a;
+      border: 1px solid var(--border-highlight);
+      color: var(--text-bright);
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12.5px;
+      min-width: 240px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+
+    /* Main 4-Column Recon Grid */
+    .container {
+      padding: 28px;
+    }
+
+    .major-four-column {
+      display: flex;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .major-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .vertical-divider {
+      width: 1px;
+      background: linear-gradient(180deg, rgba(48, 54, 61, 0.2) 0%, #30363d 15%, #30363d 85%, rgba(48, 54, 61, 0.2) 100%);
+      flex-shrink: 0;
+    }
+
+    /* Headers Colored to Match Group Theme */
+    .pairing-header {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 24px;
+      font-family: monospace;
+    }
+
+    .pairing-header.red-group { color: var(--yt-text); }
+    .pairing-header.red-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(218, 54, 51, 0.4); }
+    .pairing-header.amber-group { color: var(--accent-orange); }
+    .pairing-header.amber-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(210, 153, 34, 0.4); }
+    .pairing-header.green-group { color: var(--tool-text); }
+    .pairing-header.green-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(46, 160, 67, 0.4); }
+    .pairing-header.blue-group { color: var(--accent); }
+    .pairing-header.blue-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(56, 139, 253, 0.4); }
+
+    /* Base Card Styling */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 6px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card.card-red {
+      border: 1px solid rgba(218, 54, 51, 0.45);
+      border-top: 3px solid var(--yt-red);
+    }
+    .card.card-red:hover {
+      border-color: var(--yt-red);
+      box-shadow: 0 4px 16px rgba(218, 54, 51, 0.22);
+    }
+
+    .card.card-green {
+      border: 1px solid rgba(46, 160, 67, 0.45);
+      border-top: 3px solid var(--tool-border);
+    }
+    .card.card-green:hover {
+      border-color: var(--tool-border);
+      box-shadow: 0 4px 16px rgba(46, 160, 67, 0.22);
+    }
+
+    .card.card-blue {
+      border: 1px solid rgba(56, 139, 253, 0.45);
+      border-top: 3px solid var(--blue-border);
+    }
+    .card.card-blue:hover {
+      border-color: var(--blue-border);
+      box-shadow: 0 4px 16px rgba(56, 139, 253, 0.22);
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .card-tag.youtube { color: var(--yt-text); }
+    .card-tag.highlight { color: var(--accent-orange); }
+    .card-tag.tool { color: var(--tool-text); }
+    .card-tag.alert { color: var(--accent-red); }
+
+    .card-title {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    /* Buttons */
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 5px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-youtube {
+      background-color: rgba(218, 54, 51, 0.15);
+      color: var(--yt-text);
+      border: 1px solid var(--yt-red);
+    }
+    .btn-youtube:hover {
+      background-color: var(--yt-hover);
+      color: #ffffff;
+      border-color: #ff7b72;
+    }
+
+    .btn-external {
+      background-color: rgba(46, 160, 67, 0.15);
+      color: var(--tool-text);
+      border: 1px solid var(--tool-border);
+      white-space: nowrap;
+    }
+    .btn-external:hover {
+      background-color: var(--tool-accent);
+      color: #ffffff;
+      border-color: #4ade80;
+    }
+
+    .btn-internal {
+      background-color: rgba(56, 139, 253, 0.15);
+      color: var(--accent);
+      border: 1px solid var(--blue-border);
+    }
+    .btn-internal:hover {
+      background-color: var(--blue-hover);
+      color: #ffffff;
+      border-color: #79c0ff;
+    }
+
+    @media (max-width: 1060px) {
+      .major-four-column {
+        flex-direction: column;
+      }
+      .vertical-divider {
+        width: 100%;
+        height: 1px;
+        margin: 6px 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner, .container {
+        padding: 18px;
+      }
+      .recon-filter-bar {
+        padding: 10px 18px;
+      }
+      .search-input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="master-shell">
+    <!-- Top 4-Corner Classification Bar -->
+    <div class="classification-bar">
+      [-WTR-] WATCHTOWER VIDEO INTELLIGENCE // COMBAT GUIDES // VIDEO RECON DESK
+    </div>
+
+    <!-- Top Utility Bar -->
+    <div class="top-utility-bar">
+      <div class="util-left">
+        <button type="button" class="tactical-btn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
+        <span class="status-pill">🎥 TACTICAL RECONNAISSANCE • CREATORS &amp; TOOLS</span>
+      </div>
+      <div class="util-right">
+        <button type="button" class="tactical-btn btn-cyan" onclick="popOutFullWindow()">↗ POP-OUT FULL WINDOW</button>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-left">
+        <div class="logo-radar-wrap">
+          <img class="logo-radar-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Emblem">
+        </div>
+        <div class="hero-titles">
+          <span class="header-badge">WatchToweR Video Intelligence</span>
+          <h1>📹 Video Recon Desk</h1>
+          <p class="subtitle">Curated tactical combat footage, PvE event run walkthroughs, external utility suites, and community content creator reconnaissance for War Commander commanders.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filter & Search Bar -->
+    <div class="recon-filter-bar">
+      <div class="filter-pills">
+        <button type="button" class="filter-pill active" onclick="filterReconColumns('ALL', this)">All Channels &amp; Tools</button>
+        <button type="button" class="filter-pill" onclick="filterReconColumns('CREATORS', this)">▶ Featured Creators</button>
+        <button type="button" class="filter-pill" onclick="filterReconColumns('WALKTHROUGHS', this)">🎯 Event Walkthroughs</button>
+        <button type="button" class="filter-pill" onclick="filterReconColumns('TOOLS', this)">🛠️ Player Tools</button>
+        <button type="button" class="filter-pill" onclick="filterReconColumns('LOGS', this)">🛡️ Combat Analysis &amp; Logs</button>
+      </div>
+      <input type="text" id="reconSearchInput" class="search-input" placeholder="🔍 Filter creators, guides, tools..." oninput="applyReconSearch(this.value)">
+    </div>
+
+    <!-- 4-Column Layout -->
+    <div class="container">
+      <div class="major-four-column">
+        <!-- COLUMN 1: Featured YouTube Creators (Red Outlines) -->
+        <div class="major-col" data-col-group="CREATORS">
+          <div class="pairing-header red-group">Featured Creators</div>
+
+          <div class="card card-red" data-searchable="top tier content creator highly detailed tactical runs project_d88 unit compositions workshop setups attack tactics">
+            <div>
+              <span class="card-tag youtube">Top TIER Content Creator</span>
+              <div class="card-title">Highly Detailed Tactical Runs</div>
+              <div class="card-desc">
+                Actionable, direct content complete with step-by-step guides for unit compositions, workshop setups, and attack tactics.
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://www.youtube.com/@Project_d88" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Project_d88</a>
+            </div>
+          </div>
+
+          <div class="card card-red" data-searchable="watch me kick ass demo runs highlights stormy gaming yt furious bull2 wc jbsamar mp184 burn-base dot siddy3386">
+            <div>
+              <span class="card-tag youtube">WATCH ME "KICK ASS"</span>
+              <div class="card-title">Demo Runs &amp; Highlights</div>
+              <div class="card-desc">Quick Release tactical gameplay and general playthrough recordings set to background music from community creators.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://www.youtube.com/@STORMYGAMINGYT99" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ STORMY GAMING YT</a>
+              <a href="https://www.youtube.com/@furiousbull2" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ furious bull2</a>
+              <a href="https://www.youtube.com/@WCJBsamar" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ WC JBsamar</a>
+              <a href="https://www.youtube.com/@MP184BURNBASE" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ MP184 BURN-BASE</a>
+              <a href="https://www.youtube.com/@dot-sl1zo" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ DOT</a>
+              <a href="https://youtube.com/shorts/VK5_pXq1Re4?si=JVuPauDFG0FoiR4q" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Siddy3386</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="vertical-divider">&nbsp;</div>
+
+        <!-- COLUMN 2: Current Event Walkthroughs (Red Outlines) -->
+        <div class="major-col" data-col-group="WALKTHROUGHS">
+          <div class="pairing-header amber-group">EVENT WALKTHROUGHS</div>
+
+          <div class="card card-red" data-searchable="player strategy help helpful videos free repairs l rhinos banshees target prioritization">
+            <div>
+              <span class="card-tag highlight">PLAYER Strategy HELP</span>
+              <div class="card-title">Player Helpful Videos</div>
+              <div class="card-desc">Step-by-step for the new guy or returning players: target prioritization, lower-repairs, and non-event farming.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://www.youtube.com/watch?v=Cpv5Ts7HTgA&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ A Guide to help get Free Repairs</a>
+              <a href="https://www.youtube.com/watch?v=2apvfU-_jv0&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to use L Rhinos</a>
+              <a href="https://www.youtube.com/watch?v=1Fky0uGhMA8&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to Kill Banshees</a>
+            </div>
+          </div>
+
+          <div class="card card-red" data-searchable="how-to player resource tactics shadow ops iridium supply depots advanced materials holdout sector breach skirmish">
+            <div>
+              <span class="card-tag highlight">How-To</span>
+              <div class="card-title">Player Resource Tactics</div>
+              <div class="card-desc">Master combat against Events: Monthly Operation, Holdout, Shadow Ops, Sector Breach, and Skirmish-related searches.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://www.youtube.com/results?search_query=Shadow+Ops+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Shadow Ops</a>
+              <a href="https://www.youtube.com/results?search_query=IRIDIUM+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ IRIDIUM</a>
+              <a href="https://www.youtube.com/results?search_query=SUPPLY+DEPOTS+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Supply Depots</a>
+              <a href="https://www.youtube.com/results?search_query=AdvancedMaterials+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Advanced Materials</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="vertical-divider">&nbsp;</div>
+
+        <!-- COLUMN 3: Player Tools (Green Outlines & Combined Tools) -->
+        <div class="major-col" data-col-group="TOOLS">
+          <div class="pairing-header green-group">Player Tools</div>
+
+          <div class="card card-green" data-searchable="capture utility screenpal video recorder battle runs exploits">
+            <div>
+              <span class="card-tag tool">Capture Utility</span>
+              <div class="card-title">ScreenPal Video Recorder</div>
+              <div class="card-desc">Record battle runs or capture suspected exploits directly on desktop using ScreenPal for clean verification clips.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://screenpal.com/" class="card-btn btn-external" target="_blank" rel="noopener">Open ScreenPal ↗</a>
+            </div>
+          </div>
+
+          <div class="card card-green" data-searchable="external uploader imglink.cc video image hub blueprints replays get involved">
+            <div>
+              <span class="card-tag tool">External Uploader</span>
+              <div class="card-title">imglink.cc Video &amp; Image Hub</div>
+              <div class="card-desc">
+                Don't use YouTube; host incident captures, base layout blueprints, and attack replays with universal UK/global visibility. Send URLs via
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700;">Get Involved ↗</a>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://imglink.cc/" class="card-btn btn-external" target="_blank" rel="noopener">Share via IMGLINK.CC ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="vertical-divider">&nbsp;</div>
+
+        <!-- COLUMN 4: Combat Analysis & Logs (Blue Outlines) -->
+        <div class="major-col" data-col-group="LOGS">
+          <div class="pairing-header blue-group">Combat Analysis &amp; Logs</div>
+
+          <div class="card card-blue" data-searchable="war crimes intel cheat exploit recordings bot scripting report proof">
+            <div>
+              <span class="card-tag alert">War Crimes Intel</span>
+              <div class="card-title">Cheat &amp; Exploit Recordings</div>
+              <div class="card-desc">Video proof submissions detailing self-attack protection, bot scripting, and abnormal combat anomalies.</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="./report-war-crimes.html" class="card-btn btn-internal">🛡️ Open Report War Crimes Brief</a>
+              <a href="https://sites.google.com/view/watchtower-data-hub/report-war-crimes/report-player/intergrity-reports" class="card-btn btn-internal" target="_blank" rel="noopener">↗ Legacy Integrity Reports</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 4-Corner Classification Bar -->
+    <div class="classification-bar footer-bar">
+      [-WTR-] WATCHTOWER COMMAND CENTER // VIDEO RECONNAISSANCE DESK // END OF TRANSMISSION
+    </div>
+  </div>
+
+  <script>
+    function filterReconColumns(group, btnEl) {
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const cols = document.querySelectorAll('.major-col');
+      const dividers = document.querySelectorAll('.vertical-divider');
+
+      cols.forEach(col => {
+        if (group === 'ALL' || col.getAttribute('data-col-group') === group) {
+          col.style.display = 'flex';
+        } else {
+          col.style.display = 'none';
+        }
+      });
+
+      dividers.forEach(d => {
+        d.style.display = (group === 'ALL') ? '' : 'none';
+      });
+    }
+
+    function applyReconSearch(query) {
+      const q = String(query || '').trim().toLowerCase();
+      document.querySelectorAll('.card[data-searchable]').forEach(card => {
+        const hay = (card.getAttribute('data-searchable') + ' ' + card.innerText).toLowerCase();
+        card.style.display = (!q || hay.includes(q)) ? 'flex' : 'none';
+      });
+    }
+
+    function returnToCommandCenter() {
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+          window.parent.closeInlineModuleViewport();
+          return;
+        }
+      } catch (e) {}
+      window.location.href = './index.html';
+    }
+
+    function popOutFullWindow() {
+      const url = window.location.href;
+      const w = 1260, h = 900;
+      const left = Math.max(0, (window.screen.width - w) / 2);
+      const top = Math.max(0, (window.screen.height - h) / 2);
+      window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+    }
+  </script>
+</body>
+</html>

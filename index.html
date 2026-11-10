@@ -1015,7 +1015,7 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "BLUEPRINT", title: "BUILDING BRIEF DB", url: "./building-briefs.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: true,  order: 2, symbol: "BLUEPRINT", title: "CC22 UPGRADE PATH", url: "./building-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "BLUEPRINT", title: "BASE DEFENSE & LAYOUTS", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
+        { enabled: true, isSubPage: false, order: 3, symbol: "BLUEPRINT", title: "BASE DEFENSE & LAYOUTS", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: true,  order: 4, symbol: "ARCHIVE",   title: "CC22 PRE-RELEASE NOTES", url: "./cc-22-pre-release.html", embedCode: "", openInIframe: true }
       ]
     },
@@ -1034,8 +1034,8 @@
         { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
-        { enabled: true, isSubPage: false, order: 6, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/video-recon", embedCode: "" }
+        { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 6, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
       ]
     },
     opBriefs: {
@@ -1225,20 +1225,23 @@
     }
 
     const standaloneMappings = [
-      { secKey: "baseOps",        match: "BUILDING BRIEF", file: "./building-briefs.html",       defaultTitle: "BUILDING BRIEF DB",      defaultSym: "BLUEPRINT" },
-      { secKey: "baseOps",        match: "CC22 UPGRADE",   file: "./building-briefs.html",       defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
-      { secKey: "baseOps",        match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
-      { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
-      { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
-      { secKey: "opIntel",        match: "SECTOR STATUS",  file: "./sector-status-sheet.html",   defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED" },
-      { secKey: "opIntel",        match: "DAMAGE TYPE",    file: "./damage-type.html",           defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR" },
-      { secKey: "opIntel",        match: "FACTION",        file: "./faction-intel.html",         defaultTitle: "FACTION INTEL",          defaultSym: "DATABASE" },
-      { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
-      { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
-      { secKey: "opBriefs",       match: "PVP SEASON",     file: "./2026-pvp-season-60-brief.html", defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
-      { secKey: "wtrArchives",    match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
-      { secKey: "adminBug",       match: "BROKEN",         file: "./whats-broken.html",          defaultTitle: "WHAT'S BROKEN IN WC",    defaultSym: "BUG" },
-      { secKey: "adminBug",       match: "WAR CRIMES",     file: "./report-war-crimes.html",     defaultTitle: "REPORT WAR CRIMES",      defaultSym: "UPCOMING" }
+      { secKey: "baseOps",        match: "BUILDING BRIEF", urlHint: "building-brief",        file: "./building-briefs.html",         defaultTitle: "BUILDING BRIEF DB",      defaultSym: "BLUEPRINT" },
+      { secKey: "baseOps",        match: "CC22 UPGRADE",   urlHint: "cc22-upgrade",          file: "./building-briefs.html",         defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
+      { secKey: "baseOps",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE & LAYOUTS", defaultSym: "BLUEPRINT" },
+      { secKey: "baseOps",        match: "PRE-RELEASE",    urlHint: "cc-22-pre-release",     file: "./cc-22-pre-release.html",       defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
+      { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
+      { secKey: "opIntel",        match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
+      { secKey: "opIntel",        match: "SECTOR STATUS",  urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",     defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED",    ensurePresent: true },
+      { secKey: "opIntel",        match: "DAMAGE TYPE",    urlHint: "damage-type",           file: "./damage-type.html",             defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR", ensurePresent: true },
+      { secKey: "opIntel",        match: "FACTION",        urlHint: "faction-intel",         file: "./faction-intel.html",           defaultTitle: "FACTION INTEL",          defaultSym: "DATABASE",   ensurePresent: true },
+      { secKey: "opIntel",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE PLANNING",  defaultSym: "BLUEPRINT",  ensurePresent: true },
+      { secKey: "opIntel",        match: "VIDEO",          urlHint: "video-recon",           file: "./video-recon.html",             defaultTitle: "VIDEO RECON DESK",       defaultSym: "VIDEO",      ensurePresent: true },
+      { secKey: "opBriefs",       match: "SKIRMISH",       urlHint: "skirmish",              file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
+      { secKey: "opBriefs",       match: "BLUE BARON",     urlHint: "blue-baron",            file: "./operation-blue-baron.html",    defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
+      { secKey: "opBriefs",       match: "PVP SEASON",     urlHint: "pvp-season",            file: "./2026-pvp-season-60-brief.html",defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
+      { secKey: "wtrArchives",    match: "PRE-RELEASE",    urlHint: "cc-22-pre-release",     file: "./cc-22-pre-release.html",       defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
+      { secKey: "adminBug",       match: "BROKEN",         urlHint: "whats-broken",          file: "./whats-broken.html",            defaultTitle: "WHAT'S BROKEN IN WC",    defaultSym: "BUG" },
+      { secKey: "adminBug",       match: "WAR CRIMES",     urlHint: "war-crimes",            file: "./report-war-crimes.html",       defaultTitle: "REPORT WAR CRIMES",      defaultSym: "UPCOMING" }
     ];
 
     const isGsiteEmbed = window.location.hostname.includes("googleusercontent.com") || window.location.protocol === "blob:";
@@ -1248,22 +1251,24 @@
       const resolvedUrl = isGsiteEmbed ? m.file.replace(/^\.\//, "https://highanxiety-labs.github.io/watchtower-data-hub/") : m.file;
       let card = sec.cards.find(c =>
         String(c?.title || "").toUpperCase().includes(m.match) ||
-        (m.match === "SECTOR STATUS" && String(c?.url || "").toLowerCase().includes("sector-status-sheet")) ||
-        (m.match === "DAMAGE TYPE" && String(c?.url || "").toLowerCase().includes("damage-type")) ||
-        (m.match === "FACTION" && String(c?.url || "").toLowerCase().includes("faction-intel"))
+        (m.urlHint && String(c?.url || "").toLowerCase().includes(m.urlHint))
       );
-      if (!card && m.ensureFirst) {
+      if (!card && (m.ensureFirst || m.ensurePresent)) {
         card = {
           enabled: true,
           isSubPage: false,
-          order: 1,
+          order: m.ensureFirst ? 1 : (sec.cards.length + 1),
           symbol: m.defaultSym,
           title: m.defaultTitle,
           url: resolvedUrl,
           embedCode: "",
           openInIframe: true
         };
-        sec.cards.unshift(card);
+        if (m.ensureFirst) {
+          sec.cards.unshift(card);
+        } else {
+          sec.cards.push(card);
+        }
         sec.cards.forEach((c, idx) => { c.order = idx + 1; });
       } else if (card) {
         card.url = resolvedUrl;
@@ -1697,7 +1702,11 @@
       currentActiveViewportRawHtml = "";
       iframe.removeAttribute("srcdoc");
       iframe.style.height = "88vh";
-      iframe.src = iframeSrcUrl;
+      let resolvedIframeUrl = iframeSrcUrl;
+      if (resolvedIframeUrl.startsWith("./") && typeof getWtrPublishedPrefix === "function") {
+        resolvedIframeUrl = getWtrPublishedPrefix() + resolvedIframeUrl.slice(2);
+      }
+      iframe.src = resolvedIframeUrl;
     }
 
     viewport.classList.add("active-viewport");
@@ -4679,12 +4688,16 @@
       if (vaultState) {
         applyStateObjectToHub(vaultState);
       }
+      if (typeof attachDefaultInPageViewers === "function") {
+        attachDefaultInPageViewers(workspaceCardsState);
+      }
       sanitizeEmbedStringsForGoogleSites(workspaceCardsState);
       updateUtilityBlocks();
       updateClockControls();
       updateHeaderTitleDisplay();
       renderHomeCalendarFromVault();
       updateMenuButtonModuleCounts();
+      if (activeCommandKey && typeof renderCommandDrawer === "function") renderCommandDrawer();
       return;
     }
 
@@ -4711,6 +4724,12 @@
         sanitizeEmbedStringsForGoogleSites(newest.workspaces);
       }
       applyStateObjectToHub(newest);
+    }
+    if (typeof attachDefaultInPageViewers === "function") {
+      attachDefaultInPageViewers(workspaceCardsState);
+    }
+    if (typeof persistCompanionState === "function") {
+      persistCompanionState();
     }
 
     const tab1Current = document.getElementById("txtUtil1")?.textContent?.trim().toUpperCase();
@@ -5507,6 +5526,7 @@
       "2026-nov-sector-breach-brief.html",
       "2026-nov-skirmish-brief.html",
       "2026-pvp-season-60-brief.html",
+      "base-defense-planning.html",
       "building-briefs.html",
       "cc-22-pre-release.html",
       "command-center.html",
@@ -5520,6 +5540,7 @@
       "skirmish.html",
       "unit-briefs.html",
       "vault-event-history.html",
+      "video-recon.html",
       "whats-broken.html"
     ],
     vaultFiles: [
@@ -5568,7 +5589,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
@@ -5646,6 +5667,9 @@
     }
 
     if (!targetUrl || targetUrl === "#") return;
+    if (targetUrl.startsWith("./") && typeof getWtrPublishedPrefix === "function") {
+      targetUrl = getWtrPublishedPrefix() + targetUrl.slice(2);
+    }
     const isRelativeHtml = targetUrl.startsWith("./") || targetUrl.startsWith("../") || targetUrl.startsWith("vault/") || /\.html($|\?|#)/i.test(targetUrl);
     if (!/^https?:\/\//i.test(targetUrl) && !targetUrl.startsWith("/") && !isRelativeHtml) {
       targetUrl = "https://" + targetUrl;

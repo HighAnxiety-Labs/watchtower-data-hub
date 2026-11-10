@@ -10,6 +10,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "2026-nov-shadow-ops-brief.html",
     "2026-nov-skirmish-brief.html",
     "2026-pvp-season-60-brief.html",
+    "base-defense-planning.html",
     "building-briefs.html",
     "cc-22-pre-release.html",
     "command-center.html",
@@ -22,6 +23,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "skirmish.html",
     "unit-briefs.html",
     "vault-event-history.html",
+    "video-recon.html",
     "whats-broken.html"
   ],
   vaultFiles: [
