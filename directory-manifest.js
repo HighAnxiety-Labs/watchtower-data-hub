@@ -16,6 +16,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "index.html",
     "operation-blue-baron.html",
     "report-war-crimes.html",
+    "sector-status-sheet.html",
     "skirmish.html",
     "unit-briefs.html",
     "vault-event-history.html",

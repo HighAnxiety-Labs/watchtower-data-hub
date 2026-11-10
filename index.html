@@ -1031,7 +1031,7 @@
       accent: "var(--dir-btn3)", colorHex: "#3d9e65",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/sector-status-sheet", embedCode: "" },
+        { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/damage-type", embedCode: "" },
         { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/faction-intel", embedCode: "" },
         { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "https://sites.google.com/view/watchtower-data-hub/operational-intel/base-defense-planning", embedCode: "" },
@@ -1230,6 +1230,7 @@
       { secKey: "baseOps",        match: "PRE-RELEASE",    file: "./cc-22-pre-release.html",     defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     file: "./unit-briefs.html",           defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "opIntel",        match: "CALENDAR",       file: "./2026-calendar.html",         defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
+      { secKey: "opIntel",        match: "SECTOR STATUS",  file: "./sector-status-sheet.html",   defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED" },
       { secKey: "opBriefs",       match: "SKIRMISH",       file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     file: "./operation-blue-baron.html",  defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "PVP SEASON",     file: "./2026-pvp-season-60-brief.html", defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
@@ -5505,6 +5506,7 @@
       "index.html",
       "operation-blue-baron.html",
       "report-war-crimes.html",
+      "sector-status-sheet.html",
       "skirmish.html",
       "unit-briefs.html",
       "vault-event-history.html",
@@ -5553,7 +5555,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;

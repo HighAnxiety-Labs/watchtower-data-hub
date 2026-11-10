@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WatchToweR // Player Sector Status Board (Sectors 001–200)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Saira+Stencil+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-void: #03060a;
+    --bg-panel: #080e16;
+    --bg-card: #0b131d;
+    --bg-card-hover: #0f1a28;
+    --border-dim: #172638;
+    --theme-accent: #28c76f;
+    --theme-accent-dim: rgba(40, 199, 111, 0.16);
+    --theme-accent-glow: rgba(40, 199, 111, 0.45);
+
+    /* Original Sheet Status Colors */
+    --st-unknown-bg: rgba(138, 155, 168, 0.14);
+    --st-unknown-border: rgba(138, 155, 168, 0.35);
+    --st-unknown-text: #9fb0bf;
+
+    --st-friendly-bg: rgba(0, 230, 118, 0.18);
+    --st-friendly-solid: #00e676;
+    --st-friendly-border: rgba(0, 230, 118, 0.65);
+    --st-friendly-text: #00ff88;
+
+    --st-neutral-bg: rgba(66, 132, 244, 0.20);
+    --st-neutral-solid: #4284f4;
+    --st-neutral-border: rgba(66, 132, 244, 0.70);
+    --st-neutral-text: #70a7ff;
+
+    --st-mixed-bg: rgba(255, 234, 0, 0.18);
+    --st-mixed-solid: #ffea00;
+    --st-mixed-border: rgba(255, 234, 0, 0.70);
+    --st-mixed-text: #ffee33;
+
+    --st-enemy-bg: rgba(255, 23, 68, 0.20);
+    --st-enemy-solid: #ff1744;
+    --st-enemy-border: rgba(255, 23, 68, 0.75);
+    --st-enemy-text: #ff4d6d;
+
+    --text-main: #e2ecf5;
+    --text-muted: #7f94a8;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-void);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(40, 199, 111, 0.08) 0%, transparent 55%),
+      linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px, 28px 28px;
+    color: var(--text-main);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    padding: 18px 20px 36px;
+    overflow-x: hidden;
+  }
+
+  .board-shell {
+    max-width: 1760px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ==========================================================================
+     4-CORNER OPPOSING-ANGLE CLASSIFICATION HEADER & FOOTER
+     ========================================================================== */
+  .class-bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    align-items: stretch;
+    height: 44px;
+    background: #060b11;
+    border: 1px solid rgba(40, 199, 111, 0.45);
+    box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 15px rgba(40, 199, 111, 0.08);
+    z-index: 30;
+    user-select: none;
+  }
+
+  .class-bar-top {
+    border-radius: 6px 6px 0 0;
+  }
+
+  .class-bar-bottom {
+    border-radius: 0 0 6px 6px;
+    margin-top: -1px;
+  }
+
+  .corner-tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #b9f6ca;
+    background: linear-gradient(180deg, rgba(40, 199, 111, 0.22), rgba(40, 199, 111, 0.08));
+    padding: 0 16px;
+    z-index: 2;
+  }
+
+  /* Opposing angles on top & bottom corner tabs */
+  .class-bar-top .corner-left {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+    border-right: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-top .corner-right {
+    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+    border-left: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-bottom .corner-left {
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+    border-right: 1px solid rgba(40, 199, 111, 0.4);
+  }
+  .class-bar-bottom .corner-right {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+    border-left: 1px solid rgba(40, 199, 111, 0.4);
+  }
+
+  .class-center {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--theme-accent);
+    text-shadow: 0 0 10px rgba(40, 199, 111, 0.5);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--theme-accent);
+    box-shadow: 0 0 8px var(--theme-accent);
+    animation: pulseDot 2s infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+
+  .collapse-toggle-btn {
+    background: rgba(40, 199, 111, 0.14);
+    border: 1px solid rgba(40, 199, 111, 0.55);
+    color: #d0f8df;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+  }
+  .collapse-toggle-btn:hover {
+    background: var(--theme-accent);
+    color: #030906;
+    box-shadow: 0 0 12px var(--theme-accent-glow);
+  }
+
+  /* Center 90px Spinning Radar Logo */
+  .radar-logo-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #07130d 0%, #03070a 80%);
+    border: 2px solid var(--theme-accent);
+    box-shadow: 0 0 24px rgba(40, 199, 111, 0.45), inset 0 0 14px rgba(40, 199, 111, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 45;
+    overflow: hidden;
+  }
+  .radar-logo-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(40, 199, 111, 0.55);
+    animation: spinRing 18s linear infinite;
+  }
+  .radar-logo-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 70%, rgba(40, 199, 111, 0.38) 100%);
+    animation: spinRing 4s linear infinite;
+  }
+  .radar-logo-wrap img {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ==========================================================================
+     COLLAPSIBLE MIDDLE BODY
+     ========================================================================== */
+  .brief-middle-body {
+    background: rgba(7, 12, 19, 0.94);
+    border-left: 1px solid rgba(40, 199, 111, 0.35);
+    border-right: 1px solid rgba(40, 199, 111, 0.35);
+    padding: 46px 22px 26px;
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  }
+
+  .board-shell.is-collapsed .brief-middle-body {
+    display: none;
+  }
+  .board-shell.is-collapsed .class-bar-bottom {
+    margin-top: 6px;
+  }
+
+  /* Unclassified background watermark */
+  .watermark-stamp {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-14deg);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(48px, 8vw, 118px);
+    font-weight: 900;
+    letter-spacing: 14px;
+    color: rgba(40, 199, 111, 0.025);
+    border: 4px solid rgba(40, 199, 111, 0.025);
+    padding: 12px 38px;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .content-layer {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ==========================================================================
+     HERO BANNER & ORIGINAL LEGEND BAR
+     ========================================================================== */
+  .hero-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-dim);
+    margin-bottom: 18px;
+  }
+
+  .hero-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--theme-accent);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .back-hub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9be7c0;
+    text-decoration: none;
+    background: rgba(40, 199, 111, 0.12);
+    border: 1px solid rgba(40, 199, 111, 0.35);
+    padding: 2px 9px;
+    border-radius: 3px;
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+  .back-hub-link:hover {
+    background: var(--theme-accent);
+    color: #020805;
+  }
+
+  .hero-title {
+    font-family: 'Saira Stencil One', 'Orbitron', sans-serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 400;
+    color: var(--theme-accent);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(40, 199, 111, 0.35);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 0.6px;
+  }
+
+  /* Original Sheet Legend Pills + Live Telemetry Counters */
+  .legend-telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .telemetry-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    user-select: none;
+  }
+  .telemetry-pill:hover {
+    transform: translateY(-1px);
+    background: var(--bg-card-hover);
+  }
+  .telemetry-pill.active-filter {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 16px rgba(255,255,255,0.25);
+  }
+
+  .telemetry-pill .pill-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .swatch-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .pill-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .pill-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    display: block;
+  }
+  .pill-count {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* Specific Telemetry Pill Colors matching the Google Sheet */
+  .pill-all { border-color: rgba(40, 199, 111, 0.45); }
+  .pill-all .swatch-box { background: var(--theme-accent); box-shadow: 0 0 8px var(--theme-accent); }
+  .pill-all .pill-label, .pill-all .pill-count { color: var(--theme-accent); }
+
+  .pill-friendly { border-color: var(--st-friendly-border); background: linear-gradient(90deg, rgba(0,230,118,0.12), var(--bg-card)); }
+  .pill-friendly .swatch-box { background: var(--st-friendly-solid); box-shadow: 0 0 8px var(--st-friendly-solid); }
+  .pill-friendly .pill-label, .pill-friendly .pill-count { color: var(--st-friendly-text); }
+
+  .pill-neutral { border-color: var(--st-neutral-border); background: linear-gradient(90deg, rgba(66,132,244,0.14), var(--bg-card)); }
+  .pill-neutral .swatch-box { background: var(--st-neutral-solid); box-shadow: 0 0 8px var(--st-neutral-solid); }
+  .pill-neutral .pill-label, .pill-neutral .pill-count { color: var(--st-neutral-text); }
+
+  .pill-mixed { border-color: var(--st-mixed-border); background: linear-gradient(90deg, rgba(255,234,0,0.12), var(--bg-card)); }
+  .pill-mixed .swatch-box { background: var(--st-mixed-solid); box-shadow: 0 0 8px var(--st-mixed-solid); }
+  .pill-mixed .pill-label, .pill-mixed .pill-count { color: var(--st-mixed-text); }
+
+  .pill-enemy { border-color: var(--st-enemy-border); background: linear-gradient(90deg, rgba(255,23,68,0.14), var(--bg-card)); }
+  .pill-enemy .swatch-box { background: var(--st-enemy-solid); box-shadow: 0 0 8px var(--st-enemy-solid); }
+  .pill-enemy .pill-label, .pill-enemy .pill-count { color: var(--st-enemy-text); }
+
+  .pill-tagged { border-color: rgba(0, 229, 255, 0.55); background: linear-gradient(90deg, rgba(0,229,255,0.12), var(--bg-card)); }
+  .pill-tagged .swatch-box { background: #00e5ff; box-shadow: 0 0 8px #00e5ff; }
+  .pill-tagged .pill-label, .pill-tagged .pill-count { color: #00e5ff; }
+
+  /* ==========================================================================
+     COMMAND TOOLBAR: SEARCH, RANGE TABS, NOTEPAD CONTROLS, BACKUP/RESTORE
+     ========================================================================== */
+  .command-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #060b12;
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+  }
+
+  .toolbar-left, .toolbar-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .search-box {
+    position: relative;
+    min-width: 270px;
+    flex: 1;
+  }
+  .search-box input {
+    width: 100%;
+    background: #0a121c;
+    border: 1px solid #1e344d;
+    color: var(--text-main);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 8px 32px 8px 12px;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input:focus {
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 10px rgba(40, 199, 111, 0.2);
+  }
+  .search-clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    display: none;
+  }
+  .search-box.has-text .search-clear-btn {
+    display: block;
+  }
+
+  /* Range Filter Buttons */
+  .range-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    background: #091019;
+    padding: 3px;
+    border-radius: 4px;
+    border: 1px solid #162638;
+  }
+  .range-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .range-btn:hover {
+    color: var(--text-main);
+    background: rgba(255,255,255,0.05);
+  }
+  .range-btn.active {
+    background: var(--theme-accent);
+    color: #020805;
+    font-weight: 700;
+  }
+
+  /* Action Buttons */
+  .cmd-btn {
+    background: #0c1724;
+    border: 1px solid #1f364d;
+    color: #c5d8ea;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 7px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.18s;
+    letter-spacing: 0.5px;
+  }
+  .cmd-btn:hover {
+    border-color: var(--theme-accent);
+    color: #ffffff;
+    background: rgba(40, 199, 111, 0.14);
+  }
+  .cmd-btn.btn-cyan {
+    border-color: rgba(0, 229, 255, 0.45);
+    color: #7ef4ff;
+  }
+  .cmd-btn.btn-cyan:hover {
+    background: rgba(0, 229, 255, 0.16);
+    border-color: #00e5ff;
+  }
+  .cmd-btn.btn-danger {
+    border-color: rgba(255, 23, 68, 0.45);
+    color: #ff8a9f;
+  }
+  .cmd-btn.btn-danger:hover {
+    background: rgba(255, 23, 68, 0.18);
+    border-color: #ff1744;
+  }
+
+  /* ==========================================================================
+     10-COLUMN SECTOR MATRIX (200 SECTORS: 001–200 IN GROUPS OF 20)
+     ========================================================================== */
+  .sector-columns-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(300px, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  @media (max-width: 1680px) {
+    .sector-columns-grid {
+      grid-template-columns: repeat(4, minmax(290px, 1fr));
+    }
+  }
+  @media (max-width: 1320px) {
+    .sector-columns-grid {
+      grid-template-columns: repeat(3, minmax(280px, 1fr));
+    }
+  }
+  @media (max-width: 980px) {
+    .sector-columns-grid {
+      grid-template-columns: repeat(2, minmax(270px, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .sector-columns-grid {
+      grid-template-columns: 1fr;
+    }
+    .class-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+    .class-center {
+      display: none;
+    }
+  }
+
+  .sector-column-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  }
+
+  .col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, rgba(40, 199, 111, 0.16), rgba(10, 18, 28, 0.95));
+    border-bottom: 1px solid rgba(40, 199, 111, 0.35);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #b9f6ca;
+  }
+
+  .col-header-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .sector-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ==========================================================================
+     INDIVIDUAL SECTOR ROW + COLLAPSIBLE TAGS NOTEPAD
+     ========================================================================== */
+  .sector-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.15s ease;
+  }
+  .sector-item:last-child {
+    border-bottom: none;
+  }
+
+  .sector-main-row {
+    display: grid;
+    grid-template-columns: 28px 46px 1fr auto;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    min-height: 36px;
+    transition: all 0.15s ease;
+  }
+
+  .sector-item:hover .sector-main-row {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Dynamic Status Coloring on the Sector Row */
+  .sector-item[data-status="Friendly"] .sector-main-row {
+    background: rgba(0, 230, 118, 0.10);
+    border-left: 3px solid var(--st-friendly-solid);
+  }
+  .sector-item[data-status="Friendly"].is-checked .sector-main-row {
+    background: rgba(0, 230, 118, 0.24);
+    box-shadow: inset 0 0 12px rgba(0, 230, 118, 0.22);
+  }
+
+  .sector-item[data-status="Neutral"] .sector-main-row {
+    background: rgba(66, 132, 244, 0.12);
+    border-left: 3px solid var(--st-neutral-solid);
+  }
+  .sector-item[data-status="Neutral"].is-checked .sector-main-row {
+    background: rgba(66, 132, 244, 0.28);
+    box-shadow: inset 0 0 12px rgba(66, 132, 244, 0.25);
+  }
+
+  .sector-item[data-status="Mixed"] .sector-main-row {
+    background: rgba(255, 234, 0, 0.11);
+    border-left: 3px solid var(--st-mixed-solid);
+  }
+  .sector-item[data-status="Mixed"].is-checked .sector-main-row {
+    background: rgba(255, 234, 0, 0.25);
+    box-shadow: inset 0 0 12px rgba(255, 234, 0, 0.22);
+  }
+
+  .sector-item[data-status="Enemy"] .sector-main-row {
+    background: rgba(255, 23, 68, 0.13);
+    border-left: 3px solid var(--st-enemy-solid);
+  }
+  .sector-item[data-status="Enemy"].is-checked .sector-main-row {
+    background: rgba(255, 23, 68, 0.28);
+    box-shadow: inset 0 0 12px rgba(255, 23, 68, 0.25);
+  }
+
+  /* Just like the original Google Sheet: if checked while still "Unknown", highlight Yellow (Mixed Fighting alert) */
+  .sector-item[data-status="Unknown"].is-checked .sector-main-row {
+    background: rgba(255, 234, 0, 0.18);
+    border-left: 3px solid var(--st-mixed-solid);
+  }
+
+  /* Checkbox */
+  .sector-check-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sector-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #526b84;
+    border-radius: 3px;
+    background: #060b11;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .sector-checkbox:checked {
+    background: var(--theme-accent);
+    border-color: var(--theme-accent);
+  }
+  .sector-checkbox:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    font-size: 12px;
+    font-weight: 900;
+    color: #020805;
+  }
+
+  /* Sector Number (001 - 200) */
+  .sector-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    user-select: none;
+  }
+  .sector-item[data-status="Friendly"] .sector-num { color: var(--st-friendly-text); }
+  .sector-item[data-status="Neutral"] .sector-num  { color: var(--st-neutral-text); }
+  .sector-item[data-status="Mixed"] .sector-num    { color: var(--st-mixed-text); }
+  .sector-item[data-status="Enemy"] .sector-num    { color: var(--st-enemy-text); }
+
+  /* Status Pill Select */
+  .status-select {
+    width: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--st-unknown-border);
+    background-color: #121c27;
+    color: var(--st-unknown-text);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s;
+  }
+  .status-select option {
+    background: #09111a;
+    color: #e2ecf5;
+    font-weight: 700;
+  }
+
+  .sector-item[data-status="Friendly"] .status-select {
+    background-color: var(--st-friendly-bg);
+    border-color: var(--st-friendly-border);
+    color: var(--st-friendly-text);
+  }
+  .sector-item[data-status="Neutral"] .status-select {
+    background-color: var(--st-neutral-bg);
+    border-color: var(--st-neutral-border);
+    color: var(--st-neutral-text);
+  }
+  .sector-item[data-status="Mixed"] .status-select {
+    background-color: var(--st-mixed-bg);
+    border-color: var(--st-mixed-border);
+    color: var(--st-mixed-text);
+  }
+  .sector-item[data-status="Enemy"] .status-select {
+    background-color: var(--st-enemy-bg);
+    border-color: var(--st-enemy-border);
+    color: var(--st-enemy-text);
+  }
+
+  /* Open/Close Notepad Toggle Button for Tags */
+  .notepad-toggle-btn {
+    background: #0d1722;
+    border: 1px solid #21364c;
+    color: #8fa6bc;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .notepad-toggle-btn:hover {
+    border-color: #00e5ff;
+    color: #ffffff;
+    background: rgba(0, 229, 255, 0.12);
+  }
+  .notepad-toggle-btn.has-intel {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: rgba(0, 229, 255, 0.65);
+    color: #64f2ff;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  }
+  .notepad-toggle-btn.is-open {
+    background: #00e5ff;
+    border-color: #00e5ff;
+    color: #020a0f;
+    font-weight: 700;
+  }
+
+  /* Compact Inline Tag Preview Bar (when notepad is closed but sector has tags/notes) */
+  .sector-tag-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px 5px 36px;
+    cursor: pointer;
+  }
+  .sector-tag-preview:empty {
+    display: none;
+  }
+  .mini-tag-chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    background: rgba(0, 229, 255, 0.12);
+    border: 1px solid rgba(0, 229, 255, 0.38);
+    color: #84f5ff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.4px;
+  }
+  .mini-note-snippet {
+    font-size: 11px;
+    color: #9cb3c9;
+    font-style: italic;
+    max-width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ==========================================================================
+     COLLAPSIBLE SECTOR NOTEPAD DRAWER (TAGS + FREEFORM INTEL NOTES)
+     ========================================================================== */
+  .sector-notepad-drawer {
+    display: none;
+    background: #050a10;
+    border-top: 1px dashed rgba(0, 229, 255, 0.3);
+    border-left: 3px solid #00e5ff;
+    padding: 10px 10px 10px 12px;
+    animation: slideDown 0.16s ease-out;
+  }
+  .sector-item.notepad-open .sector-notepad-drawer {
+    display: block;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .notepad-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: #00e5ff;
+    letter-spacing: 1px;
+  }
+
+  .notepad-close-x {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .notepad-close-x:hover {
+    color: #ff4d6d;
+  }
+
+  /* Active Tag Chips List inside Notepad */
+  .notepad-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+  .notepad-tags-list:empty {
+    margin-bottom: 2px;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid rgba(0, 229, 255, 0.5);
+    color: #a8f9ff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .tag-chip button {
+    background: none;
+    border: none;
+    color: #ff6b8b;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    padding: 0;
+  }
+  .tag-chip button:hover {
+    color: #ff1744;
+  }
+
+  /* Quick Tag Add Row */
+  .tag-input-row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+  .tag-input-field {
+    flex: 1;
+    background: #09131e;
+    border: 1px solid #1d334a;
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    outline: none;
+  }
+  .tag-input-field:focus {
+    border-color: #00e5ff;
+  }
+  .tag-add-btn {
+    background: rgba(0, 229, 255, 0.18);
+    border: 1px solid rgba(0, 229, 255, 0.55);
+    color: #7ef4ff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .tag-add-btn:hover {
+    background: #00e5ff;
+    color: #02080c;
+  }
+
+  /* Preset Quick-Tag Buttons */
+  .preset-tags-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 7px;
+  }
+  .preset-tag-btn {
+    background: #0a1420;
+    border: 1px solid #1a2d42;
+    color: #7e97b0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .preset-tag-btn:hover {
+    border-color: var(--theme-accent);
+    color: #b9f6ca;
+    background: rgba(40, 199, 111, 0.12);
+  }
+
+  /* Freeform Sector Notepad Textarea */
+  .notepad-textarea {
+    width: 100%;
+    min-height: 54px;
+    resize: vertical;
+    background: #08101a;
+    border: 1px solid #1b2f45;
+    color: #d6e6f5;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 3px;
+    outline: none;
+  }
+  .notepad-textarea:focus {
+    border-color: var(--theme-accent);
+  }
+
+  .notepad-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+  .notepad-clear-btn {
+    background: none;
+    border: none;
+    color: #ff6b8b;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .notepad-clear-btn:hover {
+    text-decoration: underline;
+  }
+
+  .hidden-by-filter {
+    display: none !important;
+  }
+
+  /* Toast Notification */
+  .toast-msg {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #071610;
+    border: 1px solid var(--theme-accent);
+    color: #b9f6ca;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.75), 0 0 14px rgba(40,199,111,0.3);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: all 0.22s ease;
+  }
+  .toast-msg.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="board-shell" id="boardShell">
+
+  <!-- ==================== TOP 4-CORNER CLASSIFICATION BAR ==================== -->
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left">
+      <span class="status-dot"></span>
+      <span>WATCHTOWER // INTEL</span>
+    </div>
+
+    <div class="class-center">
+      UNCLASSIFIED // SECTOR TELEMETRY MATRIX
+    </div>
+
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">
+        [—] COLLAPSE BOARD
+      </button>
+    </div>
+
+    <div class="radar-logo-wrap" title="WatchToweR Command Center">
+      <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Logo">
+    </div>
+  </header>
+
+  <!-- ==================== COLLAPSIBLE MIDDLE BODY ==================== -->
+  <main class="brief-middle-body" id="briefMiddleBody">
+    <div class="watermark-stamp">UNCLASSIFIED</div>
+
+    <div class="content-layer">
+      <!-- HERO TITLE & SUBTITLE -->
+      <div class="hero-header">
+        <div class="hero-title-block">
+          <div class="hero-eyebrow">
+            <a href="./index.html" class="back-hub-link">◂ COMMAND CENTER</a>
+            <span>OPERATIONAL INTEL // SECTORS 001–200</span>
+          </div>
+          <h1 class="hero-title">WAR COMMANDER — PLAYER SECTOR STATUS BOARD</h1>
+          <p class="hero-subtitle">
+            Interactive 200-Sector Tactical Status Tracker &amp; Alliance Tag Notepad. Changes auto-save locally to your browser and can be exported/shared anytime.
+          </p>
+        </div>
+      </div>
+
+      <!-- LEGEND & LIVE TELEMETRY COUNTERS (CLICK TO FILTER) -->
+      <div class="legend-telemetry-grid">
+        <div class="telemetry-pill pill-all active-filter" data-filter="ALL" onclick="setStatusFilter('ALL')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">ALL SECTORS</span>
+              <span class="pill-sub">001 – 200 MATRIX</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countAll">200</span>
+        </div>
+
+        <div class="telemetry-pill pill-friendly" data-filter="Friendly" onclick="setStatusFilter('Friendly')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">GREEN = FRIENDLY</span>
+              <span class="pill-sub">ALLIED CONTROL</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countFriendly">0</span>
+        </div>
+
+        <div class="telemetry-pill pill-neutral" data-filter="Neutral" onclick="setStatusFilter('Neutral')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">BLUE = NEUTRAL</span>
+              <span class="pill-sub">NON-AGGRESSION</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countNeutral">0</span>
+        </div>
+
+        <div class="telemetry-pill pill-mixed" data-filter="Mixed" onclick="setStatusFilter('Mixed')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">YELLOW = MIXED</span>
+              <span class="pill-sub">MIXED FIGHTING</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countMixed">0</span>
+        </div>
+
+        <div class="telemetry-pill pill-enemy" data-filter="Enemy" onclick="setStatusFilter('Enemy')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">RED = ENEMY</span>
+              <span class="pill-sub">HOSTILE SECTOR</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countEnemy">0</span>
+        </div>
+
+        <div class="telemetry-pill pill-tagged" data-filter="TAGGED" onclick="setStatusFilter('TAGGED')">
+          <div class="pill-left">
+            <span class="swatch-box"></span>
+            <div>
+              <span class="pill-label">TAGGED INTEL</span>
+              <span class="pill-sub">HAS TAGS / NOTES</span>
+            </div>
+          </div>
+          <span class="pill-count" id="countTagged">0</span>
+        </div>
+      </div>
+
+      <!-- COMMAND TOOLBAR -->
+      <div class="command-toolbar">
+        <div class="toolbar-left">
+          <div class="search-box" id="searchBoxWrap">
+            <input type="text" id="sectorSearchInput" placeholder="Search Sector # (045), Alliance Tag ([WTR]), or Note..." oninput="handleSearchInput()">
+            <button class="search-clear-btn" onclick="clearSearch()" title="Clear Search">✕</button>
+          </div>
+
+          <div class="range-group" role="group" aria-label="Sector Range Filter">
+            <button class="range-btn active" data-range="ALL" onclick="setRangeFilter('ALL')">ALL (1–200)</button>
+            <button class="range-btn" data-range="1-40" onclick="setRangeFilter('1-40')">001–040</button>
+            <button class="range-btn" data-range="41-80" onclick="setRangeFilter('41-80')">041–080</button>
+            <button class="range-btn" data-range="81-120" onclick="setRangeFilter('81-120')">081–120</button>
+            <button class="range-btn" data-range="121-160" onclick="setRangeFilter('121-160')">121–160</button>
+            <button class="range-btn" data-range="161-200" onclick="setRangeFilter('161-200')">161–200</button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="cmd-btn btn-cyan" onclick="expandAllAnnotatedNotepads()" title="Open Notepads for all sectors that have tags or notes">
+            📂 OPEN TAGGED PADS
+          </button>
+          <button class="cmd-btn" onclick="collapseAllNotepads()" title="Close all open sector notepads">
+            📁 CLOSE ALL PADS
+          </button>
+          <button class="cmd-btn" onclick="exportBoardJson()" title="Download your Sector Status & Tag data as a JSON file">
+            💾 SAVE COPY (JSON)
+          </button>
+          <button class="cmd-btn" onclick="document.getElementById('importJsonInput').click()" title="Load a saved Sector Status JSON file">
+            📤 LOAD COPY
+          </button>
+          <input type="file" id="importJsonInput" accept=".json" style="display:none" onchange="importBoardJson(event)">
+          <button class="cmd-btn" onclick="exportBoardCsv()" title="Export all 200 sectors, statuses, tags, and notes to CSV">
+            📊 EXPORT CSV
+          </button>
+          <button class="cmd-btn btn-danger" onclick="resetEntireBoard()" title="Clear all statuses, checkboxes, tags, and notes">
+            🗑️ RESET
+          </button>
+        </div>
+      </div>
+
+      <!-- 10-COLUMN SECTOR GRID (001 TO 200) -->
+      <div class="sector-columns-grid" id="sectorColumnsGrid"></div>
+    </div>
+  </main>
+
+  <!-- ==================== BOTTOM 4-CORNER CLASSIFICATION BAR ==================== -->
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left">
+      <span>AUTO-SAVE: <strong id="saveStateLabel" style="color:#00ff88;">ACTIVE</strong></span>
+    </div>
+
+    <div class="class-center" id="liveZuluClock">
+      SYNCING SECTOR TELEMETRY CLOCK...
+    </div>
+
+    <div class="corner-tab corner-right">
+      <span>SECTORS: 001–200 // REV 2026.11</span>
+    </div>
+  </footer>
+
+</div>
+
+<div class="toast-msg" id="toastMsg">SAVED TO LOCAL STORAGE</div>
+
+<script>
+  const STORAGE_KEY = 'wtr_sector_status_sheet_v1';
+  const TOTAL_SECTORS = 200;
+  const SECTORS_PER_COL = 20;
+  const PRESET_TAGS = ['[ALLY]', '[HOSTILE]', '[FARM]', '[SPAWN LOCK]', '[HIGH THORIUM]', '[MEGA ALLIANCE]', '[SCOUTED]'];
+
+  // State structure: { "001": { checked: false, status: "Unknown", tags: [], notes: "" }, ... }
+  let sectorData = {};
+  let activeStatusFilter = 'ALL';
+  let activeRangeFilter = 'ALL';
+  let searchQuery = '';
+  let openNotepads = new Set();
+
+  function padSector(n) {
+    return String(n).padStart(3, '0');
+  }
+
+  function createDefaultState() {
+    const fresh = {};
+    for (let i = 1; i <= TOTAL_SECTORS; i++) {
+      const id = padSector(i);
+      fresh[id] = {
+        checked: false,
+        status: 'Unknown',
+        tags: [],
+        notes: ''
+      };
+    }
+    return fresh;
+  }
+
+  function loadState() {
+    const base = createDefaultState();
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        for (let i = 1; i <= TOTAL_SECTORS; i++) {
+          const id = padSector(i);
+          if (parsed[id]) {
+            base[id] = {
+              checked: Boolean(parsed[id].checked),
+              status: parsed[id].status || 'Unknown',
+              tags: Array.isArray(parsed[id].tags) ? parsed[id].tags : [],
+              notes: typeof parsed[id].notes === 'string' ? parsed[id].notes : ''
+            };
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Could not load saved sector board state:', e);
+    }
+    sectorData = base;
+  }
+
+  function saveState(toastText) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sectorData));
+      const lbl = document.getElementById('saveStateLabel');
+      if (lbl) {
+        lbl.textContent = 'SYNCED ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+      if (toastText) showToast(toastText);
+    } catch (e) {
+      console.error('Failed to save state:', e);
+    }
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById('toastMsg');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function hasIntel(entry) {
+    return (entry.tags && entry.tags.length > 0) || (entry.notes && entry.notes.trim().length > 0);
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Render all 10 columns (001-020, 021-040, ..., 181-200)
+  function renderGrid() {
+    const container = document.getElementById('sectorColumnsGrid');
+    let html = '';
+
+    for (let col = 0; col < 10; col++) {
+      const startNum = col * SECTORS_PER_COL + 1;
+      const endNum = startNum + SECTORS_PER_COL - 1;
+      const startPad = padSector(startNum);
+      const endPad = padSector(endNum);
+
+      html += `
+        <section class="sector-column-card" id="colCard_${col}" data-start="${startNum}" data-end="${endNum}">
+          <div class="col-header">
+            <span>SECTORS ${startPad} – ${endPad}</span>
+            <span class="col-header-sub">BLOCK ${String(col + 1).padStart(2, '0')}</span>
+          </div>
+          <div class="sector-list">
+      `;
+
+      for (let s = startNum; s <= endNum; s++) {
+        const id = padSector(s);
+        html += buildSectorItemHtml(id);
+      }
+
+      html += `
+          </div>
+        </section>
+      `;
+    }
+
+    container.innerHTML = html;
+    updateTelemetryCounts();
+    applyFilters();
+  }
+
+  function buildSectorItemHtml(id) {
+    const entry = sectorData[id];
+    const intelPresent = hasIntel(entry);
+    const isOpen = openNotepads.has(id);
+    const tagCount = entry.tags.length + (entry.notes.trim() ? 1 : 0);
+
+    const previewTagsHtml = entry.tags.map(t => `<span class="mini-tag-chip">${escapeHtml(t)}</span>`).join('');
+    const previewNoteHtml = entry.notes.trim()
+      ? `<span class="mini-note-snippet">${escapeHtml(entry.notes.trim())}</span>`
+      : '';
+
+    const activeTagsHtml = entry.tags.map((t, idx) => `
+      <span class="tag-chip">
+        <span>${escapeHtml(t)}</span>
+        <button type="button" onclick="removeSectorTag('${id}', ${idx})" title="Remove Tag">×</button>
+      </span>
+    `).join('');
+
+    const presetButtonsHtml = PRESET_TAGS.map(pt => `
+      <button type="button" class="preset-tag-btn" onclick="addPresetTag('${id}', '${pt}')">+${pt}</button>
+    `).join('');
+
+    return `
+      <div class="sector-item ${entry.checked ? 'is-checked' : ''} ${isOpen ? 'notepad-open' : ''}"
+           id="sectorItem_${id}"
+           data-sector="${id}"
+           data-status="${entry.status}">
+        <div class="sector-main-row">
+          <div class="sector-check-wrap">
+            <input type="checkbox"
+                   class="sector-checkbox"
+                   id="chk_${id}"
+                   ${entry.checked ? 'checked' : ''}
+                   onchange="onToggleCheck('${id}', this.checked)"
+                   title="Highlight / Mark Sector ${id}">
+          </div>
+
+          <span class="sector-num" onclick="toggleSectorNotepad('${id}')" style="cursor:pointer" title="Click to toggle Sector ${id} Tag Notepad">${id}</span>
+
+          <select class="status-select"
+                  id="sel_${id}"
+                  onchange="onChangeStatus('${id}', this.value)"
+                  aria-label="Sector ${id} Status">
+            <option value="Unknown" ${entry.status === 'Unknown' ? 'selected' : ''}>Unknown</option>
+            <option value="Friendly" ${entry.status === 'Friendly' ? 'selected' : ''}>Friendly (Green)</option>
+            <option value="Neutral" ${entry.status === 'Neutral' ? 'selected' : ''}>Neutral (Blue)</option>
+            <option value="Mixed" ${entry.status === 'Mixed' ? 'selected' : ''}>Mixed Fighting (Yellow)</option>
+            <option value="Enemy" ${entry.status === 'Enemy' ? 'selected' : ''}>Enemy (Red)</option>
+          </select>
+
+          <button type="button"
+                  class="notepad-toggle-btn ${intelPresent ? 'has-intel' : ''} ${isOpen ? 'is-open' : ''}"
+                  id="padBtn_${id}"
+                  onclick="toggleSectorNotepad('${id}')"
+                  title="Open/Close Tag & Intel Notepad for Sector ${id}">
+            <span>🏷️</span>
+            <span id="padBtnText_${id}">${isOpen ? 'CLOSE' : (intelPresent ? `TAGS (${tagCount})` : 'TAGS')}</span>
+          </button>
+        </div>
+
+        <div class="sector-tag-preview" id="preview_${id}" onclick="toggleSectorNotepad('${id}')" title="Click to edit tags & notes">${previewTagsHtml}${previewNoteHtml}</div>
+
+        <div class="sector-notepad-drawer" id="drawer_${id}">
+          <div class="notepad-header">
+            <span>SECTOR ${id} // TAGS &amp; INTEL NOTEPAD</span>
+            <button type="button" class="notepad-close-x" onclick="toggleSectorNotepad('${id}')">[CLOSE ▲]</button>
+          </div>
+
+          <div class="notepad-tags-list" id="tagsList_${id}">${activeTagsHtml}</div>
+
+          <div class="tag-input-row">
+            <input type="text"
+                   class="tag-input-field"
+                   id="tagInput_${id}"
+                   placeholder="Add alliance/player tag (e.g. [WTR], Rogue)..."
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();addTagFromInput('${id}');}">
+            <button type="button" class="tag-add-btn" onclick="addTagFromInput('${id}')">+ TAG</button>
+          </div>
+
+          <div class="preset-tags-bar">${presetButtonsHtml}</div>
+
+          <textarea class="notepad-textarea"
+                    id="noteArea_${id}"
+                    placeholder="Sector ${id} operational notes (coords, base owners, diplomacy, threats)..."
+                    oninput="onNoteInput('${id}', this.value)">${escapeHtml(entry.notes)}</textarea>
+
+          <div class="notepad-footer">
+            <span>AUTO-SAVED TO HUB VAULT</span>
+            <button type="button" class="notepad-clear-btn" onclick="clearSectorIntel('${id}')">CLEAR INTEL</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Re-render a single sector's dynamic UI parts without losing focus in textarea
+  function refreshSectorDom(id, preserveTextareaFocus) {
+    const item = document.getElementById('sectorItem_' + id);
+    if (!item) return;
+    const entry = sectorData[id];
+    const intelPresent = hasIntel(entry);
+    const isOpen = openNotepads.has(id);
+    const tagCount = entry.tags.length + (entry.notes.trim() ? 1 : 0);
+
+    item.setAttribute('data-status', entry.status);
+    item.classList.toggle('is-checked', entry.checked);
+    item.classList.toggle('notepad-open', isOpen);
+
+    const chk = document.getElementById('chk_' + id);
+    if (chk) chk.checked = entry.checked;
+
+    const sel = document.getElementById('sel_' + id);
+    if (sel) sel.value = entry.status;
+
+    const padBtn = document.getElementById('padBtn_' + id);
+    const padBtnText = document.getElementById('padBtnText_' + id);
+    if (padBtn && padBtnText) {
+      padBtn.classList.toggle('has-intel', intelPresent);
+      padBtn.classList.toggle('is-open', isOpen);
+      padBtnText.textContent = isOpen ? 'CLOSE' : (intelPresent ? `TAGS (${tagCount})` : 'TAGS');
+    }
+
+    const preview = document.getElementById('preview_' + id);
+    if (preview) {
+      const previewTagsHtml = entry.tags.map(t => `<span class="mini-tag-chip">${escapeHtml(t)}</span>`).join('');
+      const previewNoteHtml = entry.notes.trim()
+        ? `<span class="mini-note-snippet">${escapeHtml(entry.notes.trim())}</span>`
+        : '';
+      preview.innerHTML = previewTagsHtml + previewNoteHtml;
+    }
+
+    const tagsList = document.getElementById('tagsList_' + id);
+    if (tagsList) {
+      tagsList.innerHTML = entry.tags.map((t, idx) => `
+        <span class="tag-chip">
+          <span>${escapeHtml(t)}</span>
+          <button type="button" onclick="removeSectorTag('${id}', ${idx})" title="Remove Tag">×</button>
+        </span>
+      `).join('');
+    }
+
+    if (!preserveTextareaFocus) {
+      const noteArea = document.getElementById('noteArea_' + id);
+      if (noteArea) noteArea.value = entry.notes;
+    }
+  }
+
+  function onToggleCheck(id, checked) {
+    sectorData[id].checked = checked;
+    refreshSectorDom(id, true);
+    saveState();
+    updateTelemetryCounts();
+  }
+
+  function onChangeStatus(id, newStatus) {
+    sectorData[id].status = newStatus;
+    if (newStatus !== 'Unknown') {
+      sectorData[id].checked = true;
+    }
+    refreshSectorDom(id, true);
+    saveState();
+    updateTelemetryCounts();
+    applyFilters();
+  }
+
+  function toggleSectorNotepad(id) {
+    if (openNotepads.has(id)) {
+      openNotepads.delete(id);
+    } else {
+      openNotepads.add(id);
+    }
+    refreshSectorDom(id, true);
+    if (openNotepads.has(id)) {
+      const inp = document.getElementById('tagInput_' + id);
+      if (inp) setTimeout(() => inp.focus(), 40);
+    }
+  }
+
+  function addTagFromInput(id) {
+    const inp = document.getElementById('tagInput_' + id);
+    if (!inp) return;
+    const raw = inp.value.trim();
+    if (!raw) return;
+    if (!sectorData[id].tags.includes(raw)) {
+      sectorData[id].tags.push(raw);
+    }
+    inp.value = '';
+    refreshSectorDom(id, true);
+    saveState('TAG ADDED TO SECTOR ' + id);
+    updateTelemetryCounts();
+  }
+
+  function addPresetTag(id, tagText) {
+    if (!sectorData[id].tags.includes(tagText)) {
+      sectorData[id].tags.push(tagText);
+      refreshSectorDom(id, true);
+      saveState('TAG ADDED TO SECTOR ' + id);
+      updateTelemetryCounts();
+    }
+  }
+
+  function removeSectorTag(id, idx) {
+    sectorData[id].tags.splice(idx, 1);
+    refreshSectorDom(id, true);
+    saveState();
+    updateTelemetryCounts();
+  }
+
+  function onNoteInput(id, val) {
+    sectorData[id].notes = val;
+    refreshSectorDom(id, true);
+    saveState();
+    updateTelemetryCounts();
+  }
+
+  function clearSectorIntel(id) {
+    sectorData[id].tags = [];
+    sectorData[id].notes = '';
+    refreshSectorDom(id, false);
+    saveState('CLEARED SECTOR ' + id + ' INTEL');
+    updateTelemetryCounts();
+  }
+
+  function expandAllAnnotatedNotepads() {
+    let count = 0;
+    for (let i = 1; i <= TOTAL_SECTORS; i++) {
+      const id = padSector(i);
+      if (hasIntel(sectorData[id])) {
+        openNotepads.add(id);
+        refreshSectorDom(id, true);
+        count++;
+      }
+    }
+    showToast(count > 0 ? `OPENED ${count} TAGGED NOTEPADS` : 'NO TAGGED SECTORS YET');
+  }
+
+  function collapseAllNotepads() {
+    openNotepads.clear();
+    for (let i = 1; i <= TOTAL_SECTORS; i++) {
+      refreshSectorDom(padSector(i), true);
+    }
+    showToast('ALL NOTEPADS CLOSED');
+  }
+
+  function updateTelemetryCounts() {
+    let friendly = 0, neutral = 0, mixed = 0, enemy = 0, tagged = 0;
+    for (let i = 1; i <= TOTAL_SECTORS; i++) {
+      const entry = sectorData[padSector(i)];
+      if (entry.status === 'Friendly') friendly++;
+      else if (entry.status === 'Neutral') neutral++;
+      else if (entry.status === 'Mixed') mixed++;
+      else if (entry.status === 'Enemy') enemy++;
+      if (hasIntel(entry)) tagged++;
+    }
+    document.getElementById('countFriendly').textContent = friendly;
+    document.getElementById('countNeutral').textContent = neutral;
+    document.getElementById('countMixed').textContent = mixed;
+    document.getElementById('countEnemy').textContent = enemy;
+    document.getElementById('countTagged').textContent = tagged;
+  }
+
+  function setStatusFilter(filter) {
+    activeStatusFilter = filter;
+    document.querySelectorAll('.telemetry-pill').forEach(pill => {
+      pill.classList.toggle('active-filter', pill.getAttribute('data-filter') === filter);
+    });
+    applyFilters();
+  }
+
+  function setRangeFilter(range) {
+    activeRangeFilter = range;
+    document.querySelectorAll('.range-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-range') === range);
+    });
+    applyFilters();
+  }
+
+  function handleSearchInput() {
+    const inp = document.getElementById('sectorSearchInput');
+    const wrap = document.getElementById('searchBoxWrap');
+    searchQuery = (inp.value || '').trim().toLowerCase();
+    wrap.classList.toggle('has-text', searchQuery.length > 0);
+    applyFilters();
+  }
+
+  function clearSearch() {
+    const inp = document.getElementById('sectorSearchInput');
+    inp.value = '';
+    handleSearchInput();
+  }
+
+  function applyFilters() {
+    let rangeMin = 1, rangeMax = 200;
+    if (activeRangeFilter !== 'ALL') {
+      const parts = activeRangeFilter.split('-');
+      rangeMin = parseInt(parts[0], 10);
+      rangeMax = parseInt(parts[1], 10);
+    }
+
+    for (let col = 0; col < 10; col++) {
+      const colCard = document.getElementById('colCard_' + col);
+      let visibleInCol = 0;
+      const startNum = col * SECTORS_PER_COL + 1;
+      const endNum = startNum + SECTORS_PER_COL - 1;
+
+      for (let s = startNum; s <= endNum; s++) {
+        const id = padSector(s);
+        const entry = sectorData[id];
+        const el = document.getElementById('sectorItem_' + id);
+        if (!el) continue;
+
+        let matchRange = (s >= rangeMin && s <= rangeMax);
+        let matchStatus = true;
+        if (activeStatusFilter === 'TAGGED') {
+          matchStatus = hasIntel(entry);
+        } else if (activeStatusFilter !== 'ALL') {
+          matchStatus = (entry.status === activeStatusFilter);
+        }
+
+        let matchSearch = true;
+        if (searchQuery) {
+          const hay = [
+            id,
+            String(s),
+            entry.status,
+            entry.tags.join(' '),
+            entry.notes
+          ].join(' ').toLowerCase();
+          matchSearch = hay.includes(searchQuery);
+        }
+
+        const show = matchRange && matchStatus && matchSearch;
+        el.classList.toggle('hidden-by-filter', !show);
+        if (show) visibleInCol++;
+      }
+
+      if (colCard) {
+        colCard.classList.toggle('hidden-by-filter', visibleInCol === 0);
+      }
+    }
+  }
+
+  // Export & Import JSON / CSV
+  function exportBoardJson() {
+    const payload = {
+      title: 'WatchToweR Player Sector Status Board',
+      exportedAt: new Date().toISOString(),
+      sectors: sectorData
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `watchtower-sector-status-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('EXPORTED SECTOR BOARD JSON');
+  }
+
+  function importBoardJson(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        const source = parsed.sectors || parsed;
+        for (let i = 1; i <= TOTAL_SECTORS; i++) {
+          const id = padSector(i);
+          if (source[id]) {
+            sectorData[id] = {
+              checked: Boolean(source[id].checked),
+              status: source[id].status || 'Unknown',
+              tags: Array.isArray(source[id].tags) ? source[id].tags : [],
+              notes: typeof source[id].notes === 'string' ? source[id].notes : ''
+            };
+          }
+        }
+        saveState('LOADED SECTOR BOARD FILE');
+        renderGrid();
+      } catch (err) {
+        alert('Invalid Sector Status JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  function exportBoardCsv() {
+    const rows = [['Sector', 'Checked', 'Status', 'Tags', 'Notes']];
+    for (let i = 1; i <= TOTAL_SECTORS; i++) {
+      const id = padSector(i);
+      const entry = sectorData[id];
+      const cleanTags = entry.tags.join('; ').replace(/"/g, '""');
+      const cleanNotes = (entry.notes || '').replace(/\r?\n/g, ' ').replace(/"/g, '""');
+      rows.push([
+        `"${id}"`,
+        entry.checked ? 'TRUE' : 'FALSE',
+        `"${entry.status}"`,
+        `"${cleanTags}"`,
+        `"${cleanNotes}"`
+      ]);
+    }
+    const csvContent = rows.map(r => r.join(',')).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `watchtower-sector-status-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('EXPORTED SECTOR BOARD CSV');
+  }
+
+  function resetEntireBoard() {
+    if (!confirm('Reset all 200 sectors back to Unknown and clear all Tags & Notes?')) return;
+    sectorData = createDefaultState();
+    openNotepads.clear();
+    saveState('BOARD RESET TO DEFAULT');
+    renderGrid();
+  }
+
+  function toggleBoardCollapse() {
+    const shell = document.getElementById('boardShell');
+    const btn = document.getElementById('collapseBtn');
+    const collapsed = shell.classList.toggle('is-collapsed');
+    btn.textContent = collapsed ? '[+] EXPAND BOARD' : '[—] COLLAPSE BOARD';
+  }
+
+  function updateClock() {
+    const el = document.getElementById('liveZuluClock');
+    if (!el) return;
+    const now = new Date();
+    const utc = now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+    el.textContent = `OPERATIONAL TELEMETRY // ${utc}`;
+  }
+
+  // Initialize
+  loadState();
+  renderGrid();
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
