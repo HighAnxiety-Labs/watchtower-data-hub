@@ -29,6 +29,7 @@
       --accent: #58a6ff;
       --accent-red: #f85149;
       --accent-orange: #d29922;
+      --accent-gold: #ffd700;
       --tool-accent: #238636;
       --tool-border: #2ea043;
       --tool-text: #3fb950;
@@ -49,8 +50,8 @@
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      padding: 14px;
-      line-height: 1.55;
+      padding: 12px;
+      line-height: 1.5;
       background-image:
         radial-gradient(circle at 50% 0%, rgba(218, 54, 51, 0.08) 0%, transparent 60%),
         linear-gradient(rgba(42, 53, 67, 0.25) 1px, transparent 1px),
@@ -90,7 +91,7 @@
       border-bottom: none;
       border-top: 2px solid #ff7b72;
       clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
-      margin-top: 12px;
+      margin-top: 8px;
     }
 
     /* Top Utility Bar */
@@ -149,6 +150,17 @@
       border-color: #79c0ff;
     }
 
+    .tactical-btn.btn-gold {
+      border-color: rgba(255, 215, 0, 0.45);
+      color: var(--accent-gold);
+    }
+
+    .tactical-btn.btn-gold:hover {
+      background: rgba(210, 153, 34, 0.28);
+      color: #fffbe6;
+      border-color: var(--accent-gold);
+    }
+
     .status-pill {
       font-family: monospace;
       font-size: 11.5px;
@@ -166,8 +178,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding: 24px 28px;
+      gap: 20px;
+      padding: 20px 24px;
       background: linear-gradient(180deg, rgba(24, 31, 42, 0.92) 0%, rgba(13, 17, 23, 0.96) 100%);
       border-bottom: 1px solid var(--border-color);
       flex-wrap: wrap;
@@ -176,15 +188,15 @@
     .hero-left {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
       flex: 1;
-      min-width: 280px;
+      min-width: 260px;
     }
 
     .logo-radar-wrap {
       position: relative;
-      width: 90px;
-      height: 90px;
+      width: 82px;
+      height: 82px;
       border-radius: 50%;
       padding: 4px;
       background: linear-gradient(135deg, #da3633 0%, #0d1117 50%, #58a6ff 100%);
@@ -225,7 +237,7 @@
     .hero-titles {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .header-badge {
@@ -236,7 +248,7 @@
       font-family: monospace;
       font-size: 11px;
       font-weight: 800;
-      padding: 3px 10px;
+      padding: 2px 10px;
       border-radius: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -244,7 +256,7 @@
 
     .hero-titles h1 {
       color: #ffffff;
-      font-size: clamp(24px, 3.5vw, 34px);
+      font-size: clamp(22px, 3.2vw, 32px);
       font-weight: 900;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -252,8 +264,8 @@
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 13.5px;
+      line-height: 1.5;
       max-width: 780px;
     }
 
@@ -264,7 +276,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      padding: 12px 28px;
+      padding: 12px 24px;
       background: #090d12;
       border-bottom: 1px solid var(--border-color);
     }
@@ -281,9 +293,9 @@
       border: 1px solid var(--border-color);
       color: var(--text-muted);
       font-family: monospace;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
-      padding: 6px 12px;
+      padding: 6px 11px;
       border-radius: 4px;
       cursor: pointer;
       text-transform: uppercase;
@@ -304,7 +316,7 @@
       border-radius: 4px;
       font-family: monospace;
       font-size: 12.5px;
-      min-width: 240px;
+      min-width: 230px;
       outline: none;
     }
 
@@ -313,63 +325,120 @@
       box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
     }
 
-    /* Main 4-Column Recon Grid */
+    /* ==========================================================================
+       RESPONSIVE NARROW-COLUMN RECON GRID
+       - Wide (>1140px): 4 narrow columns side-by-side (each type in its own column)
+       - Condensed Desktop / In-Page Viewport (860px–1140px): 3 narrow columns
+       - Tablet / Split Window (560px–859px): 2 narrow columns (keeps same-type narrow!)
+       - Cellphone (<=559px): Stacks cleanly into 1 column
+       ========================================================================== */
     .container {
-      padding: 28px;
+      padding: 22px 20px;
     }
 
-    .major-four-column {
-      display: flex;
+    .recon-columns-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(230px, 295px));
       gap: 18px;
-      align-items: stretch;
+      align-items: start;
+      justify-content: center;
+    }
+
+    /* Single-Category Filter Mode: put same-type cards side-by-side in narrow columns */
+    .recon-columns-grid.single-group-mode {
+      grid-template-columns: minmax(250px, 640px);
+      justify-content: center;
+    }
+
+    .recon-columns-grid.single-group-mode .major-col {
+      max-width: 640px;
+    }
+
+    .recon-columns-grid.single-group-mode .col-cards-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 295px));
+      gap: 16px;
+      align-items: start;
+      justify-content: center;
     }
 
     .major-col {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
       min-width: 0;
     }
 
-    .vertical-divider {
-      width: 1px;
-      background: linear-gradient(180deg, rgba(48, 54, 61, 0.2) 0%, #30363d 15%, #30363d 85%, rgba(48, 54, 61, 0.2) 100%);
-      flex-shrink: 0;
+    .col-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
     }
 
     /* Headers Colored to Match Group Theme */
     .pairing-header {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin-bottom: 2px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
-      min-height: 24px;
+      min-height: 28px;
       font-family: monospace;
     }
 
-    .pairing-header.red-group { color: var(--yt-text); }
-    .pairing-header.red-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(218, 54, 51, 0.4); }
-    .pairing-header.amber-group { color: var(--accent-orange); }
-    .pairing-header.amber-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(210, 153, 34, 0.4); }
-    .pairing-header.green-group { color: var(--tool-text); }
-    .pairing-header.green-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(46, 160, 67, 0.4); }
-    .pairing-header.blue-group { color: var(--accent); }
-    .pairing-header.blue-group::after { content: ""; flex-grow: 1; height: 1px; background-color: rgba(56, 139, 253, 0.4); }
+    .pairing-header.red-group {
+      color: var(--yt-text);
+      border-bottom-color: rgba(218, 54, 51, 0.45);
+    }
+    .pairing-header.amber-group {
+      color: var(--accent-orange);
+      border-bottom-color: rgba(210, 153, 34, 0.45);
+    }
+    .pairing-header.green-group {
+      color: var(--tool-text);
+      border-bottom-color: rgba(46, 160, 67, 0.45);
+    }
+    .pairing-header.blue-group {
+      color: var(--accent);
+      border-bottom-color: rgba(56, 139, 253, 0.45);
+    }
 
-    /* Base Card Styling */
+    .header-count-hint {
+      font-size: 10px;
+      color: var(--accent-gold);
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 3px;
+      padding: 2px 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .header-count-hint:hover {
+      background: rgba(255, 215, 0, 0.22);
+      color: #ffffff;
+      border-color: var(--accent-gold);
+    }
+
+    /* Base Card Styling (Kept Compact & Narrow) */
     .card {
       background-color: var(--card-bg);
       border-radius: 6px;
-      padding: 18px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
@@ -407,11 +476,11 @@
     .card-tag {
       display: inline-block;
       font-family: monospace;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .card-tag.youtube { color: var(--yt-text); }
@@ -421,16 +490,22 @@
 
     .card-title {
       color: #ffffff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      line-height: 1.3;
     }
 
     .card-desc {
-      font-size: 13.5px;
+      font-size: 12.8px;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     /* Buttons */
@@ -442,11 +517,57 @@
       text-decoration: none;
       text-align: center;
       border-radius: 5px;
-      padding: 9px 12px;
-      font-size: 13px;
+      padding: 8px 10px;
+      font-size: 12.5px;
       font-weight: 700;
       transition: all 0.2s ease;
       cursor: pointer;
+      line-height: 1.25;
+    }
+
+    /* Creator Buttons: Name on Left + War Commander Video Count Pill on Right */
+    .card-btn.creator-btn {
+      justify-content: space-between;
+      text-align: left;
+      padding: 7px 9px 7px 10px;
+      gap: 8px;
+    }
+
+    .creator-btn-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .creator-wc-count {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--accent-gold);
+      background: rgba(10, 14, 20, 0.78);
+      border: 1px solid rgba(255, 215, 0, 0.42);
+      border-radius: 3px;
+      padding: 2px 6px;
+      flex-shrink: 0;
+      letter-spacing: 0.3px;
+      transition: all 0.18s ease;
+    }
+
+    .card-btn.creator-btn:hover .creator-wc-count {
+      background: rgba(0, 0, 0, 0.88);
+      color: #fffbe6;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.35);
+    }
+
+    .creator-wc-count.updated-up {
+      color: #4ade80;
+      border-color: #4ade80;
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.35);
     }
 
     .btn-youtube {
@@ -464,7 +585,6 @@
       background-color: rgba(46, 160, 67, 0.15);
       color: var(--tool-text);
       border: 1px solid var(--tool-border);
-      white-space: nowrap;
     }
     .btn-external:hover {
       background-color: var(--tool-accent);
@@ -483,26 +603,58 @@
       border-color: #79c0ff;
     }
 
-    @media (max-width: 1060px) {
-      .major-four-column {
-        flex-direction: column;
-      }
-      .vertical-divider {
-        width: 100%;
-        height: 1px;
-        margin: 6px 0;
+    .wc-count-footnote {
+      font-family: monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      border-top: 1px dashed rgba(218, 54, 51, 0.3);
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    /* Condensed Desktop / In-Page Viewport: 3 narrow columns (never elongated!) */
+    @media (max-width: 1140px) {
+      .recon-columns-grid {
+        grid-template-columns: repeat(3, minmax(225px, 295px));
       }
     }
 
-    @media (max-width: 768px) {
+    /* Narrower Window / Tablet: 2 narrow columns side-by-side (YouTube pair + Tools/Logs pair) */
+    @media (max-width: 860px) {
+      .recon-columns-grid {
+        grid-template-columns: repeat(2, minmax(225px, 305px));
+        gap: 16px;
+      }
       .hero-banner, .container {
-        padding: 18px;
+        padding: 16px;
       }
       .recon-filter-bar {
-        padding: 10px 18px;
+        padding: 10px 16px;
       }
       .search-input {
         width: 100%;
+      }
+    }
+
+    /* Cellphone Width ONLY: Stack cleanly into 1 column */
+    @media (max-width: 559px) {
+      body {
+        padding: 6px;
+      }
+      .container {
+        padding: 14px 12px;
+      }
+      .recon-columns-grid,
+      .recon-columns-grid.single-group-mode,
+      .recon-columns-grid.single-group-mode .col-cards-stack {
+        grid-template-columns: 1fr;
+      }
+      .major-col,
+      .recon-columns-grid.single-group-mode .major-col {
+        max-width: 100%;
       }
     }
   </style>
@@ -521,6 +673,7 @@
         <span class="status-pill">🎥 TACTICAL RECONNAISSANCE • CREATORS &amp; TOOLS</span>
       </div>
       <div class="util-right">
+        <button type="button" class="tactical-btn btn-gold" id="btnRefreshCreatorCounts" onclick="refreshCreatorWcCounts(true)" title="Scan YouTube feeds &amp; channel uploads to promote any newly published War Commander videos into the saved default">↻ SYNC WC VIDEO COUNTS</button>
         <button type="button" class="tactical-btn btn-cyan" onclick="popOutFullWindow()">↗ POP-OUT FULL WINDOW</button>
       </div>
     </div>
@@ -551,124 +704,160 @@
       <input type="text" id="reconSearchInput" class="search-input" placeholder="🔍 Filter creators, guides, tools..." oninput="applyReconSearch(this.value)">
     </div>
 
-    <!-- 4-Column Layout -->
+    <!-- Responsive Narrow-Column Grid (4 -> 3 -> 2 narrow columns; stacks only on cellphone <=559px) -->
     <div class="container">
-      <div class="major-four-column">
+      <div class="recon-columns-grid" id="reconColumnsGrid">
         <!-- COLUMN 1: Featured YouTube Creators (Red Outlines) -->
         <div class="major-col" data-col-group="CREATORS">
-          <div class="pairing-header red-group">Featured Creators</div>
-
-          <div class="card card-red" data-searchable="top tier content creator highly detailed tactical runs project_d88 unit compositions workshop setups attack tactics">
-            <div>
-              <span class="card-tag youtube">Top TIER Content Creator</span>
-              <div class="card-title">Highly Detailed Tactical Runs</div>
-              <div class="card-desc">
-                Actionable, direct content complete with step-by-step guides for unit compositions, workshop setups, and attack tactics.
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://www.youtube.com/@Project_d88" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Project_d88</a>
-            </div>
+          <div class="pairing-header red-group">
+            <span>Featured Creators</span>
+            <span class="header-count-hint" onclick="refreshCreatorWcCounts(true)" title="Total War Commander related videos per creator (auto-increasing high-water mark — click to re-scan)">🎬 WC VIDS ↻</span>
           </div>
 
-          <div class="card card-red" data-searchable="watch me kick ass demo runs highlights stormy gaming yt furious bull2 wc jbsamar mp184 burn-base dot siddy3386">
-            <div>
-              <span class="card-tag youtube">WATCH ME "KICK ASS"</span>
-              <div class="card-title">Demo Runs &amp; Highlights</div>
-              <div class="card-desc">Quick Release tactical gameplay and general playthrough recordings set to background music from community creators.</div>
+          <div class="col-cards-stack">
+            <div class="card card-red" data-searchable="top tier content creator highly detailed tactical runs project_d88 unit compositions workshop setups attack tactics">
+              <div>
+                <span class="card-tag youtube">Top TIER Content Creator</span>
+                <div class="card-title">Highly Detailed Tactical Runs</div>
+                <div class="card-desc">
+                  Actionable, direct content complete with step-by-step guides for unit compositions, workshop setups, and attack tactics.
+                </div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://www.youtube.com/@Project_d88" class="card-btn btn-youtube creator-btn" data-creator-id="project_d88" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ Project_d88</span>
+                  <span class="creator-wc-count" id="wc-count-project_d88">281</span>
+                </a>
+              </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://www.youtube.com/@STORMYGAMINGYT99" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ STORMY GAMING YT</a>
-              <a href="https://www.youtube.com/@furiousbull2" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ furious bull2</a>
-              <a href="https://www.youtube.com/@WCJBsamar" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ WC JBsamar</a>
-              <a href="https://www.youtube.com/@MP184BURNBASE" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ MP184 BURN-BASE</a>
-              <a href="https://www.youtube.com/@dot-sl1zo" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ DOT</a>
-              <a href="https://youtube.com/shorts/VK5_pXq1Re4?si=JVuPauDFG0FoiR4q" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Siddy3386</a>
+
+            <div class="card card-red" data-searchable="watch me kick ass demo runs highlights stormy gaming yt furious bull2 wc jbsamar mp184 burn-base dot siddy3386">
+              <div>
+                <span class="card-tag youtube">WATCH ME "KICK ASS"</span>
+                <div class="card-title">Demo Runs &amp; Highlights</div>
+                <div class="card-desc">Quick Release tactical gameplay and general playthrough recordings set to background music from community creators.</div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://www.youtube.com/@STORMYGAMINGYT99" class="card-btn btn-youtube creator-btn" data-creator-id="stormy" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ STORMY GAMING YT</span>
+                  <span class="creator-wc-count" id="wc-count-stormy">200</span>
+                </a>
+                <a href="https://www.youtube.com/@furiousbull2" class="card-btn btn-youtube creator-btn" data-creator-id="furiousbull2" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ furious bull2</span>
+                  <span class="creator-wc-count" id="wc-count-furiousbull2">420</span>
+                </a>
+                <a href="https://www.youtube.com/@WCJBsamar" class="card-btn btn-youtube creator-btn" data-creator-id="wcjbsamar" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ WC JBsamar</span>
+                  <span class="creator-wc-count" id="wc-count-wcjbsamar">1,430</span>
+                </a>
+                <a href="https://www.youtube.com/@MP184BURNBASE" class="card-btn btn-youtube creator-btn" data-creator-id="mp184" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ MP184 BURN-BASE</span>
+                  <span class="creator-wc-count" id="wc-count-mp184">410</span>
+                </a>
+                <a href="https://www.youtube.com/@dot-sl1zo" class="card-btn btn-youtube creator-btn" data-creator-id="dot" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ DOT</span>
+                  <span class="creator-wc-count" id="wc-count-dot">192</span>
+                </a>
+                <a href="https://youtu.be/y50i1bI2uN4?si=dpznIEkE-IAugQyT" class="card-btn btn-youtube creator-btn" data-creator-id="siddy3386" target="_blank" rel="noopener">
+                  <span class="creator-btn-label">▶ Siddy3386</span>
+                  <span class="creator-wc-count" id="wc-count-siddy3386">6k</span>
+                </a>
+              </div>
+              <div class="wc-count-footnote">
+                <span id="wcCountStatusText">WC Totals Verified</span>
+                <span id="wcTotalCombinedBadge" style="color: var(--accent-gold); font-weight: 800;">8,933 Total</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="vertical-divider">&nbsp;</div>
 
         <!-- COLUMN 2: Current Event Walkthroughs (Red Outlines) -->
         <div class="major-col" data-col-group="WALKTHROUGHS">
-          <div class="pairing-header amber-group">EVENT WALKTHROUGHS</div>
-
-          <div class="card card-red" data-searchable="player strategy help helpful videos free repairs l rhinos banshees target prioritization">
-            <div>
-              <span class="card-tag highlight">PLAYER Strategy HELP</span>
-              <div class="card-title">Player Helpful Videos</div>
-              <div class="card-desc">Step-by-step for the new guy or returning players: target prioritization, lower-repairs, and non-event farming.</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://www.youtube.com/watch?v=Cpv5Ts7HTgA&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ A Guide to help get Free Repairs</a>
-              <a href="https://www.youtube.com/watch?v=2apvfU-_jv0&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to use L Rhinos</a>
-              <a href="https://www.youtube.com/watch?v=1Fky0uGhMA8&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to Kill Banshees</a>
-            </div>
+          <div class="pairing-header amber-group">
+            <span>Event Walkthroughs</span>
           </div>
 
-          <div class="card card-red" data-searchable="how-to player resource tactics shadow ops iridium supply depots advanced materials holdout sector breach skirmish">
-            <div>
-              <span class="card-tag highlight">How-To</span>
-              <div class="card-title">Player Resource Tactics</div>
-              <div class="card-desc">Master combat against Events: Monthly Operation, Holdout, Shadow Ops, Sector Breach, and Skirmish-related searches.</div>
+          <div class="col-cards-stack">
+            <div class="card card-red" data-searchable="player strategy help helpful videos free repairs l rhinos banshees target prioritization">
+              <div>
+                <span class="card-tag highlight">PLAYER Strategy HELP</span>
+                <div class="card-title">Player Helpful Videos</div>
+                <div class="card-desc">Step-by-step for the new guy or returning players: target prioritization, lower-repairs, and non-event farming.</div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://www.youtube.com/watch?v=Cpv5Ts7HTgA&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ A Guide to help get Free Repairs</a>
+                <a href="https://www.youtube.com/watch?v=2apvfU-_jv0&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to use L Rhinos</a>
+                <a href="https://www.youtube.com/watch?v=1Fky0uGhMA8&amp;t=1s" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ How to Kill Banshees</a>
+              </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://www.youtube.com/results?search_query=Shadow+Ops+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Shadow Ops</a>
-              <a href="https://www.youtube.com/results?search_query=IRIDIUM+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ IRIDIUM</a>
-              <a href="https://www.youtube.com/results?search_query=SUPPLY+DEPOTS+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Supply Depots</a>
-              <a href="https://www.youtube.com/results?search_query=AdvancedMaterials+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Advanced Materials</a>
+
+            <div class="card card-red" data-searchable="how-to player resource tactics shadow ops iridium supply depots advanced materials holdout sector breach skirmish">
+              <div>
+                <span class="card-tag highlight">How-To</span>
+                <div class="card-title">Player Resource Tactics</div>
+                <div class="card-desc">Master combat against Events: Monthly Operation, Holdout, Shadow Ops, Sector Breach, and Skirmish-related searches.</div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://www.youtube.com/results?search_query=Shadow+Ops+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Shadow Ops</a>
+                <a href="https://www.youtube.com/results?search_query=IRIDIUM+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ IRIDIUM</a>
+                <a href="https://www.youtube.com/results?search_query=SUPPLY+DEPOTS+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Supply Depots</a>
+                <a href="https://www.youtube.com/results?search_query=AdvancedMaterials+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&amp;sp=CAISAhAB" class="card-btn btn-youtube" target="_blank" rel="noopener">▶ Advanced Materials</a>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="vertical-divider">&nbsp;</div>
 
         <!-- COLUMN 3: Player Tools (Green Outlines & Combined Tools) -->
         <div class="major-col" data-col-group="TOOLS">
-          <div class="pairing-header green-group">Player Tools</div>
-
-          <div class="card card-green" data-searchable="capture utility screenpal video recorder battle runs exploits">
-            <div>
-              <span class="card-tag tool">Capture Utility</span>
-              <div class="card-title">ScreenPal Video Recorder</div>
-              <div class="card-desc">Record battle runs or capture suspected exploits directly on desktop using ScreenPal for clean verification clips.</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://screenpal.com/" class="card-btn btn-external" target="_blank" rel="noopener">Open ScreenPal ↗</a>
-            </div>
+          <div class="pairing-header green-group">
+            <span>Player Tools</span>
           </div>
 
-          <div class="card card-green" data-searchable="external uploader imglink.cc video image hub blueprints replays get involved">
-            <div>
-              <span class="card-tag tool">External Uploader</span>
-              <div class="card-title">imglink.cc Video &amp; Image Hub</div>
-              <div class="card-desc">
-                Don't use YouTube; host incident captures, base layout blueprints, and attack replays with universal UK/global visibility. Send URLs via
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700;">Get Involved ↗</a>
+          <div class="col-cards-stack">
+            <div class="card card-green" data-searchable="capture utility screenpal video recorder battle runs exploits">
+              <div>
+                <span class="card-tag tool">Capture Utility</span>
+                <div class="card-title">ScreenPal Video Recorder</div>
+                <div class="card-desc">Record battle runs or capture suspected exploits directly on desktop using ScreenPal for clean verification clips.</div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://screenpal.com/" class="card-btn btn-external" target="_blank" rel="noopener">Open ScreenPal ↗</a>
               </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="https://imglink.cc/" class="card-btn btn-external" target="_blank" rel="noopener">Share via IMGLINK.CC ↗</a>
+
+            <div class="card card-green" data-searchable="external uploader imglink.cc video image hub blueprints replays get involved">
+              <div>
+                <span class="card-tag tool">External Uploader</span>
+                <div class="card-title">imglink.cc Video &amp; Image Hub</div>
+                <div class="card-desc">
+                  Don't use YouTube; host incident captures, base layout blueprints, and attack replays with universal UK/global visibility. Send URLs via
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener" style="color: #38bdf8; font-weight: 700;">Get Involved ↗</a>
+                </div>
+              </div>
+              <div class="btn-stack">
+                <a href="https://imglink.cc/" class="card-btn btn-external" target="_blank" rel="noopener">Share via IMGLINK.CC ↗</a>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="vertical-divider">&nbsp;</div>
-
         <!-- COLUMN 4: Combat Analysis & Logs (Blue Outlines) -->
         <div class="major-col" data-col-group="LOGS">
-          <div class="pairing-header blue-group">Combat Analysis &amp; Logs</div>
+          <div class="pairing-header blue-group">
+            <span>Combat Analysis &amp; Logs</span>
+          </div>
 
-          <div class="card card-blue" data-searchable="war crimes intel cheat exploit recordings bot scripting report proof">
-            <div>
-              <span class="card-tag alert">War Crimes Intel</span>
-              <div class="card-title">Cheat &amp; Exploit Recordings</div>
-              <div class="card-desc">Video proof submissions detailing self-attack protection, bot scripting, and abnormal combat anomalies.</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              <a href="./report-war-crimes.html" class="card-btn btn-internal">🛡️ Open Report War Crimes Brief</a>
-              <a href="https://sites.google.com/view/watchtower-data-hub/report-war-crimes/report-player/intergrity-reports" class="card-btn btn-internal" target="_blank" rel="noopener">↗ Legacy Integrity Reports</a>
+          <div class="col-cards-stack">
+            <div class="card card-blue" data-searchable="war crimes intel cheat exploit recordings bot scripting report proof">
+              <div>
+                <span class="card-tag alert">War Crimes Intel</span>
+                <div class="card-title">Cheat &amp; Exploit Recordings</div>
+                <div class="card-desc">Video proof submissions detailing self-attack protection, bot scripting, and abnormal combat anomalies.</div>
+              </div>
+              <div class="btn-stack">
+                <a href="./report-war-crimes.html" class="card-btn btn-internal">🛡️ Open Report War Crimes Brief</a>
+                <a href="https://sites.google.com/view/watchtower-data-hub/report-war-crimes/report-player/intergrity-reports" class="card-btn btn-internal" target="_blank" rel="noopener">↗ Legacy Integrity Reports</a>
+              </div>
             </div>
           </div>
         </div>
@@ -682,12 +871,291 @@
   </div>
 
   <script>
+    /* ==========================================================================
+       MONOTONIC HIGH-WATER-MARK WAR COMMANDER CREATOR VIDEO COUNTER
+       - Audited Baseline Defaults (2026-11-10): excludes non-War Commander games
+       - Counts ONLY ever stay equal or increase; any higher fresh count becomes
+         the new persisted default in localStorage automatically.
+       ========================================================================== */
+    const WC_COUNTS_STORAGE_KEY = 'wtr_creator_wc_video_counts_v1';
+    const BASELINE_AUDIT_ISO = '2026-11-10T18:15:00Z';
+    const BASELINE_AUDIT_MS = Date.parse(BASELINE_AUDIT_ISO);
+
+    const CREATOR_WC_REGISTRY = [
+      {
+        id: 'project_d88',
+        name: 'Project_d88',
+        handle: 'Project_d88',
+        channelId: 'UCgLApDnJO92pQYt81v_T6oA',
+        uploadsList: 'UUgLApDnJO92pQYt81v_T6oA',
+        defaultWcCount: 281,
+        baselineTotalUploads: 292,
+        mode: 'PLAYLIST_OFFSET',
+        nonWcOffset: 11
+      },
+      {
+        id: 'stormy',
+        name: 'STORMY GAMING YT',
+        handle: 'STORMYGAMINGYT99',
+        channelId: 'UC5Nm3nZIMF0mp_BtXofnnIQ',
+        uploadsList: 'UU5Nm3nZIMF0mp_BtXofnnIQ',
+        defaultWcCount: 200,
+        baselineTotalUploads: 373,
+        mode: 'MIXED_WC_FILTER'
+      },
+      {
+        id: 'furiousbull2',
+        name: 'furious bull2',
+        handle: 'furiousbull2',
+        channelId: 'UCtzS9uHklZVwvyewJDmG8ww',
+        uploadsList: 'UUtzS9uHklZVwvyewJDmG8ww',
+        defaultWcCount: 420,
+        baselineTotalUploads: 1716,
+        mode: 'MIXED_WC_FILTER'
+      },
+      {
+        id: 'wcjbsamar',
+        name: 'WC JBsamar',
+        handle: 'WCJBsamar',
+        channelId: 'UCpBT5Xj1KLledXt_x7rzATA',
+        uploadsList: 'UUpBT5Xj1KLledXt_x7rzATA',
+        defaultWcCount: 1430,
+        baselineTotalUploads: 1430,
+        mode: 'PURE_WC_CHANNEL'
+      },
+      {
+        id: 'mp184',
+        name: 'MP184 BURN-BASE',
+        handle: 'MP184BURNBASE',
+        channelId: 'UCg3Ac0z5vikIlNgPqJ6F1rQ',
+        uploadsList: 'UUg3Ac0z5vikIlNgPqJ6F1rQ',
+        defaultWcCount: 410,
+        baselineTotalUploads: 836,
+        mode: 'MIXED_WC_FILTER'
+      },
+      {
+        id: 'dot',
+        name: 'DOT',
+        handle: 'DOT-sl1zo',
+        channelId: 'UCD3iqiGHAA70Goo9mF8obJw',
+        uploadsList: 'UUD3iqiGHAA70Goo9mF8obJw',
+        defaultWcCount: 192,
+        baselineTotalUploads: 192,
+        mode: 'PURE_WC_CHANNEL'
+      },
+      {
+        id: 'siddy3386',
+        name: 'Siddy3386',
+        displayCountText: '6k',
+        defaultWcCount: 6000,
+        mode: 'STATIC_SINGLE_VIDEO'
+      }
+    ];
+
+    const WC_KEYWORD_REGEX = /\b(war\s*commander|warcommander|\bwc\b|kixeye|holdout|skirmish|sector\s*breach|shadow\s*ops|warpath|nightmare|incursion|iridium|thorium|rubi|platoon|supply\s*depot|rogue|fob|cc\s*2[012]|command\s*center|blue\s*baron|phantom\s*expedition|blue\s*genesis|split\s*prophecy|harvest\s*protocol|redline|aftershock|epicenter|tremors|argus|anansi|dixon|juggernaut|banshee|rhino|achilles|kabuto|stormwail|simo|frostpiercer|atlas|sentinel|equinox|corpus|free\s*repair|conqueror|braine|jonny\s*bones|caster|pollux)\b/i;
+    const NON_WC_GAME_REGEX = /(#gta|gta\s*6|gta\s*v|champions\s*league|barcelona|man\s*city|chelsea|premier\s*league|fifa|pubg|free\s*fire|mobile\s*legends|roblox|minecraft|fortnite|valorant|#fallout|\bfallout\b|call\s*of\s*duty|warzone|delta\s*force)/i;
+
+    function loadWcCountVault() {
+      let parsed = {};
+      try {
+        const raw = localStorage.getItem(WC_COUNTS_STORAGE_KEY);
+        if (raw) parsed = JSON.parse(raw) || {};
+      } catch (e) {}
+
+      if (!parsed.counts || typeof parsed.counts !== 'object') parsed.counts = {};
+      if (!parsed.seenPostBaselineIds || typeof parsed.seenPostBaselineIds !== 'object') parsed.seenPostBaselineIds = {};
+
+      // Enforce monotonic high-water mark against hardcoded audited defaults
+      CREATOR_WC_REGISTRY.forEach(c => {
+        if (c.mode === 'STATIC_SINGLE_VIDEO') {
+          parsed.counts[c.id] = c.defaultWcCount;
+          return;
+        }
+        const stored = Number(parsed.counts[c.id]) || 0;
+        parsed.counts[c.id] = Math.max(c.defaultWcCount, stored);
+        if (!Array.isArray(parsed.seenPostBaselineIds[c.id])) {
+          parsed.seenPostBaselineIds[c.id] = [];
+        }
+      });
+
+      return parsed;
+    }
+
+    function saveWcCountVault(vault) {
+      try {
+        localStorage.setItem(WC_COUNTS_STORAGE_KEY, JSON.stringify(vault));
+      } catch (e) {}
+    }
+
+    function renderCreatorWcBadges(vault, updatedIds = []) {
+      let grandTotal = 0;
+      CREATOR_WC_REGISTRY.forEach(c => {
+        const count = c.mode === 'STATIC_SINGLE_VIDEO'
+          ? c.defaultWcCount
+          : Math.max(c.defaultWcCount, Number(vault.counts[c.id]) || 0);
+        grandTotal += count;
+        const badge = document.getElementById('wc-count-' + c.id);
+        if (badge) {
+          if (c.displayCountText) {
+            badge.textContent = c.displayCountText;
+            badge.title = `${c.name}: ${c.displayCountText} videos created (Pinned Single Video)`;
+          } else {
+            badge.textContent = count.toLocaleString('en-US');
+            badge.title = `${c.name}: ${count.toLocaleString('en-US')} War Commander related videos (Saved High-Water-Mark Default)`;
+          }
+          if (updatedIds.includes(c.id)) {
+            badge.classList.add('updated-up');
+          }
+        }
+      });
+
+      const totalEl = document.getElementById('wcTotalCombinedBadge');
+      if (totalEl) {
+        totalEl.textContent = `${grandTotal.toLocaleString('en-US')} Total`;
+      }
+      const statusEl = document.getElementById('wcCountStatusText');
+      if (statusEl && vault.lastCheckedAt) {
+        const dt = new Date(vault.lastCheckedAt);
+        if (!isNaN(dt.getTime())) {
+          statusEl.textContent = `Default Synced ${dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+        }
+      }
+    }
+
+    async function fetchTextViaCorsProxy(targetUrl) {
+      const proxies = [
+        'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl),
+        'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl),
+        'https://corsproxy.io/?' + encodeURIComponent(targetUrl)
+      ];
+      for (const pUrl of proxies) {
+        try {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 7500);
+          const resp = await fetch(pUrl, { signal: ctrl.signal, cache: 'no-store' });
+          clearTimeout(timer);
+          if (resp.ok) {
+            const text = await resp.text();
+            if (text && text.length > 80) return text;
+          }
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    async function checkSingleCreatorFreshCount(creator, vault) {
+      if (creator.mode === 'STATIC_SINGLE_VIDEO' || !creator.channelId) {
+        return false;
+      }
+      const currentDefault = Math.max(creator.defaultWcCount, Number(vault.counts[creator.id]) || 0);
+      let candidateCount = currentDefault;
+
+      // 1. Check YouTube's official public Atom XML Feed for new post-baseline War Commander uploads
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${creator.channelId}`;
+      const rssXml = await fetchTextViaCorsProxy(rssUrl);
+      if (rssXml && rssXml.includes('<entry>')) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(rssXml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        const seenSet = new Set(vault.seenPostBaselineIds[creator.id] || []);
+
+        entries.forEach(entry => {
+          const vidId = entry.getElementsByTagName('yt:videoId')[0]?.textContent ||
+                        entry.getElementsByTagName('videoId')[0]?.textContent || '';
+          const title = entry.getElementsByTagName('title')[0]?.textContent || '';
+          const desc = entry.getElementsByTagName('media:description')[0]?.textContent ||
+                       entry.getElementsByTagName('description')[0]?.textContent || '';
+          const pubStr = entry.getElementsByTagName('published')[0]?.textContent || '';
+          const pubMs = Date.parse(pubStr);
+
+          if (!vidId || isNaN(pubMs) || pubMs <= BASELINE_AUDIT_MS) return;
+
+          const haystack = `${title} ${desc}`;
+          const isWc = creator.mode === 'PURE_WC_CHANNEL'
+            ? !NON_WC_GAME_REGEX.test(haystack)
+            : (WC_KEYWORD_REGEX.test(haystack) && !NON_WC_GAME_REGEX.test(haystack));
+
+          if (isWc) {
+            seenSet.add(vidId);
+          }
+        });
+
+        vault.seenPostBaselineIds[creator.id] = Array.from(seenSet);
+        candidateCount = Math.max(candidateCount, creator.defaultWcCount + seenSet.size);
+      }
+
+      // 2. For Pure WC & Offset Channels, also check exact Uploads Playlist header count for bulk jumps (>15 uploads)
+      if (creator.mode === 'PURE_WC_CHANNEL' || creator.mode === 'PLAYLIST_OFFSET') {
+        const plUrl = `https://www.youtube.com/playlist?list=${creator.uploadsList}`;
+        const plHtml = await fetchTextViaCorsProxy(plUrl);
+        if (plHtml) {
+          const m = plHtml.match(/\{"text":"([0-9,]+)"\},\{"text":"\s*videos?"\}/i);
+          if (m && m[1]) {
+            const exactUploads = parseInt(m[1].replace(/,/g, ''), 10);
+            if (!isNaN(exactUploads) && exactUploads > creator.baselineTotalUploads) {
+              const derivedWc = creator.mode === 'PURE_WC_CHANNEL'
+                ? exactUploads
+                : (exactUploads - (creator.nonWcOffset || 0));
+              candidateCount = Math.max(candidateCount, derivedWc);
+            }
+          }
+        }
+      }
+
+      // Strictly monotonic: only promote if higher than current default
+      if (candidateCount > currentDefault) {
+        vault.counts[creator.id] = candidateCount;
+        return true;
+      }
+      return false;
+    }
+
+    let isRefreshingWcCounts = false;
+    async function refreshCreatorWcCounts(manualTrigger = false) {
+      if (isRefreshingWcCounts) return;
+      isRefreshingWcCounts = true;
+
+      const btn = document.getElementById('btnRefreshCreatorCounts');
+      const statusEl = document.getElementById('wcCountStatusText');
+      if (btn) btn.textContent = '⏳ SCANNING CHANNELS...';
+      if (statusEl) statusEl.textContent = 'Checking new WC uploads...';
+
+      const vault = loadWcCountVault();
+      const updatedIds = [];
+
+      await Promise.all(CREATOR_WC_REGISTRY.map(async (creator) => {
+        try {
+          const increased = await checkSingleCreatorFreshCount(creator, vault);
+          if (increased) updatedIds.push(creator.id);
+        } catch (e) {}
+      }));
+
+      vault.lastCheckedAt = new Date().toISOString();
+      saveWcCountVault(vault);
+      renderCreatorWcBadges(vault, updatedIds);
+
+      if (btn) {
+        btn.textContent = updatedIds.length > 0
+          ? `✅ +${updatedIds.length} UPDATED!`
+          : '✅ COUNTS CURRENT';
+        setTimeout(() => {
+          btn.textContent = '↻ SYNC WC VIDEO COUNTS';
+        }, 2600);
+      }
+
+      isRefreshingWcCounts = false;
+    }
+
     function filterReconColumns(group, btnEl) {
       document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
       if (btnEl) btnEl.classList.add('active');
 
+      const grid = document.getElementById('reconColumnsGrid');
       const cols = document.querySelectorAll('.major-col');
-      const dividers = document.querySelectorAll('.vertical-divider');
+
+      if (grid) {
+        grid.classList.toggle('single-group-mode', group !== 'ALL');
+      }
 
       cols.forEach(col => {
         if (group === 'ALL' || col.getAttribute('data-col-group') === group) {
@@ -695,10 +1163,6 @@
         } else {
           col.style.display = 'none';
         }
-      });
-
-      dividers.forEach(d => {
-        d.style.display = (group === 'ALL') ? '' : 'none';
       });
     }
 
@@ -727,6 +1191,18 @@
       const top = Math.max(0, (window.screen.height - h) / 2);
       window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
     }
+
+    // Initialize saved high-water-mark defaults immediately, and auto-check if >12h stale
+    (function initCreatorCounts() {
+      const vault = loadWcCountVault();
+      renderCreatorWcBadges(vault);
+
+      const lastMs = vault.lastCheckedAt ? Date.parse(vault.lastCheckedAt) : 0;
+      const twelveHoursMs = 12 * 60 * 60 * 1000;
+      if (!lastMs || (Date.now() - lastMs) > twelveHoursMs) {
+        setTimeout(() => refreshCreatorWcCounts(false), 900);
+      }
+    })();
   </script>
 </body>
 </html>
