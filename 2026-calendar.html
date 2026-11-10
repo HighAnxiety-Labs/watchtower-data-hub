@@ -23,66 +23,8 @@
         }
       }, true);
     });
-  </script><base href="https://165969602-atari-embeds.googleusercontent.com/embeds/4c8a3211fd76886a93ab92bca3a50520/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.etOqPKhAhvg.O%2Fd%3D1%2Frs%3DAHpOoo-l5JrVgGKVELwC844E6riBHX86-w%2Fm%3D__features__" target="_blank">
-      <script>
-        (function() {
-          // Listen during capturing phase to intercept before <base target="_blank"> takes effect.
-          document.addEventListener('click', function(e) {
-            // Find the nearest ancestor anchor (handles nested icons, spans, svgs).
-            var el = e.target;
-            var anchor = null;
-            while (el && el !== document) {
-              if (el.tagName && el.tagName.toLowerCase() === 'a') {
-                anchor = el;
-                break;
-              }
-              el = el.parentElement;
-            }
-            if (!anchor) return;
-
-            // Only intercept relative in-page fragment links, not external links with hashes.
-            var href = anchor.getAttribute('href');
-            if (!href) return;
-            href = href.trim();
-            if (!href.startsWith('#')) return;
-
-            // Prevent default <base target="_blank"> navigation to a new blank tab.
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Handle empty anchor or top anchor.
-            if (href === '#' || href === '#top') {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              return;
-            }
-
-            // Resolve target element by id, falling back to legacy name attribute.
-            var targetId = href.slice(1);
-            try {
-              targetId = decodeURIComponent(targetId);
-            } catch (err) {}
-
-            var targetEl = document.getElementById(targetId);
-            if (!targetEl) {
-              try {
-                var escaped = window.CSS && CSS.escape ? CSS.escape(targetId) : targetId.replace(/["\\]/g, '\\$&');
-                targetEl = document.querySelector('[name="' + escaped + '"]');
-              } catch (err) {}
-            }
-
-            // Smoothly scroll to the target within the embed and update URL hash history.
-            if (targetEl) {
-              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              if (window.history && window.history.pushState) {
-                window.history.pushState(null, '', href);
-              }
-            }
-          }, true); // useCapture: true is critical to preempt <base target="_blank">
-        })();
-      </script>
-    
-<!-- WATCHTOWER ANNUAL EVENT CALENDAR COMMAND DECK // RELEASE: v2.9-CUSTOM-LEGENDS-DECK (2026-10-31) -->
-
+  </script>
+<!-- WATCHTOWER ANNUAL EVENT CALENDAR COMMAND DECK // RELEASE: v2.9-CUSTOM-LEGENDS-DECK (2026-11-09) -->
 
 <!-- ==================== START BLOCK 1: HEAD & CSS STYLES ==================== -->
   <meta charset="UTF-8">
@@ -91,7 +33,7 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — War Commander 2026 Calendar Command Deck">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub â€” Tactical Briefs, Event Calculators & Intelligence.">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Tactical Briefs, Event Calculators & Intelligence.">
   <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
@@ -213,6 +155,7 @@
     gap: 6px;
     cursor: pointer;
     text-transform: uppercase;
+    -webkit-user-select: none;
     user-select: none;
     width: 184px;
     transition: all 0.15s ease;
@@ -372,6 +315,7 @@
     width: 100vw;
     height: 100vh;
     background: rgba(4, 8, 12, 0.88);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     z-index: 99999;
     display: none;
@@ -474,6 +418,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.16s ease;
+    -webkit-user-select: none;
     user-select: none;
     flex-shrink: 0;
   }
@@ -806,6 +751,7 @@
     justify-content: center;
     padding: 0;
     transition: all 0.16s ease;
+    -webkit-user-select: none;
     user-select: none;
     flex-shrink: 0;
   }
@@ -944,6 +890,7 @@
     background: rgba(34, 50, 68, 0.35);
     color: #f1f5f9;
     cursor: pointer;
+    -webkit-user-select: none;
     user-select: none;
     transition: all 0.16s ease;
     white-space: nowrap;
@@ -1527,10 +1474,10 @@
     gap: 10px;
   }
   </style>
-<style>.f1l1o3bf{font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, Arial;font-style:normal;font-weight:400}.f1l1o3bf button, .f1l1o3bf input, .f1l1o3bf textarea{font-family:inherit}.f1i95ii3{border-top:0.5px solid var(--origin-color-border-base-subdued)}.f1a8rywe{min-width:0}.f1mpvv25{min-width:100%;width:0}.fjz5tje{-moz-appearance:none;-webkit-appearance:none;appearance:none;background:none;border:none;color:var(--origin-color-text-base-default);cursor:pointer;font:inherit;letter-spacing:inherit;padding:0;text-decoration:underline;text-underline-position:from-font}.f1h70aqx{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);overflow:hidden;width:200px}.fa7ohrq{background:transparent;border:none;border-top-left-radius:20px;border-top-right-radius:20px;display:block;overflow:hidden;vertical-align:top}.f1lzxbh5{transform:none}.f2iyhnc{--ease-out:cubic-bezier(0, 0.8, 0.2, 1)}.f1c6kbrm{height:0;overflow:hidden;pointer-events:none;width:0}.fkiiwe1{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);box-sizing:content-box;display:flex;flex-direction:column;min-width:200px;overflow:hidden;transition:width 300ms cubic-bezier(0, 0.8, 0.2, 1), height 300ms cubic-bezier(0, 0.8, 0.2, 1)}.f1mgyl9u{position:relative}.fkxp4c0{background:transparent !important;border:none !important;border-radius:0 !important;border-top:0.5px solid var(--origin-color-border-base-subdued) !important;box-shadow:none !important;box-sizing:border-box;min-width:200px;width:-moz-max-content;width:max-content}.f1w5w47h{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:1}.f1rm63xq{contain:inline-size}.f1sjiwcg{box-sizing:border-box;max-height:226px;overflow-y:auto}.f1sjiwcg button[role="menuitem"]{flex-shrink:0}.f1jhsh4f.f1jhsh4f{max-height:196px}.fhbth78{background-color:var(--origin-color-background-base-default);border:1px solid var(--origin-color-border-base-subdued);border-radius:20px;box-shadow:var(--origin-elevation-base-low);overflow:hidden}.fcym66q{min-width:100%;width:-moz-max-content;width:max-content}@keyframes f1gwuh0p{from{opacity:0}to{opacity:1}}.fvrf9c6{animation:f1gwuh0p 0.2s cubic-bezier(0.1, 0.65, 0.2, 1) forwards;max-width:-moz-fit-content;max-width:fit-content;opacity:0}</style><style></style></head>
+</head>
 <!-- ==================== END BLOCK 1: HEAD & CSS STYLES ==================== -->
 <!-- ==================== START BLOCK 2: STUDIO TOP BAR, 6-WEEK MINI PICKER, COMPACT POP-OUT, IMPORT MODAL & INLINE EDITORS ==================== -->
-<body data-gr-ext-go-mode="" data-gr-aaa-loaded="14.1343.0" data-gr-aaa-notch-connection-id="1793494655836-0.43208030315015555" data-gr-agent-presence-bridge-connection-id="1793499329985-0.49082957919325465" data-new-gr-c-s-loaded="14.1343.0">
+<body>
 
 <!-- Universal Local Image Picker for Calendar Graphics (Stripped on Publish) -->
 
@@ -3127,18 +3074,18 @@
         startDate: "NOV 5, 2026",
         endDate: "NOV 11, 2026",
         storeDate: "NOV 12, 2026",
-        briefUrl: "https://sites.google.com/view/watchtower-data-hub/tactical-briefs",
+        briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/operation-blue-baron.html",
         sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/"
       },
-      { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",               startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "N/A", briefUrl: "", sourceUrl: "" },
-      { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",         startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "N/A", briefUrl: "", sourceUrl: "" },
+      { key: "holdout",   tier: "main",  hex: "#00bcd4", enabled: true,  label: "Holdout",               startDate: "NOV 13, 2026", endDate: "NOV 17, 2026", storeDate: "N/A", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html", sourceUrl: "" },
+      { key: "breach",    tier: "main",  hex: "#ff9800", enabled: true,  label: "Sector Breach",         startDate: "NOV 20, 2026", endDate: "NOV 24, 2026", storeDate: "N/A", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html", sourceUrl: "" },
       { key: "warpath",   tier: "main",  hex: "#ab47bc", enabled: false, label: "Warpath",               startDate: "TBD",          endDate: "TBD",          storeDate: "N/A", briefUrl: "", sourceUrl: "" },
-      { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish I",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "", sourceUrl: "" },
-      { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",           startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "", sourceUrl: "" },
-      { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",         startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
-      { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1",   startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
-      { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2",   startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
-      { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3",   startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "", sourceUrl: "" },
+      { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish I",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html", sourceUrl: "" },
+      { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",           startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html", sourceUrl: "" },
+      { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",         startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
+      { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1",   startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+      { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2",   startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+      { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3",   startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
       { key: "bases",     tier: "bases", hex: "#fbc02d", enabled: true,  label: "Assigned Bases",        startDate: "MON / TUE / WED", endDate: "WEEKLY ROTATION", storeDate: "N/A", briefUrl: "", sourceUrl: "" }
     ],
     daysData: {
@@ -3190,7 +3137,7 @@
       decFuture.startDate = "NOV 12, 2026";
       decFuture.endDate = "DEC 30, 2026";
       decFuture.storeDate = "N/A";
-      decFuture.briefUrl = "./2026-pvp-season-60-brief.html";
+      decFuture.briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html";
       decFuture.sourceUrl = "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/";
     }
     dec.daysData["1"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
@@ -3236,7 +3183,7 @@
       "startDate": "NOV 5, 2026",
       "endDate": "NOV 11, 2026",
       "storeDate": "NOV 12, 2026",
-      "briefUrl": "./operation-blue-baron.html",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/operation-blue-baron.html",
       "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/"
     },
     {
@@ -3245,7 +3192,8 @@
       "label": "Holdout",
       "startDate": "NOV 13, 2026",
       "endDate": "NOV 17, 2026",
-      "storeDate": "N/A"
+      "storeDate": "N/A",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html"
     },
     {
       "key": "breach",
@@ -3253,7 +3201,8 @@
       "label": "Sector Breach",
       "startDate": "NOV 20, 2026",
       "endDate": "NOV 24, 2026",
-      "storeDate": "N/A"
+      "storeDate": "N/A",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html"
     },
     {
       "key": "warpath",
@@ -3269,7 +3218,8 @@
       "label": "Skirmish I",
       "startDate": "NOV 1, 2026",
       "endDate": "NOV 3, 2026",
-      "storeDate": "NOV 4, 2026"
+      "storeDate": "NOV 4, 2026",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html"
     },
     {
       "key": "skirmish2",
@@ -3277,7 +3227,8 @@
       "label": "Skirmish II",
       "startDate": "NOV 27, 2026",
       "endDate": "DEC 01, 2026",
-      "storeDate": "DEC 02, 2026"
+      "storeDate": "DEC 02, 2026",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html"
     },
     {
       "key": "future",
@@ -3286,7 +3237,7 @@
       "startDate": "NOV 12, 2026",
       "endDate": "DEC 30, 2026",
       "storeDate": "N/A",
-      "briefUrl": "./2026-pvp-season-60-brief.html",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html",
       "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
     },
     {
@@ -3295,7 +3246,8 @@
       "label": "Shadow Ops: Phase 1",
       "startDate": "NOV 13, 2026",
       "endDate": "NOV 20, 2026",
-      "storeDate": "End of Chapter"
+      "storeDate": "End of Chapter",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
     },
     {
       "key": "phase2",
@@ -3303,7 +3255,8 @@
       "label": "Shadow Ops: Phase 2",
       "startDate": "NOV 20, 2026",
       "endDate": "NOV 27, 2026",
-      "storeDate": "End of Chapter"
+      "storeDate": "End of Chapter",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
     },
     {
       "key": "phase3",
@@ -3311,7 +3264,8 @@
       "label": "Shadow Ops: Phase 3",
       "startDate": "NOV 27, 2026",
       "endDate": "DEC 4, 2026",
-      "storeDate": "End of Chapter"
+      "storeDate": "End of Chapter",
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
     },
     {
       "key": "bases",
@@ -7749,7 +7703,7 @@
           "startDate": "NOV 5, 2026",
           "endDate": "NOV 11, 2026",
           "storeDate": "NOV 12, 2026",
-          "briefUrl": "./operation-blue-baron.html",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/operation-blue-baron.html",
           "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/"
         },
         {
@@ -7758,7 +7712,8 @@
           "label": "Holdout",
           "startDate": "NOV 13, 2026",
           "endDate": "NOV 17, 2026",
-          "storeDate": "N/A"
+          "storeDate": "N/A",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout.html"
         },
         {
           "key": "breach",
@@ -7766,7 +7721,8 @@
           "label": "Sector Breach",
           "startDate": "NOV 20, 2026",
           "endDate": "NOV 24, 2026",
-          "storeDate": "N/A"
+          "storeDate": "N/A",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach.html"
         },
         {
           "key": "warpath",
@@ -7782,7 +7738,8 @@
           "label": "Skirmish I",
           "startDate": "NOV 1, 2026",
           "endDate": "NOV 3, 2026",
-          "storeDate": "NOV 4, 2026"
+          "storeDate": "NOV 4, 2026",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish.html"
         },
         {
           "key": "skirmish2",
@@ -7790,7 +7747,8 @@
           "label": "Skirmish II",
           "startDate": "NOV 27, 2026",
           "endDate": "DEC 01, 2026",
-          "storeDate": "DEC 02, 2026"
+          "storeDate": "DEC 02, 2026",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish.html"
         },
         {
           "key": "future",
@@ -7799,7 +7757,7 @@
           "startDate": "NOV 12, 2026",
           "endDate": "DEC 30, 2026",
           "storeDate": "N/A",
-          "briefUrl": "./2026-pvp-season-60-brief.html",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html",
           "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
         },
         {
@@ -7808,7 +7766,8 @@
           "label": "Shadow Ops: Phase 1",
           "startDate": "NOV 13, 2026",
           "endDate": "NOV 20, 2026",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
         },
         {
           "key": "phase2",
@@ -7816,7 +7775,8 @@
           "label": "Shadow Ops: Phase 2",
           "startDate": "NOV 20, 2026",
           "endDate": "NOV 27, 2026",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
         },
         {
           "key": "phase3",
@@ -7824,7 +7784,8 @@
           "label": "Shadow Ops: Phase 3",
           "startDate": "NOV 27, 2026",
           "endDate": "DEC 4, 2026",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
         },
         {
           "key": "bases",
@@ -8186,7 +8147,7 @@
           "startDate": "NOV 12, 2026",
           "endDate": "DEC 30, 2026",
           "storeDate": "N/A",
-          "briefUrl": "./2026-pvp-season-60-brief.html",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html",
           "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/"
         },
         {
@@ -10781,63 +10742,5 @@
   switchActiveCalendarMonth(calState.calMonth || 11, true);
   checkAutoArchiveCutoffOnBoot();
 </script>
-
-
-
-      <script>
-        (function() {
-          // The root element's background fills the whole page. As in CSS,
-          // the body's background is used when the root element has none.
-          function getPageBackgroundColor() {
-            var docStyle = window.getComputedStyle(document.documentElement);
-            var color = docStyle.backgroundColor;
-            if ((color === 'rgba(0, 0, 0, 0)' || color === 'transparent') &&
-                docStyle.backgroundImage === 'none' && document.body) {
-              color = window.getComputedStyle(document.body).backgroundColor;
-            }
-            return color || '';
-          }
-
-          var lastReportedColor = '';
-          function reportBackgroundColor() {
-            try {
-              var color = getPageBackgroundColor();
-              if (color === lastReportedColor) return;
-              lastReportedColor = color;
-              window.parent.postMessage({
-                type: 'ATARI_CODE_EMBED_BACKGROUND_COLOR',
-                backgroundColor: color
-              }, '*');
-            } catch (e) {}
-          }
-
-          // The page background usually changes through an attribute on html
-          // or body (for example a theme class), a style sheet in head, or the
-          // system color scheme.
-          if (typeof MutationObserver !== 'undefined') {
-            var observer = new MutationObserver(reportBackgroundColor);
-            observer.observe(document.documentElement, {attributes: true});
-            if (document.body) {
-              observer.observe(document.body, {attributes: true});
-            }
-            if (document.head) {
-              observer.observe(document.head, {
-                attributes: true,
-                childList: true,
-                subtree: true,
-                characterData: true
-              });
-            }
-          }
-          var colorSchemeQuery =
-              window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-          if (colorSchemeQuery && colorSchemeQuery.addEventListener) {
-            colorSchemeQuery.addEventListener('change', reportBackgroundColor);
-          }
-          window.addEventListener('load', reportBackgroundColor);
-          window.addEventListener('transitionend', reportBackgroundColor);
-          window.addEventListener('animationend', reportBackgroundColor);
-          reportBackgroundColor();
-        })();
-      </script>
-    </body></html>
+</body>
+</html>
