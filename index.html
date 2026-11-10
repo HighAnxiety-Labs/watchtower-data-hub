@@ -1014,9 +1014,8 @@
       accent: "var(--dir-btn1)", colorHex: "#2b8cbe",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "BLUEPRINT", title: "BUILDING BRIEF DB", url: "./building-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: true,  order: 2, symbol: "BLUEPRINT", title: "CC22 UPGRADE PATH", url: "./building-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "BLUEPRINT", title: "BASE DEFENSE & LAYOUTS", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: true,  order: 4, symbol: "ARCHIVE",   title: "CC22 PRE-RELEASE NOTES", url: "./cc-22-pre-release.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: true,  order: 2, symbol: "BLUEPRINT", title: "CC22 UPGRADE PATH", url: "./cc22-upgrade-path.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 3, symbol: "BLUEPRINT", title: "BASE DEFENSE & LAYOUTS", url: "./base-defense-planning.html", embedCode: "", openInIframe: true }
       ]
     },
     tacticalBriefs: {
@@ -1211,6 +1210,25 @@
   function attachDefaultInPageViewers(targetWorkspaces) {
     if (!targetWorkspaces || typeof targetWorkspaces !== "object") return;
 
+    if (targetWorkspaces.baseOps && Array.isArray(targetWorkspaces.baseOps.cards)) {
+      targetWorkspaces.baseOps.cards = targetWorkspaces.baseOps.cards.filter(c => {
+        const up = String(c?.title || "").toUpperCase();
+        const u = String(c?.url || "").toLowerCase();
+        return !up.includes("PRE-RELEASE") && !u.includes("cc-22-pre-release") && !u.includes("cc22-pre-release");
+      });
+      const bCards = targetWorkspaces.baseOps.cards;
+      const bldIdx = bCards.findIndex(c => String(c?.title || "").toUpperCase().includes("BUILDING BRIEF"));
+      const cc22Idx = bCards.findIndex(c => String(c?.title || "").toUpperCase().includes("CC22 UPGRADE"));
+      if (cc22Idx !== -1) {
+        bCards[cc22Idx].isSubPage = true;
+        if (bldIdx !== -1 && cc22Idx !== bldIdx + 1) {
+          const [cc22Card] = bCards.splice(cc22Idx, 1);
+          const newBldIdx = bCards.findIndex(c => String(c?.title || "").toUpperCase().includes("BUILDING BRIEF"));
+          bCards.splice(newBldIdx + 1, 0, cc22Card);
+        }
+      }
+      bCards.forEach((c, idx) => { c.order = idx + 1; });
+    }
     if (targetWorkspaces.tacticalBriefs && Array.isArray(targetWorkspaces.tacticalBriefs.cards)) {
       targetWorkspaces.tacticalBriefs.cards = targetWorkspaces.tacticalBriefs.cards.filter(
         c => !String(c?.title || "").toUpperCase().includes("UNIT HISTORY ARCHIVE")
@@ -1221,14 +1239,45 @@
       targetWorkspaces.wtrArchives.cards = targetWorkspaces.wtrArchives.cards.filter(
         c => !String(c?.title || "").toUpperCase().includes("GOOGLE FILES")
       );
-      targetWorkspaces.wtrArchives.cards.forEach((c, idx) => { c.order = idx + 1; });
+      const wCards = targetWorkspaces.wtrArchives.cards;
+      const preIdx = wCards.findIndex(c =>
+        String(c?.title || "").toUpperCase().includes("PRE-RELEASE") ||
+        String(c?.url || "").toLowerCase().includes("cc-22-pre-release") ||
+        String(c?.url || "").toLowerCase().includes("cc22-pre-release")
+      );
+      const upgIdx = wCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UPGRADE/SALES"));
+      if (preIdx === -1) {
+        const preCard = {
+          enabled: true,
+          isSubPage: true,
+          order: 2,
+          symbol: "ARCHIVE",
+          title: "CC22 PRE-RELEASE NOTES",
+          url: "./cc-22-pre-release.html",
+          embedCode: "",
+          openInIframe: true
+        };
+        if (upgIdx !== -1) {
+          wCards.splice(upgIdx + 1, 0, preCard);
+        } else {
+          wCards.unshift(preCard);
+        }
+      } else {
+        wCards[preIdx].isSubPage = true;
+        wCards[preIdx].enabled = true;
+        if (upgIdx !== -1 && preIdx !== upgIdx + 1) {
+          const [preCard] = wCards.splice(preIdx, 1);
+          const newUpgIdx = wCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UPGRADE/SALES"));
+          wCards.splice(newUpgIdx + 1, 0, preCard);
+        }
+      }
+      wCards.forEach((c, idx) => { c.order = idx + 1; });
     }
 
     const standaloneMappings = [
       { secKey: "baseOps",        match: "BUILDING BRIEF", urlHint: "building-brief",        file: "./building-briefs.html",         defaultTitle: "BUILDING BRIEF DB",      defaultSym: "BLUEPRINT" },
-      { secKey: "baseOps",        match: "CC22 UPGRADE",   urlHint: "cc22-upgrade",          file: "./building-briefs.html",         defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
+      { secKey: "baseOps",        match: "CC22 UPGRADE",   urlHint: "cc22-upgrade",          file: "./cc22-upgrade-path.html",       defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
       { secKey: "baseOps",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE & LAYOUTS", defaultSym: "BLUEPRINT" },
-      { secKey: "baseOps",        match: "PRE-RELEASE",    urlHint: "cc-22-pre-release",     file: "./cc-22-pre-release.html",       defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "tacticalBriefs", match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW", ensurePresent: true },
@@ -5531,6 +5580,7 @@
       "base-defense-planning.html",
       "building-briefs.html",
       "cc-22-pre-release.html",
+      "cc22-upgrade-path.html",
       "command-center.html",
       "damage-type.html",
       "faction-intel.html",
@@ -5593,7 +5643,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;

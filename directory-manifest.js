@@ -13,6 +13,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "base-defense-planning.html",
     "building-briefs.html",
     "cc-22-pre-release.html",
+    "cc22-upgrade-path.html",
     "command-center.html",
     "damage-type.html",
     "faction-intel.html",
