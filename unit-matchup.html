@@ -1575,6 +1575,57 @@
           }
         }
         if (parsedUnits.length >= 2) {
+          const stagedBroadside = {
+            UNIT_NAME: 'BROADSIDE',
+            CLASSIFICATION: 'SOLDIER',
+            UNIT_DIVISION: 'TECH CENTER',
+            UNIT_IMAGE_URL: 'https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/dd1b0170-7624-4ff7-b459-50c6ba041b5c',
+            STAT_GENERATION: 'Arc 2',
+            STAT_FACTION: 'Rangers',
+            STAT_TYPE: 'Vehicle',
+            STAT_ARMOR_TYPE: 'Medium',
+            STAT_WEAPON_TYPE: 'Cannon / Missiles',
+            STAT_TARGETS: 'Ground / (Air @ lvl 15)',
+            STAT_DAMAGE_TYPE: 'Area (Cannon is Burst)',
+            STAT_BUILDING: 'Tech Center',
+            STAT_HP_RANGE_1: '231,725',
+            STAT_HP_RANGE_MAX: '373,750',
+            STAT_DPS_RANGE_1: '1,884',
+            STAT_DPS_RANGE_MAX: '8,100',
+            STAT_SPEED: '5',
+            STAT_RANGE: '550 (590 with Lvl 20 Midway)',
+            STAT_SPLASH: '100',
+            WORKSHOP_1_TITLE: 'DOUBLE RIVETS',
+            WORKSHOP_1_TAG: 'BULKHEADS',
+            WORKSHOP_1_DESC: 'Effect: -30% Damage Taken from Vehicles.\n(Defense Function)',
+            WORKSHOP_2_TITLE: '75MM ARMOR PIERCING',
+            WORKSHOP_2_TAG: 'FIELD ORDNANCE',
+            WORKSHOP_2_DESC: 'Effect: +20% Damage Dealt to Vehicles. Ignores 10% of Flat Damage Reduction.\n(Offense Function)',
+            WORKSHOP_3_TITLE: 'STEEL NERVES',
+            WORKSHOP_3_TAG: 'COMMANDO TRAINING',
+            WORKSHOP_3_DESC: 'Effect: Skips Charge Time when hit by Sustain Damage.\n(Utility Function)',
+            WORKSHOP_4_TITLE: 'OVERLAPPED PLATES',
+            WORKSHOP_4_TAG: 'BULKHEADS',
+            WORKSHOP_4_DESC: 'Effect: -30% Damage Taken from Infantry.\n(Defense Function)',
+            WORKSHOP_5_TITLE: '90MM FLECHETTE',
+            WORKSHOP_5_TAG: 'FIELD ORDNANCE',
+            WORKSHOP_5_DESC: 'Effect: +30% Damage Dealt to Infantry.\n(Offense Function)',
+            WORKSHOP_6_TITLE: 'STEADY HANDS',
+            WORKSHOP_6_TAG: 'COMMANDO TRAINING',
+            WORKSHOP_6_DESC: 'Effect: +15 Range.\n(Utility Function)'
+          };
+          if (!parsedUnits.some(u => (u.UNIT_NAME || '').trim().toUpperCase() === 'BROADSIDE')) {
+            parsedUnits.push(stagedBroadside);
+          }
+          parsedUnits.forEach(u => {
+            if ((u.UNIT_NAME || '').trim().toUpperCase() === 'BROADSIDE' && (u.WORKSHOP_2_TITLE || '').trim().toUpperCase() === 'OVERLAPPED PLATES') {
+              for (let i = 1; i <= 6; i++) {
+                u[`WORKSHOP_${i}_TITLE`] = stagedBroadside[`WORKSHOP_${i}_TITLE`];
+                u[`WORKSHOP_${i}_TAG`] = stagedBroadside[`WORKSHOP_${i}_TAG`];
+                u[`WORKSHOP_${i}_DESC`] = stagedBroadside[`WORKSHOP_${i}_DESC`];
+              }
+            }
+          });
           allCombatUnits = parsedUnits;
           document.getElementById('dbStatusText').textContent = `✅ MASTER_DB Live (${parsedUnits.length} Units)`;
           document.getElementById('topSyncBadge').textContent = `${parsedUnits.length} UNITS`;
@@ -1667,11 +1718,55 @@
   }
 
   /* ==================== COMBAT MATH ENGINE ==================== */
+  function extractStatValueInfo(raw) {
+    if (raw === null || raw === undefined) return { nums: [], unlockLvl: null, isTempBurst: false };
+    let s = String(raw).replace(/,/g, '').trim();
+    if (!s) return { nums: [], unlockLvl: null, isTempBurst: false };
+
+    const isTempBurst = /\bfor\s*\d+(?:\.\d+)?\s*(?:s|sec|secs|second|seconds)\b/i.test(s);
+
+    let unlockLvl = null;
+    const explicitLvl = s.match(/(?:@|\bat\b|\bwith\b)\s*(?:lvl|level|lv|rank)s?\s*(\d{1,2})\b/i);
+    if (explicitLvl) {
+      unlockLvl = parseInt(explicitLvl[1], 10);
+    } else {
+      const slashParenLvl = s.match(/\d+(?:\.\d+)?\s*(?:\(\s*\d{1,2}\s*\)\s*)?\/\s*\d+(?:\.\d+)?\s*\(\s*(\d{1,2})\s*\)/);
+      if (slashParenLvl) unlockLvl = parseInt(slashParenLvl[1], 10);
+    }
+
+    s = s.replace(/\/\s*airstrike[\s\S]*$/i, '');
+    s = s.replace(/\bx\d+\b/gi, ' ');
+    s = s.replace(/\b(?:for\s*)?\d+(?:\.\d+)?\s*(?:s|sec|secs|second|seconds)\b/gi, ' ');
+    s = s.replace(/(?:@|\bat\b|\bwith\b)?\s*\b(?:lvl|level|lv|rank)s?\s*\d+\b/gi, ' ');
+    s = s.replace(/\(\s*max\s*\)/gi, ' ');
+    if (s.includes('/')) {
+      s = s.replace(/(\d)\s*\(\s*\d{1,2}\s*\)/g, '$1 ');
+    } else {
+      s = s.replace(/(\d)\(\s*\d{1,2}\s*\)/g, '$1 ');
+    }
+
+    const matches = s.match(/\d+(?:\.\d+)?/g);
+    const nums = matches ? matches.map(Number).filter(n => !isNaN(n)) : [];
+    return { nums, unlockLvl, isTempBurst };
+  }
+
   function parseNumeric(raw) {
-    if (!raw) return 0;
-    const nums = String(raw).replace(/,/g, '').match(/\d+(\.\d+)?/g);
-    if (!nums || !nums.length) return 0;
-    return parseFloat(nums[nums.length - 1]) || 0;
+    const { nums, isTempBurst } = extractStatValueInfo(raw);
+    if (!nums.length) return 0;
+    if (isTempBurst) return nums[0];
+    return nums[nums.length - 1] || 0;
+  }
+
+  function parseTierScaledStat(raw, tier = 'MAX', fallback = 0) {
+    const { nums, unlockLvl, isTempBurst } = extractStatValueInfo(raw);
+    if (!nums.length) return fallback;
+    if (nums.length === 1 || isTempBurst) return nums[0] || fallback;
+    const baseVal = nums[0];
+    const upgVal = nums[nums.length - 1];
+    if (tier === 'MAX') return upgVal;
+    const numTier = parseInt(tier, 10) || 1;
+    const reqLvl = unlockLvl || 15;
+    return numTier >= reqLvl ? upgVal : baseVal;
   }
 
   function parseRangeStatForTier(rec, baseKey, tier) {
@@ -1681,27 +1776,39 @@
       const upgKey = baseKey.includes('HP') ? `UPGRADE_HP_${tier}` : `UPGRADE_DPS_${tier}`;
       if (cleanVal(rec[upgKey])) return parseNumeric(rec[upgKey]);
     }
-    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
-    if (rangeStr) {
-      const nums = rangeStr.replace(/,/g, '').match(/\d+(\.\d+)?/g);
-      if (nums && nums.length >= 2) {
-        const minV = parseFloat(nums[0]);
-        const maxV = parseFloat(nums[nums.length - 1]);
+    const minDirect = cleanVal(rec[`${baseKey}_1`]);
+    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]);
+    if (minDirect && maxDirect) {
+      const minV = parseNumeric(minDirect);
+      const maxV = parseNumeric(maxDirect);
+      if (minV > 0 && maxV > 0) {
         if (tier === '1') return minV;
         if (tier === '10') return Math.round(minV + (maxV - minV) * 0.35);
         if (tier === '20') return Math.round(minV + (maxV - minV) * 0.72);
         return maxV;
       }
-      if (nums && nums.length === 1) return parseFloat(nums[0]);
     }
-    const maxFallback = cleanVal(rec[`${baseKey}_MAX`]);
-    if (maxFallback) {
-      const m = parseNumeric(maxFallback);
+    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
+    if (rangeStr && !(/\bdrone\b/i.test(rangeStr) && minDirect)) {
+      const { nums } = extractStatValueInfo(rangeStr);
+      if (nums.length >= 2) {
+        const minV = nums[0];
+        const maxV = nums[nums.length - 1];
+        if (tier === '1') return minV;
+        if (tier === '10') return Math.round(minV + (maxV - minV) * 0.35);
+        if (tier === '20') return Math.round(minV + (maxV - minV) * 0.72);
+        return maxV;
+      }
+      if (nums.length === 1) return nums[0];
+    }
+    if (maxDirect) {
+      const m = parseNumeric(maxDirect);
       if (tier === '1') return Math.round(m * 0.42);
       if (tier === '10') return Math.round(m * 0.64);
       if (tier === '20') return Math.round(m * 0.84);
       return m;
     }
+    if (minDirect) return parseNumeric(minDirect);
     return 0;
   }
 
@@ -1743,15 +1850,15 @@
     return 1.0;
   }
 
-  function evaluateWorkshopsAgainstOpponent(unit, opponent) {
+  function evaluateWorkshopsAgainstOpponent(unit, opponent, myTier = 'MAX', oppTier = 'MAX') {
     const oppFaction = cleanVal(opponent.STAT_FACTION).toUpperCase();
     const oppArmor = normalizeArmor(opponent.STAT_ARMOR_TYPE);
     const oppDmg = normalizeDamage(opponent.STAT_DAMAGE_TYPE);
     const myArmor = normalizeArmor(unit.STAT_ARMOR_TYPE);
     const oppDomain = getDomain(opponent);
     const oppDiv = getDivisionBucket(opponent);
-    const myRange = parseNumeric(unit.STAT_RANGE);
-    const oppRange = parseNumeric(opponent.STAT_RANGE);
+    const myRange = parseTierScaledStat(unit.STAT_RANGE, myTier, 350);
+    const oppRange = parseTierScaledStat(opponent.STAT_RANGE, oppTier, 350);
 
     const oppCountersMyArmor =
       (oppDmg.core === 'AREA' && myArmor === 'LIGHT') ||
@@ -1832,6 +1939,37 @@
     return { unitWorkshops, factionWorkshops };
   }
 
+  function clauseMatchesOpponent(clauseUpper, oppDiv, oppArmor, oppDmgCore) {
+    const mentionsVeh = /\bVEHICLES?\b/.test(clauseUpper);
+    const mentionsInf = /\bINFANTRY\b/.test(clauseUpper);
+    const mentionsAir = /\bAIR(?:CRAFT)?\b/.test(clauseUpper);
+    if (mentionsVeh || mentionsInf || mentionsAir) {
+      const divOk = (mentionsVeh && oppDiv === 'VEHICLE') ||
+                    (mentionsInf && oppDiv === 'INFANTRY') ||
+                    (mentionsAir && oppDiv === 'AIR');
+      if (!divOk) return false;
+    }
+    const mentionsLight = /\bLIGHT\s+ARMOR\b/.test(clauseUpper);
+    const mentionsMed = /\bMEDIUM\s+ARMOR\b/.test(clauseUpper);
+    const mentionsHeavy = /\bHEAVY\s+ARMOR\b/.test(clauseUpper);
+    if (mentionsLight || mentionsMed || mentionsHeavy) {
+      const armOk = (mentionsLight && oppArmor === 'LIGHT') ||
+                    (mentionsMed && oppArmor === 'MEDIUM') ||
+                    (mentionsHeavy && oppArmor === 'HEAVY');
+      if (!armOk) return false;
+    }
+    const mentionsArea = /\bAREA\s+DAMAGE\b/.test(clauseUpper) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b/.test(clauseUpper);
+    const mentionsSust = /\bSUSTAIN\s+DAMAGE\b/.test(clauseUpper) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b/.test(clauseUpper);
+    const mentionsBurst = /\bBURST\s+DAMAGE\b/.test(clauseUpper) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b/.test(clauseUpper);
+    if (mentionsArea || mentionsSust || mentionsBurst) {
+      const dmgOk = (mentionsArea && oppDmgCore === 'AREA') ||
+                    (mentionsSust && oppDmgCore === 'SUSTAIN') ||
+                    (mentionsBurst && oppDmgCore === 'BURST');
+      if (!dmgOk) return false;
+    }
+    return true;
+  }
+
   function extractWorkshopModifiers(wsItem, opponent) {
     const mod = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
     const txt = `${wsItem.title} ${wsItem.desc}`;
@@ -1839,34 +1977,70 @@
       const oppFac = cleanVal(opponent.STAT_FACTION).toUpperCase();
       if (oppFac && wsItem.title.toUpperCase().includes(oppFac)) {
         const dmgM = txt.match(/\+?(\d+)%\s*Damage\b/i);
-        const drM = txt.match(/(\d+)%\s*Damage\s*Reduction/i);
+        const drM = txt.match(/(\d+)%\s*Damage\s*(?:Reduction|Taken)/i);
         mod.dmgPct += dmgM ? parseFloat(dmgM[1]) : 12;
         mod.drPct += drM ? parseFloat(drM[1]) : 12;
       }
       return mod;
     }
-    const pctMatches = [...txt.matchAll(/\+?(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,24})/g)];
-    pctMatches.forEach(m => {
-      const val = parseFloat(m[1]) || 0;
-      const lbl = m[2].toUpperCase();
-      if (lbl.includes('REDUCTION') || lbl.includes('RESIST')) mod.drPct += val;
-      else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) mod.dmgPct += val;
-      else if (lbl.includes('HEALTH') || lbl.includes('HP')) mod.hpPct += val;
-      else if (lbl.includes('RANGE')) mod.rangePct += val;
-      else if (lbl.includes('SPEED')) mod.speedPct += val;
+
+    const oppDiv = getDivisionBucket(opponent);
+    const oppArmor = normalizeArmor(opponent.STAT_ARMOR_TYPE);
+    const oppDmgCore = normalizeDamage(opponent.STAT_DAMAGE_TYPE).core;
+    let foundExplicitStat = false;
+
+    const clauses = String(wsItem.desc || txt).split(/[.;\n]+/);
+    clauses.forEach(clause => {
+      const cTrim = clause.trim();
+      if (!cTrim) return;
+      const cUpper = cTrim.toUpperCase();
+
+      const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
+      if (pctMatches.length) foundExplicitStat = true;
+
+      if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) return;
+
+      pctMatches.forEach(m => {
+        const sign = m[1] || '';
+        const val = parseFloat(m[2]) || 0;
+        const lbl = m[3].toUpperCase();
+        if (lbl.includes('IGNORES')) return;
+        if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
+          mod.drPct += val;
+        } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
+          mod.dmgPct += val;
+        } else if (lbl.includes('HEALTH') || lbl.includes('HP')) {
+          mod.hpPct += val;
+        } else if (lbl.includes('RANGE')) {
+          mod.rangePct += val;
+        } else if (lbl.includes('SPEED')) {
+          mod.speedPct += val;
+        }
+      });
+
+      const flatRange = cTrim.match(/\+(\d+)\s*Range\b/i);
+      if (flatRange) {
+        foundExplicitStat = true;
+        mod.rangeFlat += parseFloat(flatRange[1]) || 0;
+      }
     });
-    const flatRange = txt.match(/\+(\d+)\s*Range/i);
-    if (flatRange) mod.rangeFlat += parseFloat(flatRange[1]) || 0;
-    if (mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
+
+    if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
       const upper = txt.toUpperCase();
-      if (upper.includes('SHIELD') || upper.includes('ARMOR') || upper.includes('DEFEN')) mod.drPct = 10;
-      else mod.dmgPct = 10;
+      if (upper.includes('DOUBLE DAMAGE')) {
+        foundExplicitStat = true;
+        mod.dmgPct = 50;
+      } else if (upper.includes('SHIELD') || upper.includes('ARMOR') || upper.includes('DEFEN')) {
+        mod.drPct = 10;
+      } else {
+        mod.dmgPct = 10;
+      }
     }
     return mod;
   }
 
-  function buildProfile(unit, opponent, tier, equippedSet) {
-    const wsEval = evaluateWorkshopsAgainstOpponent(unit, opponent);
+  function buildProfile(unit, opponent, tier, equippedSet, oppTier = tier) {
+    const wsEval = evaluateWorkshopsAgainstOpponent(unit, opponent, tier, oppTier);
     const allWs = [...wsEval.unitWorkshops, ...wsEval.factionWorkshops];
     const totals = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
 
@@ -1887,8 +2061,8 @@
 
     const baseHp = parseRangeStatForTier(unit, 'STAT_HP_RANGE', tier) || 50000;
     const baseDps = parseRangeStatForTier(unit, 'STAT_DPS_RANGE', tier) || 3500;
-    const baseRange = parseNumeric(unit.STAT_RANGE) || 350;
-    const baseSpeed = parseNumeric(unit.STAT_SPEED) || 30;
+    const baseRange = parseTierScaledStat(unit.STAT_RANGE, tier, 350);
+    const baseSpeed = parseTierScaledStat(unit.STAT_SPEED, tier, 30);
     const splash = parseNumeric(unit.STAT_SPLASH) || 0;
 
     return {
@@ -1896,6 +2070,7 @@
       equippedCount: equippedSet ? equippedSet.size : 0,
       hp: Math.round(baseHp * (1 + totals.hpPct / 100)),
       rawDps: Math.round(baseDps * (1 + totals.dmgPct / 100)),
+      baseRange,
       range: Math.round(baseRange * (1 + totals.rangePct / 100) + totals.rangeFlat),
       speed: Math.round(baseSpeed * (1 + totals.speedPct / 100)),
       splash,
@@ -1977,8 +2152,8 @@
       if (oppGen !== 'ALL' && getGenerationBucket(opp) !== oppGen) return;
       if (q && !(`${opp.UNIT_NAME} ${opp.STAT_FACTION || ''} ${opp.STAT_TYPE || ''} ${opp.STAT_GENERATION || ''}`.toLowerCase().includes(q))) return;
 
-      const profA = buildProfile(me, opp, myTier, null);
-      const profB = buildProfile(opp, me, oppTier, null);
+      const profA = buildProfile(me, opp, myTier, null, oppTier);
+      const profB = buildProfile(opp, me, oppTier, null, myTier);
       const duel = simulateDuel(profA, profB);
 
       if (duel.bucket === 'RED') cntRed++;
@@ -2132,15 +2307,19 @@
     if (opp) launchModalWithUnits(getMySelectedUnit(), opp);
   }
 
-  function launchModalWithUnits(youU, oppU) {
+  function launchModalWithUnits(youU, oppU, preserveModalLevels = false) {
     modalYouUnit = youU;
     modalOppUnit = oppU;
-    document.getElementById('modalYouLvl').value = document.getElementById('myLevelSelect').value;
-    document.getElementById('modalOppLvl').value = document.getElementById('oppGridLevelSelect').value;
+    if (!preserveModalLevels) {
+      document.getElementById('modalYouLvl').value = document.getElementById('myLevelSelect').value;
+      document.getElementById('modalOppLvl').value = document.getElementById('oppGridLevelSelect').value;
+    }
+    const youTier = document.getElementById('modalYouLvl').value;
+    const oppTier = document.getElementById('modalOppLvl').value;
 
     // Default auto-equip top recommended counter workshops
-    const yEval = evaluateWorkshopsAgainstOpponent(youU, oppU);
-    const oEval = evaluateWorkshopsAgainstOpponent(oppU, youU);
+    const yEval = evaluateWorkshopsAgainstOpponent(youU, oppU, youTier, oppTier);
+    const oEval = evaluateWorkshopsAgainstOpponent(oppU, youU, oppTier, youTier);
     modalEquipped.you = new Set([
       ...yEval.unitWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key),
       ...yEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
@@ -2182,13 +2361,15 @@
     yL.value = oL.value;
     oL.value = tL;
 
-    launchModalWithUnits(modalYouUnit, modalOppUnit);
+    launchModalWithUnits(modalYouUnit, modalOppUnit, true);
   }
 
   function autoEquipModalSide(side) {
     const myU = side === 'you' ? modalYouUnit : modalOppUnit;
     const otherU = side === 'you' ? modalOppUnit : modalYouUnit;
-    const ev = evaluateWorkshopsAgainstOpponent(myU, otherU);
+    const myTier = document.getElementById(side === 'you' ? 'modalYouLvl' : 'modalOppLvl').value;
+    const otherTier = document.getElementById(side === 'you' ? 'modalOppLvl' : 'modalYouLvl').value;
+    const ev = evaluateWorkshopsAgainstOpponent(myU, otherU, myTier, otherTier);
     modalEquipped[side] = new Set([
       ...ev.unitWorkshops.filter(w => w.recommended).map(w => w.key),
       ...ev.factionWorkshops.filter(w => w.recommended).map(w => w.key)
@@ -2222,8 +2403,8 @@
     const youTier = document.getElementById('modalYouLvl').value;
     const oppTier = document.getElementById('modalOppLvl').value;
 
-    const A = buildProfile(modalYouUnit, modalOppUnit, youTier, modalEquipped.you);
-    const B = buildProfile(modalOppUnit, modalYouUnit, oppTier, modalEquipped.opp);
+    const A = buildProfile(modalYouUnit, modalOppUnit, youTier, modalEquipped.you, oppTier);
+    const B = buildProfile(modalOppUnit, modalYouUnit, oppTier, modalEquipped.opp, youTier);
     const d = simulateDuel(A, B);
 
     document.getElementById('modalYouWsCount').textContent = `${A.equippedCount} Workshop${A.equippedCount === 1 ? '' : 's'} Equipped`;
@@ -2269,20 +2450,28 @@
       </div>
     `;
 
+    const fmtRangeSide = p => {
+      if (p.baseRange && p.range !== p.baseRange) {
+        const diff = p.range - p.baseRange;
+        return `${p.range.toLocaleString()} <span style="font-size:0.78em;opacity:0.78;">(${p.baseRange.toLocaleString()} ${diff > 0 ? '+' + diff : diff})</span>`;
+      }
+      return p.range.toLocaleString();
+    };
+
     const statRows = [
       { lbl: 'Hitpoints (HP)', a: A.hp, b: B.hp, fmt: v => v.toLocaleString() },
       { lbl: 'Base / Buffed DPS', a: A.rawDps, b: B.rawDps, fmt: v => v.toLocaleString() },
       { lbl: 'Effective Counter DPS', a: d.aEffDps, b: d.bEffDps, fmt: v => v.toLocaleString() },
-      { lbl: 'Weapon Range', a: A.range, b: B.range, fmt: v => v.toLocaleString() },
+      { lbl: 'Weapon Range', a: A.range, b: B.range, fmtA: () => fmtRangeSide(A), fmtB: () => fmtRangeSide(B) },
       { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
       { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },
       { lbl: 'Splash Radius', a: A.splash, b: B.splash, fmt: v => v > 0 ? v : 'Single' }
     ];
     document.getElementById('modalStatRows').innerHTML = statRows.map(r => `
       <div class="stat-comp-row">
-        <div class="stat-val-left ${r.a > r.b ? 'win' : ''}">${r.fmt(r.a)}</div>
+        <div class="stat-val-left ${r.a > r.b ? 'win' : ''}">${r.fmtA ? r.fmtA() : r.fmt(r.a)}</div>
         <div class="stat-center-lbl">${r.lbl}</div>
-        <div class="stat-val-right ${r.b > r.a ? 'win' : ''}">${r.fmt(r.b)}</div>
+        <div class="stat-val-right ${r.b > r.a ? 'win' : ''}">${r.fmtB ? r.fmtB() : r.fmt(r.b)}</div>
       </div>
     `).join('');
 

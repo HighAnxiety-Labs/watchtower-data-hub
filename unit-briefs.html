@@ -729,6 +729,73 @@
           }
         }
 
+        const STAGED_LIVE_UNITS = [
+          {
+            UNIT_NAME: "BROADSIDE",
+            CLASSIFICATION: "SOLDIER",
+            UNIT_DIVISION: "TECH CENTER",
+            RELEASE_DATE: "AUG 2026",
+            UNIT_IMAGE_URL: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/dd1b0170-7624-4ff7-b459-50c6ba041b5c",
+            WTR_BRIEF_URL: "https://sites.google.com/view/watchtower-data-hub/tactical-briefs/unit-briefs/tech-center-units/hero-midway/broadside-unit",
+            UNIT_QUOTE: "A heavy-duty Rangers battle tank engineered under Midway's command, pairing a fortification-crushing burst cannon with a wall-ignoring Viral ballistic missile system built to suppress enemy turrets and level fortified positions.",
+            WC_EVENT_NAME: "AUG 2026 SPLIT PROPHECY",
+            WC_EVENT_URL: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/986-operation-split-prophecy-august-2026-main-event/",
+            LINKED_UNIT_TAB: "HERO",
+            LINKED_UNIT_NAME: "MIDWAY",
+            LINKED_UNIT_ID: "MIDWAY",
+            STAT_GENERATION: "Arc 2",
+            STAT_FACTION: "Rangers",
+            STAT_TYPE: "Vehicle",
+            STAT_ARMOR_TYPE: "Medium",
+            STAT_WEAPON_TYPE: "Cannon / Missiles",
+            STAT_TARGETS: "Ground / (Air @ lvl 15)",
+            STAT_DAMAGE_TYPE: "Area (Cannon is Burst)",
+            STAT_SIZE: "425",
+            STAT_BUILDING: "Tech Center",
+            STAT_BUILDING_REQ: "45",
+            STAT_HP_RANGE_1: "231,725",
+            STAT_HP_RANGE_MAX: "373,750",
+            STAT_DPS_RANGE_1: "1,884",
+            STAT_DPS_RANGE_MAX: "8,100",
+            STAT_SPEED: "5",
+            STAT_RANGE: "550 (590 with Lvl 20 Midway)",
+            STAT_SPLASH: "100",
+            TALENT_LVL_1: "Main Cannon does +100% Damage to Buildings and Turrets. Main Cannon projectiles cause Turrets to fire and reload 30% slower for 3 seconds.\nGains a Viral ballistic missile system that does Area Damage and has Splash radius of 100. While targeting ground, these missiles ignore walls.",
+            TALENT_LVL_10: "Main Cannon projectiles cause Turrets to fire and reload 40% slower for 4 seconds.",
+            TALENT_LVL_15: "Broadside's ballistic missile system can now target air units. Missiles targeting air units have target tracking.",
+            TALENT_LVL_20: "Main Cannon projectiles cause Turrets to fire and reload 50% slower for 5 seconds.",
+            WORKSHOP_1_TITLE: "DOUBLE RIVETS",
+            WORKSHOP_1_TAG: "BULKHEADS",
+            WORKSHOP_1_DESC: "Effect: -30% Damage Taken from Vehicles.\n(Defense Function)",
+            WORKSHOP_2_TITLE: "75MM ARMOR PIERCING",
+            WORKSHOP_2_TAG: "FIELD ORDNANCE",
+            WORKSHOP_2_DESC: "Effect: +20% Damage Dealt to Vehicles. Ignores 10% of Flat Damage Reduction.\n(Offense Function)",
+            WORKSHOP_3_TITLE: "STEEL NERVES",
+            WORKSHOP_3_TAG: "COMMANDO TRAINING",
+            WORKSHOP_3_DESC: "Effect: Skips Charge Time when hit by Sustain Damage.\n(Utility Function)",
+            WORKSHOP_4_TITLE: "OVERLAPPED PLATES",
+            WORKSHOP_4_TAG: "BULKHEADS",
+            WORKSHOP_4_DESC: "Effect: -30% Damage Taken from Infantry.\n(Defense Function)",
+            WORKSHOP_5_TITLE: "90MM FLECHETTE",
+            WORKSHOP_5_TAG: "FIELD ORDNANCE",
+            WORKSHOP_5_DESC: "Effect: +30% Damage Dealt to Infantry.\n(Offense Function)",
+            WORKSHOP_6_TITLE: "STEADY HANDS",
+            WORKSHOP_6_TAG: "COMMANDO TRAINING",
+            WORKSHOP_6_DESC: "Effect: +15 Range.\n(Utility Function)",
+            WARPAINTS_HEADER: "WARPAINTS",
+            WARPAINT_1_NAME: "SPECTRE",
+            WARPAINT_2_NAME: "SAPROPHYTE",
+            WARPAINT_3_NAME: "BARONY",
+            WARPAINT_4_NAME: "ALTAIRIAN",
+            UPGRADE_LVL_START: "1"
+          }
+        ];
+        STAGED_LIVE_UNITS.forEach(staged => {
+          if (!fetchedList.some(r => (r.UNIT_NAME || '').trim().toUpperCase() === staged.UNIT_NAME)) {
+            fetchedList.push(staged);
+          }
+        });
+
         globalMatrixCache = fetchedList;
         setupFiltersAndRouting();
       },
@@ -1484,18 +1551,30 @@
   /* ==================== TOP MATCHUP HOVER BRIEF & IN-PAGE LAUNCHER ==================== */
   function mhParseNum(raw) {
     if (!raw) return 0;
-    const nums = String(raw).replace(/,/g, '').match(/\d+(\.\d+)?/g);
-    return (nums && nums.length) ? (parseFloat(nums[nums.length - 1]) || 0) : 0;
+    let s = String(raw).replace(/,/g, '').trim();
+    if (!s) return 0;
+    const isTempBurst = /\bfor\s*\d+(?:\.\d+)?\s*(?:s|sec|secs|second|seconds)\b/i.test(s);
+    s = s.replace(/\/\s*airstrike[\s\S]*$/i, '');
+    s = s.replace(/\bx\d+\b/gi, ' ');
+    s = s.replace(/\b(?:for\s*)?\d+(?:\.\d+)?\s*(?:s|sec|secs|second|seconds)\b/gi, ' ');
+    s = s.replace(/(?:@|\bat\b|\bwith\b)?\s*\b(?:lvl|level|lv|rank)s?\s*\d+\b/gi, ' ');
+    s = s.replace(/\(\s*max\s*\)/gi, ' ');
+    s = s.includes('/') ? s.replace(/(\d)\s*\(\s*\d{1,2}\s*\)/g, '$1 ') : s.replace(/(\d)\(\s*\d{1,2}\s*\)/g, '$1 ');
+    const nums = s.match(/\d+(?:\.\d+)?/g);
+    if (!nums || !nums.length) return 0;
+    return parseFloat(isTempBurst ? nums[0] : nums[nums.length - 1]) || 0;
   }
 
   function mhGetMaxStat(rec, baseKey, fallbackVal) {
     const maxDirect = cleanVal(rec[`${baseKey}_MAX`]);
     if (maxDirect) return mhParseNum(maxDirect) || fallbackVal;
+    const minDirect = cleanVal(rec[`${baseKey}_1`]);
     const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
-    if (rangeStr) {
+    if (rangeStr && !(/\bdrone\b/i.test(rangeStr) && minDirect)) {
       const v = mhParseNum(rangeStr);
       if (v > 0) return v;
     }
+    if (minDirect) return mhParseNum(minDirect) || fallbackVal;
     return fallbackVal;
   }
 
