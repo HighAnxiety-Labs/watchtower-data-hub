@@ -1,0 +1,3093 @@
+<!DOCTYPE html>
+<!-- [-WTR-] WATCHTOWER OPERATIONAL INTEL PUBLISHED // AGENCY CONTRACTORS & BASE LOADOUT WORKSHEET -->
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — Agency Contractors &amp; Base Loadout Planner</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Data Hub — Agency Contractors & Base Loadout Planner">
+  <meta property="og:description" content="Browse all War Commander Agency Contractors by Faction with AI Tactical Rankings, Hover Overlays, Full Dossier Popouts, 2-per-Faction Base Planning Worksheet, and 1-Click A-Size Screen Capture.">
+  <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --bg-void: #03060a;
+      --bg-panel: #080e16;
+      --bg-card: #0b131e;
+      --border-dim: #18293d;
+
+      --green-main: #00e676;
+      --green-dim: rgba(0, 230, 118, 0.14);
+      --green-border: rgba(0, 230, 118, 0.68);
+
+      --gold-main: #ffd700;
+      --gold-dim: rgba(255, 215, 0, 0.14);
+      --gold-border: rgba(255, 215, 0, 0.62);
+
+      --cyan-main: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.14);
+      --cyan-border: rgba(56, 189, 248, 0.6);
+
+      --red-main: #ff4d5a;
+      --red-dim: rgba(255, 77, 90, 0.14);
+      --red-border: rgba(255, 77, 90, 0.65);
+
+      --purple-main: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.14);
+      --purple-border: rgba(168, 85, 247, 0.62);
+
+      --amber-main: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, 0.15);
+      --amber-border: rgba(245, 158, 11, 0.65);
+
+      --text-main: #e5eef7;
+      --text-muted: #8fa6bc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-void);
+      background-image:
+        radial-gradient(circle at 18% 6%, rgba(56, 189, 248, 0.08) 0%, transparent 44%),
+        radial-gradient(circle at 82% 8%, rgba(255, 215, 0, 0.07) 0%, transparent 44%),
+        linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      padding: 16px 16px 40px;
+      overflow-x: hidden;
+    }
+
+    .board-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    /* 4-Corner UNCLASSIFIED Header & Footer Bars */
+    .class-bar {
+      position: relative;
+      display: grid;
+      grid-template-columns: 270px 1fr 270px;
+      align-items: stretch;
+      height: 46px;
+      background: #060b12;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      user-select: none;
+      z-index: 30;
+    }
+    .class-bar-top { border-radius: 6px 6px 0 0; }
+    .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
+
+    .corner-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: #b9f6ca;
+      background: linear-gradient(180deg, rgba(0, 230, 118, 0.22), rgba(0, 230, 118, 0.07));
+      padding: 0 14px;
+    }
+    .class-bar-top .corner-left {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-top .corner-right {
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-left {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-right {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.8px;
+      color: var(--green-main);
+      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      text-align: center;
+      padding: 0 10px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-main);
+      box-shadow: 0 0 8px var(--green-main);
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    .collapse-toggle-btn {
+      background: rgba(0, 230, 118, 0.14);
+      border: 1px solid rgba(0, 230, 118, 0.55);
+      color: #d0f8df;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .collapse-toggle-btn:hover {
+      background: var(--green-main);
+      color: #021008;
+      box-shadow: 0 0 12px rgba(0, 230, 118, 0.45);
+    }
+
+    /* Main Board Body */
+    .board-body {
+      background: rgba(8, 14, 22, 0.94);
+      border-left: 1px solid rgba(0, 230, 118, 0.35);
+      border-right: 1px solid rgba(0, 230, 118, 0.35);
+      padding: 22px 24px 30px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+    .board-shell.is-collapsed .board-body { display: none; }
+    .board-shell.is-collapsed .class-bar-bottom { margin-top: 6px; }
+
+    /* Hero Banner with Spinning WTR Radar Logo */
+    .hero-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(12, 24, 38, 0.96), rgba(7, 13, 22, 0.96));
+      border: 1px solid #1e354d;
+      border-left: 4px solid var(--green-main);
+      border-radius: 6px;
+      margin-bottom: 18px;
+    }
+    .hero-left-cluster {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      min-width: 280px;
+    }
+    .logo-radar-wrap {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #07140e 0%, #03070b 82%);
+      border: 2px solid var(--green-main);
+      box-shadow: 0 0 24px rgba(0, 230, 118, 0.4), inset 0 0 14px rgba(0, 230, 118, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .logo-radar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 230, 118, 0.55);
+      animation: spinRing 18s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 70%, rgba(0, 230, 118, 0.35) 100%);
+      animation: spinRing 4.5s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap img {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      border: 2px solid #03070b;
+    }
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--green-main);
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .hub-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 230, 118, 0.13);
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #b9f6ca;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      letter-spacing: 0.8px;
+    }
+    .hub-nav-pill:hover {
+      background: var(--green-main);
+      color: #020b06;
+      box-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+    }
+    .hub-nav-pill.popout-pill {
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(56, 189, 248, 0.12);
+      color: #7df9ff;
+    }
+    .hub-nav-pill.popout-pill:hover {
+      background: var(--cyan-main);
+      color: #020c14;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+    }
+
+    .hero-title-group h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(22px, 2.8vw, 31px);
+      font-weight: 900;
+      letter-spacing: 1.8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      text-shadow: 0 0 16px rgba(0, 230, 118, 0.22);
+    }
+    .sub-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      background: rgba(255, 215, 0, 0.14);
+      border: 1px solid var(--gold-border);
+      color: var(--gold-main);
+      letter-spacing: 1px;
+      text-shadow: none;
+    }
+    .hero-title-group p {
+      color: var(--text-muted);
+      font-size: 16.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      margin-top: 6px;
+      max-width: 880px;
+    }
+    .sync-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.42);
+      color: var(--green-main);
+      white-space: nowrap;
+    }
+
+    /* ==================== TOP FACTION DIVISION TABS BELOW TITLE ==================== */
+    .division-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .div-tab-pill {
+      background: #0b131d;
+      border: 1px solid #1d2f44;
+      border-top: 3px solid var(--tab-color, #00e676);
+      border-radius: 5px;
+      padding: 11px 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.18s ease;
+      user-select: none;
+      text-align: left;
+    }
+    .div-tab-pill:hover {
+      background: #101c2b;
+      transform: translateY(-1px);
+      border-color: var(--tab-color, #00e676);
+    }
+    .div-tab-pill.active {
+      background: rgba(16, 31, 48, 0.96);
+      border-color: var(--tab-color, #00e676);
+      box-shadow: 0 0 16px rgba(0, 230, 118, 0.16), inset 0 0 12px rgba(255, 255, 255, 0.04);
+    }
+    .div-tab-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .div-tab-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.9px;
+      color: #ffffff;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .div-tab-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--tab-color, #8fa6bc);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .div-tab-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .div-tab-badge.partial {
+      color: var(--gold-main);
+      border-color: var(--gold-border);
+      background: rgba(255, 215, 0, 0.12);
+    }
+    .div-tab-badge.full {
+      color: var(--green-main);
+      border-color: var(--green-border);
+      background: rgba(0, 230, 118, 0.15);
+    }
+
+    /* Action Buttons */
+    .act-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid #28435e;
+      background: #0e1a28;
+      color: #dce9f5;
+      transition: all 0.16s ease;
+    }
+    .act-btn:hover { border-color: var(--cyan-main); color: #fff; transform: translateY(-1px); }
+    .act-btn.gold {
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.24), rgba(255, 215, 0, 0.09));
+      border-color: var(--gold-main);
+      color: var(--gold-main);
+    }
+    .act-btn.gold:hover { background: var(--gold-main); color: #050a10; }
+    .act-btn.green {
+      background: linear-gradient(180deg, rgba(0, 230, 118, 0.26), rgba(0, 230, 118, 0.1));
+      border-color: var(--green-main);
+      color: var(--green-main);
+    }
+    .act-btn.green:hover { background: var(--green-main); color: #03120a; }
+    .act-btn.red {
+      background: rgba(255, 77, 90, 0.12);
+      border-color: rgba(255, 77, 90, 0.5);
+      color: #ff858e;
+    }
+    .act-btn.red:hover { background: var(--red-main); color: #fff; }
+
+    /* Filter, AI Preset & Worksheet Jump Toolbar */
+    .filter-preset-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      background: #070e17;
+      border: 1px solid #172a3e;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .search-tier-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-input {
+      background: #040910;
+      border: 1px solid #233b54;
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16.5px;
+      font-weight: 600;
+      padding: 7px 13px;
+      min-width: 240px;
+      flex: 1;
+      max-width: 340px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--cyan-main); }
+
+    .tier-chip {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      background: #0b1522;
+      border: 1px solid #1e334a;
+      color: #9cb3c9;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tier-chip:hover, .tier-chip.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--cyan-main);
+      color: #fff;
+    }
+
+    .preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+    }
+    .preset-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      color: var(--gold-main);
+      text-transform: uppercase;
+      margin-right: 2px;
+    }
+    .preset-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      color: #ffe57f;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .preset-btn:hover {
+      background: rgba(255, 215, 0, 0.24);
+      border-color: var(--gold-main);
+      color: #fff;
+    }
+
+    /* ==================== AI TIER LEVEL EXPLANATION PANEL ==================== */
+    .ai-tier-guide {
+      background: linear-gradient(180deg, rgba(11, 20, 32, 0.95), rgba(6, 12, 20, 0.96));
+      border: 1px solid #1d344d;
+      border-radius: 6px;
+      padding: 14px 18px 16px;
+      margin-bottom: 22px;
+    }
+    .ai-tier-guide.collapsed .ai-tier-cards-grid {
+      display: none;
+    }
+    .ai-tier-guide.collapsed {
+      padding-bottom: 12px;
+    }
+    .ai-guide-hdr {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .ai-tier-guide.collapsed .ai-guide-hdr {
+      margin-bottom: 0;
+    }
+    .ai-guide-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ai-formula-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #9cc2e3;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+    .ai-guide-toggle {
+      background: #0c1826;
+      border: 1px solid #284460;
+      color: #b8d0e8;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .ai-guide-toggle:hover {
+      border-color: var(--cyan-main);
+      color: #ffffff;
+    }
+    .ai-tier-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .ai-tier-explain-card {
+      background: #07101a;
+      border: 1px solid #1b3148;
+      border-top: 3px solid var(--tier-col, #ffd700);
+      border-radius: 5px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .atec-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .atec-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--tier-col, #ffd700);
+      letter-spacing: 0.8px;
+    }
+    .atec-range {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #dbe8f5;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    .atec-role {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #9ab5cf;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .atec-desc {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: #dce9f6;
+    }
+
+    /* Faction Sections */
+    .faction-section {
+      background: linear-gradient(180deg, rgba(10, 18, 28, 0.92), rgba(6, 11, 18, 0.95));
+      border: 1px solid #192c40;
+      border-radius: 7px;
+      padding: 18px 20px 20px;
+      margin-bottom: 22px;
+    }
+    .faction-sec-hdr {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 13px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #182b3f;
+    }
+    .faction-sec-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .faction-accent-bar {
+      width: 5px;
+      height: 34px;
+      border-radius: 3px;
+    }
+    .faction-sec-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .faction-sec-sub {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .faction-sec-counter {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 4px;
+      background: #09131e;
+      border: 1px solid #243b53;
+      color: #b8cde0;
+    }
+    .faction-sec-counter.locked {
+      background: rgba(0, 230, 118, 0.14);
+      border-color: var(--green-border);
+      color: var(--green-main);
+    }
+
+    /* Contractor Thumbnail Grid — 4 Contractors Per Row */
+    .contractor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .contractor-tile {
+      position: relative;
+      background: radial-gradient(circle at 50% 28%, #16283d 0%, #070d15 78%);
+      border: 1.5px solid #1f354d;
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      user-select: none;
+    }
+    .contractor-tile:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan-main);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .contractor-tile.is-selected {
+      border-color: var(--green-main);
+      box-shadow: 0 0 0 1px rgba(0, 230, 118, 0.5), 0 10px 26px rgba(0, 230, 118, 0.22);
+    }
+    .contractor-tile.is-maxed-out:not(.is-selected) {
+      opacity: 0.72;
+    }
+    .contractor-tile.is-maxed-out:not(.is-selected):hover {
+      opacity: 1;
+    }
+
+    .tile-portrait-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(56, 189, 248, 0.16), transparent 65%),
+        linear-gradient(180deg, #0b1522 0%, #050a11 100%);
+    }
+    .tile-portrait-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.24s ease;
+    }
+    .contractor-tile:hover .tile-portrait-box img {
+      transform: scale(1.05);
+    }
+
+    .portrait-monogram {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--cyan-main);
+      background: radial-gradient(circle, #13253a 0%, #060c14 80%);
+    }
+
+    /* Top-left Checkbox Control */
+    .tile-check-wrap {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background: rgba(4, 10, 18, 0.9);
+      border: 1px solid rgba(143, 166, 188, 0.6);
+      color: #dbe8f5;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tile-check-wrap:hover {
+      border-color: var(--green-main);
+      background: rgba(4, 18, 12, 0.96);
+      color: #fff;
+    }
+    .tile-check-wrap.checked {
+      background: var(--green-main);
+      border-color: #b9f6ca;
+      color: #02140a;
+      box-shadow: 0 0 12px rgba(0, 230, 118, 0.6);
+    }
+    .tile-check-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1.5px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    /* Top-right AI Tier Badge */
+    .ai-rank-chip {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 5;
+      padding: 4px 9px;
+      border-radius: 5px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      backdrop-filter: blur(4px);
+    }
+    .ai-tier-S {
+      background: rgba(20, 16, 4, 0.92);
+      border: 1px solid var(--gold-main);
+      color: var(--gold-main);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.28);
+    }
+    .ai-tier-A {
+      background: rgba(4, 20, 14, 0.92);
+      border: 1px solid var(--green-main);
+      color: var(--green-main);
+    }
+    .ai-tier-B {
+      background: rgba(6, 18, 28, 0.92);
+      border: 1px solid var(--cyan-main);
+      color: var(--cyan-main);
+    }
+
+    /* Sub-tag pill above nameplate (e.g. Rangers / Vehicle Counter) */
+    .tile-subtag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 4;
+      padding: 4px 9px;
+      border-radius: 4px;
+      background: rgba(4, 9, 16, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #d8e8f8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* Slide-Up Hover Overlay inside Thumbnail */
+    .tile-hover-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: linear-gradient(180deg, rgba(4, 9, 16, 0.3) 0%, rgba(4, 10, 18, 0.94) 40%, rgba(3, 7, 13, 0.98) 100%);
+      padding: 48px 14px 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+    .contractor-tile:hover .tile-hover-overlay {
+      opacity: 1;
+    }
+    .ov-role {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      color: var(--gold-main);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+    .ov-talent {
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.34;
+      color: #eef6ff;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ov-cta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--cyan-main);
+      border-top: 1px solid rgba(56, 189, 248, 0.28);
+      padding-top: 6px;
+      margin-top: 2px;
+    }
+
+    .tile-nameplate {
+      padding: 11px 12px;
+      background: #07101a;
+      border-top: 1px solid #182a3e;
+      text-align: center;
+    }
+    .tile-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #f1f7fd;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Floating Cursor Hover Tooltip (Desktop) */
+    .floating-hover-card {
+      position: fixed;
+      z-index: 1200;
+      width: 368px;
+      pointer-events: none;
+      display: none;
+      background: rgba(6, 12, 20, 0.97);
+      border: 1.5px solid var(--cyan-main);
+      border-radius: 7px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.9);
+    }
+    .fhc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid #1c3147;
+      padding-bottom: 7px;
+      margin-bottom: 8px;
+    }
+    .fhc-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .fhc-meta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      color: var(--cyan-main);
+      margin-bottom: 8px;
+    }
+    .fhc-sec-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--gold-main);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .fhc-talent {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #e8f2fc;
+      line-height: 1.38;
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 3px solid var(--green-main);
+      padding: 7px 10px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 9px;
+    }
+    .fhc-ai-note {
+      font-size: 14.5px;
+      color: #b7cce0;
+      line-height: 1.38;
+      margin-bottom: 7px;
+    }
+    .fhc-hint {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #8fa6bc;
+      text-align: center;
+      border-top: 1px solid #17293c;
+      padding-top: 7px;
+    }
+
+    /* ==================== BASE PLANNING WORKSHEET SECTION ==================== */
+    .worksheet-studio-wrap {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid rgba(255, 215, 0, 0.35);
+    }
+    .ws-controls-panel {
+      max-width: 860px;
+      margin: 0 auto 14px;
+      background: #08111b;
+      border: 1px solid #1f364f;
+      border-radius: 6px;
+      padding: 15px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ws-controls-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .ws-controls-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--gold-main);
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+    .ws-inputs-row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 1.5fr;
+      gap: 10px;
+    }
+    .ws-field label {
+      display: block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #96b0c7;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .ws-field input, .ws-field select {
+      width: 100%;
+      background: #040910;
+      border: 1px solid #243d57;
+      border-radius: 4px;
+      padding: 7px 11px;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      outline: none;
+    }
+    .ws-field input:focus, .ws-field select:focus {
+      border-color: var(--gold-main);
+    }
+
+    /* LIVE BASE PLANNING SHEET (Screen Capture Outputs Strict 8.5" x 11" ANSI A-Size) */
+    .a-size-sheet {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #070e17 0%, #050a11 100%);
+      border: 2px solid rgba(0, 230, 118, 0.55);
+      border-radius: 6px;
+      padding: 16px 18px;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sheet-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 9px;
+      border-bottom: 1.5px solid #1d354e;
+    }
+    .sheet-hdr-left .sh-kicker {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      letter-spacing: 1.5px;
+      color: var(--green-main);
+      text-transform: uppercase;
+    }
+    .sheet-hdr-left .sh-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 19.5px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+    .sheet-hdr-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .sh-badge {
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      background: #0c1826;
+      border: 1px solid #27425e;
+      color: #d9e8f6;
+    }
+    .sh-badge.score {
+      background: rgba(255, 215, 0, 0.14);
+      border-color: var(--gold-border);
+      color: var(--gold-main);
+    }
+
+    .sheet-factions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .sheet-faction-row {
+      background: rgba(11, 20, 32, 0.9);
+      border: 1px solid #1b3047;
+      border-radius: 5px;
+      padding: 8px 12px;
+    }
+    .sfr-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+    .sfr-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .sfr-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .sfr-slots-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      color: #8fa6bc;
+    }
+
+    .sfr-two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .ws-slot-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 82px;
+      padding: 7px 10px;
+      border-radius: 4px;
+      background: #07101a;
+      border: 1px solid #213952;
+    }
+    .ws-slot-card.empty {
+      border-style: dashed;
+      border-color: #1c3146;
+      background: rgba(6, 12, 20, 0.55);
+      justify-content: center;
+      color: #69839d;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      text-align: center;
+    }
+    .ws-slot-avatar {
+      width: 54px;
+      height: 68px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #0d1a2a;
+      border: 1px solid #2b4764;
+    }
+    .ws-slot-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .ws-slot-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .ws-slot-top {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+      padding-right: 18px;
+    }
+    .ws-slot-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ws-slot-tier {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .ws-slot-talent {
+      font-size: 14px;
+      font-weight: 600;
+      color: #d2e2f2;
+      line-height: 1.28;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ws-slot-remove {
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      background: transparent;
+      border: none;
+      color: #6f88a0;
+      font-size: 13px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px;
+    }
+    .ws-slot-remove:hover { color: var(--red-main); }
+
+    .sheet-footer {
+      margin-top: 2px;
+      padding-top: 8px;
+      border-top: 1.5px solid #1d354e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .sheet-notes-line {
+      color: #d6e6f5;
+      font-weight: 600;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sheet-notes-line strong {
+      color: var(--gold-main);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+    .sheet-stamp {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      color: var(--green-main);
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+
+    /* ==================== POPOUT MODALS (DOSSIER + CAPTURE PREVIEW) ==================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+      background: rgba(2, 5, 10, 0.86);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .dossier-modal {
+      width: 100%;
+      max-width: 820px;
+      background: linear-gradient(180deg, #091320 0%, #050b13 100%);
+      border: 1.5px solid var(--cyan-border);
+      border-radius: 8px;
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.92);
+      overflow: hidden;
+    }
+    .dm-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      background: #060d16;
+      border-bottom: 1px solid #1b3148;
+    }
+    .dm-hdr-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--cyan-main);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    .dm-close {
+      background: rgba(255, 77, 90, 0.14);
+      border: 1px solid rgba(255, 77, 90, 0.5);
+      color: #ff858e;
+      border-radius: 4px;
+      padding: 5px 11px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .dm-close:hover { background: var(--red-main); color: #fff; }
+
+    .dm-body {
+      display: grid;
+      grid-template-columns: 245px 1fr;
+      gap: 22px;
+      padding: 22px;
+    }
+    .dm-portrait-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .dm-portrait-frame {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 6px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, #18314c 0%, #060c15 80%);
+      border: 1.5px solid #284664;
+    }
+    .dm-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .dm-meta-table {
+      background: #060d16;
+      border: 1px solid #192e45;
+      border-radius: 5px;
+      padding: 9px 11px;
+      font-size: 14.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .dm-meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 3px;
+    }
+    .dm-meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .dm-meta-row span:first-child { color: #87a0b8; font-family: 'Share Tech Mono', monospace; font-size: 12.5px; }
+    .dm-meta-row span:last-child { color: #fff; font-weight: 700; text-align: right; }
+
+    .dm-intel-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .dm-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .dm-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 27px;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .dm-quote {
+      font-style: italic;
+      font-size: 15.5px;
+      color: #9fb7ce;
+      border-left: 3px solid var(--cyan-main);
+      padding-left: 10px;
+    }
+    .dm-box {
+      background: #07101b;
+      border: 1px solid #1c334c;
+      border-radius: 6px;
+      padding: 12px 15px;
+    }
+    .dm-box-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      color: var(--green-main);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .dm-talent-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #f2f8ff;
+      line-height: 1.4;
+    }
+    .ai-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0 11px;
+    }
+    .ai-bar-row {
+      display: grid;
+      grid-template-columns: 162px 1fr 40px;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .ai-bar-track {
+      height: 8px;
+      background: #0d1c2c;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .ai-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan-main), var(--green-main));
+      border-radius: 4px;
+    }
+    .dm-ai-notes {
+      font-size: 15.5px;
+      color: #cfe0f0;
+      line-height: 1.45;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .dm-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    /* Capture Preview Modal */
+    .capture-modal {
+      width: 100%;
+      max-width: 880px;
+      max-height: 92vh;
+      background: #07101a;
+      border: 1.5px solid var(--gold-main);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.95);
+    }
+    .cap-preview-scroll {
+      padding: 16px;
+      overflow-y: auto;
+      background: #03070c;
+      display: flex;
+      justify-content: center;
+    }
+    .cap-preview-scroll img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #27435e;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.85);
+    }
+    .cap-ftr {
+      padding: 12px 18px;
+      background: #08121e;
+      border-top: 1px solid #1c3249;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Toast Notification */
+    .wtr-toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 2000;
+      background: rgba(8, 16, 26, 0.97);
+      border: 1.5px solid var(--gold-main);
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.85);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+    .wtr-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .division-tabs-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 1040px) {
+      .contractor-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .ai-tier-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 780px) {
+      .contractor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .division-tabs-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .class-bar { grid-template-columns: 1fr 1fr; height: auto; padding: 6px; gap: 4px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { clip-path: none !important; border: none !important; }
+      .ws-inputs-row { grid-template-columns: 1fr; }
+      .sfr-two-cols { grid-template-columns: 1fr; }
+      .dm-body { grid-template-columns: 1fr; }
+      .dm-portrait-frame { max-width: 220px; margin: 0 auto; }
+    }
+
+    @media (max-width: 480px) {
+      .contractor-grid { grid-template-columns: 1fr; }
+      .division-tabs-bar { grid-template-columns: 1fr; }
+    }
+
+    /* Clean 1-Page US Letter / A-Size Print Rule */
+    @media print {
+      @page { size: letter portrait; margin: 0.3in; }
+      body { background: #050a11 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .class-bar, .hero-banner, .division-tabs-bar, .filter-preset-bar, .ai-tier-guide, #factionsGalleryContainer, .ws-controls-panel, .modal-backdrop, .floating-hover-card, .wtr-toast, .ws-slot-remove {
+        display: none !important;
+      }
+      .board-body { border: none !important; padding: 0 !important; box-shadow: none !important; background: transparent !important; }
+      .worksheet-studio-wrap { margin: 0 !important; padding: 0 !important; border: none !important; }
+      .a-size-sheet { max-width: 100% !important; max-height: 10.3in !important; overflow: hidden !important; box-shadow: none !important; margin: 0 auto !important; padding: 10px 12px !important; gap: 6px !important; }
+      .ws-slot-talent { font-size: 12px !important; }
+      .ws-slot-card { min-height: 70px !important; padding: 5px 8px !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="board-shell" id="boardShell">
+  <!-- ==================== TOP 4-CORNER UNCLASSIFIED BAR ==================== -->
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left">
+      <span class="status-dot"></span>
+      <span>WATCHTOWER // INTEL</span>
+    </div>
+    <div class="class-center">UNCLASSIFIED // AGENCY CONTRACTORS &amp; BASE LOADOUT PLANNER</div>
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" id="collapseBtn" type="button" onclick="toggleBoardCollapse()">
+        [—] COLLAPSE BRIEF
+      </button>
+    </div>
+  </header>
+
+  <main class="board-body" id="boardMiddleBody">
+    <!-- ==================== HERO HEADER WITH WTR SPINNING RADAR LOGO ==================== -->
+    <div class="hero-banner">
+      <div class="hero-left-cluster">
+        <div class="logo-radar-wrap" title="WatchToweR Command Center">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
+        </div>
+        <div class="hero-title-group">
+          <div class="hero-eyebrow">
+            <button type="button" class="hub-nav-pill" id="backToHubBtn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
+            <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open Agency Contractors in a full standalone window">↗ POP-OUT FULL WINDOW</button>
+            <a class="hub-nav-pill" href="./unit-briefs.html">📖 UNIT BRIEFS</a>
+            <a class="hub-nav-pill" href="./building-briefs.html">🏢 BUILDINGS</a>
+            <span>UNITS &amp; ARMORY // AGENCY DIVISION</span>
+          </div>
+          <h1>
+            WAR COMMANDER — AGENCY CONTRACTORS
+            <span class="sub-badge">2 PER FACTION • A-SIZE WORKSHEET</span>
+          </h1>
+          <p>Hover any Contractor thumbnail for instant buff &amp; AI ranking intel, click for full Agency Dossier, and check up to <strong>2 Contractors per Faction</strong> to build your single-page Base Loadout Worksheet below.</p>
+        </div>
+      </div>
+      <div class="sync-pill" id="dbSyncStatus">⚡ Syncing MASTER_DB...</div>
+    </div>
+
+    <!-- ==================== 6-TAB FACTION DIVISION BAR BELOW TITLE ==================== -->
+    <div class="division-tabs-bar" id="divisionTabsBar" role="tablist" aria-label="Agency Division Filter"></div>
+
+    <!-- ==================== SEARCH, TIER FILTER, AI AUTO-FILL & WORKSHEET JUMP ==================== -->
+    <div class="filter-preset-bar">
+      <div class="search-tier-wrap">
+        <input type="text" id="contractorSearch" class="search-input" placeholder="🔍 Search contractor, turret, defender, buff..." oninput="renderFactionGalleries()">
+        <button type="button" class="tier-chip active" data-tier="ALL" onclick="setTierFilter('ALL')">ALL TIERS</button>
+        <button type="button" class="tier-chip" data-tier="S" onclick="setTierFilter('S')">★ S-TIER</button>
+        <button type="button" class="tier-chip" data-tier="A" onclick="setTierFilter('A')">★ A-TIER</button>
+        <button type="button" class="tier-chip" data-tier="B" onclick="setTierFilter('B')">★ B-TIER</button>
+        <button type="button" class="ai-guide-toggle" id="btnToggleTierGuide" onclick="toggleTierGuide()">[?] Hide Tier Guide</button>
+      </div>
+      <div class="preset-group">
+        <span class="preset-lbl">🎯 AI Auto-Fill:</span>
+        <button type="button" class="preset-btn" onclick="applyAiBasePreset('RANGERS')">Rangers</button>
+        <button type="button" class="preset-btn" onclick="applyAiBasePreset('SENTINELS')">Sentinels</button>
+        <button type="button" class="preset-btn" onclick="applyAiBasePreset('CORPUS')">Corpus</button>
+        <button type="button" class="preset-btn" onclick="applyAiBasePreset('EQUINOX')">Equinox</button>
+        <button type="button" class="act-btn gold" onclick="scrollToWorksheet()">📋 Worksheet (<span id="totalSelectedCount">0</span>/10) ↓</button>
+        <button type="button" class="act-btn red" onclick="clearAllSelections()">↺ Clear</button>
+      </div>
+    </div>
+
+    <!-- ==================== [-WTR-] AI TIER LEVEL EXPLANATION GUIDE ==================== -->
+    <section class="ai-tier-guide" id="aiTierGuidePanel" aria-label="AI Tier Ranking Explanation">
+      <div class="ai-guide-hdr">
+        <div class="ai-guide-title">
+          <span>🧠 [-WTR-] AI Tactical Tier &amp; Score Breakdown</span>
+          <span class="ai-formula-pill">0–100 SCORE = BASE DEFENSE IMPACT + META COUNTER VALUE + PASSIVE UPTIME (LVL 10)</span>
+        </div>
+      </div>
+      <div class="ai-tier-cards-grid">
+        <div class="ai-tier-explain-card" style="--tier-col: var(--gold-main);">
+          <div class="atec-top">
+            <span class="atec-badge">★ S-TIER • CORE META STAPLES</span>
+            <span class="atec-range">SCORE 93 – 100</span>
+          </div>
+          <div class="atec-role">Priority Slot #1 Picks • Unconditional High-Impact Multipliers</div>
+          <div class="atec-desc">
+            Top-ceiling passives that define modern PvP defense: <strong>+10% Rangers Turret Range</strong>, <strong>+25–30% Faction Turret Damage</strong>, <strong>-20% Air Defender Damage Taken</strong>, <strong>Attacking Vehicle Zombie Infection</strong>, <strong>90% Storage Armor Walls</strong>, and <strong>20% Power Plant Slow Traps</strong>.
+          </div>
+        </div>
+
+        <div class="ai-tier-explain-card" style="--tier-col: var(--green-main);">
+          <div class="atec-top">
+            <span class="atec-badge">★ A-TIER • HIGH-SYNERGY PAIRINGS</span>
+            <span class="atec-range">SCORE 86 – 92</span>
+          </div>
+          <div class="atec-role">Strong Slot #2 Locks • Specialized Turret &amp; Defender Combos</div>
+          <div class="atec-desc">
+            Force-multiplying passives that complete a 2-slot Faction lock or harden specific layouts: <strong>+25% Rangers Defender Evasion</strong>, <strong>+20% Sentinels Defender DR</strong>, <strong>+25% Equinox Anti-Chopper/Infantry Turrets</strong>, <strong>+15% Defender Splash Size</strong>, <strong>+40% Power Plant DR</strong>, <strong>Armory Decoys</strong>, and <strong>Merc Camp Ambushes</strong>.
+          </div>
+        </div>
+
+        <div class="ai-tier-explain-card" style="--tier-col: var(--cyan-main);">
+          <div class="atec-top">
+            <span class="atec-badge">★ B-TIER • SITUATIONAL &amp; CYCLE TECH</span>
+            <span class="atec-range">SCORE 78 – 85</span>
+          </div>
+          <div class="atec-role">Niche Garrison Rosters • Non-PvP Production Cycles</div>
+          <div class="atec-desc">
+            Targeted passives best swapped in for specific base states: <strong>+5% War Production Speed</strong> during event/repair grinding cycles (Terry Michaels), <strong>+5% Unique Defender Damage</strong> (Carol Hagen), or <strong>+15% Corpus / Equinox Defender Damage</strong> on garrison-heavy bases.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FACTION THUMBNAIL GALLERIES -->
+    <div id="factionsGalleryContainer"></div>
+
+    <!-- ==================== A-SIZE BASE PLANNING WORKSHEET ==================== -->
+    <div class="worksheet-studio-wrap" id="worksheetSection">
+      <div class="ws-controls-panel">
+        <div class="ws-controls-top">
+          <div>
+            <div class="ws-controls-title">📐 Base Contractor Planning Sheet (A-Size • 8.5" × 11" Max)</div>
+            <div style="font-size:15px; color:#8fa6bc; font-weight:600; margin-top:2px;">Customize your base header &amp; tactical notes below, then click <strong>📸 Screen Capture (A-Size)</strong> to save or copy a clean single-page image.</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="act-btn green" onclick="openWorksheetCaptureModal()">📸 Screen Capture (A-Size)</button>
+            <button type="button" class="act-btn gold" onclick="window.print()">🖨️ Print / PDF</button>
+          </div>
+        </div>
+        <div class="ws-inputs-row">
+          <div class="ws-field">
+            <label for="wsBaseNameInput">Commander / Base Name</label>
+            <input type="text" id="wsBaseNameInput" placeholder="e.g. CDR. WATCHTOWER // CITADEL ALPHA" maxlength="42" oninput="onWorksheetMetaChanged()">
+          </div>
+          <div class="ws-field">
+            <label for="wsFocusSelect">Primary Base Turret / Defender Focus</label>
+            <select id="wsFocusSelect" onchange="onWorksheetMetaChanged()">
+              <option value="HYBRID META DEFENSE">Hybrid Meta Defense</option>
+              <option value="RANGERS TURRET GRID">Rangers Turret Grid</option>
+              <option value="SENTINELS HEAVY BASTION">Sentinels Heavy Bastion</option>
+              <option value="CORPUS ANTI-AIR & ARMOR">Corpus Anti-Air &amp; Armor</option>
+              <option value="EQUINOX ANTI-CHOPPER">Equinox Anti-Chopper</option>
+              <option value="WAR PRODUCTION / EVENT">War Production / Event</option>
+            </select>
+          </div>
+          <div class="ws-field">
+            <label for="wsNotesInput">Tactical Deployment Note (Printed on Footer)</label>
+            <input type="text" id="wsNotesInput" placeholder="e.g. Tuck Power Plants behind Storage ring for Dawn Slater 20% slow + Solomon 40% DR" maxlength="95" oninput="onWorksheetMetaChanged()">
+          </div>
+        </div>
+      </div>
+
+      <!-- ON-SCREEN LIVE A-SIZE WORKSHEET -->
+      <div class="a-size-sheet" id="planningSheetLive">
+        <div class="sheet-hdr">
+          <div class="sheet-hdr-left">
+            <div class="sh-kicker">UNCLASSIFIED // [-WTR-] WATCHTOWER AGENCY DIVISION // BASE LOADOUT WORKSHEET</div>
+            <div class="sh-title" id="sheetTitleDisplay">COMMANDER BASE LOADOUT</div>
+          </div>
+          <div class="sheet-hdr-meta">
+            <span class="sh-badge" id="sheetFocusDisplay">HYBRID META DEFENSE</span>
+            <span class="sh-badge score" id="sheetAiScoreDisplay">AI RATING: —</span>
+          </div>
+        </div>
+
+        <div class="sheet-factions-stack" id="sheetFactionsStack"></div>
+
+        <div class="sheet-footer">
+          <div class="sheet-notes-line" id="sheetNotesDisplay">
+            <strong>TACTICAL NOTE:</strong> Select up to 2 Contractors per Agency Faction above to lock in your base defense loadout.
+          </div>
+          <div class="sheet-stamp" id="sheetDateStamp">[-WTR-] UNCLASSIFIED • A-SIZE</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== BOTTOM 4-CORNER UNCLASSIFIED BAR ==================== -->
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left">
+      <span>[-WTR-] DATA HUB</span>
+    </div>
+    <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNITS &amp; ARMORY DIVISION</div>
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ▲ TOP OF BRIEF
+      </button>
+    </div>
+  </footer>
+</div>
+
+<!-- FLOATING HOVER BRIEF -->
+<div class="floating-hover-card" id="floatingHoverCard"></div>
+
+<!-- CONTRACTOR POPOUT DOSSIER MODAL -->
+<div class="modal-backdrop" id="dossierModalBackdrop" onclick="if(event.target===this) closeDossierModal()">
+  <div class="dossier-modal" id="dossierModalContent"></div>
+</div>
+
+<!-- A-SIZE SCREEN CAPTURE PREVIEW MODAL -->
+<div class="modal-backdrop" id="captureModalBackdrop" onclick="if(event.target===this) closeCaptureModal()">
+  <div class="capture-modal">
+    <div class="dm-hdr">
+      <span class="dm-hdr-tag" style="color:var(--gold-main);">📸 A-SIZE WORKSHEET SCREEN CAPTURE (8.5" × 11" • SINGLE PAGE FIT)</span>
+      <button type="button" class="dm-close" onclick="closeCaptureModal()">✕ Close</button>
+    </div>
+    <div class="cap-preview-scroll">
+      <img id="capturedSheetImg" alt="Agency Contractor Base Planning Sheet">
+    </div>
+    <div class="cap-ftr">
+      <span style="font-family:'Share Tech Mono',monospace; font-size:13px; color:#9cb4cc;" id="captureDimLabel">ANSI A-Size Sheet • 1224 × 1584 px (8.5" × 11" @ 144 DPI)</span>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button type="button" class="act-btn" onclick="copyCapturedSheetToClipboard()">📋 Copy Image to Clipboard</button>
+        <button type="button" class="act-btn green" onclick="downloadCapturedSheetPng()">💾 Download PNG</button>
+        <button type="button" class="act-btn gold" onclick="closeCaptureModal(); window.print();">🖨️ Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="wtr-toast" id="wtrToast"></div>
+
+<script>
+  const SHEET_CONFIG = {
+    docId: '1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc',
+    gid: '444355456'
+  };
+
+  const STORAGE_KEY = 'wtr_agency_contractor_worksheet_v1';
+
+  /* Canonical Agency Faction / Division Order (2 Active Base Slots Each) */
+  const FACTION_META = [
+    {
+      key: 'DIPLOMACY',
+      label: 'Diplomacy',
+      color: '#38bdf8',
+      maxSlots: 2,
+      subtitle: 'Faction Turret & Garrison Defender Treaties — Select 2 matching your primary base turrets/defenders'
+    },
+    {
+      key: 'DEFENSE',
+      label: 'Defense',
+      color: '#ff4d5a',
+      maxSlots: 2,
+      subtitle: 'Defending Aircraft Mitigation, Splash Radius & Unique Defender Amplification — Select 2'
+    },
+    {
+      key: 'R & D',
+      label: 'R & D',
+      color: '#a855f7',
+      maxSlots: 2,
+      subtitle: 'Vehicle Infection Counters, Power Grid Hardening & War Production Speed — Select 2'
+    },
+    {
+      key: 'REQUISITIONS',
+      label: 'Requisitions',
+      color: '#f59e0b',
+      maxSlots: 2,
+      subtitle: '90% Resource Building Armor & Continuous Armory Decoy Swarms — Select 2'
+    },
+    {
+      key: 'OPERATIONS',
+      label: 'Operations',
+      color: '#00e676',
+      maxSlots: 2,
+      subtitle: 'Power Plant Slow Traps & Mercenary Camp Destruction Contingencies — Select 2'
+    }
+  ];
+
+  /* Local High-Res Studio Portrait Map (Zero CORS Taint for Canvas Screen Capture) */
+  const LOCAL_AGENT_IMAGES = {
+    'ARIKI TOA': './assets/images/AGENTS/Ariki Toa.png',
+    'ZAKIA KAZMI': './assets/images/AGENTS/Zakia_Kazmi.png',
+    'NORA MALIK': './assets/images/AGENTS/Nora Malik.png',
+    'JANELLE BROWN': './assets/images/AGENTS/ScreenCapture Janella Brown.png',
+    'BROTHER MATSUMOTO': './assets/images/AGENTS/Brother Matsumoto.png',
+    'SVEN OMAROV': './assets/images/AGENTS/ScreenCapture Sven Omarov.png',
+    'LUCIA VEGA': './assets/images/AGENTS/Lucia Vega.png',
+    'MR. BARCLAY': './assets/images/AGENTS/ScreenCapture Mr. Barclay.png',
+    'JOHNNY BONES': './assets/images/AGENTS/JOHNNY BONES.jpg',
+    'CAROL HAGEN': './assets/images/AGENTS/ScreenCapture Carol Hagen.png',
+    'BECCA FERGUSON': './assets/images/AGENTS/CONTRACTOR BECCA FERGUSON.png',
+    'ABIGAIL DIAZ': './assets/images/AGENTS/CONTRACTOR ABIGAL DIAZ.png',
+    'TERRY MICHAELS': './assets/images/AGENTS/ScreenCapture Terry Michaels.png',
+    'SOLOMON HAMAD': './assets/images/AGENTS/Solomon Hamad.png',
+    'IGNACIO DIAZ': './assets/images/AGENTS/IGNACIO DIAZ.png',
+    'SLY HIGGINS': './assets/images/AGENTS/SLY HIGGINS.png',
+    'DAWN SLATER': './assets/images/AGENTS/ScreenCapture Dawn Slater.png',
+    'FERNANDO TORRES': './assets/images/AGENTS/FERNANDO TORRES.png'
+  };
+
+  /* [-WTR-] Curated AI Tactical Rankings & Synergy Profiles */
+  const AI_PROFILES = {
+    'ARIKI TOA': {
+      tier: 'S', score: 97, subTag: 'Rangers Turrets',
+      impact: 98, counter: 95, uptime: 98,
+      bestFor: 'Bases running Vickers, Wave Reflex, Sledge, or Bouncing Betty turrets.',
+      synergy: 'Pair with Janelle Brown for an all-Rangers Diplomacy lock (+10% Turret Range & 25% Defender Evasion).'
+    },
+    'BROTHER MATSUMOTO': {
+      tier: 'S', score: 95, subTag: 'Sentinels Turrets',
+      impact: 96, counter: 93, uptime: 97,
+      bestFor: 'Heavy Sentinel turret grids needing raw unconditional +25% DPS to shred armored pushes.',
+      synergy: 'Pair with Zakia Kazmi (+20% Sentinels Defender DR) so defenders stall enemies inside turret fire.'
+    },
+    'NORA MALIK': {
+      tier: 'S', score: 94, subTag: 'Corpus Turrets',
+      impact: 95, counter: 96, uptime: 91,
+      bestFor: 'Corpus turret layouts (Warp Lance, Bloodhound AA, Special Beam, Leadstorm) countering Air & Vehicles.',
+      synergy: 'Pair with Mr. Barclay for full Corpus synergy, or Ariki Toa on hybrid Rangers/Corpus turret bases.'
+    },
+    'ZAKIA KAZMI': {
+      tier: 'A', score: 90, subTag: 'Sentinels Defenders',
+      impact: 89, counter: 88, uptime: 93,
+      bestFor: 'Bases deploying Castor & Pollux / Dyad & Twin or heavy Sentinel defender platoons.',
+      synergy: 'Pair with Brother Matsumoto (+25% Sentinel Turret Damage) + Abigail Diaz/Becca Ferguson.'
+    },
+    'LUCIA VEGA': {
+      tier: 'A', score: 89, subTag: 'Equinox Turrets',
+      impact: 90, counter: 92, uptime: 86,
+      bestFor: 'Metronomos & Slug Pulsar bases punishing Chopper kiting (Stormwail/Banshee) and Infantry squads.',
+      synergy: 'Pair with Sven Omarov (+15% Equinox Defender Damage) on Equinox-themed defense grids.'
+    },
+    'JANELLE BROWN': {
+      tier: 'A', score: 88, subTag: 'Rangers Defenders',
+      impact: 88, counter: 87, uptime: 90,
+      bestFor: 'Bases fielding Midway, Broadside, Simo, or Frostpiercer on base defense (+25% Evasion).',
+      synergy: 'Natural #2 Diplomacy slot alongside Ariki Toa (+10% Rangers Turret Range).'
+    },
+    'SVEN OMAROV': {
+      tier: 'B', score: 83, subTag: 'Equinox Defenders',
+      impact: 82, counter: 80, uptime: 88,
+      bestFor: 'Garrisons stacked with Dixon, Argus, Atlas, Medjai, or Voidhammer defenders.',
+      synergy: 'Pair with Lucia Vega in Diplomacy and Abigail Diaz (-20% Air Defender damage taken) for Dixon/Argus.'
+    },
+    'MR. BARCLAY': {
+      tier: 'B', score: 82, subTag: 'Corpus Defenders',
+      impact: 81, counter: 79, uptime: 87,
+      bestFor: 'Bases using Omicron, Achilles, Myrmidon, or Pele in defender platoons.',
+      synergy: 'Pair with Nora Malik (+30% Corpus Turret damage vs Fixed-Wing Air & Vehicles).'
+    },
+    'ABIGAIL DIAZ': {
+      tier: 'S', score: 95, subTag: 'Air Defenders -20% Dmg',
+      impact: 96, counter: 94, uptime: 95,
+      bestFor: 'Any base running meta Air defenders (Dutch, Dixon, Argus, Omicron, Tachyon, Stormwail).',
+      synergy: 'Top Defense pick alongside Becca Ferguson (+15% Splash Radius on defending units).'
+    },
+    'BECCA FERGUSON': {
+      tier: 'A', score: 91, subTag: 'Defender +15% Splash',
+      impact: 92, counter: 90, uptime: 91,
+      bestFor: 'Defenders with AoE/Splash weapons (Midway, Broadside, Omicron, Voidhammer) punishing tight formations.',
+      synergy: 'Pair with Abigail Diaz in Defense for universal Air survival + wider AoE splash coverage.'
+    },
+    'CAROL HAGEN': {
+      tier: 'B', score: 80, subTag: 'Unique Defenders +5%',
+      impact: 78, counter: 79, uptime: 84,
+      bestFor: 'Garrisons centered around Unique defenders (Dutch, Baron Anansi, Tachyon, Recruiter, Kabuto).',
+      synergy: 'Swap in over Becca Ferguson only if your defenders are primarily single-target Unique units.'
+    },
+    'JOHNNY BONES': {
+      tier: 'S', score: 96, subTag: 'Anti-Vehicle Infect',
+      impact: 97, counter: 98, uptime: 93,
+      bestFor: 'Universal PvP counter vs attacking Vehicle platoons — spawns zombie defenders right in enemy lines.',
+      synergy: 'Lock into R & D Slot 1 alongside Solomon Hamad (+40% Power Plant DR) for maximum base disruption.'
+    },
+    'SOLOMON HAMAD': {
+      tier: 'A', score: 90, subTag: 'Power Grid +40% DR',
+      impact: 90, counter: 88, uptime: 94,
+      bestFor: 'Preventing attackers from sniping Power Plants to shut down high-draw turrets.',
+      synergy: 'Elite cross-faction combo with Dawn Slater (Operations: 20% slow within 300 range of Power Plants).'
+    },
+    'TERRY MICHAELS': {
+      tier: 'B', score: 79, subTag: '+5% War Production',
+      impact: 72, counter: 70, uptime: 96,
+      bestFor: 'Active event/war grinding cycles when faster War Production outweighs Power Plant armor.',
+      synergy: 'Run during PvE/Event prep; swap back to Solomon Hamad + Johnny Bones before heavy PvP defense.'
+    },
+    'IGNACIO DIAZ': {
+      tier: 'S', score: 95, subTag: 'Storage 90% DR Wall',
+      impact: 96, counter: 93, uptime: 97,
+      bestFor: 'Turning Resource Storage & Production buildings into ultra-dense 90% DR buffer shields in turret range.',
+      synergy: 'Pair directly with Sly Higgins in Requisitions — both Requisitions contractors are must-slot staples.'
+    },
+    'SLY HIGGINS': {
+      tier: 'A', score: 91, subTag: 'Armory Decoy Stream',
+      impact: 91, counter: 92, uptime: 90,
+      bestFor: 'Continuous Armory Decoy Soldiers that pull enemy targeting, waste burst cooldowns, and stall advances.',
+      synergy: 'Pairs with Ignacio Diaz in Requisitions + Johnny Bones zombie spawns for relentless decoy clutter.'
+    },
+    'DAWN SLATER': {
+      tier: 'S', score: 93, subTag: 'Power Aura 20% Slow',
+      impact: 94, counter: 93, uptime: 92,
+      bestFor: 'Slowing enemy kiting/rush speed by 20% within 300 range of Power Plants.',
+      synergy: 'Pair with Fernando Torres in Operations + Solomon Hamad (R&D) so tanky Power Plants anchor your kill zone.'
+    },
+    'FERNANDO TORRES': {
+      tier: 'A', score: 86, subTag: 'Merc Camp Ambush',
+      impact: 85, counter: 86, uptime: 87,
+      bestFor: 'Spawning surprise Arc 1 defender reinforcements the moment attackers destroy your Mercenary Camp.',
+      synergy: 'Pairs naturally with Dawn Slater to fill both Operations slots.'
+    }
+  };
+
+  /* Built-in Fallback Roster (Matches MASTER_DB 1:1 & Upgrades Live When Sheet Loads) */
+  const FALLBACK_CONTRACTORS = [
+    { UNIT_NAME: 'Ariki Toa', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46204', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'ALL Rangers turrets gain +10% Range. Affects Vickers, Wave Reflex, Sledge, and Bouncing Betty.' },
+    { UNIT_NAME: 'Zakia Kazmi', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46204', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'ALL Sentinels Defenders Gain 20% damage resistance.' },
+    { UNIT_NAME: 'Nora Malik', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46204', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'ALL Corpus turrets do 30% more damage to fixed wing air and vehicles (Warp Lance, Bloodhound AA, Special Beam Cannon, Leadstorm).' },
+    { UNIT_NAME: 'Janelle Brown', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Rangers defenders get 25% evasion chance.' },
+    { UNIT_NAME: 'Brother Matsumoto', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '45627', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Sentinel turrets gain 25% Damage Output.' },
+    { UNIT_NAME: 'Sven Omarov', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Equinox Defenders gain +15% Damage Output.' },
+    { UNIT_NAME: 'Lucia Vega', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46204', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'ALL Equinox Turrets do 25% more damage to Chopper air and Infantry. Affects Metronomos and Slug Pulsar.' },
+    { UNIT_NAME: 'Mr. Barclay', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Diplomacy', STAT_FACTION: 'Contractor', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Corpus defenders gain +15% Damage Output.' },
+    { UNIT_NAME: 'Johnny Bones', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46296', STAT_GENERATION: 'Contractor', STAT_FACTION: 'R & D', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', UNIT_QUOTE: "Johnny was the son of an infamous Nuclear Scientist. After being caught in his father's final experiment, he now benefits from long life at the... (incomplete in game by Kixeye) Formerly known as Orlando Bones.", TALENT: 'Applies INFECTED to ALL ATTACKING VEHICLES. Those infected will spawn zombie defenders on death.' },
+    { UNIT_NAME: 'Carol Hagen', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Defense', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: "Add 5% Damage Increase to Defending Unique's." },
+    { UNIT_NAME: 'Becca Ferguson', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '45931', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Defense', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Defending units have their splash sizes increased by 15%.' },
+    { UNIT_NAME: 'Abigail Diaz', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '45931', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Defense', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'All Defending Aircraft take 20% less Damage.' },
+    { UNIT_NAME: 'Terry Michaels', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Contractor', STAT_FACTION: 'R & D', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'Increase War Production speed by 5%.' },
+    { UNIT_NAME: 'Solomon Hamad', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '45536', STAT_GENERATION: 'Contractor', STAT_FACTION: 'R & D', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'Adds 40% Damage Resistance to all Power Plant types.' },
+    { UNIT_NAME: 'Ignacio Diaz', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46023', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Requisitions', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'Resource Storage and Resource Production Buildings take 90% less damage and have 100 flat damage reduction.' },
+    { UNIT_NAME: 'Sly Higgins', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46113', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Requisitions', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'The Armory spawns Decoy Soldiers continuously. Decoy Soldiers rush towards the enemy.' },
+    { UNIT_NAME: 'Dawn Slater', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: 'Unknown', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Operations', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'Enemy units within 300 range of power plants are slowed by 20%.' },
+    { UNIT_NAME: 'Fernando Torres', CLASSIFICATION: 'CONTRACTOR', RELEASE_DATE: '46023', STAT_GENERATION: 'Contractor', STAT_FACTION: 'Operations', STAT_BUILDING: 'Agency', UPGRADE_LVL_TOTAL: '10', TALENT: 'Mercenary Camp spawns random Arc 1 units when destroyed.' }
+  ];
+
+  let allContractors = [];
+  let activeDivisionFilter = 'ALL';
+  let activeTierFilter = 'ALL';
+  let currentDossierContractor = null;
+  let lastCapturedCanvas = null;
+
+  /* Worksheet State: { selections: { DIPLOMACY: ['Ariki Toa', ...], ... }, baseName: '', focus: '', notes: '' } */
+  let worksheetState = {
+    selections: {},
+    baseName: '',
+    focus: 'HYBRID META DEFENSE',
+    notes: ''
+  };
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function cleanVal(v) {
+    if (!v) return '';
+    const t = String(v).trim();
+    return (t === '-' || t === '—' || t === 'N/A') ? '' : t;
+  }
+
+  function formatReleaseDate(raw) {
+    const t = cleanVal(raw);
+    if (!t || t.toUpperCase() === 'UNKNOWN') return 'Standard Roster';
+    if (/^\d{5}$/.test(t)) {
+      const serial = parseInt(t, 10);
+      if (serial > 40000 && serial < 60000) {
+        const utcMs = (serial - 25569) * 86400 * 1000;
+        const d = new Date(utcMs);
+        const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+        return `${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+      }
+    }
+    return t;
+  }
+
+  function isContractorRow(rec) {
+    const hay = `${rec.CLASSIFICATION || ''} ${rec.UNIT_DIVISION || ''} ${rec.STAT_FACTION || ''} ${rec.STAT_GENERATION || ''} ${rec.STAT_BUILDING || ''}`.toUpperCase();
+    return hay.includes('CONTRACTOR') || hay.includes('DIPLOMAC') || hay.includes('AGENCY');
+  }
+
+  function resolveContractorFaction(rec) {
+    const rawFac = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const rawGen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    const candidate = (rawFac && rawFac !== 'CONTRACTOR') ? rawFac : rawGen;
+    if (candidate.includes('DIPLOMAC')) return 'DIPLOMACY';
+    if (candidate.includes('DEFEN')) return 'DEFENSE';
+    if (candidate.includes('R & D') || candidate.includes('R&D') || candidate.includes('RESEARCH')) return 'R & D';
+    if (candidate.includes('REQUISITION')) return 'REQUISITIONS';
+    if (candidate.includes('OPERATION')) return 'OPERATIONS';
+    if (candidate && candidate !== 'CONTRACTOR') return candidate;
+    return 'DIPLOMACY';
+  }
+
+  function resolvePortraitUrl(rec) {
+    const key = cleanVal(rec.UNIT_NAME).toUpperCase();
+    if (LOCAL_AGENT_IMAGES[key]) return LOCAL_AGENT_IMAGES[key];
+
+    let raw = cleanVal(rec.UNIT_IMAGE_URL) || cleanVal(rec.IMAGE_URL);
+    if (!raw) return '';
+    if (raw.startsWith('data:image/')) return raw;
+
+    // Handle concatenated strings like "Ariki Toa.pnghttps://drive.google.com/..."
+    const httpIdx = raw.indexOf('http');
+    if (httpIdx > 0) raw = raw.slice(httpIdx);
+
+    const driveMatch = raw.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    return raw;
+  }
+
+  function resolveAiProfile(rec) {
+    const key = cleanVal(rec.UNIT_NAME).toUpperCase();
+    if (AI_PROFILES[key]) return AI_PROFILES[key];
+
+    // Dynamic AI scoring heuristic for any brand-new Contractor added to MASTER_DB
+    const talent = cleanVal(rec.TALENT).toUpperCase();
+    let score = 84;
+    if (talent.includes('RANGE') || talent.includes('90%') || talent.includes('30%') || talent.includes('INFECT')) score = 94;
+    else if (talent.includes('25%') || talent.includes('20%') || talent.includes('SPAWN')) score = 89;
+    const tier = score >= 93 ? 'S' : (score >= 86 ? 'A' : 'B');
+
+    let subTag = resolveContractorFaction(rec);
+    if (talent.includes('RANGERS')) subTag = 'Rangers Buff';
+    else if (talent.includes('SENTINEL')) subTag = 'Sentinels Buff';
+    else if (talent.includes('CORPUS')) subTag = 'Corpus Buff';
+    else if (talent.includes('EQUINOX')) subTag = 'Equinox Buff';
+
+    return {
+      tier, score, subTag,
+      impact: score, counter: score - 2, uptime: 90,
+      bestFor: `Bases leveraging ${cleanVal(rec.UNIT_NAME)}'s Agency passive in ${resolveContractorFaction(rec)}.`,
+      synergy: `Pair with your highest-rated second ${resolveContractorFaction(rec)} Contractor.`
+    };
+  }
+
+  function enrichContractor(rec) {
+    const factionKey = resolveContractorFaction(rec);
+    const ai = resolveAiProfile(rec);
+    const portrait = resolvePortraitUrl(rec);
+    const fallbackSheetImg = cleanVal(rec.UNIT_IMAGE_URL) && cleanVal(rec.UNIT_IMAGE_URL).startsWith('data:image/')
+      ? cleanVal(rec.UNIT_IMAGE_URL)
+      : '';
+    return {
+      ...rec,
+      UNIT_NAME: cleanVal(rec.UNIT_NAME),
+      factionKey,
+      ai,
+      portrait,
+      fallbackSheetImg,
+      talentText: cleanVal(rec.TALENT) || 'Specialized Agency passive bonus.'
+    };
+  }
+
+  function getOrderedFactionSections() {
+    const map = new Map();
+    FACTION_META.forEach(fm => map.set(fm.key, { ...fm, items: [] }));
+    allContractors.forEach(c => {
+      if (!map.has(c.factionKey)) {
+        map.set(c.factionKey, {
+          key: c.factionKey,
+          label: c.factionKey,
+          color: '#38bdf8',
+          maxSlots: 2,
+          subtitle: `Agency ${c.factionKey} Division — Select up to 2 Contractors`,
+          items: []
+        });
+      }
+      map.get(c.factionKey).items.push(c);
+    });
+    const list = [...map.values()].filter(sec => sec.items.length > 0);
+    list.forEach(sec => {
+      sec.items.sort((a, b) => b.ai.score - a.ai.score || a.UNIT_NAME.localeCompare(b.UNIT_NAME));
+    });
+    return list;
+  }
+
+  /* ==================== STATE PERSISTENCE ==================== */
+  function loadSavedState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          worksheetState.selections = parsed.selections || {};
+          worksheetState.baseName = parsed.baseName || '';
+          worksheetState.focus = parsed.focus || 'HYBRID META DEFENSE';
+          worksheetState.notes = parsed.notes || '';
+        }
+      }
+    } catch (e) {}
+    document.getElementById('wsBaseNameInput').value = worksheetState.baseName;
+    document.getElementById('wsFocusSelect').value = worksheetState.focus;
+    document.getElementById('wsNotesInput').value = worksheetState.notes;
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(worksheetState));
+    } catch (e) {}
+  }
+
+  function getFactionSelectedNames(factionKey) {
+    if (!Array.isArray(worksheetState.selections[factionKey])) {
+      worksheetState.selections[factionKey] = [];
+    }
+    return worksheetState.selections[factionKey];
+  }
+
+  function isContractorSelected(c) {
+    return getFactionSelectedNames(c.factionKey).includes(c.UNIT_NAME);
+  }
+
+  function toggleContractorSelection(unitName, ev) {
+    if (ev) ev.stopPropagation();
+    const c = allContractors.find(x => x.UNIT_NAME === unitName);
+    if (!c) return;
+    const arr = getFactionSelectedNames(c.factionKey);
+    const idx = arr.indexOf(c.UNIT_NAME);
+    if (idx !== -1) {
+      arr.splice(idx, 1);
+      showToast(`Removed ${c.UNIT_NAME} from ${c.factionKey}`);
+    } else {
+      if (arr.length >= 2) {
+        showToast(`⚠️ ${c.factionKey} already has 2/2 Contractors! Uncheck one or click card to swap.`);
+        return;
+      }
+      arr.push(c.UNIT_NAME);
+      showToast(`✓ Assigned ${c.UNIT_NAME} (${c.factionKey} ${arr.length}/2)`);
+    }
+    saveState();
+    refreshAllViews();
+    if (currentDossierContractor && currentDossierContractor.UNIT_NAME === c.UNIT_NAME) {
+      renderDossierModalBody(c);
+    }
+  }
+
+  function swapContractorIntoSlot(unitName, slotIdx) {
+    const c = allContractors.find(x => x.UNIT_NAME === unitName);
+    if (!c) return;
+    const arr = getFactionSelectedNames(c.factionKey);
+    const existingIdx = arr.indexOf(c.UNIT_NAME);
+    if (existingIdx !== -1) arr.splice(existingIdx, 1);
+    arr[slotIdx] = c.UNIT_NAME;
+    worksheetState.selections[c.factionKey] = arr.filter(Boolean).slice(0, 2);
+    saveState();
+    refreshAllViews();
+    renderDossierModalBody(c);
+    showToast(`⇄ Placed ${c.UNIT_NAME} into ${c.factionKey} Slot #${slotIdx + 1}`);
+  }
+
+  function clearAllSelections() {
+    worksheetState.selections = {};
+    saveState();
+    refreshAllViews();
+    showToast('Cleared all Contractor slots on Worksheet');
+  }
+
+  function applyAiBasePreset(mode) {
+    const dipMap = {
+      RANGERS: ['Ariki Toa', 'Janelle Brown'],
+      SENTINELS: ['Brother Matsumoto', 'Zakia Kazmi'],
+      CORPUS: ['Nora Malik', 'Mr. Barclay'],
+      EQUINOX: ['Lucia Vega', 'Sven Omarov']
+    };
+    const focusLabels = {
+      RANGERS: 'RANGERS TURRET GRID',
+      SENTINELS: 'SENTINELS HEAVY BASTION',
+      CORPUS: 'CORPUS ANTI-AIR & ARMOR',
+      EQUINOX: 'EQUINOX ANTI-CHOPPER'
+    };
+    worksheetState.selections = {
+      'DIPLOMACY': (dipMap[mode] || ['Ariki Toa', 'Brother Matsumoto']).filter(n => allContractors.some(c => c.UNIT_NAME === n)),
+      'DEFENSE': ['Abigail Diaz', 'Becca Ferguson'].filter(n => allContractors.some(c => c.UNIT_NAME === n)),
+      'R & D': ['Johnny Bones', 'Solomon Hamad'].filter(n => allContractors.some(c => c.UNIT_NAME === n)),
+      'REQUISITIONS': ['Ignacio Diaz', 'Sly Higgins'].filter(n => allContractors.some(c => c.UNIT_NAME === n)),
+      'OPERATIONS': ['Dawn Slater', 'Fernando Torres'].filter(n => allContractors.some(c => c.UNIT_NAME === n))
+    };
+    if (focusLabels[mode]) {
+      worksheetState.focus = focusLabels[mode];
+      document.getElementById('wsFocusSelect').value = focusLabels[mode];
+    }
+    saveState();
+    refreshAllViews();
+    showToast(`🎯 Loaded AI Recommended 10/10 Loadout (${mode})`);
+  }
+
+  function setDivisionFilter(divKey) {
+    activeDivisionFilter = divKey;
+    renderDivisionTabs();
+    renderFactionGalleries();
+  }
+
+  function setTierFilter(t) {
+    activeTierFilter = t;
+    document.querySelectorAll('.tier-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-tier') === t);
+    });
+    renderFactionGalleries();
+  }
+
+  function toggleTierGuide() {
+    const panel = document.getElementById('aiTierGuidePanel');
+    const btn = document.getElementById('btnToggleTierGuide');
+    if (!panel) return;
+    const isCollapsed = panel.classList.toggle('collapsed');
+    if (btn) btn.textContent = isCollapsed ? '[?] Show Tier Guide' : '[?] Hide Tier Guide';
+  }
+
+  function toggleBoardCollapse() {
+    const shell = document.getElementById('boardShell');
+    const btn = document.getElementById('collapseBtn');
+    if (!shell) return;
+    const collapsed = shell.classList.toggle('is-collapsed');
+    if (btn) btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+
+  function popOutFullWindow() {
+    const url = window.location.href;
+    const w = 1320, h = 920;
+    const left = Math.max(0, (window.screen.width - w) / 2);
+    const top = Math.max(0, (window.screen.height - h) / 2);
+    window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+  }
+
+  function onWorksheetMetaChanged() {
+    worksheetState.baseName = document.getElementById('wsBaseNameInput').value;
+    worksheetState.focus = document.getElementById('wsFocusSelect').value;
+    worksheetState.notes = document.getElementById('wsNotesInput').value;
+    saveState();
+    renderWorksheetLive();
+  }
+
+  function scrollToWorksheet() {
+    document.getElementById('worksheetSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('wtrToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window._wtrToastTimer);
+    window._wtrToastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  /* ==================== RENDER TABS, GALLERIES & WORKSHEET ==================== */
+  function refreshAllViews() {
+    renderDivisionTabs();
+    renderFactionGalleries();
+    renderWorksheetLive();
+  }
+
+  function renderDivisionTabs() {
+    const sections = getOrderedFactionSections();
+    let totalSelected = 0;
+    let totalContractors = 0;
+    sections.forEach(sec => {
+      totalSelected += getFactionSelectedNames(sec.key).length;
+      totalContractors += sec.items.length;
+    });
+
+    const allBadgeCls = totalSelected >= 10 ? 'full' : (totalSelected > 0 ? 'partial' : '');
+    let tabsHtml = `
+      <button type="button" class="div-tab-pill ${activeDivisionFilter === 'ALL' ? 'active' : ''}" style="--tab-color: #00e676;" onclick="setDivisionFilter('ALL')">
+        <div class="div-tab-left">
+          <span class="div-tab-name">ALL DIVISIONS</span>
+          <span class="div-tab-sub">${totalContractors} CONTRACTORS</span>
+        </div>
+        <span class="div-tab-badge ${allBadgeCls}">${totalSelected}/10</span>
+      </button>
+    `;
+
+    tabsHtml += sections.map(sec => {
+      const sel = getFactionSelectedNames(sec.key);
+      const bCls = sel.length >= sec.maxSlots ? 'full' : (sel.length > 0 ? 'partial' : '');
+      const safeKeyAttr = escapeHtml(sec.key).replace(/'/g, '&#39;');
+      return `
+        <button type="button" class="div-tab-pill ${activeDivisionFilter === sec.key ? 'active' : ''}" style="--tab-color: ${sec.color};" onclick="setDivisionFilter('${safeKeyAttr}')">
+          <div class="div-tab-left">
+            <span class="div-tab-name">${escapeHtml(sec.label)}</span>
+            <span class="div-tab-sub">${sec.items.length} ROSTER</span>
+          </div>
+          <span class="div-tab-badge ${bCls}">${sel.length >= sec.maxSlots ? '✓ ' : ''}${sel.length}/${sec.maxSlots}</span>
+        </button>
+      `;
+    }).join('');
+
+    const barEl = document.getElementById('divisionTabsBar');
+    if (barEl) barEl.innerHTML = tabsHtml;
+    const countEl = document.getElementById('totalSelectedCount');
+    if (countEl) countEl.textContent = String(totalSelected);
+  }
+
+  function renderPortraitImgTag(c, extraCls = '') {
+    const initials = c.UNIT_NAME.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+    if (!c.portrait && !c.fallbackSheetImg) {
+      return `<div class="portrait-monogram ${extraCls}">${escapeHtml(initials)}</div>`;
+    }
+    const primary = c.portrait || c.fallbackSheetImg;
+    const backup = (c.fallbackSheetImg && c.fallbackSheetImg !== primary) ? c.fallbackSheetImg : '';
+    return `<img src="${escapeHtml(primary)}" alt="${escapeHtml(c.UNIT_NAME)}" loading="lazy" data-backup="${escapeHtml(backup)}" onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">`;
+  }
+
+  function renderFactionGalleries() {
+    const q = (document.getElementById('contractorSearch').value || '').trim().toLowerCase();
+    const sections = getOrderedFactionSections();
+    const container = document.getElementById('factionsGalleryContainer');
+
+    let html = '';
+    sections.forEach((sec, sIdx) => {
+      if (activeDivisionFilter !== 'ALL' && sec.key !== activeDivisionFilter) return;
+      const selNames = getFactionSelectedNames(sec.key);
+      const isFactionFull = selNames.length >= sec.maxSlots;
+
+      const filteredItems = sec.items.filter(c => {
+        if (activeTierFilter !== 'ALL' && c.ai.tier !== activeTierFilter) return false;
+        if (q) {
+          const hay = `${c.UNIT_NAME} ${c.factionKey} ${c.talentText} ${c.ai.subTag} ${c.ai.bestFor}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (filteredItems.length === 0) return;
+
+      html += `
+        <section class="faction-section" id="fac_sec_${sIdx}">
+          <div class="faction-sec-hdr">
+            <div class="faction-sec-left">
+              <span class="faction-accent-bar" style="background:${sec.color}; box-shadow:0 0 10px ${sec.color};"></span>
+              <div>
+                <div class="faction-sec-title">${escapeHtml(sec.label)} Contractors</div>
+                <div class="faction-sec-sub">${escapeHtml(sec.subtitle)}</div>
+              </div>
+            </div>
+            <div class="faction-sec-counter ${isFactionFull ? 'locked' : ''}">
+              ${isFactionFull ? '✓ ' : ''}${selNames.length} / ${sec.maxSlots} IN WORKSHEET
+            </div>
+          </div>
+          <div class="contractor-grid">
+            ${filteredItems.map(c => {
+              const slotIdx = selNames.indexOf(c.UNIT_NAME);
+              const selected = slotIdx !== -1;
+              const tileCls = [
+                'contractor-tile',
+                selected ? 'is-selected' : '',
+                (isFactionFull && !selected) ? 'is-maxed-out' : ''
+              ].filter(Boolean).join(' ');
+              const safeNameAttr = escapeHtml(c.UNIT_NAME).replace(/'/g, '&#39;');
+              return `
+                <div class="${tileCls}"
+                     onclick="openDossierModal('${safeNameAttr}')"
+                     onmouseenter="showFloatingHover(event, '${safeNameAttr}')"
+                     onmousemove="moveFloatingHover(event)"
+                     onmouseleave="hideFloatingHover()">
+                  <div class="tile-portrait-box">
+                    ${renderPortraitImgTag(c)}
+                    <div class="tile-check-wrap ${selected ? 'checked' : ''}"
+                         onclick="toggleContractorSelection('${safeNameAttr}', event)"
+                         title="${selected ? 'Remove from Base Worksheet' : 'Select for Base Worksheet (Max 2 per Faction)'}">
+                      <span class="tile-check-box">${selected ? '✓' : ''}</span>
+                      <span>${selected ? 'SLOT ' + (slotIdx + 1) : 'SELECT'}</span>
+                    </div>
+                    <span class="ai-rank-chip ai-tier-${c.ai.tier}">AI ${c.ai.tier} • ${c.ai.score}</span>
+                    <span class="tile-subtag">${escapeHtml(c.ai.subTag)}</span>
+
+                    <div class="tile-hover-overlay">
+                      <div class="ov-role">★ AI ${c.ai.tier}-TIER (${c.ai.score}/100) • ${escapeHtml(c.ai.subTag)}</div>
+                      <div class="ov-talent">${escapeHtml(c.talentText)}</div>
+                      <div class="ov-cta">🖱️ Click for Full Dossier • ☑ Check for Sheet</div>
+                    </div>
+                  </div>
+                  <div class="tile-nameplate">
+                    <div class="tile-name">${escapeHtml(c.UNIT_NAME)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    });
+
+    container.innerHTML = html || `<div style="padding:28px;text-align:center;color:#8fa6bc;background:#08111b;border:1px solid #1c3146;border-radius:6px;">No Agency Contractors match your current search / tier filter.</div>`;
+  }
+
+  function renderWorksheetLive() {
+    const sections = getOrderedFactionSections();
+    const titleEl = document.getElementById('sheetTitleDisplay');
+    const focusEl = document.getElementById('sheetFocusDisplay');
+    const scoreEl = document.getElementById('sheetAiScoreDisplay');
+    const notesEl = document.getElementById('sheetNotesDisplay');
+    const dateEl = document.getElementById('sheetDateStamp');
+
+    titleEl.textContent = (worksheetState.baseName || '').trim() || 'COMMANDER BASE LOADOUT';
+    focusEl.textContent = worksheetState.focus || 'HYBRID META DEFENSE';
+
+    const selectedObjs = [];
+    sections.forEach(sec => {
+      getFactionSelectedNames(sec.key).forEach(n => {
+        const found = allContractors.find(x => x.UNIT_NAME === n);
+        if (found) selectedObjs.push(found);
+      });
+    });
+
+    if (selectedObjs.length > 0) {
+      const avg = Math.round(selectedObjs.reduce((s, c) => s + c.ai.score, 0) / selectedObjs.length);
+      const grade = avg >= 93 ? 'S' : (avg >= 88 ? 'A+' : (avg >= 84 ? 'A' : 'B+'));
+      scoreEl.textContent = `AI GRADE: ${grade} (${avg}/100 • ${selectedObjs.length}/10)`;
+    } else {
+      scoreEl.textContent = '0 / 10 SLOTS ASSIGNED';
+    }
+
+    const now = new Date();
+    dateEl.textContent = `[-WTR-] ${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} // A-SIZE`;
+
+    const customNote = (worksheetState.notes || '').trim();
+    notesEl.innerHTML = customNote
+      ? `<strong>TACTICAL NOTE:</strong> ${escapeHtml(customNote)}`
+      : `<strong>TACTICAL NOTE:</strong> Max 2 Contractors per Agency Faction (${selectedObjs.length}/10 active slots equipped).`;
+
+    document.getElementById('sheetFactionsStack').innerHTML = sections.slice(0, 5).map(sec => {
+      const selNames = getFactionSelectedNames(sec.key);
+      const slotItems = [0, 1].map(idx => {
+        const name = selNames[idx];
+        return name ? allContractors.find(c => c.UNIT_NAME === name) : null;
+      });
+
+      return `
+        <div class="sheet-faction-row">
+          <div class="sfr-hdr">
+            <div class="sfr-title" style="color:${sec.color};">
+              <span class="sfr-dot" style="background:${sec.color};"></span>
+              <span>${escapeHtml(sec.label)}</span>
+            </div>
+            <span class="sfr-slots-lbl">${selNames.length} / ${sec.maxSlots} ACTIVE</span>
+          </div>
+          <div class="sfr-two-cols">
+            ${slotItems.map((item, idx) => {
+              if (!item) {
+                return `<div class="ws-slot-card empty">[ SLOT ${idx + 1} OPEN — CHECK ${escapeHtml(sec.label.toUpperCase())} ABOVE ]</div>`;
+              }
+              const safeNameAttr = escapeHtml(item.UNIT_NAME).replace(/'/g, '&#39;');
+              return `
+                <div class="ws-slot-card">
+                  <button type="button" class="ws-slot-remove" title="Remove ${escapeHtml(item.UNIT_NAME)}" onclick="toggleContractorSelection('${safeNameAttr}', event)">✕</button>
+                  <div class="ws-slot-avatar">${renderPortraitImgTag(item)}</div>
+                  <div class="ws-slot-info">
+                    <div class="ws-slot-top">
+                      <span class="ws-slot-name">${escapeHtml(item.UNIT_NAME)}</span>
+                      <span class="ws-slot-tier ai-tier-${item.ai.tier}">${item.ai.tier}-${item.ai.score}</span>
+                    </div>
+                    <div class="ws-slot-talent">${escapeHtml(item.talentText)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  /* ==================== HOVER FLOATING BRIEF ==================== */
+  function showFloatingHover(ev, unitName) {
+    if (window.innerWidth < 860) return;
+    const c = allContractors.find(x => x.UNIT_NAME === unitName);
+    if (!c) return;
+    const card = document.getElementById('floatingHoverCard');
+    const selected = isContractorSelected(c);
+    card.innerHTML = `
+      <div class="fhc-top">
+        <span class="fhc-name">${escapeHtml(c.UNIT_NAME)}</span>
+        <span class="ai-rank-chip ai-tier-${c.ai.tier}" style="position:static;">AI ${c.ai.tier} • ${c.ai.score}</span>
+      </div>
+      <div class="fhc-meta">${escapeHtml(c.factionKey)} DIVISION • ${escapeHtml(c.ai.subTag)} ${selected ? '• ✓ EQUIPPED' : ''}</div>
+      <div class="fhc-sec-lbl">⚡ Active Agency Buff</div>
+      <div class="fhc-talent">${escapeHtml(c.talentText)}</div>
+      <div class="fhc-sec-lbl">🧠 [-WTR-] AI Tactical Read</div>
+      <div class="fhc-ai-note">${escapeHtml(c.ai.bestFor)}</div>
+      <div class="fhc-hint">☑ Check box for Worksheet • 🖱️ Click for Full Dossier</div>
+    `;
+    card.style.display = 'block';
+    moveFloatingHover(ev);
+  }
+
+  function moveFloatingHover(ev) {
+    const card = document.getElementById('floatingHoverCard');
+    if (card.style.display !== 'block') return;
+    const pad = 16;
+    const rect = card.getBoundingClientRect();
+    let left = ev.clientX + 18;
+    let top = ev.clientY + 16;
+    if (left + rect.width + pad > window.innerWidth) {
+      left = Math.max(pad, ev.clientX - rect.width - 18);
+    }
+    if (top + rect.height + pad > window.innerHeight) {
+      top = Math.max(pad, window.innerHeight - rect.height - pad);
+    }
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function hideFloatingHover() {
+    document.getElementById('floatingHoverCard').style.display = 'none';
+  }
+
+  /* ==================== POPOUT DOSSIER MODAL ==================== */
+  function openDossierModal(unitName) {
+    hideFloatingHover();
+    const c = allContractors.find(x => x.UNIT_NAME === unitName);
+    if (!c) return;
+    currentDossierContractor = c;
+    renderDossierModalBody(c);
+    document.getElementById('dossierModalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderDossierModalBody(c) {
+    const selArr = getFactionSelectedNames(c.factionKey);
+    const isSel = selArr.includes(c.UNIT_NAME);
+    const facFull = selArr.length >= 2 && !isSel;
+    const safeNameAttr = escapeHtml(c.UNIT_NAME).replace(/'/g, '&#39;');
+    const quote = cleanVal(c.UNIT_QUOTE);
+
+    let actionButtonsHtml = '';
+    if (isSel) {
+      actionButtonsHtml = `
+        <button type="button" class="act-btn red" onclick="toggleContractorSelection('${safeNameAttr}')">✕ Remove from ${escapeHtml(c.factionKey)} Worksheet</button>
+      `;
+    } else if (!facFull) {
+      actionButtonsHtml = `
+        <button type="button" class="act-btn green" onclick="toggleContractorSelection('${safeNameAttr}')">☑ Assign to ${escapeHtml(c.factionKey)} (${selArr.length}/2 Used)</button>
+      `;
+    } else {
+      actionButtonsHtml = `
+        <button type="button" class="act-btn gold" onclick="swapContractorIntoSlot('${safeNameAttr}', 0)">⇄ Swap for ${escapeHtml(selArr[0])} (Slot 1)</button>
+        <button type="button" class="act-btn gold" onclick="swapContractorIntoSlot('${safeNameAttr}', 1)">⇄ Swap for ${escapeHtml(selArr[1])} (Slot 2)</button>
+      `;
+    }
+
+    document.getElementById('dossierModalContent').innerHTML = `
+      <div class="dm-hdr">
+        <span class="dm-hdr-tag">AGENCY PERSONNEL DOSSIER // ${escapeHtml(c.factionKey)} DIVISION</span>
+        <button type="button" class="dm-close" onclick="closeDossierModal()">✕ ESC</button>
+      </div>
+      <div class="dm-body">
+        <div class="dm-portrait-col">
+          <div class="dm-portrait-frame">${renderPortraitImgTag(c)}</div>
+          <div class="dm-meta-table">
+            <div class="dm-meta-row"><span>AGENCY FACTION</span><span>${escapeHtml(c.factionKey)}</span></div>
+            <div class="dm-meta-row"><span>SPECIALTY</span><span>${escapeHtml(c.ai.subTag)}</span></div>
+            <div class="dm-meta-row"><span>BUILDING</span><span>${escapeHtml(cleanVal(c.STAT_BUILDING) || 'Agency')}</span></div>
+            <div class="dm-meta-row"><span>MAX LEVEL</span><span>Lvl ${escapeHtml(cleanVal(c.UPGRADE_LVL_TOTAL) || '10')}</span></div>
+            <div class="dm-meta-row"><span>RELEASE</span><span>${escapeHtml(formatReleaseDate(c.RELEASE_DATE))}</span></div>
+          </div>
+        </div>
+        <div class="dm-intel-col">
+          <div class="dm-title-row">
+            <h2 class="dm-name">${escapeHtml(c.UNIT_NAME)}</h2>
+            <span class="ai-rank-chip ai-tier-${c.ai.tier}" style="position:static; font-size:14px; padding:6px 12px;">★ AI ${c.ai.tier}-TIER • ${c.ai.score}/100</span>
+          </div>
+          ${quote ? `<div class="dm-quote">"${escapeHtml(quote)}"</div>` : ''}
+
+          <div class="dm-box">
+            <div class="dm-box-lbl">⚡ Active Base Talent (Max Level)</div>
+            <div class="dm-talent-text">${escapeHtml(c.talentText)}</div>
+          </div>
+
+          <div class="dm-box">
+            <div class="dm-box-lbl" style="color:var(--gold-main);">🧠 [-WTR-] AI Ranking &amp; Synergy Breakdown</div>
+            <div class="ai-bars">
+              <div class="ai-bar-row">
+                <span>Base Defense Impact</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:${c.ai.impact}%"></div></div>
+                <span>${c.ai.impact}</span>
+              </div>
+              <div class="ai-bar-row">
+                <span>Meta Counter Value</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:${c.ai.counter}%"></div></div>
+                <span>${c.ai.counter}</span>
+              </div>
+              <div class="ai-bar-row">
+                <span>Uptime &amp; Reliability</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:${c.ai.uptime}%"></div></div>
+                <span>${c.ai.uptime}</span>
+              </div>
+            </div>
+            <div class="dm-ai-notes">
+              <div><strong style="color:#38bdf8;">Ideal Base Setup:</strong> ${escapeHtml(c.ai.bestFor)}</div>
+              <div><strong style="color:#ffd700;">Recommended Pairing:</strong> ${escapeHtml(c.ai.synergy)}</div>
+            </div>
+          </div>
+
+          <div class="dm-actions">
+            ${actionButtonsHtml}
+            <button type="button" class="act-btn" onclick="closeDossierModal(); scrollToWorksheet();">📋 View Planning Sheet</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function closeDossierModal() {
+    document.getElementById('dossierModalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+    currentDossierContractor = null;
+  }
+
+  document.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') {
+      closeDossierModal();
+      closeCaptureModal();
+    }
+  });
+
+  /* ==================== PRECISION A-SIZE (8.5" x 11") CANVAS SCREEN CAPTURE ENGINE ==================== */
+  function loadCanvasImage(src) {
+    return new Promise(resolve => {
+      if (!src) return resolve(null);
+      const img = new Image();
+      if (/^https?:/i.test(src)) img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  function drawRoundedRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    const words = String(text || '').split(/\s+/);
+    let line = '';
+    const lines = [];
+    for (let n = 0; n < words.length; n++) {
+      const testLine = line ? (line + ' ' + words[n]) : words[n];
+      if (ctx.measureText(testLine).width > maxWidth && line) {
+        lines.push(line);
+        line = words[n];
+      } else {
+        line = testLine;
+      }
+    }
+    if (line) lines.push(line);
+    const capped = lines.slice(0, maxLines);
+    if (lines.length > maxLines && capped.length) {
+      capped[capped.length - 1] = capped[capped.length - 1].replace(/[.,;:\s]*$/, '') + '…';
+    }
+    capped.forEach((ln, idx) => {
+      ctx.fillText(ln, x, y + idx * lineHeight);
+    });
+  }
+
+  async function renderASizeWorksheetCanvas() {
+    // Exact US Letter ("ANSI A") Sheet: 8.5" x 11.0" @ 144 DPI = 1224 x 1584 px
+    const W = 1224;
+    const H = 1584;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+
+    // Background & Tactical Grid
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0, '#060d16');
+    bgGrad.addColorStop(1, '#03070d');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
+    ctx.lineWidth = 1;
+    for (let gx = 0; gx < W; gx += 36) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
+    for (let gy = 0; gy < H; gy += 36) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+
+    // Outer WatchToweR Classification Border
+    drawRoundedRect(ctx, 22, 22, W - 44, H - 44, 12);
+    ctx.strokeStyle = 'rgba(0, 230, 118, 0.68)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Top UNCLASSIFIED Strip
+    drawRoundedRect(ctx, 24, 24, W - 48, 44, 10);
+    ctx.fillStyle = '#07141a';
+    ctx.fill();
+    ctx.font = 'bold 16px "Share Tech Mono", monospace';
+    ctx.fillStyle = '#00e676';
+    ctx.textAlign = 'center';
+    ctx.fillText('UNCLASSIFIED // [-WTR-] WATCHTOWER DATA HUB // AGENCY BASE WORKSHEET (ANSI A-SIZE)', W / 2, 52);
+
+    // Header Block
+    const sections = getOrderedFactionSections().slice(0, 5);
+    const selectedObjs = [];
+    sections.forEach(sec => {
+      getFactionSelectedNames(sec.key).forEach(n => {
+        const c = allContractors.find(x => x.UNIT_NAME === n);
+        if (c) selectedObjs.push(c);
+      });
+    });
+
+    const baseTitle = ((worksheetState.baseName || '').trim() || 'COMMANDER BASE LOADOUT').toUpperCase();
+    const focusLabel = (worksheetState.focus || 'HYBRID META DEFENSE').toUpperCase();
+    const avgScore = selectedObjs.length ? Math.round(selectedObjs.reduce((s, c) => s + c.ai.score, 0) / selectedObjs.length) : 0;
+    const grade = avgScore >= 93 ? 'S-TIER' : (avgScore >= 88 ? 'A+ TIER' : (avgScore >= 84 ? 'A-TIER' : (avgScore > 0 ? 'B+ TIER' : 'UNASSIGNED')));
+
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 15px "Share Tech Mono", monospace';
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText('BASE / COMMANDER DESIGNATION:', 48, 98);
+
+    ctx.font = '900 28px "Orbitron", sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(baseTitle.slice(0, 36), 48, 132);
+
+    // Right Header Badges
+    drawRoundedRect(ctx, W - 430, 82, 382, 58, 8);
+    ctx.fillStyle = '#0b1828';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255, 215, 0, 0.55)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.font = 'bold 14px "Share Tech Mono", monospace';
+    ctx.fillStyle = '#9cc0df';
+    ctx.fillText(`FOCUS: ${focusLabel.slice(0, 28)}`, W - 414, 105);
+    ctx.fillStyle = '#ffd700';
+    ctx.fillText(`AI LOADOUT: ${grade} (${avgScore ? avgScore + '/100' : '0/10'} • ${selectedObjs.length}/10 SLOTS)`, W - 414, 128);
+
+    // Divider
+    ctx.beginPath();
+    ctx.moveTo(48, 152);
+    ctx.lineTo(W - 48, 152);
+    ctx.strokeStyle = '#1e3650';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Preload portraits for equipped contractors
+    const imgCache = new Map();
+    await Promise.all(selectedObjs.map(async c => {
+      let img = await loadCanvasImage(c.portrait);
+      if (!img && c.fallbackSheetImg) img = await loadCanvasImage(c.fallbackSheetImg);
+      if (img) imgCache.set(c.UNIT_NAME, img);
+    }));
+
+    // 5 Faction Rows
+    let curY = 168;
+    const rowH = 248;
+    const rowGap = 14;
+
+    for (let sIdx = 0; sIdx < sections.length; sIdx++) {
+      const sec = sections[sIdx];
+      const selNames = getFactionSelectedNames(sec.key);
+
+      drawRoundedRect(ctx, 46, curY, W - 92, rowH, 10);
+      ctx.fillStyle = 'rgba(10, 20, 32, 0.94)';
+      ctx.fill();
+      ctx.strokeStyle = '#1f3750';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Left Faction Color Stripe
+      drawRoundedRect(ctx, 46, curY, 8, rowH, 4);
+      ctx.fillStyle = sec.color;
+      ctx.fill();
+
+      // Faction Row Header
+      ctx.textAlign = 'left';
+      ctx.font = '800 20px "Orbitron", sans-serif';
+      ctx.fillStyle = sec.color;
+      ctx.fillText(`${sec.label.toUpperCase()} DIVISION`, 70, curY + 30);
+
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 15px "Share Tech Mono", monospace';
+      ctx.fillStyle = selNames.length >= 2 ? '#00e676' : '#8fa6bc';
+      ctx.fillText(`${selNames.length} / ${sec.maxSlots} EQUIPPED`, W - 66, curY + 29);
+
+      // Two Slot Cards inside Row
+      const cardY = curY + 44;
+      const cardH = rowH - 58;
+      const cardW = (W - 92 - 48) / 2;
+
+      for (let slot = 0; slot < 2; slot++) {
+        const cardX = 66 + slot * (cardW + 16);
+        const cName = selNames[slot];
+        const c = cName ? allContractors.find(x => x.UNIT_NAME === cName) : null;
+
+        drawRoundedRect(ctx, cardX, cardY, cardW, cardH, 8);
+        if (!c) {
+          ctx.fillStyle = 'rgba(6, 12, 20, 0.65)';
+          ctx.fill();
+          ctx.setLineDash([6, 5]);
+          ctx.strokeStyle = '#253d56';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.textAlign = 'center';
+          ctx.font = 'bold 16px "Share Tech Mono", monospace';
+          ctx.fillStyle = '#5d7790';
+          ctx.fillText(`[ SLOT #${slot + 1} OPEN — ${sec.label.toUpperCase()} ]`, cardX + cardW / 2, cardY + cardH / 2 + 5);
+          continue;
+        }
+
+        ctx.fillStyle = '#07111c';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.38)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Portrait Box
+        const pX = cardX + 12;
+        const pY = cardY + 12;
+        const pW = 126;
+        const pH = cardH - 24;
+        drawRoundedRect(ctx, pX, pY, pW, pH, 6);
+        ctx.fillStyle = '#0e1e30';
+        ctx.fill();
+
+        const img = imgCache.get(c.UNIT_NAME);
+        if (img) {
+          ctx.save();
+          drawRoundedRect(ctx, pX, pY, pW, pH, 6);
+          ctx.clip();
+          const scale = Math.max(pW / img.width, pH / img.height);
+          const dw = img.width * scale;
+          const dh = img.height * scale;
+          const dx = pX + (pW - dw) / 2;
+          const dy = pY;
+          ctx.drawImage(img, dx, dy, dw, dh);
+          ctx.restore();
+        } else {
+          ctx.textAlign = 'center';
+          ctx.font = '900 30px "Orbitron", sans-serif';
+          ctx.fillStyle = sec.color;
+          const ini = c.UNIT_NAME.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+          ctx.fillText(ini, pX + pW / 2, pY + pH / 2 + 10);
+        }
+
+        drawRoundedRect(ctx, pX, pY, pW, pH, 6);
+        ctx.strokeStyle = '#2b4a69';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Contractor Text Column
+        const tX = pX + pW + 16;
+        const tMaxW = cardW - pW - 42;
+        ctx.textAlign = 'left';
+        ctx.font = '800 19.5px "Orbitron", sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(c.UNIT_NAME.toUpperCase(), tX, cardY + 35);
+
+        // AI Tier & Subtag
+        const tierColor = c.ai.tier === 'S' ? '#ffd700' : (c.ai.tier === 'A' ? '#00e676' : '#38bdf8');
+        ctx.font = 'bold 14px "Share Tech Mono", monospace';
+        ctx.fillStyle = tierColor;
+        ctx.fillText(`★ AI ${c.ai.tier}-TIER (${c.ai.score}/100) • ${c.ai.subTag.toUpperCase()}`, tX, cardY + 58);
+
+        // Active Buff Wrapped Lines
+        ctx.font = '600 17.5px "Rajdhani", sans-serif';
+        ctx.fillStyle = '#dceaf7';
+        wrapCanvasText(ctx, c.talentText, tX, cardY + 85, tMaxW, 23, 4);
+      }
+
+      curY += rowH + rowGap;
+    }
+
+    // Footer Tactical Notes & Stamp
+    drawRoundedRect(ctx, 46, H - 96, W - 92, 56, 8);
+    ctx.fillStyle = '#07121e';
+    ctx.fill();
+    ctx.strokeStyle = '#1f3852';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 15px "Share Tech Mono", monospace';
+    ctx.fillStyle = '#ffd700';
+    ctx.fillText('NOTES:', 64, H - 62);
+
+    const noteTxt = (worksheetState.notes || '').trim() || `Standard 2-per-Faction Agency Loadout (${selectedObjs.length}/10 Active Base Contractors).`;
+    ctx.font = '600 17.5px "Rajdhani", sans-serif';
+    ctx.fillStyle = '#e5eef7';
+    ctx.fillText(noteTxt.slice(0, 88), 134, H - 62);
+
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    ctx.textAlign = 'right';
+    ctx.font = 'bold 14px "Share Tech Mono", monospace';
+    ctx.fillStyle = '#00e676';
+    ctx.fillText(`[-WTR-] ${dateStr}`, W - 64, H - 62);
+
+    return canvas;
+  }
+
+  async function openWorksheetCaptureModal() {
+    showToast('Generating A-Size Worksheet Image...');
+    const canvas = await renderASizeWorksheetCanvas();
+    lastCapturedCanvas = canvas;
+    document.getElementById('capturedSheetImg').src = canvas.toDataURL('image/png');
+    document.getElementById('captureModalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCaptureModal() {
+    document.getElementById('captureModalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function downloadCapturedSheetPng() {
+    if (!lastCapturedCanvas) return;
+    const slug = ((worksheetState.baseName || 'Base').trim().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Base');
+    const a = document.createElement('a');
+    a.download = `WTR-Agency-Contractors-${slug}.png`;
+    a.href = lastCapturedCanvas.toDataURL('image/png');
+    a.click();
+    showToast('💾 Downloaded A-Size Worksheet PNG!');
+  }
+
+  async function copyCapturedSheetToClipboard() {
+    if (!lastCapturedCanvas) return;
+    try {
+      const blob = await new Promise(res => lastCapturedCanvas.toBlob(res, 'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      showToast('📋 Copied Worksheet Image to Clipboard — ready to paste in Discord!');
+    } catch (e) {
+      showToast('Browser blocked clipboard image — click Download PNG instead.');
+    }
+  }
+
+  /* ==================== LIVE MASTER_DB CSV SYNC ==================== */
+  function fetchMasterDbContractors() {
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_CONFIG.docId}/export?format=csv&gid=${SHEET_CONFIG.gid}`;
+    if (window.Papa) {
+      Papa.parse(csvUrl, {
+        download: true,
+        header: false,
+        skipEmptyLines: true,
+        complete: function(res) {
+          if (res && Array.isArray(res.data) && res.data.length > 1) {
+            ingestSheetMatrix(res.data);
+          } else {
+            setFallbackStatus();
+          }
+        },
+        error: function() {
+          setFallbackStatus();
+        }
+      });
+    } else {
+      setFallbackStatus();
+    }
+  }
+
+  function ingestSheetMatrix(matrix) {
+    const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
+    const liveContractors = [];
+    for (let r = 1; r < matrix.length; r++) {
+      const rec = {};
+      headers.forEach((k, idx) => {
+        let v = matrix[r][idx] !== undefined ? String(matrix[r][idx]).trim() : '';
+        if (v.startsWith("'")) v = v.slice(1);
+        if (k) rec[k] = v;
+      });
+      rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '';
+      if (rec.UNIT_NAME && isContractorRow(rec)) {
+        liveContractors.push(enrichContractor(rec));
+      }
+    }
+    if (liveContractors.length >= 4) {
+      allContractors = liveContractors;
+      document.getElementById('dbSyncStatus').textContent = `✅ MASTER_DB Live (${allContractors.length} Contractors)`;
+      refreshAllViews();
+    } else {
+      setFallbackStatus();
+    }
+  }
+
+  function setFallbackStatus() {
+    document.getElementById('dbSyncStatus').textContent = `⚡ Agency Roster Ready (${allContractors.length} Contractors)`;
+  }
+
+  /* ==================== BOOT ==================== */
+  document.addEventListener('DOMContentLoaded', () => {
+    const inIframe = (window.self !== window.top);
+    const popBtn = document.getElementById('popoutSelfBtn');
+    if (!inIframe && popBtn) {
+      popBtn.style.display = 'none';
+    }
+    allContractors = FALLBACK_CONTRACTORS.map(enrichContractor);
+    loadSavedState();
+    refreshAllViews();
+    fetchMasterDbContractors();
+  });
+</script>
+</body>
+</html>

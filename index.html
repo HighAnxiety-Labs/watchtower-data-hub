@@ -1023,8 +1023,9 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "UNIT BRIEFS ENGINE", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: true,  order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "AGENCY CONTRACTORS", url: "./agency-contractors.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 5, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
       ]
     },
     opIntel: {
@@ -1312,6 +1313,7 @@
       { secKey: "baseOps",        match: "CC22 UPGRADE",   urlHint: "cc22-upgrade",          file: "./cc22-upgrade-path.html",       defaultTitle: "CC22 UPGRADE PATH",      defaultSym: "BLUEPRINT" },
       { secKey: "baseOps",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE & LAYOUTS", defaultSym: "BLUEPRINT" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
+      { secKey: "tacticalBriefs", match: "CONTRACTOR",     urlHint: "agency-contractors",    file: "./agency-contractors.html",      defaultTitle: "AGENCY CONTRACTORS",     defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "MATCHUP",        urlHint: "unit-matchup",          file: "./unit-matchup.html",            defaultTitle: "UNIT MATCHUP SIMULATOR", defaultSym: "CALCULATOR", ensurePresent: true },
@@ -5679,7 +5681,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "agency-contractors.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
