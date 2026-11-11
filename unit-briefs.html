@@ -283,11 +283,11 @@
   <div class="control-panel">
     <div class="panel-section">
       <label class="selector-label" for="divisionSelect">Category Filter:</label>
-      <select id="divisionSelect" class="selector-select" style="width: 175px;" onchange="applyFilter()">
+      <select id="divisionSelect" class="selector-select" style="width: 235px;" onchange="applyFilter()">
         <option value="ALL">ALL UNITS</option>
-        <option value="ACADEMY">ACADEMY</option>
-        <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR</option>
-        <option value="WAR FACTORY">WAR FACTORY</option>
+        <option value="ACADEMY">ACADEMY / INFANTRY</option>
+        <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR / AIRCRAFT</option>
+        <option value="TECH CENTER">TECH CENTER / VEHICLE</option>
         <option value="MERCENARY">MERCENARY</option>
         <option value="CONTRACTOR">CONTRACTOR</option>
         <option value="ONYX">ONYX / HOSTILE</option>
@@ -715,6 +715,16 @@
 
           rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || rec.BUILDING_NAME || '';
           if (rec.UNIT_NAME) {
+            if (rec.UNIT_NAME.trim().toUpperCase() === 'BROADSIDE' && (rec.WORKSHOP_2_TITLE || '').trim().toUpperCase() === 'OVERLAPPED PLATES') {
+              const s2 = { t: rec.WORKSHOP_2_TITLE, g: rec.WORKSHOP_2_TAG, d: rec.WORKSHOP_2_DESC };
+              const s3 = { t: rec.WORKSHOP_3_TITLE, g: rec.WORKSHOP_3_TAG, d: rec.WORKSHOP_3_DESC };
+              const s4 = { t: rec.WORKSHOP_4_TITLE, g: rec.WORKSHOP_4_TAG, d: rec.WORKSHOP_4_DESC };
+              const s5 = { t: rec.WORKSHOP_5_TITLE, g: rec.WORKSHOP_5_TAG, d: rec.WORKSHOP_5_DESC };
+              rec.WORKSHOP_2_TITLE = s3.t; rec.WORKSHOP_2_TAG = s3.g; rec.WORKSHOP_2_DESC = s3.d;
+              rec.WORKSHOP_3_TITLE = s5.t; rec.WORKSHOP_3_TAG = s5.g; rec.WORKSHOP_3_DESC = s5.d;
+              rec.WORKSHOP_4_TITLE = s2.t; rec.WORKSHOP_4_TAG = s2.g; rec.WORKSHOP_4_DESC = s2.d;
+              rec.WORKSHOP_5_TITLE = s4.t; rec.WORKSHOP_5_TAG = s4.g; rec.WORKSHOP_5_DESC = s4.d;
+            }
             fetchedList.push(rec);
           }
         }
@@ -766,7 +776,9 @@
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
 
     let urlDiv = (urlParams.get('division') || urlParams.get('div') || hashParams.get('division') || hashParams.get('div') || '').trim().toUpperCase();
-    if (urlDiv === 'AIRCRAFT HANGER') urlDiv = 'AIRCRAFT HANGAR';
+    if (urlDiv === 'BARRACKS' || urlDiv === 'INFANTRY' || urlDiv === 'ACADEMY / INFANTRY') urlDiv = 'ACADEMY';
+    if (urlDiv === 'AIRCRAFT HANGER' || urlDiv === 'AIRFIELD' || urlDiv === 'AIR' || urlDiv === 'AIRCRAFT' || urlDiv === 'AIRCRAFT HANGAR / AIRCRAFT' || urlDiv === 'AIRCRAFT HANGER / AIRCRAFT') urlDiv = 'AIRCRAFT HANGAR';
+    if (urlDiv === 'WAR FACTORY' || urlDiv === 'VEHICLE' || urlDiv === 'VEHICLES' || urlDiv === 'TECH CENTER / VEHICLE') urlDiv = 'TECH CENTER';
     if (urlDiv && divSelect) {
       divSelect.value = urlDiv;
       currentDivision = urlDiv;
@@ -797,7 +809,7 @@
 
   function isOnyxRecord(rec) {
     const combined = `${rec.STAT_FACTION || ''} ${rec.CLASSIFICATION || ''} ${rec.UNIT_DIVISION || ''} ${rec.STAT_BUILDING || ''} ${rec.STAT_GENERATION || ''}`.toUpperCase();
-    return combined.includes('ONYX') || combined.includes('ZOMBIE') || combined.includes('HOSTILE') || combined.includes('ENEMY');
+    return combined.includes('ONYX') || combined.includes('ZOMBIE') || combined.includes('HOSTILE') || combined.includes('ENEMY') || combined.includes('KANE');
   }
 
   function isPureBuildingRecord(rec) {
@@ -854,8 +866,50 @@
       if (currentDivision.includes('MERCENARY')) {
         return classif.includes('MERCENARY') || gen.includes('MERCENARY') || faction.includes('MERCENARY') || bldReq.includes('MERCENARY');
       }
-      if (currentDivision.includes('HANGAR') || currentDivision.includes('HANGER')) {
-        return bldReq.includes('HANGAR') || bldReq.includes('HANGER') || bldReq.includes('AIRFIELD') || bldReq.includes('AIRCRAFT') || classif.includes('AIRCRAFT');
+      if (currentDivision.includes('ACADEMY') || currentDivision.includes('BARRACK') || currentDivision.includes('INFANTRY')) {
+        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
+        if (classif.includes('MERCENARY') || gen.includes('MERCENARY') || faction.includes('MERCENARY') || bldReq.includes('MERCENARY')) return false;
+        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
+        const uType = (rec.STAT_TYPE || '').toUpperCase();
+        return (
+          bldReq.includes('ACADEMY') ||
+          bldReq.includes('BARRACK') ||
+          unitDiv.includes('ACADEMY') ||
+          unitDiv.includes('INFANTRY') ||
+          uType.includes('INFANTRY') ||
+          classif.includes('INFANTRY')
+        );
+      }
+      if (currentDivision.includes('HANGAR') || currentDivision.includes('HANGER') || currentDivision.includes('AIRFIELD') || currentDivision.includes('AIRCRAFT')) {
+        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
+        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
+        const uType = (rec.STAT_TYPE || '').toUpperCase();
+        return (
+          bldReq.includes('HANGAR') ||
+          bldReq.includes('HANGER') ||
+          bldReq.includes('AIRFIELD') ||
+          bldReq.includes('AIRCRAFT') ||
+          unitDiv.includes('HANGAR') ||
+          unitDiv.includes('HANGER') ||
+          unitDiv.includes('AIRFIELD') ||
+          uType.includes('AIR') ||
+          uType.includes('CHOPPER') ||
+          classif.includes('AIRCRAFT')
+        );
+      }
+      if (currentDivision.includes('TECH CENTER') || currentDivision.includes('WAR FACTORY') || currentDivision.includes('VEHICLE')) {
+        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
+        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
+        const uType = (rec.STAT_TYPE || '').toUpperCase();
+        return (
+          bldReq.includes('TECH CENTER') ||
+          bldReq.includes('WAR FACTORY') ||
+          unitDiv.includes('TECH CENTER') ||
+          unitDiv.includes('WAR FACTORY') ||
+          uType.includes('VEHICLE') ||
+          uType.includes('TANK') ||
+          classif.includes('VEHICLE')
+        );
       }
       return bldReq.includes(currentDivision) || classif.includes(currentDivision);
     });

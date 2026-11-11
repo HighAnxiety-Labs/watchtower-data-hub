@@ -1057,8 +1057,8 @@
             <select id="myDivFilter" class="wtr-select" onchange="populateMyUnitSelect(false)">
               <option value="ALL">All Divisions</option>
               <option value="INFANTRY">Academy / Infantry</option>
-              <option value="VEHICLE">War Factory / Vehicles</option>
-              <option value="AIR">Airfield / Aircraft</option>
+              <option value="VEHICLE">Tech Center / Vehicle</option>
+              <option value="AIR">Aircraft Hangar / Aircraft</option>
               <option value="MERCENARY">Mercenary</option>
             </select>
           </div>
@@ -1313,7 +1313,7 @@
       STAT_ARMOR_TYPE: 'Heavy',
       STAT_DAMAGE_TYPE: 'Burst',
       STAT_TARGETS: 'Ground & Air',
-      STAT_BUILDING: 'War Factory',
+      STAT_BUILDING: 'Tech Center',
       STAT_HP_RANGE_1: '95,000', STAT_HP_RANGE_10: '140,000', STAT_HP_RANGE_20: '195,000', STAT_HP_RANGE_MAX: '250,000',
       STAT_DPS_RANGE_1: '4,800', STAT_DPS_RANGE_10: '7,200', STAT_DPS_RANGE_20: '10,400', STAT_DPS_RANGE_MAX: '13,500',
       STAT_SPEED: '28', STAT_RANGE: '410', STAT_SPLASH: '45',
@@ -1371,7 +1371,7 @@
       STAT_ARMOR_TYPE: 'Medium',
       STAT_DAMAGE_TYPE: 'Area',
       STAT_TARGETS: 'Ground',
-      STAT_BUILDING: 'War Factory',
+      STAT_BUILDING: 'Tech Center',
       STAT_HP_RANGE_1: '74,000', STAT_HP_RANGE_10: '110,000', STAT_HP_RANGE_20: '154,000', STAT_HP_RANGE_MAX: '198,000',
       STAT_DPS_RANGE_1: '5,200', STAT_DPS_RANGE_10: '7,900', STAT_DPS_RANGE_20: '11,200', STAT_DPS_RANGE_MAX: '14,600',
       STAT_SPEED: '26', STAT_RANGE: '510', STAT_SPLASH: '85',
@@ -1450,9 +1450,9 @@
   function getDivisionBucket(rec) {
     const hay = `${rec.STAT_BUILDING || ''} ${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.STAT_FACTION || ''} ${rec.UNIT_DIVISION || ''}`.toUpperCase();
     if (hay.includes('MERCENARY')) return 'MERCENARY';
-    if (hay.includes('AIR') || hay.includes('HANGAR') || hay.includes('HANGER') || hay.includes('HELI') || hay.includes('PLANE')) return 'AIR';
+    if (hay.includes('AIR') || hay.includes('HANGAR') || hay.includes('HANGER') || hay.includes('HELI') || hay.includes('CHOPPER') || hay.includes('PLANE')) return 'AIR';
+    if (hay.includes('TECH CENTER') || hay.includes('FACTORY') || hay.includes('VEHICLE') || hay.includes('TANK') || hay.includes('ARTILLERY') || hay.includes('MECH')) return 'VEHICLE';
     if (hay.includes('ACADEMY') || hay.includes('BARRACK') || hay.includes('INFANTRY') || hay.includes('SOLDIER')) return 'INFANTRY';
-    if (hay.includes('FACTORY') || hay.includes('TECH CENTER') || hay.includes('VEHICLE') || hay.includes('TANK') || hay.includes('ARTILLERY') || hay.includes('MECH')) return 'VEHICLE';
     return 'OTHER';
   }
 
