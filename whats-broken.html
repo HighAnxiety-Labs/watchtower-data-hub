@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<!-- [-WTR-] WATCHTOWER OPERATIONAL INTEL PUBLISHED // WHAT'S BROKEN IN WAR COMMANDER — DEFECT REGISTRY -->
+<html lang="en">
+<head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
   <script>
@@ -7,12 +10,12 @@
     gtag('js', new Date());
     gtag('config', 'G-XJ4S885L7Z');
 
-    // Track in-page module & tab opens in Command Center
+    // Track in-page module, defect card & tab interactions
     window.addEventListener('DOMContentLoaded', function() {
       document.addEventListener('click', function(e) {
-        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill') : null;
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill, .defect-tile, .hub-nav-pill, .div-tab-pill, .btn-involved') : null;
         if (!btn) return;
-        var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        var label = (btn.getAttribute('data-track') || btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
         if (label) {
           gtag('event', 'wtr_module_click', {
             module_label: label,
@@ -21,69 +24,1463 @@
         }
       }, true);
     });
-  </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchToweR Data Hub — What's Broken in War Commander</title>
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — What's Broken in War Commander</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="WatchToweR Data Hub — What's Broken in War Commander">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub â€” Tactical Briefs, Event Calculators & Intelligence.">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — What's Broken in War Commander">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Known Defect & Bug Registry — Live Status RED Contractor bugs, CC22 facility upgrade defects, hover intel, and Unit Brief links.">
   <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
-<style>
-:root { --bg-dark:#05070a; --panel-bg:#0d1219; --border-metal:#2a3b4c; --text-primary:#e6edf3; --text-gold:#fde047; --c-holdout:#00e5ff; --c-nightmare:#f43f5e; --c-warning:#facc15; --c-fixed:#22c55e; }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { background:var(--bg-dark); color:var(--text-primary); font-family:"Segoe UI",sans-serif; padding:16px; }
-.terminal-frame { max-width:1260px; margin:0 auto; border:2px solid var(--border-metal); background:var(--panel-bg); }
-.header { border-bottom:2px solid var(--border-metal); padding:16px 24px; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(180deg,#1f1418 0%,#101721 100%); flex-wrap:wrap; gap:14px; }
-.header-left { display:flex; align-items:center; gap:16px; }
-.logo-img { width:72px; height:72px; border-radius:50%; border:2px solid var(--c-nightmare); cursor:pointer; }
-.sub-tag { font-size:11px; font-weight:700; letter-spacing:2px; color:var(--c-warning); font-family:monospace; text-transform:uppercase; }
-h1 { font-size:22px; font-weight:900; text-transform:uppercase; letter-spacing:2px; }
-.get-involved-strip { background:#141c26; border-bottom:2px solid var(--border-metal); padding:10px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-.btn-red { background:linear-gradient(180deg,#f43f5e 0%,#be123c 100%); color:#fff; font-size:12px; font-weight:900; text-transform:uppercase; padding:8px 16px; border-radius:3px; border:1px solid #fda4af; cursor:pointer; text-decoration:none; }
-.status-legend-bar { background:#090e14; border-bottom:2px solid var(--border-metal); padding:10px 24px; display:flex; justify-content:center; gap:24px; flex-wrap:wrap; font-family:monospace; font-size:11.5px; font-weight:800; }
-.operations-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; padding:24px; }
-button.defect-card { width:100%; background:linear-gradient(180deg,#151e28 0%,#0c1218 100%); border:2px solid var(--border-metal); border-radius:4px; padding:12px; display:flex; flex-direction:column; gap:10px; cursor:pointer; color:#fff; transition:0.2s; }
-button.defect-card:hover { border-color:var(--c-nightmare); transform:translateY(-2px); }
-.image-box-4x5 { width:100%; aspect-ratio:4/5; background:#080d14; border:1px solid var(--border-metal); overflow:hidden; position:relative; }
-.image-box-4x5 img { width:100%; height:100%; object-fit:cover; }
-.defect-name { font-size:13px; font-weight:900; text-transform:uppercase; }
-.defect-subtext { font-family:monospace; font-size:11px; font-weight:900; color:#4ade80; background:rgba(34,197,94,0.12); border:1px solid rgba(74,222,128,0.45); padding:4px 10px; border-radius:3px; }
-#reportDetailBox { display:none; padding:24px; border-bottom:2px solid var(--border-metal); background:#080c11; }
-.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:16px 0; }
-@media(max-width:700px){ .comp-grid { grid-template-columns:1fr; } }
-.comp-card { background:#111822; border:2px solid var(--c-holdout); border-radius:6px; overflow:hidden; }
-.comp-card.broken { border-color:var(--c-nightmare); }
-.comp-head { padding:10px 14px; font-weight:800; text-transform:uppercase; background:#0c2b36; color:var(--c-holdout); }
-.comp-card.broken .comp-head { background:#381114; color:var(--c-nightmare); }
-.comp-img { width:100%; height:240px; object-fit:contain; background:#040608; padding:6px; }
-</style></head><body>
-<div class="terminal-frame">
-<div class="header"><div class="header-left"><img class="logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Logo" onclick="closeDefect()"><div><div class="sub-tag">WatchTower Data Hub // Known Defect Registry</div><h1><span style="color:var(--c-nightmare);">WHAT'S BROKEN IN</span> WAR COMMANDER</h1></div></div></div>
-<div class="get-involved-strip"><div><a class="btn-red" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener">⚡ GET INVOLVED!</a> <span style="font-size:13px; font-weight:700; margin-left:8px;">Know of something broken? Send us the details.</span></div><span style="font-family:monospace; font-size:11px; color:var(--text-gold);">WATCHTOWER RECONNAISSANCE DESK</span></div>
-<div class="status-legend-bar"><span style="color:var(--c-nightmare);">🔴 RED = KIXEYE HAS NOT ACKNOWLEDGED</span><span style="color:var(--c-warning);">🟡 YELLOW = KIXEYE HAS ACKNOWLEDGED</span><span style="color:var(--c-fixed);">🟢 GREEN = FIXED</span></div>
-<div id="reportDetailBox"></div>
-<div class="operations-grid" id="cardsGrid">
-  <button type="button" class="defect-card" onclick="showDefect(0)"><div class="image-box-4x5"><img src="https://share1.cloudhq-mkt3.net/1bdc0cf359541e.png" alt="Tesla"></div><div class="defect-name">cc22: Weapons Lab, Tesla Turret (level 9)</div><div class="defect-subtext">🖥️ View Embedded Report</div></button>
-  <button type="button" class="defect-card" onclick="showDefect(1)"><div class="image-box-4x5"><img src="https://share1.cloudhq-mkt3.net/777862637a2d06.png" alt="Academy"></div><div class="defect-name">cc22: Academy, Capacity (All Levels)</div><div class="defect-subtext">🖥️ View Embedded Report</div></button>
-  <button type="button" class="defect-card" onclick="showDefect(2)"><div class="image-box-4x5"><img src="https://share1.cloudhq-mkt3.net/a9326add99a105.png" alt="Tech Center"></div><div class="defect-name">cc22: Tech Center, Capacity (All Levels)</div><div class="defect-subtext">🖥️ View Embedded Report</div></button>
-</div></div>
-<script>
-const DEFECTS = [
-  { title:"Tesla Tower Level 8 to Level 9", leftHead:"Tesla Tower Level 8/8", leftImg:"https://share1.cloudhq-mkt3.net/c749703d5ae99b.png", leftStat:"Range: 750 | DPS: 352 | RoF: 32", rightHead:"Tesla Tower Level 9/9", rightImg:"https://share1.cloudhq-mkt3.net/e4abfd4c4e00b9.png", rightStat:"Range: 750 (+0) | DPS: 352 (+0) | RoF: 32 (+0)", desc:"Upgrading the Tesla Tower from Level 8 to Level 9 provides absolutely no buff or stat increase. Both tiers display identical combat parameters." },
-  { title:"Academy Upgrade (Level 45 → Level 50)", leftHead:"Academy Level 45", leftImg:"https://share1.cloudhq-mkt3.net/b3be702ebe1b12.png", leftStat:"Academy Capacity: 1150 / 1200", rightHead:"Academy Level 50", rightImg:"https://share1.cloudhq-mkt3.net/39a7e47f6b70a4.png", rightStat:"Academy Capacity: 1150 / 1200 (+0 CAP — Expected ≥1450)", desc:"Upgrading the Academy from Level 45 to Level 50 fails to scale unit storage capacity. The ceiling remains locked at 1200 despite advancing five full upgrade tiers." },
-  { title:"Tech Center Upgrade (Level 45 → Level 50)", leftHead:"Tech Center Level 45", leftImg:"https://share1.cloudhq-mkt3.net/ef54624b274875.png", leftStat:"Tech Center Capacity: 1190 / 1200", rightHead:"Tech Center Level 50 (Max)", rightImg:"https://share1.cloudhq-mkt3.net/f55ee3e5bdb3b8.png", rightStat:"Tech Center Capacity: 1200 / 1200 (+0 MAX CAP — Expected ≥1450)", desc:"Upgrading the Tech Center from Level 45 to Level 50 fails to increase the total storage capacity limit. Massive resource investment yields zero added vehicle reserve space." }
-];
-function showDefect(i) {
-  const d = DEFECTS[i]; const box = document.getElementById("reportDetailBox");
-  box.style.display = "block";
-  box.innerHTML = "<div style=\"display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;\"><h2 style=\"color:var(--c-nightmare); text-transform:uppercase;\">🛠️ " + d.title + "</h2><button onclick=\"closeDefect()\" class=\"btn-red\">✕ Close Report</button></div>" +
-    "<div class=\"comp-grid\"><div class=\"comp-card\"><div class=\"comp-head\">" + d.leftHead + "</div><img class=\"comp-img\" src=\"" + d.leftImg + "\"><div style=\"padding:12px; font-family:monospace;\">" + d.leftStat + "</div></div>" +
-    "<div class=\"comp-card broken\"><div class=\"comp-head\">" + d.rightHead + "</div><img class=\"comp-img\" src=\"" + d.rightImg + "\"><div style=\"padding:12px; font-family:monospace; color:#fda4af; font-weight:700;\">" + d.rightStat + "</div></div></div>" +
-    "<div style=\"background:#141116; border-left:4px solid var(--c-nightmare); padding:16px; border-radius:4px;\"><p style=\"font-size:15px; line-height:1.6;\">" + d.desc + "</p></div>";
-  box.scrollIntoView({behavior:"smooth"});
-}
-function closeDefect() { document.getElementById("reportDetailBox").style.display = "none"; }
-</script></body></html>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --bg-void: #03060a;
+      --bg-panel: #080e16;
+      --bg-card: #0b131e;
+      --border-dim: #1c2f44;
 
+      --green-main: #00e676;
+      --green-dim: rgba(0, 230, 118, 0.14);
+      --green-border: rgba(0, 230, 118, 0.65);
+
+      --gold-main: #ffd700;
+      --gold-dim: rgba(255, 215, 0, 0.14);
+      --gold-border: rgba(255, 215, 0, 0.62);
+
+      --cyan-main: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.14);
+      --cyan-border: rgba(56, 189, 248, 0.6);
+
+      --red-main: #f43f5e;
+      --red-bright: #ff4d6d;
+      --red-dim: rgba(244, 63, 94, 0.16);
+      --red-border: rgba(244, 63, 94, 0.72);
+
+      --yellow-main: #facc15;
+      --fixed-main: #22c55e;
+
+      --text-main: #e5eef7;
+      --text-muted: #93aac0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-void);
+      background-image:
+        radial-gradient(circle at 18% 6%, rgba(244, 63, 94, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 82% 8%, rgba(0, 230, 118, 0.06) 0%, transparent 44%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      padding: 16px 16px 40px;
+      overflow-x: hidden;
+    }
+
+    .board-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    /* ==================== 4-CORNER UNCLASSIFIED HEADER & FOOTER BARS ==================== */
+    .class-bar {
+      position: relative;
+      display: grid;
+      grid-template-columns: 270px 1fr 270px;
+      align-items: stretch;
+      height: 46px;
+      background: #060b12;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      user-select: none;
+      z-index: 30;
+    }
+    .class-bar-top { border-radius: 6px 6px 0 0; }
+    .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
+
+    .corner-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: #b9f6ca;
+      background: linear-gradient(180deg, rgba(0, 230, 118, 0.22), rgba(0, 230, 118, 0.07));
+      padding: 0 14px;
+    }
+    .class-bar-top .corner-left {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-top .corner-right {
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-left {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-bar-bottom .corner-right {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      border-left: 1px solid rgba(0, 230, 118, 0.4);
+    }
+    .class-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.6px;
+      color: var(--green-main);
+      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      text-align: center;
+      padding: 0 10px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red-main);
+      box-shadow: 0 0 9px var(--red-main);
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    .collapse-toggle-btn {
+      background: rgba(0, 230, 118, 0.14);
+      border: 1px solid rgba(0, 230, 118, 0.55);
+      color: #d0f8df;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .collapse-toggle-btn:hover {
+      background: var(--green-main);
+      color: #021008;
+      box-shadow: 0 0 12px rgba(0, 230, 118, 0.45);
+    }
+
+    /* ==================== MAIN BOARD BODY ==================== */
+    .board-body {
+      background: rgba(8, 14, 22, 0.95);
+      border-left: 1px solid rgba(0, 230, 118, 0.35);
+      border-right: 1px solid rgba(0, 230, 118, 0.35);
+      padding: 22px 24px 30px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+    .board-shell.is-collapsed .board-body { display: none; }
+    .board-shell.is-collapsed .class-bar-bottom { margin-top: 6px; }
+
+    /* ==================== HERO BANNER WITH SPINNING WTR RADAR LOGO ==================== */
+    .hero-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(24, 13, 20, 0.95) 0%, rgba(10, 19, 31, 0.96) 55%, rgba(7, 13, 22, 0.96) 100%);
+      border: 1px solid #283d54;
+      border-left: 4px solid var(--red-main);
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .hero-left-cluster {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      min-width: 280px;
+    }
+    .logo-radar-wrap {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #07140e 0%, #03070b 82%);
+      border: 2px solid var(--green-main);
+      box-shadow: 0 0 24px rgba(0, 230, 118, 0.38), inset 0 0 14px rgba(0, 230, 118, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+    .logo-radar-wrap:hover { transform: scale(1.04); }
+    .logo-radar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 230, 118, 0.55);
+      animation: spinRing 18s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 70%, rgba(0, 230, 118, 0.35) 100%);
+      animation: spinRing 4.5s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap img {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      border: 2px solid #03070b;
+    }
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--green-main);
+      letter-spacing: 1.5px;
+      margin-bottom: 7px;
+    }
+    .hub-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 230, 118, 0.13);
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #b9f6ca;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      letter-spacing: 0.8px;
+    }
+    .hub-nav-pill:hover {
+      background: var(--green-main);
+      color: #020b06;
+      box-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+    }
+    .hub-nav-pill.popout-pill {
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(56, 189, 248, 0.12);
+      color: #7df9ff;
+    }
+    .hub-nav-pill.popout-pill:hover {
+      background: var(--cyan-main);
+      color: #020c14;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+    }
+
+    .hero-title-group h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(22px, 2.8vw, 31px);
+      font-weight: 900;
+      letter-spacing: 1.8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      text-shadow: 0 0 16px rgba(244, 63, 94, 0.25);
+    }
+    .hero-title-group h1 .title-red {
+      color: var(--red-main);
+    }
+    .sub-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      background: rgba(244, 63, 94, 0.16);
+      border: 1px solid var(--red-border);
+      color: #fda4af;
+      letter-spacing: 1px;
+      text-shadow: none;
+    }
+    .hero-title-group p {
+      color: var(--text-muted);
+      font-size: 16.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      margin-top: 6px;
+      max-width: 880px;
+    }
+
+    .hero-right-cluster {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .sync-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      padding: 7px 13px;
+      border-radius: 4px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.42);
+      color: var(--green-main);
+      white-space: nowrap;
+    }
+    .btn-involved {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(180deg, #f43f5e 0%, #be123c 100%);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 9px 16px;
+      border-radius: 4px;
+      border: 1px solid #fda4af;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn-involved:hover {
+      background: #e11d48;
+      box-shadow: 0 0 24px rgba(244, 63, 94, 0.85);
+      transform: translateY(-1px);
+    }
+
+    /* ==================== CATEGORY FILTER TABS BELOW TITLE ==================== */
+    .division-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .div-tab-pill {
+      background: #0b131d;
+      border: 1px solid #1d2f44;
+      border-top: 3px solid var(--tab-color, #f43f5e);
+      border-radius: 5px;
+      padding: 11px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: all 0.18s ease;
+      user-select: none;
+      text-align: left;
+    }
+    .div-tab-pill:hover {
+      background: #101c2b;
+      transform: translateY(-1px);
+      border-color: var(--tab-color, #f43f5e);
+    }
+    .div-tab-pill.active {
+      background: rgba(20, 28, 42, 0.96);
+      border-color: var(--tab-color, #f43f5e);
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.16), inset 0 0 12px rgba(255, 255, 255, 0.04);
+    }
+    .div-tab-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .div-tab-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.9px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+    .div-tab-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      color: var(--tab-color, #93aac0);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .div-tab-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fda4af;
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      padding: 4px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ==================== STATUS LEGEND & COMMUNITY REPORT BAR ==================== */
+    .status-intel-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 18px;
+      background: #070d15;
+      border: 1px solid #1d3147;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .legend-cluster {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-box {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      flex-shrink: 0;
+    }
+    .legend-box.red { background: var(--red-main); box-shadow: 0 0 9px rgba(244, 63, 94, 0.85); }
+    .legend-box.yellow { background: var(--yellow-main); box-shadow: 0 0 8px rgba(250, 204, 21, 0.75); }
+    .legend-box.green { background: var(--fixed-main); box-shadow: 0 0 8px rgba(34, 197, 94, 0.75); }
+
+    .intel-links-right {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #c5d6e8;
+    }
+    .source-link {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--cyan-main);
+      text-decoration: none;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: all 0.16s ease;
+    }
+    .source-link:hover {
+      background: var(--cyan-main);
+      color: #031019;
+    }
+
+    /* ==================== EMBEDDED FACILITY COMPARISON VIEWER ==================== */
+    #reportDetailBox {
+      display: none;
+      margin-bottom: 22px;
+      padding: 20px 22px;
+      background: linear-gradient(180deg, #0b121c 0%, #060a10 100%);
+      border: 2px solid var(--red-border);
+      border-radius: 7px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.9), 0 0 24px rgba(244, 63, 94, 0.15);
+    }
+    .rep-hdr {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1f334a;
+      margin-bottom: 16px;
+    }
+    .rep-hdr h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 19px;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .comp-card {
+      background: #0a1420;
+      border: 1.5px solid var(--cyan-border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .comp-card.broken {
+      border-color: var(--red-border);
+    }
+    .comp-head {
+      padding: 10px 14px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--cyan-main);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .comp-card.broken .comp-head {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fda4af;
+      border-bottom-color: rgba(244, 63, 94, 0.4);
+    }
+    .comp-img {
+      width: 100%;
+      height: 255px;
+      object-fit: contain;
+      background: #03060a;
+      padding: 8px;
+      display: block;
+    }
+    .comp-stat {
+      padding: 11px 14px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13.5px;
+      color: #d9e7f5;
+      border-top: 1px solid #18293d;
+    }
+    .comp-card.broken .comp-stat {
+      color: #fda4af;
+      font-weight: 700;
+    }
+    .rep-summary {
+      background: rgba(244, 63, 94, 0.09);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-left: 4px solid var(--red-main);
+      padding: 14px 16px;
+      border-radius: 5px;
+      font-size: 16.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #eef5fc;
+    }
+
+    /* ==================== 4-PER-ROW DEFECT THUMBNAIL GRID ==================== */
+    .defect-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .defect-tile {
+      position: relative;
+      background: linear-gradient(180deg, #0d1724 0%, #08101a 100%);
+      border: 1.5px solid #22384f;
+      border-top: 3px solid var(--red-main);
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65);
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .defect-tile:hover,
+    .defect-tile:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--red-main);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(244, 63, 94, 0.32);
+      outline: none;
+    }
+
+    .tile-portrait-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: radial-gradient(circle at 50% 28%, #162940 0%, #050a12 82%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tile-portrait-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.28s ease, filter 0.24s ease;
+    }
+    .defect-tile:hover .tile-portrait-box img {
+      transform: scale(1.05);
+      filter: brightness(0.45) contrast(1.06);
+    }
+
+    /* Top Status Bar Inside Portrait */
+    .tile-top-badges {
+      position: absolute;
+      top: 9px;
+      left: 9px;
+      right: 9px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .status-pill-red {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      background: rgba(24, 5, 10, 0.92);
+      border: 1.5px solid var(--red-main);
+      color: #ffe4e6;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(244, 63, 94, 0.45);
+    }
+    .status-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red-main);
+      box-shadow: 0 0 8px var(--red-main);
+    }
+
+    .traffic-pod {
+      background: rgba(5, 8, 13, 0.9);
+      border: 1px solid #2b425b;
+      border-radius: 4px;
+      padding: 4px 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.8);
+    }
+    .t-light {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      opacity: 0.2;
+      border: 1px solid rgba(0, 0, 0, 0.7);
+    }
+    .t-light.red { background: var(--red-main); }
+    .t-light.yellow { background: var(--yellow-main); }
+    .t-light.green { background: var(--fixed-main); }
+    .t-light.active.red { opacity: 1; box-shadow: 0 0 9px var(--red-main); border-color: #fff; }
+    .t-light.active.yellow { opacity: 1; box-shadow: 0 0 9px var(--yellow-main); border-color: #fff; }
+    .t-light.active.green { opacity: 1; box-shadow: 0 0 9px var(--fixed-main); border-color: #fff; }
+
+    /* Category Ribbon Above Nameplate */
+    .tile-cat-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 9px;
+      z-index: 5;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      background: rgba(5, 11, 19, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--cyan-main);
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .tile-cat-tag.facility {
+      border-color: rgba(255, 215, 0, 0.45);
+      color: var(--gold-main);
+    }
+    .defect-tile:hover .tile-cat-tag {
+      opacity: 0;
+    }
+
+    /* ==================== FULL-PORTRAIT STATUS RED HOVER OVERLAY ==================== */
+    .tile-hover-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      background: linear-gradient(180deg, rgba(16, 4, 9, 0.92) 0%, rgba(10, 6, 12, 0.96) 42%, rgba(6, 9, 15, 0.98) 100%);
+      padding: 46px 14px 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .defect-tile:hover .tile-hover-overlay,
+    .defect-tile:focus-visible .tile-hover-overlay {
+      opacity: 1;
+    }
+    .ov-status-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      padding: 3px 9px;
+      border-radius: 3px;
+      background: rgba(244, 63, 94, 0.22);
+      border: 1px solid rgba(244, 63, 94, 0.75);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fecdd3;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+    .ov-headline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold-main);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+    .ov-desc {
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.36;
+      color: #f4f8fc;
+      border-left: 3px solid var(--red-main);
+      padding-left: 9px;
+    }
+    .ov-cta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green-main);
+      border-top: 1px solid rgba(0, 230, 118, 0.3);
+      padding-top: 7px;
+      margin-top: 2px;
+    }
+    .ov-cta.report-cta {
+      color: var(--cyan-main);
+      border-top-color: rgba(56, 189, 248, 0.3);
+    }
+
+    /* Card Footer Nameplate & Action Button */
+    .tile-footer {
+      padding: 12px 12px 13px;
+      background: #07101a;
+      border-top: 1px solid #192b40;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .tile-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #f2f7fd;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    .tile-action-chip {
+      width: 100%;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #b9f6ca;
+      transition: all 0.16s ease;
+    }
+    .tile-action-chip.facility-chip {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #bae6fd;
+    }
+    .defect-tile:hover .tile-action-chip {
+      background: var(--red-main);
+      border-color: #fda4af;
+      color: #ffffff;
+    }
+
+    .portrait-monogram {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 2px solid var(--red-border);
+      background: rgba(244, 63, 94, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #fda4af;
+    }
+
+    @media (max-width: 1080px) {
+      .defect-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .defect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .division-tabs-bar { grid-template-columns: 1fr; }
+      .comp-grid { grid-template-columns: 1fr; }
+      .class-bar { grid-template-columns: 1fr 1fr; height: auto; padding: 6px; gap: 4px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { clip-path: none !important; border: none !important; }
+      .hero-right-cluster { align-items: flex-start; width: 100%; flex-direction: row; flex-wrap: wrap; }
+    }
+    @media (max-width: 500px) {
+      .defect-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="board-shell" id="boardShell">
+  <!-- ==================== TOP 4-CORNER UNCLASSIFIED BAR ==================== -->
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left">
+      <span class="status-dot"></span>
+      <span>WATCHTOWER // INTEL</span>
+    </div>
+    <div class="class-center">UNCLASSIFIED // WHAT'S BROKEN IN WAR COMMANDER — KNOWN DEFECT REGISTRY</div>
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" id="collapseBtn" type="button" onclick="toggleBoardCollapse()">
+        [—] COLLAPSE BRIEF
+      </button>
+    </div>
+  </header>
+
+  <main class="board-body" id="boardMiddleBody">
+    <!-- ==================== HERO HEADER WITH WTR SPINNING RADAR LOGO ==================== -->
+    <div class="hero-banner">
+      <div class="hero-left-cluster">
+        <div class="logo-radar-wrap" onclick="closeFacilityReport()" title="WatchToweR Command Center — Click to reset view">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
+        </div>
+        <div class="hero-title-group">
+          <div class="hero-eyebrow">
+            <button type="button" class="hub-nav-pill" id="backToHubBtn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
+            <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open What's Broken in a full standalone window">↗ POP-OUT FULL WINDOW</button>
+            <a class="hub-nav-pill" href="./agency-contractors.html">🤝 AGENCY CONTRACTORS</a>
+            <a class="hub-nav-pill" href="./unit-briefs.html">📖 UNIT BRIEFS</a>
+            <a class="hub-nav-pill" href="./building-briefs.html">🏢 BUILDINGS</a>
+            <span>ADMIN &amp; BUG HUB // DEFECT REGISTRY</span>
+          </div>
+          <h1>
+            <span><span class="title-red">WHAT'S BROKEN IN</span> WAR COMMANDER</span>
+            <span class="sub-badge">LIVE DEFECT &amp; BUG TRACKER</span>
+          </h1>
+          <p>Hover any thumbnail for <strong>Status RED</strong> bug details. Click <strong>Contractor</strong> thumbnails to open their full <strong>Unit Brief</strong>, or click <strong>Facility</strong> cards to inspect side-by-side level comparisons.</p>
+        </div>
+      </div>
+
+      <div class="hero-right-cluster">
+        <div class="sync-pill" id="dbSyncStatus">⚡ Syncing MASTER_DB...</div>
+        <a class="btn-involved" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener noreferrer">
+          ⚡ GET INVOLVED!
+        </a>
+      </div>
+    </div>
+
+    <!-- ==================== CATEGORY TABS BELOW TITLE ==================== -->
+    <div class="division-tabs-bar" id="categoryTabsBar" role="tablist" aria-label="Defect Category Filter"></div>
+
+    <!-- ==================== STATUS LEGEND & COMMUNITY REPORT STRIP ==================== -->
+    <div class="status-intel-bar">
+      <div class="legend-cluster">
+        <span class="legend-item">
+          <span class="legend-box red"></span>
+          <span style="color: var(--red-main);">RED = KIXEYE HAS NOT ACKNOWLEDGED</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-box yellow"></span>
+          <span style="color: var(--yellow-main);">YELLOW = KIXEYE HAS ACKNOWLEDGED</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-box green"></span>
+          <span style="color: var(--fixed-main);">GREEN = FIXED</span>
+        </span>
+      </div>
+      <div class="intel-links-right">
+        <span>Know of something broken? Send us the details:</span>
+        <a class="source-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener noreferrer">Submit Bug Report ↗</a>
+        <a class="source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/25-known-issues/" target="_blank" rel="noopener noreferrer">Official Known Issues ↗</a>
+      </div>
+    </div>
+
+    <!-- ==================== IN-PAGE COMPARISON REPORT VIEWER (FACILITIES) ==================== -->
+    <div id="reportDetailBox"></div>
+
+    <!-- ==================== 4-PER-ROW DEFECT CARDS GRID ==================== -->
+    <div class="defect-grid" id="cardsGrid"></div>
+  </main>
+
+  <!-- ==================== BOTTOM 4-CORNER UNCLASSIFIED BAR ==================== -->
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left">
+      <span>[-WTR-] DATA HUB</span>
+    </div>
+    <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • KNOWN DEFECT REGISTRY</div>
+    <div class="corner-tab corner-right">
+      <button class="collapse-toggle-btn" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ▲ TOP OF BRIEF
+      </button>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const SHEET_CONFIG = {
+    docId: '1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc',
+    gid: '444355456'
+  };
+
+  const UNIT_HANDOFF_KEY = 'wtr_target_unit_handoff';
+
+  /* Tracked War Commander Defects (Contractors pull live portrait thumbnails from MASTER_DB) */
+  const DEFECT_ITEMS = [
+    {
+      id: 'johnny-bones',
+      category: 'CONTRACTOR',
+      categoryBadge: 'CONTRACTOR • R & D',
+      title: 'Contractor: Johnny Bones',
+      masterDbUnit: 'Johnny Bones',
+      unitBriefName: 'Johnny Bones',
+      unitBriefDivision: 'CONTRACTOR',
+      fallbackImg: './assets/images/AGENTS/JOHNNY BONES.jpg',
+      liveImg: '',
+      statusPill: 'STATUS: RED • BROKEN',
+      overlayBanner: '🔴 STATUS: RED — BROKEN',
+      overlayHeadline: 'Last Stand Zombies Attacking Own Base',
+      overlayDesc: 'Zombies that come from buildings as Last Stand should defend base against attacker. Instead, they are attacking your own base.',
+      overlayCta: '📖 Click thumbnail to open Johnny Bones Unit Brief →',
+      footerCta: '📖 Open Unit Brief →',
+      redLight: true,
+      yellowLight: false,
+      greenLight: false
+    },
+    {
+      id: 'carol-hagen',
+      category: 'CONTRACTOR',
+      categoryBadge: 'CONTRACTOR • DEFENSE',
+      title: 'Contractor: Carol Hagen',
+      masterDbUnit: 'Carol Hagen',
+      unitBriefName: 'Carol Hagen',
+      unitBriefDivision: 'CONTRACTOR',
+      fallbackImg: './assets/images/AGENTS/ScreenCapture Carol Hagen.png',
+      liveImg: '',
+      statusPill: 'STATUS: RED • MISSING',
+      overlayBanner: '🔴 STATUS: RED — MISSING',
+      overlayHeadline: 'Missing From Agency List',
+      overlayDesc: 'MISSING from Agency list. If you\'ve previously purchased with Blood Thorium diamonds, some players are missing the contractor. It may be a result of using it once and swapping it out with another.',
+      overlayCta: '📖 Click thumbnail to open Carol Hagen Unit Brief →',
+      footerCta: '📖 Open Unit Brief →',
+      redLight: true,
+      yellowLight: false,
+      greenLight: false
+    },
+    {
+      id: 'cc22-tesla-lvl9',
+      category: 'FACILITY',
+      categoryBadge: 'CC22 • WEAPONS LAB',
+      title: 'cc22: Weapons Lab, Tesla Turret (level 9)',
+      fallbackImg: 'https://share1.cloudhq-mkt3.net/1bdc0cf359541e.png',
+      liveImg: '',
+      statusPill: 'STATUS: RED • +0 STAT GAIN',
+      overlayBanner: '🔴 STATUS: RED — BROKEN UPGRADE',
+      overlayHeadline: 'Tesla Tower Level 8 → Level 9 (+0 Buff)',
+      overlayDesc: 'Upgrading the Tesla Tower from Level 8 to Level 9 provides zero stat increase — Range (750), DPS (352), and RoF (32) remain completely unchanged.',
+      overlayCta: '🖥️ Click thumbnail to view Level 8 vs 9 Report →',
+      footerCta: '🖥️ View Embedded Report',
+      redLight: true,
+      yellowLight: false,
+      greenLight: false,
+      report: {
+        title: 'Tesla Tower Level 8 to Level 9',
+        leftHead: 'Tesla Tower Level 8/8',
+        leftImg: 'https://share1.cloudhq-mkt3.net/c749703d5ae99b.png',
+        leftStat: 'Range: 750 | DPS: 352 | RoF: 32',
+        rightHead: 'Tesla Tower Level 9/9 (Broken)',
+        rightImg: 'https://share1.cloudhq-mkt3.net/e4abfd4c4e00b9.png',
+        rightStat: 'Range: 750 (+0) | DPS: 352 (+0) | RoF: 32 (+0)',
+        desc: 'Upgrading the Tesla Tower from Level 8 to Level 9 provides absolutely no buff or stat increase. Both tiers display identical combat parameters.'
+      }
+    },
+    {
+      id: 'cc22-academy-cap',
+      category: 'FACILITY',
+      categoryBadge: 'CC22 • ACADEMY',
+      title: 'cc22: Academy, Capacity (All Levels)',
+      fallbackImg: 'https://share1.cloudhq-mkt3.net/777862637a2d06.png',
+      liveImg: '',
+      statusPill: 'STATUS: RED • +0 CAPACITY',
+      overlayBanner: '🔴 STATUS: RED — BROKEN SCALING',
+      overlayHeadline: 'Academy Lvl 45 → Lvl 50 Capacity Locked',
+      overlayDesc: 'Upgrading the Academy from Level 45 to Level 50 fails to scale unit storage capacity. Ceiling remains locked at 1200 across five full upgrade tiers.',
+      overlayCta: '🖥️ Click thumbnail to view Level 45 vs 50 Report →',
+      footerCta: '🖥️ View Embedded Report',
+      redLight: true,
+      yellowLight: false,
+      greenLight: false,
+      report: {
+        title: 'Academy Upgrade (Level 45 → Level 50)',
+        leftHead: 'Academy Level 45',
+        leftImg: 'https://share1.cloudhq-mkt3.net/b3be702ebe1b12.png',
+        leftStat: 'Academy Capacity: 1150 / 1200',
+        rightHead: 'Academy Level 50 (Broken)',
+        rightImg: 'https://share1.cloudhq-mkt3.net/39a7e47f6b70a4.png',
+        rightStat: 'Academy Capacity: 1150 / 1200 (+0 CAP — Expected ≥1450)',
+        desc: 'Upgrading the Academy from Level 45 to Level 50 fails to scale unit storage capacity. The ceiling remains locked at 1200 despite advancing five full upgrade tiers.'
+      }
+    },
+    {
+      id: 'cc22-tech-center-cap',
+      category: 'FACILITY',
+      categoryBadge: 'CC22 • TECH CENTER',
+      title: 'cc22: Tech Center, Capacity (All Levels)',
+      fallbackImg: 'https://share1.cloudhq-mkt3.net/a9326add99a105.png',
+      liveImg: '',
+      statusPill: 'STATUS: RED • +0 CAPACITY',
+      overlayBanner: '🔴 STATUS: RED — BROKEN SCALING',
+      overlayHeadline: 'Tech Center Lvl 45 → Lvl 50 Capacity Locked',
+      overlayDesc: 'Upgrading the Tech Center from Level 45 to Level 50 fails to increase maximum vehicle reserve space, remaining capped at 1200/1200.',
+      overlayCta: '🖥️ Click thumbnail to view Level 45 vs 50 Report →',
+      footerCta: '🖥️ View Embedded Report',
+      redLight: true,
+      yellowLight: false,
+      greenLight: false,
+      report: {
+        title: 'Tech Center Upgrade (Level 45 → Level 50)',
+        leftHead: 'Tech Center Level 45',
+        leftImg: 'https://share1.cloudhq-mkt3.net/ef54624b274875.png',
+        leftStat: 'Tech Center Capacity: 1190 / 1200',
+        rightHead: 'Tech Center Level 50 Max (Broken)',
+        rightImg: 'https://share1.cloudhq-mkt3.net/f55ee3e5bdb3b8.png',
+        rightStat: 'Tech Center Capacity: 1200 / 1200 (+0 MAX CAP — Expected ≥1450)',
+        desc: 'Upgrading the Tech Center from Level 45 to Level 50 fails to increase the total storage capacity limit. Massive resource investment yields zero added vehicle reserve space.'
+      }
+    }
+  ];
+
+  let activeCategoryFilter = 'ALL';
+
+  function escapeHtml(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function normKey(s) {
+    return String(s || '').trim().toUpperCase().replace(/\s+/g, ' ');
+  }
+
+  function normalizeMasterDbImage(rawUrl) {
+    if (!rawUrl) return '';
+    let clean = String(rawUrl).trim();
+    if (clean.startsWith("'")) clean = clean.slice(1).trim();
+    const formulaMatch = clean.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) clean = formulaMatch[1].trim();
+    if (clean.startsWith('data:image/')) return clean;
+
+    const httpIdx = clean.indexOf('http');
+    if (httpIdx > 0) clean = clean.slice(httpIdx);
+
+    const driveMatch = clean.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    if (!/^(?:https?:|data:|blob:)/i.test(clean)) {
+      const stripped = clean.replace(/\\/g, '/').replace(/^(?:\.\.\/|\.\/)+/, '').replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, '');
+      return './assets/images/' + stripped;
+    }
+    return clean;
+  }
+
+  /* ==================== HEADER & HUB NAVIGATION ==================== */
+  function toggleBoardCollapse() {
+    const shell = document.getElementById('boardShell');
+    const btn = document.getElementById('collapseBtn');
+    const collapsed = shell.classList.toggle('is-collapsed');
+    btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+
+  function popOutFullWindow() {
+    const url = window.location.href;
+    const w = 1320, h = 920;
+    const left = Math.max(0, (window.screen.width - w) / 2);
+    const top = Math.max(0, (window.screen.height - h) / 2);
+    window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+  }
+
+  /* ==================== CATEGORY FILTER TABS & GRID RENDER ==================== */
+  function setCategoryFilter(cat) {
+    activeCategoryFilter = cat;
+    closeFacilityReport();
+    renderCategoryTabs();
+    renderDefectGrid();
+  }
+
+  function renderCategoryTabs() {
+    const totalCount = DEFECT_ITEMS.length;
+    const contractorCount = DEFECT_ITEMS.filter(d => d.category === 'CONTRACTOR').length;
+    const facilityCount = DEFECT_ITEMS.filter(d => d.category === 'FACILITY').length;
+
+    const tabs = [
+      { key: 'ALL', name: 'ALL BROKEN ITEMS', sub: 'CONTRACTORS & BASE FACILITIES', badge: `${totalCount} STATUS RED`, color: '#f43f5e' },
+      { key: 'CONTRACTOR', name: 'AGENCY CONTRACTORS', sub: 'CLICK THUMBNAIL FOR UNIT BRIEF', badge: `${contractorCount} STATUS RED`, color: '#00e676' },
+      { key: 'FACILITY', name: 'CC22 FACILITIES', sub: 'CLICK FOR LEVEL COMPARISON', badge: `${facilityCount} STATUS RED`, color: '#38bdf8' }
+    ];
+
+    const bar = document.getElementById('categoryTabsBar');
+    if (!bar) return;
+    bar.innerHTML = tabs.map(t => `
+      <button type="button" class="div-tab-pill ${activeCategoryFilter === t.key ? 'active' : ''}" style="--tab-color: ${t.color};" onclick="setCategoryFilter('${t.key}')">
+        <div class="div-tab-left">
+          <span class="div-tab-name">${escapeHtml(t.name)}</span>
+          <span class="div-tab-sub">${escapeHtml(t.sub)}</span>
+        </div>
+        <span class="div-tab-badge">${escapeHtml(t.badge)}</span>
+      </button>
+    `).join('');
+  }
+
+  function openContractorUnitBrief(unitName, division, ev) {
+    try {
+      localStorage.setItem(UNIT_HANDOFF_KEY, JSON.stringify({ unit: unitName, ts: Date.now() }));
+    } catch (e) {}
+    const targetHref = `./unit-briefs.html?division=${encodeURIComponent(division || 'CONTRACTOR')}&unit=${encodeURIComponent(unitName)}`;
+    if (ev && (ev.ctrlKey || ev.metaKey || ev.button === 1)) {
+      return; // allow native anchor new-tab behavior
+    }
+    if (ev) ev.preventDefault();
+    window.location.href = targetHref;
+  }
+
+  function renderDefectGrid() {
+    const grid = document.getElementById('cardsGrid');
+    if (!grid) return;
+
+    const visible = DEFECT_ITEMS.filter(item => activeCategoryFilter === 'ALL' || item.category === activeCategoryFilter);
+
+    grid.innerHTML = visible.map((item) => {
+      const origIdx = DEFECT_ITEMS.indexOf(item);
+      const primarySrc = item.liveImg || item.fallbackImg;
+      const backupSrc = (item.liveImg && item.fallbackImg && item.liveImg !== item.fallbackImg) ? item.fallbackImg : '';
+      const initials = item.title.replace(/^Contractor:\s*/i, '').split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+      const isContractor = Boolean(item.unitBriefName);
+
+      const innerMarkup = `
+        <div class="tile-portrait-box">
+          <div class="tile-top-badges">
+            <span class="status-pill-red">
+              <span class="status-pill-dot"></span>
+              <span>${escapeHtml(item.statusPill)}</span>
+            </span>
+            <span class="traffic-pod" title="Status: RED (Unacknowledged)">
+              <span class="t-light red ${item.redLight ? 'active' : ''}"></span>
+              <span class="t-light yellow ${item.yellowLight ? 'active' : ''}"></span>
+              <span class="t-light green ${item.greenLight ? 'active' : ''}"></span>
+            </span>
+          </div>
+
+          <img src="${escapeHtml(primarySrc)}"
+               alt="${escapeHtml(item.title)}"
+               data-backup="${escapeHtml(backupSrc)}"
+               onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">
+
+          <span class="tile-cat-tag ${isContractor ? '' : 'facility'}">${escapeHtml(item.categoryBadge)}</span>
+
+          <div class="tile-hover-overlay">
+            <span class="ov-status-banner">${escapeHtml(item.overlayBanner)}</span>
+            <div class="ov-headline">${escapeHtml(item.overlayHeadline)}</div>
+            <div class="ov-desc">${escapeHtml(item.overlayDesc)}</div>
+            <div class="ov-cta ${isContractor ? '' : 'report-cta'}">${escapeHtml(item.overlayCta)}</div>
+          </div>
+        </div>
+
+        <div class="tile-footer">
+          <div class="tile-title">${escapeHtml(item.title)}</div>
+          <div class="tile-action-chip ${isContractor ? '' : 'facility-chip'}">${escapeHtml(item.footerCta)}</div>
+        </div>
+      `;
+
+      if (isContractor) {
+        const briefUrl = `./unit-briefs.html?division=${encodeURIComponent(item.unitBriefDivision || 'CONTRACTOR')}&unit=${encodeURIComponent(item.unitBriefName)}`;
+        const safeUnitAttr = escapeHtml(item.unitBriefName).replace(/'/g, '&#39;');
+        const safeDivAttr = escapeHtml(item.unitBriefDivision || 'CONTRACTOR').replace(/'/g, '&#39;');
+        return `
+          <a class="defect-tile"
+             href="${escapeHtml(briefUrl)}"
+             data-track="Unit Brief: ${escapeHtml(item.unitBriefName)}"
+             onclick="openContractorUnitBrief('${safeUnitAttr}', '${safeDivAttr}', event)">
+            ${innerMarkup}
+          </a>
+        `;
+      }
+
+      return `
+        <button type="button"
+                class="defect-tile"
+                data-track="Facility Defect: ${escapeHtml(item.title)}"
+                onclick="showFacilityReport(${origIdx})">
+          ${innerMarkup}
+        </button>
+      `;
+    }).join('');
+  }
+
+  /* ==================== EMBEDDED FACILITY REPORT VIEWER ==================== */
+  function showFacilityReport(idx) {
+    const item = DEFECT_ITEMS[idx];
+    if (!item || !item.report) return;
+    const r = item.report;
+    const box = document.getElementById('reportDetailBox');
+    if (!box) return;
+
+    box.style.display = 'block';
+    box.innerHTML = `
+      <div class="rep-hdr">
+        <h2>
+          <span style="color: var(--red-main);">🛠️ STATUS RED //</span>
+          <span>${escapeHtml(r.title)}</span>
+        </h2>
+        <button type="button" class="btn-involved" onclick="closeFacilityReport()">✕ Close Report</button>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-head">${escapeHtml(r.leftHead)}</div>
+          <img class="comp-img" src="${escapeHtml(r.leftImg)}" alt="${escapeHtml(r.leftHead)}">
+          <div class="comp-stat">${escapeHtml(r.leftStat)}</div>
+        </div>
+        <div class="comp-card broken">
+          <div class="comp-head">${escapeHtml(r.rightHead)}</div>
+          <img class="comp-img" src="${escapeHtml(r.rightImg)}" alt="${escapeHtml(r.rightHead)}">
+          <div class="comp-stat">${escapeHtml(r.rightStat)}</div>
+        </div>
+      </div>
+      <div class="rep-summary">${escapeHtml(r.desc)}</div>
+    `;
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeFacilityReport() {
+    const box = document.getElementById('reportDetailBox');
+    if (box) box.style.display = 'none';
+  }
+
+  /* ==================== 3-STAGE LIVE MASTER_DB THUMBNAIL SYNC ==================== */
+  function syncThumbnailsFromMasterDb() {
+    const statusEl = document.getElementById('dbSyncStatus');
+    const cleanId = SHEET_CONFIG.docId;
+    const cleanGid = SHEET_CONFIG.gid;
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+
+    function applyMatrix(matrix) {
+      if (!matrix || matrix.length <= 1) return false;
+      const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
+      let matched = 0;
+
+      for (let r = 1; r < matrix.length; r++) {
+        const rec = {};
+        headers.forEach((k, colIdx) => {
+          let v = matrix[r][colIdx] !== undefined ? String(matrix[r][colIdx]).trim() : '';
+          if (v.startsWith("'")) v = v.slice(1);
+          if (k) rec[k] = v;
+        });
+        const rowName = normKey(rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '');
+        if (!rowName) continue;
+
+        DEFECT_ITEMS.forEach(item => {
+          if (item.masterDbUnit && normKey(item.masterDbUnit) === rowName) {
+            const rawImg = rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL || '';
+            const resolved = normalizeMasterDbImage(rawImg);
+            if (resolved) {
+              item.liveImg = resolved;
+              matched++;
+            }
+          }
+        });
+      }
+
+      if (matched > 0) {
+        renderDefectGrid();
+        if (statusEl) statusEl.textContent = `✅ MASTER_DB Live (${matched} Portraits Synced)`;
+        return true;
+      }
+      if (statusEl) statusEl.textContent = `✅ MASTER_DB Connected`;
+      return true;
+    }
+
+    function tryJsonpStage() {
+      const cbName = 'wtrBrokenDbCb_' + Date.now();
+      const script = document.createElement('script');
+      let done = false;
+      const timer = setTimeout(() => {
+        if (done) return;
+        done = true;
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (statusEl) statusEl.textContent = '⚡ Studio Portrait Cache Ready';
+      }, 7000);
+
+      window[cbName] = function(resp) {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (!resp || resp.status === 'error' || !resp.table) {
+          if (statusEl) statusEl.textContent = '⚡ Studio Portrait Cache Ready';
+          return;
+        }
+        const cols = (resp.table.cols || []).map(c => (c && c.label ? String(c.label).trim() : ''));
+        const matrix = [cols];
+        (resp.table.rows || []).forEach(r => {
+          const cells = (r && r.c) ? r.c : [];
+          matrix.push(cols.map((_, idx) => {
+            const cell = cells[idx];
+            if (!cell || cell.v === null || cell.v === undefined) return '';
+            return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+          }));
+        });
+        applyMatrix(matrix);
+      };
+
+      script.onerror = function() {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (statusEl) statusEl.textContent = '⚡ Studio Portrait Cache Ready';
+      };
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      document.head.appendChild(script);
+    }
+
+    function tryGvizFetchStage() {
+      fetch(gvizCsvUrl, { method: 'GET', credentials: 'omit' })
+        .then(res => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(csv => {
+          if (!window.Papa || csv.trim().startsWith('<')) throw new Error('Invalid CSV');
+          const parsed = Papa.parse(csv, { header: false, skipEmptyLines: true });
+          if (!applyMatrix(parsed.data)) throw new Error('Empty');
+        })
+        .catch(() => tryJsonpStage());
+    }
+
+    if (window.Papa) {
+      Papa.parse(exportCsvUrl, {
+        download: true,
+        header: false,
+        skipEmptyLines: true,
+        complete: function(res) {
+          if (!res || !res.data || !applyMatrix(res.data)) {
+            tryGvizFetchStage();
+          }
+        },
+        error: function() {
+          tryGvizFetchStage();
+        }
+      });
+    } else {
+      tryJsonpStage();
+    }
+  }
+
+  /* ==================== INITIALIZE ==================== */
+  document.addEventListener('DOMContentLoaded', () => {
+    const inIframe = (window.self !== window.top);
+    const popBtn = document.getElementById('popoutSelfBtn');
+    if (!inIframe && popBtn) {
+      popBtn.style.display = 'none';
+    }
+    renderCategoryTabs();
+    renderDefectGrid();
+    syncThumbnailsFromMasterDb();
+  });
+</script>
+</body>
+</html>
