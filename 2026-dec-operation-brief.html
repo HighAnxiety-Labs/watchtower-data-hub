@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER PRE-RELEASE HOLDING BRIEF // DEC 2026 OPERATION: TBD -->
+<html lang="en">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — DEC 2026 OPERATION: TBD (Pre-Release Brief)</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — DEC 2026 OPERATION: TBD (Pre-Release Brief)">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Pre-Release Holding Brief for December 2026 Main Event Operation.">
+  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <script src="./wtr-view-mode.js"></script>
+  <style>
+    :root {
+      --primary-color: #b32d2a;
+      --primary-bar-bg: #b32d2a;
+      --accent-green: #d9534f;
+      --theme-glow: rgba(179, 45, 42, 0.28);
+      --border-dark: #3d1818;
+      --tab-top-border: #592222;
+      --corner-block-width: 280px;
+      --bg-dark: #070a0e;
+      --bg-panel: #10151c;
+      --bg-header: #0c1117;
+      --text-main: #dbe2ea;
+      --text-muted: #8b9bb0;
+      --text-gold: #d4af37;
+      --text-cyan: #2ea3d6;
+      --text-orange: #d96b16;
+      --text-red: #d9534f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 12px;
+      line-height: 1.5;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brief-card {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .locked-top-hud {
+      flex-shrink: 0;
+      width: 100%;
+      background: #080c0a;
+      z-index: 10;
+    }
+
+    .bar-solid-label {
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
+    }
+
+    .classification-bar {
+      position: relative;
+      background: var(--primary-bar-bg);
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 2px;
+      font-size: 13px;
+      padding: 6px calc(var(--corner-block-width) + 12px);
+      text-transform: uppercase;
+      font-family: "Arial Black", sans-serif;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      overflow: hidden;
+    }
+
+    .corner-block-4 {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: var(--corner-block-width);
+      background: #080c0a;
+      color: #e2e8f0;
+      text-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: "Arial Black", sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .corner-top-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 22px 0 16px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
+    }
+
+    .corner-top-left::before {
+      content: "■";
+      color: var(--accent-green);
+      font-size: 11px;
+    }
+
+    .corner-top-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 16px 0 22px;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--accent-green);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+    }
+
+    .corner-top-right.is-prerelease-locked {
+      color: var(--text-gold);
+      cursor: not-allowed;
+    }
+
+    .corner-bottom-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 22px 0 16px;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
+    }
+
+    .corner-bottom-left::before {
+      content: "■";
+      color: var(--text-gold);
+      font-size: 11px;
+    }
+
+    .corner-bottom-left .clock-lbl {
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 11px;
+      letter-spacing: 0.6px;
+    }
+
+    .corner-bottom-left .dyn-clock-readout {
+      color: var(--text-gold);
+      font-family: monospace;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .corner-bottom-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 16px 0 22px;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--text-gold);
+      clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+    }
+
+    .file-tabs-rail {
+      background: linear-gradient(180deg, #060908 0%, #0b110f 100%);
+      padding: 10px 12px 0 12px;
+      border-top: 2px solid rgba(0, 0, 0, 0.45);
+      border-bottom: 3px solid var(--primary-color);
+      box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .file-tabs-group {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 4px;
+      align-items: end;
+      width: 100%;
+    }
+
+    .file-tab-btn {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      appearance: none;
+      background: linear-gradient(180deg, #16221d 0%, #0d1411 100%);
+      color: #8b9bb0;
+      border: 1px solid var(--border-dark);
+      border-top: 3px solid var(--tab-top-border);
+      border-bottom: none;
+      border-radius: 7px 7px 0 0;
+      padding: 7px 4px 6px 4px;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      min-height: 36px;
+    }
+
+    .file-tab-btn .tab-idx {
+      font-family: monospace;
+      font-size: 9.5px;
+      color: var(--accent-green);
+      opacity: 0.85;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .file-tab-btn .tab-lbl {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: clamp(9.5px, 0.85vw, 11.5px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.15;
+    }
+
+    .file-tab-btn.active-file-tab {
+      background: linear-gradient(180deg, var(--primary-color) 0%, var(--bg-header) 92%);
+      color: #ffffff;
+      border-color: var(--primary-color);
+      border-top: 3px solid #ffffff;
+      margin-bottom: -3px;
+      padding-bottom: 9px;
+      z-index: 4;
+    }
+
+    .file-tab-btn.active-file-tab .tab-idx,
+    .file-tab-btn.active-file-tab .tab-lbl {
+      color: #ffffff;
+      text-shadow: 0 1px 2px #000;
+    }
+
+    .file-tab-btn.calc-tab { border-top-color: var(--text-gold); }
+    .file-tab-btn.calc-tab .tab-lbl { color: var(--text-gold); }
+    .file-tab-btn.enemy-tab { border-top-color: var(--text-red); }
+    .file-tab-btn.enemy-tab .tab-lbl { color: #fca5a5; }
+    .file-tab-btn.tabs-locked { opacity: 0.55; cursor: not-allowed; }
+
+    .event-header {
+      padding: 18px 24px;
+      background: var(--bg-header);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .header-left-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1 1 420px;
+      min-width: 280px;
+    }
+
+    .header-logo-link {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--border-dark) 0%, #0b1118 50%, var(--primary-color) 100%);
+      box-shadow: 0 0 16px var(--theme-glow), inset 0 0 8px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .header-logo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 2px solid #000;
+      position: relative;
+      z-index: 2;
+    }
+
+    .event-header-text { flex: 1; min-width: 0; }
+
+    .event-sub-tag {
+      font-size: clamp(11px, 1.25vw, 13px);
+      letter-spacing: 1.3px;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .data-source-link {
+      color: var(--text-cyan);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--text-cyan);
+      font-weight: 900;
+    }
+
+    .event-main-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: clamp(24px, 3.8vw, 35px);
+      color: var(--accent-green);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .event-meta-box {
+      flex: 0 0 auto;
+      background: #080d0b;
+      border: 1px solid var(--border-dark);
+      border-left: 3px solid var(--primary-color);
+      border-radius: 4px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 285px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.75);
+      position: relative;
+      z-index: 2;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 12.5px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }
+
+    .bottom-clock-bar-m1 {
+      position: relative;
+      background: var(--primary-bar-bg);
+      font-family: "Arial Black", sans-serif;
+      font-size: 12.5px;
+      padding: 6px calc(var(--corner-block-width) + 12px);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 38px;
+      border-top: 2px solid rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    @keyframes radarSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes beaconPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.88); }
+    }
+
+    @keyframes barScanSweep {
+      0% { left: -35%; }
+      100% { left: 115%; }
+    }
+
+    .logo-radar-ring::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 260deg, var(--accent-green) 360deg);
+      animation: radarSpin 4s linear infinite;
+      z-index: 1;
+      opacity: 0.75;
+    }
+
+    .live-beacon-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-gold);
+      box-shadow: 0 0 8px var(--text-gold);
+      display: inline-block;
+      animation: beaconPulse 1.8s ease-in-out infinite;
+    }
+
+    .scanline-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 28%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.16) 50%, transparent 100%);
+      transform: skewX(-25deg);
+      animation: barScanSweep 5.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .header-classified-watermark {
+      position: absolute;
+      right: 310px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-8deg);
+      font-family: "Arial Black", sans-serif;
+      font-size: 36px;
+      letter-spacing: 5px;
+      color: rgba(255, 255, 255, 0.025);
+      border: 3px solid rgba(255, 255, 255, 0.03);
+      padding: 2px 14px;
+      border-radius: 4px;
+      pointer-events: none;
+      user-select: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 960px) {
+      .header-classified-watermark { display: none; }
+      .classification-bar,
+      .bottom-clock-bar-m1 {
+        padding: 6px 8px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .corner-block-4 {
+        position: static;
+        width: auto;
+        padding: 4px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="brief-card">
+    <div class="locked-top-hud">
+      <div class="classification-bar scanline-shimmer">
+        <span class="corner-block-4 corner-top-left">DEC 2026</span>
+        <span class="bar-solid-label">CLASSIFIED // MAIN EVENT</span>
+        <button type="button" class="corner-block-4 corner-top-right is-prerelease-locked">
+          🔒 COLLAPSE BRIEF (LOCKED)
+        </button>
+      </div>
+
+      <nav class="file-tabs-rail">
+        <div class="file-tabs-group">
+          <button type="button" class="file-tab-btn active-file-tab"><span class="tab-idx">01</span><span class="tab-lbl">BRIEFING</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">02</span><span class="tab-lbl">TARGETS</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">03</span><span class="tab-lbl">STORE</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">04</span><span class="tab-lbl">UNITS</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">05</span><span class="tab-lbl">TECH</span></button>
+          <button type="button" class="file-tab-btn calc-tab tabs-locked"><span class="tab-idx">06</span><span class="tab-lbl">XP CALC</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">07</span><span class="tab-lbl">PLATOONS</span></button>
+          <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">08</span><span class="tab-lbl">NOTES</span></button>
+          <button type="button" class="file-tab-btn enemy-tab tabs-locked"><span class="tab-idx">09</span><span class="tab-lbl">HOSTILES</span></button>
+        </div>
+      </nav>
+    </div>
+
+    <header class="event-header">
+      <div class="header-classified-watermark">CLASSIFIED</div>
+      <div class="header-left-wrap">
+        <a class="header-logo-link logo-radar-ring" href="./index.html" target="_top" title="Return to [-WTR-] Command Center">
+          <img class="header-logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem">
+        </a>
+        <div class="event-header-text">
+          <div class="event-sub-tag">
+            <span>[-WTR-] DATA HUB</span>
+            <span style="opacity:0.45;">|</span>
+            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener">Data Source ↗</a>
+          </div>
+          <div class="event-title-row">
+            <h1 class="event-main-title">OPERATION: TBD</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-meta-box">
+        <div class="meta-line"><strong style="color: var(--text-cyan)">Starts:</strong><span>DEC 2026 (DATES TBD)</span></div>
+        <div class="meta-line"><strong style="color: var(--text-gold)">Ends:</strong><span>DEC 2026 (DATES TBD)</span></div>
+        <div class="meta-line"><strong style="color: var(--text-orange)">Store Closes:</strong><span>DEC 2026 (DATES TBD)</span></div>
+      </div>
+    </header>
+
+    <div class="bottom-clock-bar-m1 scanline-shimmer">
+      <span class="corner-block-4 corner-bottom-left">
+        <span class="clock-lbl">T-MINUS:</span>
+        <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
+      </span>
+      <span class="bar-solid-label">RELEASE NOTES PENDING // UNLOCKS PRIOR TO LAUNCH</span>
+      <span class="corner-block-4 corner-bottom-right">
+        <span class="live-beacon-dot"></span>
+        <span>STATUS: SEALED</span>
+      </span>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var isKnown = false;
+    var startMs = NaN;
+    var clockEl = document.getElementById("liveEventCountdown");
+    function tick() {
+      if (!isKnown || isNaN(startMs)) {
+        clockEl.textContent = "0d 0h 00m 0s";
+        return;
+      }
+      var diff = Math.max(0, startMs - Date.now());
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      var mPad = m < 10 ? "0" + m : "" + m;
+      clockEl.textContent = d + "d " + h + "h " + mPad + "m " + s + "s";
+    }
+    tick();
+  })();
+  </script>
+</body>
+</html>

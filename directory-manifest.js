@@ -1,11 +1,11 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub directory scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-  "generatedAt": "2026-11-11T11:00:50-08:00",
+  "generatedAt": "2026-11-12T12:08:00-08:00",
   "activeFiles": [
     "2026-calendar.html",
+    "2026-dec-operation-brief.html",
     "2026-nov-holdout-brief.html",
-    "2026-nov-operation-blue-baron-brief.html",
     "2026-nov-sector-breach-brief.html",
     "2026-nov-shadow-ops-brief.html",
     "2026-nov-skirmish-brief.html",
@@ -19,7 +19,6 @@ window.WTR_DIRECTORY_MANIFEST = {
     "event-calculator.html",
     "faction-intel.html",
     "keyboard-commands.html",
-    "operation-blue-baron.html",
     "platoon-guide.html",
     "report-war-crimes.html",
     "sector-status-sheet.html",
@@ -38,6 +37,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "2026-jul-sector-breach-brief.html",
     "2026-jul-skirmish-brief.html",
     "2026-jul-upgrade-eval.html",
+    "2026-nov-operation-blue-baron.html",
     "2026-oct-holdout-boost.html",
     "2026-oct-holdout-brief.html",
     "2026-oct-nightmare-phantom-expedition.html",

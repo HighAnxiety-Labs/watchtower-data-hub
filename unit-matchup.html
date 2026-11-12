@@ -2542,7 +2542,7 @@
     const targetUrl = unitName ? `./unit-briefs.html?unit=${encodeURIComponent(unitName)}` : './unit-briefs.html';
     try {
       if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
-        window.parent.openInlineModuleViewport('UNIT BRIEFS ENGINE', '#c29829', null, targetUrl, targetUrl);
+        window.parent.openInlineModuleViewport('UNIT BRIEFS | GALLERY', '#c29829', null, targetUrl, targetUrl);
         return false;
       }
     } catch (e) {}

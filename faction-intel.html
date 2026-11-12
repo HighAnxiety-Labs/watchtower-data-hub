@@ -1001,7 +1001,7 @@
           <button type="button" class="tool-btn active" id="btnLayoutStack" onclick="setLayoutMode('stack')">☰ 1-COL BRIEFING</button>
           <button type="button" class="tool-btn" id="btnLayoutGrid" onclick="setLayoutMode('grid')">⊞ 2×2 TACTICAL GRID</button>
           <button type="button" class="tool-btn" onclick="toggleAllNotepads()">📝 TOGGLE ALL NOTEPADS</button>
-          <a href="./unit-briefs.html" class="tool-btn" title="Open Unit Briefs Engine">⚔️ UNIT BRIEFS DB ↗</a>
+          <a href="./unit-briefs.html" class="tool-btn" title="Open Unit Briefs | Gallery">⚔️ UNIT BRIEFS | GALLERY ↗</a>
         </div>
       </div>
 
@@ -1252,7 +1252,7 @@
       const hasNotes = Boolean(noteVal.trim());
       const isOpen = Boolean(openNotepads[fac.id]);
       const unitChips = fac.linkedUnits.map(u =>
-        `<a href="./unit-briefs.html" class="fac-unit-chip" title="View in Unit Briefs Engine">${escapeHtml(u)}</a>`
+        `<a href="./unit-briefs.html" class="fac-unit-chip" title="View in Unit Briefs | Gallery">${escapeHtml(u)}</a>`
       ).join("");
 
       return `

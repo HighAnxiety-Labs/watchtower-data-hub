@@ -27,11 +27,11 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>WatchToweR Hub — Unit Briefs Viewer</title>
+  <title>WatchToweR Hub — Unit Briefs | Gallery</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Unit Briefs Viewer">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub â€” Tactical Briefs, Event Calculators & Intelligence.">
+  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Unit Briefs | Gallery">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Tactical Briefs, Visual Unit Gallery, Event Calculators & Intelligence.">
   <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
@@ -53,15 +53,485 @@
 
   /* ==================== TOP CONTROL PANEL ==================== */
   .control-panel-wrapper {
-    width: 100%; max-width: 1140px; margin: 0 auto 16px auto;
-    display: flex; flex-direction: column; gap: 12px;
+    width: 100%; max-width: 1360px; margin: 0 auto 14px auto;
+    display: flex; flex-direction: column; gap: 10px;
   }
   .control-panel {
     width: 100%;
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-    background: #0d1210; border: 1px solid #00e676; padding: 10px 16px; border-radius: 4px; gap: 12px;
+    background: #0d1210; border: 1px solid #00e676; padding: 10px 14px; border-radius: 5px; gap: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
+  .hub-back-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0, 230, 118, 0.12); color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.55); border-radius: 4px;
+    padding: 6px 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.8px;
+    text-transform: uppercase; text-decoration: none; cursor: pointer; white-space: nowrap;
+    transition: all 0.16s ease;
+  }
+  .hub-back-pill:hover {
+    background: #00e676; color: #03120a; box-shadow: 0 0 12px rgba(0, 230, 118, 0.45);
+  }
+  .unit-search-input {
+    background: #09130e; border: 1px solid #1f4230; color: #ffffff;
+    padding: 6px 11px; font-size: 13.5px; font-weight: 600; border-radius: 4px;
+    outline: none; min-width: 210px; flex: 1; transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .unit-search-input::placeholder { color: #6f8a7c; font-weight: 500; }
+  .unit-search-input:focus { border-color: #00e676; box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.15); }
+
+  /* Generation & Infantry ~ Vehicle ~ Aircraft Filter Strip */
+  .gallery-filter-strip {
+    width: 100%; background: #0a100d; border: 1px solid #1b3627; border-radius: 5px;
+    padding: 9px 13px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .filter-pill-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .filter-group-lbl {
+    font-size: 11px; font-weight: 900; color: #81c784; letter-spacing: 1px;
+    text-transform: uppercase; margin-right: 2px; white-space: nowrap;
+  }
+  .gal-pill {
+    background: #101b15; border: 1px solid #21402f; color: #c8d6cf;
+    padding: 5px 11px; border-radius: 999px; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.6px; text-transform: uppercase; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s ease;
+    font-family: inherit; white-space: nowrap;
+  }
+  .gal-pill:hover { border-color: #00e676; color: #ffffff; background: #16291f; }
+  .gal-pill.active {
+    background: #00e676; border-color: #b9f6ca; color: #03140a;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
+  }
+  .gal-pill.branch-pill.active {
+    background: #ffd700; border-color: #fef08a; color: #141002;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+  }
+  .gal-pill-cnt {
+    font-size: 10.5px; font-family: monospace; opacity: 0.82;
+    padding: 0 5px; border-radius: 999px; background: rgba(0, 0, 0, 0.28);
+  }
+  .gal-pill.active .gal-pill-cnt { background: rgba(0, 0, 0, 0.18); opacity: 1; }
+  .gal-pill-sep {
+    width: 1px; height: 18px; background: #264a36; margin: 0 2px; display: inline-block; flex-shrink: 0;
+  }
+
+  /* ==================== IMAGE-BASED GENERATION -> INFANTRY ~ VEHICLE ~ AIRCRAFT GALLERY ==================== */
+  .unit-gallery-shell {
+    width: 100%; max-width: 1360px; margin: 0 auto;
+    display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; gap: 16px;
+  }
+  .gen-section-card {
+    --sec-cols: 6;
+    --sec-groups: 1;
+    flex: 1 1 100%; width: 100%; min-width: 0;
+    display: flex; flex-direction: column;
+    background: linear-gradient(180deg, #0e1612 0%, #090e0b 100%);
+    border: 1px solid #1f3b2b; border-top: 3px solid var(--gen-accent, #00e676);
+    border-radius: 6px; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  .gen-section-card.is-compact-section {
+    flex: var(--sec-cols, 1) 1 min(100%, max(265px, calc(var(--sec-cols, 1) * 148px + (var(--sec-cols, 1) - 1) * 10px + var(--sec-groups, 1) * 26px + 36px)));
+  }
+  @media (min-width: 1850px) {
+    html[data-wtr-view='wide'] .gen-section-card.is-medium-section {
+      flex: var(--sec-cols, 5) 1 min(100%, calc(var(--sec-cols, 5) * 148px + (var(--sec-cols, 5) - 1) * 10px + var(--sec-groups, 1) * 28px + 40px));
+    }
+  }
+  .gen-section-card.collapsed { align-self: flex-start; }
+  .gen-section-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    padding: 11px 16px; background: linear-gradient(90deg, rgba(0, 230, 118, 0.1) 0%, rgba(11, 18, 14, 0.95) 65%);
+    border-bottom: 1px solid #1a3324; cursor: pointer; user-select: none;
+  }
+  .gen-section-header:hover { background: linear-gradient(90deg, rgba(0, 230, 118, 0.16) 0%, rgba(14, 24, 18, 0.98) 65%); }
+  .gen-hdr-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+  .gen-title-badge {
+    font-family: "Arial Black", "Segoe UI", sans-serif; font-size: 17px; font-weight: 900;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gen-accent, #00e676);
+  }
+  .gen-section-card.is-compact-section .gen-title-badge { font-size: 15.5px; letter-spacing: 1px; }
+  .gen-branch-summary {
+    font-family: monospace; font-size: 11.5px; font-weight: 800; color: #b0bec5;
+    letter-spacing: 0.6px; text-transform: uppercase;
+  }
+  .gen-hdr-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .gen-count-pill {
+    font-family: monospace; font-size: 11.5px; font-weight: 800; color: #ffd700;
+    background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.38);
+    padding: 2px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .gen-chevron { font-size: 12px; color: #81c784; font-weight: 900; transition: transform 0.18s ease; }
+  .gen-section-card.collapsed .gen-chevron { transform: rotate(-90deg); }
+  .gen-section-card.collapsed .gen-section-body { display: none; }
+
+  .gen-section-body {
+    flex: 1; padding: 14px 15px 16px;
+    display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; gap: 13px;
+  }
+  .branch-subgroup {
+    --branch-color: #00e676;
+    --grp-cols: 1;
+    display: flex; flex-direction: column; gap: 9px; min-width: 0;
+    padding: 10px 12px 12px; border-radius: 6px;
+    background: linear-gradient(180deg, rgba(16, 29, 22, 0.78) 0%, rgba(7, 13, 10, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-top: 2.5px solid var(--branch-color, #00e676);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 5px 14px rgba(0, 0, 0, 0.48);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .branch-subgroup:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    border-top-color: var(--branch-color, #00e676);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 6px 18px rgba(0, 0, 0, 0.62);
+  }
+  .branch-subgroup.is-compact-group {
+    flex: var(--grp-cols, 1) 1 min(100%, max(184px, calc(var(--grp-cols, 1) * 144px + (var(--grp-cols, 1) - 1) * 10px + 26px)));
+    max-width: min(100%, calc(var(--grp-cols, 1) * 234px + (var(--grp-cols, 1) - 1) * 12px + 28px));
+  }
+  .branch-subgroup.is-large-group {
+    flex: 1 1 100%; max-width: 100%;
+  }
+  .branch-subheader {
+    display: flex; align-items: center; gap: 8px; min-width: 0;
+  }
+  .branch-pill-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
+    letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--branch-color, #00e676);
+    border-left: 4px solid var(--branch-color, #00e676); color: var(--branch-color, #00e676);
+    white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+  }
+  .branch-divider-line {
+    flex: 1; min-width: 8px; height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent);
+  }
+  .branch-pair-count-tag {
+    font-family: monospace; font-size: 10.5px; font-weight: 800; letter-spacing: 0.5px;
+    color: #ffd700; background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.32);
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap; text-transform: uppercase;
+  }
+  .branch-unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+    gap: 12px;
+    align-items: end;
+    margin-top: auto;
+  }
+  @media (min-width: 561px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="1"] .branch-unit-grid,
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="2"] .branch-unit-grid,
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="3"] .branch-unit-grid {
+      grid-template-columns: repeat(var(--grp-cols), minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 680px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="4"] .branch-unit-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 840px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="5"] .branch-unit-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="6"] .branch-unit-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .unit-gallery-shell { flex-direction: column; gap: 14px; }
+    .gen-section-card, .gen-section-card.is-compact-section { flex: 1 1 100% !important; width: 100% !important; }
+    .branch-subgroup, .branch-subgroup.is-compact-group { flex: 1 1 100% !important; max-width: 100% !important; padding: 9px 10px 10px; }
+    .branch-unit-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)) !important; gap: 10px; }
+  }
+  html[data-wtr-view='mobile'] .unit-gallery-shell { flex-direction: column !important; gap: 14px !important; }
+  html[data-wtr-view='mobile'] .gen-section-card,
+  html[data-wtr-view='mobile'] .gen-section-card.is-compact-section { flex: 1 1 100% !important; width: 100% !important; }
+  html[data-wtr-view='mobile'] .branch-subgroup,
+  html[data-wtr-view='mobile'] .branch-subgroup.is-compact-group { flex: 1 1 100% !important; max-width: 100% !important; padding: 9px 10px 10px !important; }
+  html[data-wtr-view='mobile'] .branch-unit-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)) !important; gap: 10px !important; }
+
+  /* Linked (Hero/Warlord ⇄ Soldier) Overhead Bar & Side-by-Side Pair Pod */
+  .unit-linked-pair-pod {
+    grid-column: span 2;
+    --pair-accent: #ffd700;
+    --pair-border: rgba(255, 215, 0, 0.42);
+    --pair-tint: rgba(255, 215, 0, 0.09);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 6px 7px 7px 7px;
+    border-radius: 7px;
+    background: linear-gradient(180deg, var(--pair-tint) 0%, rgba(9, 16, 12, 0.68) 100%);
+    border: 1px solid var(--pair-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 14px rgba(0, 0, 0, 0.48);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .unit-linked-pair-pod.pair-warlord {
+    --pair-accent: #ff9100;
+    --pair-border: rgba(255, 145, 0, 0.48);
+    --pair-tint: rgba(255, 145, 0, 0.11);
+  }
+  .unit-linked-pair-pod.pair-generic {
+    --pair-accent: #00e676;
+    --pair-border: rgba(0, 230, 118, 0.42);
+    --pair-tint: rgba(0, 230, 118, 0.08);
+  }
+  .unit-linked-pair-pod:hover {
+    border-color: var(--pair-accent);
+    box-shadow: 0 0 16px rgba(255, 215, 0, 0.16), 0 8px 22px rgba(0, 0, 0, 0.65);
+  }
+  .unit-pair-link-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 10px;
+    margin-bottom: 7px;
+    background: linear-gradient(90deg, #121813 0%, #0c1611 50%, #0e1913 100%);
+    border: 1px solid var(--pair-border);
+    border-top: 2.5px solid var(--pair-accent);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .unit-pair-link-bar::before,
+  .unit-pair-link-bar::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    width: 2px;
+    height: 7px;
+    background: var(--pair-accent);
+    opacity: 0.85;
+  }
+  .unit-pair-link-bar::before { left: 25%; }
+  .unit-pair-link-bar::after { left: 75%; }
+  .uplb-role {
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .uplb-role.lead { color: var(--pair-accent); }
+  .uplb-role.mate { color: #00e676; }
+  .uplb-bridge {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 0;
+  }
+  .uplb-rail {
+    flex: 1;
+    height: 1px;
+    min-width: 6px;
+    background: linear-gradient(90deg, var(--pair-accent), #00e676);
+    opacity: 0.65;
+  }
+  .uplb-pill {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .unit-pair-cards-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+  @media (max-width: 460px) {
+    .uplb-pill { padding: 1px 4px; font-size: 8.5px; }
+    .unit-pair-link-bar { padding: 3px 6px; font-size: 9.5px; }
+    .unit-pair-cards-row { gap: 7px; }
+  }
+
+  /* Unit Portrait Tile */
+  .unit-gallery-tile {
+    container-type: inline-size;
+    position: relative;
+    background: radial-gradient(circle at 50% 28%, #162920 0%, #070c09 80%);
+    border: 1.5px solid #1f3b2b;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    user-select: none;
+  }
+  .unit-gallery-tile:hover {
+    transform: translateY(-4px);
+    border-color: #00e676;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 230, 118, 0.26);
+  }
+  .unit-gallery-tile.recently-viewed {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.55), 0 8px 22px rgba(255, 215, 0, 0.22);
+  }
+  .ugt-portrait-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: radial-gradient(circle at 50% 35%, rgba(0, 230, 118, 0.14), transparent 68%), #040806;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ugt-portrait-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.24s ease;
+  }
+  .unit-gallery-tile:hover .ugt-portrait-box img {
+    transform: scale(1.05);
+  }
+  .ugt-monogram {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px; text-align: center;
+    background: radial-gradient(circle, #13261c 0%, #050a07 82%);
+  }
+  .ugt-monogram-initials {
+    font-family: "Arial Black", sans-serif; font-size: 28px; font-weight: 900;
+    color: #00e676; letter-spacing: 1.5px;
+  }
+  .ugt-monogram-sub {
+    font-size: 10.5px; font-family: monospace; color: #81c784; text-transform: uppercase;
+  }
+  .ugt-class-chip {
+    position: absolute; top: 7px; left: 7px; z-index: 3;
+    padding: 2px 7px; border-radius: 3px; font-family: monospace;
+    font-size: 10.5px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase;
+    background: rgba(5, 10, 8, 0.88); border: 1px solid rgba(255, 255, 255, 0.25); color: #e2e8f0;
+    backdrop-filter: blur(3px);
+  }
+  .ugt-class-chip.cls-hero { color: #ffd700; border-color: rgba(255, 215, 0, 0.7); background: rgba(20, 16, 4, 0.9); }
+  .ugt-class-chip.cls-warlord { color: #ff9100; border-color: rgba(255, 145, 0, 0.78); background: rgba(28, 12, 4, 0.92); }
+  .ugt-class-chip.cls-legendary { color: #fb923c; border-color: rgba(251, 146, 60, 0.7); background: rgba(24, 11, 4, 0.9); }
+  .ugt-class-chip.cls-unique { color: #38bdf8; border-color: rgba(56, 189, 248, 0.7); background: rgba(4, 15, 24, 0.9); }
+  .ugt-class-chip.cls-soldier { color: #00e676; border-color: rgba(0, 230, 118, 0.6); background: rgba(4, 18, 11, 0.9); }
+  .ugt-class-chip.cls-hostile { color: #ff5252; border-color: rgba(255, 82, 82, 0.65); background: rgba(24, 6, 8, 0.9); }
+
+  .ugt-faction-chip {
+    position: absolute; top: 7px; right: 7px; z-index: 3;
+    padding: 2px 7px; border-radius: 3px; font-family: monospace;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase;
+    background: rgba(5, 10, 8, 0.86); border: 1px solid rgba(148, 163, 184, 0.35); color: #cbd5e1;
+    max-width: 52%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-nameplate {
+    padding: 9px 10px; background: #070d0a; border-top: 1px solid #183022;
+    display: flex; flex-direction: column; gap: 2px; text-align: center;
+  }
+  .ugt-name {
+    font-size: 14px; font-weight: 900; color: #f1f7f4; letter-spacing: 0.6px;
+    text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-meta-sub {
+    font-family: monospace; font-size: 11px; color: #81c784;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase;
+  }
+  @container (max-width: 190px) {
+    .ugt-class-chip, .ugt-faction-chip { font-size: 9.5px; padding: 2px 5px; top: 5px; }
+    .ugt-class-chip { left: 5px; }
+    .ugt-faction-chip { right: 5px; }
+    .ugt-name { font-size: 12.5px; }
+    .ugt-meta-sub { font-size: 10px; }
+  }
+
+  /* ==================== FLOATING CURSOR HOVER BRIEF CARD ==================== */
+  .unit-floating-hover-card {
+    position: fixed; z-index: 1500; width: 360px; max-width: calc(100vw - 24px);
+    pointer-events: none; display: none;
+    background: rgba(7, 13, 10, 0.98); border: 1.5px solid #00e676; border-top: 3px solid #00e676;
+    border-radius: 6px; padding: 13px 15px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.92), 0 0 18px rgba(0, 230, 118, 0.2);
+  }
+  .ufhc-top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+    padding-bottom: 8px; margin-bottom: 9px; border-bottom: 1px solid #1a3324;
+  }
+  .ufhc-name { font-size: 16px; font-weight: 900; color: #ffffff; letter-spacing: 0.7px; text-transform: uppercase; line-height: 1.15; }
+  .ufhc-sub { font-family: monospace; font-size: 11.5px; color: #00e676; font-weight: 800; text-transform: uppercase; margin-top: 2px; }
+  .ufhc-badge {
+    font-family: monospace; font-size: 11px; font-weight: 900; color: #ffd700;
+    background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.45);
+    padding: 2px 7px; border-radius: 3px; white-space: nowrap; text-transform: uppercase;
+  }
+  .ufhc-stats-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 8px; margin-bottom: 9px;
+  }
+  .ufhc-stat-box {
+    background: #0d1712; border: 1px solid #193024; border-radius: 3px; padding: 4px 7px;
+    display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 11.5px;
+  }
+  .ufhc-stat-k { color: #90a4ae; font-weight: 700; text-transform: uppercase; font-size: 10.5px; white-space: nowrap; }
+  .ufhc-stat-v { color: #ffffff; font-family: monospace; font-weight: 800; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ufhc-summary {
+    font-size: 12.5px; color: #d4e0db; line-height: 1.38;
+    border-left: 2px solid #00e676; padding-left: 8px; margin-bottom: 8px;
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .ufhc-cta {
+    font-family: monospace; font-size: 11px; font-weight: 800; color: #ffd700;
+    border-top: 1px solid #172c20; padding-top: 6px; text-align: center; letter-spacing: 0.5px;
+  }
+
+  /* ==================== IN-PAGE FULL BRIEF RETURN BAR ==================== */
+  .inpage-brief-nav-bar {
+    position: sticky; top: 8px; z-index: 60;
+    width: 100%; max-width: 1360px; margin: 0 auto 12px auto;
+    background: linear-gradient(90deg, #0d2116 0%, #0b1410 55%, #111b15 100%);
+    border: 1.5px solid #00e676; border-radius: 5px; padding: 9px 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.85);
+  }
+  .inpage-brief-nav-bar.bottom-bar { position: static; margin: 14px auto 6px auto; }
+  .back-to-gallery-btn {
+    background: #00e676; color: #03140a; border: 1px solid #b9f6ca;
+    padding: 7px 14px; border-radius: 4px; font-size: 12.5px; font-weight: 900;
+    letter-spacing: 0.9px; text-transform: uppercase; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; font-family: inherit;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.35); transition: all 0.15s ease;
+  }
+  .back-to-gallery-btn:hover { background: #69f0ae; transform: translateX(-2px); }
+  .brief-breadcrumb {
+    font-family: monospace; font-size: 12.5px; font-weight: 800; color: #d1fae5;
+    letter-spacing: 0.8px; text-transform: uppercase; text-align: center;
+  }
+  .brief-step-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .brief-step-btn {
+    background: #13231a; color: #e2e8f0; border: 1px solid #264a36;
+    padding: 6px 11px; border-radius: 4px; font-size: 11.5px; font-weight: 800;
+    letter-spacing: 0.6px; text-transform: uppercase; cursor: pointer; font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .brief-step-btn:hover:not(:disabled) { border-color: #00e676; color: #00e676; background: #193024; }
+  .brief-step-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .brief-close-x-btn {
+    background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.6);
+    padding: 6px 12px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
+    letter-spacing: 0.7px; text-transform: uppercase; cursor: pointer; font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .brief-close-x-btn:hover { background: #e11d48; color: #ffffff; border-color: #ffffff; }
   .panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .selector-label { color: #00e676; font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
   .selector-select {
@@ -168,7 +638,7 @@
   .mh-empty { font-size: 11.5px; color: #78909c; font-style: italic; }
 
   /* ==================== REPORT CARD STYLES ==================== */
-  .report-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05); overflow: hidden; }
+  .report-card { width: 100%; max-width: 1360px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05); overflow: hidden; }
   .classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
   .header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
   .unit-title { font-size: clamp(34px, 6vw, 50px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", Gadget, sans-serif; text-transform: uppercase; }
@@ -283,8 +753,8 @@
 <div class="control-panel-wrapper">
   <div class="control-panel">
     <div class="panel-section">
-      <label class="selector-label" for="divisionSelect">Category Filter:</label>
-      <select id="divisionSelect" class="selector-select" style="width: 235px;" onchange="applyFilter()">
+      <a href="./index.html" class="hub-back-pill" title="Return to WatchToweR Command Center">◂ COMMAND CENTER</a>
+      <select id="divisionSelect" class="selector-select" style="display: none;" onchange="applyFilter()">
         <option value="ALL">ALL UNITS</option>
         <option value="ACADEMY">ACADEMY / INFANTRY</option>
         <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR / AIRCRAFT</option>
@@ -294,10 +764,13 @@
         <option value="ONYX">ONYX / HOSTILE</option>
       </select>
     </div>
-    <div class="panel-section" style="flex: 1; min-width: 230px;">
-      <label class="selector-label" for="unitSelect">Select Unit:</label>
-      <select id="unitSelect" class="selector-select" style="flex: 1; max-width: none;" onchange="handleUnitSelectionChange(this.value)">
-        <option value="">Loading database...</option>
+    <div class="panel-section" style="flex: 1.2; min-width: 220px;">
+      <input type="search" id="unitSearchInput" class="unit-search-input" placeholder="🔍 Search unit, faction, weapon, or talent..." oninput="handleGallerySearchInput(this.value)">
+    </div>
+    <div class="panel-section" style="flex: 0.9; min-width: 200px;">
+      <label class="selector-label" for="unitSelect">Quick Jump:</label>
+      <select id="unitSelect" class="selector-select" style="flex: 1; min-width: 140px;" onchange="handleUnitSelectionChange(this.value)">
+        <option value="">Jump to Unit Brief...</option>
       </select>
     </div>
     <div class="panel-section">
@@ -306,16 +779,53 @@
            onmouseenter="openMatchupBriefHover()"
            onmouseleave="closeMatchupBriefHover()">
         <button type="button" id="btnTopMatchup" class="matchup-top-btn" onclick="openMatchupInPageView()">
-          MATCHUP
+          ⚔️ MATCHUP
         </button>
         <div id="matchupHoverCard" class="matchup-hover-card" onclick="openMatchupInPageView()"></div>
       </div>
     </div>
   </div>
+
+  <!-- GENERATION & INFANTRY ~ VEHICLE ~ AIRCRAFT FILTER STRIP -->
+  <div class="gallery-filter-strip" id="galleryFilterStrip">
+    <div class="filter-pill-group" id="genFilterPills">
+      <span class="filter-group-lbl">Generation:</span>
+      <button type="button" class="gal-pill active" onclick="setGenerationFilter('ALL')">ALL</button>
+    </div>
+    <div class="filter-pill-group" id="branchFilterPills">
+      <span class="filter-group-lbl">Branch:</span>
+      <button type="button" class="gal-pill branch-pill active" data-branch="ALL" onclick="setBranchFilter('ALL')">ALL</button>
+      <button type="button" class="gal-pill branch-pill" data-branch="INFANTRY" onclick="setBranchFilter('INFANTRY')">🪖 INFANTRY</button>
+      <button type="button" class="gal-pill branch-pill" data-branch="VEHICLE" onclick="setBranchFilter('VEHICLE')">🛡️ VEHICLE</button>
+      <button type="button" class="gal-pill branch-pill" data-branch="AIRCRAFT" onclick="setBranchFilter('AIRCRAFT')">✈️ AIRCRAFT</button>
+    </div>
+  </div>
 </div>
 
-<!-- ==================== REPORT VIEW CONTAINER (FULL 9-SECTION OUTPUT) ==================== -->
-<div id="report-view" style="display: none; width: 100%; max-width: 1140px; margin: 0 auto;">
+<!-- ==================== IMAGE-BASED GENERATION -> INFANTRY ~ VEHICLE ~ AIRCRAFT GALLERY ==================== -->
+<div id="unit-gallery-view" class="unit-gallery-shell">
+  <div style="width: 100%; padding: 36px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #81c784; font-weight: 700; letter-spacing: 0.8px;">
+    ⚡ Syncing WatchToweR Unit Portrait Database from MASTER_DB...
+  </div>
+</div>
+
+<!-- FLOATING HOVER BRIEF TOOLTIP -->
+<div id="unitFloatingHoverCard" class="unit-floating-hover-card"></div>
+
+<!-- ==================== IN-PAGE FULL UNIT BRIEF WRAPPER ==================== -->
+<div id="inpage-brief-wrapper" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
+  <div class="inpage-brief-nav-bar" id="inpageBriefTopBar">
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO UNIT GALLERY</button>
+    <span class="brief-breadcrumb" id="inpageBriefBreadcrumb">UNIT BRIEF</span>
+    <div class="brief-step-controls">
+      <button type="button" class="brief-step-btn" id="btnPrevUnitBrief" onclick="stepAdjacentUnit(-1)">◀ PREV</button>
+      <button type="button" class="brief-step-btn" id="btnNextUnitBrief" onclick="stepAdjacentUnit(1)">NEXT ▶</button>
+      <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
+    </div>
+  </div>
+
+  <!-- ==================== REPORT VIEW CONTAINER (FULL 9-SECTION OUTPUT) ==================== -->
+  <div id="report-view" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
   <div id="exportable-report-card" class="report-card">
     <div class="classification-bar">{{CLASSIFICATION}}</div>
     <div class="header-content">
@@ -461,6 +971,13 @@
     </div>
     <div class="classification-bar">{{CLASSIFICATION}}</div>
   </div>
+  </div>
+
+  <div class="inpage-brief-nav-bar bottom-bar">
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO UNIT GALLERY</button>
+    <span class="brief-breadcrumb" id="inpageBriefBottomBreadcrumb">RETURN TO PREVIOUS GALLERY VIEW</span>
+    <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -516,7 +1033,16 @@
 
   let globalMatrixCache = [];
   let filteredUnits = [];
+  let galleryOrderedUnits = [];
   let currentDivision = 'ALL';
+  let activeGenFilter = 'ALL';
+  let activeBranchFilter = 'ALL';
+  let gallerySearchQuery = '';
+  let collapsedGenKeys = new Set();
+  let savedGalleryScrollY = 0;
+  let lastViewedUnitKey = '';
+  let openedUnitKeyOnEntry = '';
+  let isFullBriefOpen = false;
   let activeUnitTitle = 'Unit';
   let activeUnitRecord = null;
 
@@ -844,17 +1370,285 @@
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
 
     let urlDiv = (urlParams.get('division') || urlParams.get('div') || hashParams.get('division') || hashParams.get('div') || '').trim().toUpperCase();
-    if (urlDiv === 'BARRACKS' || urlDiv === 'INFANTRY' || urlDiv === 'ACADEMY / INFANTRY') urlDiv = 'ACADEMY';
-    if (urlDiv === 'AIRCRAFT HANGER' || urlDiv === 'AIRFIELD' || urlDiv === 'AIR' || urlDiv === 'AIRCRAFT' || urlDiv === 'AIRCRAFT HANGAR / AIRCRAFT' || urlDiv === 'AIRCRAFT HANGER / AIRCRAFT') urlDiv = 'AIRCRAFT HANGAR';
-    if (urlDiv === 'WAR FACTORY' || urlDiv === 'VEHICLE' || urlDiv === 'VEHICLES' || urlDiv === 'TECH CENTER / VEHICLE') urlDiv = 'TECH CENTER';
-    if (urlDiv && divSelect) {
-      divSelect.value = urlDiv;
-      currentDivision = urlDiv;
-    } else if (divSelect) {
+    if (urlDiv === 'BARRACKS' || urlDiv === 'INFANTRY' || urlDiv === 'ACADEMY / INFANTRY' || urlDiv === 'ACADEMY') {
+      activeBranchFilter = 'INFANTRY';
+      urlDiv = 'ALL';
+    } else if (urlDiv === 'AIRCRAFT HANGER' || urlDiv === 'AIRFIELD' || urlDiv === 'AIR' || urlDiv === 'AIRCRAFT' || urlDiv === 'AIRCRAFT HANGAR' || urlDiv === 'AIRCRAFT HANGAR / AIRCRAFT' || urlDiv === 'AIRCRAFT HANGER / AIRCRAFT') {
+      activeBranchFilter = 'AIRCRAFT';
+      urlDiv = 'ALL';
+    } else if (urlDiv === 'WAR FACTORY' || urlDiv === 'VEHICLE' || urlDiv === 'VEHICLES' || urlDiv === 'TECH CENTER' || urlDiv === 'TECH CENTER / VEHICLE') {
+      activeBranchFilter = 'VEHICLE';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('CONTRACTOR') || urlDiv.includes('AGENCY')) {
+      activeGenFilter = 'CONTRACTOR';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('ONYX') || urlDiv.includes('HOSTILE')) {
+      activeGenFilter = 'HOSTILE';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('MERCENARY')) {
+      activeGenFilter = 'MERCENARY';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('UNIQUE')) {
+      activeGenFilter = 'UNIQUE';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('LEGENDARY')) {
+      activeGenFilter = 'LEGENDARY';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('WARLORD')) {
+      activeGenFilter = 'WARLORDS';
+      urlDiv = 'ALL';
+    } else if (urlDiv.includes('HERO')) {
+      activeGenFilter = 'HEROES';
+      urlDiv = 'ALL';
+    }
+
+    if (divSelect) {
+      divSelect.value = urlDiv || 'ALL';
       currentDivision = divSelect.value;
     }
 
+    syncBranchFilterButtons();
     applyFilter(true);
+  }
+
+  function romanToInt(romanStr) {
+    const s = String(romanStr || '').toUpperCase().trim();
+    const vals = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10 };
+    return vals[s] || 0;
+  }
+
+  function isMercenaryUnitRecord(rec) {
+    if (!rec || isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+    const bld = cleanVal(rec.STAT_BUILDING).toUpperCase();
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const faction = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const upGen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    return classif.includes('MERCENARY') || upGen.includes('MERCENARY') || upGen.includes('CHAMPION') || faction.includes('MERCENARY') || bld.includes('MERCENARY');
+  }
+
+  function isUniqueUnitRecord(rec) {
+    if (!rec || isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const gen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    const faction = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const uType = cleanVal(rec.STAT_TYPE).toUpperCase();
+    return classif.includes('UNIQUE') || gen.includes('UNIQUE') || faction.includes('UNIQUE') || /\bUNIQUE\b/.test(uType);
+  }
+
+  function isDirectHeroRecord(rec) {
+    if (!rec || isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+    return cleanVal(rec.CLASSIFICATION).toUpperCase().includes('HERO');
+  }
+
+  function isDirectWarlordRecord(rec) {
+    if (!rec || isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+    return cleanVal(rec.CLASSIFICATION).toUpperCase().includes('WARLORD');
+  }
+
+  function isDirectLegendaryRecord(rec) {
+    if (!rec || isContractorRecord(rec) || isOnyxRecord(rec) || isMercenaryUnitRecord(rec)) return false;
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const faction = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const upGen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    return classif.includes('LEGENDARY') || faction.includes('LEGENDARY') || upGen.includes('LEGENDARY');
+  }
+
+  function resolveUnitGenerationInfo(rec) {
+    if (isContractorRecord(rec)) {
+      return { key: 'CONTRACTOR', label: 'AGENCY CONTRACTORS', pillLabel: 'CONTRACTORS', sortRank: 90, accent: '#c084fc' };
+    }
+    if (isOnyxRecord(rec)) {
+      return { key: 'HOSTILE', label: 'HOSTILE FORCES (ONYX & KANE)', pillLabel: 'HOSTILES', sortRank: 80, accent: '#ff5252' };
+    }
+    if (isMercenaryUnitRecord(rec)) {
+      return { key: 'MERCENARY', label: 'MERCENARY & CHAMPION', pillLabel: 'MERCENARY', sortRank: 70, accent: '#f59e0b' };
+    }
+
+    const rawGen = cleanVal(rec.STAT_GENERATION);
+    const upGen = rawGen.toUpperCase();
+
+    const arcMatch = rawGen.match(/^(?:ARC|GEN(?:ERATION)?|SERIES)\s*([0-9]+|[IVX]+)\b/i);
+    if (arcMatch && arcMatch[1]) {
+      const num = parseInt(arcMatch[1], 10) || romanToInt(arcMatch[1]) || 1;
+      const prefix = /^GEN/i.test(rawGen) ? 'GEN' : (/^SERIES/i.test(rawGen) ? 'SERIES' : 'ARC');
+      const accents = { 1: '#ffd700', 2: '#38bdf8', 3: '#00e676', 4: '#2dd4bf', 5: '#f472b6' };
+      return {
+        key: `${prefix}_${num}`,
+        label: `${prefix} ${num} GENERATION`,
+        pillLabel: `${prefix} ${num}`,
+        sortRank: Math.max(1, 50 - num),
+        accent: accents[num] || '#00e676'
+      };
+    }
+
+    if (upGen) {
+      return { key: 'GEN_' + upGen.replace(/\W+/g, '_'), label: upGen, pillLabel: upGen, sortRank: 60, accent: '#38bdf8' };
+    }
+    return { key: 'UNCLASSIFIED', label: 'SPECIAL / UNCLASSIFIED', pillLabel: 'OTHER', sortRank: 75, accent: '#90a4ae' };
+  }
+
+  const BRANCH_META = {
+    INFANTRY: { key: 'INFANTRY', label: 'INFANTRY', icon: '🪖', color: '#00e676', order: 1 },
+    VEHICLE:  { key: 'VEHICLE',  label: 'VEHICLE',  icon: '🛡️', color: '#ffd700', order: 2 },
+    AIRCRAFT: { key: 'AIRCRAFT', label: 'AIRCRAFT', icon: '✈️', color: '#38bdf8', order: 3 },
+    SPECIAL:  { key: 'SPECIAL',  label: 'SPECIAL / SUPPORT', icon: '⚙️', color: '#c084fc', order: 4 }
+  };
+
+  function resolveUnitBranch(rec) {
+    const uType = cleanVal(rec.STAT_TYPE).toUpperCase();
+    const bld = cleanVal(rec.STAT_BUILDING).toUpperCase();
+    const div = cleanVal(rec.UNIT_DIVISION).toUpperCase();
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+
+    if (
+      /\b(?:AIRCRAFT|AIR|CHOPPER|HELI|HELICOPTER|PLANE|JET|GUNSHIP|BOMBER)\b/.test(uType) ||
+      /HANGAR|HANGER|AIRFIELD|AIRCRAFT/.test(bld) ||
+      /HANGAR|HANGER|AIRFIELD|AIRCRAFT/.test(div) ||
+      classif.includes('AIRCRAFT')
+    ) {
+      return 'AIRCRAFT';
+    }
+
+    if (
+      /\b(?:VEHICLE|TANK|MECH|ARTILLERY|BUGGY|TRUCK|APC|ROVER)\b/.test(uType) ||
+      /TECH CENTER|WAR FACTORY|VEHICLE/.test(bld) ||
+      /TECH CENTER|WAR FACTORY|VEHICLE/.test(div) ||
+      classif.includes('VEHICLE')
+    ) {
+      return 'VEHICLE';
+    }
+
+    if (
+      /\b(?:INFANTRY|LIGHT|MEDIUM|HEAVY|SNIPER|SOLDIER)\b/.test(uType) ||
+      /ACADEMY|BARRACK|MERCENARY/.test(bld) ||
+      /ACADEMY|BARRACK|INFANTRY/.test(div) ||
+      classif.includes('INFANTRY') ||
+      (!isContractorRecord(rec) && !isOnyxRecord(rec) && /\bUNIQUE\b/.test(uType))
+    ) {
+      return 'INFANTRY';
+    }
+
+    return 'SPECIAL';
+  }
+
+  function unitClassSortWeight(rec) {
+    const c = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    if (c.includes('HERO') || c.includes('WARLORD')) return 1;
+    if (c.includes('SOLDIER')) return 2;
+    if (c.includes('LEGENDARY')) return 3;
+    if (c.includes('UNIQUE')) return 4;
+    return 5;
+  }
+
+  function getClassChipClass(classifStr) {
+    const c = String(classifStr || '').toUpperCase();
+    if (c.includes('WARLORD')) return 'cls-warlord';
+    if (c.includes('HERO')) return 'cls-hero';
+    if (c.includes('LEGENDARY') || c.includes('MERCENARY')) return 'cls-legendary';
+    if (c.includes('UNIQUE')) return 'cls-unique';
+    if (c.includes('ONYX') || c.includes('KANE') || c.includes('HOSTILE')) return 'cls-hostile';
+    return 'cls-soldier';
+  }
+
+  function getUnitLinkedTargetNorm(rec) {
+    if (!rec) return '';
+    const raw = cleanVal(rec.LINKED_UNIT_NAME) || cleanVal(rec.LINKED_UNIT_ID) || cleanVal(rec.HERO) || cleanVal(rec.PAIRED_UNIT);
+    return normUnitMatchKey(raw);
+  }
+
+  function pairRoleOrderWeight(rec) {
+    const c = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    if (c.includes('HERO')) return 1;
+    if (c.includes('WARLORD')) return 2;
+    if (c.includes('SOLDIER')) return 3;
+    if (c.includes('LEGENDARY')) return 4;
+    return 5;
+  }
+
+  function groupBranchUnitsIntoPairsAndSolos(arr) {
+    const pairs = [];
+    const solos = [];
+    if (!Array.isArray(arr) || arr.length === 0) return { pairs, solos };
+
+    const usedIdx = new Set();
+
+    for (let i = 0; i < arr.length; i++) {
+      if (usedIdx.has(i)) continue;
+      const u = arr[i];
+      const uNorm = normUnitMatchKey(u.UNIT_NAME);
+      const uLink = getUnitLinkedTargetNorm(u);
+
+      let partnerIdx = -1;
+      for (let j = i + 1; j < arr.length; j++) {
+        if (usedIdx.has(j)) continue;
+        const p = arr[j];
+        const pNorm = normUnitMatchKey(p.UNIT_NAME);
+        const pLink = getUnitLinkedTargetNorm(p);
+        if ((uLink && uLink === pNorm) || (pLink && pLink === uNorm)) {
+          partnerIdx = j;
+          break;
+        }
+      }
+
+      if (partnerIdx !== -1) {
+        usedIdx.add(i);
+        usedIdx.add(partnerIdx);
+        const duo = [u, arr[partnerIdx]].sort((a, b) => {
+          const rDiff = pairRoleOrderWeight(a) - pairRoleOrderWeight(b);
+          if (rDiff !== 0) return rDiff;
+          return String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' });
+        });
+        const leadCls = cleanVal(duo[0].CLASSIFICATION).toUpperCase();
+        let pairVariant = 'pair-generic';
+        let leadLabel = 'LINKED';
+        let mateLabel = 'UNIT';
+        let sortGroup = 3;
+
+        if (leadCls.includes('WARLORD')) {
+          pairVariant = 'pair-warlord';
+          leadLabel = '👑 WARLORD';
+          mateLabel = 'SOLDIER';
+          sortGroup = 2;
+        } else if (leadCls.includes('HERO')) {
+          pairVariant = 'pair-hero';
+          leadLabel = '★ HERO';
+          mateLabel = 'SOLDIER';
+          sortGroup = 1;
+        }
+
+        pairs.push({
+          lead: duo[0],
+          mate: duo[1],
+          pairVariant,
+          leadLabel,
+          mateLabel,
+          sortGroup
+        });
+      }
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      if (!usedIdx.has(i)) solos.push(arr[i]);
+    }
+
+    pairs.sort((a, b) => {
+      if (a.sortGroup !== b.sortGroup) return a.sortGroup - b.sortGroup;
+      return String(a.lead.UNIT_NAME || '').localeCompare(String(b.lead.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    solos.sort((a, b) => {
+      const wDiff = unitClassSortWeight(a) - unitClassSortWeight(b);
+      if (wDiff !== 0) return wDiff;
+      return String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    return { pairs, solos };
+  }
+
+  function getUnitInitials(nameStr) {
+    const parts = String(nameStr || 'U').trim().split(/[\s&/-]+/).filter(Boolean);
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return String(parts[0] || 'U').slice(0, 2).toUpperCase();
   }
 
   function isContractorRecord(rec) {
@@ -913,94 +1707,199 @@
     return String(str || '').toUpperCase().replace(/\+/g, '&').replace(/&AMP;/g, '&').replace(/\s+/g, ' ').trim();
   }
 
-  function applyFilter(isInitialLoad = false) {
-    const divSelect = document.getElementById('divisionSelect');
-    currentDivision = (divSelect ? divSelect.value : 'ALL').toUpperCase();
-    const unitSelect = document.getElementById('unitSelect');
+  function setGenerationFilter(genKey) {
+    activeGenFilter = genKey || 'ALL';
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
 
-    filteredUnits = globalMatrixCache.filter(rec => {
-      if (isPureBuildingRecord(rec) && !rec._locallySaved) {
+  function setBranchFilter(branchKey) {
+    activeBranchFilter = branchKey || 'ALL';
+    syncBranchFilterButtons();
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
+
+  function syncBranchFilterButtons() {
+    document.querySelectorAll('#branchFilterPills .branch-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-branch') === activeBranchFilter);
+    });
+  }
+
+  function handleGallerySearchInput(val) {
+    gallerySearchQuery = String(val || '').trim().toLowerCase();
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
+
+  function toggleGenSectionCollapse(genKey) {
+    if (collapsedGenKeys.has(genKey)) collapsedGenKeys.delete(genKey);
+    else collapsedGenKeys.add(genKey);
+    const sec = document.querySelector(`.gen-section-card[data-gen-key="${genKey}"]`);
+    if (sec) sec.classList.toggle('collapsed', collapsedGenKeys.has(genKey));
+  }
+
+  function buildLinkedPartnerMap(allValidUnits) {
+    const byName = new Map();
+    const partnerMap = new Map();
+    allValidUnits.forEach(r => {
+      if (!r || isContractorRecord(r) || isOnyxRecord(r)) return;
+      const k = normUnitMatchKey(r.UNIT_NAME);
+      if (k) byName.set(k, r);
+    });
+    byName.forEach((rec, uNorm) => {
+      const linkKey = getUnitLinkedTargetNorm(rec);
+      if (linkKey && byName.has(linkKey) && linkKey !== uNorm) {
+        const mate = byName.get(linkKey);
+        partnerMap.set(uNorm, mate);
+        if (!partnerMap.has(linkKey)) partnerMap.set(linkKey, rec);
+      }
+    });
+    return partnerMap;
+  }
+
+  function matchesGenerationFilterKey(rec, filterKey, partnerMap) {
+    const genInfo = resolveUnitGenerationInfo(rec);
+    if (filterKey === 'ALL') {
+      return genInfo.key !== 'CONTRACTOR';
+    }
+    if (filterKey === 'HEROES') {
+      if (isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+      const mate = partnerMap ? partnerMap.get(normUnitMatchKey(rec.UNIT_NAME)) : null;
+      return isDirectHeroRecord(rec) || Boolean(mate && isDirectHeroRecord(mate));
+    }
+    if (filterKey === 'WARLORDS') {
+      if (isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+      const mate = partnerMap ? partnerMap.get(normUnitMatchKey(rec.UNIT_NAME)) : null;
+      return isDirectWarlordRecord(rec) || Boolean(mate && isDirectWarlordRecord(mate));
+    }
+    if (filterKey === 'LEGENDARY') {
+      if (isContractorRecord(rec) || isOnyxRecord(rec)) return false;
+      const mate = partnerMap ? partnerMap.get(normUnitMatchKey(rec.UNIT_NAME)) : null;
+      return isDirectLegendaryRecord(rec) || Boolean(mate && isDirectLegendaryRecord(mate));
+    }
+    if (filterKey === 'UNIQUE') {
+      return isUniqueUnitRecord(rec);
+    }
+    return genInfo.key === filterKey;
+  }
+
+  function buildGenerationFilterPills(allValidUnits, partnerMap) {
+    const wrap = document.getElementById('genFilterPills');
+    if (!wrap) return;
+
+    const arcMap = new Map();
+    let combatTotal = 0;
+
+    allValidUnits.forEach(rec => {
+      const g = resolveUnitGenerationInfo(rec);
+      if (g.key !== 'CONTRACTOR') combatTotal++;
+      if (g.sortRank < 65) {
+        if (!arcMap.has(g.key)) {
+          arcMap.set(g.key, { ...g, count: 0 });
+        }
+        arcMap.get(g.key).count++;
+      }
+    });
+
+    const sortedArcs = Array.from(arcMap.values()).sort((a, b) => a.sortRank - b.sortRank || a.label.localeCompare(b.label));
+
+    const tierFilterDefs = [
+      { key: 'HEROES', label: 'HEROES', alwaysShow: true, title: 'Heroes & Linked Soldiers' },
+      { key: 'WARLORDS', label: 'WARLORDS', alwaysShow: true, title: 'Warlords & Linked Soldiers' },
+      { key: 'LEGENDARY', label: 'LEGENDARY', alwaysShow: true, title: 'Legendary Units & Pairs' },
+      { key: 'UNIQUE', label: 'UNIQUE', alwaysShow: true, title: 'Unique Units' },
+      { key: 'MERCENARY', label: 'MERCENARY', alwaysShow: false, title: 'Mercenary & Champion Units' },
+      { key: 'HOSTILE', label: 'HOSTILES', alwaysShow: false, title: 'Hostile Forces (Onyx & Kane)' },
+      { key: 'CONTRACTOR', label: 'CONTRACTORS', alwaysShow: false, title: 'Agency Contractors' }
+    ];
+
+    let html = `<span class="filter-group-lbl">Generation:</span>`;
+    html += `<button type="button" class="gal-pill ${activeGenFilter === 'ALL' ? 'active' : ''}" onclick="setGenerationFilter('ALL')">ALL COMBAT <span class="gal-pill-cnt">${combatTotal}</span></button>`;
+
+    sortedArcs.forEach(g => {
+      const isAct = activeGenFilter === g.key;
+      html += `<button type="button" class="gal-pill ${isAct ? 'active' : ''}" onclick="setGenerationFilter('${g.key}')">${escapeAttr(g.pillLabel)} <span class="gal-pill-cnt">${g.count}</span></button>`;
+    });
+
+    html += `<span class="gal-pill-sep"></span>`;
+
+    tierFilterDefs.forEach(td => {
+      const cnt = allValidUnits.reduce((sum, r) => sum + (matchesGenerationFilterKey(r, td.key, partnerMap) ? 1 : 0), 0);
+      if (!td.alwaysShow && cnt === 0) return;
+      const isAct = activeGenFilter === td.key;
+      html += `<button type="button" class="gal-pill ${isAct ? 'active' : ''}" title="${escapeAttr(td.title)}" onclick="setGenerationFilter('${td.key}')">${escapeAttr(td.label)} <span class="gal-pill-cnt">${cnt}</span></button>`;
+    });
+
+    wrap.innerHTML = html;
+  }
+
+  function applyFilter(isInitialLoad = false) {
+    const unitSelect = document.getElementById('unitSelect');
+    const allValidUnits = globalMatrixCache.filter(rec => rec && rec.UNIT_NAME && (!isPureBuildingRecord(rec) || rec._locallySaved));
+    const partnerMap = buildLinkedPartnerMap(allValidUnits);
+
+    buildGenerationFilterPills(allValidUnits, partnerMap);
+
+    filteredUnits = allValidUnits.filter(rec => {
+      const genInfo = resolveUnitGenerationInfo(rec);
+      const branchKey = resolveUnitBranch(rec);
+
+      // Keep Agency Contractors out of default "ALL COMBAT" unless explicitly filtered via CONTRACTORS pill or search
+      if (activeGenFilter === 'ALL') {
+        if (genInfo.key === 'CONTRACTOR' && !gallerySearchQuery) return false;
+      } else if (!matchesGenerationFilterKey(rec, activeGenFilter, partnerMap)) {
         return false;
       }
 
-      const bldReq = (rec.STAT_BUILDING || '').toUpperCase();
-      const classif = (rec.CLASSIFICATION || '').toUpperCase();
-      const faction = (rec.STAT_FACTION || '').toUpperCase();
-      const gen = (rec.STAT_GENERATION || '').toUpperCase();
+      if (activeBranchFilter !== 'ALL' && branchKey !== activeBranchFilter) {
+        return false;
+      }
 
-      if (currentDivision === 'ALL' || currentDivision === 'ALL UNITS') return true;
-      if (currentDivision.includes('ONYX')) return isOnyxRecord(rec);
-      if (currentDivision.includes('CONTRACTOR') || currentDivision.includes('AGENCY')) return isContractorRecord(rec);
-      if (currentDivision.includes('MERCENARY')) {
-        return classif.includes('MERCENARY') || gen.includes('MERCENARY') || faction.includes('MERCENARY') || bldReq.includes('MERCENARY');
+      if (gallerySearchQuery) {
+        const hay = [
+          rec.UNIT_NAME,
+          rec.CLASSIFICATION,
+          rec.STAT_GENERATION,
+          rec.STAT_FACTION,
+          rec.STAT_TYPE,
+          rec.STAT_WEAPON_TYPE,
+          rec.STAT_DAMAGE_TYPE,
+          rec.STAT_ARMOR_TYPE,
+          rec.LINKED_UNIT_NAME,
+          rec.RELEASE_DATE,
+          rec.UNIT_QUOTE,
+          rec.TALENT,
+          rec.TALENT_LVL_1
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (!hay.includes(gallerySearchQuery)) return false;
       }
-      if (currentDivision.includes('ACADEMY') || currentDivision.includes('BARRACK') || currentDivision.includes('INFANTRY')) {
-        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
-        if (classif.includes('MERCENARY') || gen.includes('MERCENARY') || faction.includes('MERCENARY') || bldReq.includes('MERCENARY')) return false;
-        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
-        const uType = (rec.STAT_TYPE || '').toUpperCase();
-        return (
-          bldReq.includes('ACADEMY') ||
-          bldReq.includes('BARRACK') ||
-          unitDiv.includes('ACADEMY') ||
-          unitDiv.includes('INFANTRY') ||
-          uType.includes('INFANTRY') ||
-          classif.includes('INFANTRY')
-        );
-      }
-      if (currentDivision.includes('HANGAR') || currentDivision.includes('HANGER') || currentDivision.includes('AIRFIELD') || currentDivision.includes('AIRCRAFT')) {
-        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
-        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
-        const uType = (rec.STAT_TYPE || '').toUpperCase();
-        return (
-          bldReq.includes('HANGAR') ||
-          bldReq.includes('HANGER') ||
-          bldReq.includes('AIRFIELD') ||
-          bldReq.includes('AIRCRAFT') ||
-          unitDiv.includes('HANGAR') ||
-          unitDiv.includes('HANGER') ||
-          unitDiv.includes('AIRFIELD') ||
-          uType.includes('AIR') ||
-          uType.includes('CHOPPER') ||
-          classif.includes('AIRCRAFT')
-        );
-      }
-      if (currentDivision.includes('TECH CENTER') || currentDivision.includes('WAR FACTORY') || currentDivision.includes('VEHICLE')) {
-        if (isOnyxRecord(rec) || isContractorRecord(rec)) return false;
-        const unitDiv = (rec.UNIT_DIVISION || '').toUpperCase();
-        const uType = (rec.STAT_TYPE || '').toUpperCase();
-        return (
-          bldReq.includes('TECH CENTER') ||
-          bldReq.includes('WAR FACTORY') ||
-          unitDiv.includes('TECH CENTER') ||
-          unitDiv.includes('WAR FACTORY') ||
-          uType.includes('VEHICLE') ||
-          uType.includes('TANK') ||
-          classif.includes('VEHICLE')
-        );
-      }
-      return bldReq.includes(currentDivision) || classif.includes(currentDivision);
+
+      return true;
     });
 
-    if ((currentDivision === 'ALL' || currentDivision === 'ALL UNITS') && filteredUnits.length === 0 && globalMatrixCache.length > 0) {
-      filteredUnits = globalMatrixCache.slice();
-    }
+    renderUnitGallery(filteredUnits);
 
-    if (!unitSelect) return;
-    filteredUnits.sort((a, b) => String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' }));
-    unitSelect.innerHTML = '<option value="">Select Record...</option>';
-    let count = 0;
-
-    filteredUnits.forEach((row, idx) => {
-      if (row.UNIT_NAME) {
+    if (unitSelect) {
+      const alphaUnits = filteredUnits.slice().sort((a, b) =>
+        String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' })
+      );
+      unitSelect.innerHTML = '<option value="">Jump to Unit Brief...</option>';
+      alphaUnits.forEach(row => {
         const opt = document.createElement('option');
-        opt.value = idx;
+        opt.value = row.UNIT_NAME;
         opt.textContent = row.UNIT_NAME;
         unitSelect.appendChild(opt);
-        count++;
-      }
-    });
+      });
+    }
 
+    const count = filteredUnits.length;
     showStatusMsg(`Ready (${count} ${count === 1 ? 'Unit' : 'Units'})`);
 
     if (isInitialLoad) {
@@ -1008,54 +1907,410 @@
       const targetNorm = normUnitMatchKey(requestedRaw);
 
       if (targetNorm) {
-        let matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm);
-        if (matchedIndex === -1) {
-          matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME).includes(targetNorm) || targetNorm.includes(normUnitMatchKey(r.UNIT_NAME)));
+        let matchRec = allValidUnits.find(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm);
+        if (!matchRec) {
+          matchRec = allValidUnits.find(r => normUnitMatchKey(r.UNIT_NAME).includes(targetNorm) || targetNorm.includes(normUnitMatchKey(r.UNIT_NAME)));
         }
-
-        if (matchedIndex === -1 && currentDivision !== 'ALL') {
-          if (divSelect) divSelect.value = 'ALL';
-          currentDivision = 'ALL';
-          filteredUnits = globalMatrixCache.filter(rec => !isPureBuildingRecord(rec) || rec._locallySaved);
-          filteredUnits.sort((a, b) => String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' }));
-          unitSelect.innerHTML = '<option value="">Select Record...</option>';
-          filteredUnits.forEach((row, idx) => {
-            if (row.UNIT_NAME) {
-              const opt = document.createElement('option');
-              opt.value = idx;
-              opt.textContent = row.UNIT_NAME;
-              unitSelect.appendChild(opt);
-            }
-          });
-          matchedIndex = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm || normUnitMatchKey(r.UNIT_NAME).includes(targetNorm));
-        }
-
-        if (matchedIndex !== -1) {
-          unitSelect.value = String(matchedIndex);
-          handleUnitSelectionChange(matchedIndex);
+        if (matchRec) {
+          const mGen = resolveUnitGenerationInfo(matchRec);
+          if (mGen.key === 'CONTRACTOR' && activeGenFilter === 'ALL') {
+            activeGenFilter = 'CONTRACTOR';
+            applyFilter(false);
+          }
+          openUnitBriefByName(matchRec.UNIT_NAME, { fromDeepLink: true });
           return;
         }
       }
-
-      if (filteredUnits.length > 0) {
-        unitSelect.value = "0";
-        handleUnitSelectionChange(0);
-      }
-    } else if (filteredUnits.length > 0) {
-      unitSelect.value = "0";
-      handleUnitSelectionChange(0);
-    } else {
-      document.getElementById('report-view').style.display = 'none';
     }
   }
 
-  function handleUnitSelectionChange(idx) {
-    if (idx === "" || idx === null || idx === undefined || !filteredUnits[idx]) {
-      document.getElementById('report-view').style.display = 'none';
+  function renderUnitGallery(unitsList) {
+    const galleryEl = document.getElementById('unit-gallery-view');
+    if (!galleryEl) return;
+
+    galleryOrderedUnits = [];
+
+    if (!unitsList || unitsList.length === 0) {
+      galleryEl.innerHTML = `
+        <div style="width: 100%; padding: 34px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #90a4ae;">
+          No units matched your current Generation / Branch / Search filter.
+          <div style="margin-top: 10px;">
+            <button type="button" class="gal-pill active" onclick="activeGenFilter='ALL'; activeBranchFilter='ALL'; gallerySearchQuery=''; document.getElementById('unitSearchInput').value=''; syncBranchFilterButtons(); applyFilter(false);">Reset All Filters</button>
+          </div>
+        </div>
+      `;
       return;
     }
-    const unitRecord = filteredUnits[idx];
+
+    const genBuckets = new Map();
+    unitsList.forEach(rec => {
+      const g = resolveUnitGenerationInfo(rec);
+      const b = resolveUnitBranch(rec);
+      if (!genBuckets.has(g.key)) {
+        genBuckets.set(g.key, {
+          info: g,
+          branches: { INFANTRY: [], VEHICLE: [], AIRCRAFT: [], SPECIAL: [] }
+        });
+      }
+      genBuckets.get(g.key).branches[b].push(rec);
+    });
+
+    const orderedGens = Array.from(genBuckets.values()).sort((a, b) =>
+      a.info.sortRank - b.info.sortRank || a.info.label.localeCompare(b.info.label)
+    );
+
+    const branchOrderKeys = ['INFANTRY', 'VEHICLE', 'AIRCRAFT', 'SPECIAL'];
+    let html = '';
+
+    orderedGens.forEach(genGroup => {
+      const gInfo = genGroup.info;
+      let totalInGen = 0;
+      const summaryParts = [];
+
+      branchOrderKeys.forEach(bKey => {
+        const arr = genGroup.branches[bKey];
+        arr.sort((a, b) => {
+          const wDiff = unitClassSortWeight(a) - unitClassSortWeight(b);
+          if (wDiff !== 0) return wDiff;
+          return String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' });
+        });
+        if (arr.length > 0) {
+          totalInGen += arr.length;
+          summaryParts.push(`${BRANCH_META[bKey].label}: ${arr.length}`);
+        }
+      });
+
+      const isCollapsed = collapsedGenKeys.has(gInfo.key);
+      let branchesHtml = '';
+
+      branchOrderKeys.forEach(bKey => {
+        const arr = genGroup.branches[bKey];
+        if (!arr || arr.length === 0) return;
+        const bMeta = BRANCH_META[bKey];
+        const { pairs, solos } = groupBranchUnitsIntoPairsAndSolos(arr);
+
+        const buildUnitTileHtml = (rec, isInsidePair) => {
+          galleryOrderedUnits.push(rec);
+          const uName = cleanVal(rec.UNIT_NAME);
+          const uNorm = normUnitMatchKey(uName);
+          const safeJsName = escapeAttr(uName).replace(/'/g, "\\'");
+          const rawImg = cleanVal(rec.UNIT_IMAGE_URL) || cleanVal(rec.IMAGE_URL) || cleanVal(rec.UNIT_IMG_URL);
+          const imgUrl = formatImageUrl(rawImg);
+          const classif = cleanVal(rec.CLASSIFICATION) || bMeta.label;
+          let shortClass = classif.split('//')[0].trim();
+          if (isUniqueUnitRecord(rec) && !shortClass.toUpperCase().includes('UNIQUE')) {
+            shortClass = 'UNIQUE';
+          }
+          const faction = cleanVal(rec.STAT_FACTION);
+          const relDate = cleanVal(rec.RELEASE_DATE);
+          const linkedRaw = cleanVal(rec.LINKED_UNIT_NAME);
+          const dmgOrWep = cleanVal(rec.STAT_WEAPON_TYPE) || cleanVal(rec.STAT_DAMAGE_TYPE) || cleanVal(rec.STAT_TYPE);
+          const subLine = (!isInsidePair && linkedRaw && !isOnyxRecord(rec))
+            ? `⇄ ${linkedRaw}`
+            : ([relDate, dmgOrWep].filter(Boolean).join(' • ') || bMeta.label);
+          const isRecent = lastViewedUnitKey && lastViewedUnitKey === uNorm;
+
+          const portraitInner = imgUrl
+            ? `<img src="${escapeAttr(imgUrl)}" alt="${escapeAttr(uName)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+               <div class="ugt-monogram" style="display:none;">
+                 <span class="ugt-monogram-initials">${escapeAttr(getUnitInitials(uName))}</span>
+                 <span class="ugt-monogram-sub">${escapeAttr(bMeta.label)}</span>
+               </div>`
+            : `<div class="ugt-monogram">
+                 <span class="ugt-monogram-initials">${escapeAttr(getUnitInitials(uName))}</span>
+                 <span class="ugt-monogram-sub">${escapeAttr(bMeta.label)}</span>
+               </div>`;
+
+          return `
+            <div class="unit-gallery-tile ${isRecent ? 'recently-viewed' : ''}"
+                 data-unit-key="${escapeAttr(uNorm)}"
+                 onclick="openUnitBriefByName('${safeJsName}')"
+                 onmouseenter="showUnitHoverBrief(event, '${safeJsName}')"
+                 onmousemove="moveUnitHoverBrief(event)"
+                 onmouseleave="hideUnitHoverBrief()">
+              <div class="ugt-portrait-box">
+                <span class="ugt-class-chip ${getClassChipClass(shortClass)}">${escapeAttr(shortClass)}</span>
+                ${faction ? `<span class="ugt-faction-chip">${escapeAttr(faction)}</span>` : ''}
+                ${portraitInner}
+              </div>
+              <div class="ugt-nameplate">
+                <div class="ugt-name">${escapeAttr(uName)}</div>
+                <div class="ugt-meta-sub">${escapeAttr(subLine)}</div>
+              </div>
+            </div>
+          `;
+        };
+
+        const pairedPodsHtml = pairs.map(p => `
+          <div class="unit-linked-pair-pod ${p.pairVariant}">
+            <div class="unit-pair-link-bar" title="${escapeAttr(cleanVal(p.lead.UNIT_NAME))} ⇄ ${escapeAttr(cleanVal(p.mate.UNIT_NAME))}">
+              <span class="uplb-role lead">${p.leadLabel}</span>
+              <span class="uplb-bridge">
+                <span class="uplb-rail"></span>
+                <span class="uplb-pill">⇄ LINKED</span>
+                <span class="uplb-rail"></span>
+              </span>
+              <span class="uplb-role mate">${p.mateLabel}</span>
+            </div>
+            <div class="unit-pair-cards-row">
+              ${buildUnitTileHtml(p.lead, true)}
+              ${buildUnitTileHtml(p.mate, true)}
+            </div>
+          </div>
+        `).join('');
+
+        const soloTilesHtml = solos.map(rec => buildUnitTileHtml(rec, false)).join('');
+
+        const grpSizeCls = arr.length <= 6 ? 'is-compact-group' : 'is-large-group';
+
+        branchesHtml += `
+          <div class="branch-subgroup ${grpSizeCls}" data-grp-cols="${arr.length}" style="--branch-color: ${bMeta.color}; --grp-cols: ${arr.length};">
+            <div class="branch-subheader">
+              <span class="branch-pill-tag" style="--branch-color: ${bMeta.color};">${bMeta.icon} ${escapeAttr(bMeta.label)} (${arr.length})</span>
+              ${pairs.length > 0 && arr.length > 2 ? `<span class="branch-pair-count-tag">⇄ ${pairs.length} LINKED ${pairs.length === 1 ? 'PAIR' : 'PAIRS'}</span>` : ''}
+              <span class="branch-divider-line"></span>
+            </div>
+            <div class="branch-unit-grid">
+              ${pairedPodsHtml}${soloTilesHtml}
+            </div>
+          </div>
+        `;
+      });
+
+      const secSizeCls = totalInGen <= 4 ? 'is-compact-section' : (totalInGen <= 6 ? 'is-medium-section' : '');
+      const showSummaryLine = !(summaryParts.length <= 1 && totalInGen <= 2);
+
+      html += `
+        <section class="gen-section-card ${secSizeCls} ${isCollapsed ? 'collapsed' : ''}" data-gen-key="${escapeAttr(gInfo.key)}" style="--gen-accent: ${gInfo.accent}; --sec-cols: ${totalInGen}; --sec-groups: ${Math.max(1, summaryParts.length)};">
+          <div class="gen-section-header" onclick="toggleGenSectionCollapse('${escapeAttr(gInfo.key)}')">
+            <div class="gen-hdr-left">
+              <span class="gen-title-badge">${escapeAttr(gInfo.label)}</span>
+              ${showSummaryLine ? `<span class="gen-branch-summary">${escapeAttr(summaryParts.join('  ~  '))}</span>` : ''}
+            </div>
+            <div class="gen-hdr-right">
+              <span class="gen-count-pill">${totalInGen} ${totalInGen === 1 ? 'UNIT' : 'UNITS'}</span>
+              <span class="gen-chevron">▼</span>
+            </div>
+          </div>
+          <div class="gen-section-body">
+            ${branchesHtml}
+          </div>
+        </section>
+      `;
+    });
+
+    galleryEl.innerHTML = html;
+  }
+
+  /* ==================== HOVER BRIEF TOOLTIP OVER PORTRAIT ==================== */
+  function showUnitHoverBrief(ev, unitName) {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+    const card = document.getElementById('unitFloatingHoverCard');
+    if (!card) return;
+
+    const targetNorm = normUnitMatchKey(unitName);
+    const rec = globalMatrixCache.find(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm);
+    if (!rec) return;
+
+    const gInfo = resolveUnitGenerationInfo(rec);
+    const bKey = resolveUnitBranch(rec);
+    const bMeta = BRANCH_META[bKey] || BRANCH_META.INFANTRY;
+    const faction = cleanVal(rec.STAT_FACTION);
+    let classif = (cleanVal(rec.CLASSIFICATION) || bMeta.label).split('//')[0].trim();
+    if (isUniqueUnitRecord(rec) && !classif.toUpperCase().includes('UNIQUE')) {
+      classif = 'UNIQUE';
+    }
+    const relDate = cleanVal(rec.RELEASE_DATE);
+    const maxHp = cleanVal(rec.STAT_HP_RANGE_MAX) || cleanVal(rec.STAT_HP_MAX) || cleanVal(rec.STAT_HP_RANGE) || cleanVal(rec.STAT_HP) || '—';
+    const maxDps = cleanVal(rec.STAT_DPS_RANGE_MAX) || cleanVal(rec.STAT_DPS_MAX) || cleanVal(rec.STAT_DPS_RANGE) || cleanVal(rec.STAT_DPS) || '—';
+    const rng = cleanVal(rec.STAT_RANGE) || '—';
+    const spd = cleanVal(rec.STAT_SPEED) || cleanVal(rec.STAT_MAX_SPEED) || '—';
+    const dmgArm = [cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE)].filter(Boolean).join(' / ') || '—';
+    const targetsOrLink = cleanVal(rec.LINKED_UNIT_NAME) ? `⇄ ${cleanVal(rec.LINKED_UNIT_NAME)}` : (cleanVal(rec.STAT_TARGETS) || '—');
+    const sixthLbl = cleanVal(rec.LINKED_UNIT_NAME) ? 'Linked' : 'Targets';
+
+    const rawBrief = cleanVal(rec.TALENT_LVL_1) || cleanVal(rec.TALENT) || cleanVal(rec.CONTRACTOR_TALENT) || cleanVal(rec.UNIT_QUOTE) || cleanVal(rec.QUOTE) || '';
+    const cleanBrief = rawBrief.replace(/\s+/g, ' ').trim();
+
+    const subParts = [gInfo.pillLabel, bMeta.label, faction].filter(Boolean).join(' • ');
+
+    card.innerHTML = `
+      <div class="ufhc-top">
+        <div>
+          <div class="ufhc-name">${escapeAttr(cleanVal(rec.UNIT_NAME))}</div>
+          <div class="ufhc-sub">${escapeAttr(subParts)}${relDate ? ' • ' + escapeAttr(relDate) : ''}</div>
+        </div>
+        <span class="ufhc-badge">${escapeAttr(classif)}</span>
+      </div>
+      <div class="ufhc-stats-grid">
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Max HP</span><span class="ufhc-stat-v">${escapeAttr(maxHp)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Max DPS</span><span class="ufhc-stat-v">${escapeAttr(maxDps)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Range</span><span class="ufhc-stat-v">${escapeAttr(rng)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Speed</span><span class="ufhc-stat-v">${escapeAttr(spd)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Dmg/Arm</span><span class="ufhc-stat-v">${escapeAttr(dmgArm)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">${sixthLbl}</span><span class="ufhc-stat-v">${escapeAttr(targetsOrLink)}</span></div>
+      </div>
+      ${cleanBrief ? `<div class="ufhc-summary">${escapeAttr(cleanBrief)}</div>` : ''}
+      <div class="ufhc-cta">🖱️ Click Portrait to Open Full In-Page Unit Brief</div>
+    `;
+    card.style.display = 'block';
+    moveUnitHoverBrief(ev);
+  }
+
+  function moveUnitHoverBrief(ev) {
+    const card = document.getElementById('unitFloatingHoverCard');
+    if (!card || card.style.display === 'none' || !ev) return;
+
+    const pad = 16;
+    const rect = card.getBoundingClientRect();
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    let x = ev.clientX + 18;
+    let y = ev.clientY + 16;
+
+    if (x + rect.width + pad > vw) {
+      x = Math.max(pad, ev.clientX - rect.width - 18);
+    }
+    if (y + rect.height + pad > vh) {
+      y = Math.max(pad, vh - rect.height - pad);
+    }
+
+    card.style.left = x + 'px';
+    card.style.top = y + 'px';
+  }
+
+  function hideUnitHoverBrief() {
+    const card = document.getElementById('unitFloatingHoverCard');
+    if (card) card.style.display = 'none';
+  }
+
+  /* ==================== IN-PAGE FULL BRIEF OPEN & RETURN TO PREVIOUS GALLERY VIEW ==================== */
+  function openUnitBriefByName(unitName, opts = {}) {
+    if (!unitName) return;
+    hideUnitHoverBrief();
+
+    const targetNorm = normUnitMatchKey(unitName);
+    let unitRecord = galleryOrderedUnits.find(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm)
+                  || filteredUnits.find(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm)
+                  || globalMatrixCache.find(r => normUnitMatchKey(r.UNIT_NAME) === targetNorm);
+
+    if (!unitRecord) return;
+
+    if (!isFullBriefOpen) {
+      savedGalleryScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      openedUnitKeyOnEntry = targetNorm;
+    }
+
+    lastViewedUnitKey = targetNorm;
+    isFullBriefOpen = true;
+
+    const galleryEl = document.getElementById('unit-gallery-view');
+    const filterStrip = document.getElementById('galleryFilterStrip');
+    const wrapperEl = document.getElementById('inpage-brief-wrapper');
+    const unitSelect = document.getElementById('unitSelect');
+
+    if (galleryEl) galleryEl.style.display = 'none';
+    if (filterStrip) filterStrip.style.display = 'none';
+    if (wrapperEl) wrapperEl.style.display = 'block';
+    if (unitSelect) {
+      const hasOpt = Array.from(unitSelect.options).some(o => normUnitMatchKey(o.value) === targetNorm);
+      unitSelect.value = hasOpt ? unitRecord.UNIT_NAME : '';
+    }
+
     renderReport(unitRecord);
+    updateInpageBriefNavState(unitRecord);
+
+    if (!opts.preserveScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function updateInpageBriefNavState(unitRecord) {
+    if (!unitRecord) return;
+    const gInfo = resolveUnitGenerationInfo(unitRecord);
+    const bKey = resolveUnitBranch(unitRecord);
+    const bMeta = BRANCH_META[bKey] || BRANCH_META.INFANTRY;
+    const crumb = document.getElementById('inpageBriefBreadcrumb');
+    if (crumb) {
+      crumb.textContent = `${gInfo.pillLabel}  ▸  ${bMeta.label}  ▸  ${cleanVal(unitRecord.UNIT_NAME)}`;
+    }
+
+    const roster = galleryOrderedUnits.length > 0 ? galleryOrderedUnits : filteredUnits;
+    const curIdx = roster.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === normUnitMatchKey(unitRecord.UNIT_NAME));
+    const prevBtn = document.getElementById('btnPrevUnitBrief');
+    const nextBtn = document.getElementById('btnNextUnitBrief');
+    if (prevBtn) prevBtn.disabled = curIdx <= 0;
+    if (nextBtn) nextBtn.disabled = curIdx === -1 || curIdx >= roster.length - 1;
+  }
+
+  function stepAdjacentUnit(delta) {
+    if (!activeUnitRecord) return;
+    const roster = galleryOrderedUnits.length > 0 ? galleryOrderedUnits : filteredUnits;
+    const curIdx = roster.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === normUnitMatchKey(activeUnitRecord.UNIT_NAME));
+    if (curIdx === -1) return;
+    const nextRec = roster[curIdx + delta];
+    if (nextRec && nextRec.UNIT_NAME) {
+      openUnitBriefByName(nextRec.UNIT_NAME);
+    }
+  }
+
+  function closeFullBriefReturnToGallery(skipScrollRestore = false) {
+    hideUnitHoverBrief();
+    isFullBriefOpen = false;
+
+    const galleryEl = document.getElementById('unit-gallery-view');
+    const filterStrip = document.getElementById('galleryFilterStrip');
+    const wrapperEl = document.getElementById('inpage-brief-wrapper');
+    const reportEl = document.getElementById('report-view');
+    const unitSelect = document.getElementById('unitSelect');
+
+    if (wrapperEl) wrapperEl.style.display = 'none';
+    if (reportEl) reportEl.style.display = 'none';
+    if (filterStrip) filterStrip.style.display = 'flex';
+    if (galleryEl) galleryEl.style.display = 'flex';
+    if (unitSelect) unitSelect.value = '';
+
+    // Highlight the unit card we just returned from
+    document.querySelectorAll('.unit-gallery-tile.recently-viewed').forEach(el => el.classList.remove('recently-viewed'));
+    let targetTile = null;
+    if (lastViewedUnitKey) {
+      document.querySelectorAll('.unit-gallery-tile').forEach(el => {
+        if (el.getAttribute('data-unit-key') === lastViewedUnitKey) {
+          el.classList.add('recently-viewed');
+          targetTile = el;
+        }
+      });
+    }
+
+    if (!skipScrollRestore) {
+      requestAnimationFrame(() => {
+        if (targetTile && lastViewedUnitKey !== openedUnitKeyOnEntry) {
+          targetTile.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          window.scrollTo({ top: savedGalleryScrollY || 0, behavior: 'instant' });
+        }
+      });
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isFullBriefOpen) {
+      closeFullBriefReturnToGallery();
+    }
+  });
+
+  function handleUnitSelectionChange(val) {
+    if (!val) {
+      if (isFullBriefOpen) closeFullBriefReturnToGallery();
+      return;
+    }
+    const asIdx = Number(val);
+    if (!Number.isNaN(asIdx) && String(asIdx) === String(val) && filteredUnits[asIdx]) {
+      openUnitBriefByName(filteredUnits[asIdx].UNIT_NAME);
+      return;
+    }
+    openUnitBriefByName(val);
   }
 
   function openExternalSafely(url) {
@@ -1079,29 +2334,9 @@
   function openPopoutWindow(queryIdentifier) {
     if (!queryIdentifier) return;
     const cleanTarget = normUnitMatchKey(queryIdentifier);
-    const targetIdx = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
-
-    if (targetIdx !== -1) {
-      const unitSelect = document.getElementById('unitSelect');
-      if (unitSelect) unitSelect.value = String(targetIdx);
-      handleUnitSelectionChange(targetIdx);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
     const anyMatch = globalMatrixCache.find(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
     if (anyMatch) {
-      const divSelect = document.getElementById('divisionSelect');
-      if (divSelect) divSelect.value = 'ALL';
-      applyFilter(false);
-      const allIdx = filteredUnits.findIndex(r => normUnitMatchKey(r.UNIT_NAME) === cleanTarget);
-      if (allIdx !== -1) {
-        document.getElementById('unitSelect').value = String(allIdx);
-        handleUnitSelectionChange(allIdx);
-      } else {
-        renderReport(anyMatch);
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      openUnitBriefByName(anyMatch.UNIT_NAME);
     } else {
       alert(`Linked record "${queryIdentifier}" was not found in MASTER_DB.`);
     }
@@ -1640,8 +2875,8 @@
     const card = document.getElementById('matchupHoverCard');
     if (!wrap || !card) return;
 
-    if (!activeUnitRecord || !activeUnitRecord.UNIT_NAME) {
-      card.innerHTML = `<div class="mh-empty">Select a unit to preview matchup intelligence.</div>`;
+    if (!isFullBriefOpen || !activeUnitRecord || !activeUnitRecord.UNIT_NAME) {
+      card.innerHTML = `<div class="mh-empty">Click ⚔️ MATCHUP to launch the Simulator, or open any Unit Brief to preview its counter list.</div>`;
       wrap.classList.add('open');
       return;
     }
@@ -1706,7 +2941,7 @@
   }
 
   function openMatchupInPageView(optionalOpponentName) {
-    const myName = (activeUnitRecord && !isContractorRecord(activeUnitRecord) && activeUnitRecord.UNIT_NAME) ? activeUnitRecord.UNIT_NAME : '';
+    const myName = (isFullBriefOpen && activeUnitRecord && !isContractorRecord(activeUnitRecord) && activeUnitRecord.UNIT_NAME) ? activeUnitRecord.UNIT_NAME : '';
     const params = new URLSearchParams();
     if (myName) params.set('unitA', myName);
     if (optionalOpponentName) params.set('unitB', optionalOpponentName);

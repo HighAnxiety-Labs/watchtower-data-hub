@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<!-- WATCHTOWER BUILDING BRIEF VIEWER // RELEASE: v6.2-VISUAL-GALLERY (SYNCED WITH BUILDING-BRIEFS-MASTER) -->
+<html lang="en">
+<head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
   <script>
@@ -10,7 +13,7 @@
     // Track in-page module & tab opens in Command Center
     window.addEventListener('DOMContentLoaded', function() {
       document.addEventListener('click', function(e) {
-        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill') : null;
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill, .unit-gallery-tile, .gal-pill') : null;
         if (!btn) return;
         var label = (btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
         if (label) {
@@ -21,179 +24,2237 @@
         }
       }, true);
     });
-  </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchToweR Hub — Building Briefs Viewer</title>
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>WatchToweR Hub — Building Briefs | Gallery</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Building Briefs Viewer">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub â€” Tactical Briefs, Event Calculators & Intelligence.">
+  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Building Briefs | Gallery">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Base Operations, CC22 Upgrade Directives, Planning Matrix & Infrastructure Intelligence.">
   <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <script src="./wtr-view-mode.js"></script>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background-color: #0b0f0d; color: #e0e6ed; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 14px; line-height: 1.45; font-size: 15px; }
-.control-panel { width: 100%; max-width: 1140px; margin: 0 auto 16px auto; }
-.pull-strip { background: #0d1210; border: 1px solid #00e676; border-radius: 4px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
-.panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.selector-label { color: #00e676; font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; }
-.selector-select { background: #14241b; border: 1px solid #00e676; color: #fff; padding: 7px 12px; font-size: 13.5px; font-weight: 700; border-radius: 3px; cursor: pointer; outline: none; }
-.selector-status { font-size: 12.5px; color: #00e676; font-weight: 700; background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px; border: 1px solid rgba(0, 230, 118, 0.3); }
-.record-card { width: 100%; max-width: 1140px; margin: 0 auto; background: #0d1210; border: 1px solid #1f3b2b; overflow: hidden; }
-.classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
-.header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
-.unit-title { font-size: clamp(28px, 4.5vw, 44px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", sans-serif; text-transform: uppercase; }
-.unit-quote { font-style: italic; color: #b0bec5; font-size: 15px; border-left: 3px solid #00e676; padding-left: 12px; flex: 1; }
-.unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.meta-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 12.5px; }
-.meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 12px; text-transform: uppercase; cursor: pointer; }
-.meta-btn:hover { background: #1b3826; border-color: #00e676; }
-.meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
-.meta-btn.btn-cyan { color: #22d3ee; border-color: rgba(34, 211, 238, 0.35); }
-.unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
-.updates-label { color: #f2a900; font-weight: 800; text-transform: uppercase; }
-.updates-content { color: #cfd8dc; font-size: 13.5px; flex: 1; }
-.briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
-.col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #060908; border: 1px solid rgba(0, 255, 128, 0.3); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.stats-table tr { border-bottom: 1px solid #132419; }
-.stats-table td { padding: 6px 8px; }
-.stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
-.stats-value { color: #fff; text-align: left; font-weight: 700; }
-.val-iridium { color: #bc8cff !important; } .val-gold { color: #ffd700 !important; } .val-green { color: #00e676 !important; } .val-alert { color: #ff5252 !important; }
-.talent-block { margin-bottom: 12px; font-size: 14px; }
-.talent-tier { color: #00e676; font-weight: 800; font-size: 13px; text-transform: uppercase; margin-bottom: 3px; }
-.talent-desc { color: #cfd8dc; padding-left: 10px; border-left: 2px solid #1f3b2b; }
-.record-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
-.wc-directive-box { width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; padding: 15px 18px; border-radius: 2px; }
-.wc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 12px; }
-.wc-title { font-size: 16px; font-weight: 800; text-transform: uppercase; color: #f2a900; display: flex; align-items: center; gap: 10px; }
-.wc-badge { font-size: 11px; background: #21262d; border: 1px solid #f2a900; padding: 2px 8px; border-radius: 2px; }
-.wc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
-.wc-table th { background-color: #1f242c; color: #8b949e; text-transform: uppercase; font-size: 11px; padding: 10px; border-bottom: 2px solid #30363d; white-space: nowrap; }
-.wc-table td { padding: 9px 10px; border-bottom: 1px solid #21262d; }
-.level-cell { font-weight: 800; color: #58a6ff; font-family: monospace; }
-.highlight-row td { background: rgba(255, 215, 0, 0.05); }
-.section-divider td { background: #141c24; color: #f2a900; font-weight: 800; font-size: 11px; text-transform: uppercase; padding: 6px 10px; border-bottom: 2px solid #30363d; }
-.upgrades-table-wrapper { width: 100%; max-height: 480px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
-.upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
-.upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; padding: 9px 10px; border-bottom: 2px solid #30363d; z-index: 2; white-space: nowrap; }
-.upgrades-table td { padding: 8px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; }
-.upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); text-align: left; cursor: pointer; }
-.upgrades-table td.lvl-cell:hover { color: #00e676; text-decoration: underline; }
-.doctrine-notice { background: rgba(0, 230, 118, 0.08); border: 1px solid #00e676; border-left: 4px solid #00e676; color: #a7ffeb; padding: 8px 12px; border-radius: 4px; margin-bottom: 12px; }
-.doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.doctrine-card { background: #0b1118; border: 1px solid #1f3b2b; border-radius: 4px; display: flex; flex-direction: column; }
-.doctrine-card.base { border-top: 3px solid #ffd700; } .doctrine-card.spec-1 { border-top: 3px solid #2dd4bf; } .doctrine-card.spec-2 { border-top: 3px solid #38bdf8; }
-.doctrine-card-header { padding: 10px 12px; background: #0f1813; border-bottom: 1px solid #1a3324; }
-.doctrine-card-header h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
-.doctrine-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.doctrine-table th { padding: 7px 8px; border-bottom: 1px solid #132419; text-align: left; background: #090e0b; color: #81c784; font-size: 11.5px; }
-.doctrine-table td { padding: 7px 8px; border-bottom: 1px solid #132419; }
-.doctrine-table td.lvl { width: 76px; font-weight: 800; text-align: center; background: rgba(0, 0, 0, 0.3); border-right: 1px solid #132419; }
-.workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-.workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; }
-.workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; text-transform: uppercase; }
-.workshop-tag { font-weight: 800; color: #00e676; font-size: 12px; margin-bottom: 4px; font-family: monospace; }
-@media (min-width: 768px) { .header-content { flex-direction: row; align-items: center; gap: 30px; } .briefing-grid { grid-template-columns: 230px 1.15fr 1.35fr; } .doctrine-grid, .workshop-grid { grid-template-columns: repeat(3, 1fr); } }
-</style></head><body>
-<div class="control-panel"><div class="pull-strip">
-<div class="panel-section"><label class="selector-label" for="divisionSelect">Category:</label>
-<select id="divisionSelect" class="selector-select" onchange="applyFilter()"><option value="ALL">ALL BUILDINGS</option><option value="COMMAND">COMMAND</option><option value="MILITARY">MILITARY</option><option value="DEFENSE">DEFENSE</option><option value="RESOURCE">RESOURCE / SUPPORT</option></select></div>
-<div class="panel-section" style="flex:1; min-width:240px;"><label class="selector-label" for="unitSelect">Facility:</label>
-<select id="unitSelect" class="selector-select" style="flex:1;" onchange="handleBuildingSelectionChange(this.value)"><option value="">Loading Facilities...</option></select></div>
-<div class="panel-section"><span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span></div>
-</div></div>
-<div id="record-view" style="width:100%; max-width:1140px; margin:0 auto; display:none;">
-<div class="record-card"><div id="d-classification" class="classification-bar">BASE OPERATIONS</div>
-<div class="header-content"><h1 id="d-title" class="unit-title">COMMAND CENTER 22</h1><p id="d-quote" class="unit-quote"></p></div>
-<div id="unit-meta-bar" class="unit-meta-bar"><div id="origin-event-container" class="meta-item"><span class="meta-label">Data Sheets:</span>
-<button id="jump-sheet1" class="meta-btn" type="button"><span id="jump-sheet1-text">1. Upgrade Directive</span> ↓</button>
-<button id="jump-sheet2" class="meta-btn btn-cyan" type="button"><span id="jump-sheet2-text">2. Planning Matrix</span> ↓</button>
-<button id="jump-sheet3" class="meta-btn" type="button"><span id="jump-sheet3-text">3. Upgrade Path</span> ↓</button></div>
-<div id="linked-unit-container" class="meta-item" style="display:none;"><span class="meta-label">LINKED FACILITY:</span><button id="linkedFacilityBtn" class="meta-btn btn-gold" type="button"><span id="d-linked-name"></span> ↗</button></div></div>
-<div id="updates-bar-wrap" class="unit-updates-bar"></div>
-<div class="briefing-grid"><div class="unit-display"><span id="d-tier-badge" class="col-header" style="width:100%; justify-content:center;"></span><div class="unit-img-frame"><img id="d-main-img" class="unit-img" src="" alt="Building Render"></div></div>
-<div><span class="col-header">Facility Specifications</span><table class="stats-table"><tbody id="d-stats-tbody"></tbody><tbody id="d-building-reqs" style="display:none;"><tr><td class="stats-label">Building Required</td><td id="d-stat-building" class="stats-value"></td></tr><tr><td class="stats-label">Level Required</td><td id="d-stat-building-req" class="stats-value"></td></tr></tbody></table></div>
-<div><span class="col-header">Core Functions & Unlocks</span><div id="d-talents-list"></div></div></div>
-<div id="directive-section" class="record-section"><span class="col-header"><span id="d-sheet1-header">Data Sheet 1 // Upgrade Directive</span><span id="d-sheet1-ref-top" style="font-size:12px; color:#f2a900; font-family:monospace;"></span></span>
-<div class="wc-directive-box"><div class="wc-header"><div class="wc-title"><span id="d-directive-title"></span><span class="wc-badge">UPGRADE DIRECTIVE</span></div><div id="d-directive-ref" style="font-size:12px; color:#8b949e;"></div></div>
-<div style="overflow-x:auto;"><table class="wc-table"><thead><tr><th>Lvl</th><th>Description & Unlocks</th><th>Cost (Iridium)</th><th>Gold (w/ Iridium)</th><th>Gold Buyout</th><th>Sale Gold</th><th>Duration</th><th>Req CC</th></tr></thead><tbody id="d-directive-tbody"></tbody></table></div></div></div>
-<div id="upgrades-section" class="record-section"><span class="col-header"><span id="d-sheet2-header">Data Sheet 2 // Planning Matrix</span><span id="d-sheet2-sub" style="font-size:12px; color:#ffd700; font-family:monospace;"></span></span>
-<div class="upgrades-table-wrapper"><table class="upgrades-table"><thead><tr><th style="text-align:left;">Building / Facility</th><th>Levels</th><th># Lvls</th><th>Duration</th><th>Iridium Cost</th><th>Gold (w/ Irid)</th><th>Instant Gold</th><th>Sale Offer</th><th style="text-align:left;">Operational Unlocks & Notes</th></tr></thead><tbody id="d-matrix-tbody"></tbody></table></div></div>
-<div id="doctrine-section" class="record-section"><span class="col-header"><span id="d-sheet3-header">Data Sheet 3 // Strategic Upgrade Path</span><span id="d-sheet3-sub" style="font-size:12px; color:#38bdf8; font-family:monospace;"></span></span>
-<div id="doctrine-prereq-wrap" class="doctrine-notice"><strong>PREREQUISITE GATE:</strong> <span id="doctrine-prereq-text"></span></div>
-<div id="doctrine-costs-wrap" class="doctrine-notice"><strong>WAVE SUMMARY:</strong> <span id="doctrine-costs-text"></span></div>
-<div id="doctrine-grid-container" class="doctrine-grid"></div></div>
-<div id="tech-section" class="record-section" style="display:none;"><span class="col-header">Connected Sub-Facilities & Critical Notes</span><div id="workshop-container" class="workshop-grid"></div></div>
-<div id="d-footer-classification" class="classification-bar">BASE OPERATIONS</div></div></div>
+  <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: auto; min-height: 100%; background-color: #0b0f0d; }
+  body {
+    color: #e0e6ed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 16px;
+    line-height: 1.45;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* ==================== TOP CONTROL PANEL ==================== */
+  .control-panel-wrapper {
+    width: 100%; max-width: 1360px; margin: 0 auto 14px auto;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .control-panel {
+    width: 100%;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    background: #0d1210; border: 1px solid #00e676; padding: 10px 14px; border-radius: 5px; gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  .hub-back-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0, 230, 118, 0.12); color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.55); border-radius: 4px;
+    padding: 6px 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.8px;
+    text-transform: uppercase; text-decoration: none; cursor: pointer; white-space: nowrap;
+    transition: all 0.16s ease;
+  }
+  .hub-back-pill:hover {
+    background: #00e676; color: #03120a; box-shadow: 0 0 12px rgba(0, 230, 118, 0.45);
+  }
+  .panel-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .selector-label { color: #00e676; font-weight: 800; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
+  .selector-select {
+    background: #14241b; border: 1px solid #00e676; color: #fff; padding: 6px 10px;
+    font-size: 13.5px; font-weight: 700; border-radius: 3px; outline: none; cursor: pointer;
+  }
+  .selector-status {
+    font-size: 12.5px; color: #00e676; font-weight: 700; letter-spacing: 0.5px;
+    background: rgba(0, 230, 118, 0.1); padding: 6px 12px; border-radius: 3px;
+    border: 1px solid rgba(0, 230, 118, 0.3); white-space: nowrap;
+  }
+  .selector-status.status-error { color: #ff5252; border-color: #ff5252; background: rgba(255, 82, 82, 0.1); }
+  .unit-search-input {
+    background: #09130e; border: 1px solid #1f4230; color: #ffffff;
+    padding: 6px 11px; font-size: 13.5px; font-weight: 600; border-radius: 4px;
+    outline: none; min-width: 210px; flex: 1; transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .unit-search-input::placeholder { color: #6f8a7c; font-weight: 500; }
+  .unit-search-input:focus { border-color: #00e676; box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.15); }
+
+  /* ==================== CATEGORY & DIVISION FILTER STRIP ==================== */
+  .gallery-filter-strip {
+    width: 100%; background: #0a100d; border: 1px solid #1b3627; border-radius: 5px;
+    padding: 9px 13px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .filter-pill-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .filter-group-lbl {
+    font-size: 11px; font-weight: 900; color: #81c784; letter-spacing: 1px;
+    text-transform: uppercase; margin-right: 2px; white-space: nowrap;
+  }
+  .gal-pill {
+    background: #101b15; border: 1px solid #21402f; color: #c8d6cf;
+    padding: 5px 11px; border-radius: 999px; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.6px; text-transform: uppercase; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s ease;
+    font-family: inherit; white-space: nowrap;
+  }
+  .gal-pill:hover { border-color: #00e676; color: #ffffff; background: #16291f; }
+  .gal-pill.active {
+    background: #00e676; border-color: #b9f6ca; color: #03140a;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
+  }
+  .gal-pill.pill-alert {
+    border-color: rgba(244, 63, 94, 0.55); color: #fda4af; background: rgba(244, 63, 94, 0.1);
+  }
+  .gal-pill.pill-alert:hover {
+    border-color: #ff5252; color: #ffffff; background: rgba(244, 63, 94, 0.24);
+  }
+  .gal-pill.pill-alert.active {
+    background: #f43f5e; border-color: #fecdd3; color: #ffffff;
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.45);
+  }
+  .gal-pill.branch-pill.active {
+    background: #ffd700; border-color: #fef08a; color: #141002;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+  }
+  .gal-pill-cnt {
+    font-size: 10.5px; font-family: monospace; opacity: 0.84;
+    padding: 0 5px; border-radius: 999px; background: rgba(0, 0, 0, 0.28);
+  }
+  .gal-pill.active .gal-pill-cnt { background: rgba(0, 0, 0, 0.18); opacity: 1; }
+  .gal-pill-sep {
+    width: 1px; height: 18px; background: #264a36; margin: 0 2px; display: inline-block; flex-shrink: 0;
+  }
+
+  /* ==================== VISUAL FACILITY PORTRAIT GALLERY ==================== */
+  .unit-gallery-shell {
+    width: 100%; max-width: 1360px; margin: 0 auto;
+    display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; gap: 16px;
+  }
+  .gen-section-card {
+    --sec-cols: 6;
+    --sec-groups: 1;
+    flex: 1 1 100%; width: 100%; min-width: 0;
+    display: flex; flex-direction: column;
+    background: linear-gradient(180deg, #0e1612 0%, #090e0b 100%);
+    border: 1px solid #1f3b2b; border-top: 3px solid var(--gen-accent, #00e676);
+    border-radius: 6px; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  .gen-section-card.is-compact-section {
+    flex: var(--sec-cols, 1) 1 min(100%, max(265px, calc(var(--sec-cols, 1) * 148px + (var(--sec-cols, 1) - 1) * 10px + var(--sec-groups, 1) * 26px + 36px)));
+  }
+  @media (min-width: 1850px) {
+    html[data-wtr-view='wide'] .gen-section-card.is-medium-section {
+      flex: var(--sec-cols, 5) 1 min(100%, calc(var(--sec-cols, 5) * 148px + (var(--sec-cols, 5) - 1) * 10px + var(--sec-groups, 1) * 28px + 40px));
+    }
+  }
+  .gen-section-card.collapsed { align-self: flex-start; }
+  .gen-section-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    padding: 11px 16px; background: linear-gradient(90deg, rgba(0, 230, 118, 0.1) 0%, rgba(11, 18, 14, 0.95) 65%);
+    border-bottom: 1px solid #1a3324; cursor: pointer; user-select: none;
+  }
+  .gen-section-header:hover { background: linear-gradient(90deg, rgba(0, 230, 118, 0.16) 0%, rgba(14, 24, 18, 0.98) 65%); }
+  .gen-hdr-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+  .gen-title-badge {
+    font-family: "Arial Black", "Segoe UI", sans-serif; font-size: 17px; font-weight: 900;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--gen-accent, #00e676);
+  }
+  .gen-section-card.is-compact-section .gen-title-badge { font-size: 15.5px; letter-spacing: 1px; }
+  .gen-branch-summary {
+    font-family: monospace; font-size: 11.5px; font-weight: 800; color: #b0bec5;
+    letter-spacing: 0.6px; text-transform: uppercase;
+  }
+  .gen-hdr-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .gen-count-pill {
+    font-family: monospace; font-size: 11.5px; font-weight: 800; color: #ffd700;
+    background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.38);
+    padding: 2px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .gen-chevron { font-size: 12px; color: #81c784; font-weight: 900; transition: transform 0.18s ease; }
+  .gen-section-card.collapsed .gen-chevron { transform: rotate(-90deg); }
+  .gen-section-card.collapsed .gen-section-body { display: none; }
+
+  .gen-section-body {
+    flex: 1; padding: 14px 15px 16px;
+    display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; gap: 13px;
+  }
+  .branch-subgroup {
+    --branch-color: #00e676;
+    --grp-cols: 1;
+    display: flex; flex-direction: column; gap: 9px; min-width: 0;
+    padding: 10px 12px 12px; border-radius: 6px;
+    background: linear-gradient(180deg, rgba(16, 29, 22, 0.78) 0%, rgba(7, 13, 10, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-top: 2.5px solid var(--branch-color, #00e676);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 5px 14px rgba(0, 0, 0, 0.48);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .branch-subgroup:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    border-top-color: var(--branch-color, #00e676);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 6px 18px rgba(0, 0, 0, 0.62);
+  }
+  .branch-subgroup.is-compact-group {
+    flex: var(--grp-cols, 1) 1 min(100%, max(184px, calc(var(--grp-cols, 1) * 144px + (var(--grp-cols, 1) - 1) * 10px + 26px)));
+    max-width: min(100%, calc(var(--grp-cols, 1) * 234px + (var(--grp-cols, 1) - 1) * 12px + 28px));
+  }
+  .branch-subgroup.is-large-group {
+    flex: 1 1 100%; max-width: 100%;
+  }
+  .branch-subheader { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .branch-pill-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
+    letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--branch-color, #00e676);
+    border-left: 4px solid var(--branch-color, #00e676); color: var(--branch-color, #00e676);
+    white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+  }
+  .branch-divider-line {
+    flex: 1; min-width: 8px; height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent);
+  }
+  .branch-pair-count-tag {
+    font-family: monospace; font-size: 10.5px; font-weight: 800; letter-spacing: 0.5px;
+    color: #ffd700; background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.32);
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap; text-transform: uppercase;
+  }
+  .branch-unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(162px, 1fr));
+    gap: 12px;
+    align-items: end;
+    margin-top: auto;
+  }
+  @media (min-width: 561px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="1"] .branch-unit-grid,
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="2"] .branch-unit-grid,
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="3"] .branch-unit-grid {
+      grid-template-columns: repeat(var(--grp-cols), minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 680px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="4"] .branch-unit-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 840px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="5"] .branch-unit-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    html:not([data-wtr-view='mobile']) .branch-subgroup[data-grp-cols="6"] .branch-unit-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .unit-gallery-shell { flex-direction: column; gap: 14px; }
+    .gen-section-card, .gen-section-card.is-compact-section { flex: 1 1 100% !important; width: 100% !important; }
+    .branch-subgroup, .branch-subgroup.is-compact-group { flex: 1 1 100% !important; max-width: 100% !important; padding: 9px 10px 10px; }
+    .branch-unit-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)) !important; gap: 10px; }
+  }
+  html[data-wtr-view='mobile'] .unit-gallery-shell { flex-direction: column !important; gap: 14px !important; }
+  html[data-wtr-view='mobile'] .gen-section-card,
+  html[data-wtr-view='mobile'] .gen-section-card.is-compact-section { flex: 1 1 100% !important; width: 100% !important; }
+  html[data-wtr-view='mobile'] .branch-subgroup,
+  html[data-wtr-view='mobile'] .branch-subgroup.is-compact-group { flex: 1 1 100% !important; max-width: 100% !important; padding: 9px 10px 10px !important; }
+  html[data-wtr-view='mobile'] .branch-unit-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)) !important; gap: 10px !important; }
+
+  /* Linked Infrastructure (R&D ⇄ Production) Overhead Bar & Side-by-Side Pair Pod */
+  .unit-linked-pair-pod {
+    grid-column: span 2;
+    --pair-accent: #ffd700;
+    --pair-border: rgba(255, 215, 0, 0.42);
+    --pair-tint: rgba(255, 215, 0, 0.09);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 6px 7px 7px 7px;
+    border-radius: 7px;
+    background: linear-gradient(180deg, var(--pair-tint) 0%, rgba(9, 16, 12, 0.68) 100%);
+    border: 1px solid var(--pair-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 14px rgba(0, 0, 0, 0.48);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .unit-linked-pair-pod.pair-infantry {
+    --pair-accent: #00e676;
+    --pair-border: rgba(0, 230, 118, 0.45);
+    --pair-tint: rgba(0, 230, 118, 0.09);
+  }
+  .unit-linked-pair-pod.pair-vehicle {
+    --pair-accent: #ffd700;
+    --pair-border: rgba(255, 215, 0, 0.45);
+    --pair-tint: rgba(255, 215, 0, 0.09);
+  }
+  .unit-linked-pair-pod.pair-aircraft {
+    --pair-accent: #38bdf8;
+    --pair-border: rgba(56, 189, 248, 0.45);
+    --pair-tint: rgba(56, 189, 248, 0.09);
+  }
+  .unit-linked-pair-pod.pair-generic {
+    --pair-accent: #c084fc;
+    --pair-border: rgba(192, 132, 252, 0.45);
+    --pair-tint: rgba(192, 132, 252, 0.09);
+  }
+  .unit-linked-pair-pod:hover {
+    border-color: var(--pair-accent);
+    box-shadow: 0 0 16px rgba(0, 230, 118, 0.16), 0 8px 22px rgba(0, 0, 0, 0.65);
+  }
+  .unit-pair-link-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 10px;
+    margin-bottom: 7px;
+    background: linear-gradient(90deg, #121813 0%, #0c1611 50%, #0e1913 100%);
+    border: 1px solid var(--pair-border);
+    border-top: 2.5px solid var(--pair-accent);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .unit-pair-link-bar::before,
+  .unit-pair-link-bar::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    width: 2px;
+    height: 7px;
+    background: var(--pair-accent);
+    opacity: 0.85;
+  }
+  .unit-pair-link-bar::before { left: 25%; }
+  .unit-pair-link-bar::after { left: 75%; }
+  .uplb-role { white-space: nowrap; line-height: 1; }
+  .uplb-role.lead { color: var(--pair-accent); }
+  .uplb-role.mate { color: #e2e8f0; }
+  .uplb-bridge {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; min-width: 0;
+  }
+  .uplb-rail {
+    flex: 1; height: 1px; min-width: 6px;
+    background: linear-gradient(90deg, var(--pair-accent), #00e676);
+    opacity: 0.65;
+  }
+  .uplb-pill {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .unit-pair-cards-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+  @media (max-width: 460px) {
+    .uplb-pill { padding: 1px 4px; font-size: 8.5px; }
+    .unit-pair-link-bar { padding: 3px 6px; font-size: 9.5px; }
+    .unit-pair-cards-row { gap: 7px; }
+  }
+
+  /* Facility Portrait Tile */
+  .unit-gallery-tile {
+    container-type: inline-size;
+    position: relative;
+    background: radial-gradient(circle at 50% 28%, #162920 0%, #070c09 80%);
+    border: 1.5px solid #1f3b2b;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    user-select: none;
+  }
+  .unit-gallery-tile:hover {
+    transform: translateY(-4px);
+    border-color: #00e676;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 230, 118, 0.26);
+  }
+  .unit-gallery-tile.has-bug-flag {
+    border-color: rgba(244, 63, 94, 0.52);
+  }
+  .unit-gallery-tile.has-bug-flag:hover {
+    border-color: #ff5252;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.82), 0 0 16px rgba(244, 63, 94, 0.3);
+  }
+  .unit-gallery-tile.recently-viewed {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.55), 0 8px 22px rgba(255, 215, 0, 0.22);
+  }
+  .ugt-portrait-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: radial-gradient(circle at 50% 42%, rgba(0, 230, 118, 0.14), transparent 70%), #040806;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ugt-portrait-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.24s ease;
+  }
+  .unit-gallery-tile:hover .ugt-portrait-box img {
+    transform: scale(1.05);
+  }
+  .ugt-monogram {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px; text-align: center;
+    background: radial-gradient(circle, #13261c 0%, #050a07 82%);
+  }
+  .ugt-monogram-initials {
+    font-family: "Arial Black", sans-serif; font-size: 28px; font-weight: 900;
+    color: #00e676; letter-spacing: 1.5px;
+  }
+  .ugt-monogram-sub {
+    font-size: 10.5px; font-family: monospace; color: #81c784; text-transform: uppercase;
+  }
+  .ugt-class-chip {
+    position: absolute; top: 7px; left: 7px; z-index: 3;
+    padding: 2px 7px; border-radius: 3px; font-family: monospace;
+    font-size: 10px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase;
+    background: rgba(5, 10, 8, 0.9); border: 1px solid rgba(255, 255, 255, 0.25); color: #e2e8f0;
+    backdrop-filter: blur(3px); max-width: 56%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-class-chip.cls-command { color: #ffd700; border-color: rgba(255, 215, 0, 0.72); background: rgba(20, 16, 4, 0.92); }
+  .ugt-class-chip.cls-rd { color: #38bdf8; border-color: rgba(56, 189, 248, 0.7); background: rgba(4, 15, 24, 0.92); }
+  .ugt-class-chip.cls-prod { color: #00e676; border-color: rgba(0, 230, 118, 0.65); background: rgba(4, 18, 11, 0.92); }
+  .ugt-class-chip.cls-defense { color: #fb923c; border-color: rgba(251, 146, 60, 0.72); background: rgba(24, 11, 4, 0.92); }
+  .ugt-class-chip.cls-support { color: #c084fc; border-color: rgba(192, 132, 252, 0.7); background: rgba(18, 8, 26, 0.92); }
+
+  .ugt-faction-chip {
+    position: absolute; top: 7px; right: 7px; z-index: 3;
+    padding: 2px 7px; border-radius: 3px; font-family: monospace;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase;
+    background: rgba(5, 10, 8, 0.88); border: 1px solid rgba(255, 215, 0, 0.42); color: #fde047;
+    max-width: 46%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-bug-badge {
+    position: absolute; bottom: 7px; left: 7px; right: 7px; z-index: 3;
+    padding: 3px 6px; border-radius: 3px; font-family: monospace;
+    font-size: 10px; font-weight: 900; letter-spacing: 0.4px; text-transform: uppercase; text-align: center;
+    background: rgba(40, 6, 12, 0.92); border: 1px solid rgba(244, 63, 94, 0.85); color: #fda4af;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-nameplate {
+    padding: 9px 10px; background: #070d0a; border-top: 1px solid #183022;
+    display: flex; flex-direction: column; gap: 2px; text-align: center;
+  }
+  .ugt-name {
+    font-size: 14px; font-weight: 900; color: #f1f7f4; letter-spacing: 0.6px;
+    text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ugt-meta-sub {
+    font-family: monospace; font-size: 11px; color: #81c784;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase;
+  }
+  .ugt-meta-sub .irid-inline { color: #d8b4fe; font-weight: 800; }
+  @container (max-width: 190px) {
+    .ugt-class-chip, .ugt-faction-chip { font-size: 9px; padding: 2px 5px; top: 5px; }
+    .ugt-class-chip { left: 5px; }
+    .ugt-faction-chip { right: 5px; }
+    .ugt-name { font-size: 12.5px; }
+    .ugt-meta-sub { font-size: 10px; }
+  }
+
+  /* ==================== FLOATING CURSOR HOVER BRIEF CARD ==================== */
+  .unit-floating-hover-card {
+    position: fixed; z-index: 1500; width: 375px; max-width: calc(100vw - 24px);
+    pointer-events: none; display: none;
+    background: rgba(7, 13, 10, 0.98); border: 1.5px solid #00e676; border-top: 3px solid #00e676;
+    border-radius: 6px; padding: 13px 15px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.92), 0 0 18px rgba(0, 230, 118, 0.2);
+  }
+  .ufhc-top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+    padding-bottom: 8px; margin-bottom: 9px; border-bottom: 1px solid #1a3324;
+  }
+  .ufhc-name { font-size: 16px; font-weight: 900; color: #ffffff; letter-spacing: 0.7px; text-transform: uppercase; line-height: 1.15; }
+  .ufhc-sub { font-family: monospace; font-size: 11px; color: #00e676; font-weight: 800; text-transform: uppercase; margin-top: 2px; }
+  .ufhc-badge {
+    font-family: monospace; font-size: 11px; font-weight: 900; color: #ffd700;
+    background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.45);
+    padding: 2px 7px; border-radius: 3px; white-space: nowrap; text-transform: uppercase;
+  }
+  .ufhc-stats-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 8px; margin-bottom: 9px;
+  }
+  .ufhc-stat-box {
+    background: #0d1712; border: 1px solid #193024; border-radius: 3px; padding: 4px 7px;
+    display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 11.5px;
+  }
+  .ufhc-stat-k { color: #90a4ae; font-weight: 700; text-transform: uppercase; font-size: 10.5px; white-space: nowrap; }
+  .ufhc-stat-v { color: #ffffff; font-family: monospace; font-weight: 800; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ufhc-alert-banner {
+    font-size: 11.5px; font-weight: 800; color: #fda4af;
+    background: rgba(244, 63, 94, 0.14); border: 1px solid rgba(244, 63, 94, 0.55); border-left: 3px solid #f43f5e;
+    padding: 5px 8px; border-radius: 3px; margin-bottom: 8px; line-height: 1.35;
+  }
+  .ufhc-summary {
+    font-size: 12.5px; color: #d4e0db; line-height: 1.38;
+    border-left: 2px solid #00e676; padding-left: 8px; margin-bottom: 8px;
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .ufhc-cta {
+    font-family: monospace; font-size: 11px; font-weight: 800; color: #ffd700;
+    border-top: 1px solid #172c20; padding-top: 6px; text-align: center; letter-spacing: 0.5px;
+  }
+
+  /* ==================== IN-PAGE FULL BRIEF RETURN BAR ==================== */
+  .inpage-brief-nav-bar {
+    position: sticky; top: 8px; z-index: 60;
+    width: 100%; max-width: 1360px; margin: 0 auto 12px auto;
+    background: linear-gradient(90deg, #0d2116 0%, #0b1410 55%, #111b15 100%);
+    border: 1.5px solid #00e676; border-radius: 5px; padding: 9px 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.85);
+  }
+  .inpage-brief-nav-bar.bottom-bar { position: static; margin: 14px auto 6px auto; }
+  .back-to-gallery-btn {
+    background: #00e676; color: #03140a; border: 1px solid #b9f6ca;
+    padding: 7px 14px; border-radius: 4px; font-size: 12.5px; font-weight: 900;
+    letter-spacing: 0.9px; text-transform: uppercase; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; font-family: inherit;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.35); transition: all 0.15s ease;
+  }
+  .back-to-gallery-btn:hover { background: #69f0ae; transform: translateX(-2px); }
+  .brief-breadcrumb {
+    font-family: monospace; font-size: 12.5px; font-weight: 800; color: #d1fae5;
+    letter-spacing: 0.8px; text-transform: uppercase; text-align: center;
+  }
+  .brief-step-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .brief-step-btn {
+    background: #13231a; color: #e2e8f0; border: 1px solid #264a36;
+    padding: 6px 11px; border-radius: 4px; font-size: 11.5px; font-weight: 800;
+    letter-spacing: 0.6px; text-transform: uppercase; cursor: pointer; font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .brief-step-btn:hover:not(:disabled) { border-color: #00e676; color: #00e676; background: #193024; }
+  .brief-step-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .brief-close-x-btn {
+    background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.6);
+    padding: 6px 12px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
+    letter-spacing: 0.7px; text-transform: uppercase; cursor: pointer; font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .brief-close-x-btn:hover { background: #e11d48; color: #ffffff; border-color: #ffffff; }
+
+  /* ==================== FULL BUILDING RECORD CARD STYLES ==================== */
+  .record-card {
+    width: 100%; max-width: 1360px; margin: 0 auto; background: #0d1210;
+    border: 1px solid #1f3b2b; box-shadow: 0 4px 20px rgba(0, 255, 128, 0.05); overflow: hidden;
+  }
+  .classification-bar { background: #00bf63; color: #000; font-weight: 900; text-align: center; letter-spacing: 2px; font-size: 13px; padding: 4px; text-transform: uppercase; }
+  .header-content { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid #1a3324; }
+  .unit-title { font-size: clamp(28px, 4.5vw, 44px); font-weight: 900; color: #00e676; letter-spacing: 1.5px; line-height: 1; font-family: "Arial Black", Gadget, sans-serif; text-transform: uppercase; }
+  .unit-quote { font-style: italic; color: #b0bec5; font-size: 15.5px; border-left: 3px solid #00e676; padding-left: 12px; flex: 1; }
+  .unit-meta-bar { background: #090e0b; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: 1px; flex-wrap: wrap; gap: 10px; }
+  .meta-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .meta-divider { width: 1px; height: 20px; background-color: #1a3324; margin: 0 12px; flex-shrink: 0; }
+  .meta-label { color: #81c784; font-weight: 800; text-transform: uppercase; font-size: 12.5px; letter-spacing: 1px; }
+  .meta-btn { display: inline-flex; align-items: center; gap: 6px; background: #14241b; border: 1px solid #1f3b2b; border-radius: 3px; padding: 4px 10px; color: #fff; font-weight: 800; font-size: 12px; text-transform: uppercase; text-decoration: none; cursor: pointer; font-family: inherit; }
+  .meta-btn:hover { background: #1b3826; border-color: #00e676; }
+  .meta-btn.btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.35); }
+  .meta-btn.btn-cyan { color: #22d3ee; border-color: rgba(34, 211, 238, 0.35); }
+  .unit-updates-bar { background: #0b120e; border-bottom: 1px solid #1a3324; padding: 8px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
+  .updates-label { color: #f2a900; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+  .updates-content { color: #cfd8dc; font-size: 13.5px; flex: 1; }
+
+  .briefing-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .col-header { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: #00e676; text-transform: uppercase; border-bottom: 1px solid #1a3324; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .unit-display { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .unit-img-frame { width: 100%; max-width: 240px; aspect-ratio: 4 / 5; background: #060908; border: 1px solid rgba(0, 255, 128, 0.3); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7); }
+  .unit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .stats-table tr { border-bottom: 1px solid #132419; }
+  .stats-table td { padding: 6px 8px; }
+  .stats-label { color: #90a4ae; font-weight: 600; width: 48%; text-align: right; }
+  .stats-value { color: #fff; text-align: left; font-weight: 700; }
+  .val-iridium { color: #bc8cff !important; }
+  .val-gold { color: #ffd700 !important; }
+  .val-green { color: #00e676 !important; }
+  .val-alert { color: #ff5252 !important; }
+  .talent-block { margin-bottom: 12px; font-size: 14px; }
+  .talent-tier { color: #00e676; font-weight: 800; font-size: 13px; text-transform: uppercase; margin-bottom: 3px; }
+  .talent-desc { color: #cfd8dc; padding-left: 10px; border-left: 2px solid #1f3b2b; }
+  .record-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  .wc-directive-box { width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; padding: 15px 18px; border-radius: 2px; }
+  .wc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .wc-title { font-size: 16px; font-weight: 800; text-transform: uppercase; color: #f2a900; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .wc-badge { font-size: 11px; background: #21262d; border: 1px solid #f2a900; padding: 2px 8px; border-radius: 2px; }
+  .wc-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
+  .wc-table th { background-color: #1f242c; color: #8b949e; text-transform: uppercase; font-size: 11px; padding: 10px; border-bottom: 2px solid #30363d; white-space: nowrap; }
+  .wc-table td { padding: 9px 10px; border-bottom: 1px solid #21262d; }
+  .level-cell { font-weight: 800; color: #58a6ff; font-family: monospace; }
+  .highlight-row td { background: rgba(255, 215, 0, 0.05); border-bottom-color: rgba(255, 215, 0, 0.2); }
+  .section-divider td { background: #141c24; color: #f2a900; font-weight: 800; font-size: 11px; text-transform: uppercase; padding: 6px 10px; border-bottom: 2px solid #30363d; }
+
+  .upgrades-table-wrapper { width: 100%; max-height: 480px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
+  .upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
+  .upgrades-table th { position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; padding: 9px 10px; border-bottom: 2px solid #30363d; z-index: 2; white-space: nowrap; }
+  .upgrades-table td { padding: 8px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; }
+  .upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); text-align: left; cursor: pointer; }
+  .upgrades-table td.lvl-cell:hover { color: #00e676; text-decoration: underline; }
+
+  .doctrine-notice { background: rgba(0, 230, 118, 0.08); border: 1px solid #00e676; border-left: 4px solid #00e676; color: #a7ffeb; padding: 8px 12px; border-radius: 4px; margin-bottom: 12px; }
+  .doctrine-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .doctrine-card { background: #0b1118; border: 1px solid #1f3b2b; border-radius: 4px; display: flex; flex-direction: column; }
+  .doctrine-card.base { border-top: 3px solid #ffd700; }
+  .doctrine-card.spec-1 { border-top: 3px solid #2dd4bf; }
+  .doctrine-card.spec-2 { border-top: 3px solid #38bdf8; }
+  .doctrine-card-header { padding: 10px 12px; background: #0f1813; border-bottom: 1px solid #1a3324; }
+  .doctrine-card-header h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
+  .doctrine-card-header .subtitle { font-size: 12px; color: #90a4ae; }
+  .doctrine-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .doctrine-table th { padding: 7px 8px; border-bottom: 1px solid #132419; text-align: left; background: #090e0b; color: #81c784; font-size: 11.5px; }
+  .doctrine-table td { padding: 7px 8px; border-bottom: 1px solid #132419; }
+  .doctrine-table td.lvl { width: 76px; font-weight: 800; text-align: center; background: rgba(0, 0, 0, 0.3); border-right: 1px solid #132419; }
+
+  .workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+  .workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+  .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; text-transform: uppercase; }
+  .workshop-tag { font-weight: 800; color: #00e676; font-size: 12px; margin-bottom: 4px; font-family: monospace; }
+
+  @media (min-width: 768px) {
+    .header-content { flex-direction: row; align-items: center; gap: 30px; }
+    .briefing-grid { grid-template-columns: 230px 1.15fr 1.35fr; }
+    .doctrine-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid { grid-template-columns: repeat(3, 1fr); }
+    .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ==================== TOP CONTROL PANEL ==================== -->
+<div class="control-panel-wrapper">
+  <div class="control-panel">
+    <div class="panel-section">
+      <a href="./index.html" class="hub-back-pill" title="Return to WatchToweR Command Center">◂ COMMAND CENTER</a>
+    </div>
+
+    <div class="panel-section" style="flex: 1; min-width: 240px;">
+      <label class="selector-label" for="buildingSearchInput">Search:</label>
+      <input type="search" id="buildingSearchInput" class="unit-search-input" placeholder="Search facility, unlock, level, cost, or note..." oninput="handleGallerySearchInput(this.value)">
+    </div>
+
+    <div class="panel-section">
+      <label class="selector-label" for="unitSelect">Quick Jump:</label>
+      <select id="unitSelect" class="selector-select" style="min-width: 215px;" onchange="handleBuildingSelectionChange(this.value)">
+        <option value="">Jump to Facility Brief...</option>
+      </select>
+    </div>
+
+    <div class="panel-section">
+      <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
+    </div>
+  </div>
+
+  <!-- CATEGORY & OPERATIONAL SUB-ROLE FILTER STRIP -->
+  <div class="gallery-filter-strip" id="galleryFilterStrip">
+    <div class="filter-pill-group" id="catFilterPills">
+      <span class="filter-group-lbl">Category:</span>
+      <button type="button" class="gal-pill active" onclick="setCategoryFilter('ALL')">ALL FACILITIES</button>
+    </div>
+    <div class="filter-pill-group" id="subRoleFilterPills">
+      <span class="filter-group-lbl">Division:</span>
+      <button type="button" class="gal-pill branch-pill active" data-role="ALL" onclick="setSubRoleFilter('ALL')">ALL</button>
+      <button type="button" class="gal-pill branch-pill" data-role="INFANTRY" onclick="setSubRoleFilter('INFANTRY')">🪖 INFANTRY</button>
+      <button type="button" class="gal-pill branch-pill" data-role="VEHICLE" onclick="setSubRoleFilter('VEHICLE')">🛡️ VEHICLE</button>
+      <button type="button" class="gal-pill branch-pill" data-role="AIRCRAFT" onclick="setSubRoleFilter('AIRCRAFT')">✈️ AIRCRAFT</button>
+      <button type="button" class="gal-pill branch-pill" data-role="FORTIFICATION" onclick="setSubRoleFilter('FORTIFICATION')">🛡️ DEFENSE</button>
+      <button type="button" class="gal-pill branch-pill" data-role="ENGINEERING" onclick="setSubRoleFilter('ENGINEERING')">🔧 ENGINEERING</button>
+      <button type="button" class="gal-pill branch-pill" data-role="OPS_ENG" onclick="setSubRoleFilter('OPS_ENG')">📡 OPS &amp; MERC</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== IMAGE-BASED BUILDING INFRASTRUCTURE GALLERY ==================== -->
+<div id="building-gallery-view" class="unit-gallery-shell">
+  <div style="width: 100%; padding: 36px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #81c784; font-weight: 700; letter-spacing: 0.8px;">
+    ⚡ Syncing WatchToweR Base Facility Database from MASTER_DB...
+  </div>
+</div>
+
+<!-- FLOATING HOVER BRIEF TOOLTIP -->
+<div id="buildingFloatingHoverCard" class="unit-floating-hover-card"></div>
+
+<!-- ==================== IN-PAGE FULL BUILDING BRIEF WRAPPER ==================== -->
+<div id="inpage-brief-wrapper" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
+  <div class="inpage-brief-nav-bar" id="inpageBriefTopBar">
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO BUILDING GALLERY</button>
+    <span class="brief-breadcrumb" id="inpageBriefBreadcrumb">FACILITY BRIEF</span>
+    <div class="brief-step-controls">
+      <button type="button" class="brief-step-btn" id="btnPrevBuildingBrief" onclick="stepAdjacentBuilding(-1)">◀ PREV</button>
+      <button type="button" class="brief-step-btn" id="btnNextBuildingBrief" onclick="stepAdjacentBuilding(1)">NEXT ▶</button>
+      <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
+    </div>
+  </div>
+
+  <!-- ==================== RECORD VIEW CONTAINER (FULL MULTI-SHEET DOSSIER) ==================== -->
+  <div id="record-view" style="width: 100%; max-width: 1360px; margin: 0 auto; display: none;">
+    <div id="exportable-record-card" class="record-card">
+      <div id="d-classification" class="classification-bar">BASE OPERATIONS</div>
+      <div class="header-content">
+        <h1 id="d-title" class="unit-title">COMMAND CENTER 22</h1>
+        <p id="d-quote" class="unit-quote"></p>
+      </div>
+      <div id="unit-meta-bar" class="unit-meta-bar">
+        <div id="origin-event-container" class="meta-item">
+          <span class="meta-label">Data Sheets:</span>
+          <button id="jump-sheet1" class="meta-btn" type="button">
+            <span id="jump-sheet1-text">1. Upgrade Directive</span>
+            <span class="popout-icon">↓</span>
+          </button>
+          <button id="jump-sheet2" class="meta-btn btn-cyan" type="button">
+            <span id="jump-sheet2-text">2. Planning Matrix</span>
+            <span class="popout-icon">↓</span>
+          </button>
+          <button id="jump-sheet3" class="meta-btn" type="button">
+            <span id="jump-sheet3-text">3. Upgrade Path</span>
+            <span class="popout-icon">↓</span>
+          </button>
+        </div>
+        <div id="meta-divider-bar" class="meta-divider">&nbsp;</div>
+        <div id="linked-unit-container" class="meta-item meta-right" style="display: none;">
+          <span class="meta-label">LINKED FACILITY:</span>
+          <button id="linkedFacilityBtn" class="meta-btn btn-gold" type="button">
+            <span id="d-linked-name"></span>
+            <span class="popout-icon">↗</span>
+          </button>
+        </div>
+      </div>
+      <div id="updates-bar-wrap" class="unit-updates-bar">
+        <span class="updates-label" id="d-updates-label">Operational Telemetry:</span>
+        <span class="updates-content" id="d-updates"></span>
+      </div>
+      <div class="briefing-grid">
+        <div class="unit-display">
+          <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;"></span>
+          <div id="main-img-frame" class="unit-img-frame">
+            <img id="d-main-img" class="unit-img" src="" alt="Building Render">
+          </div>
+        </div>
+        <div class="stats-col-container">
+          <span class="col-header">Facility Specifications</span>
+          <table id="unit-stats-table" class="stats-table">
+            <tbody id="d-stats-tbody"></tbody>
+            <tbody id="d-building-reqs" style="display: none;">
+              <tr>
+                <td class="stats-label" style="text-align: right;">Building Required</td>
+                <td id="d-stat-building" class="stats-value" style="text-align: left;"></td>
+              </tr>
+              <tr>
+                <td class="stats-label" style="text-align: right;">Level Required</td>
+                <td id="d-stat-building-req" class="stats-value" style="text-align: left;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="talents-container" class="talents-col-container">
+          <span class="col-header">Core Functions &amp; Unlocks</span>
+          <div id="d-talents-list"></div>
+        </div>
+      </div>
+
+      <div id="directive-section" class="record-section">
+        <span class="col-header">
+          <span id="d-sheet1-header">Data Sheet 1 // Upgrade Directive</span>
+          <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;"></span>
+        </span>
+        <div class="wc-directive-box">
+          <div class="wc-header">
+            <div class="wc-title">
+              <span id="d-directive-title"></span>
+              <span class="wc-badge">UPGRADE DIRECTIVE</span>
+            </div>
+            <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;"></div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="wc-table">
+              <thead>
+                <tr>
+                  <th style="width: 7%;">Lvl</th>
+                  <th style="width: 31%;">Description &amp; Unlocks</th>
+                  <th style="width: 12%;">Cost (Iridium)</th>
+                  <th style="width: 12%;">Gold (w/ Iridium)</th>
+                  <th style="width: 12%;">Gold Buyout</th>
+                  <th style="width: 10%;">Sale Gold</th>
+                  <th style="width: 8%;">Duration</th>
+                  <th style="width: 8%;">Req CC</th>
+                </tr>
+              </thead>
+              <tbody id="d-directive-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="upgrades-section" class="record-section">
+        <span id="upgrades-section-header" class="col-header">
+          <span id="d-sheet2-header">Data Sheet 2 // Planning Matrix</span>
+          <span id="d-sheet2-sub" style="font-size: 12px; color: #ffd700; font-family: monospace;"></span>
+        </span>
+        <div class="upgrades-table-wrapper">
+          <table class="upgrades-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Building / Facility</th>
+                <th>Levels</th>
+                <th># Lvls</th>
+                <th>Duration</th>
+                <th>Iridium Cost</th>
+                <th>Gold (w/ Irid)</th>
+                <th>Instant Gold</th>
+                <th>Sale Offer</th>
+                <th style="text-align: left;">Operational Unlocks &amp; Notes</th>
+              </tr>
+            </thead>
+            <tbody id="d-matrix-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="doctrine-section" class="record-section">
+        <span id="doctrine-main-title" class="col-header">
+          <span id="d-sheet3-header">Data Sheet 3 // Strategic Upgrade Path</span>
+          <span id="d-sheet3-sub" style="font-size: 12px; color: #38bdf8; font-family: monospace;"></span>
+        </span>
+        <div id="doctrine-prereq-wrap" class="doctrine-notice">
+          <strong>PREREQUISITE GATE:</strong>
+          <span id="doctrine-prereq-text"></span>
+        </div>
+        <div id="doctrine-costs-wrap" class="doctrine-notice">
+          <strong>WAVE SUMMARY:</strong>
+          <span id="doctrine-costs-text"></span>
+        </div>
+        <div id="doctrine-grid-container" class="doctrine-grid"></div>
+      </div>
+
+      <div id="tech-section" class="record-section" style="display: none;">
+        <span id="d-tech-header" class="col-header">Connected Sub-Facilities &amp; Critical Notes</span>
+        <div id="workshop-container" class="workshop-grid"></div>
+      </div>
+
+      <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS</div>
+    </div>
+  </div>
+
+  <div class="inpage-brief-nav-bar bottom-bar" id="inpageBriefBottomBar">
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO BUILDING GALLERY</button>
+    <span class="brief-breadcrumb">RETURN TO PREVIOUS GALLERY VIEW</span>
+    <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-const SHEET_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc"; const GID = "444355456";
-let globalMatrixCache = [], filteredList = [];
-function escapeHtml(s) { return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function resolveWtrAssetImagePath(p) { const s = String(p || "").trim().replace(/\\/g, "/"); if (!s || /^(?:https?:|data:|blob:)/i.test(s)) return s; const loc = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/").toLowerCase(); const base = loc.includes("/masters/") ? "../published/watchtower-data-hub/assets/images/" : loc.includes("/vault/") ? "../assets/images/" : "./assets/images/"; const stripped = s.replace(/^(?:\.\.\/|\.\/)+/, "").replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, ""); return base + stripped; }
-function formatImageUrl(u) { if (!u) return ""; let c = String(u).trim().replace(/^\x27/,""); const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/); if (m && m[1] && !c.startsWith("data:")) return "https://lh3.googleusercontent.com/d/" + m[1]; return resolveWtrAssetImagePath(c); }
-document.addEventListener("DOMContentLoaded", () => {
-  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
-  Papa.parse(url, { download: true, header: false, skipEmptyLines: true, complete: (res) => {
-    if (!res || !res.data || res.data.length <= 1) return;
-    const headers = res.data[0].map(h => String(h || "").trim().toUpperCase());
-    for (let r = 1; r < res.data.length; r++) {
-      const rec = {}; headers.forEach((k, i) => { if (k) rec[k] = res.data[r][i] !== undefined ? String(res.data[r][i]).trim() : ""; });
-      rec.BUILDING_NAME = rec.BUILDING_NAME || rec.UNIT_NAME || rec.TITLE || "";
-      if (rec.BUILDING_NAME && (rec.DIR_1_LVL || rec.MAT_LVLS || (rec.CLASSIFICATION||"").toUpperCase().includes("BASE OPERATIONS"))) globalMatrixCache.push(rec);
+  const SHEET_CONFIG = {
+    docId: '1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc',
+    gids: {
+      MASTER_DB: '444355456',
+      BACKUP: '1412074705'
     }
-    applyFilter();
-  }});
-});
-function applyFilter() {
-  const f = (document.getElementById("divisionSelect").value || "ALL").toUpperCase();
-  filteredList = globalMatrixCache.filter(r => { const c = ((r.CLASSIFICATION||"") + " " + (r.CATEGORY||"")).toUpperCase(); if (f === "ALL") return true; if (f === "RESOURCE") return c.includes("RESOURCE") || c.includes("SUPPORT"); return c.includes(f); });
-  const drop = document.getElementById("unitSelect"); drop.innerHTML = "";
-  filteredList.sort((a, b) => String(a.BUILDING_NAME || a.UNIT_NAME || "").trim().localeCompare(String(b.BUILDING_NAME || b.UNIT_NAME || "").trim(), undefined, { numeric: true, sensitivity: "base" })); filteredList.forEach((b, i) => { const o = document.createElement("option"); o.value = i; o.textContent = b.BUILDING_NAME; drop.appendChild(o); });
-  document.getElementById("loadStatus").textContent = "Ready (" + filteredList.length + " Facilities)";
-  if (filteredList.length > 0) { drop.value = "0"; handleBuildingSelectionChange(0); }
-}
-function openLinkedFacility(name) {
-  document.getElementById("divisionSelect").value = "ALL"; applyFilter();
-  const idx = filteredList.findIndex(r => (r.BUILDING_NAME||"").toUpperCase().includes(String(name||"").toUpperCase()));
-  if (idx !== -1) { document.getElementById("unitSelect").value = String(idx); handleBuildingSelectionChange(idx); window.scrollTo({top:0, behavior:"smooth"}); }
-}
-function handleBuildingSelectionChange(idx) {
-  const rec = filteredList[idx]; if (!rec) return;
-  document.getElementById("record-view").style.display = "block";
-  const g = k => (rec[k] !== undefined && rec[k] !== null ? String(rec[k]).trim() : ""); const isT = k => g(k).toUpperCase() === "TRUE";
-  const bName = g("BUILDING_NAME") || "Facility";
-  document.getElementById("d-title").textContent = bName;
-  document.getElementById("d-classification").textContent = g("CLASSIFICATION") || "BASE OPERATIONS";
-  document.getElementById("d-footer-classification").textContent = g("CLASSIFICATION") || "BASE OPERATIONS";
-  document.getElementById("d-tier-badge").textContent = g("TIER_BADGE");
-  const q = g("QUOTE") || g("UNIT_QUOTE"); const qEl = document.getElementById("d-quote"); qEl.textContent = q; qEl.style.display = q ? "block" : "none";
-  const img = g("IMAGE_URL") || g("UNIT_IMAGE_URL"); document.getElementById("d-main-img").src = img ? formatImageUrl(img) : "";
-  const uCont = g("UPDATES_CONTENT") || g("UPDATES_TEXT"); const uWrap = document.getElementById("updates-bar-wrap");
-  uWrap.innerHTML = "<span class=\"updates-label\">" + escapeHtml(g("UPDATES_LABEL")||"Operational Telemetry:") + "</span><span class=\"updates-content\">" + escapeHtml(uCont) + "</span>"; uWrap.style.display = uCont ? "flex" : "none";
-  let specHtml = ""; for (let i=1; i<=15; i++) { if (g("SPEC_"+i+"_LBL") || g("SPEC_"+i+"_VAL")) specHtml += "<tr><td class=\"stats-label\">" + escapeHtml(g("SPEC_"+i+"_LBL")) + "</td><td class=\"stats-value " + g("SPEC_"+i+"_COLOR") + "\">" + escapeHtml(g("SPEC_"+i+"_VAL")) + "</td></tr>"; }
-  document.getElementById("d-stats-tbody").innerHTML = specHtml;
-  let funcHtml = ""; for (let i=1; i<=8; i++) { if (g("FUNC_"+i+"_TITLE") || g("FUNC_"+i+"_DESC")) funcHtml += "<div class=\"talent-block\"><div class=\"talent-tier\">" + escapeHtml(g("FUNC_"+i+"_TITLE")) + "</div><div class=\"talent-desc\">" + escapeHtml(g("FUNC_"+i+"_DESC")) + "</div></div>"; }
-  document.getElementById("d-talents-list").innerHTML = funcHtml;
-  document.getElementById("d-sheet1-header").textContent = g("SHEET1_HEADER") || "Data Sheet 1 // Upgrade Directive";
-  document.getElementById("d-directive-title").textContent = bName; document.getElementById("d-directive-ref").textContent = g("SHEET1_REF");
-  let dirHtml = ""; for (let i=1; i<=20; i++) { if (isT("DIR_"+i+"_IS_DIVIDER") && g("DIR_"+i+"_DESC")) { dirHtml += "<tr class=\"section-divider\"><td colspan=\"8\">" + escapeHtml(g("DIR_"+i+"_DESC")) + "</td></tr>"; } else if (g("DIR_"+i+"_LVL") || g("DIR_"+i+"_DESC")) { dirHtml += "<tr class=\"" + (isT("DIR_"+i+"_GOLD_HL")?"highlight-row":"") + "\"><td class=\"level-cell\">" + escapeHtml(g("DIR_"+i+"_LVL")) + "</td><td>" + escapeHtml(g("DIR_"+i+"_DESC")) + "</td><td class=\"val-iridium\">" + escapeHtml(g("DIR_"+i+"_IRID")||"—") + "</td><td class=\"val-gold\">" + escapeHtml(g("DIR_"+i+"_GOLD_R")||"—") + "</td><td class=\"val-gold\">" + escapeHtml(g("DIR_"+i+"_GOLD_B")||"—") + "</td><td class=\"val-green\">" + escapeHtml(g("DIR_"+i+"_SALE")||"—") + "</td><td>" + escapeHtml(g("DIR_"+i+"_TIME")||"—") + "</td><td>" + escapeHtml(g("DIR_"+i+"_REQ")||"—") + "</td></tr>"; } }
-  document.getElementById("d-directive-tbody").innerHTML = dirHtml;
-  let matHtml = ""; globalMatrixCache.forEach(m => { if (!m.MAT_LVLS && !m.MAT_IRID) return; const mN = m.BUILDING_NAME || ""; matHtml += "<tr " + (mN===bName?"style=\"background:rgba(0,230,118,0.1);\"":"") + "><td class=\"lvl-cell\" onclick=\"openLinkedFacility(\x27" + escapeHtml(mN) + "\x27)\">↗ " + escapeHtml(mN) + "</td><td>" + escapeHtml(m.MAT_LVLS||"—") + "</td><td>" + escapeHtml(m.MAT_COUNT||"—") + "</td><td>" + escapeHtml(m.MAT_TIME||"—") + "</td><td class=\"val-iridium\">" + escapeHtml(m.MAT_IRID||"—") + "</td><td class=\"val-gold\">" + escapeHtml(m.MAT_GOLD_R||"—") + "</td><td class=\"val-gold\">" + escapeHtml(m.MAT_GOLD_B||"—") + "</td><td class=\"val-green\">" + escapeHtml(m.MAT_SALE||"—") + "</td><td style=\"text-align:left; font-size:12.5px;\">" + escapeHtml(m.MAT_NOTES||"") + "</td></tr>"; });
-  document.getElementById("d-matrix-tbody").innerHTML = matHtml;
-  document.getElementById("doctrine-prereq-text").textContent = g("SHEET3_PREREQ"); document.getElementById("doctrine-costs-text").textContent = g("SHEET3_COSTS");
-  let docHtml = ""; const styles = ["base","spec-1","spec-2"]; for (let i=1; i<=3; i++) { const t = g("DOC_"+i+"_TITLE"), s = g("DOC_"+i+"_SUB"), rows = g("DOC_"+i+"_ROWS"); if (t || rows) { let rH = ""; rows.split("\n").filter(l=>l.trim()!=="").forEach(l => { const p = l.split("|"); rH += "<tr><td class=\"lvl\">" + escapeHtml((p[0]||"").trim()) + "</td><td>" + escapeHtml(p.slice(1).join("|").trim()) + "</td></tr>"; }); docHtml += "<div class=\"doctrine-card " + styles[i-1] + "\"><div class=\"doctrine-card-header\"><h2>" + escapeHtml(t) + "</h2><div style=\"font-size:12px; color:#90a4ae;\">" + escapeHtml(s) + "</div></div><table class=\"doctrine-table\"><tbody>" + rH + "</tbody></table></div>"; } }
-  document.getElementById("doctrine-grid-container").innerHTML = docHtml;
-  document.getElementById("jump-sheet1").onclick = () => document.getElementById("directive-section").scrollIntoView({behavior:"smooth"});
-  document.getElementById("jump-sheet2").onclick = () => document.getElementById("upgrades-section").scrollIntoView({behavior:"smooth"});
-  document.getElementById("jump-sheet3").onclick = () => document.getElementById("doctrine-section").scrollIntoView({behavior:"smooth"});
-}
-</script></body></html>
+  };
 
+  const BUILDING_HANDOFF_KEY = 'wtr_target_building_handoff';
+
+  /* Canonical R&D / Storage ⇄ Production Facility Pairs */
+  const CANONICAL_FACILITY_PAIRS = [
+    { leadMatch: 'ACADEMY',         mateMatch: 'BARRACKS',        leadLabel: '🔬 R&D',     mateLabel: '⚙️ PRODUCTION', variant: 'pair-infantry', sortGroup: 1 },
+    { leadMatch: 'TECH CENTER',     mateMatch: 'WAR FACTORY',     leadLabel: '🔬 R&D',     mateLabel: '⚙️ PRODUCTION', variant: 'pair-vehicle',  sortGroup: 2 },
+    { leadMatch: 'AIRCRAFT HANGER', mateMatch: 'AIRFIELD',        leadLabel: '🛫 STORAGE', mateLabel: '⚙️ PRODUCTION', variant: 'pair-aircraft', sortGroup: 3 },
+    { leadMatch: 'AIRCRAFT HANGAR', mateMatch: 'AIRFIELD',        leadLabel: '🛫 STORAGE', mateLabel: '⚙️ PRODUCTION', variant: 'pair-aircraft', sortGroup: 3 }
+  ];
+
+  /* Crisp Local PNG Fallback Map under assets/images/BUILDINGS/ */
+  const LOCAL_BUILDING_ASSET_MAP = [
+    { test: /COMMAND\s*CENTER|^CC\b/i, file: 'BUILDINGS/CC.png' },
+    { test: /ACADEMY/i, file: 'BUILDINGS/Academy.png' },
+    { test: /AIRCRAFT\s*HANG[AE]R/i, file: 'BUILDINGS/Aircraft-hanger.png' },
+    { test: /AIRFIELD/i, file: 'BUILDINGS/Airfield.png' },
+    { test: /BARRACKS/i, file: 'BUILDINGS/Barracks.png' },
+    { test: /CONSTRUCTION\s*YARD/i, file: 'BUILDINGS/construction-yard.png' },
+    { test: /MERC(?:ENARY)?\s*CAMP/i, file: 'BUILDINGS/Merc-camp.png' },
+    { test: /MINE\s*FACTORY/i, file: 'BUILDINGS/mine-factory.png' },
+    { test: /RADIO\s*TOWER/i, file: 'BUILDINGS/Radio-tower.png' },
+    { test: /SKYGUARD/i, file: 'BUILDINGS/skyguard.png' },
+    { test: /TACTICAL\s*OPS|^TOC\b/i, file: 'BUILDINGS/Tac-ops.png' },
+    { test: /TECH\s*CENTER/i, file: 'BUILDINGS/Techcenter.png' },
+    { test: /WAR\s*FACTORY/i, file: 'BUILDINGS/war-factory.png' },
+    { test: /WEAPONS\s*LAB/i, file: 'BUILDINGS/weapons-lab.png' },
+    { test: /DEFENSE\s*LAB/i, file: 'BUILDINGS/defense-lab.png' },
+    { test: /WORKSHOP/i, file: 'BUILDINGS/Workshop.png' },
+    { test: /HELIPAD/i, file: 'BUILDINGS/Helipad.png' },
+    { test: /AGENCY/i, file: 'BUILDINGS/agency.png' },
+    { test: /ARMORY/i, file: 'BUILDINGS/Armory.png' },
+    { test: /DRONE\s*SILO/i, file: 'BUILDINGS/drone-silo.png' },
+    { test: /ROCKET\s*SILO/i, file: 'BUILDINGS/rocket-silo.png' },
+    { test: /THORIUM\s*MINE/i, file: 'BUILDINGS/Thorium-Mine.png' },
+    { test: /THORIUM\s*VAULT/i, file: 'BUILDINGS/Thorium-Vault.png' },
+    { test: /METAL\s*FACTORY/i, file: 'BUILDINGS/Metal-Factory.png' },
+    { test: /METAL\s*STORAGE/i, file: 'BUILDINGS/Metal-Storage.png' },
+    { test: /OIL\s*PUMP/i, file: 'BUILDINGS/Oil-pump.png' },
+    { test: /OIL\s*STORAGE/i, file: 'BUILDINGS/Oil-Storage.png' },
+    { test: /POWER\s*PLANT/i, file: 'BUILDINGS/Power-plant-1.png' }
+  ];
+
+  const CATEGORY_META = {
+    COMMAND:  { key: 'COMMAND',  label: 'COMMAND HEADQUARTERS',             pillLabel: 'COMMAND',       sortRank: 10, accent: '#ffd700' },
+    SUPPORT:  { key: 'SUPPORT',  label: 'RECON, TACTICAL & MERCENARY OPS',  pillLabel: 'SUPPORT & OPS', sortRank: 15, accent: '#c084fc' },
+    MILITARY: { key: 'MILITARY', label: 'MILITARY R&D & PRODUCTION',        pillLabel: 'MILITARY',      sortRank: 20, accent: '#00e676' },
+    DEFENSE:  { key: 'DEFENSE',  label: 'BASE DEFENSE & ENGINEERING',       pillLabel: 'DEFENSE & ENG', sortRank: 30, accent: '#38bdf8' },
+    RESOURCE: { key: 'RESOURCE', label: 'RESOURCE & POWER LOGISTICS',       pillLabel: 'RESOURCE',      sortRank: 40, accent: '#f59e0b' }
+  };
+
+  const SUBROLE_META = {
+    HQ:            { key: 'HQ',            label: 'BASE COMMAND',                     icon: '🏛️', color: '#ffd700', order: 1 },
+    SPEC_OPS:      { key: 'SPEC_OPS',      label: 'RECON & TACTICAL OPS',             icon: '📡', color: '#c084fc', order: 2 },
+    MERCENARY:     { key: 'MERCENARY',     label: 'MERCENARY OUTPOST',                icon: '🏴', color: '#f59e0b', order: 3 },
+    INFANTRY:      { key: 'INFANTRY',      label: 'INFANTRY',                         icon: '🪖', color: '#00e676', order: 4 },
+    VEHICLE:       { key: 'VEHICLE',       label: 'VEHICLE',                          icon: '🛡️', color: '#ffd700', order: 5 },
+    AIRCRAFT:      { key: 'AIRCRAFT',      label: 'AIRCRAFT',                         icon: '✈️', color: '#38bdf8', order: 6 },
+    FORTIFICATION: { key: 'FORTIFICATION', label: 'TURRET, ANTI-AIR & ORDNANCE',      icon: '🛡️', color: '#fb923c', order: 7 },
+    ENGINEERING:   { key: 'ENGINEERING',   label: 'ENGINEERING & HEAVY PLATFORMS',    icon: '🔧', color: '#2dd4bf', order: 8 },
+    LOGISTICS:     { key: 'LOGISTICS',     label: 'RESOURCE & POWER GRID',            icon: '⚡', color: '#f59e0b', order: 9 }
+  };
+
+  let globalMatrixCache = [];
+  let filteredList = [];
+  let galleryOrderedBuildings = [];
+  let activeCatFilter = 'ALL';
+  let activeSubRoleFilter = 'ALL';
+  let gallerySearchQuery = '';
+  let collapsedCatKeys = new Set();
+  let savedGalleryScrollY = 0;
+  let lastViewedBuildingKey = '';
+  let openedBuildingKeyOnEntry = '';
+  let isFullBriefOpen = false;
+  let activeBuildingRecord = null;
+
+  function showStatus(msg, isError = false) {
+    const el = document.getElementById('loadStatus');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.toggle('status-error', Boolean(isError));
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function escapeAttr(str) {
+    return escapeHtml(str);
+  }
+
+  function cleanVal(v) {
+    if (v === undefined || v === null) return '';
+    const trimmed = String(v).trim();
+    return (trimmed === '-' || trimmed === '—' || trimmed === 'N/A' || trimmed.startsWith('{{')) ? '' : trimmed;
+  }
+
+  function normBuildingKey(str) {
+    return String(str || '').toUpperCase().replace(/\+/g, '&').replace(/&AMP;/g, '&').replace(/\s+/g, ' ').trim();
+  }
+
+  function resolveWtrAssetImagePath(p) {
+    const s = String(p || '').trim().replace(/\\/g, '/');
+    if (!s || /^(?:https?:|data:|blob:)/i.test(s)) return s;
+    const loc = decodeURIComponent(window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+    const base = loc.includes('/masters/') ? '../published/watchtower-data-hub/assets/images/' : loc.includes('/vault/') ? '../assets/images/' : './assets/images/';
+    const stripped = s.replace(/^(?:\.\.\/|\.\/)+/, '').replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, '');
+    return base + stripped;
+  }
+
+  function formatImageUrl(url) {
+    if (!url) return '';
+    let clean = String(url).trim();
+    if (clean.startsWith("'")) clean = clean.slice(1).trim();
+    const formulaMatch = clean.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) clean = formulaMatch[1].trim();
+    const driveMatch = clean.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1] && !clean.startsWith('data:')) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    return resolveWtrAssetImagePath(clean);
+  }
+
+  function getLocalBuildingFallbackUrl(buildingName) {
+    const raw = String(buildingName || '').trim();
+    if (!raw) return '';
+    for (let i = 0; i < LOCAL_BUILDING_ASSET_MAP.length; i++) {
+      if (LOCAL_BUILDING_ASSET_MAP[i].test.test(raw)) {
+        return resolveWtrAssetImagePath(LOCAL_BUILDING_ASSET_MAP[i].file);
+      }
+    }
+    return '';
+  }
+
+  function getBuildingInitials(nameStr) {
+    const parts = String(nameStr || 'B').trim().split(/[\s&/-]+/).filter(Boolean);
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return String(parts[0] || 'B').slice(0, 2).toUpperCase();
+  }
+
+  function isValidBuildingRecord(rec) {
+    if (!rec || !rec.BUILDING_NAME) return false;
+    if (rec._locallySaved) return true;
+
+    const hasUnitCombatData = Boolean(
+      rec.STAT_FACTION ||
+      rec.STAT_WEAPON_TYPE ||
+      rec.STAT_ARMOR_TYPE ||
+      rec.STAT_DPS_RANGE ||
+      rec.STAT_HP_RANGE ||
+      rec.TALENT_LVL_1 ||
+      rec.TALENT_LVL_10 ||
+      rec.WORKSHOP_1_TITLE ||
+      rec.FACTION_WS_1_FACTION ||
+      rec.BASE_TREE_TITLE
+    );
+    if (hasUnitCombatData) return false;
+
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const cat = cleanVal(rec.CATEGORY).toUpperCase();
+    return Boolean(
+      rec.DIR_1_LVL ||
+      rec.DIR_1_DESC ||
+      rec.DIR_1_IRID ||
+      rec.MAT_LVLS ||
+      rec.MAT_IRID ||
+      rec.SPEC_1_LBL ||
+      rec.FUNC_1_TITLE ||
+      rec.DOC_1_TITLE ||
+      classif.includes('BASE OPERATIONS') ||
+      classif.includes('FACILITY') ||
+      ['COMMAND', 'MILITARY', 'DEFENSE', 'SUPPORT', 'RESOURCE'].includes(cat)
+    );
+  }
+
+  function resolveBuildingCategoryInfo(rec) {
+    const cat = cleanVal(rec?.CATEGORY).toUpperCase();
+    const classif = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    const bName = cleanVal(rec?.BUILDING_NAME).toUpperCase();
+    const subRole = resolveBuildingSubRole(rec);
+
+    if (subRole === 'HQ' || bName.includes('COMMAND CENTER')) return CATEGORY_META.COMMAND;
+    if (subRole === 'LOGISTICS' || cat.includes('RESOURCE') || classif.includes('RESOURCE')) return CATEGORY_META.RESOURCE;
+    if (subRole === 'SPEC_OPS' || subRole === 'MERCENARY') return CATEGORY_META.SUPPORT;
+    if (subRole === 'FORTIFICATION' || subRole === 'ENGINEERING') return CATEGORY_META.DEFENSE;
+    if (subRole === 'INFANTRY' || subRole === 'VEHICLE' || subRole === 'AIRCRAFT') return CATEGORY_META.MILITARY;
+
+    if (cat.includes('COMMAND')) return CATEGORY_META.COMMAND;
+    if (cat.includes('DEFENSE')) return CATEGORY_META.DEFENSE;
+    if (cat.includes('SUPPORT')) return CATEGORY_META.SUPPORT;
+    return CATEGORY_META.MILITARY;
+  }
+
+  function resolveBuildingSubRole(rec) {
+    const bName = cleanVal(rec?.BUILDING_NAME).toUpperCase();
+    const spec1 = cleanVal(rec?.SPEC_1_VAL).toUpperCase();
+    const classif = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    const cat = cleanVal(rec?.CATEGORY).toUpperCase();
+    const combined = `${bName} ${spec1} ${classif}`;
+
+    if (bName.includes('COMMAND CENTER') || /^CC\b/.test(bName)) return 'HQ';
+    if (/MERC(?:ENARY)?\s*CAMP|\bMERCENARY\b/.test(combined)) return 'MERCENARY';
+    if (/TACTICAL\s*OPS|^TOC\b|RADIO\s*TOWER|AGENCY|RECON|COMMUNICATION/.test(combined)) return 'SPEC_OPS';
+    if (/ACADEMY|BARRACK|INFANTRY/.test(combined)) return 'INFANTRY';
+    if (/TECH\s*CENTER|WAR\s*FACTORY|VEHICLE/.test(combined)) return 'VEHICLE';
+    if (/AIRCRAFT|HANGAR|HANGER|AIRFIELD|HELIPAD|AVIATION/.test(combined)) return 'AIRCRAFT';
+    if (/CONSTRUCTION\s*YARD|WORKSHOP|HEAVY\s*PLATFORM|BASE\s*ENGINEERING|EQUIPMENT\s*R&D/.test(combined)) return 'ENGINEERING';
+    if (/THORIUM|METAL\s*FACTORY|METAL\s*STORAGE|OIL|POWER\s*PLANT|RESOURCE/.test(combined) || cat === 'RESOURCE') return 'LOGISTICS';
+    if (/SKYGUARD|MINE\s*FACTORY|WEAPONS\s*LAB|DEFENSE\s*LAB|ARMORY|TURRET|ANTI-AIR|BASTION|EXPLOSIVE|ORDNANCE|SILO|WIRE|TEETH|VOLT/.test(combined) || cat === 'DEFENSE') return 'FORTIFICATION';
+    if (cat === 'COMMAND') return 'HQ';
+    if (cat === 'MILITARY') return 'INFANTRY';
+    return 'SPEC_OPS';
+  }
+
+  function getBuildingAlertNote(rec) {
+    if (!rec) return '';
+    const matNotes = cleanVal(rec.MAT_NOTES);
+    const upd = cleanVal(rec.UPDATES_CONTENT) || cleanVal(rec.UPDATES_TEXT);
+    if (/🚨|BROKEN|BUG\b|DO\s*NOT\s*UPGRADE/i.test(matNotes)) return matNotes;
+    if (/🚨|BROKEN|BUG\b/i.test(upd)) return upd;
+    for (let i = 1; i <= 6; i++) {
+      if (cleanVal(rec[`TECH_${i}_ALERT`]).toUpperCase() === 'TRUE') {
+        const tTitle = cleanVal(rec[`TECH_${i}_TITLE`]);
+        const tDesc = cleanVal(rec[`TECH_${i}_DESC`]);
+        if (/🚨|BROKEN|BUG\b/i.test(tTitle + ' ' + tDesc)) {
+          return [tTitle, tDesc].filter(Boolean).join(': ');
+        }
+      }
+    }
+    return '';
+  }
+
+  function hasBuildingAlertBug(rec) {
+    return Boolean(getBuildingAlertNote(rec));
+  }
+
+  function isSupportReconFacility(rec) {
+    const cat = cleanVal(rec?.CATEGORY).toUpperCase();
+    const spec1 = cleanVal(rec?.SPEC_1_VAL).toUpperCase();
+    const classif = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    return cat.includes('SUPPORT') || cat.includes('RESOURCE') || spec1.includes('SUPPORT') || spec1.includes('RECON') || classif.includes('SUPPORT') || classif.includes('RECON');
+  }
+
+  function getFacilityShortRoleChip(rec) {
+    const bName = cleanVal(rec?.BUILDING_NAME).toUpperCase();
+    const spec1 = cleanVal(rec?.SPEC_1_VAL);
+    if (bName.includes('COMMAND CENTER')) return { text: 'HQ COMMAND', cls: 'cls-command' };
+    if (bName.includes('ACADEMY')) return { text: 'INFANTRY R&D', cls: 'cls-rd' };
+    if (bName.includes('BARRACKS')) return { text: 'INFANTRY PROD', cls: 'cls-prod' };
+    if (bName.includes('TECH CENTER')) return { text: 'VEHICLE R&D', cls: 'cls-rd' };
+    if (bName.includes('WAR FACTORY')) return { text: 'VEHICLE PROD', cls: 'cls-prod' };
+    if (bName.includes('AIRCRAFT HANG')) return { text: 'AIR STORAGE', cls: 'cls-rd' };
+    if (bName.includes('AIRFIELD')) return { text: 'AIRCRAFT PROD', cls: 'cls-prod' };
+    if (bName.includes('MERCENARY')) return { text: 'MERCENARY', cls: 'cls-prod' };
+    if (bName.includes('TACTICAL OPS')) return { text: 'PVP MATRIX', cls: 'cls-support' };
+    if (bName.includes('RADIO TOWER')) return { text: 'SECTOR RECON', cls: 'cls-support' };
+    if (bName.includes('CONSTRUCTION')) return { text: 'ENGINEERING', cls: 'cls-defense' };
+    if (bName.includes('MINE FACTORY')) return { text: 'ORDNANCE GRID', cls: 'cls-defense' };
+    if (bName.includes('SKYGUARD')) return { text: 'ANTI-AIR', cls: 'cls-defense' };
+    if (bName.includes('WEAPONS LAB')) return { text: 'BASTION R&D', cls: 'cls-rd' };
+    if (bName.includes('WORKSHOP')) return { text: 'PLATFORMS', cls: 'cls-support' };
+
+    if (spec1 && spec1.includes('/')) {
+      const right = spec1.split('/').pop().trim();
+      const cInfo = resolveBuildingCategoryInfo(rec);
+      const cls = cInfo.key === 'COMMAND' ? 'cls-command' : cInfo.key === 'DEFENSE' ? 'cls-defense' : cInfo.key === 'SUPPORT' ? 'cls-support' : 'cls-prod';
+      return { text: right.slice(0, 16), cls };
+    }
+    const cInfo = resolveBuildingCategoryInfo(rec);
+    const cls = cInfo.key === 'COMMAND' ? 'cls-command' : cInfo.key === 'DEFENSE' ? 'cls-defense' : cInfo.key === 'SUPPORT' ? 'cls-support' : 'cls-prod';
+    return { text: cInfo.pillLabel, cls };
+  }
+
+  function getCompactLevelBadge(rec) {
+    const matLvls = cleanVal(rec?.MAT_LVLS);
+    if (matLvls) return `LVL ${matLvls}`;
+    const tier = cleanVal(rec?.TIER_BADGE);
+    const m = tier.match(/(?:LVL|LEVEL)\s*([0-9]+\s*(?:→|->|-)\s*[0-9]+|[0-9]+)/i);
+    if (m && m[1]) return `LVL ${m[1]}`;
+    return tier.slice(0, 14);
+  }
+
+  function formatCompactIridium(rawIrid) {
+    const s = cleanVal(rawIrid);
+    if (!s) return '';
+    const digits = parseFloat(s.replace(/,/g, ''));
+    if (!isNaN(digits) && digits >= 1000 && /^[\d,.\s]+$/.test(s)) {
+      const k = digits / 1000;
+      return (Number.isInteger(k) ? k : k.toFixed(1).replace(/\.0$/, '')) + 'K IRID';
+    }
+    return /IRID/i.test(s) ? s : `${s} IRID`;
+  }
+
+  function resolveLinkedPartnerName(rec, pool) {
+    if (!rec) return '';
+    const explicit = cleanVal(rec.LINKED_NAME) || cleanVal(rec.LINKED_UNIT_NAME);
+    if (explicit) return explicit;
+    const bNorm = normBuildingKey(rec.BUILDING_NAME);
+    const list = Array.isArray(pool) && pool.length > 0 ? pool : globalMatrixCache;
+
+    for (let i = 0; i < list.length; i++) {
+      const other = list[i];
+      if (!other || !other.BUILDING_NAME) continue;
+      const oNorm = normBuildingKey(other.BUILDING_NAME);
+      if (oNorm === bNorm) continue;
+      const oExplicit = normBuildingKey(cleanVal(other.LINKED_NAME) || cleanVal(other.LINKED_UNIT_NAME));
+      if (oExplicit && oExplicit === bNorm) return other.BUILDING_NAME;
+    }
+
+    for (let p = 0; p < CANONICAL_FACILITY_PAIRS.length; p++) {
+      const pair = CANONICAL_FACILITY_PAIRS[p];
+      if (bNorm.includes(pair.leadMatch)) {
+        const found = list.find(r => normBuildingKey(r?.BUILDING_NAME).includes(pair.mateMatch));
+        if (found) return found.BUILDING_NAME;
+      } else if (bNorm.includes(pair.mateMatch)) {
+        const found = list.find(r => normBuildingKey(r?.BUILDING_NAME).includes(pair.leadMatch));
+        if (found) return found.BUILDING_NAME;
+      }
+    }
+    return '';
+  }
+
+  function groupSubRoleBuildingsIntoPairsAndSolos(arr) {
+    const pairs = [];
+    const solos = [];
+    if (!Array.isArray(arr) || arr.length === 0) return { pairs, solos };
+
+    const usedIdx = new Set();
+
+    // 1. Canonical R&D / Storage ⇄ Production pairs
+    CANONICAL_FACILITY_PAIRS.forEach(rule => {
+      const leadIdx = arr.findIndex((r, idx) => !usedIdx.has(idx) && normBuildingKey(r.BUILDING_NAME).includes(rule.leadMatch));
+      const mateIdx = arr.findIndex((r, idx) => !usedIdx.has(idx) && idx !== leadIdx && normBuildingKey(r.BUILDING_NAME).includes(rule.mateMatch));
+      if (leadIdx !== -1 && mateIdx !== -1) {
+        usedIdx.add(leadIdx);
+        usedIdx.add(mateIdx);
+        pairs.push({
+          lead: arr[leadIdx],
+          mate: arr[mateIdx],
+          pairVariant: rule.variant,
+          leadLabel: rule.leadLabel,
+          mateLabel: rule.mateLabel,
+          sortGroup: rule.sortGroup
+        });
+      }
+    });
+
+    // 2. Explicit LINKED_NAME / LINKED_UNIT_NAME pairs in MASTER_DB
+    for (let i = 0; i < arr.length; i++) {
+      if (usedIdx.has(i)) continue;
+      const a = arr[i];
+      const aNorm = normBuildingKey(a.BUILDING_NAME);
+      const aLink = normBuildingKey(cleanVal(a.LINKED_NAME) || cleanVal(a.LINKED_UNIT_NAME));
+
+      let partnerIdx = -1;
+      for (let j = i + 1; j < arr.length; j++) {
+        if (usedIdx.has(j)) continue;
+        const b = arr[j];
+        const bNorm = normBuildingKey(b.BUILDING_NAME);
+        const bLink = normBuildingKey(cleanVal(b.LINKED_NAME) || cleanVal(b.LINKED_UNIT_NAME));
+        if ((aLink && (aLink === bNorm || bNorm.includes(aLink))) || (bLink && (bLink === aNorm || aNorm.includes(bLink)))) {
+          partnerIdx = j;
+          break;
+        }
+      }
+
+      if (partnerIdx !== -1) {
+        usedIdx.add(i);
+        usedIdx.add(partnerIdx);
+        pairs.push({
+          lead: a,
+          mate: arr[partnerIdx],
+          pairVariant: 'pair-generic',
+          leadLabel: '🔗 FACILITY',
+          mateLabel: 'LINKED',
+          sortGroup: 10
+        });
+      }
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      if (!usedIdx.has(i)) solos.push(arr[i]);
+    }
+
+    pairs.sort((a, b) => a.sortGroup - b.sortGroup);
+    solos.sort((a, b) => String(a.BUILDING_NAME || '').localeCompare(String(b.BUILDING_NAME || ''), undefined, { numeric: true, sensitivity: 'base' }));
+
+    return { pairs, solos };
+  }
+
+  /* ==================== 3-STAGE BULLETPROOF GOOGLE SHEET READER ==================== */
+  function fetchSheetMatrixUniversal(docId, gid, onSuccess, onError) {
+    const cleanId = (docId || '').trim();
+    const cleanGid = (gid || '0').trim();
+
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+
+    Papa.parse(exportCsvUrl, {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: function(results) {
+        if (results && results.data && results.data.length > 1) {
+          onSuccess(results.data);
+        } else {
+          tryStage2GvizCsv();
+        }
+      },
+      error: function() {
+        tryStage2GvizCsv();
+      }
+    });
+
+    function tryStage2GvizCsv() {
+      fetch(gvizCsvUrl, { method: 'GET', credentials: 'omit' })
+        .then(res => {
+          if (!res.ok) throw new Error('GVIZ HTTP ' + res.status);
+          return res.text();
+        })
+        .then(csvText => {
+          if (csvText.trim().startsWith('<!DOCTYPE') || csvText.trim().startsWith('<html')) {
+            throw new Error('Sheet returned HTML login page');
+          }
+          const parsed = Papa.parse(csvText, { header: false, skipEmptyLines: true });
+          if (!parsed.data || parsed.data.length <= 1) throw new Error('Empty GVIZ CSV');
+          onSuccess(parsed.data);
+        })
+        .catch(() => {
+          tryStage3Jsonp();
+        });
+    }
+
+    function tryStage3Jsonp() {
+      const cbName = 'wtrGvizCallback_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+      const script = document.createElement('script');
+      let completed = false;
+
+      const timer = setTimeout(() => {
+        if (completed) return;
+        completed = true;
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError(new Error('Connection timed out or Sheet is private.'));
+      }, 8000);
+
+      window[cbName] = function(response) {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+
+        if (!response || response.status === 'error' || !response.table) {
+          onError(new Error('Sheet rejected request or is not shared publicly.'));
+          return;
+        }
+
+        const cols = response.table.cols || [];
+        const rows = response.table.rows || [];
+        const matrix = [];
+
+        const colLabels = cols.map(c => (c && c.label ? String(c.label).trim() : ''));
+        if (colLabels.some(l => l !== '')) matrix.push(colLabels);
+
+        rows.forEach(r => {
+          const cArr = (r && r.c) ? r.c : [];
+          const rowCells = cols.map((_, idx) => {
+            const cell = cArr[idx];
+            if (!cell || cell.v === null || cell.v === undefined) return '';
+            return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+          });
+          if (rowCells.some(val => val.trim() !== '')) matrix.push(rowCells);
+        });
+
+        onSuccess(matrix);
+      };
+
+      script.onerror = function() {
+        if (completed) return;
+        completed = true;
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+        onError(new Error('Network or sharing error loading Google Sheet.'));
+      };
+
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      document.head.appendChild(script);
+    }
+  }
+
+  function consumeRequestedBuildingHandoff() {
+    try {
+      const params = new URLSearchParams(window.location.search || '');
+      const fromQuery = params.get('building') || params.get('facility') || params.get('unit') || '';
+      if (fromQuery.trim()) return fromQuery.trim();
+    } catch (e) {}
+    try {
+      const fromStorage = localStorage.getItem(BUILDING_HANDOFF_KEY) || '';
+      if (fromStorage.trim()) {
+        localStorage.removeItem(BUILDING_HANDOFF_KEY);
+        return fromStorage.trim();
+      }
+    } catch (e) {}
+    return '';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchBuildingDatabase(true);
+  });
+
+  function fetchBuildingDatabase(isInitialLoad = false) {
+    showStatus('Syncing MASTER_DB...');
+    fetchSheetMatrixUniversal(
+      SHEET_CONFIG.docId,
+      SHEET_CONFIG.gids.MASTER_DB,
+      function(matrix) {
+        if (!matrix || matrix.length <= 1) {
+          showStatus('Database is empty.', true);
+          return;
+        }
+        const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
+        const fetched = [];
+        for (let r = 1; r < matrix.length; r++) {
+          const rec = { SHEET_ROW_INDEX: r + 1 };
+          headers.forEach((k, cIdx) => {
+            if (k) rec[k] = matrix[r][cIdx] !== undefined ? String(matrix[r][cIdx]).trim() : '';
+          });
+          rec.BUILDING_NAME = rec.BUILDING_NAME || rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '';
+          if (isValidBuildingRecord(rec)) {
+            fetched.push(rec);
+          }
+        }
+        globalMatrixCache = fetched;
+        applyFilter(isInitialLoad);
+      },
+      function(err) {
+        showStatus('Error syncing MASTER_DB: ' + err.message, true);
+      }
+    );
+  }
+
+  /* ==================== FILTER PILLS & SEARCH ==================== */
+  function setCategoryFilter(catKey) {
+    activeCatFilter = catKey || 'ALL';
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
+
+  function setSubRoleFilter(roleKey) {
+    activeSubRoleFilter = roleKey || 'ALL';
+    syncSubRoleFilterButtons();
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
+
+  function syncSubRoleFilterButtons() {
+    document.querySelectorAll('#subRoleFilterPills .branch-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-role') === activeSubRoleFilter);
+    });
+  }
+
+  function handleGallerySearchInput(val) {
+    gallerySearchQuery = String(val || '').trim().toLowerCase();
+    if (isFullBriefOpen) {
+      closeFullBriefReturnToGallery(true);
+    }
+    applyFilter(false);
+  }
+
+  function toggleCatSectionCollapse(catKey) {
+    if (collapsedCatKeys.has(catKey)) collapsedCatKeys.delete(catKey);
+    else collapsedCatKeys.add(catKey);
+    const sec = document.querySelector(`.gen-section-card[data-cat-key="${catKey}"]`);
+    if (sec) sec.classList.toggle('collapsed', collapsedCatKeys.has(catKey));
+  }
+
+  function matchesCategoryFilterKey(rec, filterKey, allBuildings) {
+    if (filterKey === 'ALL') return true;
+    const cInfo = resolveBuildingCategoryInfo(rec);
+    if (filterKey === 'SUPPORT_RECON') return cInfo.key === 'SUPPORT' || isSupportReconFacility(rec);
+    if (filterKey === 'LINKED_PAIRS') return Boolean(resolveLinkedPartnerName(rec, allBuildings));
+    if (filterKey === 'KNOWN_BUGS') return hasBuildingAlertBug(rec);
+    return cInfo.key === filterKey;
+  }
+
+  function matchesSubRoleFilterKey(rec, roleFilter) {
+    if (roleFilter === 'ALL') return true;
+    const subRole = resolveBuildingSubRole(rec);
+    if (roleFilter === 'OPS_ENG') {
+      return ['HQ', 'SPEC_OPS', 'MERCENARY', 'LOGISTICS'].includes(subRole);
+    }
+    return subRole === roleFilter;
+  }
+
+  function buildCategoryFilterPills(allBuildings) {
+    const wrap = document.getElementById('catFilterPills');
+    if (!wrap) return;
+
+    const counts = { COMMAND: 0, SUPPORT: 0, MILITARY: 0, DEFENSE: 0, RESOURCE: 0 };
+    let linkedCnt = 0;
+    let bugCnt = 0;
+
+    allBuildings.forEach(rec => {
+      const c = resolveBuildingCategoryInfo(rec);
+      if (counts[c.key] !== undefined) counts[c.key]++;
+      if (resolveLinkedPartnerName(rec, allBuildings)) linkedCnt++;
+      if (hasBuildingAlertBug(rec)) bugCnt++;
+    });
+
+    let html = `<span class="filter-group-lbl">Category:</span>`;
+    html += `<button type="button" class="gal-pill ${activeCatFilter === 'ALL' ? 'active' : ''}" onclick="setCategoryFilter('ALL')">ALL FACILITIES <span class="gal-pill-cnt">${allBuildings.length}</span></button>`;
+
+    ['COMMAND', 'SUPPORT', 'MILITARY', 'DEFENSE', 'RESOURCE'].forEach(k => {
+      if ((k === 'RESOURCE' || k === 'SUPPORT') && counts[k] === 0) return;
+      const meta = CATEGORY_META[k];
+      const isAct = activeCatFilter === k;
+      html += `<button type="button" class="gal-pill ${isAct ? 'active' : ''}" onclick="setCategoryFilter('${k}')">${escapeAttr(meta.pillLabel)} <span class="gal-pill-cnt">${counts[k]}</span></button>`;
+    });
+
+    if (linkedCnt > 0 || bugCnt > 0) {
+      html += `<span class="gal-pill-sep"></span>`;
+    }
+
+    if (linkedCnt > 0) {
+      const isAct = activeCatFilter === 'LINKED_PAIRS';
+      html += `<button type="button" class="gal-pill ${isAct ? 'active' : ''}" title="Linked R&D ⇄ Production Infrastructure Pairs" onclick="setCategoryFilter('LINKED_PAIRS')">⇄ LINKED <span class="gal-pill-cnt">${linkedCnt}</span></button>`;
+    }
+
+    if (bugCnt > 0) {
+      const isAct = activeCatFilter === 'KNOWN_BUGS';
+      html += `<button type="button" class="gal-pill pill-alert ${isAct ? 'active' : ''}" title="Facilities with verified upgrade bugs (e.g. broken Last Stand levels)" onclick="setCategoryFilter('KNOWN_BUGS')">🚨 KNOWN BUGS <span class="gal-pill-cnt">${bugCnt}</span></button>`;
+    }
+
+    wrap.innerHTML = html;
+  }
+
+  function applyFilter(isInitialLoad = false) {
+    const allBuildings = globalMatrixCache.filter(isValidBuildingRecord);
+    buildCategoryFilterPills(allBuildings);
+
+    filteredList = allBuildings.filter(rec => {
+      if (!matchesCategoryFilterKey(rec, activeCatFilter, allBuildings)) return false;
+      if (!matchesSubRoleFilterKey(rec, activeSubRoleFilter)) return false;
+
+      if (gallerySearchQuery) {
+        const hay = [
+          rec.BUILDING_NAME,
+          rec.CATEGORY,
+          rec.CLASSIFICATION,
+          rec.TIER_BADGE,
+          rec.MAT_LVLS,
+          rec.MAT_IRID,
+          rec.MAT_TIME,
+          rec.MAT_NOTES,
+          rec.UPDATES_CONTENT,
+          rec.QUOTE,
+          rec.SPEC_1_VAL,
+          rec.SPEC_2_VAL,
+          rec.FUNC_1_TITLE,
+          rec.FUNC_1_DESC,
+          rec.FUNC_2_TITLE,
+          rec.FUNC_2_DESC
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (!hay.includes(gallerySearchQuery)) return false;
+      }
+
+      return true;
+    });
+
+    renderBuildingGallery(filteredList);
+
+    const drop = document.getElementById('unitSelect');
+    if (drop) {
+      const alpha = filteredList.slice().sort((a, b) =>
+        String(a.BUILDING_NAME || '').trim().localeCompare(String(b.BUILDING_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' })
+      );
+      drop.innerHTML = '<option value="">Jump to Facility Brief...</option>';
+      alpha.forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b.BUILDING_NAME;
+        opt.textContent = b.BUILDING_NAME;
+        drop.appendChild(opt);
+      });
+    }
+
+    showStatus(`Ready (${filteredList.length} ${filteredList.length === 1 ? 'Facility' : 'Facilities'})`);
+
+    if (isInitialLoad) {
+      const requestedRaw = consumeRequestedBuildingHandoff();
+      const targetNorm = normBuildingKey(requestedRaw);
+      if (targetNorm) {
+        let matchRec = allBuildings.find(r => normBuildingKey(r.BUILDING_NAME) === targetNorm);
+        if (!matchRec) {
+          matchRec = allBuildings.find(r => normBuildingKey(r.BUILDING_NAME).includes(targetNorm) || targetNorm.includes(normBuildingKey(r.BUILDING_NAME)));
+        }
+        if (matchRec) {
+          openBuildingBriefByName(matchRec.BUILDING_NAME, { fromDeepLink: true });
+        }
+      }
+    }
+  }
+
+  /* ==================== VISUAL PORTRAIT GALLERY RENDERER ==================== */
+  function handleTileImgError(imgEl, fallbackUrl) {
+    if (!imgEl) return;
+    if (fallbackUrl && !imgEl.dataset.triedFallback && imgEl.src !== fallbackUrl) {
+      imgEl.dataset.triedFallback = '1';
+      imgEl.src = fallbackUrl;
+      return;
+    }
+    imgEl.style.display = 'none';
+    if (imgEl.nextElementSibling) {
+      imgEl.nextElementSibling.style.display = 'flex';
+    }
+  }
+
+  function renderBuildingGallery(buildingsList) {
+    const galleryEl = document.getElementById('building-gallery-view');
+    if (!galleryEl) return;
+
+    galleryOrderedBuildings = [];
+
+    if (!buildingsList || buildingsList.length === 0) {
+      galleryEl.innerHTML = `
+        <div style="width: 100%; padding: 34px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #90a4ae;">
+          No facilities matched your current Category / Division / Search filter.
+          <div style="margin-top: 10px;">
+            <button type="button" class="gal-pill active" onclick="activeCatFilter='ALL'; activeSubRoleFilter='ALL'; gallerySearchQuery=''; document.getElementById('buildingSearchInput').value=''; syncSubRoleFilterButtons(); applyFilter(false);">Reset All Filters</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const catBuckets = new Map();
+    const subRoleKeys = ['HQ', 'SPEC_OPS', 'MERCENARY', 'INFANTRY', 'VEHICLE', 'AIRCRAFT', 'FORTIFICATION', 'ENGINEERING', 'LOGISTICS'];
+
+    buildingsList.forEach(rec => {
+      const cInfo = resolveBuildingCategoryInfo(rec);
+      const subKey = resolveBuildingSubRole(rec);
+      if (!catBuckets.has(cInfo.key)) {
+        const emptySubs = {};
+        subRoleKeys.forEach(k => { emptySubs[k] = []; });
+        catBuckets.set(cInfo.key, { info: cInfo, subRoles: emptySubs });
+      }
+      catBuckets.get(cInfo.key).subRoles[subKey].push(rec);
+    });
+
+    const orderedCats = Array.from(catBuckets.values()).sort((a, b) => a.info.sortRank - b.info.sortRank);
+    let html = '';
+
+    orderedCats.forEach(catGroup => {
+      const cInfo = catGroup.info;
+      let totalInCat = 0;
+      const summaryParts = [];
+
+      subRoleKeys.forEach(sKey => {
+        const arr = catGroup.subRoles[sKey];
+        if (arr.length > 0) {
+          totalInCat += arr.length;
+          summaryParts.push(`${SUBROLE_META[sKey].label}: ${arr.length}`);
+        }
+      });
+
+      const isCollapsed = collapsedCatKeys.has(cInfo.key);
+      let subGroupsHtml = '';
+
+      subRoleKeys.forEach(sKey => {
+        const arr = catGroup.subRoles[sKey];
+        if (!arr || arr.length === 0) return;
+        const sMeta = SUBROLE_META[sKey];
+        const { pairs, solos } = groupSubRoleBuildingsIntoPairsAndSolos(arr);
+
+        const buildFacilityTileHtml = (rec) => {
+          galleryOrderedBuildings.push(rec);
+          const bName = cleanVal(rec.BUILDING_NAME);
+          const bNorm = normBuildingKey(bName);
+          const safeJsName = escapeAttr(bName).replace(/'/g, "\\'");
+          const rawImg = cleanVal(rec.IMAGE_URL) || cleanVal(rec.UNIT_IMAGE_URL);
+          const fallbackLocalUrl = getLocalBuildingFallbackUrl(bName);
+          const primaryImgUrl = rawImg ? formatImageUrl(rawImg) : fallbackLocalUrl;
+          const safeFallbackJs = escapeAttr(fallbackLocalUrl).replace(/'/g, "\\'");
+
+          const roleChip = getFacilityShortRoleChip(rec);
+          const lvlBadge = getCompactLevelBadge(rec);
+          const bugNote = getBuildingAlertNote(rec);
+          const hasBug = Boolean(bugNote);
+          const isRecent = lastViewedBuildingKey && lastViewedBuildingKey === bNorm;
+
+          const iridFmt = formatCompactIridium(rec.MAT_IRID);
+          const durFmt = cleanVal(rec.MAT_TIME);
+          let metaHtml = '';
+          if (iridFmt && durFmt) {
+            metaHtml = `<span class="irid-inline">${escapeHtml(iridFmt)}</span> • ${escapeHtml(durFmt)}`;
+          } else if (iridFmt) {
+            metaHtml = `<span class="irid-inline">${escapeHtml(iridFmt)}</span>`;
+          } else {
+            metaHtml = escapeHtml(durFmt || cleanVal(rec.TIER_BADGE) || sMeta.label);
+          }
+
+          const portraitInner = primaryImgUrl
+            ? `<img src="${escapeAttr(primaryImgUrl)}" alt="${escapeAttr(bName)}" loading="lazy" onerror="handleTileImgError(this, '${safeFallbackJs}')">
+               <div class="ugt-monogram" style="display:none;">
+                 <span class="ugt-monogram-initials">${escapeAttr(getBuildingInitials(bName))}</span>
+                 <span class="ugt-monogram-sub">${escapeAttr(cInfo.pillLabel)}</span>
+               </div>`
+            : `<div class="ugt-monogram">
+                 <span class="ugt-monogram-initials">${escapeAttr(getBuildingInitials(bName))}</span>
+                 <span class="ugt-monogram-sub">${escapeAttr(cInfo.pillLabel)}</span>
+               </div>`;
+
+          return `
+            <div class="unit-gallery-tile ${hasBug ? 'has-bug-flag' : ''} ${isRecent ? 'recently-viewed' : ''}"
+                 data-building-key="${escapeAttr(bNorm)}"
+                 onclick="openBuildingBriefByName('${safeJsName}')"
+                 onmouseenter="showBuildingHoverBrief(event, '${safeJsName}')"
+                 onmousemove="moveBuildingHoverBrief(event)"
+                 onmouseleave="hideBuildingHoverBrief()">
+              <div class="ugt-portrait-box">
+                <span class="ugt-class-chip ${roleChip.cls}">${escapeAttr(roleChip.text)}</span>
+                ${lvlBadge ? `<span class="ugt-faction-chip">${escapeAttr(lvlBadge)}</span>` : ''}
+                ${hasBug ? `<span class="ugt-bug-badge">🚨 KNOWN UPGRADE BUG</span>` : ''}
+                ${portraitInner}
+              </div>
+              <div class="ugt-nameplate">
+                <div class="ugt-name">${escapeAttr(bName)}</div>
+                <div class="ugt-meta-sub">${metaHtml}</div>
+              </div>
+            </div>
+          `;
+        };
+
+        const pairedPodsHtml = pairs.map(p => `
+          <div class="unit-linked-pair-pod ${p.pairVariant}">
+            <div class="unit-pair-link-bar" title="${escapeAttr(cleanVal(p.lead.BUILDING_NAME))} ⇄ ${escapeAttr(cleanVal(p.mate.BUILDING_NAME))}">
+              <span class="uplb-role lead">${p.leadLabel}</span>
+              <span class="uplb-bridge">
+                <span class="uplb-rail"></span>
+                <span class="uplb-pill">⇄ LINKED</span>
+                <span class="uplb-rail"></span>
+              </span>
+              <span class="uplb-role mate">${p.mateLabel}</span>
+            </div>
+            <div class="unit-pair-cards-row">
+              ${buildFacilityTileHtml(p.lead)}
+              ${buildFacilityTileHtml(p.mate)}
+            </div>
+          </div>
+        `).join('');
+
+        const soloTilesHtml = solos.map(rec => buildFacilityTileHtml(rec)).join('');
+
+        const grpSizeCls = arr.length <= 6 ? 'is-compact-group' : 'is-large-group';
+
+        subGroupsHtml += `
+          <div class="branch-subgroup ${grpSizeCls}" data-grp-cols="${arr.length}" style="--branch-color: ${sMeta.color}; --grp-cols: ${arr.length};">
+            <div class="branch-subheader">
+              <span class="branch-pill-tag" style="--branch-color: ${sMeta.color};">${sMeta.icon} ${escapeAttr(sMeta.label)} (${arr.length})</span>
+              ${pairs.length > 0 && arr.length > 2 ? `<span class="branch-pair-count-tag">⇄ ${pairs.length} LINKED ${pairs.length === 1 ? 'PAIR' : 'PAIRS'}</span>` : ''}
+              <span class="branch-divider-line"></span>
+            </div>
+            <div class="branch-unit-grid">
+              ${pairedPodsHtml}${soloTilesHtml}
+            </div>
+          </div>
+        `;
+      });
+
+      const secSizeCls = totalInCat <= 4 ? 'is-compact-section' : (totalInCat <= 6 ? 'is-medium-section' : '');
+      const showSummaryLine = !(summaryParts.length <= 1 && totalInCat <= 2);
+
+      html += `
+        <section class="gen-section-card ${secSizeCls} ${isCollapsed ? 'collapsed' : ''}" data-cat-key="${escapeAttr(cInfo.key)}" style="--gen-accent: ${cInfo.accent}; --sec-cols: ${totalInCat}; --sec-groups: ${Math.max(1, summaryParts.length)};">
+          <div class="gen-section-header" onclick="toggleCatSectionCollapse('${escapeAttr(cInfo.key)}')">
+            <div class="gen-hdr-left">
+              <span class="gen-title-badge">${escapeAttr(cInfo.label)}</span>
+              ${showSummaryLine ? `<span class="gen-branch-summary">${escapeAttr(summaryParts.join('  ~  '))}</span>` : ''}
+            </div>
+            <div class="gen-hdr-right">
+              <span class="gen-count-pill">${totalInCat} ${totalInCat === 1 ? 'FACILITY' : 'FACILITIES'}</span>
+              <span class="gen-chevron">▼</span>
+            </div>
+          </div>
+          <div class="gen-section-body">
+            ${subGroupsHtml}
+          </div>
+        </section>
+      `;
+    });
+
+    galleryEl.innerHTML = html;
+  }
+
+  /* ==================== FLOATING HOVER BRIEF OVER FACILITY PORTRAIT ==================== */
+  function showBuildingHoverBrief(ev, buildingName) {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+    const card = document.getElementById('buildingFloatingHoverCard');
+    if (!card) return;
+
+    const targetNorm = normBuildingKey(buildingName);
+    const rec = globalMatrixCache.find(r => normBuildingKey(r.BUILDING_NAME) === targetNorm);
+    if (!rec) return;
+
+    const cInfo = resolveBuildingCategoryInfo(rec);
+    const sKey = resolveBuildingSubRole(rec);
+    const sMeta = SUBROLE_META[sKey] || SUBROLE_META.SPEC_OPS;
+    const roleChip = getFacilityShortRoleChip(rec);
+
+    const lvls = cleanVal(rec.MAT_LVLS) || cleanVal(rec.DIR_1_LVL) || '—';
+    const count = cleanVal(rec.MAT_COUNT) ? `${cleanVal(rec.MAT_COUNT)} Lvls` : '—';
+    const iridRaw = cleanVal(rec.MAT_IRID) || cleanVal(rec.DIR_1_IRID) || '—';
+    const iridFormatted = (/^\d+$/.test(iridRaw)) ? Number(iridRaw).toLocaleString() : iridRaw;
+    const dur = cleanVal(rec.MAT_TIME) || cleanVal(rec.DIR_1_TIME) || '—';
+    const goldR = cleanVal(rec.MAT_GOLD_R) || cleanVal(rec.DIR_1_GOLD_R) || '—';
+    const partnerName = resolveLinkedPartnerName(rec, globalMatrixCache);
+    const sixthLbl = partnerName ? 'Linked' : 'Sale Offer';
+    const sixthVal = partnerName ? `⇄ ${partnerName}` : (cleanVal(rec.MAT_SALE) || cleanVal(rec.MAT_GOLD_B) || '—');
+
+    const alertNote = getBuildingAlertNote(rec);
+    const matNotes = cleanVal(rec.MAT_NOTES);
+    const funcSummary = [cleanVal(rec.FUNC_1_TITLE), cleanVal(rec.FUNC_1_DESC)].filter(Boolean).join(' — ');
+    const summaryText = (!alertNote && matNotes) ? matNotes : (funcSummary || cleanVal(rec.UPDATES_CONTENT) || cleanVal(rec.QUOTE));
+
+    const reqBuilding = [cleanVal(rec.STAT_BUILDING), cleanVal(rec.STAT_BUILDING_REQ)].filter(Boolean).join(' ');
+    const subParts = [cInfo.pillLabel, sMeta.label, reqBuilding].filter(Boolean).join(' • ');
+
+    card.innerHTML = `
+      <div class="ufhc-top">
+        <div>
+          <div class="ufhc-name">${escapeHtml(cleanVal(rec.BUILDING_NAME))}</div>
+          <div class="ufhc-sub">${escapeHtml(subParts)}</div>
+        </div>
+        <span class="ufhc-badge">${escapeHtml(roleChip.text)}</span>
+      </div>
+      <div class="ufhc-stats-grid">
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Levels</span><span class="ufhc-stat-v">${escapeHtml(lvls)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k"># Upgrades</span><span class="ufhc-stat-v">${escapeHtml(count)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Iridium</span><span class="ufhc-stat-v val-iridium">${escapeHtml(iridFormatted)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Duration</span><span class="ufhc-stat-v">${escapeHtml(dur)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">Gold (Irid)</span><span class="ufhc-stat-v val-gold">${escapeHtml(goldR)}</span></div>
+        <div class="ufhc-stat-box"><span class="ufhc-stat-k">${escapeHtml(sixthLbl)}</span><span class="ufhc-stat-v val-green">${escapeHtml(sixthVal)}</span></div>
+      </div>
+      ${alertNote ? `<div class="ufhc-alert-banner">${escapeHtml(alertNote)}</div>` : ''}
+      ${summaryText ? `<div class="ufhc-summary">${escapeHtml(summaryText)}</div>` : ''}
+      <div class="ufhc-cta">🖱️ Click Facility to Open Full In-Page Building Brief</div>
+    `;
+    card.style.display = 'block';
+    moveBuildingHoverBrief(ev);
+  }
+
+  function moveBuildingHoverBrief(ev) {
+    const card = document.getElementById('buildingFloatingHoverCard');
+    if (!card || card.style.display === 'none' || !ev) return;
+
+    const zoomFactor = parseFloat(window.getComputedStyle(card).zoom) || 1;
+    const pad = 16;
+    const rect = card.getBoundingClientRect();
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    let x = ev.clientX + 18;
+    let y = ev.clientY + 16;
+
+    if (x + rect.width + pad > vw) {
+      x = Math.max(pad, ev.clientX - rect.width - 18);
+    }
+    if (y + rect.height + pad > vh) {
+      y = Math.max(pad, vh - rect.height - pad);
+    }
+
+    card.style.left = (x / zoomFactor) + 'px';
+    card.style.top = (y / zoomFactor) + 'px';
+  }
+
+  function hideBuildingHoverBrief() {
+    const card = document.getElementById('buildingFloatingHoverCard');
+    if (card) card.style.display = 'none';
+  }
+
+  /* ==================== IN-PAGE FULL BRIEF OPEN & RETURN TO GALLERY ==================== */
+  function openBuildingBriefByName(buildingName, opts = {}) {
+    if (!buildingName) return;
+    hideBuildingHoverBrief();
+
+    const targetNorm = normBuildingKey(buildingName);
+    const rec = galleryOrderedBuildings.find(r => normBuildingKey(r.BUILDING_NAME) === targetNorm)
+             || filteredList.find(r => normBuildingKey(r.BUILDING_NAME) === targetNorm)
+             || globalMatrixCache.find(r => normBuildingKey(r.BUILDING_NAME) === targetNorm)
+             || globalMatrixCache.find(r => normBuildingKey(r.BUILDING_NAME).includes(targetNorm) || targetNorm.includes(normBuildingKey(r.BUILDING_NAME)));
+
+    if (!rec) return;
+
+    if (!isFullBriefOpen) {
+      savedGalleryScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      openedBuildingKeyOnEntry = normBuildingKey(rec.BUILDING_NAME);
+    }
+
+    activeBuildingRecord = rec;
+    lastViewedBuildingKey = normBuildingKey(rec.BUILDING_NAME);
+    isFullBriefOpen = true;
+
+    const galleryEl = document.getElementById('building-gallery-view');
+    const filterStrip = document.getElementById('galleryFilterStrip');
+    const wrapperEl = document.getElementById('inpage-brief-wrapper');
+    const drop = document.getElementById('unitSelect');
+
+    if (galleryEl) galleryEl.style.display = 'none';
+    if (filterStrip) filterStrip.style.display = 'none';
+    if (wrapperEl) wrapperEl.style.display = 'block';
+    if (drop) {
+      const hasOpt = Array.from(drop.options).some(o => normBuildingKey(o.value) === lastViewedBuildingKey);
+      drop.value = hasOpt ? rec.BUILDING_NAME : '';
+    }
+
+    renderBuilding(rec);
+    updateInpageBriefNavState(rec);
+
+    if (!opts.preserveScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function updateInpageBriefNavState(rec) {
+    if (!rec) return;
+    const cInfo = resolveBuildingCategoryInfo(rec);
+    const sKey = resolveBuildingSubRole(rec);
+    const sMeta = SUBROLE_META[sKey] || SUBROLE_META.SPEC_OPS;
+    const crumb = document.getElementById('inpageBriefBreadcrumb');
+    if (crumb) {
+      crumb.textContent = `${cInfo.pillLabel}  ▸  ${sMeta.label}  ▸  ${cleanVal(rec.BUILDING_NAME)}`;
+    }
+
+    const roster = galleryOrderedBuildings.length > 0 ? galleryOrderedBuildings : filteredList;
+    const curIdx = roster.findIndex(r => normBuildingKey(r.BUILDING_NAME) === normBuildingKey(rec.BUILDING_NAME));
+    const prevBtn = document.getElementById('btnPrevBuildingBrief');
+    const nextBtn = document.getElementById('btnNextBuildingBrief');
+    if (prevBtn) prevBtn.disabled = curIdx <= 0;
+    if (nextBtn) nextBtn.disabled = curIdx === -1 || curIdx >= roster.length - 1;
+  }
+
+  function stepAdjacentBuilding(delta) {
+    if (!activeBuildingRecord) return;
+    const roster = galleryOrderedBuildings.length > 0 ? galleryOrderedBuildings : filteredList;
+    const curIdx = roster.findIndex(r => normBuildingKey(r.BUILDING_NAME) === normBuildingKey(activeBuildingRecord.BUILDING_NAME));
+    if (curIdx === -1) return;
+    const nextRec = roster[curIdx + delta];
+    if (nextRec && nextRec.BUILDING_NAME) {
+      openBuildingBriefByName(nextRec.BUILDING_NAME);
+    }
+  }
+
+  function closeFullBriefReturnToGallery(skipScrollRestore = false) {
+    hideBuildingHoverBrief();
+    isFullBriefOpen = false;
+
+    const galleryEl = document.getElementById('building-gallery-view');
+    const filterStrip = document.getElementById('galleryFilterStrip');
+    const wrapperEl = document.getElementById('inpage-brief-wrapper');
+    const recordEl = document.getElementById('record-view');
+    const drop = document.getElementById('unitSelect');
+
+    if (wrapperEl) wrapperEl.style.display = 'none';
+    if (recordEl) recordEl.style.display = 'none';
+    if (filterStrip) filterStrip.style.display = 'flex';
+    if (galleryEl) galleryEl.style.display = 'flex';
+    if (drop) drop.value = '';
+
+    document.querySelectorAll('.unit-gallery-tile.recently-viewed').forEach(el => el.classList.remove('recently-viewed'));
+    let targetTile = null;
+    if (lastViewedBuildingKey) {
+      document.querySelectorAll('.unit-gallery-tile').forEach(el => {
+        if (el.getAttribute('data-building-key') === lastViewedBuildingKey) {
+          el.classList.add('recently-viewed');
+          targetTile = el;
+        }
+      });
+    }
+
+    if (!skipScrollRestore) {
+      requestAnimationFrame(() => {
+        if (targetTile && lastViewedBuildingKey !== openedBuildingKeyOnEntry) {
+          targetTile.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          window.scrollTo({ top: savedGalleryScrollY || 0, behavior: 'instant' });
+        }
+      });
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isFullBriefOpen) {
+      closeFullBriefReturnToGallery();
+    }
+  });
+
+  function handleBuildingSelectionChange(val) {
+    if (!val) {
+      if (isFullBriefOpen) closeFullBriefReturnToGallery();
+      return;
+    }
+    openBuildingBriefByName(val);
+  }
+
+  function openLinkedFacility(targetName) {
+    if (!targetName) return;
+    openBuildingBriefByName(targetName);
+  }
+
+  function smoothScrollTo(element) {
+    if (!element) return;
+    const y = element.getBoundingClientRect().top + window.scrollY - 68;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  /* ==================== FULL MULTI-SHEET BUILDING DOSSIER RENDERER ==================== */
+  function renderBuilding(rec) {
+    if (!rec) return;
+    document.getElementById('record-view').style.display = 'block';
+
+    const getVal = (key) => (rec[key] !== undefined && rec[key] !== null ? String(rec[key]).trim() : '');
+    const isTrue = (key) => getVal(key).toUpperCase() === 'TRUE';
+
+    const bldName = getVal('BUILDING_NAME') || getVal('UNIT_NAME') || 'Unknown Facility';
+    document.getElementById('d-title').textContent = bldName;
+    document.getElementById('d-classification').textContent = getVal('CLASSIFICATION') || 'BASE OPERATIONS // FACILITY REPORT';
+    document.getElementById('d-footer-classification').textContent = getVal('CLASSIFICATION') || 'BASE OPERATIONS // FACILITY REPORT';
+    document.getElementById('d-tier-badge').textContent = getVal('TIER_BADGE');
+
+    const quote = getVal('QUOTE') || getVal('UNIT_QUOTE');
+    const quoteEl = document.getElementById('d-quote');
+    if (quoteEl) {
+      quoteEl.textContent = quote;
+      quoteEl.style.display = quote ? 'block' : 'none';
+    }
+
+    const rawImgUrl = getVal('IMAGE_URL') || getVal('UNIT_IMAGE_URL');
+    const fallbackLocal = getLocalBuildingFallbackUrl(bldName);
+    const svgPlaceholder = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#0f172a"/><text x="200" y="250" fill="#00e676" font-family="monospace" font-weight="900" font-size="16" text-anchor="middle">${bldName}</text></svg>`);
+    const mainImg = document.getElementById('d-main-img');
+    if (mainImg) {
+      delete mainImg.dataset.triedFallback;
+      mainImg.onerror = function() {
+        if (fallbackLocal && !mainImg.dataset.triedFallback && mainImg.src !== fallbackLocal) {
+          mainImg.dataset.triedFallback = '1';
+          mainImg.src = fallbackLocal;
+        } else {
+          mainImg.onerror = null;
+          mainImg.src = svgPlaceholder;
+        }
+      };
+      mainImg.src = rawImgUrl ? formatImageUrl(rawImgUrl) : (fallbackLocal || svgPlaceholder);
+    }
+
+    const updLabel = getVal('UPDATES_LABEL') || 'Operational Telemetry:';
+    const updCont = getVal('UPDATES_CONTENT') || getVal('UPDATES_TEXT');
+    const updWrap = document.getElementById('updates-bar-wrap');
+    if (updWrap) {
+      updWrap.innerHTML = `<span class="updates-label" id="d-updates-label">${escapeHtml(updLabel)}</span><span class="updates-content" id="d-updates">${escapeHtml(updCont)}</span>`;
+      updWrap.style.display = updCont ? 'flex' : 'none';
+    }
+
+    const lnkName = resolveLinkedPartnerName(rec, globalMatrixCache);
+    const lnkNameEl = document.getElementById('d-linked-name');
+    if (lnkNameEl) lnkNameEl.textContent = lnkName;
+    const lnkCont = document.getElementById('linked-unit-container');
+    if (lnkCont) lnkCont.style.display = lnkName ? 'flex' : 'none';
+
+    const linkedBtn = document.getElementById('linkedFacilityBtn');
+    if (linkedBtn) {
+      linkedBtn.onclick = (e) => {
+        e.preventDefault();
+        openLinkedFacility(lnkName);
+      };
+    }
+
+    const s1 = getVal('SHOW_SHEET1') === '' ? true : isTrue('SHOW_SHEET1');
+    const s2 = getVal('SHOW_SHEET2') === '' ? true : isTrue('SHOW_SHEET2');
+    const s3 = getVal('SHOW_SHEET3') === '' ? true : isTrue('SHOW_SHEET3');
+
+    const jump1 = document.getElementById('jump-sheet1');
+    const jump2 = document.getElementById('jump-sheet2');
+    const jump3 = document.getElementById('jump-sheet3');
+
+    if (jump1) {
+      jump1.style.display = s1 ? 'inline-flex' : 'none';
+      document.getElementById('jump-sheet1-text').textContent = getVal('SHEET1_BTN_LBL') || '1. Upgrade Directive';
+      jump1.onclick = (e) => { e.preventDefault(); smoothScrollTo(document.getElementById('directive-section')); };
+    }
+    if (jump2) {
+      jump2.style.display = s2 ? 'inline-flex' : 'none';
+      document.getElementById('jump-sheet2-text').textContent = getVal('SHEET2_BTN_LBL') || '2. Planning Matrix';
+      jump2.onclick = (e) => { e.preventDefault(); smoothScrollTo(document.getElementById('upgrades-section')); };
+    }
+    if (jump3) {
+      jump3.style.display = s3 ? 'inline-flex' : 'none';
+      document.getElementById('jump-sheet3-text').textContent = getVal('SHEET3_BTN_LBL') || '3. Upgrade Path';
+      jump3.onclick = (e) => { e.preventDefault(); smoothScrollTo(document.getElementById('doctrine-section')); };
+    }
+
+    document.getElementById('origin-event-container').style.display = (s1 || s2 || s3) ? 'flex' : 'none';
+    document.getElementById('meta-divider-bar').style.display = ((s1 || s2 || s3) && lnkName) ? 'block' : 'none';
+    document.getElementById('unit-meta-bar').style.display = ((s1 || s2 || s3) || lnkName) ? 'flex' : 'none';
+
+    const reqBuild = getVal('STAT_BUILDING');
+    const reqLvl = getVal('STAT_BUILDING_REQ') || getVal('STAT_BUILDING_MAX');
+    document.getElementById('d-stat-building').textContent = reqBuild;
+    document.getElementById('d-stat-building-req').textContent = reqLvl;
+    document.getElementById('d-building-reqs').style.display = (reqBuild || reqLvl) ? 'table-row-group' : 'none';
+
+    let specHtml = '';
+    for (let i = 1; i <= 15; i++) {
+      const lbl = getVal(`SPEC_${i}_LBL`);
+      const val = getVal(`SPEC_${i}_VAL`);
+      const cls = getVal(`SPEC_${i}_COLOR`);
+      if (lbl || val) {
+        specHtml += `<tr><td class="stats-label">${escapeHtml(lbl)}</td><td class="stats-value ${escapeAttr(cls)}">${escapeHtml(val)}</td></tr>`;
+      }
+    }
+    document.getElementById('d-stats-tbody').innerHTML = specHtml;
+
+    let funcHtml = '';
+    for (let i = 1; i <= 8; i++) {
+      const title = getVal(`FUNC_${i}_TITLE`);
+      const desc = getVal(`FUNC_${i}_DESC`);
+      if (title || desc) {
+        funcHtml += `<div class="talent-block"><div class="talent-tier">${escapeHtml(title)}</div><div class="talent-desc">${escapeHtml(desc)}</div></div>`;
+      }
+    }
+    document.getElementById('d-talents-list').innerHTML = funcHtml;
+
+    const sec1 = document.getElementById('directive-section');
+    if (s1) {
+      sec1.style.display = 'block';
+      document.getElementById('d-sheet1-header').textContent = getVal('SHEET1_HEADER') || 'Data Sheet 1 // Upgrade Directive';
+      document.getElementById('d-sheet1-ref-top').textContent = getVal('SHEET1_REF');
+      document.getElementById('d-directive-title').textContent = bldName;
+      document.getElementById('d-directive-ref').textContent = getVal('SHEET1_REF');
+
+      let dirHtml = '';
+      for (let i = 1; i <= 20; i++) {
+        const isDiv = isTrue(`DIR_${i}_IS_DIVIDER`);
+        const desc = getVal(`DIR_${i}_DESC`);
+
+        if (isDiv && desc) {
+          dirHtml += `<tr class="section-divider"><td colspan="8">${escapeHtml(desc)}</td></tr>`;
+        } else {
+          const lvl = getVal(`DIR_${i}_LVL`);
+          const irid = getVal(`DIR_${i}_IRID`) || '—';
+          const gr = getVal(`DIR_${i}_GOLD_R`) || '—';
+          const gb = getVal(`DIR_${i}_GOLD_B`) || '—';
+          const sale = getVal(`DIR_${i}_SALE`) || '—';
+          const time = getVal(`DIR_${i}_TIME`) || '—';
+          const req = getVal(`DIR_${i}_REQ`) || '—';
+          const hl = isTrue(`DIR_${i}_GOLD_HL`) ? 'highlight-row' : '';
+
+          if (lvl || desc) {
+            dirHtml += `<tr class="${hl}"><td class="level-cell">${escapeHtml(lvl)}</td><td>${escapeHtml(desc)}</td><td class="val-iridium">${escapeHtml(irid)}</td><td class="val-gold">${escapeHtml(gr)}</td><td class="val-gold">${escapeHtml(gb)}</td><td class="val-green">${escapeHtml(sale)}</td><td>${escapeHtml(time)}</td><td style="color:#8b949e;">${escapeHtml(req)}</td></tr>`;
+          }
+        }
+      }
+      document.getElementById('d-directive-tbody').innerHTML = dirHtml;
+    } else {
+      sec1.style.display = 'none';
+    }
+
+    const sec2 = document.getElementById('upgrades-section');
+    if (s2) {
+      sec2.style.display = 'block';
+      document.getElementById('d-sheet2-header').textContent = getVal('SHEET2_HEADER') || 'Data Sheet 2 // Planning Matrix';
+      document.getElementById('d-sheet2-sub').textContent = getVal('SHEET2_SUB');
+
+      let matHtml = '';
+      const matrixSource = globalMatrixCache.length > 0 ? globalMatrixCache : [rec];
+      matrixSource.forEach(m => {
+        if (!m.MAT_LVLS && !m.MAT_IRID) return;
+        const mName = m.BUILDING_NAME || m.UNIT_NAME || '';
+        const safeJsMName = escapeAttr(mName).replace(/'/g, "\\'");
+        const isSelf = normBuildingKey(mName) === normBuildingKey(bldName);
+        matHtml += `<tr ${isSelf ? 'style="background:rgba(0,230,118,0.1);"' : ''}>
+          <td class="lvl-cell" onclick="openLinkedFacility('${safeJsMName}')">↗ ${escapeHtml(mName)}</td>
+          <td>${escapeHtml(m.MAT_LVLS || '—')}</td>
+          <td>${escapeHtml(m.MAT_COUNT || '—')}</td>
+          <td>${escapeHtml(m.MAT_TIME || '—')}</td>
+          <td class="val-iridium">${escapeHtml(m.MAT_IRID || '—')}</td>
+          <td class="val-gold">${escapeHtml(m.MAT_GOLD_R || '—')}</td>
+          <td class="val-gold">${escapeHtml(m.MAT_GOLD_B || '—')}</td>
+          <td class="val-green">${escapeHtml(m.MAT_SALE || '—')}</td>
+          <td style="text-align:left; font-size:12.5px;">${escapeHtml(m.MAT_NOTES || '')}</td>
+        </tr>`;
+      });
+      document.getElementById('d-matrix-tbody').innerHTML = matHtml;
+    } else {
+      sec2.style.display = 'none';
+    }
+
+    const sec3 = document.getElementById('doctrine-section');
+    if (s3) {
+      sec3.style.display = 'block';
+      document.getElementById('d-sheet3-header').textContent = getVal('SHEET3_HEADER') || 'Data Sheet 3 // Strategic Upgrade Path';
+      document.getElementById('d-sheet3-sub').textContent = getVal('SHEET3_SUB');
+
+      const pre = getVal('SHEET3_PREREQ');
+      document.getElementById('doctrine-prereq-wrap').style.display = pre ? 'block' : 'none';
+      document.getElementById('doctrine-prereq-text').textContent = pre;
+
+      const cst = getVal('SHEET3_COSTS');
+      document.getElementById('doctrine-costs-wrap').style.display = cst ? 'block' : 'none';
+      document.getElementById('doctrine-costs-text').textContent = cst;
+
+      let docHtml = '';
+      const styles = ['base', 'spec-1', 'spec-2'];
+      for (let i = 1; i <= 3; i++) {
+        const t = getVal(`DOC_${i}_TITLE`);
+        const s = getVal(`DOC_${i}_SUB`);
+        const rows = getVal(`DOC_${i}_ROWS`);
+
+        if (t || rows) {
+          let rowsHtml = '';
+          rows.split('\n').filter(l => l.trim() !== '').forEach(line => {
+            const p = line.split('|');
+            rowsHtml += `<tr><td class="lvl">${escapeHtml((p[0] || '').trim())}</td><td class="desc">${escapeHtml((p.slice(1).join('|') || '').trim())}</td></tr>`;
+          });
+          docHtml += `<div class="doctrine-card ${styles[i - 1]}"><div class="doctrine-card-header"><h2>${escapeHtml(t)}</h2><div class="subtitle">${escapeHtml(s)}</div></div><table class="doctrine-table"><thead><tr><th style="text-align:center; width:76px;">Target</th><th>Strategic Benefit</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>`;
+        }
+      }
+      document.getElementById('doctrine-grid-container').innerHTML = docHtml;
+    } else {
+      sec3.style.display = 'none';
+    }
+
+    const secTech = document.getElementById('tech-section');
+    const showTech = getVal('SHOW_TECH') === '' ? true : isTrue('SHOW_TECH');
+    if (showTech) {
+      let techHtml = '';
+      let count = 0;
+      for (let i = 1; i <= 6; i++) {
+        const t = getVal(`TECH_${i}_TITLE`);
+        const tag = getVal(`TECH_${i}_TAG`);
+        const d = getVal(`TECH_${i}_DESC`);
+        const al = isTrue(`TECH_${i}_ALERT`);
+        if (t || d) {
+          count++;
+          techHtml += `<div class="workshop-item" style="${al ? 'border-left-color: #f43f5e;' : ''}"><div><div class="workshop-title" style="${al ? 'color: #fda4af;' : ''}">${escapeHtml(t)}</div><div class="workshop-tag" style="${al ? 'color: #f43f5e;' : ''}">${escapeHtml(tag)}</div><p style="color:#cfd8dc; margin-top:4px;">${escapeHtml(d)}</p></div></div>`;
+        }
+      }
+      if (count > 0) {
+        secTech.style.display = 'block';
+        const wc = document.getElementById('workshop-container');
+        wc.className = count === 4 ? 'workshop-grid four-items' : 'workshop-grid';
+        wc.innerHTML = techHtml;
+      } else {
+        secTech.style.display = 'none';
+      }
+    } else {
+      secTech.style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
