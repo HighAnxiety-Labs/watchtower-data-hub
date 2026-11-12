@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="./wtr-view-mode.js"></script>
   <style>
     :root {
       --bg-void: #03060a;
@@ -70,7 +71,7 @@
         linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
       color: var(--text-main);
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       min-height: 100vh;
       padding: 16px 16px 40px;
       overflow-x: hidden;
@@ -485,7 +486,7 @@
       border: 1px solid #233b54;
       border-radius: 4px;
       color: #fff;
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       font-size: 16.5px;
       font-weight: 600;
       padding: 7px 13px;
@@ -530,7 +531,7 @@
     .preset-btn {
       padding: 6px 12px;
       border-radius: 4px;
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       font-size: 15px;
       font-weight: 700;
       background: rgba(255, 215, 0, 0.08);
@@ -718,14 +719,15 @@
       color: var(--green-main);
     }
 
-    /* Contractor Thumbnail Grid — 4 Contractors Per Row */
+    /* Contractor Thumbnail Grid — Fluid Columns (Min 1/2 Original 314px Width = 158px) */
     .contractor-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+      gap: 14px;
     }
 
     .contractor-tile {
+      container-type: inline-size;
       position: relative;
       background: radial-gradient(circle at 50% 28%, #16283d 0%, #070d15 78%);
       border: 1.5px solid #1f354d;
@@ -869,6 +871,7 @@
       position: absolute;
       bottom: 10px;
       left: 10px;
+      max-width: calc(100% - 20px);
       z-index: 4;
       padding: 4px 9px;
       border-radius: 4px;
@@ -879,6 +882,9 @@
       color: #d8e8f8;
       text-transform: uppercase;
       letter-spacing: 0.6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Slide-Up Hover Overlay inside Thumbnail */
@@ -941,6 +947,61 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    /* Compact tile badges & typography when tiles scale down toward 158px floor */
+    @container (max-width: 240px) {
+      .tile-check-wrap {
+        top: 6px;
+        left: 6px;
+        gap: 4px;
+        padding: 3px 6px;
+        font-size: 10.5px;
+      }
+      .tile-check-box {
+        width: 13px;
+        height: 13px;
+        font-size: 10px;
+      }
+      .ai-rank-chip {
+        top: 6px;
+        right: 6px;
+        padding: 3px 6px;
+        font-size: 10.5px;
+        letter-spacing: 0.2px;
+      }
+      .tile-subtag {
+        bottom: 6px;
+        left: 6px;
+        max-width: calc(100% - 12px);
+        padding: 3px 6px;
+        font-size: 10px;
+        letter-spacing: 0.3px;
+      }
+      .tile-hover-overlay {
+        padding: 32px 9px 8px;
+        gap: 5px;
+      }
+      .ov-role {
+        font-size: 10.5px;
+        letter-spacing: 0.3px;
+      }
+      .ov-talent {
+        font-size: 12px;
+        line-height: 1.28;
+        -webkit-line-clamp: 4;
+      }
+      .ov-cta {
+        font-size: 10px;
+        padding-top: 4px;
+      }
+      .tile-nameplate {
+        padding: 8px 6px;
+      }
+      .tile-name {
+        font-size: 12.5px;
+        letter-spacing: 0.4px;
+      }
     }
 
     /* Floating Cursor Hover Tooltip (Desktop) */
@@ -1063,7 +1124,7 @@
       border-radius: 4px;
       padding: 7px 11px;
       color: #fff;
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       font-size: 16px;
       font-weight: 600;
       outline: none;
@@ -1532,7 +1593,7 @@
       color: #fff;
       padding: 11px 18px;
       border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       font-size: 16px;
       font-weight: 700;
       box-shadow: 0 12px 30px rgba(0,0,0,0.85);
@@ -1551,12 +1612,10 @@
     }
 
     @media (max-width: 1040px) {
-      .contractor-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .ai-tier-cards-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 780px) {
-      .contractor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
       .division-tabs-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .class-bar { grid-template-columns: 1fr 1fr; height: auto; padding: 6px; gap: 4px; }
       .class-center { display: none; }
@@ -1568,7 +1627,6 @@
     }
 
     @media (max-width: 480px) {
-      .contractor-grid { grid-template-columns: 1fr; }
       .division-tabs-bar { grid-template-columns: 1fr; }
     }
 
@@ -1616,7 +1674,7 @@
             <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open Agency Contractors in a full standalone window">↗ POP-OUT FULL WINDOW</button>
             <a class="hub-nav-pill" href="./unit-briefs.html">📖 UNIT BRIEFS</a>
             <a class="hub-nav-pill" href="./building-briefs.html">🏢 BUILDINGS</a>
-            <span>UNITS &amp; ARMORY // AGENCY DIVISION</span>
+            <span>UNITS &amp; ASSETS // AGENCY DIVISION</span>
           </div>
           <h1>
             WAR COMMANDER — AGENCY CONTRACTORS
@@ -1765,7 +1823,7 @@
     <div class="corner-tab corner-left">
       <span>[-WTR-] DATA HUB</span>
     </div>
-    <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNITS &amp; ARMORY DIVISION</div>
+    <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNITS &amp; ASSETS DIVISION</div>
     <div class="corner-tab corner-right">
       <button class="collapse-toggle-btn" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         ▲ TOP OF BRIEF

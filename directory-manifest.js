@@ -16,6 +16,7 @@ window.WTR_DIRECTORY_MANIFEST = {
     "cc-22-pre-release.html",
     "cc22-upgrade-path.html",
     "damage-type.html",
+    "event-calculator.html",
     "faction-intel.html",
     "keyboard-commands.html",
     "operation-blue-baron.html",

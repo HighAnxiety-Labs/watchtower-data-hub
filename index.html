@@ -35,6 +35,7 @@
   <meta property="og:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <script src="./wtr-view-mode.js"></script>
   <style>
   :root {
     --bg-dark: #05070a;
@@ -456,6 +457,17 @@
             <div class="sub-tag" id="headerSubTag">Strategic Deployment Grid // WatchTower Feed</div>
             <h1 id="headerTitle"><div class="title-row-main">War Commander November 2026</div><span class="title-row-sub">TIME LINES • CALENDAR •</span></h1>
           </div>
+          <!-- Global Display Size & Text Scaling Gear Popover (Applies Across All Pages) -->
+          <div class="wtr-view-size-pod" id="wtrMainViewSizePod" data-html2canvas-ignore="true">
+            <div class="wtr-gear-wrap">
+              <button type="button" class="wtr-gear-trigger" aria-expanded="false" title="Hover or click to adjust Display Size &amp; Text Size across all pages">
+                <span class="wtr-gear-icon">⚙️</span>
+                <span class="wtr-gear-label">DISPLAY &amp; TEXT</span>
+                <span class="wtr-gear-status" data-wtr-gear-status="true">⚡ Auto • A</span>
+                <span class="wtr-gear-caret">▾</span>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="header-status-subrow">
           <div class="system-alert-pod glowing-home" id="systemAlertPod">
@@ -495,7 +507,7 @@
 
       <button type="button" class="brief-btn" id="btnUtil2" data-sec="tacticalBriefs" data-color="#c29829" onclick="selectCommandTab('tacticalBriefs', this)" style="border-color: #c29829; color: #c29829; background-color: rgba(194, 152, 41, 0.16); --btn-accent: #c29829; --glow-color: #c29829;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil2" style="background-color: #c29829;"></span><span id="txtUtil2">UNITS &amp; ARMORY</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil2" style="background-color: #c29829;"></span><span id="txtUtil2">UNITS &amp; ASSETS</span></span>
           <span class="brief-btn-mod-count" id="modCount-tacticalBriefs">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
@@ -504,7 +516,7 @@
       <button type="button" class="brief-btn" id="btnUtil3" data-sec="opIntel" data-color="#3d9e65" onclick="selectCommandTab('opIntel', this)" style="border-color: #3d9e65; color: #3d9e65; background-color: rgba(61, 158, 101, 0.16); --btn-accent: #3d9e65; --glow-color: #3d9e65;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil3" style="background-color: #3d9e65;"></span><span id="txtUtil3">COMBAT GUIDES</span></span>
-          <span class="brief-btn-mod-count" id="modCount-opIntel">5 MODULES</span>
+          <span class="brief-btn-mod-count" id="modCount-opIntel">7 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -512,7 +524,7 @@
       <button type="button" class="brief-btn" id="btnUtil4" data-sec="opBriefs" data-color="#c45a22" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #c45a22;"></span><span id="txtUtil4">EVENT BRIEFS</span></span>
-          <span class="brief-btn-mod-count" id="modCount-opBriefs">6 MODULES</span>
+          <span class="brief-btn-mod-count" id="modCount-opBriefs">8 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -682,7 +694,7 @@
 
   const SECTION_DISPLAY_NAMES = {
     baseOps: "1. BASE & BUILDINGS",
-    tacticalBriefs: "2. UNITS & ARMORY",
+    tacticalBriefs: "2. UNITS & ASSETS",
     opIntel: "3. COMBAT GUIDES",
     opBriefs: "4. EVENT BRIEFS",
     wtrArchives: "5. [-WTR-] VAULT",
@@ -997,6 +1009,7 @@
 
   window.addEventListener("resize", () => {
     if (activeCommandKey && activeCommandKey !== "FILTER") updateTabToCenterConduitLine();
+    if (typeof slideTimers === "function") slideTimers(0);
   });
 
   const eventSchedules = {
@@ -1023,31 +1036,32 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "UNIT BRIEFS ENGINE", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: true,  order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "AGENCY CONTRACTORS", url: "./agency-contractors.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 5, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "AGENCY CONTRACTORS", url: "./agency-contractors.html", embedCode: "", openInIframe: true }
       ]
     },
     opIntel: {
       accent: "var(--dir-btn3)", colorHex: "#3d9e65",
       cards: [
-        { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 2, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 4, symbol: "DATABASE",   title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 5, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 6, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 1, symbol: "UPDATED",    title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 3, symbol: "DATABASE",   title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 5, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 6, symbol: "BLUEPRINT",  title: "BASE DEFENSE PLANNING", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 7, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
       ]
     },
     opBriefs: {
       accent: "var(--dir-btn4)", colorHex: "#c45a22",
       cards: [
-        { enabled: true, isSubPage: false, order: 1, symbol: "LIVE", title: "NOV 2026 • OPERATION: BLUE BARON BRIEF", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
-        { enabled: true, isSubPage: false, order: 2, symbol: "LIVE", title: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", url: "./2026-pvp-season-60-brief.html", embedCode: "", openInIframe: true, eventCategory: "PVP_SEASON" },
-        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
-        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
-        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
-        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
+        { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true, isPinnedCalendar: true },
+        { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "MULTI-EVENT XP CALCULATOR", url: "./event-calculator.html", embedCode: "", openInIframe: true, isPinnedCalculator: true },
+        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "NOV 2026 • OPERATION: BLUE BARON BRIEF", url: "./operation-blue-baron.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
+        { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", url: "./2026-pvp-season-60-brief.html", embedCode: "", openInIframe: true, eventCategory: "PVP_SEASON" },
+        { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
+        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
+        { enabled: true, isSubPage: false, order: 7, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
+        { enabled: true, isSubPage: false, order: 8, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
       ]
     },
     wtrArchives: {
@@ -1091,7 +1105,7 @@
     // 1. Update the 6 Division Tab Titles & Colors to the Hybrid Set
     const hybridTabs = [
       { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
-      { idx: 2, key: "tacticalBriefs", title: "UNITS & ARMORY",   color: "#c29829" },
+      { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
       { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
       { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
       { idx: 5, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
@@ -1233,9 +1247,13 @@
       bCards.forEach((c, idx) => { c.order = idx + 1; });
     }
     if (targetWorkspaces.tacticalBriefs && Array.isArray(targetWorkspaces.tacticalBriefs.cards)) {
-      targetWorkspaces.tacticalBriefs.cards = targetWorkspaces.tacticalBriefs.cards.filter(
-        c => !String(c?.title || "").toUpperCase().includes("UNIT HISTORY ARCHIVE")
-      );
+      targetWorkspaces.tacticalBriefs.cards = targetWorkspaces.tacticalBriefs.cards.filter(c => {
+        const t = String(c?.title || "").toUpperCase();
+        const u = String(c?.url || "").toLowerCase();
+        return !t.includes("UNIT HISTORY ARCHIVE") &&
+               !t.includes("PLATOON") && !u.includes("platoon-guide") &&
+               !t.includes("KEYBOARD") && !u.includes("keyboard-commands");
+      });
       const tCards = targetWorkspaces.tacticalBriefs.cards;
       const ubIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UNIT BRIEF"));
       const umIdx = tCards.findIndex(c =>
@@ -1307,6 +1325,14 @@
       }
       wCards.forEach((c, idx) => { c.order = idx + 1; });
     }
+    if (targetWorkspaces.opIntel && Array.isArray(targetWorkspaces.opIntel.cards)) {
+      targetWorkspaces.opIntel.cards = targetWorkspaces.opIntel.cards.filter(c => {
+        const t = String(c?.title || "").toUpperCase();
+        const u = String(c?.url || "").toLowerCase();
+        return !t.includes("EVENT CALENDAR") && !u.includes("2026-calendar");
+      });
+      targetWorkspaces.opIntel.cards.forEach((c, idx) => { c.order = idx + 1; });
+    }
 
     const standaloneMappings = [
       { secKey: "baseOps",        match: "BUILDING BRIEF", urlHint: "building-brief",        file: "./building-briefs.html",         defaultTitle: "BUILDING BRIEF DB",      defaultSym: "BLUEPRINT" },
@@ -1314,15 +1340,15 @@
       { secKey: "baseOps",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE & LAYOUTS", defaultSym: "BLUEPRINT" },
       { secKey: "tacticalBriefs", match: "UNIT BRIEF",     urlHint: "unit-brief",            file: "./unit-briefs.html",             defaultTitle: "UNIT BRIEFS ENGINE",     defaultSym: "DATABASE" },
       { secKey: "tacticalBriefs", match: "CONTRACTOR",     urlHint: "agency-contractors",    file: "./agency-contractors.html",      defaultTitle: "AGENCY CONTRACTORS",     defaultSym: "NEW", ensurePresent: true },
-      { secKey: "tacticalBriefs", match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW", ensurePresent: true },
-      { secKey: "tacticalBriefs", match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW", ensurePresent: true },
       { secKey: "tacticalBriefs", match: "MATCHUP",        urlHint: "unit-matchup",          file: "./unit-matchup.html",            defaultTitle: "UNIT MATCHUP SIMULATOR", defaultSym: "CALCULATOR", ensurePresent: true },
-      { secKey: "opIntel",        match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",  urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",     defaultTitle: "SECTOR STATUS SHEET",    defaultSym: "UPDATED",    ensurePresent: true },
       { secKey: "opIntel",        match: "DAMAGE TYPE",    urlHint: "damage-type",           file: "./damage-type.html",             defaultTitle: "DAMAGE TYPE MATRIX",     defaultSym: "CALCULATOR", ensurePresent: true },
       { secKey: "opIntel",        match: "FACTION",        urlHint: "faction-intel",         file: "./faction-intel.html",           defaultTitle: "FACTION INTEL",          defaultSym: "DATABASE",   ensurePresent: true },
+      { secKey: "opIntel",        match: "PLATOON",        urlHint: "platoon-guide",         file: "./platoon-guide.html",           defaultTitle: "PLATOON FORMATIONS GUIDE", defaultSym: "NEW",      ensurePresent: true },
+      { secKey: "opIntel",        match: "KEYBOARD",       urlHint: "keyboard-commands",     file: "./keyboard-commands.html",       defaultTitle: "KEYBOARD COMMANDS",      defaultSym: "NEW",        ensurePresent: true },
       { secKey: "opIntel",        match: "BASE DEFENSE",   urlHint: "base-defense-planning", file: "./base-defense-planning.html",   defaultTitle: "BASE DEFENSE PLANNING",  defaultSym: "BLUEPRINT",  ensurePresent: true },
       { secKey: "opIntel",        match: "VIDEO",          urlHint: "video-recon",           file: "./video-recon.html",             defaultTitle: "VIDEO RECON DESK",       defaultSym: "VIDEO",      ensurePresent: true },
+      { secKey: "opBriefs",       match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opBriefs",       match: "SKIRMISH",       urlHint: "skirmish",              file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "BLUE BARON",     urlHint: "blue-baron",            file: "./operation-blue-baron.html",    defaultTitle: "OPERATION: BLUE BARON",  defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "PVP SEASON",     urlHint: "pvp-season",            file: "./2026-pvp-season-60-brief.html",defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
@@ -1684,14 +1710,54 @@
 
   /* ==================== ZERO-CREEP EMBEDDED VIEWPORT (FIXES BLUE BARON LOCK HUB & POP-OUT BUTTON) ==================== */
   let viewportResizeObserver = null;
+  let lastViewportReturnState = null;
+
+  function persistActiveListToSession(stateObj) {
+    try {
+      if (!stateObj) {
+        sessionStorage.removeItem("wtr_hub_prev_list_v1");
+      } else {
+        sessionStorage.setItem("wtr_hub_prev_list_v1", JSON.stringify(stateObj));
+      }
+    } catch (e) {}
+  }
+
   function openInlineModuleViewport(title, accentColor, rawHtmlCode, iframeSrcUrl, backupUrl) {
     const viewport = document.getElementById("inlineModuleViewport");
     const iframe = document.getElementById("inlineViewportIframe");
     const titleEl = document.getElementById("viewportModuleTitle");
     const backupBtn = document.getElementById("viewportBackupPopoutBtn");
+    const closeBtn = viewport ? viewport.querySelector(".viewport-close-x-btn") : null;
     const homeDash = document.getElementById("homeDefaultDashboard");
 
     if (!viewport || !iframe) return;
+
+    const drawerWrap = document.getElementById("commandDrawerWrap");
+    if (!viewport.classList.contains("active-viewport")) {
+      const catSelectEl = document.getElementById("globalCategorySelect");
+      const hadDrawer = Boolean(drawerWrap && drawerWrap.classList.contains("open") && activeCommandKey);
+      let listLabel = "";
+      if (hadDrawer) {
+        if (activeCommandKey === "FILTER") {
+          listLabel = "CATEGORY LIST";
+        } else {
+          const bIdx = MENU_SECTION_KEYS.indexOf(activeCommandKey);
+          listLabel = (document.getElementById(`txtUtil${bIdx + 1}`)?.textContent || "PREVIOUS LIST").trim();
+        }
+      }
+      lastViewportReturnState = {
+        hadOpenDrawer: hadDrawer,
+        commandKey: activeCommandKey,
+        categoryVal: catSelectEl ? catSelectEl.value : "",
+        listLabel: listLabel
+      };
+    }
+
+    if (closeBtn) {
+      closeBtn.textContent = (lastViewportReturnState && lastViewportReturnState.hadOpenDrawer && lastViewportReturnState.listLabel)
+        ? `◂ BACK TO ${lastViewportReturnState.listLabel} ✕`
+        : "✕ CLOSE VIEWPORT";
+    }
 
     document.documentElement.style.setProperty("--lead-accent", accentColor || "#2b8cbe");
     if (titleEl) {
@@ -1710,7 +1776,6 @@
       };
     }
 
-    const drawerWrap = document.getElementById("commandDrawerWrap");
     if (drawerWrap) drawerWrap.classList.remove("open");
     if (homeDash) homeDash.style.display = "none";
 
@@ -1800,10 +1865,11 @@
     viewport.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function closeInlineModuleViewport() {
+  function closeInlineModuleViewport(restorePreviousList = true) {
     const viewport = document.getElementById("inlineModuleViewport");
     const iframe = document.getElementById("inlineViewportIframe");
     const homeDash = document.getElementById("homeDefaultDashboard");
+    const closeBtn = viewport ? viewport.querySelector(".viewport-close-x-btn") : null;
 
     currentActiveViewportRawHtml = "";
     if (viewportResizeObserver) {
@@ -1817,7 +1883,48 @@
       iframe.src = "about:blank";
       iframe.style.height = "840px";
     }
+    if (closeBtn) closeBtn.textContent = "✕ CLOSE VIEWPORT";
     if (homeDash) homeDash.style.display = "flex";
+
+    if (restorePreviousList !== false && lastViewportReturnState && lastViewportReturnState.hadOpenDrawer) {
+      const savedState = lastViewportReturnState;
+      lastViewportReturnState = null;
+      const drawerWrap = document.getElementById("commandDrawerWrap");
+      const catSelect = document.getElementById("globalCategorySelect");
+
+      if (savedState.commandKey === "FILTER" && savedState.categoryVal) {
+        if (catSelect) catSelect.value = savedState.categoryVal;
+        handleCategoryDropdownFilter(savedState.categoryVal);
+      } else if (savedState.commandKey && MENU_SECTION_KEYS.includes(savedState.commandKey)) {
+        activeCommandKey = savedState.commandKey;
+        if (catSelect) catSelect.value = "";
+        document.querySelectorAll(".brief-btn").forEach(b => {
+          b.classList.toggle("active-tab", b.getAttribute("data-sec") === activeCommandKey);
+        });
+        renderCommandDrawer();
+        updateHeaderTitleDisplay();
+        if (drawerWrap) {
+          drawerWrap.classList.add("open");
+        }
+        requestAnimationFrame(() => {
+          updateTabToCenterConduitLine();
+        });
+      }
+
+      const menuPanel = document.querySelector(".main-menu-panel") || drawerWrap;
+      if (menuPanel) {
+        requestAnimationFrame(() => {
+          menuPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    } else if (restorePreviousList !== false) {
+      lastViewportReturnState = null;
+      if (!document.getElementById("commandDrawerWrap")?.classList.contains("open")) {
+        activeCommandKey = null;
+        document.querySelectorAll(".brief-btn").forEach(b => b.classList.remove("active-tab"));
+        updateHeaderTitleDisplay();
+      }
+    }
   }
 
   function buildSortedTreeGroups(cardsArray, defaultAccent, divLabel = "") {
@@ -1857,8 +1964,9 @@
       return;
     }
 
-    closeInlineModuleViewport();
+    closeInlineModuleViewport(false);
     activeCommandKey = sectionKey;
+    persistActiveListToSession({ type: "tab", key: sectionKey });
     document.querySelectorAll(".brief-btn").forEach(b => b.classList.remove("active-tab"));
     if (btnElement) btnElement.classList.add("active-tab");
 
@@ -1877,7 +1985,9 @@
   }
 
   function closeCommandDrawer() {
-    closeInlineModuleViewport();
+    lastViewportReturnState = null;
+    persistActiveListToSession(null);
+    closeInlineModuleViewport(false);
     activeCommandKey = null;
     const catSelect = document.getElementById("globalCategorySelect");
     if (catSelect) catSelect.value = "";
@@ -1900,8 +2010,9 @@
       return;
     }
 
-    closeInlineModuleViewport();
+    closeInlineModuleViewport(false);
     activeCommandKey = "FILTER";
+    persistActiveListToSession({ type: "filter", cat: selectedCat });
     document.querySelectorAll(".brief-btn").forEach(b => b.classList.remove("active-tab"));
     if (svg) svg.style.display = "none";
 
@@ -2057,7 +2168,7 @@
                       <span class="bento-num-badge">${subBadge}</span>
                       <div class="bento-title-wrap">
                         <span class="bento-main-title" style="color: ${parentColor};">${escapeHtml(ch.title)}</span>
-                        ${chHasInline ? `<span class="bento-div-sub" style="color:var(--text-gold);">🖥️ OPENS IN-PAGE VIEWPORT</span>` : ''}
+                        ${(ch.scheduleHint || chHasInline) ? `<span class="bento-div-sub" style="color:var(--text-gold);">${ch.scheduleHint ? escapeHtml(ch.scheduleHint) + (chHasInline ? " • " : "") : ""}${chHasInline ? "🖥️ OPENS IN-PAGE VIEWPORT" : ""}</span>` : ''}
                       </div>
                     </div>
                     ${renderSymBadgeHtml(ch.symKey)}
@@ -4517,7 +4628,8 @@
       const btnEl = document.getElementById(`btnUtil${i}`);
       const dotEl = document.getElementById(`dotUtil${i}`);
 
-      const titleVal = titleEl ? titleEl.value : (txtEl ? txtEl.textContent : "");
+      let titleVal = titleEl ? titleEl.value : (txtEl ? txtEl.textContent : "");
+      if (i === 2 && titleVal.trim().toUpperCase() === "UNITS & ARMORY") { titleVal = "UNITS & ASSETS"; if (titleEl) titleEl.value = titleVal; }
       const colorVal = (colorEl && colorEl.value) ? colorEl.value : getSectionHexColor(secKey);
 
       sectionColors[secKey] = colorVal;
@@ -4640,7 +4752,7 @@
   function forceApplyHybridLabelsNow() {
     const hybridTabs = [
       { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
-      { idx: 2, key: "tacticalBriefs", title: "UNITS & ARMORY",   color: "#c29829" },
+      { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
       { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
       { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
       { idx: 5, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
@@ -5148,7 +5260,8 @@
     const track = document.getElementById("timersTrack");
     if (!track) return;
     const visibleCards = track.querySelectorAll('.timer-card:not([style*="display: none"])');
-    const visibleCount = window.innerWidth <= 640 ? 1 : window.innerWidth <= 960 ? 2 : 3;
+    const vMode = document.documentElement.getAttribute("data-wtr-view") || "auto";
+    const visibleCount = (vMode === "mobile" || window.innerWidth <= 640) ? 1 : window.innerWidth <= 960 ? 2 : (vMode === "wide" && window.innerWidth >= 1620) ? 4 : 3;
     const maxIndex = Math.max(0, visibleCards.length - visibleCount);
     currentCarouselIndex += direction;
     if (currentCarouselIndex < 0) currentCarouselIndex = 0;
@@ -5319,7 +5432,7 @@
     renderHomeCalendarFromVault(); updateMenuButtonModuleCounts(); syncLiveDomAttributesForSnapshot(); persistCompanionState();
 
     closeCommandDrawer();
-    closeInlineModuleViewport();
+    closeInlineModuleViewport(false);
     closePastePublishedModal();
     const adminPanel = document.getElementById("adminPanel");
     if (adminPanel) adminPanel.style.display = "none";
@@ -5614,12 +5727,14 @@
       "2026-nov-sector-breach-brief.html",
       "2026-nov-skirmish-brief.html",
       "2026-pvp-season-60-brief.html",
+      "agency-contractors.html",
       "base-defense-planning.html",
       "building-briefs.html",
       "cc-22-pre-release.html",
       "cc22-upgrade-path.html",
       "command-center.html",
       "damage-type.html",
+      "event-calculator.html",
       "faction-intel.html",
       "hub-home.html",
       "index.html",
@@ -5681,7 +5796,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "agency-contractors.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "agency-contractors.html", "event-calculator.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
@@ -5766,8 +5881,13 @@
     if (!/^https?:\/\//i.test(targetUrl) && !targetUrl.startsWith("/") && !isRelativeHtml) {
       targetUrl = "https://" + targetUrl;
     }
+    if (isRelativeHtml && window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function") {
+      targetUrl = window.WTRViewMode.decorateUrl(targetUrl);
+    }
 
-    const w = 1160, h = 880;
+    const vMode = (window.WTRViewMode && typeof window.WTRViewMode.get === "function") ? window.WTRViewMode.get() : "auto";
+    const w = vMode === "mobile" ? 470 : vMode === "wide" ? Math.min(1840, Math.max(1200, (window.screen.availWidth || 1600) - 60)) : 1180;
+    const h = 880;
     const left = Math.max(0, (window.screen.width - w) / 2);
     const top = Math.max(0, (window.screen.height - h) / 2);
     const win = window.open(targetUrl, "_blank", `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes`);
@@ -5789,10 +5909,13 @@
 
     const embedHtml = (card.embedCode || "").trim();
     const rawUrl = (card.url || "").trim();
+    const iframeUrl = (rawUrl && window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function")
+      ? window.WTRViewMode.decorateUrl(rawUrl)
+      : rawUrl;
     const tabColor = getSectionHexColor(secKey);
 
     if (card.openInIframe && rawUrl) {
-      openInlineModuleViewport(card.title, tabColor, null, rawUrl, rawUrl);
+      openInlineModuleViewport(card.title, tabColor, null, iframeUrl, rawUrl);
       return;
     }
     if (embedHtml.length > 0) {
@@ -5800,7 +5923,7 @@
       return;
     }
     if (rawUrl && (rawUrl.startsWith("./") || rawUrl.startsWith("../") || /\.html($|\?|#)/i.test(rawUrl))) {
-      openInlineModuleViewport(card.title, tabColor, null, rawUrl, rawUrl);
+      openInlineModuleViewport(card.title, tabColor, null, iframeUrl, rawUrl);
       return;
     }
     openDirectExternalUrl(rawUrl);
@@ -5812,9 +5935,10 @@
   openPopout = function(url, eventHint = "") {
     const rawStr = String(url || "").trim();
     const hintUp = String(eventHint || "").toUpperCase();
+    const decUrl = (u) => (u && window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function") ? window.WTRViewMode.decorateUrl(u) : u;
 
     if (rawStr && (rawStr.startsWith("./") || rawStr.startsWith("../") || /\.html($|\?|#)/i.test(rawStr))) {
-      openInlineModuleViewport(eventHint || "OPERATIONAL BRIEF", "var(--lead-accent)", null, rawStr, rawStr);
+      openInlineModuleViewport(eventHint || "OPERATIONAL BRIEF", "var(--lead-accent)", null, decUrl(rawStr), rawStr);
       return;
     }
 
@@ -5831,12 +5955,12 @@
       if (targetCat && window._wtrDiscoveredDirectory) {
         const activeMatch = (window._wtrDiscoveredDirectory.activeEvents || []).find(e => e.category === targetCat);
         if (activeMatch) {
-          openInlineModuleViewport(activeMatch.title, "#c45a22", null, activeMatch.url, activeMatch.url);
+          openInlineModuleViewport(activeMatch.title, "#c45a22", null, decUrl(activeMatch.url), activeMatch.url);
           return;
         }
         const vaultMatch = (window._wtrDiscoveredDirectory.vaultEvents || []).find(e => e.category === targetCat);
         if (vaultMatch) {
-          openInlineModuleViewport(vaultMatch.title, "#785dc8", null, vaultMatch.url, vaultMatch.url);
+          openInlineModuleViewport(vaultMatch.title, "#785dc8", null, decUrl(vaultMatch.url), vaultMatch.url);
           return;
         }
       }
@@ -5874,6 +5998,12 @@
   }
 
   function getEventSoonestSortMetrics(item) {
+    if (item && (item.isPinnedCalendar || String(item.url || "").toLowerCase().includes("2026-calendar.html"))) {
+      return { stagePriority: -1, targetTime: 0, catOrder: 0, scheduleHint: "🗓️ FULL-YEAR OPERATIONAL SCHEDULE • ALL EVENTS" };
+    }
+    if (item && (item.isPinnedCalculator || String(item.url || "").toLowerCase().includes("event-calculator.html"))) {
+      return { stagePriority: 0, targetTime: 0, catOrder: 0, scheduleHint: "🧮 MAIN EVENT • HOLDOUT • BREACH • SKIRMISH" };
+    }
     const cat = inferEventCategoryFromCardOrFile(item);
     const schedKey = getEventCategoryScheduleKey(cat);
     const sched = (schedKey && typeof eventSchedules === "object") ? eventSchedules[schedKey] : null;
@@ -5945,16 +6075,99 @@
     return (a.title || "").localeCompare(b.title || "");
   }
 
-  function sortOpBriefsCardsBySoonest() {
-    const cards = workspaceCardsState?.opBriefs?.cards;
-    if (!Array.isArray(cards) || cards.length === 0) return;
-    cards.forEach(c => {
-      if (!c.eventCategory) c.eventCategory = inferEventCategoryFromCardOrFile(c);
-      const metrics = getEventSoonestSortMetrics(c);
-      c.scheduleHint = metrics.scheduleHint;
+  const CALC_EVENT_ROTATION_SPECS = [
+    { category: "OPERATIONS",    schedKey: "nightmare", mode: "operations", label: "MAIN EVENT" },
+    { category: "HOLDOUT",       schedKey: "holdout",   mode: "holdout",    label: "HOLDOUT" },
+    { category: "SECTOR_BREACH", schedKey: "breach",    mode: "breach",     label: "BREACH" },
+    { category: "SKIRMISH",      schedKey: "skirmish",  mode: "skirmish",   label: "SKIRMISH" }
+  ];
+
+  function getLocalDayStartMs(ts) {
+    const d = new Date(Number(ts));
+    if (isNaN(d.getTime())) return 0;
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0).getTime();
+  }
+
+  function resolveActiveCalculatorTarget() {
+    const now = Date.now();
+    const entries = CALC_EVENT_ROTATION_SPECS.map((spec, idx) => {
+      const sched = (typeof eventSchedules === "object" && eventSchedules) ? eventSchedules[spec.schedKey] : null;
+      const startMs = sched ? (Number(sched.start) || 0) : 0;
+      const endMs = sched ? (Number(sched.end) || startMs) : 0;
+      const hasStore = sched && !sched.noStore && Number(sched.store) > endMs;
+      const storeMs = hasStore ? Number(sched.store) : endMs;
+      // Rotate to the next event at 00:00 local time on the calendar day the previous event store closes
+      const handoffMs = (storeMs > endMs) ? Math.max(endMs, getLocalDayStartMs(storeMs)) : endMs;
+      return { ...spec, idx, startMs, endMs, storeMs, handoffMs };
     });
-    cards.sort(compareEventsBySoonestStart);
-    cards.forEach((c, idx) => { c.order = idx + 1; });
+
+    // 1. Live combat OR post-combat store open BEFORE the calendar day the store closes
+    const activeNow = entries
+      .filter(e => e.startMs > 0 && now >= e.startMs && now < e.handoffMs)
+      .sort((a, b) => {
+        const aLive = now < a.endMs ? 0 : 1;
+        const bLive = now < b.endMs ? 0 : 1;
+        if (aLive !== bLive) return aLive - bLive;
+        return a.startMs - b.startMs;
+      });
+    if (activeNow.length > 0) return activeNow[0];
+
+    // 2. Previous event store closes today (or already closed) -> dock under the NEXT upcoming calculator event
+    const upcoming = entries
+      .filter(e => e.startMs > now)
+      .sort((a, b) => a.startMs - b.startMs);
+    if (upcoming.length > 0) return upcoming[0];
+
+    // 3. End-of-cycle wraparound -> dock under forthcoming Main Event
+    const withDates = entries.filter(e => e.handoffMs > 0).sort((a, b) => a.handoffMs - b.handoffMs);
+    return withDates[0] || entries[0];
+  }
+
+  function isMultiEventCalculatorCard(c) {
+    if (!c) return false;
+    return Boolean(c.isPinnedCalculator || String(c.url || "").toLowerCase().includes("event-calculator.html"));
+  }
+
+  function sortOpBriefsCardsBySoonest() {
+    const sec = workspaceCardsState?.opBriefs;
+    const cards = sec?.cards;
+    if (!Array.isArray(cards) || cards.length === 0) return;
+
+    let calcCard = null;
+    const otherCards = [];
+    cards.forEach(c => {
+      if (!calcCard && isMultiEventCalculatorCard(c)) {
+        calcCard = c;
+      } else {
+        if (!c.eventCategory) c.eventCategory = inferEventCategoryFromCardOrFile(c);
+        const metrics = getEventSoonestSortMetrics(c);
+        c.scheduleHint = metrics.scheduleHint;
+        otherCards.push(c);
+      }
+    });
+
+    otherCards.sort(compareEventsBySoonestStart);
+
+    if (calcCard) {
+      const prefix = typeof getWtrPublishedPrefix === "function" ? getWtrPublishedPrefix() : "./";
+      const target = resolveActiveCalculatorTarget();
+      calcCard.title = "MULTI-EVENT XP CALCULATOR";
+      calcCard.url = `${prefix}event-calculator.html?mode=${target.mode}`;
+      calcCard.scheduleHint = `🧮 MAIN EVENT • HOLDOUT • BREACH • SKIRMISH`;
+
+      const parentIdx = otherCards.findIndex(c => !c.isSubPage && c.eventCategory === target.category);
+      if (parentIdx !== -1) {
+        calcCard.isSubPage = true;
+        otherCards.splice(parentIdx + 1, 0, calcCard);
+      } else {
+        calcCard.isSubPage = false;
+        const calIdx = otherCards.findIndex(c => c.isPinnedCalendar || String(c.url || "").toLowerCase().includes("2026-calendar.html"));
+        otherCards.splice(calIdx !== -1 ? calIdx + 1 : 0, 0, calcCard);
+      }
+    }
+
+    otherCards.forEach((c, idx) => { c.order = idx + 1; });
+    sec.cards = otherCards;
   }
 
   function applySelfPopulatedDirectoriesToHub(activeFileNames, vaultFileNames) {
@@ -6005,14 +6218,38 @@
       vaultEvents: vaultParsed
     };
 
-    // 1. Self-Populate Tab 4: EVENT BRIEFS / EVENT GUIDES (opBriefs) sorted by soonest start
+    // 1. Self-Populate Tab 4: EVENT BRIEFS / EVENT GUIDES (opBriefs) with Pinned Event Calendar + 4-Mode Calculator + Events sorted by soonest start
     if (workspaceCardsState && workspaceCardsState.opBriefs) {
-      workspaceCardsState.opBriefs.cards = activeParsed.map((ev, idx) => {
+      const calendarCard = {
+        enabled: true,
+        isSubPage: false,
+        order: 1,
+        symbol: "CALCULATOR",
+        title: "2026 EVENT CALENDAR",
+        url: `${prefix}2026-calendar.html`,
+        embedCode: "",
+        openInIframe: true,
+        isPinnedCalendar: true,
+        scheduleHint: "🗓️ FULL-YEAR OPERATIONAL SCHEDULE • ALL EVENTS"
+      };
+      const calcCard = {
+        enabled: true,
+        isSubPage: false,
+        order: 2,
+        symbol: "CALCULATOR",
+        title: "MULTI-EVENT XP CALCULATOR",
+        url: `${prefix}event-calculator.html`,
+        embedCode: "",
+        openInIframe: true,
+        isPinnedCalculator: true,
+        scheduleHint: "🧮 MAIN EVENT • HOLDOUT • BREACH • SKIRMISH"
+      };
+      const eventCards = activeParsed.map((ev, idx) => {
         const metrics = getEventSoonestSortMetrics(ev);
         return {
           enabled: true,
           isSubPage: false,
-          order: idx + 1,
+          order: idx + 3,
           symbol: ev.fileName.toLowerCase().includes("calc") ? "CALCULATOR" : "LIVE",
           title: ev.title,
           url: ev.url,
@@ -6022,6 +6259,8 @@
           scheduleHint: metrics.scheduleHint
         };
       });
+      workspaceCardsState.opBriefs.cards = [calendarCard, calcCard, ...eventCards];
+      sortOpBriefsCardsBySoonest();
     }
 
     // 2. Self-Populate Tab 5: [-WTR-] VAULT (wtrArchives)
@@ -6209,6 +6448,25 @@
   // Run immediately and after loadPersistedState completes
   applySelfPopulatedDirectoriesToHub(WTR_DEFAULT_DIRECTORY_MANIFEST.activeFiles, WTR_DEFAULT_DIRECTORY_MANIFEST.vaultFiles);
   setTimeout(scanAndSyncWtrDirectories, 60);
+
+  // Restore previously open tab/category list if returning from a full-page sub-module
+  (function restoreHubListFromSessionIfRequested() {
+    try {
+      if (sessionStorage.getItem("wtr_hub_restore_on_load") !== "1") return;
+      sessionStorage.removeItem("wtr_hub_restore_on_load");
+      const raw = sessionStorage.getItem("wtr_hub_prev_list_v1");
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (saved && saved.type === "tab" && saved.key && MENU_SECTION_KEYS.includes(saved.key)) {
+        const btn = document.querySelector(`.brief-btn[data-sec="${saved.key}"]`);
+        selectCommandTab(saved.key, btn);
+      } else if (saved && saved.type === "filter" && saved.cat) {
+        const catSelect = document.getElementById("globalCategorySelect");
+        if (catSelect) catSelect.value = saved.cat;
+        handleCategoryDropdownFilter(saved.cat);
+      }
+    } catch (e) {}
+  })();
 
   /* Auto-injects [🔗 Validate / Replace URLs] button into Config Studio top bar */
   (function injectUrlValidatorBtn() {

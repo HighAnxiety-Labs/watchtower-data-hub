@@ -1,0 +1,3479 @@
+<!DOCTYPE html>
+<!-- WATCHTOWER 4-MODE UNIFIED EVENT CALCULATOR PUBLISHED // RELEASE: v1.0-UNIFIED-CALC (2026-11-11) -->
+<html lang="en" data-event-mode="holdout">
+<head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — Multi-Event XP &amp; Store Requisition Calculator</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — Multi-Event XP & Store Calculator">
+  <meta property="og:description" content="Unified WatchToweR Event Requisition & Run Calculator for Main Events (Operations), Holdout, Sector Breach, and Skirmish. Auto-pulls live storeCatalog prizes and MASTER_DB unit dossiers.">
+  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+
+  <script src="./directory-manifest.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <script src="./wtr-view-mode.js"></script>
+  <style>
+    :root {
+      /* Default Mode: Holdout (WatchToweR Active Green + Tactical Cyan) */
+      --mode-primary: #00bf63;
+      --mode-bar: #1e7a46;
+      --mode-accent: #00e676;
+      --mode-secondary: #38bdf8;
+      --mode-glow: rgba(0, 191, 99, 0.28);
+      --mode-border: #1f3b2b;
+      --mode-card: #13221a;
+      --mode-tint: rgba(0, 230, 118, 0.1);
+
+      --bg-dark: #070b0a;
+      --bg-panel: #0e1412;
+      --bg-header: #0a100e;
+      --bg-inner: #080d0b;
+      --text-main: #e2e8f0;
+      --text-muted: #8fa3b8;
+      --text-gold: #ffd700;
+      --text-cyan: #38bdf8;
+      --text-orange: #f97316;
+      --text-red: #ff5252;
+      --corner-w: 270px;
+    }
+
+    /* Mode 1: Main Event / Operations (Crimson-Ops & Gold) */
+    html[data-event-mode="operations"] {
+      --mode-primary: #e11d48;
+      --mode-bar: #9f1239;
+      --mode-accent: #fb7185;
+      --mode-secondary: #ffd700;
+      --mode-glow: rgba(225, 29, 72, 0.28);
+      --mode-border: #4a1d2a;
+      --mode-card: #1b1015;
+      --mode-tint: rgba(225, 29, 72, 0.12);
+      --bg-dark: #0a0709;
+      --bg-panel: #130d10;
+      --bg-header: #100a0d;
+      --bg-inner: #0c080a;
+    }
+
+    /* Mode 2: Holdout (WatchToweR Active Green & Cyan) */
+    html[data-event-mode="holdout"] {
+      --mode-primary: #00bf63;
+      --mode-bar: #1e7a46;
+      --mode-accent: #00e676;
+      --mode-secondary: #38bdf8;
+      --mode-glow: rgba(0, 191, 99, 0.28);
+      --mode-border: #1f3b2b;
+      --mode-card: #13221a;
+      --mode-tint: rgba(0, 230, 118, 0.1);
+      --bg-dark: #070b09;
+      --bg-panel: #0f1612;
+      --bg-header: #0b110e;
+      --bg-inner: #080d0a;
+    }
+
+    /* Mode 3: Sector Breach (Breach Amber-Orange & Gold) */
+    html[data-event-mode="breach"] {
+      --mode-primary: #d97706;
+      --mode-bar: #b45309;
+      --mode-accent: #fbbf24;
+      --mode-secondary: #38bdf8;
+      --mode-glow: rgba(245, 158, 11, 0.28);
+      --mode-border: #482e12;
+      --mode-card: #1d150b;
+      --mode-tint: rgba(245, 158, 11, 0.12);
+      --bg-dark: #0b0906;
+      --bg-panel: #15110b;
+      --bg-header: #110d08;
+      --bg-inner: #0d0a06;
+    }
+
+    /* Mode 4: Skirmish (Tactical Emerald-Teal & Mint) */
+    html[data-event-mode="skirmish"] {
+      --mode-primary: #0d9488;
+      --mode-bar: #0f766e;
+      --mode-accent: #2dd4bf;
+      --mode-secondary: #ffd700;
+      --mode-glow: rgba(45, 212, 191, 0.26);
+      --mode-border: #193e3b;
+      --mode-card: #0f201f;
+      --mode-tint: rgba(45, 212, 191, 0.11);
+      --bg-dark: #060b0b;
+      --bg-panel: #0d1616;
+      --bg-header: #091111;
+      --bg-inner: #070d0d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: 12px;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 50% 0%, var(--mode-glow) 0%, transparent 52%),
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 28px 28px, 28px 28px;
+      transition: background-color 0.25s ease;
+    }
+
+    /* ==================== STUDIO CONTROL BAR (STRIPPED ON PUBLISH) ==================== */
+    #studioTopControlBar {
+      max-width: 1380px;
+      margin: 0 auto 10px auto;
+      background: linear-gradient(90deg, #162230 0%, #0d151e 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 5px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+    }
+    .studio-badge {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      padding: 4px 10px;
+      border-radius: 3px;
+      letter-spacing: 0.8px;
+    }
+    .studio-btn {
+      background: #13202d;
+      border: 1px solid #475569;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+    }
+    .studio-btn:hover { background: #38bdf8; color: #000; border-color: #fff; }
+    .studio-btn.green { border-color: #00e676; color: #00e676; }
+    .studio-btn.green:hover { background: #00e676; color: #000; }
+    .studio-btn.gold { border-color: #ffd700; color: #ffd700; }
+    .studio-btn.gold:hover { background: #ffd700; color: #000; }
+
+    #studioConfigDrawer {
+      max-width: 1380px;
+      margin: 0 auto 12px auto;
+      background: #0c141d;
+      border: 1px solid #38bdf8;
+      border-radius: 5px;
+      padding: 14px 18px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    #studioConfigDrawer.open { display: flex; }
+
+    /* ==================== MAIN DOSSIER SHELL & 4-CORNER BARS ==================== */
+    .calc-dossier-card {
+      max-width: 1380px;
+      margin: 0 auto;
+      background: var(--bg-panel);
+      border: 2px solid var(--mode-border);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.92), 0 0 28px var(--mode-glow);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .classification-bar {
+      position: relative;
+      background: var(--mode-bar);
+      color: #ffffff;
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      min-height: 36px;
+      display: grid;
+      grid-template-columns: var(--corner-w) 1fr var(--corner-w);
+      align-items: stretch;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+      transition: background-color 0.25s ease;
+      overflow: hidden;
+    }
+    .classification-bar.bottom-bar {
+      border-bottom: none;
+      border-top: 2px solid rgba(255,255,255,0.15);
+    }
+    .corner-block-4 {
+      background: rgba(0, 0, 0, 0.42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1.1px;
+      padding: 0 12px;
+      color: #f8fafc;
+      white-space: nowrap;
+    }
+    .corner-top-left {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .corner-top-right {
+      clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%);
+      border-left: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+    .corner-top-right:hover { background: rgba(0, 0, 0, 0.65); color: var(--text-gold); }
+    .corner-bottom-left {
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%);
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .corner-bottom-right {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%);
+      border-left: 1px solid rgba(255,255,255,0.2);
+    }
+    .bar-center-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 10px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85);
+      font-size: 12px;
+    }
+    .live-beacon-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00e676;
+      box-shadow: 0 0 8px #00e676;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ==================== HEADER BANNER ==================== */
+    .dossier-header {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, var(--bg-header) 100%);
+      border-bottom: 2px solid var(--mode-border);
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 280px;
+      flex: 1 1 auto;
+    }
+    .header-logo-link {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--mode-accent), #0b1116 55%, var(--mode-primary));
+      box-shadow: 0 0 18px var(--mode-glow);
+      display: block;
+      flex-shrink: 0;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .header-logo-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 26px var(--mode-accent);
+    }
+    .header-logo-link img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #000;
+      display: block;
+    }
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .header-kicker {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+      color: var(--mode-accent);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .header-main-title {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: clamp(20px, 2.5vw, 29px);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.12;
+    }
+    .header-main-title .accent-word {
+      color: var(--mode-accent);
+    }
+    .header-sub-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .meta-pill {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--mode-border);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .meta-pill.green {
+      color: #00e676;
+      border-color: rgba(0, 230, 118, 0.45);
+      background: rgba(0, 230, 118, 0.1);
+    }
+    .meta-pill.gold {
+      color: var(--text-gold);
+      border-color: rgba(255, 215, 0, 0.45);
+      background: rgba(255, 215, 0, 0.1);
+    }
+    .meta-pill.cyan {
+      color: var(--text-cyan);
+      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .header-schedule-box {
+      background: rgba(0, 0, 0, 0.48);
+      border: 1px solid var(--mode-border);
+      border-left: 4px solid var(--mode-primary);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: monospace;
+      font-size: 12px;
+      min-width: 295px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sched-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .sched-row strong { font-weight: 900; }
+    .header-quick-links {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(255,255,255,0.12);
+      flex-wrap: wrap;
+    }
+    .mini-link-btn {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 4px 9px;
+      border-radius: 3px;
+      border: 1px solid var(--mode-accent);
+      color: var(--mode-accent);
+      background: var(--mode-tint);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mini-link-btn:hover {
+      background: var(--mode-primary);
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* ==================== 4-MODE EVENT DESIGN SELECTOR TABS ==================== */
+    .mode-selector-strip {
+      background: #060a09;
+      border-bottom: 2px solid var(--mode-border);
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mode-tabs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .mode-card-btn {
+      position: relative;
+      background: linear-gradient(180deg, #121920 0%, #090d12 100%);
+      border: 1px solid #233242;
+      border-top: 3px solid var(--tab-color, #475569);
+      border-radius: 5px;
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.16s ease;
+    }
+    .mode-card-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--tab-color);
+      background: linear-gradient(180deg, #18232d 0%, #0d131a 100%);
+    }
+    .mode-card-btn.active {
+      background: linear-gradient(180deg, var(--mode-card) 0%, #090e0c 100%);
+      border-color: var(--mode-accent);
+      border-top-width: 4px;
+      border-top-color: var(--mode-accent);
+      box-shadow: 0 0 18px var(--mode-glow), inset 0 0 12px var(--mode-tint);
+    }
+    .mode-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-card-name {
+      font-family: "Arial Black", sans-serif;
+      font-size: 13.5px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-card-btn.active .mode-card-name {
+      color: var(--mode-accent);
+    }
+    .mode-live-tag {
+      font-family: monospace;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.14);
+      white-space: nowrap;
+    }
+    .mode-live-tag.is-live {
+      background: rgba(0, 230, 118, 0.16);
+      color: #00e676;
+      border-color: rgba(0, 230, 118, 0.55);
+    }
+    .mode-live-tag.is-soon {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+    .mode-live-tag.is-grace {
+      background: rgba(249, 115, 22, 0.18);
+      color: #fb923c;
+      border-color: rgba(249, 115, 22, 0.55);
+    }
+    .mode-card-sub {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .source-sync-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--mode-border);
+      border-radius: 4px;
+      padding: 7px 12px;
+      font-family: monospace;
+      font-size: 11.5px;
+    }
+    .source-sync-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .source-select {
+      background: #080d11;
+      border: 1px solid var(--mode-border);
+      color: var(--mode-accent);
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    /* ==================== COMMAND HUD & BANKED XP STRIP ==================== */
+    .command-hud-section {
+      padding: 16px 18px 14px 18px;
+      background: var(--bg-inner);
+      border-bottom: 2px solid var(--mode-border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hud-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .hud-stat-card {
+      background: var(--mode-card);
+      border: 1px solid var(--mode-border);
+      border-top: 3px solid var(--card-top, var(--mode-accent));
+      border-radius: 4px;
+      padding: 12px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+    }
+    .hud-stat-lbl {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .hud-stat-val {
+      font-family: monospace;
+      font-size: clamp(20px, 2vw, 25px);
+      font-weight: 900;
+      color: var(--card-top, var(--mode-accent));
+      line-height: 1.15;
+    }
+    .hud-stat-sub {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .bank-and-actions-bar {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--mode-border);
+      border-radius: 4px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .bank-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .bank-input-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .bank-number-input {
+      width: 138px;
+      height: 32px;
+      background: #050807;
+      border: 1px solid var(--mode-accent);
+      color: var(--mode-accent);
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 4px 8px;
+      border-radius: 3px;
+      text-align: right;
+    }
+    .calc-btn {
+      background: #101916;
+      border: 1px solid var(--mode-border);
+      color: var(--text-main);
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 6px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .calc-btn:hover {
+      background: var(--mode-primary);
+      border-color: #fff;
+      color: #fff;
+    }
+    .calc-btn.primary {
+      background: var(--mode-tint);
+      border-color: var(--mode-accent);
+      color: var(--mode-accent);
+    }
+    .calc-btn.primary:hover {
+      background: var(--mode-primary);
+      color: #fff;
+    }
+    .calc-btn.gold {
+      border-color: var(--text-gold);
+      color: var(--text-gold);
+    }
+    .calc-btn.gold:hover {
+      background: var(--text-gold);
+      color: #000;
+    }
+    .calc-btn.cyan {
+      border-color: var(--text-cyan);
+      color: var(--text-cyan);
+    }
+    .calc-btn.cyan:hover {
+      background: var(--text-cyan);
+      color: #000;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #040706;
+      border: 1px solid var(--mode-border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--mode-primary) 0%, var(--mode-accent) 60%, var(--mode-secondary) 100%);
+      transition: width 0.22s ease;
+    }
+    .progress-caption-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ==================== 2-COLUMN WORKSPACE ==================== */
+    .calc-workspace-grid {
+      display: grid;
+      grid-template-columns: 410px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px 18px 20px 18px;
+      align-items: start;
+    }
+    .left-tracks-column {
+      position: sticky;
+      top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .panel-box {
+      background: var(--bg-inner);
+      border: 1px solid var(--mode-border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .panel-box-header {
+      background: var(--mode-bar);
+      color: #ffffff;
+      padding: 9px 13px;
+      font-family: "Arial Black", sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-box-header .sub {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.88);
+    }
+    .panel-box-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    /* Track Choice Cards */
+    .track-option-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--mode-border);
+      border-left: 4px solid #475569;
+      border-radius: 4px;
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .track-option-card.selected {
+      background: var(--mode-card);
+      border-color: var(--mode-accent);
+      border-left-color: var(--mode-accent);
+      box-shadow: 0 0 14px var(--mode-glow);
+    }
+    .track-opt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .track-opt-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: "Arial Black", sans-serif;
+      font-size: 13px;
+      color: #ffffff;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .track-opt-xp-pill {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--mode-accent);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid var(--mode-border);
+      padding: 2px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .track-opt-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.38;
+    }
+
+    .mini-base-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--mode-border);
+    }
+    .mini-base-table th,
+    .mini-base-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+    }
+    .mini-base-table th {
+      font-family: monospace;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.45);
+    }
+    .mini-base-table td.num,
+    .mini-base-table th.num {
+      text-align: right;
+      font-family: monospace;
+      font-weight: 800;
+    }
+    .mini-base-table tr.bonus-row {
+      background: rgba(255, 215, 0, 0.06);
+    }
+    .mini-base-table tr.locked-row {
+      opacity: 0.45;
+    }
+
+    .boost-pills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+    .boost-pill-card {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--mode-border);
+      border-radius: 4px;
+      padding: 8px 9px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.14s ease;
+    }
+    .boost-pill-card:hover {
+      border-color: var(--mode-accent);
+    }
+    .boost-pill-card.active {
+      background: var(--mode-card);
+      border-color: var(--mode-accent);
+      box-shadow: 0 0 10px var(--mode-glow);
+    }
+    .boost-pill-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .boost-pill-card.active .boost-pill-top {
+      color: var(--mode-accent);
+    }
+    .boost-pill-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.25;
+    }
+
+    /* ==================== RIGHT PANEL: STORE CATALOG & MASTER_DB ==================== */
+    .store-controls-bar {
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid var(--mode-border);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .store-search-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .store-search-input {
+      flex: 1 1 220px;
+      background: #050807;
+      border: 1px solid var(--mode-border);
+      color: #ffffff;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 3px;
+    }
+    .store-search-input:focus {
+      outline: none;
+      border-color: var(--mode-accent);
+    }
+
+    .unit-filter-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .unit-preset-pill {
+      background: #0c1412;
+      border: 1px solid var(--mode-border);
+      color: var(--text-main);
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      transition: all 0.14s ease;
+    }
+    .unit-preset-pill:hover {
+      border-color: var(--mode-accent);
+      color: var(--mode-accent);
+    }
+    .unit-preset-pill.active-unit {
+      background: var(--mode-tint);
+      border-color: var(--mode-accent);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--mode-glow);
+    }
+    .pill-mini-avatar {
+      width: 18px;
+      height: 22px;
+      border-radius: 2px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: #000;
+    }
+
+    .store-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .store-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.8px;
+    }
+    .store-data-table th,
+    .store-data-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: middle;
+    }
+    .store-data-table th {
+      background: rgba(0, 0, 0, 0.55);
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+    }
+    .store-data-table tr.store-row:hover {
+      background: rgba(255,255,255,0.03);
+    }
+    .store-data-table tr.store-row.unchecked {
+      opacity: 0.42;
+    }
+    .store-data-table tr.store-row.hidden-row {
+      display: none;
+    }
+
+    .store-item-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .store-unit-thumb {
+      width: 34px;
+      height: 42px;
+      border-radius: 3px;
+      object-fit: cover;
+      background: #040706;
+      border: 1px solid var(--mode-border);
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+    .store-unit-thumb:hover {
+      transform: scale(1.08);
+      border-color: var(--mode-accent);
+    }
+    .store-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .store-item-title-btn {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font: inherit;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .store-item-title-btn:hover {
+      color: var(--mode-accent);
+      text-decoration: underline;
+    }
+    .store-item-sub {
+      font-family: monospace;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .db-intel-badge {
+      font-family: monospace;
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--mode-accent);
+      background: var(--mode-tint);
+      border: 1px solid var(--mode-border);
+      padding: 1px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .qty-btn {
+      background: #14201c;
+      border: 1px solid var(--mode-border);
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      width: 24px;
+      height: 26px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .qty-btn:hover {
+      background: var(--mode-accent);
+      color: #000;
+    }
+    .qty-btn.max {
+      width: auto;
+      padding: 0 6px;
+      font-size: 10px;
+      color: var(--text-gold);
+    }
+    .qty-btn.max:hover {
+      background: var(--text-gold);
+      color: #000;
+    }
+    .qty-input {
+      width: 48px;
+      height: 26px;
+      background: #050807;
+      border: 1px solid var(--mode-border);
+      color: var(--mode-accent);
+      text-align: center;
+      font-family: monospace;
+      font-weight: 900;
+      font-size: 13px;
+      border-radius: 3px;
+    }
+
+    .store-totals-footer {
+      background: rgba(0, 0, 0, 0.55);
+      border-top: 2px solid var(--mode-border);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: monospace;
+    }
+
+    /* ==================== HOVER PREVIEW POD & IN-PAGE DOSSIER OVERLAY ==================== */
+    .wtr-hover-pod {
+      position: fixed;
+      z-index: 100050;
+      width: 235px;
+      background: #080e0c;
+      border: 2px solid var(--mode-accent);
+      border-radius: 6px;
+      padding: 8px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.95), 0 0 20px var(--mode-glow);
+      pointer-events: none;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .wtr-hover-pod.show { display: flex; }
+    .hover-pod-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: 12px;
+      color: #ffffff;
+      text-align: center;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--mode-border);
+      padding-bottom: 4px;
+    }
+    .hover-pod-img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #030504;
+      border: 1px solid var(--mode-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .hover-pod-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hover-pod-meta {
+      font-family: monospace;
+      font-size: 10.5px;
+      color: var(--text-gold);
+      text-align: center;
+      font-weight: 800;
+    }
+    .hover-pod-hint {
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--text-cyan);
+      text-align: center;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 3px;
+      border-radius: 2px;
+    }
+
+    .wtr-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 8, 0.9);
+      backdrop-filter: blur(4px);
+      z-index: 100100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .wtr-modal-backdrop.open { display: flex; }
+    .wtr-modal-window {
+      width: 100%;
+      max-width: 1060px;
+      max-height: 92vh;
+      background: #0b1210;
+      border: 2px solid var(--mode-accent);
+      border-radius: 6px;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.96), 0 0 30px var(--mode-glow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .wtr-modal-topbar {
+      background: linear-gradient(90deg, var(--mode-card) 0%, #090e0d 100%);
+      border-bottom: 2px solid var(--mode-border);
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .wtr-modal-body {
+      padding: 18px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dossier-3col {
+      display: grid;
+      grid-template-columns: 230px 1fr 1.15fr;
+      gap: 18px;
+    }
+    .dossier-portrait-frame {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #040706;
+      border: 1px solid var(--mode-accent);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .dossier-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .dossier-stats-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .dossier-stats-tbl td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .dossier-stats-tbl td.k {
+      color: var(--text-muted);
+      font-weight: 700;
+      width: 44%;
+    }
+    .dossier-stats-tbl td.v {
+      color: #ffffff;
+      font-weight: 800;
+      font-family: monospace;
+    }
+
+    @media (max-width: 1080px) {
+      .calc-workspace-grid {
+        grid-template-columns: 1fr;
+      }
+      .left-tracks-column {
+        position: static;
+      }
+      .mode-tabs-grid,
+      .hud-cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .dossier-3col {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      :root { --corner-w: 115px; }
+      .mode-tabs-grid,
+      .hud-cards-grid,
+      .boost-pills-grid {
+        grid-template-columns: 1fr;
+      }
+      .bar-center-label { font-size: 10px; letter-spacing: 1px; }
+    }
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      #studioTopControlBar, #studioConfigDrawer, .mode-selector-strip .source-sync-bar { display: none !important; }
+      .calc-dossier-card { box-shadow: none; border: 1px solid #000; }
+      .left-tracks-column { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== MAIN CALCULATOR DOSSIER CARD ==================== -->
+  <div class="calc-dossier-card" id="mainCalcDossier">
+
+    <!-- TOP 4-CORNER UNCLASSIFIED BAR -->
+    <div class="classification-bar">
+      <span class="corner-block-4 corner-top-left" id="topCornerStamp">NOV 2026</span>
+      <span class="bar-center-label" id="topClassCenter">UNCLASSIFIED // WATCHTOWER MULTI-EVENT XP CALCULATOR</span>
+      <span class="corner-block-4 corner-top-right" onclick="window.location.href='./index.html'" title="Return to WatchToweR Command Center">🏠 COMMAND CENTER ↗</span>
+    </div>
+
+    <!-- HEADER BANNER -->
+    <header class="dossier-header">
+      <div class="header-left">
+        <a class="header-logo-link" href="./index.html" title="Return to WatchToweR Data Hub">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem">
+        </a>
+        <div class="header-titles">
+          <div class="header-kicker">
+            <span>[-WTR-] TACTICAL GRIND &amp; STORE PLANNER</span>
+            <span id="headerModeChip" style="background:var(--mode-tint); border:1px solid var(--mode-accent); padding:1px 7px; border-radius:3px;">MODE: HOLDOUT</span>
+          </div>
+          <h1 class="header-main-title">
+            <span id="headerEventPrefix">NOV 2026</span>
+            <span class="accent-word" id="headerEventName">HOLDOUT</span>
+            <span>CALCULATOR</span>
+          </h1>
+          <div class="header-sub-pills">
+            <span class="meta-pill green" id="masterDbStatusPill" onclick="syncMasterDbFromSheet(true)" style="cursor:pointer;" title="Click to Re-Sync Live MASTER_DB Sheet">🗄️ MASTER_DB: Syncing...</span>
+            <span class="meta-pill cyan" id="catalogSyncStatusPill">📡 STORE: Auto-Synced</span>
+            <span class="meta-pill gold" id="toastBannerPill" style="display:none;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-schedule-box">
+        <div class="sched-row"><strong style="color:var(--text-cyan);">Starts:</strong> <span id="schedStartTxt">FRI NOV 13, 2026 @ 10:00 AM PST</span></div>
+        <div class="sched-row"><strong style="color:var(--text-gold);">Ends:</strong> <span id="schedEndTxt">TUE NOV 17, 2026 @ 10:00 AM PST</span></div>
+        <div class="sched-row"><strong style="color:var(--text-orange);">Store Closes:</strong> <span id="schedStoreTxt">WED NOV 18, 2026 @ 10:00 AM PST</span></div>
+        <div class="header-quick-links">
+          <a id="openEventBriefLink" class="mini-link-btn" href="./2026-nov-holdout-brief.html">📖 Open Event Brief ↗</a>
+          <a id="openSourceNotesLink" class="mini-link-btn" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener noreferrer">📄 Kixeye Release Notes ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 4-MODE EVENT DESIGN SWITCHER -->
+    <div class="mode-selector-strip">
+      <div class="mode-tabs-grid">
+        <button type="button" class="mode-card-btn" id="modeBtn-operations" style="--tab-color:#e11d48;" onclick="switchEventMode('operations')">
+          <div class="mode-card-top">
+            <span class="mode-card-name">🎯 MAIN EVENT</span>
+            <span class="mode-live-tag" id="modeStatus-operations">OPS</span>
+          </div>
+          <div class="mode-card-sub" id="modeSub-operations">Operation: Blue Baron • Incursion &amp; Tactical</div>
+        </button>
+
+        <button type="button" class="mode-card-btn active" id="modeBtn-holdout" style="--tab-color:#00bf63;" onclick="switchEventMode('holdout')">
+          <div class="mode-card-top">
+            <span class="mode-card-name">🛡️ HOLDOUT</span>
+            <span class="mode-live-tag" id="modeStatus-holdout">HOLDOUT</span>
+          </div>
+          <div class="mode-card-sub" id="modeSub-holdout">3-Base vs 4-Base Gauntlet + XP Crates</div>
+        </button>
+
+        <button type="button" class="mode-card-btn" id="modeBtn-breach" style="--tab-color:#d97706;" onclick="switchEventMode('breach')">
+          <div class="mode-card-top">
+            <span class="mode-card-name">💥 SECTOR BREACH</span>
+            <span class="mode-live-tag" id="modeStatus-breach">BREACH</span>
+          </div>
+          <div class="mode-card-sub" id="modeSub-breach">General (61K) vs Conqueror (164K) Sets</div>
+        </button>
+
+        <button type="button" class="mode-card-btn" id="modeBtn-skirmish" style="--tab-color:#0d9488;" onclick="switchEventMode('skirmish')">
+          <div class="mode-card-top">
+            <span class="mode-card-name">⚔️ SKIRMISH</span>
+            <span class="mode-live-tag" id="modeStatus-skirmish">SKIRMISH</span>
+          </div>
+          <div class="mode-card-sub" id="modeSub-skirmish">Recruit (16K) vs Officer (52K) Tracks</div>
+        </button>
+      </div>
+
+      <div class="source-sync-bar">
+        <div class="source-sync-left">
+          <span style="color:var(--text-gold); font-weight:900;">📦 PRIZE CATALOG SOURCE:</span>
+          <select id="briefSourceSelect" class="source-select" onchange="handleBriefSourceSelection(this.value)"></select>
+          <span id="sourceSyncDetailTxt" style="color:var(--text-muted);">Pulling current event storeCatalog &amp; unit links from MASTER_DB</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <label style="display:inline-flex; align-items:center; gap:5px; color:var(--text-cyan); font-weight:800;">
+            Pace Window (Days):
+            <input type="number" id="paceDaysInput" min="1" max="14" value="4" style="width:48px; background:#050807; color:var(--text-cyan); border:1px solid var(--mode-border); text-align:center; font-family:monospace; font-weight:900; padding:2px 4px; border-radius:3px;" oninput="updatePaceDaysOverride(this.value)">
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP COMMAND HUD & BANKED XP PROGRESS -->
+    <section class="command-hud-section">
+      <div class="hud-cards-grid">
+        <div class="hud-stat-card" style="--card-top: var(--text-gold);">
+          <div class="hud-stat-lbl">Remaining XP Needed</div>
+          <div class="hud-stat-val" id="hudRemainingXp">0</div>
+          <div class="hud-stat-sub" id="hudGoalSub">Selected Store Goal: 0 XP</div>
+        </div>
+
+        <div class="hud-stat-card" style="--card-top: var(--mode-accent);">
+          <div class="hud-stat-lbl" id="hudTrackYieldLbl">Active Track Yield</div>
+          <div class="hud-stat-val" id="hudTrackYieldVal">0 XP</div>
+          <div class="hud-stat-sub" id="hudTrackYieldSub">Per Completed Run / Set</div>
+        </div>
+
+        <div class="hud-stat-card" style="--card-top: var(--text-cyan);">
+          <div class="hud-stat-lbl" id="hudRunsNeededLbl">Total Runs / Sets Left</div>
+          <div class="hud-stat-val" id="hudRunsNeededVal">0</div>
+          <div class="hud-stat-sub" id="hudAltRunsSub">Alt Track: 0 runs</div>
+        </div>
+
+        <div class="hud-stat-card" style="--card-top: var(--text-orange);">
+          <div class="hud-stat-lbl" id="hudDailyPaceLbl">Daily Grind Pace</div>
+          <div class="hud-stat-val" id="hudDailyPaceVal">0.0 / Day</div>
+          <div class="hud-stat-sub" id="hudDailyXpSub">0 XP / day</div>
+        </div>
+      </div>
+
+      <div class="bank-and-actions-bar">
+        <div class="bank-row-top">
+          <div class="bank-input-cluster">
+            <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--mode-accent); text-transform:uppercase;">🏦 Current Banked XP:</span>
+            <input type="number" id="bankedXpInput" class="bank-number-input" min="0" step="1000" value="0" oninput="onBankedXpChange(this.value)">
+            <button type="button" class="calc-btn primary" onclick="logCompletedRun()">⚡ +1 Run (<span id="btnLogRunDelta">+0</span>)</button>
+            <button type="button" class="calc-btn" onclick="setBankedXpZero()" title="Zero Banked XP">0 XP</button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="calc-btn cyan" onclick="copyGrindSummaryToClipboard()">📋 Copy Summary</button>
+            <button type="button" class="calc-btn gold" onclick="window.print()">🖨️ Print / PDF</button>
+            <button type="button" class="calc-btn" onclick="exportPlayerPlanJson()">💾 Save JSON</button>
+            <button type="button" class="calc-btn" onclick="document.getElementById('loadPlayerJsonInput').click()">📂 Load</button>
+            <input type="file" id="loadPlayerJsonInput" accept=".json" style="display:none;" onchange="importPlayerPlanJson(event)">
+            <button type="button" class="calc-btn" onclick="resetCurrentModePlan()">↺ Reset</button>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="goalProgressFill"></div>
+        </div>
+        <div class="progress-caption-row">
+          <span id="goalProgressPctTxt">0% OF SELECTED GOAL COMPLETED (0 / 0 XP)</span>
+          <span id="extraCreditsBreakoutTxt" style="color:var(--text-gold); font-weight:800;"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-COLUMN MAIN WORKSPACE: LEFT = MODE TRACKS & BOOSTS | RIGHT = STORE CATALOG -->
+    <div class="calc-workspace-grid">
+
+      <!-- LEFT COLUMN: DYNAMIC TRACK & BOOST CONFIGURATOR FOR ACTIVE MODE -->
+      <aside class="left-tracks-column">
+        <div class="panel-box">
+          <div class="panel-box-header">
+            <span id="leftPanelTitle">01. MISSION TRACKS &amp; PAYOUT</span>
+            <span class="sub" id="leftPanelSub">HOLDOUT</span>
+          </div>
+          <div class="panel-box-body" id="dynamicModeTracksContainer">
+            <!-- Populated dynamically per mode (Operations / Holdout / Sector Breach / Skirmish) -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT COLUMN: EVENT STORE REQUISITION CHECKLIST -->
+      <section class="panel-box">
+        <div class="panel-box-header">
+          <span id="rightPanelStoreTitle">02. EVENT STORE REQUISITION CHECKLIST</span>
+          <span class="sub" id="selectedItemsCountBadge">0 / 0 Selected</span>
+        </div>
+
+        <div class="store-controls-bar">
+          <div class="store-search-row">
+            <input type="text" id="storeSearchInput" class="store-search-input" placeholder="🔎 Filter prizes or unit names (e.g. Argus, Token, Warpaint, Tech)..." oninput="renderStoreTable()">
+            <label style="display:inline-flex; align-items:center; gap:5px; font-family:monospace; font-size:11.5px; color:var(--text-muted); cursor:pointer;">
+              <input type="checkbox" id="chkHideUnchecked" onchange="renderStoreTable()"> Hide Unchecked
+            </label>
+            <button type="button" class="calc-btn" onclick="applyStorePreset('defaults')">⭐ Default Goal</button>
+            <button type="button" class="calc-btn" onclick="applyStorePreset('all')">Select All</button>
+            <button type="button" class="calc-btn" onclick="applyStorePreset('none')">Clear All</button>
+          </div>
+
+          <div class="unit-filter-pills" id="unitQuickPillsBar">
+            <!-- Populated dynamically with MASTER_DB unit avatars -->
+          </div>
+        </div>
+
+        <div class="store-table-wrap">
+          <table class="store-data-table">
+            <thead>
+              <tr>
+                <th style="width:42px; text-align:center;">Buy</th>
+                <th>Store Item &amp; MASTER_DB Unit Intel</th>
+                <th style="width:170px; text-align:right;">Target Qty</th>
+                <th style="width:115px; text-align:right;">XP Cost</th>
+                <th style="width:125px; text-align:right;">XP Needed</th>
+              </tr>
+            </thead>
+            <tbody id="storeCatalogTbody"></tbody>
+          </table>
+        </div>
+
+        <div class="store-totals-footer">
+          <div style="font-size:12px; color:var(--text-muted);">
+            Full Event Store Value: <strong id="footerFullStoreXp" style="color:#ffffff;">0</strong> XP
+          </div>
+          <div style="font-size:14px; font-weight:900; color:var(--mode-accent);">
+            SELECTED GOAL: <span id="footerSelectedGoalXp">0</span> XP
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- BOTTOM 4-CORNER CLASSIFICATION & LIVE COUNTDOWN BAR -->
+    <div class="classification-bar bottom-bar" id="bottomClassificationBar">
+      <span class="corner-block-4 corner-bottom-left">
+        <span id="bottomClockLabel" style="color:var(--text-gold);">T-MINUS:</span>
+        <span id="liveEventCountdown">0d 0h 00m 0s</span>
+      </span>
+      <span class="bar-center-label" id="bottomCenterLabel">UNCLASSIFIED // WATCHTOWER DATA HUB // CREATED BY [-WTR-]HIGHANXIETY</span>
+      <span class="corner-block-4 corner-bottom-right">
+        <span class="live-beacon-dot" id="bottomStatusDot"></span>
+        <span id="bottomStatusText">STATUS: ACTIVE</span>
+      </span>
+    </div>
+
+  </div>
+
+  <!-- HOVER THUMBNAIL POD -->
+  <div class="wtr-hover-pod" id="wtrHoverPod">
+    <div class="hover-pod-title" id="hoverPodTitle">UNIT PREVIEW</div>
+    <div class="hover-pod-img-wrap">
+      <img id="hoverPodImg" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Preview">
+    </div>
+    <div class="hover-pod-meta" id="hoverPodMeta">MASTER_DB UNIT</div>
+    <div class="hover-pod-hint">CLICK TO OPEN FULL UNIT DOSSIER</div>
+  </div>
+
+  <!-- IN-PAGE MASTER_DB UNIT DOSSIER MODAL -->
+  <div class="wtr-modal-backdrop" id="unitDossierModal" onclick="if(event.target===this) closeUnitDossier()">
+    <div class="wtr-modal-window">
+      <div class="wtr-modal-topbar">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--mode-accent);">🗄️ LIVE MASTER_DB DOSSIER //</span>
+          <strong id="dossierModalTitle" style="font-family:'Arial Black',sans-serif; font-size:18px; color:#fff; text-transform:uppercase;">UNIT NAME</strong>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a id="dossierFullPageBtn" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="calc-btn gold" style="text-decoration:none;">↗ Open Full Unit Briefs Page</a>
+          <button type="button" class="calc-btn" style="background:#7f1d1d; border-color:#f87171; color:#fff;" onclick="closeUnitDossier()">✕ Close</button>
+        </div>
+      </div>
+      <div class="wtr-modal-body" id="dossierModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
+    const SHEET_MASTER_GID = "444355456";
+    const WTR_LOGO_FALLBACK = "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
+    const UNIT_BRIEFS_PAGE = "./unit-briefs.html";
+
+    /* Seed MASTER_DB Records for Instant 0ms Portraits, Warpaints & Offline Support */
+    const SEED_MASTER_DB_UNITS = [
+      {
+        "UNIT_NAME": "ARGUS", "CLASSIFICATION": "SOLDIER", "RELEASE_DATE": "Nov 2026",
+        "UNIT_QUOTE": "Lightly armored Equinox reconnaissance aircraft that exposes hidden mines and features an adaptable chassis.",
+        "UNIT_IMAGE_URL": "https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM",
+        "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Equinox", "STAT_TYPE": "Air", "STAT_ARMOR_TYPE": "Light",
+        "STAT_WEAPON_TYPE": "Dual Laser Blasters", "STAT_TARGETS": "Ground / Air", "STAT_DAMAGE_TYPE": "Sustain",
+        "STAT_BUILDING": "Aircraft Hangar (Lvl 50)", "STAT_HP_RANGE_1": "278,070", "STAT_HP_RANGE_MAX": "448,500",
+        "STAT_DPS_RANGE_1": "3,474", "STAT_DPS_RANGE_MAX": "5,621", "STAT_SPEED": "4", "STAT_RANGE": "700",
+        "TALENT_LVL_1": "Detects Minefields within 500 range.", "TALENT_LVL_5": "Shots apply Flux.",
+        "TALENT_LVL_10": "Gains Stealth (recloaks after 5s).", "TALENT_LVL_15": "Minefield detection range 800.",
+        "TALENT_LVL_20": "50% chance to dodge turret projectiles.",
+        "WORKSHOP_1_TITLE": "Vector Evasion Thrusters (1-5)", "WORKSHOP_1_DESC": "-20..40% Damage Taken from Air; +100..500 Flat DR below 75% HP.",
+        "WORKSHOP_2_TITLE": "A2A Plasma Pods (1-5)", "WORKSHOP_2_DESC": "+30..70% Damage Dealt to Air.",
+        "WORKSHOP_3_TITLE": "Resonance Charges (1-5)", "WORKSHOP_3_DESC": "+30..70% Damage to Buildings (@MAX: Busted Status).",
+        "WARPAINT_1_NAME": "BLACK BIOHAZARD", "WARPAINT_1_IMAGE": "https://lh3.googleusercontent.com/d/1_QpPeq-tdY-nqLSmAUoUvwrrPZT4vSAx",
+        "WARPAINT_2_NAME": "WHITE BIOHAZARD", "WARPAINT_2_IMAGE": "https://lh3.googleusercontent.com/d/1_PB4KwAO0LLir2IDVGUXMn2i8lW0pckw",
+        "WARPAINT_3_NAME": "GREEN BIOHAZARD", "WARPAINT_3_IMAGE": "https://lh3.googleusercontent.com/d/1eE4EQ2BrexE735aFa-ZkUQs816fXycpO",
+        "WARPAINT_4_NAME": "BLUE BIOHAZARD",  "WARPAINT_4_IMAGE": "https://lh3.googleusercontent.com/d/1d56Jod4o9L8Tjy1rJFXFi5tFfYpa3Mrf"
+      },
+      {
+        "UNIT_NAME": "BARON ANANSI", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "Oct 2026",
+        "UNIT_QUOTE": "Baron Anansi aims to free drones from the control of AIs like Onyx.",
+        "UNIT_IMAGE_URL": "https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr",
+        "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Factionless", "STAT_TYPE": "Infantry (Unique)", "STAT_ARMOR_TYPE": "Medium",
+        "STAT_WEAPON_TYPE": "Quad-Arm Blasters", "STAT_TARGETS": "Ground / Air", "STAT_DAMAGE_TYPE": "Sustain",
+        "STAT_BUILDING": "Academy (Lvl 30)", "STAT_HP_RANGE_1": "437,500", "STAT_HP_RANGE_MAX": "550,000",
+        "STAT_DPS_RANGE_1": "6,000 / x4 Arms 24,000", "STAT_DPS_RANGE_10": "6,584 / x4 Arms 26,336", "STAT_SPEED": "3", "STAT_RANGE": "600",
+        "TALENT_LVL_1": "Hot Swap Ports (drone slots), Doc Arack (multi-angle weapons), Tech Bubble (halves turret damage within 400 range)."
+      },
+      {
+        "UNIT_NAME": "DYAD & TWIN", "CLASSIFICATION": "SOLDIER", "RELEASE_DATE": "Oct 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/af1738c0-be86-4198-a17c-a8171783c5ad",
+        "STAT_GENERATION": "Arc 2", "STAT_FACTION": "Sentinels", "STAT_TYPE": "Infantry", "STAT_ARMOR_TYPE": "Medium",
+        "STAT_TARGETS": "Ground (Air w/Twin @ Lvl 5)", "STAT_DAMAGE_TYPE": "Burst", "STAT_BUILDING": "Academy (Lvl 45)",
+        "STAT_HP_RANGE_1": "231,725", "STAT_HP_RANGE_MAX": "373,750", "STAT_DPS_RANGE_1": "3,422", "STAT_DPS_RANGE_MAX": "7,414",
+        "STAT_SPEED": "3 / 6 (Lvl 20)", "STAT_RANGE": "550 / 600 (Lvl 15)",
+        "TALENT_LVL_1": "Spawns synchronized Twin; +25% Burst Damage Taken debuff; -30% Damage Taken."
+      },
+      {
+        "UNIT_NAME": "DIXON", "CLASSIFICATION": "HERO", "RELEASE_DATE": "Oct 2026",
+        "UNIT_IMAGE_URL": "https://lh3.googleusercontent.com/d/1hgov7velVyk5oxiD7aRr9JjzCgyHD2YT",
+        "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Equinox", "STAT_TYPE": "Air", "STAT_ARMOR_TYPE": "Light",
+        "STAT_TARGETS": "Ground / Air", "STAT_DAMAGE_TYPE": "Sustain", "STAT_BUILDING": "Aircraft Hangar (Lvl 50)",
+        "STAT_HP_RANGE_1": "417,405", "STAT_HP_RANGE_MAX": "672,750", "STAT_DPS_RANGE_1": "5,211", "STAT_DPS_RANGE_MAX": "8,432",
+        "STAT_SPEED": "4", "STAT_RANGE": "700 / 750 (Lvl 20)",
+        "TALENT_LVL_1": "Heroic aura (+10..30% DMG / -10..30% DR) to all friendly Arguses; Stealth & Minefield detection.",
+        "WARPAINT_1_NAME": "BLACKED OUT", "WARPAINT_1_IMAGE": "https://lh3.googleusercontent.com/d/1PbY862u3tWGvTJI8LxzJkpaVcNitEkxv"
+      },
+      {
+        "UNIT_NAME": "LANDLOCHE", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "Nov 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/446d6ee4-d34d-4d77-83ef-975a2251408a",
+        "STAT_FACTION": "Factionless", "STAT_TYPE": "Defensive Unique", "STAT_ARMOR_TYPE": "Heavy", "STAT_DAMAGE_TYPE": "Area",
+        "STAT_BUILDING": "Academy (Lvls 30–50)", "STAT_HP_RANGE": "(Lvl 31) 670,000 — (Lvl 40) 760,000",
+        "STAT_DPS_RANGE": "(Lvl 31) 18,667 — (Lvl 40) 26,667", "STAT_RANGE": "850 (1,200 w/ Lock-On)",
+        "TALENT_LVL_31": "Lock-On up to 1,200 range & Dashback.", "TALENT_LVL_35": "Flat DR increased to 2,000.", "TALENT_LVL_40": "Missile Burst (3x 40,000 DMG)."
+      },
+      {
+        "UNIT_NAME": "MATCHLOCKE", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "Nov 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/0d37384d-dcd6-450f-96b8-ebacad5632ab",
+        "STAT_FACTION": "Factionless", "STAT_TYPE": "Defensive Unique", "STAT_ARMOR_TYPE": "Heavy", "STAT_DAMAGE_TYPE": "Sustain",
+        "STAT_BUILDING": "Academy (Lvls 30–50)", "STAT_HP_RANGE": "(Lvl 31) 810,000 — (Lvl 40) 900,000",
+        "STAT_DPS_RANGE": "(Lvl 31) 17,739 — (Lvl 40) 20,870", "STAT_RANGE": "600",
+        "TALENT_LVL_31": "Up to 90% close-range DR.", "TALENT_LVL_35": "Reflects projectiles at 10% strength.", "TALENT_LVL_40": "Flame Charge 650 range."
+      },
+      {
+        "UNIT_NAME": "JUGGERNAUT", "CLASSIFICATION": "LEGENDARY UNIQUE", "RELEASE_DATE": "Oct 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb",
+        "STAT_FACTION": "Retaliators", "STAT_TYPE": "Heavy Infantry", "STAT_ARMOR_TYPE": "Heavy", "STAT_DAMAGE_TYPE": "Area",
+        "STAT_BUILDING": "Academy", "TALENT_LVL_1": "Every 10% health lost grants 100,000 temporary health."
+      },
+      {
+        "UNIT_NAME": "WARLORD STORMWAIL", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "2026",
+        "UNIT_IMAGE_URL": WTR_LOGO_FALLBACK,
+        "STAT_FACTION": "Vortex", "STAT_TYPE": "Unique", "STAT_BUILDING": "War Factory / Hangar"
+      }
+    ];
+
+    let masterDbUnitsCache = JSON.parse(JSON.stringify(SEED_MASTER_DB_UNITS));
+
+    /* Pre-Baked Event Profiles & Store Catalogs (Overridden Automatically via Live Fetch of Event Brief HTMLs) */
+    const EVENT_PROFILES = {
+      operations: {
+        mode: "operations",
+        modeLabel: "MAIN EVENT",
+        prefix: "NOV 2026",
+        eventName: "OPERATION: BLUE BARON",
+        schedStart: "THU NOV 5, 2026 @ 10:00 AM PST",
+        schedEnd: "WED NOV 11, 2026 @ 10:00 AM PST",
+        schedStore: "THU NOV 12, 2026 @ 10:00 AM PST",
+        eventDays: 6,
+        briefUrl: "./operation-blue-baron.html",
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/",
+        syncSourceLabel: "operation-blue-baron.html",
+        isPreReleaseFallback: false,
+        tracksCfg: {
+          btXpPerStage: 200,
+          btUnitsPerStage: 1,
+          incB1Xp: 2000, incB2Xp: 2000, incBonusXp: 4000,
+          tacB1Xp: 2000, tacHvt1Xp: 4000, tacB2Xp: 2000, tacHvt2Xp: 4000, tacBonusXp: 4000,
+          warBonusXp: 14000
+        },
+        storeCatalog: [
+          { name: "Blue Baron Event Trophy", maxLimit: 1, cost: 4000, costLabel: "4,000", unit: "", defaultChecked: true, isBtUnitTarget: false },
+          { name: "Spec Ops: Argus PROMOTION - FREE", maxLimit: 1, cost: 0, costLabel: "FREE", unit: "ARGUS", defaultChecked: true, isBtUnitTarget: false },
+          { name: "Spec Ops: Argus PROMOTION", maxLimit: 1, cost: 40000, costLabel: "40,000", unit: "ARGUS", defaultChecked: true, isBtUnitTarget: false },
+          { name: "Argus Upgrade Token", maxLimit: 10, cost: 16000, costLabel: "16,000 / Each", unit: "ARGUS", defaultChecked: true, isBtUnitTarget: false },
+          { name: "Argus 24hr Build Logistic", maxLimit: 5, cost: 8000, costLabel: "8,000 / Each", unit: "ARGUS", defaultChecked: true, isBtUnitTarget: false },
+          { name: "Argus Maxbuildable", maxLimit: 24, cost: 6000, costLabel: "6,000 / Each", unit: "ARGUS", defaultChecked: true, isBtUnitTarget: true },
+          { name: "Dixon Unlock Parts", maxLimit: 80, cost: 1600, costLabel: "1,600 / Each", unit: "DIXON", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dixon Upgrade Token", maxLimit: 20, cost: 16000, costLabel: "16,000 / Each", unit: "DIXON", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dixon Tech: The Stargazer Maneuver", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "DIXON", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dixon Tech: Tachyon Grid Sweepers", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "DIXON", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dixon Tech: Rotating Shield Harmonics", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "DIXON", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dyad Upgrade Token", maxLimit: 20, cost: 16000, costLabel: "16,000 / Each", unit: "DYAD & TWIN", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dyad Tech: Doctrine of Man", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "DYAD & TWIN", defaultChecked: false, isBtUnitTarget: false },
+          { name: "Dyad Tech: Doctrine of Machine", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "DYAD & TWIN", defaultChecked: false, isBtUnitTarget: false },
+          { name: "BARON ANANSI Part", maxLimit: 10, cost: 25000, costLabel: "25,000 / Each", unit: "BARON ANANSI", defaultChecked: false, isBtUnitTarget: false }
+        ]
+      },
+
+      holdout: {
+        mode: "holdout",
+        modeLabel: "HOLDOUT",
+        prefix: "NOV 2026",
+        eventName: "HOLDOUT",
+        schedStart: "FRI NOV 13, 2026 @ 10:00 AM PST",
+        schedEnd: "TUE NOV 17, 2026 @ 10:00 AM PST",
+        schedStore: "WED NOV 18, 2026 @ 10:00 AM PST",
+        eventDays: 4,
+        briefUrl: "./2026-nov-holdout-brief.html",
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1064-holdout-november-2026/",
+        syncSourceLabel: "2026-nov-holdout-brief.html",
+        isPreReleaseFallback: false,
+        tracksCfg: {
+          b1Xp: 10000, b2Xp: 10000, b3Xp: 10000, bonusBaseXp: 16000,
+          crate1Xp: 1000, crate2Xp: 1000, crate3Xp: 2000
+        },
+        storeCatalog: [
+          { name: "Dyad Upgrade Token", maxLimit: 25, cost: 15000, costLabel: "15,000 / Each", unit: "DYAD & TWIN", defaultChecked: true },
+          { name: "Argus Upgrade Token", maxLimit: 15, cost: 15000, costLabel: "15,000 / Each", unit: "ARGUS", defaultChecked: true },
+          { name: "Prime Directive Prototype (1 Argus Lvl 1) (1 Hr)", maxLimit: 4, cost: 20000, costLabel: "20,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Prime Directive Standard (2 Argus Lvl 5) (1 Hr)", maxLimit: 4, cost: 40000, costLabel: "40,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Prime Directive Elite (3 Argus Lvl 10) (1 Hr)", maxLimit: 4, cost: 80000, costLabel: "80,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Argus Warpaint - Black Biohazard", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Argus Warpaint - White Biohazard", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Argus Warpaint - Green Biohazard", maxLimit: 24, cost: 5000, costLabel: "5,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Argus Warpaint - Blue Biohazard", maxLimit: 24, cost: 5000, costLabel: "5,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Dixon Warpaint - Blacked Out", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "DIXON", defaultChecked: false },
+          { name: "Baron Anansi - Build Logistic 12 Hr", maxLimit: 5, cost: 10000, costLabel: "10,000 / Each", unit: "BARON ANANSI", defaultChecked: false },
+          { name: "Baron Anansi - Upgrade Logistic 12 Hr", maxLimit: 8, cost: 10000, costLabel: "10,000 / Each", unit: "BARON ANANSI", defaultChecked: false },
+          { name: "Baron Anansi - Unlock Parts", maxLimit: 10, cost: 6000, costLabel: "6,000 / Each", unit: "BARON ANANSI", defaultChecked: false },
+          { name: "Baron Anansi - Upgrade Tokens", maxLimit: 45, cost: 10000, costLabel: "10,000 / Each", unit: "BARON ANANSI", defaultChecked: false },
+          { name: "Baron Anansi - Equinox Treaty", maxLimit: 1, cost: 20000, costLabel: "20,000", unit: "BARON ANANSI", defaultChecked: true },
+          { name: "Steeled Matchlocke Upgrade Tokens", maxLimit: 55, cost: 8000, costLabel: "8,000 / Each", unit: "MATCHLOCKE", defaultChecked: false },
+          { name: "Imperial Landlocke Upgrade Tokens", maxLimit: 55, cost: 8000, costLabel: "8,000 / Each", unit: "LANDLOCHE", defaultChecked: false },
+          { name: "Fire Mine Unlock", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "", defaultChecked: false }
+        ]
+      },
+
+      breach: {
+        mode: "breach",
+        modeLabel: "SECTOR BREACH",
+        prefix: "NOV 2026",
+        eventName: "SECTOR BREACH",
+        schedStart: "FRI NOV 20, 2026 @ 10:00 AM PST",
+        schedEnd: "TUE NOV 24, 2026 @ 10:00 AM PST",
+        schedStore: "WED NOV 25, 2026 @ 10:00 AM PST",
+        eventDays: 4,
+        briefUrl: "./2026-nov-sector-breach-brief.html",
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
+        syncSourceLabel: "NOV Pre-Release (Using Latest Breach Store)",
+        isPreReleaseFallback: true,
+        tracksCfg: {
+          genB1Xp: 5500, genB2Xp: 5500, genB3Xp: 10000, genBonusXp: 40000,
+          conqB1Xp: 17000, conqB2Xp: 17000, conqB3Xp: 30000, conqBonusXp: 100000
+        },
+        storeCatalog: [
+          { name: "Legendary Juggernaut Part", maxLimit: 100, cost: 10000, costLabel: "10,000 / Each", unit: "JUGGERNAUT", defaultChecked: true },
+          { name: "Legendary Juggernaut Part (4-Pack)", maxLimit: 25, cost: 40000, costLabel: "40,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Legendary Juggernaut Part (10-Pack)", maxLimit: 10, cost: 100000, costLabel: "100,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Legendary Juggernaut Upgrade Token", maxLimit: 45, cost: 50000, costLabel: "50,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Juggernaut Tech: Manual Override", maxLimit: 1, cost: 0, costLabel: "FREE", unit: "JUGGERNAUT", defaultChecked: true },
+          { name: "Juggernaut Tech: Armored Crest", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Juggernaut Tech: Fallout", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Juggernaut Tech: Adaptive Protocol", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
+          { name: "Warlord Stormwail Upgrade Token", maxLimit: 20, cost: 125000, costLabel: "125,000 / Each", unit: "WARLORD STORMWAIL", defaultChecked: false }
+        ]
+      },
+
+      skirmish: {
+        mode: "skirmish",
+        modeLabel: "SKIRMISH",
+        prefix: "NOV 2026",
+        eventName: "SKIRMISH",
+        schedStart: "FRI NOV 27, 2026 @ 10:00 AM PST",
+        schedEnd: "TUE DEC 1, 2026 @ 10:00 AM PST",
+        schedStore: "WED DEC 2, 2026 @ 10:00 AM PST",
+        eventDays: 4,
+        briefUrl: "./2026-nov-skirmish-brief.html",
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
+        syncSourceLabel: "NOV Pre-Release (Using Latest Skirmish Store)",
+        isPreReleaseFallback: true,
+        tracksCfg: {
+          recB1Xp: 1000, recB2Xp: 2000, recB3Xp: 5000, recBonusXp: 8000,
+          offB1Xp: 8000, offB2Xp: 16000, offBonusXp: 28000
+        },
+        storeCatalog: [
+          { name: "Dixon Upgrade Tokens", maxLimit: 10, cost: 40000, costLabel: "40,000 / Each", unit: "DIXON", defaultChecked: true },
+          { name: "Dixon Upgrade Parts", maxLimit: 80, cost: 4000, costLabel: "4,000 / Each", unit: "DIXON", defaultChecked: true },
+          { name: "Dixon 24hr Build Logistics", maxLimit: 4, cost: 32000, costLabel: "32,000 / Each", unit: "DIXON", defaultChecked: true },
+          { name: "Dixon Tech - The Stargazer Maneuver", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "DIXON", defaultChecked: true },
+          { name: "Dixon Tech - Tachyon Grid Sweepers", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "DIXON", defaultChecked: true },
+          { name: "Dixon Tech - Rotating Shield Harmonics", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "DIXON", defaultChecked: true },
+          { name: "Wanderer Kabuto WYRMGUARD Warpaint", maxLimit: 1, cost: 250000, costLabel: "250,000", unit: "WANDERER KABUTO", defaultChecked: false },
+          { name: "Tachyon BAPHOMET Warpaint", maxLimit: 1, cost: 250000, costLabel: "250,000", unit: "TACHYON", defaultChecked: false },
+          { name: "Recruiter SHOGGOTH Warpaint", maxLimit: 1, cost: 250000, costLabel: "250,000", unit: "RECRUITER", defaultChecked: false },
+          { name: "Bloodfang LYCAN Warpaint", maxLimit: 1, cost: 250000, costLabel: "250,000", unit: "BLOODFANG", defaultChecked: false }
+        ]
+      }
+    };
+
+    /* Per-Mode Interactive Player State (Saved Independently in localStorage) */
+    const DEFAULT_MODE_USER_STATES = {
+      operations: {
+        bankedXp: 0,
+        paceDays: 6,
+        btStages: 5,
+        activeTrack: "BOTH",
+        incB1: true, incB2: true,
+        tacB1: true, tacHvt1: true, tacB2: true, tacHvt2: true,
+        incSetsDone: 0, tacSetsDone: 0,
+        multiplier: 1.0,
+        items: []
+      },
+      holdout: {
+        bankedXp: 0,
+        paceDays: 4,
+        activeTrack: "GAUNTLET4",
+        stdB1: true, stdB2: true, stdB3: true,
+        gntB1: true, gntB2: true, gntB3: true, gntBonus: true,
+        crateTier: 3,
+        items: []
+      },
+      breach: {
+        bankedXp: 0,
+        paceDays: 4,
+        activeTrack: "CONQUEROR",
+        genB1: true, genB2: true, genB3: true,
+        conqB1: true, conqB2: true, conqB3: true,
+        multiplier: 1.0,
+        items: []
+      },
+      skirmish: {
+        bankedXp: 0,
+        paceDays: 4,
+        activeTrack: "OFFICER",
+        recB1: true, recB2: true, recB3: true,
+        offB1: true, offB2: true,
+        multiplier: 1.0,
+        items: []
+      }
+    };
+
+    let currentMode = "holdout";
+    let modeUserStates = JSON.parse(JSON.stringify(DEFAULT_MODE_USER_STATES));
+    let discoveredBriefFilesByMode = { operations: [], holdout: [], breach: [], skirmish: [] };
+
+    function escapeHtml(str) {
+      return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function showToast(msg) {
+      const pill = document.getElementById("toastBannerPill");
+      if (!pill) return;
+      pill.textContent = msg;
+      pill.style.display = "inline-flex";
+      clearTimeout(window._wtrCalcToastTmr);
+      window._wtrCalcToastTmr = setTimeout(() => { pill.style.display = "none"; }, 2900);
+    }
+
+    function formatImageUrl(u) {
+      if (!u) return "";
+      let c = String(u).trim().replace(/^\x27/, "");
+      const fm = c.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+      if (fm && fm[1]) c = fm[1].trim();
+      const m = c.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+      return (m && m[1] && !c.startsWith("data:")) ? ("https://lh3.googleusercontent.com/d/" + m[1]) : c;
+    }
+
+    function normalizeUnitKey(name) {
+      return String(name || "").toUpperCase().replace(/\+/g, "&").replace(/\s+/g, " ").trim();
+    }
+
+    function resolveUnitAlias(name) {
+      const n = normalizeUnitKey(name);
+      if (!n) return "";
+      if (n.includes("LANDLOCKE") || n.includes("LANDLOCHE")) return "LANDLOCHE";
+      if (n.includes("MATCHLOCKE")) return "MATCHLOCKE";
+      if (n === "DYAD" || n === "DYADS") return "DYAD & TWIN";
+      if (n === "WANDER KABUTO") return "WANDERER KABUTO";
+      return n;
+    }
+
+    function detectUnitFromItemName(itemName, explicitUnit) {
+      const exp = resolveUnitAlias(explicitUnit);
+      if (exp) return exp;
+      const up = normalizeUnitKey(itemName);
+      if (!up) return "";
+      if (up.includes("LANDLOCKE") || up.includes("LANDLOCHE")) return "LANDLOCHE";
+      if (up.includes("MATCHLOCKE")) return "MATCHLOCKE";
+      if (up.includes("DYAD")) return "DYAD & TWIN";
+      const sortedDb = [...masterDbUnitsCache].sort((a, b) => (b.UNIT_NAME || "").length - (a.UNIT_NAME || "").length);
+      for (const u of sortedDb) {
+        const un = normalizeUnitKey(u.UNIT_NAME);
+        if (un && un.length >= 3 && up.includes(un)) return un;
+      }
+      return "";
+    }
+
+    function findUnitInMasterDb(unitName) {
+      const target = resolveUnitAlias(unitName);
+      if (!target) return null;
+      return masterDbUnitsCache.find(u => resolveUnitAlias(u.UNIT_NAME) === target) ||
+             masterDbUnitsCache.find(u => {
+               const k = resolveUnitAlias(u.UNIT_NAME);
+               return k && (k.includes(target) || target.includes(k));
+             }) || null;
+    }
+
+    /* Smart Portrait / Warpaint Thumbnail Resolver from MASTER_DB */
+    function resolveStoreItemVisual(itemObj) {
+      const unitKey = detectUnitFromItemName(itemObj.name, itemObj.unit);
+      const rec = findUnitInMasterDb(unitKey);
+      if (!rec) {
+        return {
+          unitKey,
+          rec: null,
+          thumbUrl: "",
+          matchedWarpaint: "",
+          subMeta: unitKey ? `🗄️ ${unitKey}` : "EVENT REQUISITION ITEM"
+        };
+      }
+
+      const itemUp = String(itemObj.name || "").toUpperCase();
+      let thumbUrl = formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || "");
+      let matchedWarpaint = "";
+
+      for (let i = 1; i <= 4; i++) {
+        const wpName = String(rec[`WARPAINT_${i}_NAME`] || "").trim();
+        const wpImg = formatImageUrl(rec[`WARPAINT_${i}_IMAGE`] || "");
+        if (wpName && wpImg && itemUp.includes(wpName.toUpperCase())) {
+          thumbUrl = wpImg;
+          matchedWarpaint = wpName;
+          break;
+        }
+      }
+
+      const faction = rec.STAT_FACTION || "Unit";
+      const uType = rec.STAT_TYPE || rec.CLASSIFICATION || "Brief";
+      return {
+        unitKey: rec.UNIT_NAME || unitKey,
+        rec,
+        thumbUrl: thumbUrl || WTR_LOGO_FALLBACK,
+        matchedWarpaint,
+        subMeta: `${faction} • ${uType}${matchedWarpaint ? " • 🎨 " + matchedWarpaint : ""}`
+      };
+    }
+
+    /* ==================== LIVE MASTER_DB GOOGLE SHEET SYNC (CSV + JSONP FALLBACK) ==================== */
+    function ingestMasterDbRows(matrix, showFeedback) {
+      if (!matrix || matrix.length <= 1) return false;
+      const headers = matrix[0].map(h => String(h || "").trim().toUpperCase().replace(/\s+/g, "_"));
+      const seedMap = {};
+      SEED_MASTER_DB_UNITS.forEach(s => { seedMap[resolveUnitAlias(s.UNIT_NAME)] = s; });
+
+      const units = [];
+      const seen = new Set();
+      for (let r = 1; r < matrix.length; r++) {
+        const rec = {};
+        headers.forEach((k, i) => {
+          if (k) rec[k] = matrix[r][i] !== undefined ? String(matrix[r][i]).trim().replace(/^\x27/, "") : "";
+        });
+        rec.UNIT_NAME = rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
+        const isBuilding = Boolean((rec.DIR_1_DESC || rec.MAT_LVLS) && !rec.STAT_FACTION && !rec.STAT_WEAPON_TYPE);
+        if (rec.UNIT_NAME && !isBuilding) {
+          const aliasKey = resolveUnitAlias(rec.UNIT_NAME);
+          const seed = seedMap[aliasKey];
+          if (seed) {
+            Object.keys(seed).forEach(sk => { if (!rec[sk] && seed[sk]) rec[sk] = seed[sk]; });
+          }
+          seen.add(aliasKey);
+          units.push(rec);
+        }
+      }
+      SEED_MASTER_DB_UNITS.forEach(s => {
+        const ak = resolveUnitAlias(s.UNIT_NAME);
+        if (!seen.has(ak)) units.push(Object.assign({}, s));
+      });
+      if (!units.length) return false;
+
+      masterDbUnitsCache = units;
+      const pill = document.getElementById("masterDbStatusPill");
+      if (pill) pill.textContent = `🗄️ MASTER_DB: ${units.length} Units Linked`;
+      renderUnitQuickPills();
+      renderStoreTable();
+      if (showFeedback) showToast(`✅ Synced ${units.length} Units from MASTER_DB`);
+      return true;
+    }
+
+    function syncMasterDbViaJsonp(showFeedback) {
+      const pill = document.getElementById("masterDbStatusPill");
+      window.google = window.google || {};
+      window.google.visualization = window.google.visualization || {};
+      window.google.visualization.Query = window.google.visualization.Query || {};
+      window.google.visualization.Query.setResponse = function(resp) {
+        try {
+          if (!resp || !resp.table || !resp.table.cols || !resp.table.rows) {
+            if (pill) pill.textContent = `🗄️ MASTER_DB: ${masterDbUnitsCache.length} Seeded`;
+            return;
+          }
+          const headers = resp.table.cols.map(c => String(c.label || c.id || "").trim());
+          const matrix = [headers];
+          resp.table.rows.forEach(rowObj => {
+            const arr = (rowObj.c || []).map(cell => (cell && cell.v !== null && cell.v !== undefined) ? String(cell.f || cell.v) : "");
+            matrix.push(arr);
+          });
+          ingestMasterDbRows(matrix, showFeedback);
+        } catch (e) {
+          if (pill) pill.textContent = `🗄️ MASTER_DB: ${masterDbUnitsCache.length} Seeded`;
+        }
+      };
+      const old = document.getElementById("wtrCalcJsonpScript");
+      if (old) old.remove();
+      const s = document.createElement("script");
+      s.id = "wtrCalcJsonpScript";
+      s.src = `https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/gviz/tq?tqx=out:json&gid=${SHEET_MASTER_GID}&headers=1&_=${Date.now()}`;
+      s.onerror = function() {
+        if (pill) pill.textContent = `🗄️ MASTER_DB: ${masterDbUnitsCache.length} Seeded`;
+      };
+      document.body.appendChild(s);
+    }
+
+    function syncMasterDbFromSheet(showFeedback) {
+      const pill = document.getElementById("masterDbStatusPill");
+      if (pill) pill.textContent = "🗄️ MASTER_DB: Syncing...";
+      if (window.location.protocol === "file:" || typeof Papa === "undefined") {
+        syncMasterDbViaJsonp(showFeedback);
+        return;
+      }
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/export?format=csv&gid=${SHEET_MASTER_GID}`;
+      Papa.parse(csvUrl, {
+        download: true,
+        header: false,
+        skipEmptyLines: true,
+        complete: function(res) {
+          if (!res || !res.data || !ingestMasterDbRows(res.data, showFeedback)) {
+            syncMasterDbViaJsonp(showFeedback);
+          }
+        },
+        error: function() { syncMasterDbViaJsonp(showFeedback); }
+      });
+    }
+
+    /* ==================== AUTOMATIC EVENT BRIEF storeCatalog DISCOVERY & PARSER ==================== */
+    function normalizeCatalogEntry(raw, idx) {
+      const name = String(raw.name || raw.item || `Store Item #${idx + 1}`).trim();
+      const rawLimit = raw.maxLimit !== undefined ? raw.maxLimit : (raw.limit !== undefined ? raw.limit : 1);
+      const maxLimit = Math.max(1, parseInt(String(rawLimit).replace(/[^0-9]/g, ""), 10) || 1);
+      let cost = 0;
+      let costLabel = String(raw.costLabel || "").trim();
+      if (typeof raw.cost === "number") {
+        cost = Math.max(0, raw.cost);
+      } else if (typeof raw.cost === "string") {
+        if (!costLabel) costLabel = raw.cost.trim();
+        cost = /FREE/i.test(raw.cost) ? 0 : (parseInt(raw.cost.replace(/[^0-9]/g, ""), 10) || 0);
+      }
+      if (!costLabel) {
+        costLabel = cost === 0 ? "FREE" : (maxLimit > 1 ? `${cost.toLocaleString()} / Each` : cost.toLocaleString());
+      }
+      const unit = detectUnitFromItemName(name, raw.unit || raw.linkedUnit || "");
+      const defaultChecked = raw.defaultChecked !== undefined
+        ? Boolean(raw.defaultChecked)
+        : (raw.checked !== undefined ? Boolean(raw.checked) : (cost === 0 || idx < 2));
+      const isBtUnitTarget = Boolean(raw.isBtUnitTarget) || (/MAXBUILDABLE/i.test(name) && idx < 8);
+      return { name, maxLimit, cost, costLabel, unit, defaultChecked, isBtUnitTarget };
+    }
+
+    function extractBalancedJsonArray(text, keyPattern) {
+      const re = new RegExp(`["']?${keyPattern}["']?\\s*:\\s*\\[`, "i");
+      const m = re.exec(text);
+      if (!m) return null;
+      const openBracketIdx = m.index + m[0].length - 1;
+      let depth = 0;
+      let inStr = false;
+      let strQuote = "";
+      let escaped = false;
+      for (let i = openBracketIdx; i < text.length; i++) {
+        const ch = text[i];
+        if (inStr) {
+          if (escaped) { escaped = false; continue; }
+          if (ch === "\\") { escaped = true; continue; }
+          if (ch === strQuote) inStr = false;
+        } else {
+          if (ch === '"' || ch === "'") { inStr = true; strQuote = ch; }
+          else if (ch === "[") depth++;
+          else if (ch === "]") {
+            depth--;
+            if (depth === 0) {
+              const rawSlice = text.slice(openBracketIdx, i + 1);
+              try { return JSON.parse(rawSlice); } catch (e) {
+                try {
+                  // Relaxed JS object literal array parser (safe key quoting for unquoted keys like item:, maxLimit:)
+                  const jsonified = rawSlice
+                    .replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":')
+                    .replace(/,\s*([}\]])/g, "$1");
+                  return JSON.parse(jsonified);
+                } catch (e2) { return null; }
+              }
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function extractStringProp(html, propName) {
+      const re = new RegExp(`["']?${propName}["']?\\s*:\\s*"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"`, "i");
+      const m = re.exec(html);
+      return m ? m[1].replace(/\\"/g, '"') : "";
+    }
+
+    function extractNumProp(html, propName) {
+      const re = new RegExp(`["']?${propName}["']?\\s*:\\s*(\\d+)`, "i");
+      const m = re.exec(html);
+      return m ? parseInt(m[1], 10) : null;
+    }
+
+    function parseEventBriefHtmlIntoProfile(html, fileName, mode) {
+      if (!html) return false;
+      const profile = EVENT_PROFILES[mode];
+      if (!profile) return false;
+
+      const isSealedPreRelease = /WATCHTOWER PRE-RELEASE HOLDING BRIEF|STATUS:\s*SEALED/i.test(html);
+      const rawCat = extractBalancedJsonArray(html, "storeCatalog")
+                  || extractBalancedJsonArray(html, "prizes")
+                  || extractBalancedJsonArray(html, "storeItems");
+
+      // Extract schedule strings even from Pre-Release Holding Pages!
+      const sStart = extractStringProp(html, "schedStart") || ((html.match(/Starts:<\/strong><span>([^<]+)<\/span>/i) || [])[1] || "");
+      const sEnd   = extractStringProp(html, "schedEnd")   || ((html.match(/Ends:<\/strong><span>([^<]+)<\/span>/i) || [])[1] || "");
+      const sStore = extractStringProp(html, "schedStore") || ((html.match(/Store Closes:<\/strong><span>([^<]+)<\/span>/i) || [])[1] || "");
+      const stamp  = extractStringProp(html, "cornerStamp") || ((html.match(/class="corner-block-4 corner-top-left">([^<]+)<\/span>/i) || [])[1] || "");
+      const mTitle = extractStringProp(html, "mainTitle") || ((html.match(/class="event-main-title">([^<]+)<\/h1>/i) || [])[1] || "");
+      const srcUrl = extractStringProp(html, "sourceUrl");
+      const evDays = extractNumProp(html, "eventDays");
+
+      if (sStart) profile.schedStart = sStart.trim();
+      if (sEnd)   profile.schedEnd   = sEnd.trim();
+      if (sStore) profile.schedStore = sStore.trim();
+      if (stamp)  profile.prefix     = stamp.trim();
+      if (mTitle) profile.eventName  = mTitle.trim();
+      if (srcUrl) profile.sourceUrl  = srcUrl.trim();
+      if (evDays) profile.eventDays  = evDays;
+
+      if (Array.isArray(rawCat) && rawCat.length > 0 && !isSealedPreRelease) {
+        profile.storeCatalog = rawCat.map((r, i) => normalizeCatalogEntry(r, i));
+        profile.syncSourceLabel = fileName;
+        profile.briefUrl = fileName.startsWith("./") || fileName.startsWith("vault/") ? fileName : `./${fileName}`;
+        profile.isPreReleaseFallback = false;
+        return true;
+      }
+
+      if (isSealedPreRelease) {
+        profile.briefUrl = fileName.startsWith("./") ? fileName : `./${fileName}`;
+        profile.isPreReleaseFallback = true;
+        profile.syncSourceLabel = `${fileName} (Pre-Release • Showing Previous Store)`;
+      }
+      return false;
+    }
+
+    function discoverManifestBriefs() {
+      const manifest = window.WTR_DIRECTORY_MANIFEST || { activeFiles: [], vaultFiles: [] };
+      const classify = (f) => {
+        const l = String(f || "").toLowerCase();
+        if (!l.endsWith(".html") || l.includes("calculator") && !l.includes("skirmish-calculator")) return null;
+        if (l.includes("holdout")) return "holdout";
+        if (l.includes("sector-breach") || l.includes("breach")) return "breach";
+        if (l.includes("skirmish")) return "skirmish";
+        if (l.includes("operation") || l.includes("blue-baron") || l.includes("nightmare")) return "operations";
+        return null;
+      };
+
+      const scoreFile = (f, isVault) => {
+        const l = f.toLowerCase();
+        const months = { jan:1, feb:2, mar:3, apr:4, may:5, jun:6, jul:7, aug:8, sep:9, oct:10, nov:11, dec:12 };
+        const m = l.match(/(20\d\d)-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/);
+        let sc = m ? (parseInt(m[1], 10) * 100 + (months[m[2]] || 0)) : (isVault ? 202600 : 202611);
+        if (!isVault) sc += 1000;
+        if (l === "operation-blue-baron.html") sc += 5;
+        return sc;
+      };
+
+      ["operations", "holdout", "breach", "skirmish"].forEach(k => { discoveredBriefFilesByMode[k] = []; });
+
+      (manifest.activeFiles || []).forEach(f => {
+        const cat = classify(f);
+        if (cat) discoveredBriefFilesByMode[cat].push({ label: `Active: ${f}`, path: `./${f}`, fileName: f, isVault: false, score: scoreFile(f, false) });
+      });
+      (manifest.vaultFiles || []).forEach(f => {
+        const cat = classify(f);
+        if (cat) discoveredBriefFilesByMode[cat].push({ label: `Vault: ${f}`, path: `./vault/${f}`, fileName: `vault/${f}`, isVault: true, score: scoreFile(f, true) });
+      });
+
+      Object.keys(discoveredBriefFilesByMode).forEach(k => {
+        discoveredBriefFilesByMode[k].sort((a, b) => b.score - a.score);
+      });
+    }
+
+    async function autoSyncAllEventCatalogsOverHttp() {
+      discoverManifestBriefs();
+      populateBriefSourceDropdown();
+      if (window.location.protocol === "file:") {
+        updateHeaderAndModeBadges();
+        return;
+      }
+
+      for (const mode of ["operations", "holdout", "breach", "skirmish"]) {
+        const candidates = discoveredBriefFilesByMode[mode] || [];
+        let loadedCatalog = false;
+        for (const cand of candidates) {
+          try {
+            const resp = await fetch(cand.path, { cache: "no-cache" });
+            if (!resp.ok) continue;
+            const html = await resp.text();
+            const gotStore = parseEventBriefHtmlIntoProfile(html, cand.fileName, mode);
+            if (gotStore) {
+              loadedCatalog = true;
+              break;
+            }
+          } catch (e) {}
+        }
+        if (loadedCatalog) {
+          syncModeItemsWithCatalog(mode, false);
+        }
+      }
+      populateBriefSourceDropdown();
+      updateHeaderAndModeBadges();
+      renderStoreTable();
+      renderUnitQuickPills();
+      recalculateActiveMode();
+    }
+
+    /* ==================== PLAYER STATE PERSISTENCE & ITEM SYNC ==================== */
+    function getStorageKeyForMode(mode) {
+      const p = EVENT_PROFILES[mode];
+      const slug = `${p.prefix}_${p.eventName}`.toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+      return `wtr_unified_calc_v1_${mode}_${slug}`;
+    }
+
+    function getEffectiveItemMaxLimit(mode, itemDef) {
+      const baseMax = Math.max(1, parseInt(itemDef.maxLimit, 10) || 1);
+      if (mode === "operations" && itemDef.isBtUnitTarget) {
+        const btStages = Math.max(0, Math.min(5, parseInt(modeUserStates.operations.btStages, 10) ?? 5));
+        const perStage = EVENT_PROFILES.operations.tracksCfg.btUnitsPerStage || 1;
+        return Math.max(0, baseMax - (btStages * perStage));
+      }
+      return baseMax;
+    }
+
+    function syncModeItemsWithCatalog(mode, forceDefaults) {
+      const profile = EVENT_PROFILES[mode];
+      const st = modeUserStates[mode];
+      if (!profile || !st) return;
+
+      let savedObj = null;
+      if (!forceDefaults) {
+        try {
+          const raw = localStorage.getItem(getStorageKeyForMode(mode));
+          if (raw) savedObj = JSON.parse(raw);
+        } catch (e) {}
+      }
+
+      if (savedObj && !forceDefaults) {
+        Object.keys(DEFAULT_MODE_USER_STATES[mode]).forEach(k => {
+          if (k !== "items" && savedObj[k] !== undefined) st[k] = savedObj[k];
+        });
+      } else if (forceDefaults) {
+        const fresh = JSON.parse(JSON.stringify(DEFAULT_MODE_USER_STATES[mode]));
+        fresh.paceDays = profile.eventDays || fresh.paceDays;
+        Object.assign(st, fresh);
+      }
+
+      const savedByName = {};
+      if (savedObj && Array.isArray(savedObj.items)) {
+        savedObj.items.forEach(it => { if (it && it.name) savedByName[it.name.toUpperCase()] = it; });
+      }
+
+      st.items = (profile.storeCatalog || []).map(catItem => {
+        const effMax = getEffectiveItemMaxLimit(mode, catItem);
+        const prev = (!forceDefaults) ? savedByName[catItem.name.toUpperCase()] : null;
+        if (prev) {
+          return {
+            name: catItem.name,
+            checked: Boolean(prev.checked),
+            qty: Math.min(effMax, Math.max(0, parseInt(prev.qty, 10) ?? effMax))
+          };
+        }
+        return {
+          name: catItem.name,
+          checked: Boolean(catItem.defaultChecked),
+          qty: effMax
+        };
+      });
+    }
+
+    function saveCurrentModeToLocal() {
+      try {
+        localStorage.setItem(getStorageKeyForMode(currentMode), JSON.stringify(modeUserStates[currentMode]));
+      } catch (e) {}
+    }
+
+    /* ==================== EVENT SCHEDULE CLOCK & MODE SWITCHER ==================== */
+    function parseWcDateMs(str) {
+      if (!str) return NaN;
+      let s = String(str).trim()
+        .replace(/^[A-Z]{3,9}\s+/i, "")
+        .replace(/@/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const tzMatch = s.match(/\b(PST|PDT|PT)\b/i);
+      let tzOffset = "-08:00";
+      if (tzMatch && tzMatch[1].toUpperCase() === "PDT") tzOffset = "-07:00";
+      s = s.replace(/\b(PST|PDT|PT)\b/gi, "").trim();
+      const parsed = Date.parse(`${s} GMT${tzOffset}`);
+      return isNaN(parsed) ? Date.parse(str) : parsed;
+    }
+
+    function getEventLifecycleState(profile) {
+      const now = Date.now();
+      const startMs = parseWcDateMs(profile.schedStart);
+      const endMs = parseWcDateMs(profile.schedEnd);
+      const storeMs = parseWcDateMs(profile.schedStore);
+      if (!isNaN(startMs) && now < startMs) return { code: "PRE", label: "UPCOMING", cls: "is-soon", targetMs: startMs, clockLbl: "T-MINUS:" };
+      if (!isNaN(endMs) && now < endMs) return { code: "LIVE", label: "LIVE NOW", cls: "is-live", targetMs: endMs, clockLbl: "ENDS IN:" };
+      if (!isNaN(storeMs) && now < storeMs) return { code: "GRACE", label: "STORE OPEN", cls: "is-grace", targetMs: storeMs, clockLbl: "STORE CLOSES:" };
+      return { code: "ARCHIVED", label: "CONCLUDED", cls: "", targetMs: NaN, clockLbl: "EVENT:" };
+    }
+
+    function populateBriefSourceDropdown() {
+      const sel = document.getElementById("briefSourceSelect");
+      if (!sel) return;
+      const profile = EVENT_PROFILES[currentMode];
+      const list = discoveredBriefFilesByMode[currentMode] || [];
+      let html = `<option value="AUTO">⚡ Auto: ${escapeHtml(profile.syncSourceLabel || "Active Event Store")} (${profile.storeCatalog.length} items)</option>`;
+      list.forEach(item => {
+        html += `<option value="${escapeHtml(item.path)}">📄 ${escapeHtml(item.label)}</option>`;
+      });
+      sel.innerHTML = html;
+    }
+
+    async function handleBriefSourceSelection(val) {
+      if (val === "AUTO") {
+        await autoSyncAllEventCatalogsOverHttp();
+        showToast("⚡ Synced Active Event Catalog");
+        return;
+      }
+      if (window.location.protocol === "file:") {
+        showToast("ℹ️ On local file:// use [📂 Test Load Brief .HTML] or HTTP server");
+        return;
+      }
+      try {
+        const resp = await fetch(val, { cache: "no-cache" });
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        const html = await resp.text();
+        const got = parseEventBriefHtmlIntoProfile(html, val.replace(/^\.\//, ""), currentMode);
+        if (got) {
+          syncModeItemsWithCatalog(currentMode, true);
+          updateHeaderAndModeBadges();
+          renderUnitQuickPills();
+          renderStoreTable();
+          recalculateActiveMode();
+          showToast(`✅ Loaded Store from ${val}`);
+        } else {
+          showToast("⚠️ Selected brief is Sealed Pre-Release (no storeCatalog yet)");
+        }
+      } catch (e) {
+        showToast("⚠️ Could not fetch selected brief file");
+      }
+    }
+
+    function updateHeaderAndModeBadges() {
+      const p = EVENT_PROFILES[currentMode];
+      document.documentElement.setAttribute("data-event-mode", currentMode);
+
+      ["operations", "holdout", "breach", "skirmish"].forEach(m => {
+        const btn = document.getElementById(`modeBtn-${m}`);
+        if (btn) btn.classList.toggle("active", m === currentMode);
+        const stEl = document.getElementById(`modeStatus-${m}`);
+        const subEl = document.getElementById(`modeSub-${m}`);
+        const mp = EVENT_PROFILES[m];
+        const lc = getEventLifecycleState(mp);
+        if (stEl) {
+          stEl.className = `mode-live-tag ${lc.cls}`;
+          stEl.textContent = lc.label;
+        }
+        if (subEl) {
+          subEl.textContent = `${mp.prefix} • ${mp.eventName} (${mp.storeCatalog.length} Prizes)`;
+        }
+      });
+
+      const setTxt = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+      setTxt("topCornerStamp", p.prefix || "2026");
+      setTxt("topClassCenter", `UNCLASSIFIED // ${p.modeLabel} XP & REQUISITION CALCULATOR`);
+      setTxt("headerModeChip", `MODE: ${p.modeLabel}`);
+      setTxt("headerEventPrefix", p.prefix || "2026");
+      setTxt("headerEventName", p.eventName || p.modeLabel);
+      setTxt("schedStartTxt", p.schedStart || "TBD");
+      setTxt("schedEndTxt", p.schedEnd || "TBD");
+      setTxt("schedStoreTxt", p.schedStore || "TBD");
+      setTxt("leftPanelSub", p.modeLabel);
+
+      const syncPill = document.getElementById("catalogSyncStatusPill");
+      if (syncPill) {
+        syncPill.textContent = p.isPreReleaseFallback
+          ? `🔒 ${p.prefix} PRE-RELEASE • TEMPLATE STORE (${p.storeCatalog.length})`
+          : `📡 STORE: ${p.syncSourceLabel} (${p.storeCatalog.length})`;
+      }
+      const syncDetail = document.getElementById("sourceSyncDetailTxt");
+      if (syncDetail) {
+        syncDetail.textContent = p.isPreReleaseFallback
+          ? "Upcoming brief is still SEALED — planning with latest known storeCatalog"
+          : `Live storeCatalog synced from ${p.syncSourceLabel}`;
+      }
+
+      const briefLink = document.getElementById("openEventBriefLink");
+      if (briefLink) briefLink.href = p.briefUrl || "./index.html";
+      const notesLink = document.getElementById("openSourceNotesLink");
+      if (notesLink) notesLink.href = p.sourceUrl || "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/";
+
+      const paceInp = document.getElementById("paceDaysInput");
+      if (paceInp) paceInp.value = modeUserStates[currentMode].paceDays || p.eventDays || 4;
+
+      const bankInp = document.getElementById("bankedXpInput");
+      if (bankInp) bankInp.value = modeUserStates[currentMode].bankedXp || 0;
+
+      document.title = `[-WTR-] ${p.prefix} ${p.eventName} — Multi-Event XP Calculator`;
+      updateLiveCountdownTick();
+    }
+
+    function switchEventMode(modeKey, skipUrlPush) {
+      if (!EVENT_PROFILES[modeKey]) return;
+      currentMode = modeKey;
+      if (!modeUserStates[modeKey].items || !modeUserStates[modeKey].items.length) {
+        syncModeItemsWithCatalog(modeKey, false);
+      }
+      populateBriefSourceDropdown();
+      updateHeaderAndModeBadges();
+      renderLeftModeTracksPanel();
+      renderUnitQuickPills();
+      renderStoreTable();
+      recalculateActiveMode(true);
+
+      if (!skipUrlPush && window.history && window.history.replaceState) {
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set("mode", modeKey);
+          window.history.replaceState({}, "", url.toString());
+        } catch (e) {}
+      }
+    }
+
+    /* ==================== LEFT PANEL: 4 TAILORED EVENT SCORING INTERFACES ==================== */
+    function renderLeftModeTracksPanel() {
+      const box = document.getElementById("dynamicModeTracksContainer");
+      if (!box) return;
+      const st = modeUserStates[currentMode];
+      const cfg = EVENT_PROFILES[currentMode].tracksCfg;
+
+      if (currentMode === "operations") {
+        box.innerHTML = `
+          <div style="background:rgba(255,215,0,0.07); border:1px solid rgba(255,215,0,0.4); border-radius:4px; padding:9px 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:5px;">
+              <strong style="font-family:monospace; font-size:11.5px; color:var(--text-gold);">🎓 BASIC TRAINING (0–5 STAGES)</strong>
+              <select id="opsBtSelect" class="source-select" onchange="updateModeField('btStages', parseInt(this.value,10)); syncOperationsBtCap();">
+                ${[0,1,2,3,4,5].map(n => `<option value="${n}" ${st.btStages===n?'selected':''}>${n}/5 Stages (+${(n*cfg.btXpPerStage).toLocaleString()} XP • -${n} Unit Cap)</option>`).join("")}
+              </select>
+            </div>
+            <div style="font-size:11.5px; color:var(--text-muted);" id="opsBtSavingNote">Reduces featured unit Maxbuildable needed in store &amp; credits earned XP.</div>
+          </div>
+
+          <div class="track-option-card ${st.activeTrack==='BOTH'?'selected':''}" id="opsCardBoth">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="opsTrackMode" value="BOTH" ${st.activeTrack==='BOTH'?'checked':''} onchange="updateModeField('activeTrack','BOTH')">
+                <span>⚔️ Full Pair + War Bonus</span>
+              </label>
+              <span class="track-opt-xp-pill" id="opsPillBothXp">38,000 XP</span>
+            </div>
+            <div class="track-opt-desc">Runs both <strong>Incursion</strong> &amp; <strong>Tactical Strike</strong> sets to unlock the flat <strong style="color:var(--text-gold);">+${cfg.warBonusXp.toLocaleString()} XP War Bonus</strong>.</div>
+          </div>
+
+          <div class="track-option-card ${st.activeTrack==='INCURSION'?'selected':''}" id="opsCardInc">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="opsTrackMode" value="INCURSION" ${st.activeTrack==='INCURSION'?'checked':''} onchange="updateModeField('activeTrack','INCURSION')">
+                <span>🟡 Incursion Set (2-Base)</span>
+              </label>
+              <span class="track-opt-xp-pill" id="opsPillIncXp">8,000 XP</span>
+            </div>
+            <table class="mini-base-table">
+              <tbody>
+                <tr>
+                  <td style="width:30px;"><input type="checkbox" ${st.incB1?'checked':''} onchange="updateModeField('incB1', this.checked)"></td>
+                  <td>Incursion Base I</td>
+                  <td class="num" id="opsValIncB1">2,000</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" ${st.incB2?'checked':''} onchange="updateModeField('incB2', this.checked)"></td>
+                  <td>Incursion Base II</td>
+                  <td class="num" id="opsValIncB2">2,000</td>
+                </tr>
+                <tr class="bonus-row" id="opsRowIncBonus">
+                  <td><input type="checkbox" id="opsChkIncBonus" checked disabled></td>
+                  <td><strong>Set Completion Bonus</strong></td>
+                  <td class="num" id="opsValIncBonus">4,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="track-option-card ${st.activeTrack==='TACTICAL'?'selected':''}" id="opsCardTac">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="opsTrackMode" value="TACTICAL" ${st.activeTrack==='TACTICAL'?'checked':''} onchange="updateModeField('activeTrack','TACTICAL')">
+                <span>🔴 Tactical Strike + HVT</span>
+              </label>
+              <span class="track-opt-xp-pill" id="opsPillTacXp">16,000 XP</span>
+            </div>
+            <table class="mini-base-table">
+              <tbody>
+                <tr>
+                  <td style="width:30px;"><input type="checkbox" ${st.tacB1?'checked':''} onchange="updateModeField('tacB1', this.checked)"></td>
+                  <td>Tactical Base I</td>
+                  <td class="num" id="opsValTacB1">2,000</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" ${st.tacHvt1?'checked':''} onchange="updateModeField('tacHvt1', this.checked)"></td>
+                  <td style="padding-left:16px; color:var(--text-gold);">↳ Base I HVT Eliminated</td>
+                  <td class="num" style="color:var(--text-gold);" id="opsValTacHvt1">4,000</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" ${st.tacB2?'checked':''} onchange="updateModeField('tacB2', this.checked)"></td>
+                  <td>Tactical Base II</td>
+                  <td class="num" id="opsValTacB2">2,000</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" ${st.tacHvt2?'checked':''} onchange="updateModeField('tacHvt2', this.checked)"></td>
+                  <td style="padding-left:16px; color:var(--text-gold);">↳ Base II HVT Eliminated</td>
+                  <td class="num" style="color:var(--text-gold);" id="opsValTacHvt2">4,000</td>
+                </tr>
+                <tr class="bonus-row" id="opsRowTacBonus">
+                  <td><input type="checkbox" id="opsChkTacBonus" checked disabled></td>
+                  <td><strong>Set Completion Bonus</strong></td>
+                  <td class="num" id="opsValTacBonus">4,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">📦 Proving Grounds Chest Multiplier (2H Boost)</div>
+            <div class="boost-pills-grid">
+              ${[
+                { m: 1.0, t: "1.0x Standard", s: "No Chest Boost" },
+                { m: 1.2, t: "1.2x Bronze",   s: "Bronze Chest Locked" },
+                { m: 1.5, t: "1.5x Silver",   s: "Silver Chest Locked" },
+                { m: 2.0, t: "2.0x Gold",     s: "Gold Chest Locked" }
+              ].map(b => `
+                <div class="boost-pill-card ${Math.abs(st.multiplier - b.m) < 0.01 ? 'active' : ''}" onclick="updateModeField('multiplier', ${b.m}); renderLeftModeTracksPanel();">
+                  <div class="boost-pill-top"><span>${b.t}</span><span>${Math.abs(st.multiplier - b.m) < 0.01 ? '✓' : ''}</span></div>
+                  <div class="boost-pill-sub">${b.s}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (currentMode === "holdout") {
+        box.innerHTML = `
+          <div class="track-option-card ${st.activeTrack==='GAUNTLET4'?'selected':''}" id="hoCardGauntlet">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="hoTrackMode" value="GAUNTLET4" ${st.activeTrack==='GAUNTLET4'?'checked':''} onchange="updateModeField('activeTrack','GAUNTLET4')">
+                <span>🔥 Full 4-Base Gauntlet</span>
+              </label>
+              <span class="track-opt-xp-pill" id="hoPillGauntletXp">62,000 XP</span>
+            </div>
+            <div class="track-opt-desc">Clears Bases I–III plus repeatable <strong>Bonus Base IV</strong> (+16,000 Base XP + Crates).</div>
+            <table class="mini-base-table">
+              <thead><tr><th style="width:28px;">Use</th><th>Target</th><th class="num">Base + Crates</th></tr></thead>
+              <tbody>
+                <tr><td><input type="checkbox" ${st.gntB1?'checked':''} onchange="updateModeField('gntB1', this.checked)"></td><td>Holdout Base I</td><td class="num" id="hoValGntB1">14,000</td></tr>
+                <tr><td><input type="checkbox" ${st.gntB2?'checked':''} onchange="updateModeField('gntB2', this.checked)"></td><td>Holdout Base II</td><td class="num" id="hoValGntB2">14,000</td></tr>
+                <tr><td><input type="checkbox" ${st.gntB3?'checked':''} onchange="updateModeField('gntB3', this.checked)"></td><td>Holdout Base III (+ Logi)</td><td class="num" id="hoValGntB3">14,000</td></tr>
+                <tr class="bonus-row"><td><input type="checkbox" ${st.gntBonus?'checked':''} onchange="updateModeField('gntBonus', this.checked)"></td><td><strong style="color:var(--text-gold);">Bonus Base IV</strong></td><td class="num" style="color:var(--text-gold);" id="hoValGntBonus">20,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="track-option-card ${st.activeTrack==='STANDARD3'?'selected':''}" id="hoCardStd">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="hoTrackMode" value="STANDARD3" ${st.activeTrack==='STANDARD3'?'checked':''} onchange="updateModeField('activeTrack','STANDARD3')">
+                <span>🛡️ Standard 3-Base Set</span>
+              </label>
+              <span class="track-opt-xp-pill" id="hoPillStdXp">42,000 XP</span>
+            </div>
+            <table class="mini-base-table">
+              <tbody>
+                <tr><td style="width:28px;"><input type="checkbox" ${st.stdB1?'checked':''} onchange="updateModeField('stdB1', this.checked)"></td><td>Holdout Base I</td><td class="num" id="hoValStdB1">14,000</td></tr>
+                <tr><td><input type="checkbox" ${st.stdB2?'checked':''} onchange="updateModeField('stdB2', this.checked)"></td><td>Holdout Base II</td><td class="num" id="hoValStdB2">14,000</td></tr>
+                <tr><td><input type="checkbox" ${st.stdB3?'checked':''} onchange="updateModeField('stdB3', this.checked)"></td><td>Holdout Base III</td><td class="num" id="hoValStdB3">14,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-gold); text-transform:uppercase; margin-bottom:6px;">📦 Time-Limited Field XP Crates Claimed / Base</div>
+            <div class="boost-pills-grid">
+              ${[
+                { c: 3, t: "3/3 Crates", s: "+4,000 XP / Base (Max)" },
+                { c: 2, t: "2/3 Crates", s: "+2,000 XP / Base" },
+                { c: 1, t: "1/3 Crate",  s: "+1,000 XP / Base" },
+                { c: 0, t: "0 Crates",   s: "Survival Base XP Only" }
+              ].map(b => `
+                <div class="boost-pill-card ${st.crateTier === b.c ? 'active' : ''}" onclick="updateModeField('crateTier', ${b.c}); renderLeftModeTracksPanel();">
+                  <div class="boost-pill-top"><span>${b.t}</span><span>${st.crateTier === b.c ? '✓' : ''}</span></div>
+                  <div class="boost-pill-sub">${b.s}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (currentMode === "breach") {
+        box.innerHTML = `
+          <div class="track-option-card ${st.activeTrack==='CONQUEROR'?'selected':''}" id="sbCardConq">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="sbTrackMode" value="CONQUEROR" ${st.activeTrack==='CONQUEROR'?'checked':''} onchange="updateModeField('activeTrack','CONQUEROR')">
+                <span>🔴 Conqueror 3-Base Set</span>
+              </label>
+              <span class="track-opt-xp-pill" id="sbPillConqXp">164,000 XP</span>
+            </div>
+            <div class="track-opt-desc">Hard/Veteran Rogue Player Bases. All 3 bases in any order award <strong>+100,000 XP Set Bonus</strong>.</div>
+            <table class="mini-base-table">
+              <tbody>
+                <tr><td style="width:28px;"><input type="checkbox" ${st.conqB1?'checked':''} onchange="updateModeField('conqB1', this.checked)"></td><td>Conqueror Base I</td><td class="num" id="sbValConqB1">17,000</td></tr>
+                <tr><td><input type="checkbox" ${st.conqB2?'checked':''} onchange="updateModeField('conqB2', this.checked)"></td><td>Conqueror Base II</td><td class="num" id="sbValConqB2">17,000</td></tr>
+                <tr><td><input type="checkbox" ${st.conqB3?'checked':''} onchange="updateModeField('conqB3', this.checked)"></td><td>Conqueror Base III</td><td class="num" id="sbValConqB3">30,000</td></tr>
+                <tr class="bonus-row" id="sbRowConqBonus"><td><input type="checkbox" id="sbChkConqBonus" checked disabled></td><td><strong>Set Completion Bonus</strong></td><td class="num" id="sbValConqBonus">100,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="track-option-card ${st.activeTrack==='GENERAL'?'selected':''}" id="sbCardGen">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="sbTrackMode" value="GENERAL" ${st.activeTrack==='GENERAL'?'checked':''} onchange="updateModeField('activeTrack','GENERAL')">
+                <span>🔵 General 3-Base Set</span>
+              </label>
+              <span class="track-opt-xp-pill" id="sbPillGenXp">61,000 XP</span>
+            </div>
+            <table class="mini-base-table">
+              <tbody>
+                <tr><td style="width:28px;"><input type="checkbox" ${st.genB1?'checked':''} onchange="updateModeField('genB1', this.checked)"></td><td>General Base I</td><td class="num" id="sbValGenB1">5,500</td></tr>
+                <tr><td><input type="checkbox" ${st.genB2?'checked':''} onchange="updateModeField('genB2', this.checked)"></td><td>General Base II</td><td class="num" id="sbValGenB2">5,500</td></tr>
+                <tr><td><input type="checkbox" ${st.genB3?'checked':''} onchange="updateModeField('genB3', this.checked)"></td><td>General Base III</td><td class="num" id="sbValGenB3">10,000</td></tr>
+                <tr class="bonus-row" id="sbRowGenBonus"><td><input type="checkbox" id="sbChkGenBonus" checked disabled></td><td><strong>Set Completion Bonus</strong></td><td class="num" id="sbValGenBonus">40,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Active Event XP Multiplier</div>
+            <div class="boost-pills-grid">
+              ${[1.0, 1.2, 1.5, 2.0].map(m => `
+                <div class="boost-pill-card ${Math.abs(st.multiplier - m) < 0.01 ? 'active' : ''}" onclick="updateModeField('multiplier', ${m}); renderLeftModeTracksPanel();">
+                  <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>${Math.abs(st.multiplier - m) < 0.01 ? '✓' : ''}</span></div>
+                  <div class="boost-pill-sub">${m === 1.0 ? 'Standard Payout' : 'Boost Active'}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Skirmish Mode
+      box.innerHTML = `
+        <div class="track-option-card ${st.activeTrack==='OFFICER'?'selected':''}" id="skCardOff">
+          <div class="track-opt-head">
+            <label class="track-opt-label">
+              <input type="radio" name="skTrackMode" value="OFFICER" ${st.activeTrack==='OFFICER'?'checked':''} onchange="updateModeField('activeTrack','OFFICER')">
+              <span>🎖️ Officer Track (2-Base Set)</span>
+            </label>
+            <span class="track-opt-xp-pill" id="skPillOffXp">52,000 XP</span>
+          </div>
+          <div class="track-opt-desc">High-yield 2-base Officer set on World Map (+28,000 XP Cache Bonus).</div>
+          <table class="mini-base-table">
+            <tbody>
+              <tr><td style="width:28px;"><input type="checkbox" ${st.offB1?'checked':''} onchange="updateModeField('offB1', this.checked)"></td><td>Officer Base I</td><td class="num" id="skValOffB1">8,000</td></tr>
+              <tr><td><input type="checkbox" ${st.offB2?'checked':''} onchange="updateModeField('offB2', this.checked)"></td><td>Officer Base II</td><td class="num" id="skValOffB2">16,000</td></tr>
+              <tr class="bonus-row" id="skRowOffBonus"><td><input type="checkbox" id="skChkOffBonus" checked disabled></td><td><strong>Officer Set Bonus</strong></td><td class="num" id="skValOffBonus">28,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="track-option-card ${st.activeTrack==='RECRUIT'?'selected':''}" id="skCardRec">
+          <div class="track-opt-head">
+            <label class="track-opt-label">
+              <input type="radio" name="skTrackMode" value="RECRUIT" ${st.activeTrack==='RECRUIT'?'checked':''} onchange="updateModeField('activeTrack','RECRUIT')">
+              <span>🛡️ Recruit Track (3-Base Set)</span>
+            </label>
+            <span class="track-opt-xp-pill" id="skPillRecXp">16,000 XP</span>
+          </div>
+          <table class="mini-base-table">
+            <tbody>
+              <tr><td style="width:28px;"><input type="checkbox" ${st.recB1?'checked':''} onchange="updateModeField('recB1', this.checked)"></td><td>Recruit Base I</td><td class="num" id="skValRecB1">1,000</td></tr>
+              <tr><td><input type="checkbox" ${st.recB2?'checked':''} onchange="updateModeField('recB2', this.checked)"></td><td>Recruit Base II</td><td class="num" id="skValRecB2">2,000</td></tr>
+              <tr><td><input type="checkbox" ${st.recB3?'checked':''} onchange="updateModeField('recB3', this.checked)"></td><td>Recruit Base III</td><td class="num" id="skValRecB3">5,000</td></tr>
+              <tr class="bonus-row" id="skRowRecBonus"><td><input type="checkbox" id="skChkRecBonus" checked disabled></td><td><strong>Recruit Set Bonus</strong></td><td class="num" id="skValRecBonus">8,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Optional Event XP Multiplier</div>
+          <div class="boost-pills-grid">
+            ${[1.0, 1.2, 1.5, 2.0].map(m => `
+              <div class="boost-pill-card ${Math.abs(st.multiplier - m) < 0.01 ? 'active' : ''}" onclick="updateModeField('multiplier', ${m}); renderLeftModeTracksPanel();">
+                <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>${Math.abs(st.multiplier - m) < 0.01 ? '✓' : ''}</span></div>
+                <div class="boost-pill-sub">${m === 1.0 ? 'Standard 1.0x' : 'Boost Active'}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function updateModeField(field, val) {
+      modeUserStates[currentMode][field] = val;
+      if (field === "activeTrack") renderLeftModeTracksPanel();
+      recalculateActiveMode();
+    }
+
+    function syncOperationsBtCap() {
+      const cat = EVENT_PROFILES.operations.storeCatalog;
+      modeUserStates.operations.items.forEach((it, idx) => {
+        if (cat[idx] && cat[idx].isBtUnitTarget) {
+          const newMax = getEffectiveItemMaxLimit("operations", cat[idx]);
+          it.qty = newMax;
+        }
+      });
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    /* ==================== CORE 4-MODE MATH ENGINE ==================== */
+    function computeActiveModeMetrics() {
+      const st = modeUserStates[currentMode];
+      const cfg = EVENT_PROFILES[currentMode].tracksCfg;
+      const setTxt = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+
+      if (currentMode === "operations") {
+        const mult = st.multiplier || 1.0;
+        const incBonusOk = st.incB1 && st.incB2;
+        const incRaw = (st.incB1 ? cfg.incB1Xp : 0) + (st.incB2 ? cfg.incB2Xp : 0) + (incBonusOk ? cfg.incBonusXp : 0);
+        const incXp = Math.round(incRaw * mult);
+
+        const tacBonusOk = st.tacB1 && st.tacB2;
+        const tacRaw = (st.tacB1 ? cfg.tacB1Xp : 0)
+                     + ((st.tacB1 && st.tacHvt1) ? cfg.tacHvt1Xp : 0)
+                     + (st.tacB2 ? cfg.tacB2Xp : 0)
+                     + ((st.tacB2 && st.tacHvt2) ? cfg.tacHvt2Xp : 0)
+                     + (tacBonusOk ? cfg.tacBonusXp : 0);
+        const tacXp = Math.round(tacRaw * mult);
+        const warXp = (incBonusOk && tacBonusOk) ? cfg.warBonusXp : 0;
+        const bothXp = incXp + tacXp + warXp;
+
+        setTxt("opsPillIncXp", `${incXp.toLocaleString()} XP`);
+        setTxt("opsPillTacXp", `${tacXp.toLocaleString()} XP`);
+        setTxt("opsPillBothXp", `${bothXp.toLocaleString()} XP`);
+        setTxt("opsValIncB1", Math.round(cfg.incB1Xp * mult).toLocaleString());
+        setTxt("opsValIncB2", Math.round(cfg.incB2Xp * mult).toLocaleString());
+        setTxt("opsValIncBonus", incBonusOk ? Math.round(cfg.incBonusXp * mult).toLocaleString() : "0 (Need I & II)");
+        setTxt("opsValTacB1", Math.round(cfg.tacB1Xp * mult).toLocaleString());
+        setTxt("opsValTacHvt1", (st.tacB1 && st.tacHvt1) ? Math.round(cfg.tacHvt1Xp * mult).toLocaleString() : "0");
+        setTxt("opsValTacB2", Math.round(cfg.tacB2Xp * mult).toLocaleString());
+        setTxt("opsValTacHvt2", (st.tacB2 && st.tacHvt2) ? Math.round(cfg.tacHvt2Xp * mult).toLocaleString() : "0");
+        setTxt("opsValTacBonus", tacBonusOk ? Math.round(cfg.tacBonusXp * mult).toLocaleString() : "0 (Need I & II)");
+
+        const btStages = Math.max(0, Math.min(5, parseInt(st.btStages, 10) ?? 5));
+        const btEarnedXp = btStages * (cfg.btXpPerStage || 200);
+        const btItem = EVENT_PROFILES.operations.storeCatalog.find(i => i.isBtUnitTarget);
+        const savedStoreXp = btItem ? (btStages * (cfg.btUnitsPerStage || 1) * btItem.cost) : 0;
+        setTxt("opsBtSavingNote", `Saves ${savedStoreXp.toLocaleString()} Store XP (${btStages} free units) + ${btEarnedXp.toLocaleString()} Earned XP`);
+
+        let activeYield = bothXp, trackName = "Full Pair + War Bonus", altName = "Tactical Only", altYield = tacXp;
+        if (st.activeTrack === "INCURSION") { activeYield = incXp; trackName = "Incursion Set"; altName = "Full Pair"; altYield = bothXp; }
+        else if (st.activeTrack === "TACTICAL") { activeYield = tacXp; trackName = "Tactical Set"; altName = "Full Pair"; altYield = bothXp; }
+
+        return {
+          activeYield,
+          trackName,
+          subDesc: `Chest Boost: ${mult.toFixed(1)}x${st.activeTrack === 'BOTH' && warXp > 0 ? ' + 14K Flat War Bonus' : ''}`,
+          altName,
+          altYield,
+          extraCreditedXp: btEarnedXp,
+          extraCreditLabel: btEarnedXp > 0 ? `+${btEarnedXp.toLocaleString()} Basic Training XP Credited` : ""
+        };
+      }
+
+      if (currentMode === "holdout") {
+        const tier = st.crateTier ?? 3;
+        const c1 = cfg.crate1Xp || 1000, c2 = cfg.crate2Xp || 1000, c3 = cfg.crate3Xp || 2000;
+        const cratePerBase = tier >= 3 ? (c1 + c2 + c3) : (tier === 2 ? (c1 + c2) : (tier === 1 ? c1 : 0));
+
+        const b1Tot = (cfg.b1Xp || 10000) + cratePerBase;
+        const b2Tot = (cfg.b2Xp || 10000) + cratePerBase;
+        const b3Tot = (cfg.b3Xp || 10000) + cratePerBase;
+        const bonTot = (cfg.bonusBaseXp || 16000) + cratePerBase;
+
+        const stdXp = (st.stdB1 ? b1Tot : 0) + (st.stdB2 ? b2Tot : 0) + (st.stdB3 ? b3Tot : 0);
+        const gntXp = (st.gntB1 ? b1Tot : 0) + (st.gntB2 ? b2Tot : 0) + (st.gntB3 ? b3Tot : 0) + (st.gntBonus ? bonTot : 0);
+
+        setTxt("hoValGntB1", b1Tot.toLocaleString());
+        setTxt("hoValGntB2", b2Tot.toLocaleString());
+        setTxt("hoValGntB3", b3Tot.toLocaleString());
+        setTxt("hoValGntBonus", bonTot.toLocaleString());
+        setTxt("hoValStdB1", b1Tot.toLocaleString());
+        setTxt("hoValStdB2", b2Tot.toLocaleString());
+        setTxt("hoValStdB3", b3Tot.toLocaleString());
+        setTxt("hoPillGauntletXp", `${gntXp.toLocaleString()} XP`);
+        setTxt("hoPillStdXp", `${stdXp.toLocaleString()} XP`);
+
+        const isGnt = st.activeTrack !== "STANDARD3";
+        return {
+          activeYield: isGnt ? gntXp : stdXp,
+          trackName: isGnt ? "4-Base Gauntlet" : "3-Base Standard",
+          subDesc: `Crates: ${tier}/3 (+${cratePerBase.toLocaleString()} XP/Base)`,
+          altName: isGnt ? "3-Base Set" : "4-Base Gauntlet",
+          altYield: isGnt ? stdXp : gntXp,
+          extraCreditedXp: 0,
+          extraCreditLabel: ""
+        };
+      }
+
+      if (currentMode === "breach") {
+        const mult = st.multiplier || 1.0;
+        const conqOk = st.conqB1 && st.conqB2 && st.conqB3;
+        const conqXp = Math.round(((st.conqB1 ? cfg.conqB1Xp : 0) + (st.conqB2 ? cfg.conqB2Xp : 0) + (st.conqB3 ? cfg.conqB3Xp : 0) + (conqOk ? cfg.conqBonusXp : 0)) * mult);
+
+        const genOk = st.genB1 && st.genB2 && st.genB3;
+        const genXp = Math.round(((st.genB1 ? cfg.genB1Xp : 0) + (st.genB2 ? cfg.genB2Xp : 0) + (st.genB3 ? cfg.genB3Xp : 0) + (genOk ? cfg.genBonusXp : 0)) * mult);
+
+        setTxt("sbValConqB1", Math.round(cfg.conqB1Xp * mult).toLocaleString());
+        setTxt("sbValConqB2", Math.round(cfg.conqB2Xp * mult).toLocaleString());
+        setTxt("sbValConqB3", Math.round(cfg.conqB3Xp * mult).toLocaleString());
+        setTxt("sbValConqBonus", conqOk ? Math.round(cfg.conqBonusXp * mult).toLocaleString() : "0 (Need All 3)");
+        setTxt("sbValGenB1", Math.round(cfg.genB1Xp * mult).toLocaleString());
+        setTxt("sbValGenB2", Math.round(cfg.genB2Xp * mult).toLocaleString());
+        setTxt("sbValGenB3", Math.round(cfg.genB3Xp * mult).toLocaleString());
+        setTxt("sbValGenBonus", genOk ? Math.round(cfg.genBonusXp * mult).toLocaleString() : "0 (Need All 3)");
+        setTxt("sbPillConqXp", `${conqXp.toLocaleString()} XP`);
+        setTxt("sbPillGenXp", `${genXp.toLocaleString()} XP`);
+
+        const isConq = st.activeTrack !== "GENERAL";
+        return {
+          activeYield: isConq ? conqXp : genXp,
+          trackName: isConq ? "Conqueror Set" : "General Set",
+          subDesc: `XP Multiplier: ${mult.toFixed(1)}x`,
+          altName: isConq ? "General Alt" : "Conqueror Alt",
+          altYield: isConq ? genXp : conqXp,
+          extraCreditedXp: 0,
+          extraCreditLabel: ""
+        };
+      }
+
+      // Skirmish
+      const mult = st.multiplier || 1.0;
+      const offOk = st.offB1 && st.offB2;
+      const offXp = Math.round(((st.offB1 ? cfg.offB1Xp : 0) + (st.offB2 ? cfg.offB2Xp : 0) + (offOk ? cfg.offBonusXp : 0)) * mult);
+
+      const recOk = st.recB1 && st.recB2 && st.recB3;
+      const recXp = Math.round(((st.recB1 ? cfg.recB1Xp : 0) + (st.recB2 ? cfg.recB2Xp : 0) + (st.recB3 ? cfg.recB3Xp : 0) + (recOk ? cfg.recBonusXp : 0)) * mult);
+
+      setTxt("skValOffB1", Math.round(cfg.offB1Xp * mult).toLocaleString());
+      setTxt("skValOffB2", Math.round(cfg.offB2Xp * mult).toLocaleString());
+      setTxt("skValOffBonus", offOk ? Math.round(cfg.offBonusXp * mult).toLocaleString() : "0 (Need I & II)");
+      setTxt("skValRecB1", Math.round(cfg.recB1Xp * mult).toLocaleString());
+      setTxt("skValRecB2", Math.round(cfg.recB2Xp * mult).toLocaleString());
+      setTxt("skValRecB3", Math.round(cfg.recB3Xp * mult).toLocaleString());
+      setTxt("skValRecBonus", recOk ? Math.round(cfg.recBonusXp * mult).toLocaleString() : "0 (Need All 3)");
+      setTxt("skPillOffXp", `${offXp.toLocaleString()} XP`);
+      setTxt("skPillRecXp", `${recXp.toLocaleString()} XP`);
+
+      const isOff = st.activeTrack !== "RECRUIT";
+      return {
+        activeYield: isOff ? offXp : recXp,
+        trackName: isOff ? "Officer Set" : "Recruit Set",
+        subDesc: `XP Multiplier: ${mult.toFixed(1)}x`,
+        altName: isOff ? "Recruit Alt" : "Officer Alt",
+        altYield: isOff ? recXp : offXp,
+        extraCreditedXp: 0,
+        extraCreditLabel: ""
+      };
+    }
+
+    function recalculateActiveMode(skipSave) {
+      const profile = EVENT_PROFILES[currentMode];
+      const st = modeUserStates[currentMode];
+      const catalog = profile.storeCatalog || [];
+
+      let fullStoreXp = 0;
+      let selectedGoalXp = 0;
+      let selectedCount = 0;
+
+      catalog.forEach((catItem, idx) => {
+        const effMax = getEffectiveItemMaxLimit(currentMode, catItem);
+        fullStoreXp += effMax * catItem.cost;
+        const uItem = st.items[idx] || { checked: false, qty: effMax };
+        if (uItem.qty > effMax) uItem.qty = effMax;
+        const rowXp = uItem.checked ? (uItem.qty * catItem.cost) : 0;
+        if (uItem.checked) selectedCount++;
+        selectedGoalXp += rowXp;
+
+        const needEl = document.getElementById(`storeRowNeed-${idx}`);
+        if (needEl) {
+          needEl.textContent = rowXp.toLocaleString();
+          needEl.style.color = uItem.checked ? "var(--mode-accent)" : "var(--text-muted)";
+        }
+        const trEl = document.getElementById(`storeTr-${idx}`);
+        if (trEl) trEl.classList.toggle("unchecked", !uItem.checked);
+      });
+
+      const metrics = computeActiveModeMetrics();
+      const bankedXp = Math.max(0, parseInt(st.bankedXp, 10) || 0);
+      const totalCredited = bankedXp + (metrics.extraCreditedXp || 0);
+      const remainingXp = Math.max(0, selectedGoalXp - totalCredited);
+      const days = Math.max(1, parseInt(st.paceDays, 10) || profile.eventDays || 4);
+
+      const runsLeft = (metrics.activeYield > 0 && remainingXp > 0) ? Math.ceil(remainingXp / metrics.activeYield) : 0;
+      const altRuns = (metrics.altYield > 0 && remainingXp > 0) ? Math.ceil(remainingXp / metrics.altYield) : 0;
+      const pct = selectedGoalXp > 0 ? Math.min(100, Math.round((totalCredited / selectedGoalXp) * 100)) : (totalCredited > 0 ? 100 : 0);
+
+      const setTxt = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+      setTxt("hudRemainingXp", remainingXp.toLocaleString());
+      setTxt("hudGoalSub", `Selected Store Goal: ${selectedGoalXp.toLocaleString()} XP`);
+      setTxt("hudTrackYieldLbl", `Active (${metrics.trackName})`);
+      setTxt("hudTrackYieldVal", `${metrics.activeYield.toLocaleString()} XP`);
+      setTxt("hudTrackYieldSub", metrics.subDesc);
+      setTxt("hudRunsNeededVal", remainingXp === 0 && selectedGoalXp > 0 ? "DONE" : runsLeft.toLocaleString());
+      setTxt("hudAltRunsSub", `${metrics.altName}: ${altRuns.toLocaleString()} sets`);
+      setTxt("hudDailyPaceLbl", `Daily Pace (${days}d Window)`);
+      setTxt("hudDailyPaceVal", `${(runsLeft / days).toFixed(1)} / Day`);
+      setTxt("hudDailyXpSub", `${Math.ceil(remainingXp / days).toLocaleString()} XP / day`);
+      setTxt("btnLogRunDelta", `+${metrics.activeYield.toLocaleString()}`);
+
+      setTxt("goalProgressPctTxt", `${pct}% OF SELECTED GOAL COMPLETED (${totalCredited.toLocaleString()} / ${selectedGoalXp.toLocaleString()} XP)`);
+      setTxt("extraCreditsBreakoutTxt", metrics.extraCreditLabel || "");
+      const fill = document.getElementById("goalProgressFill");
+      if (fill) fill.style.width = `${pct}%`;
+
+      setTxt("selectedItemsCountBadge", `${selectedCount} / ${catalog.length} Selected`);
+      setTxt("footerFullStoreXp", fullStoreXp.toLocaleString());
+      setTxt("footerSelectedGoalXp", selectedGoalXp.toLocaleString());
+
+      renderUnitQuickPills();
+      if (!skipSave) saveCurrentModeToLocal();
+    }
+
+    /* ==================== STORE TABLE & MASTER_DB UNIT QUICK PILLS ==================== */
+    function renderUnitQuickPills() {
+      const bar = document.getElementById("unitQuickPillsBar");
+      if (!bar) return;
+      const catalog = EVENT_PROFILES[currentMode].storeCatalog || [];
+      const st = modeUserStates[currentMode];
+
+      const unitMap = new Map();
+      catalog.forEach((item, idx) => {
+        const vis = resolveStoreItemVisual(item);
+        if (vis.unitKey) {
+          if (!unitMap.has(vis.unitKey)) unitMap.set(vis.unitKey, { indices: [], thumb: vis.thumbUrl });
+          unitMap.get(vis.unitKey).indices.push(idx);
+        }
+      });
+
+      if (unitMap.size === 0) {
+        bar.innerHTML = "";
+        return;
+      }
+
+      let html = `<span style="font-family:monospace; font-size:11px; color:var(--text-gold); font-weight:900;">⚡ UNIT LOADOUT PILLS:</span>`;
+      unitMap.forEach((info, unitKey) => {
+        const allChecked = info.indices.every(i => st.items[i] && st.items[i].checked);
+        const avatarHtml = info.thumb ? `<img src="${escapeHtml(info.thumb)}" class="pill-mini-avatar" alt="">` : "";
+        html += `
+          <button type="button" class="unit-preset-pill ${allChecked ? 'active-unit' : ''}" onclick="toggleUnitGroup('${escapeHtml(unitKey)}')" title="Toggle all ${escapeHtml(unitKey)} items">
+            ${avatarHtml}
+            <span>${allChecked ? '✓ ' : '+ '}${escapeHtml(unitKey)}</span>
+          </button>
+        `;
+      });
+      bar.innerHTML = html;
+    }
+
+    function toggleUnitGroup(unitKey) {
+      const catalog = EVENT_PROFILES[currentMode].storeCatalog || [];
+      const st = modeUserStates[currentMode];
+      const indices = [];
+      catalog.forEach((item, idx) => {
+        if (resolveStoreItemVisual(item).unitKey === unitKey) indices.push(idx);
+      });
+      if (!indices.length) return;
+      const allOn = indices.every(i => st.items[i] && st.items[i].checked);
+      indices.forEach(i => {
+        const effMax = getEffectiveItemMaxLimit(currentMode, catalog[i]);
+        st.items[i].checked = !allOn;
+        if (!allOn && st.items[i].qty === 0) st.items[i].qty = effMax;
+      });
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    function renderStoreTable() {
+      const tbody = document.getElementById("storeCatalogTbody");
+      if (!tbody) return;
+      const catalog = EVENT_PROFILES[currentMode].storeCatalog || [];
+      const st = modeUserStates[currentMode];
+      const q = (document.getElementById("storeSearchInput")?.value || "").trim().toUpperCase();
+      const hideUnchecked = Boolean(document.getElementById("chkHideUnchecked")?.checked);
+
+      tbody.innerHTML = catalog.map((catItem, idx) => {
+        const effMax = getEffectiveItemMaxLimit(currentMode, catItem);
+        const uItem = st.items[idx] || { checked: false, qty: effMax };
+        const vis = resolveStoreItemVisual(catItem);
+        const hay = `${catItem.name} ${vis.unitKey} ${vis.subMeta}`.toUpperCase();
+        const isHidden = (q && !hay.includes(q)) || (hideUnchecked && !uItem.checked);
+        const rowXp = uItem.checked ? (uItem.qty * catItem.cost) : 0;
+
+        const thumbHtml = vis.thumbUrl
+          ? `<img src="${escapeHtml(vis.thumbUrl)}" class="store-unit-thumb" alt="${escapeHtml(vis.unitKey)}"
+               onmouseenter="showHoverPod(event, '${escapeHtml(vis.unitKey || catItem.name)}', '${escapeHtml(vis.subMeta)}', '${escapeHtml(vis.thumbUrl)}')"
+               onmousemove="moveHoverPod(event)" onmouseleave="hideHoverPod()"
+               onclick="openUnitDossierByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')">`
+          : `<div class="store-unit-thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--mode-accent);">📦</div>`;
+
+        const clickHandler = vis.unitKey
+          ? `onclick="openUnitDossierByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')" onmouseenter="showHoverPod(event, '${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.subMeta)}', '${escapeHtml(vis.thumbUrl)}')" onmousemove="moveHoverPod(event)" onmouseleave="hideHoverPod()"`
+          : `onclick="toggleStoreRowCheck(${idx})"`;
+
+        return `
+          <tr class="store-row ${uItem.checked ? '' : 'unchecked'} ${isHidden ? 'hidden-row' : ''}" id="storeTr-${idx}">
+            <td style="text-align:center;">
+              <input type="checkbox" style="width:17px;height:17px;accent-color:var(--mode-accent);cursor:pointer;" ${uItem.checked ? 'checked' : ''} onchange="onStoreCheck(${idx}, this.checked)">
+            </td>
+            <td>
+              <div class="store-item-cell">
+                ${thumbHtml}
+                <div class="store-item-info">
+                  <button type="button" class="store-item-title-btn" ${clickHandler}>
+                    <span>${escapeHtml(catItem.name)}</span>
+                    ${vis.unitKey ? `<span class="db-intel-badge">🗄️ ${escapeHtml(vis.unitKey)} INTEL</span>` : ""}
+                  </button>
+                  <div class="store-item-sub">
+                    <span>${escapeHtml(vis.subMeta)}</span>
+                    <span>• Max Cap: ${effMax}${catItem.isBtUnitTarget && currentMode==='operations' ? ` (Base ${catItem.maxLimit})` : ''}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td style="text-align:right;">
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" onclick="stepStoreQty(${idx}, -1)">-</button>
+                <input type="number" class="qty-input" min="0" max="${effMax}" value="${uItem.qty}" oninput="onStoreQtyInput(${idx}, this.value)">
+                <button type="button" class="qty-btn" onclick="stepStoreQty(${idx}, 1)">+</button>
+                <button type="button" class="qty-btn max" onclick="setStoreQtyMax(${idx})">MAX</button>
+              </div>
+            </td>
+            <td style="text-align:right; font-family:monospace; font-weight:800; color:var(--text-gold);">
+              ${catItem.cost === 0 ? "FREE" : catItem.cost.toLocaleString()}
+            </td>
+            <td style="text-align:right; font-family:monospace; font-weight:900; color:${uItem.checked ? 'var(--mode-accent)' : 'var(--text-muted)'};" id="storeRowNeed-${idx}">
+              ${rowXp.toLocaleString()}
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function onStoreCheck(idx, checked) {
+      const cat = EVENT_PROFILES[currentMode].storeCatalog[idx];
+      const st = modeUserStates[currentMode].items[idx];
+      if (!cat || !st) return;
+      st.checked = checked;
+      const effMax = getEffectiveItemMaxLimit(currentMode, cat);
+      if (checked && st.qty === 0) st.qty = effMax;
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    function toggleStoreRowCheck(idx) {
+      const st = modeUserStates[currentMode].items[idx];
+      if (!st) return;
+      onStoreCheck(idx, !st.checked);
+    }
+
+    function stepStoreQty(idx, delta) {
+      const cat = EVENT_PROFILES[currentMode].storeCatalog[idx];
+      const st = modeUserStates[currentMode].items[idx];
+      if (!cat || !st) return;
+      const effMax = getEffectiveItemMaxLimit(currentMode, cat);
+      st.qty = Math.min(effMax, Math.max(0, (parseInt(st.qty, 10) || 0) + delta));
+      st.checked = st.qty > 0;
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    function setStoreQtyMax(idx) {
+      const cat = EVENT_PROFILES[currentMode].storeCatalog[idx];
+      const st = modeUserStates[currentMode].items[idx];
+      if (!cat || !st) return;
+      st.qty = getEffectiveItemMaxLimit(currentMode, cat);
+      st.checked = true;
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    function onStoreQtyInput(idx, rawVal) {
+      const cat = EVENT_PROFILES[currentMode].storeCatalog[idx];
+      const st = modeUserStates[currentMode].items[idx];
+      if (!cat || !st) return;
+      const effMax = getEffectiveItemMaxLimit(currentMode, cat);
+      st.qty = Math.min(effMax, Math.max(0, parseInt(rawVal, 10) || 0));
+      st.checked = st.qty > 0;
+      recalculateActiveMode();
+    }
+
+    function applyStorePreset(preset) {
+      const catalog = EVENT_PROFILES[currentMode].storeCatalog || [];
+      const st = modeUserStates[currentMode];
+      catalog.forEach((cat, i) => {
+        const effMax = getEffectiveItemMaxLimit(currentMode, cat);
+        if (preset === "all") { st.items[i].checked = true; st.items[i].qty = effMax; }
+        else if (preset === "none") { st.items[i].checked = false; }
+        else if (preset === "defaults") { st.items[i].checked = Boolean(cat.defaultChecked); st.items[i].qty = effMax; }
+      });
+      renderStoreTable();
+      recalculateActiveMode();
+    }
+
+    /* ==================== BANKED XP, LOG RUN, JSON EXPORT & SUMMARY ==================== */
+    function onBankedXpChange(val) {
+      modeUserStates[currentMode].bankedXp = Math.max(0, parseInt(val, 10) || 0);
+      recalculateActiveMode();
+    }
+
+    function setBankedXpZero() {
+      modeUserStates[currentMode].bankedXp = 0;
+      const inp = document.getElementById("bankedXpInput");
+      if (inp) inp.value = 0;
+      recalculateActiveMode();
+    }
+
+    function updatePaceDaysOverride(val) {
+      modeUserStates[currentMode].paceDays = Math.max(1, Math.min(14, parseInt(val, 10) || 4));
+      recalculateActiveMode();
+    }
+
+    function logCompletedRun() {
+      const m = computeActiveModeMetrics();
+      if (!m.activeYield) return;
+      modeUserStates[currentMode].bankedXp = (parseInt(modeUserStates[currentMode].bankedXp, 10) || 0) + m.activeYield;
+      const inp = document.getElementById("bankedXpInput");
+      if (inp) inp.value = modeUserStates[currentMode].bankedXp;
+      recalculateActiveMode();
+      showToast(`⚡ Logged +1 ${m.trackName} (+${m.activeYield.toLocaleString()} XP)`);
+    }
+
+    function resetCurrentModePlan() {
+      syncModeItemsWithCatalog(currentMode, true);
+      updateHeaderAndModeBadges();
+      renderLeftModeTracksPanel();
+      renderStoreTable();
+      recalculateActiveMode();
+      showToast("↺ Reset Mode to Event Defaults");
+    }
+
+    function exportPlayerPlanJson() {
+      const p = EVENT_PROFILES[currentMode];
+      const payload = {
+        calculator: "WTR_4MODE_EVENT_CALC_V1",
+        savedAt: new Date().toISOString(),
+        mode: currentMode,
+        event: `${p.prefix} ${p.eventName}`,
+        state: modeUserStates[currentMode]
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `WTR_${p.prefix}_${currentMode.toUpperCase()}_PLAN.json`.replace(/\s+/g, "_");
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast("💾 Saved Requisition Plan JSON");
+    }
+
+    function importPlayerPlanJson(ev) {
+      const f = ev.target.files && ev.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const targetMode = (parsed.mode && EVENT_PROFILES[parsed.mode]) ? parsed.mode : currentMode;
+          if (parsed.state) {
+            modeUserStates[targetMode] = Object.assign({}, modeUserStates[targetMode], parsed.state);
+            switchEventMode(targetMode);
+            saveCurrentModeToLocal();
+            showToast("✅ Loaded Saved Requisition Plan");
+          }
+        } catch (err) {
+          showToast("❌ Invalid Plan JSON");
+        }
+      };
+      r.readAsText(f);
+      ev.target.value = "";
+    }
+
+    function copyGrindSummaryToClipboard() {
+      const p = EVENT_PROFILES[currentMode];
+      const st = modeUserStates[currentMode];
+      const m = computeActiveModeMetrics();
+      const chosen = [];
+      let goalXp = 0;
+      (p.storeCatalog || []).forEach((c, i) => {
+        const u = st.items[i];
+        if (u && u.checked && u.qty > 0) {
+          const sub = u.qty * c.cost;
+          goalXp += sub;
+          chosen.push(`• ${u.qty}x ${c.name} (${sub.toLocaleString()} XP)`);
+        }
+      });
+      const credited = (parseInt(st.bankedXp, 10) || 0) + (m.extraCreditedXp || 0);
+      const rem = Math.max(0, goalXp - credited);
+      const runs = m.activeYield > 0 ? Math.ceil(rem / m.activeYield) : 0;
+      const summary = [
+        `[-WTR-] ${p.prefix} ${p.eventName} REQUISITION PLAN`,
+        `Track: ${m.trackName} (${m.activeYield.toLocaleString()} XP/run • ${m.subDesc})`,
+        `Selected Goal: ${goalXp.toLocaleString()} XP | Banked/Credited: ${credited.toLocaleString()} XP | Remaining: ${rem.toLocaleString()} XP`,
+        `Runs Left: ${runs} (${(runs / Math.max(1, st.paceDays || 4)).toFixed(1)}/day)`,
+        `Selected Prizes:`,
+        ...(chosen.length ? chosen : ["• None selected"])
+      ].join("\n");
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summary).then(() => showToast("📋 Copied Grind Plan Summary!"));
+      } else {
+        showToast("📋 Summary Ready");
+      }
+    }
+
+    /* ==================== HOVER PREVIEW POD & IN-PAGE MASTER_DB DOSSIER ==================== */
+    function showHoverPod(e, title, meta, imgUrl) {
+      const pod = document.getElementById("wtrHoverPod");
+      if (!pod) return;
+      document.getElementById("hoverPodTitle").textContent = title || "UNIT PREVIEW";
+      document.getElementById("hoverPodMeta").textContent = meta || "MASTER_DB INTEL";
+      document.getElementById("hoverPodImg").src = imgUrl || WTR_LOGO_FALLBACK;
+      pod.classList.add("show");
+      moveHoverPod(e);
+    }
+
+    function moveHoverPod(e) {
+      const pod = document.getElementById("wtrHoverPod");
+      if (!pod || !pod.classList.contains("show")) return;
+      const pad = 16;
+      let left = e.clientX + pad;
+      let top = e.clientY + pad;
+      const r = pod.getBoundingClientRect();
+      if (left + r.width > window.innerWidth - 12) left = Math.max(10, e.clientX - r.width - pad);
+      if (top + r.height > window.innerHeight - 12) top = Math.max(10, window.innerHeight - r.height - 12);
+      pod.style.left = `${left}px`;
+      pod.style.top = `${top}px`;
+    }
+
+    function hideHoverPod() {
+      const pod = document.getElementById("wtrHoverPod");
+      if (pod) pod.classList.remove("show");
+    }
+
+    function openUnitDossierByKey(unitKey, highlightWarpaint) {
+      hideHoverPod();
+      const rec = findUnitInMasterDb(unitKey);
+      const modal = document.getElementById("unitDossierModal");
+      const body = document.getElementById("dossierModalBody");
+      const titleEl = document.getElementById("dossierModalTitle");
+      const fullBtn = document.getElementById("dossierFullPageBtn");
+      if (!modal || !body) return;
+
+      const uName = (rec && rec.UNIT_NAME) ? rec.UNIT_NAME : unitKey;
+      titleEl.textContent = rec ? `${uName} — ${rec.CLASSIFICATION || "TACTICAL DOSSIER"}` : `${uName} — EVENT STORE INTEL`;
+      fullBtn.href = `${UNIT_BRIEFS_PAGE}?unit=${encodeURIComponent(uName)}`;
+
+      const relatedStore = (EVENT_PROFILES[currentMode].storeCatalog || []).filter(it => resolveStoreItemVisual(it).unitKey === resolveUnitAlias(uName));
+      const storeHtml = relatedStore.length
+        ? relatedStore.map(it => `<tr><td class="k">${escapeHtml(it.name)}</td><td class="v" style="color:var(--text-gold);">${it.maxLimit}x @ ${escapeHtml(it.costLabel || it.cost.toLocaleString())}</td></tr>`).join("")
+        : "";
+
+      if (!rec) {
+        body.innerHTML = `
+          <div style="padding:14px; background:rgba(255,255,255,0.03); border:1px solid var(--mode-border); border-radius:4px;">
+            <p style="margin-bottom:10px;">Live <code>MASTER_DB</code> sheet record for <strong>${escapeHtml(uName)}</strong> will populate when connected, or click <strong>Open Full Unit Briefs Page</strong> above.</p>
+            ${storeHtml ? `<table class="dossier-stats-tbl">${storeHtml}</table>` : ""}
+          </div>
+        `;
+        modal.classList.add("open");
+        return;
+      }
+
+      const g = k => {
+        const v = String(rec[k] || "").trim();
+        return (v === "-" || v === "—" || v === "N/A") ? "" : v;
+      };
+
+      const baseImg = formatImageUrl(g("UNIT_IMAGE_URL") || g("IMAGE_URL")) || WTR_LOGO_FALLBACK;
+      let activeImg = baseImg;
+      const warpaints = [];
+      for (let i = 1; i <= 4; i++) {
+        const wn = g(`WARPAINT_${i}_NAME`);
+        const wi = formatImageUrl(g(`WARPAINT_${i}_IMAGE`));
+        if (wn && wi) {
+          warpaints.push({ name: wn, img: wi });
+          if (highlightWarpaint && wn.toUpperCase() === highlightWarpaint.toUpperCase()) activeImg = wi;
+        }
+      }
+
+      const specPairs = [
+        ["Generation", "STAT_GENERATION"], ["Faction", "STAT_FACTION"], ["Type", "STAT_TYPE"],
+        ["Armor Type", "STAT_ARMOR_TYPE"], ["Weapon", "STAT_WEAPON_TYPE"], ["Targets", "STAT_TARGETS"],
+        ["Damage Type", "STAT_DAMAGE_TYPE"], ["Building", "STAT_BUILDING"],
+        ["HP Range", "STAT_HP_RANGE"], ["HP (Lvl 1)", "STAT_HP_RANGE_1"], ["HP (Max)", "STAT_HP_RANGE_MAX"],
+        ["DPS Range", "STAT_DPS_RANGE"], ["DPS (Lvl 1)", "STAT_DPS_RANGE_1"], ["DPS (Lvl 10)", "STAT_DPS_RANGE_10"], ["DPS (Max)", "STAT_DPS_RANGE_MAX"],
+        ["Speed", "STAT_SPEED"], ["Range", "STAT_RANGE"], ["Splash", "STAT_SPLASH"]
+      ];
+      const specRows = specPairs.filter(p => g(p[1])).map(p => `<tr><td class="k">${p[0]}</td><td class="v">${escapeHtml(g(p[1]))}</td></tr>`).join("");
+
+      const talentLvls = [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40];
+      let talentsHtml = g("TALENT") ? `<div style="margin-bottom:8px; padding-left:8px; border-left:2px solid var(--mode-accent); font-size:12.5px;">${escapeHtml(g("TALENT"))}</div>` : "";
+      talentLvls.forEach(lvl => {
+        if (g(`TALENT_LVL_${lvl}`)) {
+          const isVet = lvl >= 31;
+          talentsHtml += `
+            <div style="margin-bottom:8px; padding:6px 8px; background:rgba(255,255,255,0.025); border-left:3px solid ${isVet ? 'var(--text-gold)' : 'var(--mode-accent)'}; border-radius:2px;">
+              <div style="font-family:monospace; font-size:11px; font-weight:900; color:${isVet ? 'var(--text-gold)' : 'var(--mode-accent)'};">LEVEL ${lvl}</div>
+              <div style="font-size:12.5px; color:var(--text-main);">${escapeHtml(g(`TALENT_LVL_${lvl}`))}</div>
+            </div>
+          `;
+        }
+      });
+
+      let techHtml = "";
+      for (let i = 1; i <= 6; i++) {
+        const tt = g(`WORKSHOP_${i}_TITLE`) || g(`TECH_${i}_TITLE`);
+        const td = g(`WORKSHOP_${i}_DESC`) || g(`TECH_${i}_DESC`);
+        if (tt || td) {
+          techHtml += `
+            <div style="background:rgba(0,0,0,0.4); border:1px solid var(--mode-border); border-left:3px solid var(--text-gold); padding:8px 10px; border-radius:3px;">
+              <div style="font-family:monospace; font-size:11.5px; font-weight:900; color:var(--text-gold);">${escapeHtml(tt)}</div>
+              <div style="font-size:12px; color:var(--text-main); margin-top:2px;">${escapeHtml(td)}</div>
+            </div>
+          `;
+        }
+      }
+
+      const wpButtonsHtml = warpaints.length ? `
+        <div style="display:flex; gap:5px; flex-wrap:wrap; margin-top:8px; justify-content:center;">
+          <button type="button" class="calc-btn" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('dossierMainImg').src='${escapeHtml(baseImg)}'">Base</button>
+          ${warpaints.map(w => `<button type="button" class="calc-btn gold" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('dossierMainImg').src='${escapeHtml(w.img)}'">🎨 ${escapeHtml(w.name)}</button>`).join("")}
+        </div>
+      ` : "";
+
+      body.innerHTML = `
+        ${g("UNIT_QUOTE") ? `<div style="font-style:italic; color:#cbd5e1; border-left:3px solid var(--mode-accent); padding-left:12px; font-size:13.5px;">“${escapeHtml(g("UNIT_QUOTE"))}”</div>` : ""}
+        <div class="dossier-3col">
+          <div>
+            <div class="dossier-portrait-frame">
+              <img id="dossierMainImg" src="${escapeHtml(activeImg)}" alt="${escapeHtml(uName)}">
+            </div>
+            ${wpButtonsHtml}
+          </div>
+          <div>
+            <div style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--mode-accent); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin-bottom:8px;">UNIT SPECIFICATIONS</div>
+            <table class="dossier-stats-tbl">${specRows}</table>
+            ${storeHtml ? `
+              <div style="font-family:'Arial Black',sans-serif; font-size:12.5px; color:var(--text-gold); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin:12px 0 6px 0;">CURRENT EVENT STORE ITEMS</div>
+              <table class="dossier-stats-tbl">${storeHtml}</table>
+            ` : ""}
+          </div>
+          <div>
+            <div style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--mode-accent); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin-bottom:8px;">TALENTS &amp; UPGRADE TIERS</div>
+            ${talentsHtml || `<div style="color:var(--text-muted); font-size:12.5px;">See full Unit Briefs page for complete progression matrix.</div>`}
+          </div>
+        </div>
+        ${techHtml ? `
+          <div>
+            <div style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--text-gold); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin-bottom:8px;">WORKSHOP &amp; SPECIAL TECH</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:8px;">${techHtml}</div>
+          </div>
+        ` : ""}
+      `;
+      modal.classList.add("open");
+    }
+
+    function closeUnitDossier() {
+      const modal = document.getElementById("unitDossierModal");
+      if (modal) modal.classList.remove("open");
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeUnitDossier();
+    });
+
+    /* ==================== LIVE BOTTOM COUNTDOWN CLOCK ==================== */
+    function updateLiveCountdownTick() {
+      const p = EVENT_PROFILES[currentMode];
+      const lc = getEventLifecycleState(p);
+      const lblEl = document.getElementById("bottomClockLabel");
+      const clkEl = document.getElementById("liveEventCountdown");
+      const stTxt = document.getElementById("bottomStatusText");
+      const stDot = document.getElementById("bottomStatusDot");
+      if (!clkEl) return;
+
+      if (lblEl) lblEl.textContent = lc.clockLbl;
+      if (!isNaN(lc.targetMs)) {
+        const diff = Math.max(0, Math.floor((lc.targetMs - Date.now()) / 1000));
+        const d = Math.floor(diff / 86400);
+        const h = Math.floor((diff % 86400) / 3600);
+        const m = Math.floor((diff % 3600) / 60);
+        const s = diff % 60;
+        clkEl.textContent = `${d}d ${h}h ${String(m).padStart(2, "0")}m ${s}s`;
+      } else {
+        clkEl.textContent = "CONCLUDED";
+      }
+
+      if (stTxt && stDot) {
+        if (lc.code === "PRE") {
+          stTxt.textContent = "STATUS: PRE-EVENT"; stTxt.style.color = "#38bdf8";
+          stDot.style.background = "#38bdf8"; stDot.style.boxShadow = "0 0 8px #38bdf8";
+        } else if (lc.code === "LIVE") {
+          stTxt.textContent = "STATUS: ACTIVE"; stTxt.style.color = "#00e676";
+          stDot.style.background = "#00e676"; stDot.style.boxShadow = "0 0 8px #00e676";
+        } else if (lc.code === "GRACE") {
+          stTxt.textContent = "STATUS: GRACE PERIOD"; stTxt.style.color = "#ff8c00";
+          stDot.style.background = "#ff8c00"; stDot.style.boxShadow = "0 0 8px #ff8c00";
+        } else {
+          stTxt.textContent = "STATUS: ARCHIVED"; stTxt.style.color = "#9aa8ba";
+          stDot.style.background = "#9aa8ba"; stDot.style.boxShadow = "none";
+        }
+      }
+    }
+
+    /* ==================== INITIALIZATION ==================== */
+    function detectInitialMode() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const qMode = (params.get("mode") || params.get("event") || "").toLowerCase().trim();
+        if (qMode === "ops" || qMode === "operation" || qMode === "operations" || qMode === "main") return "operations";
+        if (qMode === "holdout") return "holdout";
+        if (qMode === "breach" || qMode === "sector-breach" || qMode === "sectorbreach") return "breach";
+        if (qMode === "skirmish") return "skirmish";
+      } catch (e) {}
+
+      // Rotate to the next event on the calendar day (00:00 local) the previous event store closes
+      const now = Date.now();
+      const order = ["operations", "holdout", "breach", "skirmish"];
+      const entries = order.map(m => {
+        const prof = EVENT_PROFILES[m] || {};
+        const startMs = parseWcDateMs(prof.schedStart);
+        const endMs = parseWcDateMs(prof.schedEnd);
+        const storeMs = parseWcDateMs(prof.schedStore);
+        let handoffMs = !isNaN(endMs) ? endMs : 0;
+        if (!isNaN(storeMs) && (!isNaN(endMs) ? storeMs > endMs : true)) {
+          const d = new Date(storeMs);
+          const dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0).getTime();
+          handoffMs = !isNaN(endMs) ? Math.max(endMs, dayStart) : dayStart;
+        }
+        return { m, startMs: isNaN(startMs) ? 0 : startMs, endMs: isNaN(endMs) ? 0 : endMs, handoffMs };
+      });
+
+      const activeNow = entries
+        .filter(e => e.startMs > 0 && now >= e.startMs && now < e.handoffMs)
+        .sort((a, b) => ((now < a.endMs ? 0 : 1) - (now < b.endMs ? 0 : 1)) || (a.startMs - b.startMs));
+      if (activeNow.length > 0) return activeNow[0].m;
+
+      const upcoming = entries.filter(e => e.startMs > now).sort((a, b) => a.startMs - b.startMs);
+      if (upcoming.length > 0) return upcoming[0].m;
+
+      const withDates = entries.filter(e => e.handoffMs > 0).sort((a, b) => a.handoffMs - b.handoffMs);
+      return withDates.length > 0 ? withDates[0].m : "operations";
+    }
+
+    (function bootUnifiedCalculator() {
+      ["operations", "holdout", "breach", "skirmish"].forEach(m => syncModeItemsWithCatalog(m, false));
+      discoverManifestBriefs();
+      const startMode = detectInitialMode();
+      switchEventMode(startMode, true);
+      syncMasterDbFromSheet(false);
+      autoSyncAllEventCatalogsOverHttp();
+      setInterval(updateLiveCountdownTick, 1000);
+    })();
+  </script>
+</body>
+</html>
