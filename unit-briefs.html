@@ -689,9 +689,14 @@
   .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.45); display: inline; }
   .sentence-line-break { display: block; margin-top: 6px; }
   .report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
-  .workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-  .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+  .workshop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; align-items: start; }
+  .workshop-grid.four-items { grid-template-columns: 1fr; }
+  .workshop-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .workshop-col.is-empty-col { display: none; }
+  .workshop-group { background: #0f1813; border-left: 3px solid #00e676; display: flex; flex-direction: column; }
   .workshop-item { background: #0f1813; border-left: 3px solid #00e676; padding: 10px 12px; font-size: 14.5px; display: flex; flex-direction: column; justify-content: space-between; }
+  .workshop-group > .workshop-item { background: transparent; border-left: none; }
+  .workshop-group > .workshop-item + .workshop-item { border-top: 1px dashed rgba(0, 230, 118, 0.24); }
   .workshop-item p { color: #cfd8dc !important; line-height: 1.35; margin-top: 4px; margin-bottom: 8px; font-size: 14.5px; white-space: pre-line; }
   .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; font-size: 14px; text-transform: uppercase !important; letter-spacing: 0.5px; }
   .workshop-tag { font-weight: 800; color: #00e676; font-size: 13px; margin-bottom: 4px; text-transform: uppercase !important; letter-spacing: 0.5px; }
@@ -760,6 +765,8 @@
     .infusion-grid { grid-template-columns: repeat(3, 1fr); }
     .workshop-grid { grid-template-columns: repeat(3, 1fr); }
     .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
+    .workshop-col.is-empty-col { display: flex; }
+    html[data-wtr-view='mobile'] .workshop-col.is-empty-col { display: none !important; }
     .faction-ws-grid { grid-template-columns: repeat(4, 1fr); }
     .warpaints-grid:not(.single-card) { grid-template-columns: repeat(4, 1fr); }
   }
@@ -936,7 +943,7 @@
         <div id="talent-block-30" class="talent-block"><div class="talent-tier">{{TALENT_LVL_30_TIER}}</div><div class="talent-desc">{{TALENT_LVL_30}}</div></div>
       </div>
     </div>
-    <!-- Workshop Tech Section (6 Slots + 4:5 Images) -->
+    <!-- Workshop Tech Section (9 Slots: 3 Cols × 3 Rows + 4:5 Images) -->
     <div id="tech-section" class="report-section">
       <span class="col-header" id="tpl-workshop-header">Workshop Tech</span>
       <div id="workshop-container" class="workshop-grid"></div>
@@ -2555,34 +2562,71 @@
       }
     }
 
-    // 1. Standard Workshop Tech Parser (6 Slots + Images)
+    // 1. Standard Workshop Tech Parser (9 Slots: 3 Columns × 3 Rows + Images, Auto-Joins Blank SLOT/TAG Rows Above)
     const techSection = domDoc.getElementById('tech-section');
     const techContainer = domDoc.getElementById('workshop-container');
-    let techs = [];
-    for (let i = 1; i <= 6; i++) {
+    const slotMap = {};
+    let activeTechCount = 0;
+    for (let i = 1; i <= 9; i++) {
       const title = cleanVal(data[`WORKSHOP_${i}_TITLE`]) || cleanVal(data[`TECH_${i}_TITLE`]);
       const tag = cleanVal(data[`WORKSHOP_${i}_TAG`]) || cleanVal(data[`TECH_${i}_TAG`]);
-      const img = cleanVal(data[`WORKSHOP_${i}_IMAGE`]) || cleanVal(data[`WORKSHOP_${i}_IMG`]) || cleanVal(data[`TECH_${i}_IMAGE`]);
+      const rawImg = cleanVal(data[`WORKSHOP_${i}_IMAGE`]) || cleanVal(data[`WORKSHOP_${i}_IMG`]) || cleanVal(data[`TECH_${i}_IMAGE`]);
       const desc = formatMultiLineAndHeroicText(cleanVal(data[`WORKSHOP_${i}_DESC`]) || cleanVal(data[`TECH_${i}_DESC`]), true);
-      if (title || desc || img) techs.push({ title, tag, img: formatImageUrl(img), desc });
+      const hasContent = Boolean(title || desc || rawImg);
+      if (hasContent) activeTechCount++;
+      slotMap[i] = { slot: i, title, tag, img: formatImageUrl(rawImg), desc, hasContent };
     }
 
-    if (techs.length === 0) {
+    const renderWsEntryHtml = (t) => `
+      <div class="workshop-item">
+        <div>
+          ${t.title ? `<div class="workshop-title">${t.title}</div>` : ''}
+          ${t.tag ? `<div class="workshop-tag">${t.tag}</div>` : ''}
+          ${t.desc ? `<p>${t.desc}</p>` : ''}
+        </div>
+        ${t.img ? `<div class="workshop-img-frame"><img src="${t.img}" alt="${t.title || 'Tech'}"></div>` : ''}
+      </div>
+    `;
+
+    if (activeTechCount === 0) {
       if (techSection) techSection.style.display = 'none';
     } else {
       if (techSection) techSection.style.display = 'block';
       if (techContainer) {
-        techContainer.className = (techs.length === 4) ? 'workshop-grid four-items' : 'workshop-grid';
-        techContainer.innerHTML = techs.map(t => `
-          <div class="workshop-item">
-            <div>
-              ${t.title ? `<div class="workshop-title">${t.title}</div>` : ''}
-              ${t.tag ? `<div class="workshop-tag">${t.tag}</div>` : ''}
-              ${t.desc ? `<p>${t.desc}</p>` : ''}
-            </div>
-            ${t.img ? `<div class="workshop-img-frame"><img src="${t.img}" alt="${t.title || 'Tech'}"></div>` : ''}
-          </div>
-        `).join('');
+        const isFourStandalone = (
+          activeTechCount === 4 &&
+          slotMap[1].hasContent && slotMap[2].hasContent && slotMap[3].hasContent && slotMap[4].hasContent &&
+          Boolean(slotMap[4].tag) &&
+          !slotMap[5].hasContent && !slotMap[6].hasContent && !slotMap[7].hasContent && !slotMap[8].hasContent && !slotMap[9].hasContent
+        );
+
+        if (isFourStandalone) {
+          techContainer.className = 'workshop-grid four-items';
+          techContainer.innerHTML = [1, 2, 3, 4].map(idx =>
+            `<div class="workshop-col"><div class="workshop-group">${renderWsEntryHtml(slotMap[idx])}</div></div>`
+          ).join('');
+        } else {
+          techContainer.className = 'workshop-grid';
+          const colDefs = [[1, 4, 7], [2, 5, 8], [3, 6, 9]];
+          techContainer.innerHTML = colDefs.map(colSlots => {
+            const colItems = colSlots.map(idx => slotMap[idx]).filter(s => s.hasContent);
+            if (colItems.length === 0) {
+              return `<div class="workshop-col is-empty-col"></div>`;
+            }
+            const groups = [];
+            colItems.forEach(item => {
+              if (groups.length === 0 || Boolean(item.tag)) {
+                groups.push([item]);
+              } else {
+                groups[groups.length - 1].push(item);
+              }
+            });
+            const groupsHtml = groups.map(grp =>
+              `<div class="workshop-group">${grp.map(renderWsEntryHtml).join('')}</div>`
+            ).join('');
+            return `<div class="workshop-col">${groupsHtml}</div>`;
+          }).join('');
+        }
       }
     }
 
