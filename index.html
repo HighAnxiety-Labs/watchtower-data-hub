@@ -227,7 +227,8 @@
   .bento-links-grid.tab-unit-grid .bento-module-card:hover,
   .bento-links-grid.tab-unit-grid .bento-sub-card:hover { transform: none; border-color: var(--item-accent, #e2c547); box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8), inset 0 0 14px rgba(255, 255, 255, 0.04); }
   .bento-module-card.has-docked-bay { border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important; border-bottom: none !important; }
-  .bento-module-card.has-top-cat-cap { border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
+  .bento-module-card.has-top-cat-cap,
+  .bento-module-card.has-top-cat-cap-col2 { border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
 
   /* Sub-Module Stack: Shifted Over 1/4 Tab Width (25%) & Stepped Down 1/2 Tab Height (60px), Attached via Schematic L-Conduit */
   .bento-sub-stack { display: flex; flex-direction: column; gap: 28px; padding-left: 0; padding-top: 60px; width: 100%; position: relative; overflow: visible; }
@@ -257,10 +258,17 @@
   .vault-sub-col-item:hover,
   .vault-sub-col-item:focus-within { z-index: 95; }
 
-  /* Category Header Cap & Card Stack for Combat Guides */
+  /* Category Header Cap & Card Stack for Combat Guides (Supports 2-Column Widened BASICS Header) */
   .bento-cat-col-cap { width: 100%; min-height: 28px; padding: 4px 8px; border-radius: 5px 5px 0 0; border: 1px solid var(--cat-col-border, rgba(255, 255, 255, 0.25)); border-bottom: none; background: var(--cat-col-bg, rgba(15, 23, 34, 0.92)); color: var(--cat-col-accent, var(--text-gold)); font-family: monospace; font-size: 10.5px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); }
   .cat-cap-ico { font-size: 16px; line-height: 1; flex-shrink: 0; }
   .cat-col-cards-list { display: flex; flex-direction: column; gap: 28px; width: 100%; }
+  .bento-links-grid.tab-unit-grid.is-opintel-cat-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px 8px; }
+  .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap { column-gap: calc((100% - 40px) / 6 + 16px); }
+  .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack { width: calc((100% - 40px) / 6); flex: 0 0 calc((100% - 40px) / 6); height: auto; }
+  .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: calc(((100% - 40px) / 6) * 2 + 8px); flex: 0 0 calc(((100% - 40px) / 6) * 2 + 8px); height: auto; }
+  .cat-col-cards-list.is-2col-cat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 8px; align-items: stretch; width: 100%; }
+  .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry { display: flex; flex-direction: column; min-width: 0; }
+  .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry:not(.has-sub-children) > .bento-module-card { flex: 1; }
 
   .bento-sub-bay { display: grid; grid-template-columns: repeat(var(--sub-cols, 3), minmax(0, 1fr)); gap: 8px; padding: 8px; background: linear-gradient(180deg, rgba(12, 18, 28, 0.94) 0%, rgba(7, 10, 16, 0.98) 100%); border: 1px solid var(--border-metal); border-top: 1px dashed rgba(255, 255, 255, 0.18); border-radius: 0 0 5px 5px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.68); width: 100%; align-items: stretch; }
   .bento-sub-bay .bento-sub-card { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
@@ -479,6 +487,11 @@
   @media (max-width: 1150px) {
     .bento-links-grid.tab-unit-grid { grid-template-columns: repeat(var(--slot-count-md, 3), calc((100% - 16px) / 3)); column-gap: 8px; }
     .bento-links-grid.tab-unit-grid.has-tab-gap-md { column-gap: calc((100% - 16px) / 3); }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid,
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap { column-gap: 8px; }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap-md { column-gap: calc((100% - 16px) / 3 + 16px); }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack { width: calc((100% - 16px) / 3); flex: 0 0 calc((100% - 16px) / 3); }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: calc(((100% - 16px) / 3) * 2 + 8px); flex: 0 0 calc(((100% - 16px) / 3) * 2 + 8px); }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { --vault-u: calc((100% - 20px) / 4.1); column-gap: calc(var(--vault-u) * 0.6); }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: var(--vault-u); flex: 0 0 var(--vault-u); }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(var(--vault-u) * 2.5); flex: 0 0 calc(var(--vault-u) * 2.5); }
@@ -496,6 +509,11 @@
     .bento-sub-stack-item:first-child::before { top: -28px; }
     .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
     .bento-sub-stack-item::after { left: -9px; width: 9px; }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid,
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap,
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap-md { column-gap: 8px; }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack { width: calc((100% - 8px) / 2); flex: 0 0 calc((100% - 8px) / 2); }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: 100%; flex: 0 0 100%; }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-direction: column; gap: 24px; }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100%; flex: 1 1 auto; }
@@ -512,6 +530,10 @@
     .bento-links-grid.tab-unit-grid .bento-group-stack,
     .bento-links-grid.tab-unit-grid .bento-group-stack.wide-sub-group { grid-column: 1 / -1; }
     .bento-sub-bay { grid-template-columns: 1fr; }
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack,
+    .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: 100%; flex: 1 1 100%; }
+    .cat-col-cards-list.is-2col-cat-list { grid-template-columns: 1fr; }
+    .bento-module-card.has-top-cat-cap-col2 { border-top-left-radius: 5px !important; border-top-right-radius: 5px !important; }
   }
   html[data-wtr-view="mobile"] .bento-links-grid,
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid,
@@ -526,6 +548,10 @@
   html[data-wtr-view="mobile"] .bento-sub-stack-item:first-child::before { top: -28px !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::after { left: -9px !important; width: 9px !important; }
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack,
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: 100% !important; flex: 1 1 100% !important; }
+  html[data-wtr-view="mobile"] .cat-col-cards-list.is-2col-cat-list { grid-template-columns: 1fr !important; }
+  html[data-wtr-view="mobile"] .bento-module-card.has-top-cat-cap-col2 { border-top-left-radius: 5px !important; border-top-right-radius: 5px !important; }
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex !important; flex-direction: column !important; gap: 24px !important; }
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100% !important; flex: 1 1 auto !important; }
@@ -3035,7 +3061,7 @@
     document.querySelectorAll(".brief-btn").forEach(b => b.classList.remove("active-tab"));
     if (svg) svg.style.display = "none";
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-opintel-cat-grid");
     gridEl.classList.add("filter-mode-grid", "tab-unit-grid");
 
     const catColor = (selectedCat !== "ALL" && SYMBOL_CATALOG[selectedCat]?.color) ? SYMBOL_CATALOG[selectedCat].color : "var(--text-gold)";
@@ -3984,7 +4010,7 @@
     const gridEl = document.getElementById("bentoLinksGrid");
     if (!drawerWrap || !gridEl || !activeCommandKey || activeCommandKey === "FILTER") return;
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-opintel-cat-grid");
     gridEl.style.removeProperty("--slot-count");
     gridEl.style.removeProperty("--slot-count-md");
     normalizeAndReindexSectionCards(activeCommandKey);
@@ -4027,21 +4053,23 @@
         if (!bucketMap.has(sKey)) bucketMap.set(sKey, []);
         bucketMap.get(sKey).push(grp);
       });
-      const catBuckets = Array.from(bucketMap.entries()).map(([symKey, groups]) => ({
-        symKey,
-        spec: getCategorySpec(symKey),
-        groups
-      })).sort((a, b) => (a.spec.name || a.symKey).toUpperCase().localeCompare((b.spec.name || b.symKey).toUpperCase()));
+      const catBuckets = Array.from(bucketMap.entries()).map(([symKey, groups]) => {
+        const spec = getCategorySpec(symKey);
+        const isBasicsBucket = symKey === "NEW" || (spec.name || "").toUpperCase() === "BASICS";
+        const use2Col = isBasicsBucket && groups.length >= 2;
+        return { symKey, spec, groups, use2Col };
+      }).sort((a, b) => (a.spec.name || a.symKey).toUpperCase().localeCompare((b.spec.name || b.symKey).toUpperCase()));
 
       const colCount = catBuckets.length;
-      const slotCnt = Math.max(1, Math.min(6, colCount));
+      const totalCatSlots = catBuckets.reduce((sum, b) => sum + (b.use2Col ? 2 : 1), 0);
+      const slotCnt = Math.max(1, Math.min(6, totalCatSlots));
       const hasMultiStack = catBuckets.some(b => b.groups.length > 1 || b.groups.some(g => g.children.length > 0));
 
-      gridEl.classList.add("tab-unit-grid");
+      gridEl.classList.add("tab-unit-grid", "is-opintel-cat-grid");
       if (hasMultiStack) {
         gridEl.classList.add("has-any-stack");
-        if (colCount >= 2 && (colCount + (colCount - 1)) <= 6) gridEl.classList.add("has-tab-gap");
-        if (colCount >= 2 && (colCount + (colCount - 1)) <= 3) gridEl.classList.add("has-tab-gap-md");
+        if (colCount >= 2 && (totalCatSlots + (colCount - 1)) <= 6) gridEl.classList.add("has-tab-gap");
+        if (colCount >= 2 && (totalCatSlots + (colCount - 1)) <= 3) gridEl.classList.add("has-tab-gap-md");
       }
       gridEl.style.setProperty("--slot-count", String(slotCnt));
       gridEl.style.setProperty("--slot-count-md", String(Math.min(3, slotCnt)));
@@ -4068,11 +4096,11 @@
         const capMidStyle = capHasIntel ? buildCardTrailStyleVars(catHex, "mid") : "";
 
         catHtml += `
-          <div class="bento-group-stack cat-col-stack" data-has-intel="${capHasIntel ? '1' : '0'}" data-intel-mode="${bucketBd.mode || 'new'}" style="--grp-span: 1;">
+          <div class="bento-group-stack cat-col-stack${bucket.use2Col ? ' is-2col-cat' : ''}" data-has-intel="${capHasIntel ? '1' : '0'}" data-intel-mode="${bucketBd.mode || 'new'}" style="--grp-span: ${bucket.use2Col ? 2 : 1};">
             <div class="bento-cat-col-cap${capHasIntel ? ' has-intel-below' : ''}${bucketBd.mode === 'updated' ? ' is-updated-cap' : ''}" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder}; ${capMidStyle}">
               ${capIconHtml}<span>${capNameTxt}</span>${renderCapIntelPipsHtml(bucketBd)}
             </div>
-            <div class="cat-col-cards-list">
+            <div class="cat-col-cards-list${bucket.use2Col ? ' is-2col-cat-list' : ''}">
         `;
 
         bucket.groups.forEach((grp, idxInCat) => {
@@ -4094,18 +4122,22 @@
           const hasPeerSwap = isMasterStudio && bucket.groups.length > 1;
           const prevOrigIdx = idxInCat > 0 ? bucket.groups[idxInCat - 1].parent.origIdx : -1;
           const nextOrigIdx = idxInCat < bucket.groups.length - 1 ? bucket.groups[idxInCat + 1].parent.origIdx : -1;
+          const prevArrow = bucket.use2Col ? "◀" : "▲";
+          const nextArrow = bucket.use2Col ? "▶" : "▼";
+          const hasSubChildren = Boolean(grp.children && grp.children.length > 0);
+          const topCapCls = idxInCat === 0 ? "has-top-cat-cap" : (bucket.use2Col && idxInCat === 1 ? "has-top-cat-cap-col2" : "");
 
           const studioControlsHtml = isMasterStudio ? `
             <div class="bento-Order-dock" onclick="event.stopPropagation();">
-              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${prevOrigIdx === -1 ? 'disabled' : ''} title="Move Up in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${prevOrigIdx}, event)">▲</button>` : ''}
-              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${nextOrigIdx === -1 ? 'disabled' : ''} title="Move Down in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${nextOrigIdx}, event)">▼</button>` : ''}
+              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${prevOrigIdx === -1 ? 'disabled' : ''} title="Move Earlier in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${prevOrigIdx}, event)">${prevArrow}</button>` : ''}
+              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${nextOrigIdx === -1 ? 'disabled' : ''} title="Move Later in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${nextOrigIdx}, event)">${nextArrow}</button>` : ''}
               ${renderAdminIntelQuickBtnHtml(activeCommandKey, p.origIdx, p)}
             </div>
           ` : "";
 
           catHtml += `
-            <div class="cat-col-card-entry">
-              <div class="bento-module-card ${idxInCat === 0 ? 'has-top-cat-cap' : ''} ${pTrailCls}" style="--item-accent: ${pCatColor}; ${pTrailStyle}">
+            <div class="cat-col-card-entry${hasSubChildren ? ' has-sub-children' : ''}">
+              <div class="bento-module-card ${topCapCls} ${pTrailCls}" style="--item-accent: ${pCatColor}; ${pTrailStyle}">
                 <div class="bento-card-row-wrap">
                   <button type="button" class="bento-v-btn" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${p.origIdx})">
                     <div class="bento-v-top">
