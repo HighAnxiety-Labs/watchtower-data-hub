@@ -191,7 +191,7 @@
   .brief-btn-center-stack { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 0; gap: 5px; text-align: center; }
   .brief-btn-title-row { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; font-size: 12.5px; font-weight: 900; letter-spacing: 0.7px; }
   .brief-btn-title-row span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brief-btn-mod-count { font-family: monospace; font-size: 11px; font-weight: 800; color: var(--text-gold) !important; background: #05080c; border: 1px solid rgba(226, 197, 71, 0.45); padding: 2px 9px; border-radius: 3px; letter-spacing: 0.8px; line-height: 1.15; display: inline-block; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9); }
+  .brief-btn-mod-count { font-family: monospace; font-size: 11px; font-weight: 800; color: var(--text-gold) !important; background: #05080c; border: 1px solid rgba(226, 197, 71, 0.45); padding: 2px 9px; border-radius: 3px; letter-spacing: 0.8px; line-height: 1.15; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9); }
   .brief-btn-chevron { font-family: monospace; font-size: 17.5px; font-weight: 900; line-height: 1; opacity: 0.95; transition: transform 0.2s ease; flex-shrink: 0; padding-left: 2px; }
   .brief-btn:not(.active-tab):hover { animation: briefHoverPulse 0.55s ease-out forwards; }
   .brief-btn.active-tab, .brief-btn.active-tab:hover { background: var(--btn-accent) !important; color: #05070a !important; border: 1px solid var(--border-bevel) !important; border-top: 2px solid rgba(255, 255, 255, 0.45) !important; box-shadow: none !important; filter: none !important; animation: none !important; font-weight: 900 !important; text-shadow: none !important; z-index: 5; }
@@ -298,6 +298,135 @@
   .vault-ov-more-btn:hover { background: #785dc8; color: #ffffff; border-color: #ffffff; }
   .vault-ov-more-ico { font-size: 13px; line-height: 1; }
 
+  /* ==================== ENERGIZED CONDUIT + 20% -> 35% -> 55% PROGRESSIVE INTEL TRAIL ==================== */
+  @keyframes wtrConduitFlow { to { stroke-dashoffset: -28; } }
+  @keyframes wtrPipPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.78; transform: scale(0.96); } }
+  @keyframes wtrTargetGlow {
+    0%, 100% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 16px var(--trail-glow, rgba(74, 222, 128, 0.28)), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
+    50%      { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.86), 0 0 26px var(--trail-glow-strong, rgba(74, 222, 128, 0.5)), inset 0 1px 0 rgba(255, 255, 255, 0.34); }
+  }
+  .conduit-energy-pulse { stroke-dasharray: 7 7; animation: wtrConduitFlow 0.85s linear infinite; }
+
+  /* Step 1: Closed Top Division Tab (~20% Color Wash + Brightened Title + Unread Pip) */
+  .brief-btn.has-intel-trail:not(.active-tab) {
+    background: linear-gradient(180deg, var(--trail-btn-top, rgba(74, 222, 128, 0.30)) 0%, var(--trail-btn-bot, rgba(74, 222, 128, 0.16)) 100%) !important;
+    border-color: var(--trail-btn-border, var(--btn-accent, #4ade80)) !important;
+    border-top: 2.5px solid rgba(255, 255, 255, 0.88) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.72), 0 0 14px var(--trail-btn-glow, rgba(74, 222, 128, 0.26)), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+  }
+  .brief-btn.has-intel-trail:not(.active-tab) .brief-btn-title-row {
+    color: #f8fafc !important;
+    text-shadow: 0 0 10px var(--trail-btn-glow-text, rgba(255, 255, 255, 0.45)) !important;
+  }
+  .brief-btn.has-intel-trail:not(.active-tab) .dot {
+    box-shadow: 0 0 8px var(--btn-accent, #4ade80), 0 0 3px #ffffff !important;
+  }
+  .intel-trail-pip {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-family: monospace; font-size: 9.8px; font-weight: 900; letter-spacing: 0.4px;
+    color: #052e16 !important; background: linear-gradient(180deg, #86efac 0%, #4ade80 100%);
+    border: 1px solid #dcfce7; border-radius: 3px; padding: 0.5px 5px; line-height: 1.15;
+    text-shadow: none !important; box-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
+    animation: wtrPipPulse 1.9s ease-in-out infinite;
+  }
+
+  /* Step 2: Mid-Path Parent Card & Category Cap (~35% Color Wash + Energized Sub-Stack L-Conduit) */
+  .bento-links-grid.tab-unit-grid .bento-module-card.is-intel-mid,
+  .bento-module-card.is-intel-mid,
+  .opbriefs-event-card.is-intel-mid {
+    background: linear-gradient(180deg, var(--trail-mid-top, rgba(74, 222, 128, 0.38)) 0%, var(--trail-mid-bot, rgba(74, 222, 128, 0.17)) 66%, #0b121b 100%) !important;
+    border-color: var(--trail-mid-border, rgba(255, 255, 255, 0.64)) !important;
+    border-top: 2.5px solid var(--trail-accent, var(--item-accent, #4ade80)) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.76), 0 0 14px var(--trail-mid-glow, rgba(74, 222, 128, 0.22)), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+  }
+  .bento-module-card.is-intel-mid .bento-v-title,
+  .bento-module-card.is-intel-mid .bento-main-title,
+  .opbriefs-event-card.is-intel-mid .opbriefs-event-name {
+    color: #f1f5f9 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 10px var(--trail-mid-glow, rgba(255, 255, 255, 0.35)) !important;
+  }
+  .bento-cat-col-cap.has-intel-below {
+    background: linear-gradient(180deg, var(--trail-mid-top, rgba(74, 222, 128, 0.38)) 0%, var(--cat-col-bg, rgba(15, 23, 34, 0.95)) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.68) !important;
+    border-top: 2px solid #4ade80 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  }
+  .intel-mid-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    font-family: monospace; font-size: 9px; font-weight: 900; letter-spacing: 0.45px;
+    color: #bbf7d0; background: rgba(5, 12, 10, 0.84);
+    border: 1px solid rgba(74, 222, 128, 0.72); border-radius: 999px;
+    padding: 1.5px 7px; text-transform: uppercase; white-space: nowrap; margin-top: 2px;
+  }
+  .bento-sub-stack-item.is-spine-lit::before {
+    width: 2.8px; background: #4ade80 !important; opacity: 1;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+  }
+  .bento-sub-stack-item.is-spine-stop-first::before {
+    width: 2.8px; opacity: 1;
+    background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 16px), var(--conduit-accent, #785dc8) calc(50% + 16px), var(--conduit-accent, #785dc8) 100%) !important;
+    filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.48));
+  }
+  .bento-sub-stack-item.is-spine-stop-mid::before {
+    width: 2.8px; opacity: 1;
+    background: linear-gradient(180deg, #4ade80 0%, #4ade80 50%, var(--conduit-accent, #785dc8) 50%, var(--conduit-accent, #785dc8) 100%) !important;
+    filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.48));
+  }
+  .bento-sub-stack-item.is-elbow-lit::after {
+    height: 2.8px; background: #4ade80 !important; opacity: 1;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.85);
+  }
+
+  /* Step 3: Destination Target Card (~55% Luminous Wash + Pure White Title + Glow Rim + Beacon Pill) */
+  .bento-links-grid.tab-unit-grid .bento-module-card.is-intel-target,
+  .bento-module-card.is-intel-target,
+  .bento-links-grid.tab-unit-grid .bento-sub-card.is-intel-target,
+  .bento-sub-stack .bento-sub-card.is-intel-target,
+  .bento-sub-card.is-intel-target,
+  .opbriefs-event-card.is-intel-target,
+  .opbriefs-calc-btn.is-intel-target {
+    background: linear-gradient(180deg, var(--trail-target-top, rgba(74, 222, 128, 0.58)) 0%, var(--trail-target-mid, rgba(74, 222, 128, 0.28)) 58%, #091019 100%) !important;
+    border-color: rgba(255, 255, 255, 0.92) !important;
+    border-top: 3px solid var(--trail-accent, var(--item-accent, var(--ev-accent, #4ade80))) !important;
+    animation: wtrTargetGlow 2.4s ease-in-out infinite;
+  }
+  .opbriefs-event-card.is-has-calc.is-intel-target,
+  .opbriefs-event-card.is-has-calc.is-intel-mid {
+    border-bottom: none !important;
+  }
+  .bento-module-card.has-docked-bay.is-intel-target,
+  .bento-module-card.has-docked-bay.is-intel-mid {
+    border-bottom: none !important;
+  }
+  .bento-module-card.is-intel-target .bento-v-title,
+  .bento-module-card.is-intel-target .bento-main-title,
+  .bento-sub-card.is-intel-target .bento-v-title,
+  .opbriefs-event-card.is-intel-target .opbriefs-event-name,
+  .opbriefs-calc-btn.is-intel-target .opbriefs-calc-title {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.92), 0 0 14px var(--trail-accent, rgba(255, 255, 255, 0.65)) !important;
+  }
+  .intel-target-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    font-family: monospace; font-size: 9.2px; font-weight: 900; letter-spacing: 0.45px;
+    color: #fef08a; background: rgba(5, 8, 13, 0.88);
+    border: 1px solid rgba(250, 204, 21, 0.88); border-radius: 999px;
+    padding: 2px 8px; text-transform: uppercase; white-space: nowrap; margin-top: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.78), 0 0 10px rgba(250, 204, 21, 0.22);
+  }
+  .vault-ov-item.is-unread-vault-item {
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.28) 0%, rgba(30, 41, 59, 0.96) 100%) !important;
+    border-color: rgba(74, 222, 128, 0.82) !important;
+    border-left: 3px solid #4ade80 !important;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.18);
+  }
+  .vault-ov-new-tag {
+    font-family: monospace; font-size: 8.5px; font-weight: 900;
+    color: #052e16; background: #4ade80; border-radius: 3px;
+    padding: 1px 4px; letter-spacing: 0.35px; flex-shrink: 0; text-transform: uppercase;
+  }
+
   @media (max-width: 1150px) {
     .bento-links-grid.tab-unit-grid { grid-template-columns: repeat(var(--slot-count-md, 3), calc((100% - 16px) / 3)); column-gap: 8px; }
     .bento-links-grid.tab-unit-grid.has-tab-gap-md { column-gap: calc((100% - 16px) / 3); }
@@ -313,6 +442,7 @@
     .bento-sub-stack-item { margin-left: 16px; width: calc(100% - 16px); }
     .bento-sub-stack-item::before { left: -9px; top: -16px; bottom: -16px; }
     .bento-sub-stack-item:first-child::before { top: -28px; }
+    .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
     .bento-sub-stack-item::after { left: -9px; width: 9px; }
   }
   @media (max-width: 480px) {
@@ -335,6 +465,7 @@
   html[data-wtr-view="mobile"] .bento-sub-stack-item { margin-left: 16px !important; width: calc(100% - 16px) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::before { left: -9px !important; top: -16px !important; bottom: -16px !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item:first-child::before { top: -28px !important; }
+  html[data-wtr-view="mobile"] .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::after { left: -9px !important; width: 9px !important; }
 
   /* Horizontal Event Lineup Row under Calendar + Dynamic Schematic Conduits (Tab 4: EVENT BRIEFS — Exact Top-Tab Width Match) */
@@ -1210,44 +1341,74 @@
     const h = 54, midY = 27;
     const tabColor = getSectionHexColor(activeCommandKey);
 
-    let targetCenters = [];
+    let firstRowTargets = [];
     if (activeCommandKey === "opBriefs") {
       const calCard = document.getElementById("opBriefsCalendarCard");
+      const opHasIntel = (typeof countDivisionUnreadIntel === "function") ? (countDivisionUnreadIntel("opBriefs") > 0) : false;
       if (calCard) {
         const cr = calCard.getBoundingClientRect();
-        if (cr.width > 0) targetCenters.push((cr.left + cr.width / 2) - wrapRect.left);
+        if (cr.width > 0) firstRowTargets.push({ cx: (cr.left + cr.width / 2) - wrapRect.left, hasIntel: opHasIntel });
       }
     } else if (gridEl) {
       const topStacks = Array.from(gridEl.querySelectorAll(":scope > .bento-group-stack, :scope > .bento-module-card"));
-      const rects = topStacks.map(el => el.getBoundingClientRect()).filter(r => r.width > 0);
-      if (rects.length > 0) {
-        const minTop = Math.min(...rects.map(r => r.top));
-        const firstRow = rects.filter(r => Math.abs(r.top - minTop) < 16);
-        targetCenters = firstRow.map(r => (r.left + r.width / 2) - wrapRect.left);
+      const items = topStacks.map(el => ({
+        el,
+        rect: el.getBoundingClientRect(),
+        hasIntel: el.getAttribute("data-has-intel") === "1"
+      })).filter(it => it.rect.width > 0);
+      if (items.length > 0) {
+        const minTop = Math.min(...items.map(it => it.rect.top));
+        const firstRow = items.filter(it => Math.abs(it.rect.top - minTop) < 16);
+        firstRowTargets = firstRow.map(it => ({
+          cx: (it.rect.left + it.rect.width / 2) - wrapRect.left,
+          hasIntel: it.hasIntel
+        }));
       }
     }
-    if (targetCenters.length === 0) targetCenters = [wrapRect.width / 2];
+    if (firstRowTargets.length === 0) {
+      const anyUnread = (typeof countDivisionUnreadIntel === "function") ? (countDivisionUnreadIntel(activeCommandKey) > 0) : false;
+      firstRowTargets = [{ cx: wrapRect.width / 2, hasIntel: anyUnread }];
+    }
+
+    const targetCenters = firstRowTargets.map(t => t.cx);
+    const litTargets = firstRowTargets.filter(t => t.hasIntel);
+    const hasLitBranch = litTargets.length > 0;
+    const baseOpacity = hasLitBranch ? "0.48" : "1";
+    const energyHex = "#4ade80";
 
     svg.setAttribute("viewBox", `0 0 ${wrapRect.width} ${h}`);
     const allX = [startX, ...targetCenters];
     const minX = Math.min(...allX);
     const maxX = Math.max(...allX);
     const parts = [];
-    parts.push(`<line x1="${startX.toFixed(1)}" y1="0" x2="${startX.toFixed(1)}" y2="${midY}" stroke="${tabColor}" stroke-width="2.5" stroke-linecap="round" />`);
+    parts.push(`<line x1="${startX.toFixed(1)}" y1="0" x2="${startX.toFixed(1)}" y2="${midY}" stroke="${tabColor}" stroke-opacity="${baseOpacity}" stroke-width="2.5" stroke-linecap="round" />`);
     if (maxX - minX > 1) {
-      parts.push(`<line x1="${minX.toFixed(1)}" y1="${midY}" x2="${maxX.toFixed(1)}" y2="${midY}" stroke="${tabColor}" stroke-width="2.5" stroke-linecap="round" />`);
+      parts.push(`<line x1="${minX.toFixed(1)}" y1="${midY}" x2="${maxX.toFixed(1)}" y2="${midY}" stroke="${tabColor}" stroke-opacity="${baseOpacity}" stroke-width="2.5" stroke-linecap="round" />`);
     }
-    parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="3.5" fill="${tabColor}" />`);
+    parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="3.5" fill="${hasLitBranch ? energyHex : tabColor}" />`);
     if (targetCenters.length > 1) {
-      parts.push(`<circle cx="${startX.toFixed(1)}" cy="${midY}" r="2.7" fill="${tabColor}" />`);
+      parts.push(`<circle cx="${startX.toFixed(1)}" cy="${midY}" r="2.7" fill="${hasLitBranch ? energyHex : tabColor}" />`);
     }
-    targetCenters.forEach(tx => {
-      parts.push(`<line x1="${tx.toFixed(1)}" y1="${midY}" x2="${tx.toFixed(1)}" y2="${h}" stroke="${tabColor}" stroke-width="2.4" stroke-linecap="round" />`);
+    firstRowTargets.forEach(t => {
+      const tx = t.cx;
+      parts.push(`<line x1="${tx.toFixed(1)}" y1="${midY}" x2="${tx.toFixed(1)}" y2="${h}" stroke="${tabColor}" stroke-opacity="${baseOpacity}" stroke-width="2.4" stroke-linecap="round" />`);
       if (targetCenters.length > 1) {
-        parts.push(`<circle cx="${tx.toFixed(1)}" cy="${midY}" r="2.6" fill="${tabColor}" />`);
+        parts.push(`<circle cx="${tx.toFixed(1)}" cy="${midY}" r="2.6" fill="${t.hasIntel ? energyHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
       }
-      parts.push(`<circle cx="${tx.toFixed(1)}" cy="${h - 2}" r="3.4" fill="${tabColor}" />`);
+      parts.push(`<circle cx="${tx.toFixed(1)}" cy="${h - 2}" r="3.4" fill="${t.hasIntel ? energyHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
     });
+
+    if (hasLitBranch) {
+      litTargets.forEach(lt => {
+        const pathD = Math.abs(lt.cx - startX) > 1
+          ? `M ${startX.toFixed(1)} 0 L ${startX.toFixed(1)} ${midY} L ${lt.cx.toFixed(1)} ${midY} L ${lt.cx.toFixed(1)} ${h}`
+          : `M ${startX.toFixed(1)} 0 L ${lt.cx.toFixed(1)} ${h}`;
+        parts.push(`<path d="${pathD}" fill="none" stroke="${energyHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
+        parts.push(`<path class="conduit-energy-pulse" d="${pathD}" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-opacity="0.92" stroke-linecap="round" stroke-linejoin="round" />`);
+        parts.push(`<circle cx="${lt.cx.toFixed(1)}" cy="${h - 2}" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+      });
+      parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+    }
     svg.innerHTML = parts.join("");
 
     if (activeCommandKey === "opBriefs" && typeof updateOpBriefsConduitLines === "function") updateOpBriefsConduitLines();
@@ -1711,6 +1872,22 @@
   .bento-Quick-btn:disabled { opacity: 0.22; cursor: not-allowed; }
   .bento-Quick-btn.tier-btn { color: #38bdf8; border-color: rgba(56, 189, 248, 0.45); width: auto; padding: 0 7px; font-size: 10.5px; }
   .bento-Quick-btn.tier-btn:hover { background: #38bdf8; color: #05070a; }
+  .bento-Quick-btn.intel-flag-btn { color: #94a3b8; border-color: rgba(148, 163, 184, 0.4); font-size: 13px; }
+  .bento-Quick-btn.intel-flag-btn:hover { background: #4ade80; color: #052e16; border-color: #ffffff; }
+  .bento-Quick-btn.intel-flag-btn.active-intel { background: rgba(74, 222, 128, 0.22); color: #4ade80; border-color: #4ade80; box-shadow: 0 0 8px rgba(74, 222, 128, 0.4); }
+  .card-intel-beacon-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+    background: rgba(10, 22, 18, 0.72); border: 1px solid rgba(74, 222, 128, 0.32);
+    border-radius: 4px; padding: 6px 10px; margin-top: 2px;
+  }
+  .card-intel-beacon-btns { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .intel-beacon-opt-btn {
+    background: #0c1520; border: 1px solid rgba(148, 163, 184, 0.45); color: #cbd5e1;
+    font-family: monospace; font-size: 10.5px; font-weight: 800; padding: 3px 9px;
+    border-radius: 3px; cursor: pointer; transition: all 0.14s ease;
+  }
+  .intel-beacon-opt-btn:hover { border-color: #ffffff; color: #ffffff; background: #172638; }
+  .intel-beacon-opt-btn.active-opt { background: rgba(74, 222, 128, 0.22); border-color: #4ade80; color: #86efac; box-shadow: 0 0 8px rgba(74, 222, 128, 0.25); }
   #adminCardEditorList { grid-template-columns: 1fr !important; max-width: 920px; }
 </style>
 <script>
@@ -1879,13 +2056,419 @@
     if (typeof persistCompanionState === "function") persistCompanionState();
   }
 
+  /* ==================== ENERGIZED CONDUIT + PER-PLAYER INTEL TRAIL ENGINE ==================== */
+  const WTR_INTEL_SEEN_KEY = "wtr_intel_seen_v1";
+  const WTR_KNOWN_VAULT_KEY = "wtr_known_vault_files_v1";
+  const WTR_MANUAL_TRAIL_TTL_MS = 21 * 86400000;
+  const WTR_VAULT_SCHED_TTL_MS = 7 * 86400000;
+  const WTR_VAULT_DIFF_TTL_MS = 14 * 86400000;
+
+  function getIntelSeenMap() {
+    try {
+      const raw = (typeof safeGetStorage === "function")
+        ? safeGetStorage(WTR_INTEL_SEEN_KEY)
+        : localStorage.getItem(WTR_INTEL_SEEN_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === "object") ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveIntelSeenMap(mapObj) {
+    try {
+      const json = JSON.stringify(mapObj || {});
+      if (typeof safeSetStorage === "function") safeSetStorage(WTR_INTEL_SEEN_KEY, json);
+      else localStorage.setItem(WTR_INTEL_SEEN_KEY, json);
+    } catch (e) {}
+  }
+
+  function isIntelSignalUnread(sig) {
+    if (!sig || !sig.key || !sig.stamp) return false;
+    const seen = getIntelSeenMap();
+    return String(seen[sig.key] || "") !== String(sig.stamp);
+  }
+
+  function markIntelSignalsSeen(signals, shouldRefreshUi = true) {
+    if (!Array.isArray(signals) || signals.length === 0) return false;
+    const seen = getIntelSeenMap();
+    let changed = false;
+    signals.forEach(sig => {
+      if (!sig || !sig.key || !sig.stamp) return;
+      if (String(seen[sig.key] || "") !== String(sig.stamp)) {
+        seen[sig.key] = String(sig.stamp);
+        changed = true;
+      }
+    });
+    if (changed) {
+      saveIntelSeenMap(seen);
+      if (shouldRefreshUi) {
+        updateMenuButtonModuleCounts();
+        if (activeCommandKey === "FILTER") {
+          const catVal = document.getElementById("globalCategorySelect")?.value || "";
+          if (catVal && typeof handleCategoryDropdownFilter === "function") handleCategoryDropdownFilter(catVal);
+        } else if (activeCommandKey && typeof renderCommandDrawer === "function") {
+          renderCommandDrawer();
+        }
+      }
+    }
+    return changed;
+  }
+
+  function resetLocalIntelSeenState() {
+    try {
+      if (typeof safeRemoveStorage === "function") safeRemoveStorage(WTR_INTEL_SEEN_KEY);
+      else localStorage.removeItem(WTR_INTEL_SEEN_KEY);
+    } catch (e) {}
+    updateMenuButtonModuleCounts();
+    if (activeCommandKey === "FILTER") {
+      const catVal = document.getElementById("globalCategorySelect")?.value || "";
+      if (catVal && typeof handleCategoryDropdownFilter === "function") handleCategoryDropdownFilter(catVal);
+    } else if (activeCommandKey && typeof renderCommandDrawer === "function") {
+      renderCommandDrawer();
+    }
+    if (typeof showMasterToastBanner === "function") {
+      showMasterToastBanner("👁️ READ TRAILS RESET: All active Live, Archived & Flagged Intel Trails restored!", "#4ade80");
+    }
+  }
+  window.resetLocalIntelSeenState = resetLocalIntelSeenState;
+
+  function getKnownVaultFilesMap() {
+    try {
+      const raw = (typeof safeGetStorage === "function")
+        ? safeGetStorage(WTR_KNOWN_VAULT_KEY)
+        : localStorage.getItem(WTR_KNOWN_VAULT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === "object" && parsed.files) ? parsed : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function syncKnownVaultFilesBaseline(vaultParsedList) {
+    if (!Array.isArray(vaultParsedList) || vaultParsedList.length === 0) return;
+    const existing = getKnownVaultFilesMap();
+    const now = Date.now();
+    if (!existing || !existing.initialized) {
+      const baseline = {};
+      vaultParsedList.forEach(ev => {
+        if (ev && ev.fileName) baseline[ev.fileName.toLowerCase()] = 0;
+      });
+      try {
+        const json = JSON.stringify({ initialized: true, files: baseline });
+        if (typeof safeSetStorage === "function") safeSetStorage(WTR_KNOWN_VAULT_KEY, json);
+        else localStorage.setItem(WTR_KNOWN_VAULT_KEY, json);
+      } catch (e) {}
+      return;
+    }
+    let added = false;
+    vaultParsedList.forEach(ev => {
+      if (!ev || !ev.fileName) return;
+      const k = ev.fileName.toLowerCase();
+      if (!(k in existing.files)) {
+        existing.files[k] = now;
+        added = true;
+      }
+    });
+    if (added) {
+      try {
+        const json = JSON.stringify(existing);
+        if (typeof safeSetStorage === "function") safeSetStorage(WTR_KNOWN_VAULT_KEY, json);
+        else localStorage.setItem(WTR_KNOWN_VAULT_KEY, json);
+      } catch (e) {}
+    }
+  }
+
+  function getCardSignalSlug(card) {
+    if (!card) return "unknown";
+    if (card.isPinnedCalendar) return "pinned-calendar";
+    if (card.isPinnedCalculator || (typeof isMultiEventCalculatorCard === "function" && isMultiEventCalculatorCard(card))) return "pinned-calculator";
+    if (card.eventCategory) return "evcat-" + String(card.eventCategory).toLowerCase();
+    const rawU = String(card.url || "").trim().toLowerCase()
+      .replace(/^https?:\/\/[^/]+\/(watchtower-data-hub\/)?/, "")
+      .replace(/^(\.\.\/published\/watchtower-data-hub\/|\.\/)/, "");
+    if (rawU && rawU !== "#") return "url-" + rawU.replace(/[^a-z0-9?&=_-]+/g, "-");
+    return "ttl-" + String(card.title || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  }
+
+  function getActiveVaultParsedList() {
+    if (window._wtrDiscoveredDirectory && Array.isArray(window._wtrDiscoveredDirectory.vaultEvents) && window._wtrDiscoveredDirectory.vaultEvents.length > 0) {
+      return window._wtrDiscoveredDirectory.vaultEvents;
+    }
+    try {
+      if (typeof WTR_DEFAULT_DIRECTORY_MANIFEST === "object" && WTR_DEFAULT_DIRECTORY_MANIFEST && typeof parseWtrDirectoryFile === "function") {
+        return (WTR_DEFAULT_DIRECTORY_MANIFEST.vaultFiles || [])
+          .map(f => parseWtrDirectoryFile(f, "vault/"))
+          .filter(Boolean)
+          .sort((a, b) => (b.sortScore - a.sortScore) || a.title.localeCompare(b.title));
+      }
+    } catch (e) {}
+    return [];
+  }
+
+  function getVaultItemUnreadSignal(ev, optVaultList) {
+    if (!ev || !ev.fileName) return null;
+    const now = Date.now();
+    const lowerFile = ev.fileName.toLowerCase();
+    const allVault = optVaultList || getActiveVaultParsedList();
+
+    // 1. Schedule-linked recently concluded event (within 7 days of event/store conclusion)
+    if (ev.category && ev.category !== "UPGRADE_SALES" && typeof getEventCategoryScheduleKey === "function") {
+      const schedKey = getEventCategoryScheduleKey(ev.category);
+      const sched = (schedKey && typeof eventSchedules === "object" && eventSchedules) ? eventSchedules[schedKey] : null;
+      if (sched && Number(sched.end) > 0) {
+        const endMs = Number(sched.end);
+        const hasStore = !sched.noStore && Number(sched.store) > endMs;
+        const concludedAt = hasStore ? Number(sched.store) : endMs;
+        if (now >= concludedAt && (now - concludedAt) <= WTR_VAULT_SCHED_TTL_MS) {
+          const newestInCat = allVault.find(v => v.category === ev.category);
+          if (newestInCat && newestInCat.fileName === ev.fileName) {
+            const cDate = new Date(concludedAt);
+            const monthDiff = Math.abs((cDate.getFullYear() * 12 + (cDate.getMonth() + 1)) - ((ev.year || cDate.getFullYear()) * 12 + (ev.monthNum || (cDate.getMonth() + 1))));
+            if (monthDiff <= 1) {
+              const sig = { key: "vault:" + lowerFile, stamp: String(concludedAt), tag: "⚡ JUST ARCHIVED", kind: "vault" };
+              if (isIntelSignalUnread(sig)) return sig;
+            }
+          }
+        }
+      }
+    }
+
+    // 2. Newly discovered file added to vault/ across visits (active for 14 days)
+    const known = getKnownVaultFilesMap();
+    const discTs = (known && known.files) ? Number(known.files[lowerFile] || 0) : 0;
+    if (discTs > 0 && (now - discTs) <= WTR_VAULT_DIFF_TTL_MS) {
+      const sig = { key: "vault:" + lowerFile, stamp: String(discTs), tag: "⚡ JUST ARCHIVED", kind: "vault" };
+      if (isIntelSignalUnread(sig)) return sig;
+    }
+
+    return null;
+  }
+
+  function getCardUnreadSignals(card, secKey) {
+    if (!card || card.enabled === false) return [];
+    const now = Date.now();
+    const signals = [];
+
+    // 1. Manual Admin Beacon Flag (card.intelStamp / card.intelTag)
+    const manualStamp = Number(card.intelStamp) || 0;
+    if (manualStamp > 0 && (now - manualStamp) <= WTR_MANUAL_TRAIL_TTL_MS) {
+      const mSig = {
+        key: `manual:${secKey}:${getCardSignalSlug(card)}`,
+        stamp: String(manualStamp),
+        tag: String(card.intelTag || "✨ NEW INTEL"),
+        kind: "manual"
+      };
+      if (isIntelSignalUnread(mSig)) signals.push(mSig);
+    }
+
+    // 2. Live Event Auto-Signal (Tab 4: opBriefs)
+    if (secKey === "opBriefs" && !card.isPinnedCalendar && !card.isPinnedCalculator && !(typeof isMultiEventCalculatorCard === "function" && isMultiEventCalculatorCard(card))) {
+      const evCat = card.eventCategory || (typeof inferEventCategoryFromCardOrFile === "function" ? inferEventCategoryFromCardOrFile(card) : "");
+      const schedKey = (evCat && typeof getEventCategoryScheduleKey === "function") ? getEventCategoryScheduleKey(evCat) : null;
+      const sched = (schedKey && typeof eventSchedules === "object" && eventSchedules) ? eventSchedules[schedKey] : null;
+      if (sched && Number(sched.start) > 0 && now >= Number(sched.start) && now < Number(sched.end)) {
+        const lSig = {
+          key: `live:${evCat}`,
+          stamp: String(sched.start),
+          tag: "🟢 LIVE NOW",
+          kind: "live"
+        };
+        if (isIntelSignalUnread(lSig)) signals.push(lSig);
+      }
+    }
+
+    // 3. Newly Archived Vault Brief Auto-Signal (Tab 5: wtrArchives)
+    // Note: EVENT HISTORY (?category=ALL) intentionally delegates to its 6 category sub-tabs below it so EVENT HISTORY acts as the 35% Mid-Path Parent!
+    if (secKey === "wtrArchives") {
+      const rawUrl = String(card.url || "");
+      if (/vault-event-history\.html/i.test(rawUrl)) {
+        const m = rawUrl.match(/[?&]category=([A-Z_]+)/i);
+        const catParam = m ? m[1].toUpperCase() : "ALL";
+        if (catParam !== "ALL") {
+          const allVault = getActiveVaultParsedList();
+          allVault.filter(v => v.category === catParam).forEach(ev => {
+            const vSig = getVaultItemUnreadSignal(ev, allVault);
+            if (vSig) signals.push(vSig);
+          });
+        }
+      }
+    }
+
+    return signals;
+  }
+
+  function markCardIntelSeen(card, secKey) {
+    if (!card) return;
+    const toMark = [...getCardUnreadSignals(card, secKey)];
+    if (secKey === "wtrArchives") {
+      const rawUrl = String(card.url || "");
+      const m = rawUrl.match(/[?&]category=([A-Z_]+)/i);
+      if (/vault-event-history\.html/i.test(rawUrl) && (!m || m[1].toUpperCase() === "ALL")) {
+        const allVault = getActiveVaultParsedList();
+        allVault.filter(v => v.category !== "UPGRADE_SALES").forEach(ev => {
+          const vSig = getVaultItemUnreadSignal(ev, allVault);
+          if (vSig) toMark.push(vSig);
+        });
+      }
+    }
+    if (toMark.length > 0) {
+      markIntelSignalsSeen(toMark, true);
+    }
+  }
+
+  function markPopoutIntelSeen(rawUrl, eventHint) {
+    const u = String(rawUrl || "").trim();
+    const combined = `${eventHint || ""} ${u}`.toUpperCase();
+    let targetCat = "";
+    if (combined.includes("SKIRMISH")) targetCat = "SKIRMISH";
+    else if (combined.includes("BREACH")) targetCat = "SECTOR_BREACH";
+    else if (combined.includes("HOLDOUT")) targetCat = "HOLDOUT";
+    else if (combined.includes("SHADOW")) targetCat = "SHADOW_OPS";
+    else if (combined.includes("WARPATH")) targetCat = "WARPATH";
+    else if (combined.includes("PVP") || combined.includes("SEASON")) targetCat = "PVP_SEASON";
+    else if (combined.includes("OPERATION") || combined.includes("BARON") || combined.includes("NIGHTMARE")) targetCat = "OPERATIONS";
+
+    if (targetCat && workspaceCardsState?.opBriefs?.cards) {
+      const matchCard = workspaceCardsState.opBriefs.cards.find(c => {
+        const cCat = c.eventCategory || (typeof inferEventCategoryFromCardOrFile === "function" ? inferEventCategoryFromCardOrFile(c) : "");
+        return cCat === targetCat;
+      });
+      if (matchCard) markCardIntelSeen(matchCard, "opBriefs");
+    }
+
+    if (/vault\//i.test(u)) {
+      const cleanName = decodeURIComponent(u.split("?")[0].split("#")[0].split("/").pop() || "").toLowerCase();
+      if (cleanName) {
+        const allVault = getActiveVaultParsedList();
+        const ev = allVault.find(v => v.fileName && v.fileName.toLowerCase() === cleanName);
+        const vSig = ev ? getVaultItemUnreadSignal(ev, allVault) : null;
+        if (vSig) markIntelSignalsSeen([vSig], true);
+      }
+    }
+  }
+
+  function countDivisionUnreadIntel(secKey) {
+    const cards = workspaceCardsState[secKey]?.cards || [];
+    let count = 0;
+    cards.forEach(c => {
+      if (c && c.enabled !== false && getCardUnreadSignals(c, secKey).length > 0) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  function buildCardTrailStyleVars(accentHex, role) {
+    const hex = accentHex || "#4ade80";
+    if (role === "target") {
+      return `--trail-accent: ${hex}; --trail-target-top: ${hexToRgba(hex, 0.56)}; --trail-target-mid: ${hexToRgba(hex, 0.26)}; --trail-glow: ${hexToRgba(hex, 0.34)}; --trail-glow-strong: ${hexToRgba(hex, 0.56)};`;
+    }
+    if (role === "mid") {
+      return `--trail-accent: ${hex}; --trail-mid-top: ${hexToRgba(hex, 0.38)}; --trail-mid-bot: ${hexToRgba(hex, 0.17)}; --trail-mid-border: ${hexToRgba(hex, 0.78)}; --trail-mid-glow: ${hexToRgba(hex, 0.28)};`;
+    }
+    return "";
+  }
+
+  function setCardIntelFlag(secKey, cardIdx, tagVal, evt) {
+    if (evt && typeof evt.stopPropagation === "function") evt.stopPropagation();
+    const card = workspaceCardsState[secKey]?.cards?.[cardIdx];
+    if (!card) return;
+    const cleanTag = String(tagVal || "").trim();
+    const manualKey = `manual:${secKey}:${getCardSignalSlug(card)}`;
+
+    if (!cleanTag) {
+      delete card.intelStamp;
+      delete card.intelTag;
+      if (typeof showMasterToastBanner === "function") {
+        showMasterToastBanner(`✕ INTEL TRAIL CLEARED: "${card.title}"`, "#94a3b8");
+      }
+    } else {
+      card.intelStamp = Date.now();
+      card.intelTag = cleanTag;
+      const seen = getIntelSeenMap();
+      if (seen[manualKey]) {
+        delete seen[manualKey];
+        saveIntelSeenMap(seen);
+      }
+      if (typeof showMasterToastBanner === "function") {
+        showMasterToastBanner(`⚡ INTEL TRAIL ARMED: "${card.title}" → ${cleanTag}`, "#4ade80");
+      }
+    }
+
+    updateMenuButtonModuleCounts();
+    if (activeCommandKey === secKey) renderCommandDrawer();
+    else if (activeCommandKey === "FILTER") {
+      const catVal = document.getElementById("globalCategorySelect")?.value || "";
+      if (catVal && typeof handleCategoryDropdownFilter === "function") handleCategoryDropdownFilter(catVal);
+    }
+    renderAdminCardEditor();
+    if (typeof stampSectionUpdated === "function") stampSectionUpdated("workspaceCards");
+    if (typeof persistCompanionState === "function") persistCompanionState();
+  }
+  window.setCardIntelFlag = setCardIntelFlag;
+
+  function cycleCardIntelFlag(secKey, cardIdx, evt) {
+    if (evt && typeof evt.stopPropagation === "function") evt.stopPropagation();
+    const card = workspaceCardsState[secKey]?.cards?.[cardIdx];
+    if (!card) return;
+    const now = Date.now();
+    const isArmed = Number(card.intelStamp) > 0 && (now - Number(card.intelStamp)) <= WTR_MANUAL_TRAIL_TTL_MS;
+    const curTag = isArmed ? String(card.intelTag || "✨ NEW INTEL") : "";
+    let nextTag = "✨ NEW INTEL";
+    if (curTag === "✨ NEW INTEL") nextTag = "🔄 UPDATED";
+    else if (curTag) nextTag = "";
+    setCardIntelFlag(secKey, cardIdx, nextTag, evt);
+  }
+  window.cycleCardIntelFlag = cycleCardIntelFlag;
+
+  function renderAdminIntelQuickBtnHtml(secKey, cardIdx, cardObj) {
+    const now = Date.now();
+    const isArmed = cardObj && Number(cardObj.intelStamp) > 0 && (now - Number(cardObj.intelStamp)) <= WTR_MANUAL_TRAIL_TTL_MS;
+    const curTag = isArmed ? String(cardObj.intelTag || "✨ NEW INTEL") : "";
+    const tip = isArmed
+      ? `Active Trail: ${curTag} (Click to cycle: NEW → UPDATED → Off)`
+      : `Flag Module with Energized Intel Trail (Click: ✨ NEW INTEL → 🔄 UPDATED → Off)`;
+    return `<button type="button" class="bento-Quick-btn intel-flag-btn${isArmed ? ' active-intel' : ''}" title="${escapeHtml(tip)}" onclick="cycleCardIntelFlag('${secKey}', ${cardIdx}, event)">⚡</button>`;
+  }
+
   function updateMenuButtonModuleCounts() {
-    MENU_SECTION_KEYS.forEach(secKey => {
+    MENU_SECTION_KEYS.forEach((secKey, idx) => {
       const countEl = document.getElementById(`modCount-${secKey}`);
-      if (!countEl) return;
+      const btnEl = document.getElementById(`btnUtil${idx + 1}`);
       const cards = workspaceCardsState[secKey]?.cards || [];
       const activeMainCount = cards.filter(c => c.enabled !== false && !c.isSubPage).length;
-      countEl.textContent = `${activeMainCount} ${activeMainCount === 1 ? 'MODULE' : 'MODULES'}`;
+      const unreadCnt = countDivisionUnreadIntel(secKey);
+      const tabHex = getSectionHexColor(secKey);
+
+      if (btnEl) {
+        if (unreadCnt > 0) {
+          btnEl.classList.add("has-intel-trail");
+          btnEl.style.setProperty("--trail-btn-top", hexToRgba(tabHex, 0.30));
+          btnEl.style.setProperty("--trail-btn-bot", hexToRgba(tabHex, 0.16));
+          btnEl.style.setProperty("--trail-btn-border", hexToRgba(tabHex, 0.92));
+          btnEl.style.setProperty("--trail-btn-glow", hexToRgba(tabHex, 0.28));
+          btnEl.style.setProperty("--trail-btn-glow-text", hexToRgba(tabHex, 0.65));
+        } else {
+          btnEl.classList.remove("has-intel-trail");
+          btnEl.style.removeProperty("--trail-btn-top");
+          btnEl.style.removeProperty("--trail-btn-bot");
+          btnEl.style.removeProperty("--trail-btn-border");
+          btnEl.style.removeProperty("--trail-btn-glow");
+          btnEl.style.removeProperty("--trail-btn-glow-text");
+        }
+      }
+
+      if (countEl) {
+        if (unreadCnt > 0) {
+          const shortLbl = `${activeMainCount} ${activeMainCount === 1 ? 'MOD' : 'MODS'}`;
+          countEl.innerHTML = `<span>${shortLbl}</span><span class="intel-trail-pip">⚡ ${unreadCnt} NEW</span>`;
+        } else {
+          countEl.textContent = `${activeMainCount} ${activeMainCount === 1 ? 'MODULE' : 'MODULES'}`;
+        }
+      }
     });
     renderGlobalCategoryFilterDropdown();
     renderAdminCategoryManager();
@@ -2330,9 +2913,12 @@
         const itemTextColor = (item.secKey === "opBriefs")
           ? item.divColor
           : (getCategorySpec(item.symKey).color || item.divColor);
+        const itemUnread = getCardUnreadSignals(item, item.secKey);
+        const isTarget = itemUnread.length > 0;
+        const trailStyle = isTarget ? buildCardTrailStyleVars(itemTextColor, "target") : "";
         return `
           <div class="bento-group-stack" style="--grp-span: 1;">
-            <div class="bento-module-card" style="--item-accent: ${itemTextColor};">
+            <div class="bento-module-card${isTarget ? ' is-intel-target' : ''}" style="--item-accent: ${itemTextColor}; ${trailStyle}">
               <div class="bento-card-row-wrap">
                 <button type="button" class="bento-v-btn" onclick="triggerModuleAction('${item.secKey}', ${item.origIdx})">
                   <div class="bento-v-top">
@@ -2341,6 +2927,7 @@
                   </div>
                   <div class="bento-v-body">
                     <div class="bento-v-title" style="color: ${itemTextColor};">${escapeHtml(item.title)}</div>
+                    ${isTarget ? `<div class="intel-target-pill">${escapeHtml(itemUnread[0].tag)}</div>` : ''}
                     <div class="bento-v-sub">${escapeHtml(item.divTitle)}${item.isSubPage ? ' • SUB' : ''}</div>
                   </div>
                   <div class="bento-v-foot">${renderSymBadgeHtml(item.symKey)}</div>
@@ -2505,6 +3092,7 @@
         el,
         colIdx: el.getAttribute("data-col-idx") || "",
         isLive: el.getAttribute("data-is-live") === "1",
+        hasIntel: el.getAttribute("data-has-intel") === "1",
         coveredByLiveSpan: el.getAttribute("data-live-spanned") === "1",
         accent: el.getAttribute("data-ev-accent") || busColor,
         cx: (r.left + r.width / 2) - sr.left,
@@ -2514,6 +3102,17 @@
         clockRect
       };
     });
+
+    const energyHex = "#4ade80";
+    const energyFlows = [];
+    const addEnergyPath = (xStart, yStart, yBus, xEnd, yEnd) => {
+      const d = Math.abs(xEnd - xStart) > 1
+        ? `M ${xStart.toFixed(1)} ${yStart.toFixed(1)} L ${xStart.toFixed(1)} ${yBus.toFixed(1)} L ${xEnd.toFixed(1)} ${yBus.toFixed(1)} L ${xEnd.toFixed(1)} ${yEnd.toFixed(1)}`
+        : `M ${xStart.toFixed(1)} ${yStart.toFixed(1)} L ${xEnd.toFixed(1)} ${yEnd.toFixed(1)}`;
+      energyFlows.push(`<path d="${d}" fill="none" stroke="${energyHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
+      energyFlows.push(`<path class="conduit-energy-pulse" d="${d}" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-opacity="0.92" stroke-linecap="round" stroke-linejoin="round" />`);
+      energyFlows.push(`<circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+    };
 
     if (calCard && cardMetrics.length > 0) {
       const calRect = calCard.getBoundingClientRect();
@@ -2543,6 +3142,9 @@
           addLine(liveCx, busY, liveCx, liveTop, liveHex, 2.5, 0.96);
           addNode(liveCx, busY, 2.8, liveHex);
           addNode(liveCx, liveTop, 3.6, liveHex);
+          if (cardMetrics.some(cm => cm.coveredByLiveSpan && cm.hasIntel)) {
+            addEnergyPath(calCx, calBottom, busY, liveCx, liveTop);
+          }
         }
 
         cardMetrics.filter(cm => !(liveVisible && cm.coveredByLiveSpan)).forEach(cm => {
@@ -2553,11 +3155,13 @@
             addLine(cCx, busY, cCx, cTop, busColor, 2.3, 0.9);
             addNode(cCx, busY, 2.7, busColor);
             addNode(cCx, cTop, 3.5, cm.accent);
+            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cCx, cTop);
           } else {
             busStopsX.push(cm.cx);
             addLine(cm.cx, busY, cm.cx, cm.top, busColor, 2.2, 0.88);
             addNode(cm.cx, busY, 2.7, busColor);
             addNode(cm.cx, cm.top, 3.5, cm.accent);
+            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cm.cx, cm.top);
           }
         });
 
@@ -2567,8 +3171,8 @@
           addLine(minX, busY, maxX, busY, busColor, 2.5, 0.92);
         }
         addLine(calCx, calBottom, calCx, busY, goldHex, 2.6, 0.96);
-        addNode(calCx, calBottom, 3.8, goldHex);
-        addNode(calCx, busY, 3.1, goldHex);
+        addNode(calCx, calBottom, 3.8, energyFlows.length > 0 ? energyHex : goldHex);
+        addNode(calCx, busY, 3.1, energyFlows.length > 0 ? energyHex : goldHex);
       } else {
         const row1Ref = cardMetrics[0].top;
         const firstRowCards = cardMetrics.filter(cm => Math.abs(cm.top - row1Ref) < 18);
@@ -2580,6 +3184,7 @@
           addLine(fc.cx, midY, fc.cx, fc.visualTop, fc.isLive ? liveHex : busColor, 2.5, 0.95);
           addNode(calCx, calBottom, 3.6, goldHex);
           addNode(fc.cx, fc.visualTop, 3.6, fc.isLive ? liveHex : fc.accent);
+          if (fc.hasIntel) addEnergyPath(calCx, calBottom, midY, fc.cx, fc.visualTop);
         } else {
           const minRowTop = Math.min(...firstRowCards.map(c => c.visualTop));
           const busY = calBottom + Math.max(9, (minRowTop - calBottom) * 0.5);
@@ -2593,36 +3198,58 @@
             addLine(fc.cx, busY, fc.cx, fc.visualTop, dropHex, 2.2, 0.9);
             addNode(fc.cx, busY, 2.6, dropHex);
             addNode(fc.cx, fc.visualTop, 3.5, fc.isLive ? liveHex : fc.accent);
+            if (fc.hasIntel) addEnergyPath(calCx, calBottom, busY, fc.cx, fc.visualTop);
           });
         }
       }
     }
 
-    svg.innerHTML = lines.join("") + nodes.join("");
+    svg.innerHTML = lines.join("") + nodes.join("") + energyFlows.join("");
   }
 
   function renderOpBriefsHorizontalLineup(sortedGroups, parentColor, isMasterStudio) {
     const calGroup = sortedGroups.find(g => g.parent && (g.parent.isPinnedCalendar || String(g.parent.url || "").toLowerCase().includes("2026-calendar.html")));
     const eventGroups = sortedGroups.filter(g => g !== calGroup);
+    const unreadEventsBelowCnt = eventGroups.reduce((acc, g) => {
+      const pUn = getCardUnreadSignals(g.parent, "opBriefs").length > 0 ? 1 : 0;
+      const cUn = (g.children || []).filter(ch => getCardUnreadSignals(ch, "opBriefs").length > 0).length;
+      return acc + pUn + cUn;
+    }, 0);
     let html = `<div class="opbriefs-schematic-stage" id="opBriefsSchematicStage"><svg id="opBriefsConduitSvg" class="opbriefs-conduit-svg" preserveAspectRatio="none" aria-hidden="true"></svg>`;
 
     if (calGroup) {
       const cp = calGroup.parent;
       const cpHasInline = Boolean((cp.embedCode || "").trim() || cp.openInIframe);
+      const cpUnread = getCardUnreadSignals(cp, "opBriefs");
+      const cpIsTarget = cpUnread.length > 0;
+      const cpIsMid = !cpIsTarget && unreadEventsBelowCnt > 0;
+      const cpTrailCls = cpIsTarget ? " is-intel-target" : (cpIsMid ? " is-intel-mid" : "");
+      const cpTrailStyle = cpIsTarget
+        ? buildCardTrailStyleVars("#e2c547", "target")
+        : (cpIsMid ? buildCardTrailStyleVars(parentColor, "mid") : "");
+      const cpBeaconPill = cpIsTarget
+        ? `<span class="intel-target-pill" style="margin-left:8px;">${escapeHtml(cpUnread[0].tag)}</span>`
+        : (cpIsMid ? `<span class="intel-mid-pill" style="margin-left:8px;">↳ ⚡ ${unreadEventsBelowCnt} NEW BELOW</span>` : "");
+      const calStudioHtml = isMasterStudio ? `
+        <div class="bento-Order-dock" onclick="event.stopPropagation();">
+          ${renderAdminIntelQuickBtnHtml('opBriefs', cp.origIdx, cp)}
+        </div>
+      ` : "";
       html += `
         <div class="opbriefs-cal-lead-wrap${eventGroups.length === 0 ? ' no-events-below' : ''}">
-          <div class="bento-module-card is-calendar-lead" id="opBriefsCalendarCard" style="--item-accent: ${parentColor}; border-left-color: var(--text-gold);">
+          <div class="bento-module-card is-calendar-lead${cpTrailCls}" id="opBriefsCalendarCard" style="--item-accent: ${parentColor}; border-left-color: var(--text-gold); ${cpTrailStyle}">
             <div class="bento-card-row-wrap">
               <button type="button" class="bento-main-btn" style="flex:1; min-width:0;" title="${cpHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(cp.title)}" onclick="triggerModuleAction('opBriefs', ${cp.origIdx})">
                 <div class="bento-main-left">
                   <span class="bento-num-badge">01</span>
                   <div class="bento-title-wrap">
-                    <span class="bento-main-title" style="color: var(--text-gold);">${escapeHtml(cp.title)}</span>
+                    <span class="bento-main-title" style="color: var(--text-gold);">${escapeHtml(cp.title)}${cpBeaconPill}</span>
                     <span class="bento-div-sub" style="color:var(--text-gold);">${escapeHtml(cp.scheduleHint || "🗓️ FULL-YEAR OPERATIONAL SCHEDULE • ALL EVENTS")}${cpHasInline ? " • 🖥️ IN-PAGE VIEWPORT" : ""}</span>
                   </div>
                 </div>
                 ${renderSymBadgeHtml(cp.symKey)}
               </button>
+              ${calStudioHtml}
             </div>
           </div>
         </div>
@@ -2667,6 +3294,14 @@
       const evCat = p.eventCategory || (typeof inferEventCategoryFromCardOrFile === "function" ? inferEventCategoryFromCardOrFile(p) : "");
       const evAccent = getOpBriefEventAccent(evCat, parentColor);
       const clockState = getOpBriefOverheadClockState(evCat, nowMs);
+      const pUnread = getCardUnreadSignals(p, "opBriefs");
+      const childUnreadCnt = (grp.children || []).filter(ch => getCardUnreadSignals(ch, "opBriefs").length > 0).length;
+      const pIsTarget = pUnread.length > 0;
+      const pIsMid = !pIsTarget && childUnreadCnt > 0;
+      const pHasAnyIntel = pIsTarget || pIsMid;
+      const pTrailStyle = pIsTarget
+        ? buildCardTrailStyleVars(evAccent, "target")
+        : (pIsMid ? buildCardTrailStyleVars(evAccent, "mid") : "");
 
       const rawTitle = String(p.title || "");
       let cycleTag = "";
@@ -2692,7 +3327,8 @@
       const cardStateCls = [
         isLiveNow ? "is-live-card" : "",
         isPreRelease ? "is-prerelease-card" : "",
-        hasCalcChild ? "is-has-calc" : ""
+        hasCalcChild ? "is-has-calc" : "",
+        pIsTarget ? "is-intel-target" : (pIsMid ? "is-intel-mid" : "")
       ].filter(Boolean).join(" ");
       const openIco = isPreRelease ? "🔒" : "🎯";
       const openTxt = isPreRelease ? "HOLDING BRIEF" : "EVENT GUIDE";
@@ -2708,6 +3344,7 @@
         <div class="bento-Order-dock" style="border-left:none; border-top:1px solid var(--border-metal); justify-content:center; padding:4px 6px;" onclick="event.stopPropagation();">
           <button type="button" class="bento-Quick-btn" ${evIdx === 0 ? 'disabled' : ''} title="Move Left" onclick="moveWorkspaceCardPriority('opBriefs', ${p.origIdx}, -1, event)">◀</button>
           <button type="button" class="bento-Quick-btn" ${evIdx === eventGroups.length - 1 ? 'disabled' : ''} title="Move Right" onclick="moveWorkspaceCardPriority('opBriefs', ${p.origIdx}, 1, event)">▶</button>
+          ${renderAdminIntelQuickBtnHtml('opBriefs', p.origIdx, p)}
         </div>
       ` : "";
 
@@ -2716,13 +3353,17 @@
         calcDockHtml = `<div class="opbriefs-calc-dock" data-parent-col="${colIdx}" style="grid-column: ${colIdx}; grid-row: 3;">`;
         grp.children.forEach(ch => {
           const isCalc = typeof isMultiEventCalculatorCard === "function" && isMultiEventCalculatorCard(ch);
+          const chUnread = getCardUnreadSignals(ch, "opBriefs");
+          const chIsTarget = chUnread.length > 0;
+          const chTrailStyle = chIsTarget ? buildCardTrailStyleVars("#38b2a6", "target") : "";
           const btnTitleHtml = isCalc
             ? `<span class="calc-ico">🧮</span><span>XP CALCULATOR ↗</span>`
             : `<span>↳ ${escapeHtml(ch.title)} ↗</span>`;
           const btnSub = isCalc ? `ACTIVE: ${escapeHtml(displayName)}` : escapeHtml(ch.scheduleHint || "SUB-MODULE");
           calcDockHtml += `
-            <button type="button" class="opbriefs-calc-btn bento-sub-btn" title="Open In-Page Viewport: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('opBriefs', ${ch.origIdx})">
+            <button type="button" class="opbriefs-calc-btn bento-sub-btn${chIsTarget ? ' is-intel-target' : ''}" style="${chTrailStyle}" title="Open In-Page Viewport: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('opBriefs', ${ch.origIdx})">
               <span class="opbriefs-calc-title">${btnTitleHtml}</span>
+              ${chIsTarget ? `<span class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</span>` : ""}
               <span class="opbriefs-calc-sub">${btnSub}</span>
             </button>
           `;
@@ -2733,7 +3374,7 @@
       html += `
         <div class="opbriefs-col-unit">
           ${coveredByLiveSpan ? `<div class="opbriefs-mobile-live-cap"><span class="opbriefs-live-dot"></span><span>LIVE NOW</span></div>` : overheadClockHtml}
-          <div class="opbriefs-event-card ${cardStateCls}" data-col-idx="${colIdx}" data-ev-cat="${escapeHtml(evCat)}" data-is-live="${isLiveNow ? '1' : '0'}" data-live-spanned="${coveredByLiveSpan ? '1' : '0'}" data-ev-accent="${evAccent}" style="grid-column: ${colIdx}; grid-row: 2; --ev-accent: ${evAccent};">
+          <div class="opbriefs-event-card ${cardStateCls}" data-col-idx="${colIdx}" data-ev-cat="${escapeHtml(evCat)}" data-is-live="${isLiveNow ? '1' : '0'}" data-has-intel="${pHasAnyIntel ? '1' : '0'}" data-live-spanned="${coveredByLiveSpan ? '1' : '0'}" data-ev-accent="${evAccent}" style="grid-column: ${colIdx}; grid-row: 2; --ev-accent: ${evAccent}; ${pTrailStyle}">
             <button type="button" class="opbriefs-event-btn bento-sub-btn" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Brief'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('opBriefs', ${p.origIdx})">
               <div class="opbriefs-card-top">
                 <span class="opbriefs-rank-pill">${rankNum}</span>
@@ -2741,6 +3382,7 @@
               </div>
               <div class="opbriefs-card-body">
                 <div class="opbriefs-event-name">${stackedNameHtml}</div>
+                ${pIsTarget ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>` : (pIsMid ? `<div class="intel-mid-pill">↳ NEW BELOW</div>` : "")}
               </div>
               <div class="opbriefs-card-foot">
                 ${compactSched ? `<div class="opbriefs-sched-chip ${schedCls}">${escapeHtml(compactSched)}</div>` : ""}
@@ -2817,7 +3459,12 @@
     if (!btnEl) return;
     const rawUrl = btnEl.getAttribute("data-vault-url") || "";
     const fullTitle = btnEl.getAttribute("data-vault-title") || "ARCHIVED BRIEF";
+    const sigKey = btnEl.getAttribute("data-intel-key") || "";
+    const sigStamp = btnEl.getAttribute("data-intel-stamp") || "";
     if (!rawUrl) return;
+    if (sigKey && sigStamp) {
+      markIntelSignalsSeen([{ key: sigKey, stamp: sigStamp }], true);
+    }
     const iframeUrl = (window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function")
       ? window.WTRViewMode.decorateUrl(rawUrl)
       : rawUrl;
@@ -2829,6 +3476,7 @@
     const ov = getVaultQuickOverlayData(card, secKey);
     if (!ov) return "";
 
+    const allVault = getActiveVaultParsedList();
     const itemsHtml = ov.recent.length > 0
       ? ov.recent.map(ev => {
           const parts = String(ev.title || "").split(/\s*•\s*/);
@@ -2837,13 +3485,17 @@
           const evAccent = (ev.category === "UPGRADE_SALES")
             ? "#38b2a6"
             : getOpBriefEventAccent(ev.category, "#a78bfa");
+          const vSig = getVaultItemUnreadSignal(ev, allVault);
+          const unreadAttrs = vSig
+            ? ` data-intel-key="${escapeHtml(vSig.key)}" data-intel-stamp="${escapeHtml(vSig.stamp)}"`
+            : "";
           return `
-            <button type="button" class="vault-ov-item" style="--ov-accent: ${evAccent};" data-vault-url="${escapeHtml(ev.url)}" data-vault-title="${escapeHtml(ev.title)}" onclick="openVaultQuickItem(this, event)">
+            <button type="button" class="vault-ov-item${vSig ? ' is-unread-vault-item' : ''}" style="--ov-accent: ${evAccent};" data-vault-url="${escapeHtml(ev.url)}" data-vault-title="${escapeHtml(ev.title)}"${unreadAttrs} onclick="openVaultQuickItem(this, event)">
               <span class="vault-ov-item-left">
                 <span class="vault-ov-date">${escapeHtml(dateTag)}</span>
                 <span class="vault-ov-name">${escapeHtml(shortName)}</span>
               </span>
-              <span class="vault-ov-arrow">↗</span>
+              ${vSig ? `<span class="vault-ov-new-tag">⚡ NEW</span>` : `<span class="vault-ov-arrow">↗</span>`}
             </button>
           `;
         }).join("")
@@ -2871,13 +3523,36 @@
   function renderSubStackItemsHtml(childrenArr, numBadge, parentColor, isMasterStudio, secKey) {
     const childCnt = childrenArr.length;
     if (childCnt === 0) return "";
+    const childUnreadList = childrenArr.map(ch => getCardUnreadSignals(ch, secKey));
+    let lastUnreadSubIdx = -1;
+    childUnreadList.forEach((sigs, i) => { if (sigs.length > 0) lastUnreadSubIdx = i; });
+
     let out = `<div class="bento-sub-stack" style="--conduit-accent: ${parentColor}; --item-accent: ${parentColor};">`;
     childrenArr.forEach((ch, chIdx) => {
       const subBadge = `${numBadge}.${chIdx + 1}`;
       const chHasInline = Boolean((ch.embedCode || "").trim() || ch.openInIframe);
       const chCatColor = getCategorySpec(ch.symKey).color || parentColor;
       const chVaultOverlayHtml = renderVaultQuickOverlayHtml(ch, secKey, ch.origIdx);
-      const chHostCls = chVaultOverlayHtml ? "vault-hover-host" : "";
+      const chUnread = childUnreadList[chIdx];
+      const chIsTarget = chUnread.length > 0;
+      const chTrailStyle = chIsTarget ? buildCardTrailStyleVars(chCatColor, "target") : "";
+      const chHostCls = [
+        chVaultOverlayHtml ? "vault-hover-host" : "",
+        chIsTarget ? "is-intel-target" : ""
+      ].filter(Boolean).join(" ");
+
+      let itemSpineCls = "";
+      if (lastUnreadSubIdx >= 0) {
+        if (chIdx < lastUnreadSubIdx) {
+          itemSpineCls = "is-spine-lit";
+        } else if (chIdx === lastUnreadSubIdx) {
+          if (chIdx === childCnt - 1) itemSpineCls = "is-spine-lit";
+          else if (chIdx === 0) itemSpineCls = "is-spine-stop-first";
+          else itemSpineCls = "is-spine-stop-mid";
+        }
+      }
+      const itemConduitCls = [itemSpineCls, chIsTarget ? "is-elbow-lit" : ""].filter(Boolean).join(" ");
+
       const chCanUp = chIdx > 0;
       const chCanDown = chIdx < childCnt - 1;
       const subStudioControlsHtml = isMasterStudio ? `
@@ -2885,11 +3560,12 @@
           <button type="button" class="bento-Quick-btn" ${!chCanUp ? 'disabled' : ''} title="Move Sub-Branch Up" onclick="moveWorkspaceCardPriority('${secKey}', ${ch.origIdx}, -1, event)">▲</button>
           <button type="button" class="bento-Quick-btn" ${!chCanDown ? 'disabled' : ''} title="Move Sub-Branch Down" onclick="moveWorkspaceCardPriority('${secKey}', ${ch.origIdx}, 1, event)">▼</button>
           <button type="button" class="bento-Quick-btn tier-btn" title="Promote to Standalone Main Module" onclick="toggleCardSubBranchOnBlock('${secKey}', ${ch.origIdx}, event)">📄 Main</button>
+          ${renderAdminIntelQuickBtnHtml(secKey, ch.origIdx, ch)}
         </div>
       ` : "";
       out += `
-        <div class="bento-sub-stack-item" style="--conduit-accent: ${parentColor}; --item-accent: ${chCatColor};">
-          <div class="bento-sub-card ${chHostCls}" style="--item-accent: ${chCatColor};">
+        <div class="bento-sub-stack-item ${itemConduitCls}" style="--conduit-accent: ${parentColor}; --item-accent: ${chCatColor};">
+          <div class="bento-sub-card ${chHostCls}" style="--item-accent: ${chCatColor}; ${chTrailStyle}">
             <div class="bento-card-row-wrap">
               <button type="button" class="bento-v-btn" title="${chHasInline ? 'Open In-Page Viewport' : 'Open Sub-Module'}: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('${secKey}', ${ch.origIdx})">
                 <div class="bento-v-top">
@@ -2898,6 +3574,7 @@
                 </div>
                 <div class="bento-v-body">
                   <div class="bento-v-title" style="color: ${chCatColor};">${escapeHtml(ch.title)}</div>
+                  ${chIsTarget ? `<div class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</div>` : ""}
                   ${ch.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(ch.scheduleHint)}</div>` : (chVaultOverlayHtml ? `<div class="bento-v-sub vault-hover-hint">⚡ HOVER FOR RECENT • CLICK FOR ALL</div>` : '')}
                 </div>
                 <div class="bento-v-foot">${renderSymBadgeHtml(ch.symKey)}</div>
@@ -2988,11 +3665,18 @@
         const catBorder = hexToRgba(catHex, 0.55);
         const capIconHtml = bucket.spec.icon ? `<span class="cat-cap-ico">${bucket.spec.icon}</span>` : "";
         const capNameTxt = escapeHtml(bucket.spec.name || bucket.symKey);
+        const bucketUnreadCnt = bucket.groups.reduce((acc, g) => {
+          const pUn = getCardUnreadSignals(g.parent, activeCommandKey).length > 0 ? 1 : 0;
+          const cUn = (g.children || []).filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
+          return acc + pUn + cUn;
+        }, 0);
+        const capHasIntel = bucketUnreadCnt > 0;
+        const capMidStyle = capHasIntel ? buildCardTrailStyleVars(catHex, "mid") : "";
 
         catHtml += `
-          <div class="bento-group-stack cat-col-stack" style="--grp-span: 1;">
-            <div class="bento-cat-col-cap" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder};">
-              ${capIconHtml}<span>${capNameTxt}</span>
+          <div class="bento-group-stack cat-col-stack" data-has-intel="${capHasIntel ? '1' : '0'}" style="--grp-span: 1;">
+            <div class="bento-cat-col-cap${capHasIntel ? ' has-intel-below' : ''}" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder}; ${capMidStyle}">
+              ${capIconHtml}<span>${capNameTxt}</span>${capHasIntel ? `<span class="intel-trail-pip" style="margin-left:4px;">⚡ ${bucketUnreadCnt}</span>` : ''}
             </div>
             <div class="cat-col-cards-list">
         `;
@@ -3003,20 +3687,29 @@
           const pCatColor = getCategorySpec(p.symKey).color || catHex;
           const numBadge = String(globalSeq).padStart(2, "0");
           const pHasInline = Boolean((p.embedCode || "").trim() || p.openInIframe);
+          const pUnread = getCardUnreadSignals(p, activeCommandKey);
+          const childUnreadCnt = (grp.children || []).filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
+          const pIsTarget = pUnread.length > 0;
+          const pIsMid = !pIsTarget && childUnreadCnt > 0;
+          const pTrailCls = pIsTarget ? "is-intel-target" : (pIsMid ? "is-intel-mid" : "");
+          const pTrailStyle = pIsTarget
+            ? buildCardTrailStyleVars(pCatColor, "target")
+            : (pIsMid ? buildCardTrailStyleVars(pCatColor, "mid") : "");
           const hasPeerSwap = isMasterStudio && bucket.groups.length > 1;
           const prevOrigIdx = idxInCat > 0 ? bucket.groups[idxInCat - 1].parent.origIdx : -1;
           const nextOrigIdx = idxInCat < bucket.groups.length - 1 ? bucket.groups[idxInCat + 1].parent.origIdx : -1;
 
-          const studioControlsHtml = hasPeerSwap ? `
+          const studioControlsHtml = isMasterStudio ? `
             <div class="bento-Order-dock" onclick="event.stopPropagation();">
-              <button type="button" class="bento-Quick-btn" ${prevOrigIdx === -1 ? 'disabled' : ''} title="Move Up in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${prevOrigIdx}, event)">▲</button>
-              <button type="button" class="bento-Quick-btn" ${nextOrigIdx === -1 ? 'disabled' : ''} title="Move Down in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${nextOrigIdx}, event)">▼</button>
+              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${prevOrigIdx === -1 ? 'disabled' : ''} title="Move Up in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${prevOrigIdx}, event)">▲</button>` : ''}
+              ${hasPeerSwap ? `<button type="button" class="bento-Quick-btn" ${nextOrigIdx === -1 ? 'disabled' : ''} title="Move Down in Category" onclick="swapCategoryPeers('${activeCommandKey}', ${p.origIdx}, ${nextOrigIdx}, event)">▼</button>` : ''}
+              ${renderAdminIntelQuickBtnHtml(activeCommandKey, p.origIdx, p)}
             </div>
           ` : "";
 
           catHtml += `
             <div class="cat-col-card-entry">
-              <div class="bento-module-card ${idxInCat === 0 ? 'has-top-cat-cap' : ''}" style="--item-accent: ${pCatColor};">
+              <div class="bento-module-card ${idxInCat === 0 ? 'has-top-cat-cap' : ''} ${pTrailCls}" style="--item-accent: ${pCatColor}; ${pTrailStyle}">
                 <div class="bento-card-row-wrap">
                   <button type="button" class="bento-v-btn" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${p.origIdx})">
                     <div class="bento-v-top">
@@ -3025,6 +3718,7 @@
                     </div>
                     <div class="bento-v-body">
                       <div class="bento-v-title" style="color: ${pCatColor};">${escapeHtml(p.title)}</div>
+                      ${pIsTarget ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>` : (pIsMid ? `<div class="intel-mid-pill">↳ ⚡ ${childUnreadCnt} NEW BELOW</div>` : "")}
                       ${p.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(p.scheduleHint)}</div>` : ''}
                     </div>
                     <div class="bento-v-foot">${renderSymBadgeHtml(p.symKey)}</div>
@@ -3085,6 +3779,14 @@
       const grpSpan = getGroupSpan(grp);
       const pHasInline = Boolean((p.embedCode || "").trim() || p.openInIframe);
       const pVaultOverlayHtml = renderVaultQuickOverlayHtml(p, activeCommandKey, p.origIdx);
+      const pUnread = getCardUnreadSignals(p, activeCommandKey);
+      const childUnreadCnt = grp.children.filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
+      const pIsTarget = pUnread.length > 0;
+      const pIsMid = !pIsTarget && childUnreadCnt > 0;
+      const grpHasIntel = pIsTarget || pIsMid;
+      const pTrailStyle = pIsTarget
+        ? buildCardTrailStyleVars(pCatColor, "target")
+        : (pIsMid ? buildCardTrailStyleVars(pCatColor, "mid") : "");
       const canMoveUp = rankIdx > 0;
       const canMoveDown = rankIdx < totalGroups - 1;
       const canDemoteToSub = p.origIdx > 0 && !hasBranches;
@@ -3094,6 +3796,7 @@
           <button type="button" class="bento-Quick-btn" ${!canMoveUp ? 'disabled' : ''} title="Move Left / Up" onclick="moveWorkspaceCardPriority('${activeCommandKey}', ${p.origIdx}, -1, event)">◀</button>
           <button type="button" class="bento-Quick-btn" ${!canMoveDown ? 'disabled' : ''} title="Move Right / Down" onclick="moveWorkspaceCardPriority('${activeCommandKey}', ${p.origIdx}, 1, event)">▶</button>
           ${canDemoteToSub ? `<button type="button" class="bento-Quick-btn tier-btn" title="Dock as Sub-Page Branch under previous module" onclick="toggleCardSubBranchOnBlock('${activeCommandKey}', ${p.origIdx}, event)">↳ Sub</button>` : ''}
+          ${renderAdminIntelQuickBtnHtml(activeCommandKey, p.origIdx, p)}
         </div>
       ` : "";
 
@@ -3104,15 +3807,23 @@
 
       const extraCardCls = [
         useSubBay ? "has-docked-bay" : "",
-        pVaultOverlayHtml ? "vault-hover-host" : ""
+        pVaultOverlayHtml ? "vault-hover-host" : "",
+        pIsTarget ? "is-intel-target" : (pIsMid ? "is-intel-mid" : "")
       ].filter(Boolean).join(" ");
+
+      const pBeaconHtml = pIsTarget
+        ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>`
+        : (pIsMid ? `<div class="intel-mid-pill">↳ ⚡ ${childUnreadCnt} NEW BELOW</div>` : "");
+      const pInlineBeaconSpan = pIsTarget
+        ? `<span class="intel-target-pill" style="margin-left:8px;">${escapeHtml(pUnread[0].tag)}</span>`
+        : (pIsMid ? `<span class="intel-mid-pill" style="margin-left:8px;">↳ ⚡ ${childUnreadCnt} NEW BELOW</span>` : "");
 
       const parentBtnHtml = useSubBay ? `
         <button type="button" class="bento-main-btn" style="flex:1; min-width:0;" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${p.origIdx})">
           <div class="bento-main-left">
             <span class="bento-num-badge">${numBadge}</span>
             <div class="bento-title-wrap">
-              <span class="bento-main-title" style="color: ${pCatColor};">${escapeHtml(p.title)}</span>
+              <span class="bento-main-title" style="color: ${pCatColor};">${escapeHtml(p.title)}${pInlineBeaconSpan}</span>
               ${(p.scheduleHint || pHasInline) ? `<span class="bento-div-sub" style="color:var(--text-gold);">${p.scheduleHint ? escapeHtml(p.scheduleHint) + (pHasInline ? " • " : "") : ""}${pHasInline ? "🖥️ IN-PAGE VIEWPORT" : ""}</span>` : ''}
             </div>
           </div>
@@ -3126,6 +3837,7 @@
           </div>
           <div class="bento-v-body">
             <div class="bento-v-title" style="color: ${pCatColor};">${escapeHtml(p.title)}</div>
+            ${pBeaconHtml}
             ${p.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(p.scheduleHint)}</div>` : (pVaultOverlayHtml ? `<div class="bento-v-sub vault-hover-hint">⚡ HOVER FOR RECENT • CLICK FOR ALL</div>` : '')}
           </div>
           <div class="bento-v-foot">${renderSymBadgeHtml(p.symKey)}</div>
@@ -3133,8 +3845,8 @@
       `;
 
       html += `
-        <div class="${stackCls}" style="--grp-span: ${grpSpan};">
-          <div class="bento-module-card ${extraCardCls}" style="--item-accent: ${pCatColor};">
+        <div class="${stackCls}" data-has-intel="${grpHasIntel ? '1' : '0'}" style="--grp-span: ${grpSpan};">
+          <div class="bento-module-card ${extraCardCls}" style="--item-accent: ${pCatColor}; ${pTrailStyle}">
             <div class="bento-card-row-wrap">
               ${parentBtnHtml}
               ${studioControlsHtml}
@@ -3150,6 +3862,9 @@
             const subBadge = `${numBadge}.${chIdx + 1}`;
             const chHasInline = Boolean((ch.embedCode || "").trim() || ch.openInIframe);
             const chCatColor = getCategorySpec(ch.symKey).color || pCatColor;
+            const chUnread = getCardUnreadSignals(ch, activeCommandKey);
+            const chIsTarget = chUnread.length > 0;
+            const chTrailStyle = chIsTarget ? buildCardTrailStyleVars(chCatColor, "target") : "";
             const chCanUp = chIdx > 0;
             const chCanDown = chIdx < childCnt - 1;
             const subStudioControlsHtml = isMasterStudio ? `
@@ -3157,10 +3872,11 @@
                 <button type="button" class="bento-Quick-btn" ${!chCanUp ? 'disabled' : ''} title="Move Left / Up" onclick="moveWorkspaceCardPriority('${activeCommandKey}', ${ch.origIdx}, -1, event)">◀</button>
                 <button type="button" class="bento-Quick-btn" ${!chCanDown ? 'disabled' : ''} title="Move Right / Down" onclick="moveWorkspaceCardPriority('${activeCommandKey}', ${ch.origIdx}, 1, event)">▶</button>
                 <button type="button" class="bento-Quick-btn tier-btn" title="Promote to Standalone Main Module" onclick="toggleCardSubBranchOnBlock('${activeCommandKey}', ${ch.origIdx}, event)">📄 Main</button>
+                ${renderAdminIntelQuickBtnHtml(activeCommandKey, ch.origIdx, ch)}
               </div>
             ` : "";
             html += `
-              <div class="bento-sub-card" style="--item-accent: ${chCatColor};">
+              <div class="bento-sub-card${chIsTarget ? ' is-intel-target' : ''}" style="--item-accent: ${chCatColor}; ${chTrailStyle}">
                 <div class="bento-card-row-wrap">
                   <button type="button" class="bento-v-btn" title="${chHasInline ? 'Open In-Page Viewport' : 'Open Sub-Module'}: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${ch.origIdx})">
                     <div class="bento-v-top">
@@ -3169,6 +3885,7 @@
                     </div>
                     <div class="bento-v-body">
                       <div class="bento-v-title" style="color: ${chCatColor};">${escapeHtml(ch.title)}</div>
+                      ${chIsTarget ? `<div class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</div>` : ""}
                       ${ch.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(ch.scheduleHint)}</div>` : ''}
                     </div>
                     <div class="bento-v-foot">${renderSymBadgeHtml(ch.symKey)}</div>
@@ -3255,6 +3972,9 @@
       }).join("");
 
       const transferOptsHtml = buildTransferDestinationOptionsHtml(secKey, idx);
+      const nowEditorMs = Date.now();
+      const isIntelArmed = Number(c.intelStamp) > 0 && (nowEditorMs - Number(c.intelStamp)) <= WTR_MANUAL_TRAIL_TTL_MS;
+      const curIntelTag = isIntelArmed ? String(c.intelTag || "✨ NEW INTEL") : "";
 
       return `
         <div class="card-editor-item ${c.enabled === false ? 'disabled-card' : ''} ${isBranch ? 'is-subbranch-editor' : ''}" style="border-left-color: ${tabHex};">
@@ -3302,6 +4022,17 @@
               ${hasEmbed ? `<button type="button" class="card-delete-btn" style="padding:2px 7px; font-size:10px;" onclick="updateCardField('${secKey}', ${idx}, 'embedCode', '', false); renderAdminCardEditor();">Clear Embed</button>` : ''}
             </div>
             <textarea rows="3" placeholder="Paste full Published HTML of a module here to open it inside the main page with an ✕ Close button..." oninput="updateCardField('${secKey}', ${idx}, 'embedCode', this.value, true)" style="font-family:monospace; font-size:11px; resize:vertical;">${escapeHtml(c.embedCode || '')}</textarea>
+          </div>
+
+          <div class="card-intel-beacon-bar">
+            <label style="font-size:10.5px; font-family:monospace; color:${isIntelArmed ? '#4ade80' : '#94a3b8'}; font-weight:900;">
+              ⚡ INTEL TRAIL BEACON: ${isIntelArmed ? `ACTIVE (${escapeHtml(curIntelTag)})` : 'OFF (AUTO LIVE / VAULT STILL ACTIVE)'}
+            </label>
+            <div class="card-intel-beacon-btns">
+              <button type="button" class="intel-beacon-opt-btn${curIntelTag === '✨ NEW INTEL' ? ' active-opt' : ''}" onclick="setCardIntelFlag('${secKey}', ${idx}, '✨ NEW INTEL', event)">✨ Flag NEW</button>
+              <button type="button" class="intel-beacon-opt-btn${curIntelTag === '🔄 UPDATED' ? ' active-opt' : ''}" onclick="setCardIntelFlag('${secKey}', ${idx}, '🔄 UPDATED', event)">🔄 Flag UPDATED</button>
+              ${isIntelArmed ? `<button type="button" class="intel-beacon-opt-btn" style="border-color:#fca5a5; color:#fca5a5;" onclick="setCardIntelFlag('${secKey}', ${idx}, '', event)">✕ Clear Trail</button>` : ''}
+            </div>
           </div>
 
           <div class="card-transfer-bar">
@@ -6516,6 +7247,14 @@
     sortQueue.forEach((item, sortedIdx) => {
       item.card.style.order = String(sortedIdx + 1);
     });
+    const liveSigNow = clockDefs
+      .filter(c => eventSchedules[c.key] && now >= eventSchedules[c.key].start && now < eventSchedules[c.key].end)
+      .map(c => c.key + ":" + eventSchedules[c.key].start)
+      .join("|");
+    if (window._wtrLastLiveSig !== undefined && window._wtrLastLiveSig !== liveSigNow) {
+      if (typeof updateMenuButtonModuleCounts === "function") updateMenuButtonModuleCounts();
+    }
+    window._wtrLastLiveSig = liveSigNow;
     if (typeof tickOpBriefsOverheadClocks === "function") tickOpBriefsOverheadClocks();
   }
 
@@ -6573,7 +7312,8 @@
       "wtrPublishedStateVault",
       "wtrMasterVerifyToast",
       "wtrPastePublishedModal",
-      "wtrGuaranteedMasterFilePicker"
+      "wtrGuaranteedMasterFilePicker",
+      "btnResetIntelTrails"
     ];
     removeIds.forEach(id => {
       const el = cloneDoc.querySelector(`#${id}`);
@@ -6581,6 +7321,15 @@
     });
 
     cloneDoc.querySelectorAll(".bento-Order-dock").forEach(el => el.remove());
+    cloneDoc.querySelectorAll(".brief-btn.has-intel-trail").forEach(el => {
+      el.classList.remove("has-intel-trail");
+      el.style.removeProperty("--trail-btn-top");
+      el.style.removeProperty("--trail-btn-bot");
+      el.style.removeProperty("--trail-btn-border");
+      el.style.removeProperty("--trail-btn-glow");
+      el.style.removeProperty("--trail-btn-glow-text");
+    });
+    cloneDoc.querySelectorAll(".intel-trail-pip").forEach(el => el.remove());
 
     const pubVaultScript = document.createElement("script");
     pubVaultScript.id = "wtrPublishedStateVault";
@@ -6816,7 +7565,7 @@
    * 3. If the event is NOT scheduled on the new calendar (e.g., Warpath), it is omitted from EVENT BRIEFS
    *    until a future calendar schedules it.
    */
-  const WTR_DEFAULT_DIRECTORY_MANIFEST = {
+  var WTR_DEFAULT_DIRECTORY_MANIFEST = {
     activeFiles: [
       "2026-calendar.html",
       "2026-dec-operation-brief.html",
@@ -6884,7 +7633,7 @@
     return "./";
   }
 
-  const WTR_MONTH_LOOKUP = {
+  var WTR_MONTH_LOOKUP = {
     jan: { num: 1, short: "JAN" }, feb: { num: 2, short: "FEB" }, mar: { num: 3, short: "MAR" },
     apr: { num: 4, short: "APR" }, may: { num: 5, short: "MAY" }, jun: { num: 6, short: "JUN" },
     jul: { num: 7, short: "JUL" }, aug: { num: 8, short: "AUG" }, sep: { num: 9, short: "SEP" },
@@ -7004,6 +7753,9 @@
     }
     const card = workspaceCardsState[secKey]?.cards?.[origIdx];
     if (!card) return;
+    if (typeof markCardIntelSeen === "function") {
+      markCardIntelSeen(card, secKey);
+    }
 
     const embedHtml = (card.embedCode || "").trim();
     const rawUrl = (card.url || "").trim();
@@ -7033,6 +7785,9 @@
   openPopout = function(url, eventHint = "") {
     const rawStr = String(url || "").trim();
     const hintUp = String(eventHint || "").toUpperCase();
+    if (typeof markPopoutIntelSeen === "function") {
+      markPopoutIntelSeen(rawStr, eventHint);
+    }
     const decUrl = (u) => (u && window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function") ? window.WTRViewMode.decorateUrl(u) : u;
 
     if (rawStr && (rawStr.startsWith("./") || rawStr.startsWith("../") || /\.html($|\?|#)/i.test(rawStr))) {
@@ -7326,9 +8081,33 @@
       activeEvents: activeParsed,
       vaultEvents: vaultParsed
     };
+    if (typeof syncKnownVaultFilesBaseline === "function") {
+      syncKnownVaultFilesBaseline(vaultParsed);
+    }
+
+    const extractPreservedFlagsMap = (cardsArr) => {
+      const m = new Map();
+      (cardsArr || []).forEach(c => {
+        if (c && Number(c.intelStamp) > 0 && typeof getCardSignalSlug === "function") {
+          m.set(getCardSignalSlug(c), { intelStamp: c.intelStamp, intelTag: c.intelTag || "✨ NEW INTEL" });
+        }
+      });
+      return m;
+    };
+    const restorePreservedFlags = (cardsArr, flagsMap) => {
+      if (!flagsMap || flagsMap.size === 0 || typeof getCardSignalSlug !== "function") return;
+      (cardsArr || []).forEach(c => {
+        const hit = flagsMap.get(getCardSignalSlug(c));
+        if (hit) {
+          c.intelStamp = hit.intelStamp;
+          c.intelTag = hit.intelTag;
+        }
+      });
+    };
 
     // 1. Self-Populate Tab 4: EVENT BRIEFS / EVENT GUIDES (opBriefs) with Pinned Event Calendar + 4-Mode Calculator + Events sorted by soonest start
     if (workspaceCardsState && workspaceCardsState.opBriefs) {
+      const prevOpFlags = extractPreservedFlagsMap(workspaceCardsState.opBriefs.cards);
       const calendarCard = {
         enabled: true,
         isSubPage: false,
@@ -7368,12 +8147,15 @@
           scheduleHint: metrics.scheduleHint
         };
       });
-      workspaceCardsState.opBriefs.cards = [calendarCard, calcCard, ...eventCards];
+      const newOpCards = [calendarCard, calcCard, ...eventCards];
+      restorePreservedFlags(newOpCards, prevOpFlags);
+      workspaceCardsState.opBriefs.cards = newOpCards;
       sortOpBriefsCardsBySoonest();
     }
 
     // 2. Self-Populate Tab 5: [-WTR-] VAULT (wtrArchives)
     if (workspaceCardsState && workspaceCardsState.wtrArchives) {
+      const prevVaultFlags = extractPreservedFlagsMap(workspaceCardsState.wtrArchives.cards);
       const countByCat = (cat) => vaultParsed.filter(v => v.category === cat).length;
       const upgradeCnt = countByCat("UPGRADE_SALES");
       const skirmishCnt = countByCat("SKIRMISH");
@@ -7476,6 +8258,7 @@
           openInIframe: true
         }
       ];
+      restorePreservedFlags(workspaceCardsState.wtrArchives.cards, prevVaultFlags);
     }
 
     if (typeof updateMenuButtonModuleCounts === "function") updateMenuButtonModuleCounts();
@@ -7577,9 +8360,20 @@
     } catch (e) {}
   })();
 
-  /* Auto-injects [🔗 Validate / Replace URLs] button into Config Studio top bar */
+  /* Auto-injects [🔗 Validate / Replace URLs] & [👁️ Reset Read Trails] buttons into Config Studio top bar */
   (function injectUrlValidatorBtn() {
     const bar = document.querySelector("#adminPanel .admin-panel-title > div");
+    if (bar && !document.getElementById("btnResetIntelTrails")) {
+      const rBtn = document.createElement("button");
+      rBtn.type = "button";
+      rBtn.id = "btnResetIntelTrails";
+      rBtn.className = "action-btn";
+      rBtn.style.cssText = "border-color:#4ade80; color:#4ade80;";
+      rBtn.title = "Clear your local Read/Seen memory so you can preview all active Live, Newly Archived & Flagged Intel Trails again";
+      rBtn.textContent = "👁️ Reset Read Trails";
+      rBtn.onclick = resetLocalIntelSeenState;
+      bar.insertBefore(rBtn, bar.firstChild);
+    }
     if (bar && !document.getElementById("btnUrlValidator")) {
       const btn = document.createElement("button");
       btn.type = "button";

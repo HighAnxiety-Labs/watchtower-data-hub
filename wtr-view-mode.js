@@ -1,18 +1,21 @@
 /* ==========================================================================
- * [-WTR-] WATCHTOWER GLOBAL DISPLAY & TYPOGRAPHY ENGINE (v2.1)
+ * [-WTR-] WATCHTOWER GLOBAL DISPLAY, TYPOGRAPHY & VISION IMAGE ENGINE (v2.2)
  * Shared across Command Center & All Standalone Modules / Event Briefs / Vault
  * Collapsible Gear Trigger : Reduced pill until hovered; stays open while mouse is inside box
  * Display Modes : "auto" (Auto-Detect) | "wide" (97% Widescreen) | "standard" (1360px) | "mobile" (Compact/Phone)
  * Text Scaling  : "std" (A 100% — 15px Hub Baseline) | "lg" (A+ 112%) | "xl" (A++ 125%)
+ * Image Scaling : "std" (IMG 100% Baseline) | "lg" (IMG+ 125% Boost) | "xl" (IMG++ 150% Max Vision Boost)
  * ========================================================================== */
 (function () {
   "use strict";
 
   var STORAGE_KEY = "wtr_global_view_mode";
   var FONT_STORAGE_KEY = "wtr_global_font_scale";
+  var IMG_STORAGE_KEY = "wtr_global_img_scale";
 
   var VALID_MODES = ["auto", "wide", "standard", "mobile"];
   var VALID_FONTS = ["std", "lg", "xl"];
+  var VALID_IMGS = ["std", "lg", "xl"];
 
   var MODE_META = [
     { id: "auto",     short: "Auto",     full: "Auto-Detect",    icon: "⚡", tip: "Auto-fits your screen (expands on QHD/Ultrawide, standard on laptop, mobile on phone)" },
@@ -27,6 +30,12 @@
     { id: "xl",  label: "A++", pct: "125%", tip: "Extra-Large Text (+25% maximum readability across all pages)" }
   ];
 
+  var IMG_META = [
+    { id: "std", label: "IMG",   pct: "100%", tip: "Standard Image Size (100% uniform portrait & brief renders)" },
+    { id: "lg",  label: "IMG+",  pct: "125%", tip: "Larger Images (+25% Vision Boost across Building & Unit Galleries)" },
+    { id: "xl",  label: "IMG++", pct: "150%", tip: "Extra-Large Images (+50% Maximum Vision Accessibility Boost)" }
+  ];
+
   function sanitizeMode(val) {
     var v = String(val || "").toLowerCase().trim();
     return VALID_MODES.indexOf(v) !== -1 ? v : "";
@@ -35,6 +44,11 @@
   function sanitizeFont(val) {
     var v = String(val || "").toLowerCase().trim();
     return VALID_FONTS.indexOf(v) !== -1 ? v : "";
+  }
+
+  function sanitizeImg(val) {
+    var v = String(val || "").toLowerCase().trim();
+    return VALID_IMGS.indexOf(v) !== -1 ? v : "";
   }
 
   function getModeMeta(id) {
@@ -49,6 +63,13 @@
       if (FONT_META[i].id === id) return FONT_META[i];
     }
     return FONT_META[0];
+  }
+
+  function getImgMeta(id) {
+    for (var i = 0; i < IMG_META.length; i++) {
+      if (IMG_META[i].id === id) return IMG_META[i];
+    }
+    return IMG_META[0];
   }
 
   function readInitialMode() {
@@ -83,6 +104,22 @@
     return "std";
   }
 
+  function readInitialImg() {
+    try {
+      var params = new URLSearchParams(window.location.search || "");
+      var qImg = sanitizeImg(params.get("wtrImg"));
+      if (qImg) {
+        try { localStorage.setItem(IMG_STORAGE_KEY, qImg); } catch (e) {}
+        return qImg;
+      }
+    } catch (e) {}
+    try {
+      var saved = sanitizeImg(localStorage.getItem(IMG_STORAGE_KEY));
+      if (saved) return saved;
+    } catch (e) {}
+    return "std";
+  }
+
   var stylesInjectedThisLoad = false;
   function injectGlobalStyles() {
     if (stylesInjectedThisLoad && document.getElementById("wtrViewModeStyles")) return;
@@ -98,6 +135,7 @@
       "  --wtr-font-sans: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;",
       "  --font-body: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;",
       "  --wtr-font-zoom: 1;",
+      "  --wtr-img-scale: 1;",
       "  --wtr-shell-wide-raw: min(97vw, 2320px);",
       "  --wtr-shell-auto-xl-raw: min(94vw, 1840px);",
       "  --wtr-shell-std-raw: 1360px;",
@@ -109,6 +147,8 @@
       "}",
       "html[data-wtr-font='lg'] { --wtr-font-zoom: 1.12; }",
       "html[data-wtr-font='xl'] { --wtr-font-zoom: 1.25; }",
+      "html[data-wtr-img='lg'] { --wtr-img-scale: 1.25; }",
+      "html[data-wtr-img='xl'] { --wtr-img-scale: 1.5; }",
 
       /* Ensure Command Center header sits cleanly above menu buttons when floating settings popover opens */
       "#terminalMainFrame .header { position: relative; z-index: 80; }",
@@ -491,8 +531,10 @@
 
   var activeMode = readInitialMode();
   var activeFont = readInitialFont();
+  var activeImg = readInitialImg();
   document.documentElement.setAttribute("data-wtr-view", activeMode);
   document.documentElement.setAttribute("data-wtr-font", activeFont);
+  document.documentElement.setAttribute("data-wtr-img", activeImg);
   injectGlobalStyles();
 
   var bc = null;
@@ -504,6 +546,7 @@
         if (ev.data.type === "WTR_SET_VIEW_MODE") {
           if (ev.data.mode) applyMode(ev.data.mode, { skipBroadcast: true });
           if (ev.data.font) applyFont(ev.data.font, { skipBroadcast: true });
+          if (ev.data.img) applyImg(ev.data.img, { skipBroadcast: true });
         }
       };
     }
@@ -512,7 +555,9 @@
   function buildActiveSummaryText() {
     var m = getModeMeta(activeMode);
     var f = getFontMeta(activeFont);
-    return m.icon + " " + m.short + " • " + f.label;
+    var im = getImgMeta(activeImg);
+    var base = m.icon + " " + m.short + " • " + f.label;
+    return activeImg !== "std" ? (base + " • " + im.label) : base;
   }
 
   function syncControlsInDom() {
@@ -539,6 +584,17 @@
       btn.setAttribute("aria-pressed", isFontActive ? "true" : "false");
     }
 
+    var imgBtns = document.querySelectorAll("button[data-wtr-img-btn]");
+    for (var imIdx = 0; imIdx < imgBtns.length; imIdx++) {
+      var iBtn = imgBtns[imIdx];
+      var imVal = iBtn.getAttribute("data-wtr-img-btn");
+      var isImgActive = (imVal === activeImg);
+      if (iBtn.classList) {
+        iBtn.classList.toggle("active", isImgActive);
+      }
+      iBtn.setAttribute("aria-pressed", isImgActive ? "true" : "false");
+    }
+
     var statusBadges = document.querySelectorAll("[data-wtr-gear-status]");
     var summary = buildActiveSummaryText();
     for (var k = 0; k < statusBadges.length; k++) {
@@ -554,7 +610,8 @@
           iframes[i].contentWindow.postMessage({
             type: "WTR_SET_VIEW_MODE",
             mode: activeMode,
-            font: activeFont
+            font: activeFont,
+            img: activeImg
           }, "*");
         }
       } catch (e) {}
@@ -571,12 +628,16 @@
     base = base
       .replace(/([?&])wtrView=[^&]*(&|$)/gi, function (_, p1, p2) { return p2 === "&" ? p1 : ""; })
       .replace(/([?&])wtrFont=[^&]*(&|$)/gi, function (_, p1, p2) { return p2 === "&" ? p1 : ""; })
+      .replace(/([?&])wtrImg=[^&]*(&|$)/gi, function (_, p1, p2) { return p2 === "&" ? p1 : ""; })
       .replace(/[?&]$/, "");
     if (activeMode && activeMode !== "auto") {
       base += (base.indexOf("?") === -1 ? "?" : "&") + "wtrView=" + encodeURIComponent(activeMode);
     }
     if (activeFont && activeFont !== "std") {
       base += (base.indexOf("?") === -1 ? "?" : "&") + "wtrFont=" + encodeURIComponent(activeFont);
+    }
+    if (activeImg && activeImg !== "std") {
+      base += (base.indexOf("?") === -1 ? "?" : "&") + "wtrImg=" + encodeURIComponent(activeImg);
     }
     return base + hash;
   }
@@ -603,7 +664,7 @@
     pushStateToEmbeddedIframes();
 
     if (!opts.skipBroadcast && bc) {
-      try { bc.postMessage({ type: "WTR_SET_VIEW_MODE", mode: clean, font: activeFont }); } catch (e) {}
+      try { bc.postMessage({ type: "WTR_SET_VIEW_MODE", mode: clean, font: activeFont, img: activeImg }); } catch (e) {}
     }
 
     triggerLayoutReflow();
@@ -624,7 +685,28 @@
     pushStateToEmbeddedIframes();
 
     if (!opts.skipBroadcast && bc) {
-      try { bc.postMessage({ type: "WTR_SET_VIEW_MODE", mode: activeMode, font: clean }); } catch (e) {}
+      try { bc.postMessage({ type: "WTR_SET_VIEW_MODE", mode: activeMode, font: clean, img: activeImg }); } catch (e) {}
+    }
+
+    triggerLayoutReflow();
+  }
+
+  function applyImg(nextImg, opts) {
+    opts = opts || {};
+    var clean = sanitizeImg(nextImg) || "std";
+    activeImg = clean;
+    document.documentElement.setAttribute("data-wtr-img", clean);
+    injectGlobalStyles();
+
+    if (!opts.skipStorage) {
+      try { localStorage.setItem(IMG_STORAGE_KEY, clean); } catch (e) {}
+    }
+
+    syncControlsInDom();
+    pushStateToEmbeddedIframes();
+
+    if (!opts.skipBroadcast && bc) {
+      try { bc.postMessage({ type: "WTR_SET_VIEW_MODE", mode: activeMode, font: activeFont, img: clean }); } catch (e) {}
     }
 
     triggerLayoutReflow();
@@ -655,12 +737,24 @@
     }).join("");
   }
 
+  function buildImgButtonsHtml() {
+    return IMG_META.map(function (im) {
+      var activeCls = (im.id === activeImg) ? "active" : "";
+      var pressed = (im.id === activeImg) ? "true" : "false";
+      return (
+        '<button type="button" class="wtr-font-btn ' + activeCls + '" data-wtr-img-btn="' + im.id + '" aria-pressed="' + pressed + '" title="' + im.tip.replace(/"/g, "&quot;") + '" onclick="window.WTRViewMode.setImg(\'' + im.id + '\')">' +
+          '<span>' + im.label + '</span><span class="pct">(' + im.pct + ')</span>' +
+        '</button>'
+      );
+    }).join("");
+  }
+
   function buildCollapsibleGearWidgetHtml() {
     return (
       '<div class="wtr-gear-wrap" data-wtr-gear-wrap="true">' +
-        '<button type="button" class="wtr-gear-trigger" aria-expanded="false" title="Hover or click to adjust Display Size &amp; Text Size across all pages">' +
+        '<button type="button" class="wtr-gear-trigger" aria-expanded="false" title="Hover or click to adjust Display Size, Text Size &amp; Vision Image Boost across all pages">' +
           '<span class="wtr-gear-icon">⚙️</span>' +
-          '<span class="wtr-gear-label">DISPLAY &amp; TEXT</span>' +
+          '<span class="wtr-gear-label">DISPLAY &amp; VISION</span>' +
           '<span class="wtr-gear-status" data-wtr-gear-status="true">' + buildActiveSummaryText() + '</span>' +
           '<span class="wtr-gear-caret">▾</span>' +
         '</button>' +
@@ -679,6 +773,13 @@
                 '<span class="sub">15PX HUB BASELINE</span>' +
               '</div>' +
               '<div class="wtr-font-scale-row">' + buildFontButtonsHtml() + '</div>' +
+            '</div>' +
+            '<div class="wtr-settings-sec">' +
+              '<div class="wtr-settings-sec-hdr">' +
+                '<span>🖼️ IMAGE SIZE</span>' +
+                '<span class="sub">3-STEP VISION BOOST</span>' +
+              '</div>' +
+              '<div class="wtr-font-scale-row">' + buildImgButtonsHtml() + '</div>' +
             '</div>' +
             '<div class="wtr-settings-foot">✓ Saves automatically • Move mouse out when done</div>' +
           '</div>' +
@@ -804,6 +905,7 @@
     if (ev.data.type === "WTR_SET_VIEW_MODE") {
       if (ev.data.mode) applyMode(ev.data.mode, { skipBroadcast: true });
       if (ev.data.font) applyFont(ev.data.font, { skipBroadcast: true });
+      if (ev.data.img) applyImg(ev.data.img, { skipBroadcast: true });
     } else if (ev.data.type === "WTR_REQUEST_VIEW_MODE") {
       pushStateToEmbeddedIframes();
     } else if (ev.data.type === "WTR_CLOSE_VIEWPORT_RETURN_LIST") {
@@ -868,6 +970,8 @@
       applyMode(ev.newValue, { skipStorage: true, skipBroadcast: true });
     } else if (ev.key === FONT_STORAGE_KEY) {
       applyFont(ev.newValue, { skipStorage: true, skipBroadcast: true });
+    } else if (ev.key === IMG_STORAGE_KEY) {
+      applyImg(ev.newValue, { skipStorage: true, skipBroadcast: true });
     }
   });
 
@@ -882,6 +986,9 @@
     set: function (mode) { applyMode(mode); },
     getFont: function () { return activeFont; },
     setFont: function (font) { applyFont(font); },
+    getImg: function () { return activeImg; },
+    setImg: function (img) { applyImg(img); },
+    syncControls: syncControlsInDom,
     toggle: function (mode, isChecked) {
       if (!isChecked && activeMode === mode) {
         applyMode("auto");
