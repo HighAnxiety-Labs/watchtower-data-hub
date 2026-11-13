@@ -219,7 +219,8 @@
   .bento-group-stack:focus-within { z-index: 75; }
   .bento-group-stack.has-sub-stack,
   .bento-group-stack.cat-col-stack,
-  .bento-group-stack.has-sub-bay { height: auto; align-self: start; }
+  .bento-group-stack.has-sub-bay,
+  .bento-group-stack.is-vault-2col-group { height: auto; align-self: start; }
   .bento-links-grid.tab-unit-grid:not(.has-any-stack) .bento-group-stack > .bento-module-card { flex: 1; }
   .bento-links-grid.tab-unit-grid .bento-module-card,
   .bento-links-grid.tab-unit-grid .bento-sub-card { border: 1px solid var(--border-metal); border-left: 1px solid var(--border-metal); border-top: 2px solid var(--item-accent, var(--stage-accent, var(--lead-accent))); border-radius: 5px; transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; }
@@ -237,7 +238,24 @@
   .bento-sub-stack-item:first-child::before { top: -60px; }
   .bento-sub-stack-item:last-child::before { bottom: 50%; }
   .bento-sub-stack-item::after { content: ""; position: absolute; left: -12.5%; top: 50%; width: 12.5%; height: 2.5px; background: var(--conduit-accent, var(--stage-accent, var(--lead-accent))); opacity: 0.9; transform: translateY(-50%); pointer-events: none; }
-  .bento-sub-stack .bento-sub-card { width: 100%; background: linear-gradient(180deg, #101925 0%, #080d14 100%); border-left: 2px solid var(--item-accent, var(--stage-accent, var(--lead-accent))); }
+  .bento-sub-stack .bento-sub-card,
+  .vault-bridged-sub-stage .bento-sub-card { width: 100%; background: linear-gradient(180deg, #101925 0%, #080d14 100%); border-left: 2px solid var(--item-accent, var(--stage-accent, var(--lead-accent))); }
+
+  /* [-WTR-] VAULT 2-Column Bridged Sub-Tabs (2A Upper Trunk Bridge off Col 1 Primary Sub-Line, Level Columns) */
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px calc((100% - 40px) / 6); }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: calc((100% - 40px) / 6); flex: 0 0 calc((100% - 40px) / 6); height: auto; }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(((100% - 40px) / 6) * 2.5); flex: 0 0 calc(((100% - 40px) / 6) * 2.5); height: auto; }
+  .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 40%; }
+  .vault-bridged-sub-stage { position: relative; width: 100%; padding-top: 60px; display: flex; align-items: flex-start; overflow: visible; }
+  .vault-bridged-sub-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
+  .vault-sub-col { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+  .vault-sub-col:hover,
+  .vault-sub-col:focus-within { z-index: 92; }
+  .vault-sub-col.is-col-1 { margin-left: 10%; width: 40%; flex: 0 0 40%; }
+  .vault-sub-col.is-col-2 { margin-left: 10%; width: 40%; flex: 0 0 40%; margin-top: 0; }
+  .vault-sub-col-item { position: relative; width: 100%; }
+  .vault-sub-col-item:hover,
+  .vault-sub-col-item:focus-within { z-index: 95; }
 
   /* Category Header Cap & Card Stack for Combat Guides */
   .bento-cat-col-cap { width: 100%; min-height: 28px; padding: 4px 8px; border-radius: 5px 5px 0 0; border: 1px solid var(--cat-col-border, rgba(255, 255, 255, 0.25)); border-bottom: none; background: var(--cat-col-bg, rgba(15, 23, 34, 0.92)); color: var(--cat-col-accent, var(--text-gold)); font-family: monospace; font-size: 10.5px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); }
@@ -250,6 +268,7 @@
   /* Vertical Card Anatomy for Top-Tab-Width Cards (Adjustable Height) */
   .bento-v-btn { width: 100%; flex: 1; min-height: 118px; background: transparent; border: none; padding: 10px 10px 9px 10px; display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; gap: 8px; cursor: pointer; text-align: center; transition: background 0.15s ease; }
   .bento-sub-stack .bento-v-btn,
+  .vault-bridged-sub-stage .bento-v-btn,
   .bento-sub-bay .bento-v-btn { min-height: 0; padding: 8px 9px 7px 9px; gap: 5px; }
   .bento-v-btn:hover { background: rgba(255, 255, 255, 0.035); }
   .bento-v-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; }
@@ -260,15 +279,19 @@
   .bento-v-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 3px 2px; width: 100%; text-align: center; }
   .bento-v-title { width: 100%; text-align: center; font-size: 14px; font-weight: 900; line-height: 1.24; letter-spacing: 0.5px; text-transform: uppercase; color: var(--item-accent, #f8fafc); overflow-wrap: break-word; word-break: normal; }
   .bento-sub-stack .bento-v-title,
+  .vault-bridged-sub-stage .bento-v-title,
   .bento-sub-bay .bento-v-title { font-size: 12.5px; line-height: 1.2; }
   .bento-v-sub { font-family: monospace; font-size: 9.5px; font-weight: 800; line-height: 1.2; color: var(--text-gold); text-transform: uppercase; text-align: center; width: 100%; }
   .bento-v-foot { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 7px; border-top: 1px solid rgba(255, 255, 255, 0.08); width: 100%; }
-  .bento-sub-stack .bento-v-foot { padding-top: 5px; }
+  .bento-sub-stack .bento-v-foot,
+  .vault-bridged-sub-stage .bento-v-foot { padding-top: 5px; }
   .sym-badge .sym-ico { font-size: 17px; line-height: 1; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.65)); }
   .bento-v-foot .sym-badge { font-size: 10.5px; padding: 4px 8px; letter-spacing: 0.4px; gap: 6px; max-width: 100%; justify-content: center; overflow: hidden; text-overflow: ellipsis; }
   .bento-v-foot .sym-badge .sym-ico { font-size: 15.5px; }
-  .bento-sub-stack .bento-v-foot .sym-badge { font-size: 9.5px; padding: 3px 7px; gap: 5px; }
-  .bento-sub-stack .bento-v-foot .sym-badge .sym-ico { font-size: 14px; }
+  .bento-sub-stack .bento-v-foot .sym-badge,
+  .vault-bridged-sub-stage .bento-v-foot .sym-badge { font-size: 9.5px; padding: 3px 7px; gap: 5px; }
+  .bento-sub-stack .bento-v-foot .sym-badge .sym-ico,
+  .vault-bridged-sub-stage .bento-v-foot .sym-badge .sym-ico { font-size: 14px; }
   .bento-links-grid.tab-unit-grid .bento-card-row-wrap { flex-direction: column; flex: 1; height: 100%; }
   .bento-links-grid.tab-unit-grid .bento-group-stack.has-sub-bay > .bento-module-card > .bento-card-row-wrap { flex-direction: row; height: auto; }
   .bento-links-grid.tab-unit-grid .bento-Order-dock { border-left: none; border-top: 1px solid var(--border-metal); justify-content: center; padding: 4px 6px; }
@@ -329,6 +352,10 @@
     text-shadow: none !important; box-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
     animation: wtrPipPulse 1.9s ease-in-out infinite;
   }
+  .intel-trail-pip.is-updated-pip {
+    color: #3b1602 !important; background: linear-gradient(180deg, #fde68a 0%, #fbbf24 100%);
+    border-color: #fef9c3; box-shadow: 0 0 8px rgba(251, 191, 36, 0.48);
+  }
 
   /* Step 2: Mid-Path Parent Card & Category Cap (~35% Color Wash + Energized Sub-Stack L-Conduit) */
   .bento-links-grid.tab-unit-grid .bento-module-card.is-intel-mid,
@@ -352,6 +379,10 @@
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(74, 222, 128, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
   }
+  .bento-cat-col-cap.has-intel-below.is-updated-cap {
+    border-top-color: #fbbf24 !important;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  }
   .intel-mid-pill {
     display: inline-flex; align-items: center; justify-content: center; gap: 4px;
     font-family: monospace; font-size: 9px; font-weight: 900; letter-spacing: 0.45px;
@@ -359,23 +390,27 @@
     border: 1px solid rgba(74, 222, 128, 0.72); border-radius: 999px;
     padding: 1.5px 7px; text-transform: uppercase; white-space: nowrap; margin-top: 2px;
   }
+  .intel-mid-pill.is-updated-mid {
+    color: #fde68a; background: rgba(16, 11, 4, 0.88);
+    border-color: rgba(251, 191, 36, 0.82);
+  }
   .bento-sub-stack-item.is-spine-lit::before {
-    width: 2.8px; background: #4ade80 !important; opacity: 1;
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+    width: 2.8px; background: var(--spine-energy, #4ade80) !important; opacity: 1;
+    box-shadow: 0 0 8px var(--spine-energy-glow, rgba(74, 222, 128, 0.8));
   }
   .bento-sub-stack-item.is-spine-stop-first::before {
     width: 2.8px; opacity: 1;
-    background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 16px), var(--conduit-accent, #785dc8) calc(50% + 16px), var(--conduit-accent, #785dc8) 100%) !important;
-    filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.48));
+    background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 16px), var(--conduit-accent, #785dc8) calc(50% + 16px), var(--conduit-accent, #785dc8) 100%) !important;
+    filter: drop-shadow(0 0 4px var(--spine-energy-glow, rgba(74, 222, 128, 0.48)));
   }
   .bento-sub-stack-item.is-spine-stop-mid::before {
     width: 2.8px; opacity: 1;
-    background: linear-gradient(180deg, #4ade80 0%, #4ade80 50%, var(--conduit-accent, #785dc8) 50%, var(--conduit-accent, #785dc8) 100%) !important;
-    filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.48));
+    background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) 50%, var(--conduit-accent, #785dc8) 50%, var(--conduit-accent, #785dc8) 100%) !important;
+    filter: drop-shadow(0 0 4px var(--spine-energy-glow, rgba(74, 222, 128, 0.48)));
   }
   .bento-sub-stack-item.is-elbow-lit::after {
-    height: 2.8px; background: #4ade80 !important; opacity: 1;
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.85);
+    height: 2.8px; background: var(--elbow-energy, #4ade80) !important; opacity: 1;
+    box-shadow: 0 0 8px var(--elbow-energy-glow, rgba(74, 222, 128, 0.85));
   }
 
   /* Step 3: Destination Target Card (~55% Luminous Wash + Pure White Title + Glow Rim + Beacon Pill) */
@@ -410,10 +445,15 @@
   .intel-target-pill {
     display: inline-flex; align-items: center; justify-content: center; gap: 4px;
     font-family: monospace; font-size: 9.2px; font-weight: 900; letter-spacing: 0.45px;
-    color: #fef08a; background: rgba(5, 8, 13, 0.88);
-    border: 1px solid rgba(250, 204, 21, 0.88); border-radius: 999px;
+    color: #bbf7d0; background: rgba(4, 14, 10, 0.9);
+    border: 1px solid rgba(74, 222, 128, 0.92); border-radius: 999px;
     padding: 2px 8px; text-transform: uppercase; white-space: nowrap; margin-top: 2px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.78), 0 0 10px rgba(250, 204, 21, 0.22);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.78), 0 0 10px rgba(74, 222, 128, 0.28);
+  }
+  .intel-target-pill.is-updated-target {
+    color: #fde68a; background: rgba(16, 10, 3, 0.92);
+    border-color: rgba(251, 191, 36, 0.94);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.78), 0 0 10px rgba(251, 191, 36, 0.3);
   }
   .vault-ov-item.is-unread-vault-item {
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.28) 0%, rgba(30, 41, 59, 0.96) 100%) !important;
@@ -421,15 +461,27 @@
     border-left: 3px solid #4ade80 !important;
     box-shadow: 0 0 10px rgba(74, 222, 128, 0.18);
   }
+  .vault-ov-item.is-unread-vault-item.is-updated-vault-item {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.28) 0%, rgba(30, 41, 59, 0.96) 100%) !important;
+    border-color: rgba(251, 191, 36, 0.85) !important;
+    border-left: 3px solid #fbbf24 !important;
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+  }
   .vault-ov-new-tag {
     font-family: monospace; font-size: 8.5px; font-weight: 900;
     color: #052e16; background: #4ade80; border-radius: 3px;
     padding: 1px 4px; letter-spacing: 0.35px; flex-shrink: 0; text-transform: uppercase;
   }
+  .vault-ov-new-tag.is-updated-ov-tag {
+    color: #3b1602; background: #fbbf24;
+  }
 
   @media (max-width: 1150px) {
     .bento-links-grid.tab-unit-grid { grid-template-columns: repeat(var(--slot-count-md, 3), calc((100% - 16px) / 3)); column-gap: 8px; }
     .bento-links-grid.tab-unit-grid.has-tab-gap-md { column-gap: calc((100% - 16px) / 3); }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { --vault-u: calc((100% - 20px) / 4.1); column-gap: calc(var(--vault-u) * 0.6); }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: var(--vault-u); flex: 0 0 var(--vault-u); }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(var(--vault-u) * 2.5); flex: 0 0 calc(var(--vault-u) * 2.5); }
   }
   @media (max-width: 680px) {
     .bento-links-grid.tab-unit-grid,
@@ -442,8 +494,15 @@
     .bento-sub-stack-item { margin-left: 16px; width: calc(100% - 16px); }
     .bento-sub-stack-item::before { left: -9px; top: -16px; bottom: -16px; }
     .bento-sub-stack-item:first-child::before { top: -28px; }
-    .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
+    .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
     .bento-sub-stack-item::after { left: -9px; width: 9px; }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-direction: column; gap: 24px; }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100%; flex: 1 1 auto; }
+    .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 100%; }
+    .vault-bridged-sub-stage { flex-direction: column; padding-top: 28px; gap: 16px; }
+    .vault-sub-col.is-col-1,
+    .vault-sub-col.is-col-2 { margin-left: 16px; width: calc(100% - 16px); flex: 1 1 auto; gap: 16px; margin-top: 0; }
   }
   @media (max-width: 480px) {
     .bento-links-grid,
@@ -465,8 +524,15 @@
   html[data-wtr-view="mobile"] .bento-sub-stack-item { margin-left: 16px !important; width: calc(100% - 16px) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::before { left: -9px !important; top: -16px !important; bottom: -16px !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item:first-child::before { top: -28px !important; }
-  html[data-wtr-view="mobile"] .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, #4ade80 0%, #4ade80 calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
+  html[data-wtr-view="mobile"] .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::after { left: -9px !important; width: 9px !important; }
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex !important; flex-direction: column !important; gap: 24px !important; }
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100% !important; flex: 1 1 auto !important; }
+  html[data-wtr-view="mobile"] .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 100% !important; }
+  html[data-wtr-view="mobile"] .vault-bridged-sub-stage { flex-direction: column !important; padding-top: 28px !important; gap: 16px !important; }
+  html[data-wtr-view="mobile"] .vault-sub-col.is-col-1,
+  html[data-wtr-view="mobile"] .vault-sub-col.is-col-2 { margin-left: 16px !important; width: calc(100% - 16px) !important; flex: 1 1 auto !important; gap: 16px !important; margin-top: 0 !important; }
 
   /* Horizontal Event Lineup Row under Calendar + Dynamic Schematic Conduits (Tab 4: EVENT BRIEFS — Exact Top-Tab Width Match) */
   .opbriefs-schematic-stage { position: relative; width: 100%; display: flex; flex-direction: column; gap: 0; }
@@ -1327,9 +1393,10 @@
     }
     const btnIdx = MENU_SECTION_KEYS.indexOf(activeCommandKey);
     const activeBtn = document.getElementById(`btnUtil${btnIdx + 1}`);
-    if (!activeBtn || window.innerWidth <= 768) {
+    if (!activeBtn || window.innerWidth <= 768 || document.documentElement.getAttribute("data-wtr-view") === "mobile") {
       svg.style.display = "none";
       if (activeCommandKey === "opBriefs" && typeof updateOpBriefsConduitLines === "function") updateOpBriefsConduitLines();
+      if (activeCommandKey === "wtrArchives" && typeof updateVaultBridgedSubConduits === "function") updateVaultBridgedSubConduits();
       return;
     }
     svg.style.display = "block";
@@ -1344,37 +1411,49 @@
     let firstRowTargets = [];
     if (activeCommandKey === "opBriefs") {
       const calCard = document.getElementById("opBriefsCalendarCard");
-      const opHasIntel = (typeof countDivisionUnreadIntel === "function") ? (countDivisionUnreadIntel("opBriefs") > 0) : false;
+      const opBd = (typeof getDivisionUnreadBreakdown === "function")
+        ? getDivisionUnreadBreakdown("opBriefs")
+        : { total: 0, mode: "" };
       if (calCard) {
         const cr = calCard.getBoundingClientRect();
-        if (cr.width > 0) firstRowTargets.push({ cx: (cr.left + cr.width / 2) - wrapRect.left, hasIntel: opHasIntel });
+        if (cr.width > 0) firstRowTargets.push({ cx: (cr.left + cr.width / 2) - wrapRect.left, hasIntel: opBd.total > 0, intelMode: opBd.mode });
       }
     } else if (gridEl) {
       const topStacks = Array.from(gridEl.querySelectorAll(":scope > .bento-group-stack, :scope > .bento-module-card"));
-      const items = topStacks.map(el => ({
-        el,
-        rect: el.getBoundingClientRect(),
-        hasIntel: el.getAttribute("data-has-intel") === "1"
-      })).filter(it => it.rect.width > 0);
+      const items = topStacks.map(el => {
+        const headEl = el.matches(".bento-module-card")
+          ? el
+          : (el.querySelector(":scope > .bento-cat-col-cap, :scope > .bento-module-card") || el);
+        return {
+          el,
+          rect: headEl.getBoundingClientRect(),
+          hasIntel: el.getAttribute("data-has-intel") === "1",
+          intelMode: el.getAttribute("data-intel-mode") || "new"
+        };
+      }).filter(it => it.rect.width > 0);
       if (items.length > 0) {
         const minTop = Math.min(...items.map(it => it.rect.top));
         const firstRow = items.filter(it => Math.abs(it.rect.top - minTop) < 16);
         firstRowTargets = firstRow.map(it => ({
           cx: (it.rect.left + it.rect.width / 2) - wrapRect.left,
-          hasIntel: it.hasIntel
+          hasIntel: it.hasIntel,
+          intelMode: it.intelMode
         }));
       }
     }
     if (firstRowTargets.length === 0) {
-      const anyUnread = (typeof countDivisionUnreadIntel === "function") ? (countDivisionUnreadIntel(activeCommandKey) > 0) : false;
-      firstRowTargets = [{ cx: wrapRect.width / 2, hasIntel: anyUnread }];
+      const divBd = (typeof getDivisionUnreadBreakdown === "function")
+        ? getDivisionUnreadBreakdown(activeCommandKey)
+        : { total: 0, mode: "" };
+      firstRowTargets = [{ cx: wrapRect.width / 2, hasIntel: divBd.total > 0, intelMode: divBd.mode }];
     }
 
     const targetCenters = firstRowTargets.map(t => t.cx);
     const litTargets = firstRowTargets.filter(t => t.hasIntel);
     const hasLitBranch = litTargets.length > 0;
     const baseOpacity = hasLitBranch ? "0.48" : "1";
-    const energyHex = "#4ade80";
+    const anyNewLit = litTargets.some(t => t.intelMode !== "updated");
+    const rootEnergyHex = anyNewLit ? "#4ade80" : "#fbbf24";
 
     svg.setAttribute("viewBox", `0 0 ${wrapRect.width} ${h}`);
     const allX = [startX, ...targetCenters];
@@ -1385,38 +1464,46 @@
     if (maxX - minX > 1) {
       parts.push(`<line x1="${minX.toFixed(1)}" y1="${midY}" x2="${maxX.toFixed(1)}" y2="${midY}" stroke="${tabColor}" stroke-opacity="${baseOpacity}" stroke-width="2.5" stroke-linecap="round" />`);
     }
-    parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="3.5" fill="${hasLitBranch ? energyHex : tabColor}" />`);
+    parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="3.5" fill="${hasLitBranch ? rootEnergyHex : tabColor}" />`);
     if (targetCenters.length > 1) {
-      parts.push(`<circle cx="${startX.toFixed(1)}" cy="${midY}" r="2.7" fill="${hasLitBranch ? energyHex : tabColor}" />`);
+      parts.push(`<circle cx="${startX.toFixed(1)}" cy="${midY}" r="2.7" fill="${hasLitBranch ? rootEnergyHex : tabColor}" />`);
     }
     firstRowTargets.forEach(t => {
       const tx = t.cx;
+      const tHex = t.intelMode === "updated" ? "#fbbf24" : "#4ade80";
       parts.push(`<line x1="${tx.toFixed(1)}" y1="${midY}" x2="${tx.toFixed(1)}" y2="${h}" stroke="${tabColor}" stroke-opacity="${baseOpacity}" stroke-width="2.4" stroke-linecap="round" />`);
       if (targetCenters.length > 1) {
-        parts.push(`<circle cx="${tx.toFixed(1)}" cy="${midY}" r="2.6" fill="${t.hasIntel ? energyHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
+        parts.push(`<circle cx="${tx.toFixed(1)}" cy="${midY}" r="2.6" fill="${t.hasIntel ? tHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
       }
-      parts.push(`<circle cx="${tx.toFixed(1)}" cy="${h - 2}" r="3.4" fill="${t.hasIntel ? energyHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
+      parts.push(`<circle cx="${tx.toFixed(1)}" cy="${h - 2}" r="3.4" fill="${t.hasIntel ? tHex : tabColor}" opacity="${t.hasIntel ? '1' : baseOpacity}" />`);
     });
 
     if (hasLitBranch) {
       litTargets.forEach(lt => {
+        const ltHex = lt.intelMode === "updated" ? "#fbbf24" : "#4ade80";
         const pathD = Math.abs(lt.cx - startX) > 1
           ? `M ${startX.toFixed(1)} 0 L ${startX.toFixed(1)} ${midY} L ${lt.cx.toFixed(1)} ${midY} L ${lt.cx.toFixed(1)} ${h}`
           : `M ${startX.toFixed(1)} 0 L ${lt.cx.toFixed(1)} ${h}`;
-        parts.push(`<path d="${pathD}" fill="none" stroke="${energyHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
+        parts.push(`<path d="${pathD}" fill="none" stroke="${ltHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
         parts.push(`<path class="conduit-energy-pulse" d="${pathD}" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-opacity="0.92" stroke-linecap="round" stroke-linejoin="round" />`);
-        parts.push(`<circle cx="${lt.cx.toFixed(1)}" cy="${h - 2}" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+        parts.push(`<circle cx="${lt.cx.toFixed(1)}" cy="${h - 2}" r="4" fill="${ltHex}" stroke="#ffffff" stroke-width="1" />`);
       });
-      parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+      parts.push(`<circle cx="${startX.toFixed(1)}" cy="3" r="4" fill="${rootEnergyHex}" stroke="#ffffff" stroke-width="1" />`);
     }
     svg.innerHTML = parts.join("");
 
     if (activeCommandKey === "opBriefs" && typeof updateOpBriefsConduitLines === "function") updateOpBriefsConduitLines();
+    if (activeCommandKey === "wtrArchives" && typeof updateVaultBridgedSubConduits === "function") updateVaultBridgedSubConduits();
   }
 
   window.addEventListener("resize", () => {
     if (activeCommandKey && activeCommandKey !== "FILTER") updateTabToCenterConduitLine();
     if (typeof slideTimers === "function") slideTimers(0);
+  });
+  window.addEventListener("wtr:viewmodechange", () => {
+    requestAnimationFrame(() => {
+      if (activeCommandKey && activeCommandKey !== "FILTER") updateTabToCenterConduitLine();
+    });
   });
 
   const eventSchedules = {
@@ -1875,6 +1962,7 @@
   .bento-Quick-btn.intel-flag-btn { color: #94a3b8; border-color: rgba(148, 163, 184, 0.4); font-size: 13px; }
   .bento-Quick-btn.intel-flag-btn:hover { background: #4ade80; color: #052e16; border-color: #ffffff; }
   .bento-Quick-btn.intel-flag-btn.active-intel { background: rgba(74, 222, 128, 0.22); color: #4ade80; border-color: #4ade80; box-shadow: 0 0 8px rgba(74, 222, 128, 0.4); }
+  .bento-Quick-btn.intel-flag-btn.active-updated { background: rgba(251, 191, 36, 0.24); color: #fbbf24; border-color: #fbbf24; box-shadow: 0 0 8px rgba(251, 191, 36, 0.42); }
   .card-intel-beacon-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
     background: rgba(10, 22, 18, 0.72); border: 1px solid rgba(74, 222, 128, 0.32);
@@ -1888,6 +1976,7 @@
   }
   .intel-beacon-opt-btn:hover { border-color: #ffffff; color: #ffffff; background: #172638; }
   .intel-beacon-opt-btn.active-opt { background: rgba(74, 222, 128, 0.22); border-color: #4ade80; color: #86efac; box-shadow: 0 0 8px rgba(74, 222, 128, 0.25); }
+  .intel-beacon-opt-btn.active-updated-opt { background: rgba(251, 191, 36, 0.22); border-color: #fbbf24; color: #fde68a; box-shadow: 0 0 8px rgba(251, 191, 36, 0.28); }
   #adminCardEditorList { grid-template-columns: 1fr !important; max-width: 920px; }
 </style>
 <script>
@@ -2350,15 +2439,86 @@
     }
   }
 
-  function countDivisionUnreadIntel(secKey) {
+  function isUpdatedIntelSignal(sig) {
+    return Boolean(sig && /UPDATED|\bUPD\b/i.test(String(sig.tag || "")));
+  }
+
+  function summarizeUnreadSignalLists(signalLists) {
+    let newCnt = 0;
+    let updCnt = 0;
+    (signalLists || []).forEach(sigs => {
+      if (!Array.isArray(sigs) || sigs.length === 0) return;
+      if (isUpdatedIntelSignal(sigs[0])) updCnt++;
+      else newCnt++;
+    });
+    const total = newCnt + updCnt;
+    const mode = total === 0 ? "" : (newCnt > 0 && updCnt > 0 ? "mixed" : (updCnt > 0 ? "updated" : "new"));
+    return { total, newCnt, updCnt, mode };
+  }
+
+  function getDivisionUnreadBreakdown(secKey) {
     const cards = workspaceCardsState[secKey]?.cards || [];
-    let count = 0;
+    const lists = [];
     cards.forEach(c => {
-      if (c && c.enabled !== false && getCardUnreadSignals(c, secKey).length > 0) {
-        count++;
+      if (c && c.enabled !== false) {
+        const sigs = getCardUnreadSignals(c, secKey);
+        if (sigs.length > 0) lists.push(sigs);
       }
     });
-    return count;
+    return summarizeUnreadSignalLists(lists);
+  }
+
+  function countDivisionUnreadIntel(secKey) {
+    return getDivisionUnreadBreakdown(secKey).total;
+  }
+
+  function renderDivisionIntelPipsHtml(bd) {
+    if (!bd || bd.total <= 0) return "";
+    if (bd.newCnt > 0 && bd.updCnt > 0) {
+      return `<span class="intel-trail-pip">⚡ ${bd.newCnt} NEW</span><span class="intel-trail-pip is-updated-pip">🔄 ${bd.updCnt} UPD</span>`;
+    }
+    if (bd.updCnt > 0) {
+      return `<span class="intel-trail-pip is-updated-pip">🔄 ${bd.updCnt} UPDATED</span>`;
+    }
+    return `<span class="intel-trail-pip">⚡ ${bd.newCnt} NEW</span>`;
+  }
+
+  function renderCapIntelPipsHtml(bd) {
+    if (!bd || bd.total <= 0) return "";
+    if (bd.newCnt > 0 && bd.updCnt > 0) {
+      return `<span class="intel-trail-pip" style="margin-left:4px;">⚡ ${bd.newCnt}</span><span class="intel-trail-pip is-updated-pip" style="margin-left:3px;">🔄 ${bd.updCnt}</span>`;
+    }
+    if (bd.updCnt > 0) {
+      return `<span class="intel-trail-pip is-updated-pip" style="margin-left:4px;">🔄 ${bd.updCnt} UPD</span>`;
+    }
+    return `<span class="intel-trail-pip" style="margin-left:4px;">⚡ ${bd.newCnt} NEW</span>`;
+  }
+
+  function renderMidIntelPillHtml(bd, asSpan = false, extraStyle = "", compact = false) {
+    if (!bd || bd.total <= 0) return "";
+    const tag = asSpan ? "span" : "div";
+    const styleAttr = extraStyle ? ` style="${extraStyle}"` : "";
+    const isUpdOnly = bd.mode === "updated";
+    const cls = `intel-mid-pill${isUpdOnly ? " is-updated-mid" : ""}`;
+    let txt = "";
+    if (compact) {
+      txt = isUpdOnly ? "↳ 🔄 UPDATED BELOW" : (bd.mode === "mixed" ? "↳ ⚡ NEW / UPD BELOW" : "↳ ⚡ NEW BELOW");
+    } else if (bd.newCnt > 0 && bd.updCnt > 0) {
+      txt = `↳ ⚡ ${bd.newCnt} NEW • 🔄 ${bd.updCnt} UPD BELOW`;
+    } else if (isUpdOnly) {
+      txt = `↳ 🔄 ${bd.updCnt} UPDATED BELOW`;
+    } else {
+      txt = `↳ ⚡ ${bd.newCnt} NEW BELOW`;
+    }
+    return `<${tag} class="${cls}"${styleAttr}>${txt}</${tag}>`;
+  }
+
+  function renderTargetIntelPillHtml(sig, asSpan = false, extraStyle = "") {
+    if (!sig) return "";
+    const tag = asSpan ? "span" : "div";
+    const styleAttr = extraStyle ? ` style="${extraStyle}"` : "";
+    const cls = `intel-target-pill${isUpdatedIntelSignal(sig) ? " is-updated-target" : ""}`;
+    return `<${tag} class="${cls}"${styleAttr}>${escapeHtml(sig.tag)}</${tag}>`;
   }
 
   function buildCardTrailStyleVars(accentHex, role) {
@@ -2394,7 +2554,8 @@
         saveIntelSeenMap(seen);
       }
       if (typeof showMasterToastBanner === "function") {
-        showMasterToastBanner(`⚡ INTEL TRAIL ARMED: "${card.title}" → ${cleanTag}`, "#4ade80");
+        const isUpd = /UPDATED|\bUPD\b/i.test(cleanTag);
+        showMasterToastBanner(`${isUpd ? "🔄" : "⚡"} INTEL TRAIL ARMED: "${card.title}" → ${cleanTag}`, isUpd ? "#fbbf24" : "#4ade80");
       }
     }
 
@@ -2428,10 +2589,13 @@
     const now = Date.now();
     const isArmed = cardObj && Number(cardObj.intelStamp) > 0 && (now - Number(cardObj.intelStamp)) <= WTR_MANUAL_TRAIL_TTL_MS;
     const curTag = isArmed ? String(cardObj.intelTag || "✨ NEW INTEL") : "";
+    const isUpd = isArmed && /UPDATED|\bUPD\b/i.test(curTag);
     const tip = isArmed
-      ? `Active Trail: ${curTag} (Click to cycle: NEW → UPDATED → Off)`
-      : `Flag Module with Energized Intel Trail (Click: ✨ NEW INTEL → 🔄 UPDATED → Off)`;
-    return `<button type="button" class="bento-Quick-btn intel-flag-btn${isArmed ? ' active-intel' : ''}" title="${escapeHtml(tip)}" onclick="cycleCardIntelFlag('${secKey}', ${cardIdx}, event)">⚡</button>`;
+      ? `Active Notice: ${curTag} (Click to cycle: NEW → UPDATED → Off)`
+      : `Flag Module Notice Trail (Click: ✨ NEW INTEL → 🔄 UPDATED → Off)`;
+    const stateCls = isArmed ? (isUpd ? " active-updated" : " active-intel") : "";
+    const ico = isUpd ? "🔄" : "⚡";
+    return `<button type="button" class="bento-Quick-btn intel-flag-btn${stateCls}" title="${escapeHtml(tip)}" onclick="cycleCardIntelFlag('${secKey}', ${cardIdx}, event)">${ico}</button>`;
   }
 
   function updateMenuButtonModuleCounts() {
@@ -2440,7 +2604,8 @@
       const btnEl = document.getElementById(`btnUtil${idx + 1}`);
       const cards = workspaceCardsState[secKey]?.cards || [];
       const activeMainCount = cards.filter(c => c.enabled !== false && !c.isSubPage).length;
-      const unreadCnt = countDivisionUnreadIntel(secKey);
+      const bd = getDivisionUnreadBreakdown(secKey);
+      const unreadCnt = bd.total;
       const tabHex = getSectionHexColor(secKey);
 
       if (btnEl) {
@@ -2464,7 +2629,7 @@
       if (countEl) {
         if (unreadCnt > 0) {
           const shortLbl = `${activeMainCount} ${activeMainCount === 1 ? 'MOD' : 'MODS'}`;
-          countEl.innerHTML = `<span>${shortLbl}</span><span class="intel-trail-pip">⚡ ${unreadCnt} NEW</span>`;
+          countEl.innerHTML = `<span>${shortLbl}</span>${renderDivisionIntelPipsHtml(bd)}`;
         } else {
           countEl.textContent = `${activeMainCount} ${activeMainCount === 1 ? 'MODULE' : 'MODULES'}`;
         }
@@ -2870,7 +3035,7 @@
     document.querySelectorAll(".brief-btn").forEach(b => b.classList.remove("active-tab"));
     if (svg) svg.style.display = "none";
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid");
     gridEl.classList.add("filter-mode-grid", "tab-unit-grid");
 
     const catColor = (selectedCat !== "ALL" && SYMBOL_CATALOG[selectedCat]?.color) ? SYMBOL_CATALOG[selectedCat].color : "var(--text-gold)";
@@ -2927,7 +3092,7 @@
                   </div>
                   <div class="bento-v-body">
                     <div class="bento-v-title" style="color: ${itemTextColor};">${escapeHtml(item.title)}</div>
-                    ${isTarget ? `<div class="intel-target-pill">${escapeHtml(itemUnread[0].tag)}</div>` : ''}
+                    ${isTarget ? renderTargetIntelPillHtml(itemUnread[0]) : ''}
                     <div class="bento-v-sub">${escapeHtml(item.divTitle)}${item.isSubPage ? ' • SUB' : ''}</div>
                   </div>
                   <div class="bento-v-foot">${renderSymBadgeHtml(item.symKey)}</div>
@@ -3093,6 +3258,7 @@
         colIdx: el.getAttribute("data-col-idx") || "",
         isLive: el.getAttribute("data-is-live") === "1",
         hasIntel: el.getAttribute("data-has-intel") === "1",
+        intelMode: el.getAttribute("data-intel-mode") || "new",
         coveredByLiveSpan: el.getAttribute("data-live-spanned") === "1",
         accent: el.getAttribute("data-ev-accent") || busColor,
         cx: (r.left + r.width / 2) - sr.left,
@@ -3103,15 +3269,16 @@
       };
     });
 
-    const energyHex = "#4ade80";
+    const energyHex = cardMetrics.some(cm => cm.hasIntel && cm.intelMode !== "updated") ? "#4ade80" : "#fbbf24";
     const energyFlows = [];
-    const addEnergyPath = (xStart, yStart, yBus, xEnd, yEnd) => {
+    const addEnergyPath = (xStart, yStart, yBus, xEnd, yEnd, mode = "new") => {
+      const eHex = mode === "updated" ? "#fbbf24" : "#4ade80";
       const d = Math.abs(xEnd - xStart) > 1
         ? `M ${xStart.toFixed(1)} ${yStart.toFixed(1)} L ${xStart.toFixed(1)} ${yBus.toFixed(1)} L ${xEnd.toFixed(1)} ${yBus.toFixed(1)} L ${xEnd.toFixed(1)} ${yEnd.toFixed(1)}`
         : `M ${xStart.toFixed(1)} ${yStart.toFixed(1)} L ${xEnd.toFixed(1)} ${yEnd.toFixed(1)}`;
-      energyFlows.push(`<path d="${d}" fill="none" stroke="${energyHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
+      energyFlows.push(`<path d="${d}" fill="none" stroke="${eHex}" stroke-width="3" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round" />`);
       energyFlows.push(`<path class="conduit-energy-pulse" d="${d}" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-opacity="0.92" stroke-linecap="round" stroke-linejoin="round" />`);
-      energyFlows.push(`<circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="4" fill="${energyHex}" stroke="#ffffff" stroke-width="1" />`);
+      energyFlows.push(`<circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="4" fill="${eHex}" stroke="#ffffff" stroke-width="1" />`);
     };
 
     if (calCard && cardMetrics.length > 0) {
@@ -3142,8 +3309,10 @@
           addLine(liveCx, busY, liveCx, liveTop, liveHex, 2.5, 0.96);
           addNode(liveCx, busY, 2.8, liveHex);
           addNode(liveCx, liveTop, 3.6, liveHex);
-          if (cardMetrics.some(cm => cm.coveredByLiveSpan && cm.hasIntel)) {
-            addEnergyPath(calCx, calBottom, busY, liveCx, liveTop);
+          const liveLit = cardMetrics.filter(cm => cm.coveredByLiveSpan && cm.hasIntel);
+          if (liveLit.length > 0) {
+            const liveMode = liveLit.some(cm => cm.intelMode !== "updated") ? "new" : "updated";
+            addEnergyPath(calCx, calBottom, busY, liveCx, liveTop, liveMode);
           }
         }
 
@@ -3155,13 +3324,13 @@
             addLine(cCx, busY, cCx, cTop, busColor, 2.3, 0.9);
             addNode(cCx, busY, 2.7, busColor);
             addNode(cCx, cTop, 3.5, cm.accent);
-            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cCx, cTop);
+            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cCx, cTop, cm.intelMode);
           } else {
             busStopsX.push(cm.cx);
             addLine(cm.cx, busY, cm.cx, cm.top, busColor, 2.2, 0.88);
             addNode(cm.cx, busY, 2.7, busColor);
             addNode(cm.cx, cm.top, 3.5, cm.accent);
-            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cm.cx, cm.top);
+            if (cm.hasIntel) addEnergyPath(calCx, calBottom, busY, cm.cx, cm.top, cm.intelMode);
           }
         });
 
@@ -3184,7 +3353,7 @@
           addLine(fc.cx, midY, fc.cx, fc.visualTop, fc.isLive ? liveHex : busColor, 2.5, 0.95);
           addNode(calCx, calBottom, 3.6, goldHex);
           addNode(fc.cx, fc.visualTop, 3.6, fc.isLive ? liveHex : fc.accent);
-          if (fc.hasIntel) addEnergyPath(calCx, calBottom, midY, fc.cx, fc.visualTop);
+          if (fc.hasIntel) addEnergyPath(calCx, calBottom, midY, fc.cx, fc.visualTop, fc.intelMode);
         } else {
           const minRowTop = Math.min(...firstRowCards.map(c => c.visualTop));
           const busY = calBottom + Math.max(9, (minRowTop - calBottom) * 0.5);
@@ -3198,7 +3367,7 @@
             addLine(fc.cx, busY, fc.cx, fc.visualTop, dropHex, 2.2, 0.9);
             addNode(fc.cx, busY, 2.6, dropHex);
             addNode(fc.cx, fc.visualTop, 3.5, fc.isLive ? liveHex : fc.accent);
-            if (fc.hasIntel) addEnergyPath(calCx, calBottom, busY, fc.cx, fc.visualTop);
+            if (fc.hasIntel) addEnergyPath(calCx, calBottom, busY, fc.cx, fc.visualTop, fc.intelMode);
           });
         }
       }
@@ -3210,11 +3379,17 @@
   function renderOpBriefsHorizontalLineup(sortedGroups, parentColor, isMasterStudio) {
     const calGroup = sortedGroups.find(g => g.parent && (g.parent.isPinnedCalendar || String(g.parent.url || "").toLowerCase().includes("2026-calendar.html")));
     const eventGroups = sortedGroups.filter(g => g !== calGroup);
-    const unreadEventsBelowCnt = eventGroups.reduce((acc, g) => {
-      const pUn = getCardUnreadSignals(g.parent, "opBriefs").length > 0 ? 1 : 0;
-      const cUn = (g.children || []).filter(ch => getCardUnreadSignals(ch, "opBriefs").length > 0).length;
-      return acc + pUn + cUn;
-    }, 0);
+    const belowSigLists = [];
+    eventGroups.forEach(g => {
+      const pSigs = getCardUnreadSignals(g.parent, "opBriefs");
+      if (pSigs.length > 0) belowSigLists.push(pSigs);
+      (g.children || []).forEach(ch => {
+        const cSigs = getCardUnreadSignals(ch, "opBriefs");
+        if (cSigs.length > 0) belowSigLists.push(cSigs);
+      });
+    });
+    const belowEventsBd = summarizeUnreadSignalLists(belowSigLists);
+    const unreadEventsBelowCnt = belowEventsBd.total;
     let html = `<div class="opbriefs-schematic-stage" id="opBriefsSchematicStage"><svg id="opBriefsConduitSvg" class="opbriefs-conduit-svg" preserveAspectRatio="none" aria-hidden="true"></svg>`;
 
     if (calGroup) {
@@ -3228,8 +3403,8 @@
         ? buildCardTrailStyleVars("#e2c547", "target")
         : (cpIsMid ? buildCardTrailStyleVars(parentColor, "mid") : "");
       const cpBeaconPill = cpIsTarget
-        ? `<span class="intel-target-pill" style="margin-left:8px;">${escapeHtml(cpUnread[0].tag)}</span>`
-        : (cpIsMid ? `<span class="intel-mid-pill" style="margin-left:8px;">↳ ⚡ ${unreadEventsBelowCnt} NEW BELOW</span>` : "");
+        ? renderTargetIntelPillHtml(cpUnread[0], true, "margin-left:8px;")
+        : (cpIsMid ? renderMidIntelPillHtml(belowEventsBd, true, "margin-left:8px;") : "");
       const calStudioHtml = isMasterStudio ? `
         <div class="bento-Order-dock" onclick="event.stopPropagation();">
           ${renderAdminIntelQuickBtnHtml('opBriefs', cp.origIdx, cp)}
@@ -3295,10 +3470,13 @@
       const evAccent = getOpBriefEventAccent(evCat, parentColor);
       const clockState = getOpBriefOverheadClockState(evCat, nowMs);
       const pUnread = getCardUnreadSignals(p, "opBriefs");
-      const childUnreadCnt = (grp.children || []).filter(ch => getCardUnreadSignals(ch, "opBriefs").length > 0).length;
+      const childUnreadSigs = (grp.children || []).map(ch => getCardUnreadSignals(ch, "opBriefs")).filter(s => s.length > 0);
+      const childBd = summarizeUnreadSignalLists(childUnreadSigs);
+      const childUnreadCnt = childBd.total;
       const pIsTarget = pUnread.length > 0;
       const pIsMid = !pIsTarget && childUnreadCnt > 0;
       const pHasAnyIntel = pIsTarget || pIsMid;
+      const pBranchBd = summarizeUnreadSignalLists([...(pIsTarget ? [pUnread] : []), ...childUnreadSigs]);
       const pTrailStyle = pIsTarget
         ? buildCardTrailStyleVars(evAccent, "target")
         : (pIsMid ? buildCardTrailStyleVars(evAccent, "mid") : "");
@@ -3363,7 +3541,7 @@
           calcDockHtml += `
             <button type="button" class="opbriefs-calc-btn bento-sub-btn${chIsTarget ? ' is-intel-target' : ''}" style="${chTrailStyle}" title="Open In-Page Viewport: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('opBriefs', ${ch.origIdx})">
               <span class="opbriefs-calc-title">${btnTitleHtml}</span>
-              ${chIsTarget ? `<span class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</span>` : ""}
+              ${chIsTarget ? renderTargetIntelPillHtml(chUnread[0], true) : ""}
               <span class="opbriefs-calc-sub">${btnSub}</span>
             </button>
           `;
@@ -3374,7 +3552,7 @@
       html += `
         <div class="opbriefs-col-unit">
           ${coveredByLiveSpan ? `<div class="opbriefs-mobile-live-cap"><span class="opbriefs-live-dot"></span><span>LIVE NOW</span></div>` : overheadClockHtml}
-          <div class="opbriefs-event-card ${cardStateCls}" data-col-idx="${colIdx}" data-ev-cat="${escapeHtml(evCat)}" data-is-live="${isLiveNow ? '1' : '0'}" data-has-intel="${pHasAnyIntel ? '1' : '0'}" data-live-spanned="${coveredByLiveSpan ? '1' : '0'}" data-ev-accent="${evAccent}" style="grid-column: ${colIdx}; grid-row: 2; --ev-accent: ${evAccent}; ${pTrailStyle}">
+          <div class="opbriefs-event-card ${cardStateCls}" data-col-idx="${colIdx}" data-ev-cat="${escapeHtml(evCat)}" data-is-live="${isLiveNow ? '1' : '0'}" data-has-intel="${pHasAnyIntel ? '1' : '0'}" data-intel-mode="${pBranchBd.mode || 'new'}" data-live-spanned="${coveredByLiveSpan ? '1' : '0'}" data-ev-accent="${evAccent}" style="grid-column: ${colIdx}; grid-row: 2; --ev-accent: ${evAccent}; ${pTrailStyle}">
             <button type="button" class="opbriefs-event-btn bento-sub-btn" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Brief'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('opBriefs', ${p.origIdx})">
               <div class="opbriefs-card-top">
                 <span class="opbriefs-rank-pill">${rankNum}</span>
@@ -3382,7 +3560,7 @@
               </div>
               <div class="opbriefs-card-body">
                 <div class="opbriefs-event-name">${stackedNameHtml}</div>
-                ${pIsTarget ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>` : (pIsMid ? `<div class="intel-mid-pill">↳ NEW BELOW</div>` : "")}
+                ${pIsTarget ? renderTargetIntelPillHtml(pUnread[0]) : (pIsMid ? renderMidIntelPillHtml(childBd, false, "", true) : "")}
               </div>
               <div class="opbriefs-card-foot">
                 ${compactSched ? `<div class="opbriefs-sched-chip ${schedCls}">${escapeHtml(compactSched)}</div>` : ""}
@@ -3486,16 +3664,17 @@
             ? "#38b2a6"
             : getOpBriefEventAccent(ev.category, "#a78bfa");
           const vSig = getVaultItemUnreadSignal(ev, allVault);
+          const vIsUpd = isUpdatedIntelSignal(vSig);
           const unreadAttrs = vSig
             ? ` data-intel-key="${escapeHtml(vSig.key)}" data-intel-stamp="${escapeHtml(vSig.stamp)}"`
             : "";
           return `
-            <button type="button" class="vault-ov-item${vSig ? ' is-unread-vault-item' : ''}" style="--ov-accent: ${evAccent};" data-vault-url="${escapeHtml(ev.url)}" data-vault-title="${escapeHtml(ev.title)}"${unreadAttrs} onclick="openVaultQuickItem(this, event)">
+            <button type="button" class="vault-ov-item${vSig ? ' is-unread-vault-item' : ''}${vIsUpd ? ' is-updated-vault-item' : ''}" style="--ov-accent: ${evAccent};" data-vault-url="${escapeHtml(ev.url)}" data-vault-title="${escapeHtml(ev.title)}"${unreadAttrs} onclick="openVaultQuickItem(this, event)">
               <span class="vault-ov-item-left">
                 <span class="vault-ov-date">${escapeHtml(dateTag)}</span>
                 <span class="vault-ov-name">${escapeHtml(shortName)}</span>
               </span>
-              ${vSig ? `<span class="vault-ov-new-tag">⚡ NEW</span>` : `<span class="vault-ov-arrow">↗</span>`}
+              ${vSig ? `<span class="vault-ov-new-tag${vIsUpd ? ' is-updated-ov-tag' : ''}">${vIsUpd ? '🔄 UPDATED' : '⚡ NEW'}</span>` : `<span class="vault-ov-arrow">↗</span>`}
             </button>
           `;
         }).join("")
@@ -3524,6 +3703,10 @@
     const childCnt = childrenArr.length;
     if (childCnt === 0) return "";
     const childUnreadList = childrenArr.map(ch => getCardUnreadSignals(ch, secKey));
+    const stackBd = summarizeUnreadSignalLists(childUnreadList.filter(s => s.length > 0));
+    const spineIsUpdOnly = stackBd.mode === "updated";
+    const spineHex = spineIsUpdOnly ? "#fbbf24" : "#4ade80";
+    const spineGlow = spineIsUpdOnly ? "rgba(251, 191, 36, 0.8)" : "rgba(74, 222, 128, 0.8)";
     let lastUnreadSubIdx = -1;
     childUnreadList.forEach((sigs, i) => { if (sigs.length > 0) lastUnreadSubIdx = i; });
 
@@ -3535,6 +3718,9 @@
       const chVaultOverlayHtml = renderVaultQuickOverlayHtml(ch, secKey, ch.origIdx);
       const chUnread = childUnreadList[chIdx];
       const chIsTarget = chUnread.length > 0;
+      const chIsUpd = chIsTarget && isUpdatedIntelSignal(chUnread[0]);
+      const elbowHex = chIsUpd ? "#fbbf24" : "#4ade80";
+      const elbowGlow = chIsUpd ? "rgba(251, 191, 36, 0.85)" : "rgba(74, 222, 128, 0.85)";
       const chTrailStyle = chIsTarget ? buildCardTrailStyleVars(chCatColor, "target") : "";
       const chHostCls = [
         chVaultOverlayHtml ? "vault-hover-host" : "",
@@ -3564,7 +3750,7 @@
         </div>
       ` : "";
       out += `
-        <div class="bento-sub-stack-item ${itemConduitCls}" style="--conduit-accent: ${parentColor}; --item-accent: ${chCatColor};">
+        <div class="bento-sub-stack-item ${itemConduitCls}" style="--conduit-accent: ${parentColor}; --item-accent: ${chCatColor}; --spine-energy: ${spineHex}; --spine-energy-glow: ${spineGlow}; --elbow-energy: ${elbowHex}; --elbow-energy-glow: ${elbowGlow};">
           <div class="bento-sub-card ${chHostCls}" style="--item-accent: ${chCatColor}; ${chTrailStyle}">
             <div class="bento-card-row-wrap">
               <button type="button" class="bento-v-btn" title="${chHasInline ? 'Open In-Page Viewport' : 'Open Sub-Module'}: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('${secKey}', ${ch.origIdx})">
@@ -3574,7 +3760,7 @@
                 </div>
                 <div class="bento-v-body">
                   <div class="bento-v-title" style="color: ${chCatColor};">${escapeHtml(ch.title)}</div>
-                  ${chIsTarget ? `<div class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</div>` : ""}
+                  ${chIsTarget ? renderTargetIntelPillHtml(chUnread[0]) : ""}
                   ${ch.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(ch.scheduleHint)}</div>` : (chVaultOverlayHtml ? `<div class="bento-v-sub vault-hover-hint">⚡ HOVER FOR RECENT • CLICK FOR ALL</div>` : '')}
                 </div>
                 <div class="bento-v-foot">${renderSymBadgeHtml(ch.symKey)}</div>
@@ -3590,12 +3776,215 @@
     return out;
   }
 
+  let vaultBridgedStageResizeObserver = null;
+
+  function attachVaultBridgedStageObserver() {
+    if (vaultBridgedStageResizeObserver) {
+      vaultBridgedStageResizeObserver.disconnect();
+      vaultBridgedStageResizeObserver = null;
+    }
+    const gridEl = document.getElementById("bentoLinksGrid");
+    if (!gridEl || typeof ResizeObserver === "undefined") return;
+    const stages = gridEl.querySelectorAll(".vault-bridged-sub-stage");
+    if (stages.length === 0) return;
+    vaultBridgedStageResizeObserver = new ResizeObserver(() => {
+      if (activeCommandKey === "wtrArchives") updateVaultBridgedSubConduits();
+    });
+    stages.forEach(st => vaultBridgedStageResizeObserver.observe(st));
+  }
+
+  function renderVaultBridgedSubColumnsHtml(childrenArr, numBadge, parentColor, isMasterStudio, secKey) {
+    const childCnt = childrenArr.length;
+    if (childCnt === 0) return "";
+    const splitIdx = Math.ceil(childCnt / 2);
+    const col1Items = childrenArr.slice(0, splitIdx);
+    const col2Items = childrenArr.slice(splitIdx);
+
+    const renderSubColItemHtml = (ch, chIdx) => {
+      const subBadge = `${numBadge}.${chIdx + 1}`;
+      const chHasInline = Boolean((ch.embedCode || "").trim() || ch.openInIframe);
+      const chCatColor = getCategorySpec(ch.symKey).color || parentColor;
+      const chVaultOverlayHtml = renderVaultQuickOverlayHtml(ch, secKey, ch.origIdx);
+      const chUnread = getCardUnreadSignals(ch, secKey);
+      const chIsTarget = chUnread.length > 0;
+      const chIsUpd = chIsTarget && isUpdatedIntelSignal(chUnread[0]);
+      const chTrailStyle = chIsTarget ? buildCardTrailStyleVars(chCatColor, "target") : "";
+      const chHostCls = [
+        chVaultOverlayHtml ? "vault-hover-host" : "",
+        chIsTarget ? "is-intel-target" : ""
+      ].filter(Boolean).join(" ");
+      const chCanUp = chIdx > 0;
+      const chCanDown = chIdx < childCnt - 1;
+      const subStudioControlsHtml = isMasterStudio ? `
+        <div class="bento-Order-dock" onclick="event.stopPropagation();">
+          <button type="button" class="bento-Quick-btn" ${!chCanUp ? 'disabled' : ''} title="Move Sub-Branch Up" onclick="moveWorkspaceCardPriority('${secKey}', ${ch.origIdx}, -1, event)">▲</button>
+          <button type="button" class="bento-Quick-btn" ${!chCanDown ? 'disabled' : ''} title="Move Sub-Branch Down" onclick="moveWorkspaceCardPriority('${secKey}', ${ch.origIdx}, 1, event)">▼</button>
+          <button type="button" class="bento-Quick-btn tier-btn" title="Promote to Standalone Main Module" onclick="toggleCardSubBranchOnBlock('${secKey}', ${ch.origIdx}, event)">📄 Main</button>
+          ${renderAdminIntelQuickBtnHtml(secKey, ch.origIdx, ch)}
+        </div>
+      ` : "";
+      return `
+        <div class="vault-sub-col-item" data-has-intel="${chIsTarget ? '1' : '0'}" data-intel-mode="${chIsUpd ? 'updated' : 'new'}" style="--item-accent: ${chCatColor};">
+          <div class="bento-sub-card ${chHostCls}" style="--item-accent: ${chCatColor}; ${chTrailStyle}">
+            <div class="bento-card-row-wrap">
+              <button type="button" class="bento-v-btn" title="${chHasInline ? 'Open In-Page Viewport' : 'Open Sub-Module'}: ${escapeHtml(ch.title)}" onclick="triggerModuleAction('${secKey}', ${ch.origIdx})">
+                <div class="bento-v-top">
+                  <span class="bento-v-rank">↳ ${subBadge}</span>
+                  <span class="bento-v-mode is-sub-tag"><span class="v-mode-ico">${chHasInline ? '🖥️' : '↗'}</span><span>${chHasInline ? 'SUB-VIEW' : 'SUB-LINK'}</span></span>
+                </div>
+                <div class="bento-v-body">
+                  <div class="bento-v-title" style="color: ${chCatColor};">${escapeHtml(ch.title)}</div>
+                  ${chIsTarget ? renderTargetIntelPillHtml(chUnread[0]) : ""}
+                  ${ch.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(ch.scheduleHint)}</div>` : (chVaultOverlayHtml ? `<div class="bento-v-sub vault-hover-hint">⚡ HOVER FOR RECENT • CLICK FOR ALL</div>` : '')}
+                </div>
+                <div class="bento-v-foot">${renderSymBadgeHtml(ch.symKey)}</div>
+              </button>
+              ${subStudioControlsHtml}
+            </div>
+            ${chVaultOverlayHtml}
+          </div>
+        </div>
+      `;
+    };
+
+    const col1Html = col1Items.map((ch, i) => renderSubColItemHtml(ch, i)).join("");
+    const col2Html = col2Items.map((ch, i) => renderSubColItemHtml(ch, splitIdx + i)).join("");
+
+    return `
+      <div class="vault-bridged-sub-stage" data-conduit-color="${parentColor}" style="--conduit-accent: ${parentColor}; --item-accent: ${parentColor};">
+        <svg class="vault-bridged-sub-svg" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="vault-sub-col is-col-1">${col1Html}</div>
+        <div class="vault-sub-col is-col-2">${col2Html}</div>
+      </div>
+    `;
+  }
+
+  function updateVaultBridgedSubConduits() {
+    const gridEl = document.getElementById("bentoLinksGrid");
+    if (!gridEl || activeCommandKey !== "wtrArchives") return;
+    const stages = gridEl.querySelectorAll(".vault-bridged-sub-stage");
+    stages.forEach(stage => {
+      const svg = stage.querySelector(".vault-bridged-sub-svg");
+      if (!svg) return;
+      const sr = stage.getBoundingClientRect();
+      if (sr.width < 10 || sr.height < 10) return;
+
+      svg.setAttribute("viewBox", `0 0 ${sr.width} ${sr.height}`);
+      const conduitHex = stage.getAttribute("data-conduit-color") || "#785dc8";
+
+      const measureCol = (sel) => Array.from(stage.querySelectorAll(`${sel} > .vault-sub-col-item`)).map(item => {
+        const card = item.querySelector(".bento-sub-card") || item;
+        const r = card.getBoundingClientRect();
+        return {
+          left: r.left - sr.left,
+          right: r.right - sr.left,
+          top: r.top - sr.top,
+          cy: (r.top + r.height / 2) - sr.top,
+          hasIntel: item.getAttribute("data-has-intel") === "1",
+          intelMode: item.getAttribute("data-intel-mode") || "new"
+        };
+      }).filter(m => m.right > m.left);
+
+      const c1 = measureCol(".is-col-1");
+      const c2 = measureCol(".is-col-2");
+      if (c1.length === 0) {
+        svg.innerHTML = "";
+        return;
+      }
+
+      const allItems = [...c1, ...c2];
+      const anyLit = allItems.some(m => m.hasIntel);
+      const baseOp = anyLit ? "0.52" : "0.92";
+
+      const lines = [];
+      const nodes = [];
+      const energyFlows = [];
+      const addLine = (x1, y1, x2, y2) => {
+        lines.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${conduitHex}" stroke-width="2.5" stroke-opacity="${baseOp}" stroke-linecap="round" />`);
+      };
+      const addNode = (cx, cy, r) => {
+        nodes.push(`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r}" fill="${conduitHex}" opacity="${baseOp}" stroke="#060a0f" stroke-width="1.1" />`);
+      };
+      const addEnergy = (d, endX, endY, mode, juncX, juncY) => {
+        const eHex = mode === "updated" ? "#fbbf24" : "#4ade80";
+        energyFlows.push(`<path d="${d}" fill="none" stroke="${eHex}" stroke-width="3" stroke-opacity="0.96" stroke-linecap="round" stroke-linejoin="round" />`);
+        energyFlows.push(`<path class="conduit-energy-pulse" d="${d}" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-opacity="0.92" stroke-linecap="round" stroke-linejoin="round" />`);
+        if (typeof juncX === "number" && typeof juncY === "number") {
+          energyFlows.push(`<circle cx="${juncX.toFixed(1)}" cy="${juncY.toFixed(1)}" r="3.5" fill="${eHex}" stroke="#ffffff" stroke-width="1" />`);
+        }
+        energyFlows.push(`<circle cx="${endX.toFixed(1)}" cy="${endY.toFixed(1)}" r="3.7" fill="${eHex}" stroke="#ffffff" stroke-width="1" />`);
+      };
+
+      const isTwoCol = c2.length > 0 && (c2[0].left - c1[0].left) >= 8;
+
+      if (isTwoCol) {
+        const spine1X = Math.max(4, c1[0].left * 0.5);
+        const spine2X = (c1[0].right + c2[0].left) * 0.5;
+        const bridgeY = Math.max(14, Math.min(c1[0].top, c2[0].top) * 0.5);
+
+        // Column 1 primary vertical sub-line + horizontal elbows
+        addLine(spine1X, 0, spine1X, c1[c1.length - 1].cy);
+        c1.forEach(m => {
+          addLine(spine1X, m.cy, m.left, m.cy);
+          addNode(spine1X, m.cy, 2.7);
+        });
+
+        // 2A Upper Trunk Bridge: from Column 1 primary sub-line (above 02.1) across to Column 2 vertical sub-line
+        addLine(spine1X, bridgeY, spine2X, bridgeY);
+        addNode(spine1X, bridgeY, 3.3);
+        addNode(spine2X, bridgeY, 2.8);
+
+        // Column 2 vertical sub-line + horizontal elbows
+        addLine(spine2X, bridgeY, spine2X, c2[c2.length - 1].cy);
+        c2.forEach(m => {
+          addLine(spine2X, m.cy, m.left, m.cy);
+          addNode(spine2X, m.cy, 2.7);
+        });
+
+        // Energized notice trails (draw UPDATED first so NEW emerald wins on shared upper trunk)
+        const litQueue = [
+          ...c1.filter(m => m.hasIntel && m.intelMode === "updated").map(m => ({ col: 1, m })),
+          ...c2.filter(m => m.hasIntel && m.intelMode === "updated").map(m => ({ col: 2, m })),
+          ...c1.filter(m => m.hasIntel && m.intelMode !== "updated").map(m => ({ col: 1, m })),
+          ...c2.filter(m => m.hasIntel && m.intelMode !== "updated").map(m => ({ col: 2, m }))
+        ];
+        litQueue.forEach(({ col, m }) => {
+          if (col === 1) {
+            const d = `M ${spine1X.toFixed(1)} 0 L ${spine1X.toFixed(1)} ${m.cy.toFixed(1)} L ${m.left.toFixed(1)} ${m.cy.toFixed(1)}`;
+            addEnergy(d, m.left, m.cy, m.intelMode);
+          } else {
+            const d = `M ${spine1X.toFixed(1)} 0 L ${spine1X.toFixed(1)} ${bridgeY.toFixed(1)} L ${spine2X.toFixed(1)} ${bridgeY.toFixed(1)} L ${spine2X.toFixed(1)} ${m.cy.toFixed(1)} L ${m.left.toFixed(1)} ${m.cy.toFixed(1)}`;
+            addEnergy(d, m.left, m.cy, m.intelMode, spine1X, bridgeY);
+          }
+        });
+      } else {
+        // Mobile / 1-Column stacked fallback
+        const spineX = Math.max(4, allItems[0].left * 0.5);
+        addLine(spineX, 0, spineX, allItems[allItems.length - 1].cy);
+        allItems.forEach(m => {
+          addLine(spineX, m.cy, m.left, m.cy);
+          addNode(spineX, m.cy, 2.6);
+        });
+        const litMobile = [
+          ...allItems.filter(m => m.hasIntel && m.intelMode === "updated"),
+          ...allItems.filter(m => m.hasIntel && m.intelMode !== "updated")
+        ];
+        litMobile.forEach(m => {
+          const d = `M ${spineX.toFixed(1)} 0 L ${spineX.toFixed(1)} ${m.cy.toFixed(1)} L ${m.left.toFixed(1)} ${m.cy.toFixed(1)}`;
+          addEnergy(d, m.left, m.cy, m.intelMode);
+        });
+      }
+
+      svg.innerHTML = lines.join("") + nodes.join("") + energyFlows.join("");
+    });
+  }
+
   function renderCommandDrawer() {
     const drawerWrap = document.getElementById("commandDrawerWrap");
     const gridEl = document.getElementById("bentoLinksGrid");
     if (!drawerWrap || !gridEl || !activeCommandKey || activeCommandKey === "FILTER") return;
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid");
     gridEl.style.removeProperty("--slot-count");
     gridEl.style.removeProperty("--slot-count-md");
     normalizeAndReindexSectionCards(activeCommandKey);
@@ -3665,18 +4054,23 @@
         const catBorder = hexToRgba(catHex, 0.55);
         const capIconHtml = bucket.spec.icon ? `<span class="cat-cap-ico">${bucket.spec.icon}</span>` : "";
         const capNameTxt = escapeHtml(bucket.spec.name || bucket.symKey);
-        const bucketUnreadCnt = bucket.groups.reduce((acc, g) => {
-          const pUn = getCardUnreadSignals(g.parent, activeCommandKey).length > 0 ? 1 : 0;
-          const cUn = (g.children || []).filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
-          return acc + pUn + cUn;
-        }, 0);
-        const capHasIntel = bucketUnreadCnt > 0;
+        const bucketSigLists = [];
+        bucket.groups.forEach(g => {
+          const pSigs = getCardUnreadSignals(g.parent, activeCommandKey);
+          if (pSigs.length > 0) bucketSigLists.push(pSigs);
+          (g.children || []).forEach(ch => {
+            const cSigs = getCardUnreadSignals(ch, activeCommandKey);
+            if (cSigs.length > 0) bucketSigLists.push(cSigs);
+          });
+        });
+        const bucketBd = summarizeUnreadSignalLists(bucketSigLists);
+        const capHasIntel = bucketBd.total > 0;
         const capMidStyle = capHasIntel ? buildCardTrailStyleVars(catHex, "mid") : "";
 
         catHtml += `
-          <div class="bento-group-stack cat-col-stack" data-has-intel="${capHasIntel ? '1' : '0'}" style="--grp-span: 1;">
-            <div class="bento-cat-col-cap${capHasIntel ? ' has-intel-below' : ''}" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder}; ${capMidStyle}">
-              ${capIconHtml}<span>${capNameTxt}</span>${capHasIntel ? `<span class="intel-trail-pip" style="margin-left:4px;">⚡ ${bucketUnreadCnt}</span>` : ''}
+          <div class="bento-group-stack cat-col-stack" data-has-intel="${capHasIntel ? '1' : '0'}" data-intel-mode="${bucketBd.mode || 'new'}" style="--grp-span: 1;">
+            <div class="bento-cat-col-cap${capHasIntel ? ' has-intel-below' : ''}${bucketBd.mode === 'updated' ? ' is-updated-cap' : ''}" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder}; ${capMidStyle}">
+              ${capIconHtml}<span>${capNameTxt}</span>${renderCapIntelPipsHtml(bucketBd)}
             </div>
             <div class="cat-col-cards-list">
         `;
@@ -3688,7 +4082,9 @@
           const numBadge = String(globalSeq).padStart(2, "0");
           const pHasInline = Boolean((p.embedCode || "").trim() || p.openInIframe);
           const pUnread = getCardUnreadSignals(p, activeCommandKey);
-          const childUnreadCnt = (grp.children || []).filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
+          const childUnreadSigs = (grp.children || []).map(ch => getCardUnreadSignals(ch, activeCommandKey)).filter(s => s.length > 0);
+          const childBd = summarizeUnreadSignalLists(childUnreadSigs);
+          const childUnreadCnt = childBd.total;
           const pIsTarget = pUnread.length > 0;
           const pIsMid = !pIsTarget && childUnreadCnt > 0;
           const pTrailCls = pIsTarget ? "is-intel-target" : (pIsMid ? "is-intel-mid" : "");
@@ -3718,7 +4114,7 @@
                     </div>
                     <div class="bento-v-body">
                       <div class="bento-v-title" style="color: ${pCatColor};">${escapeHtml(p.title)}</div>
-                      ${pIsTarget ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>` : (pIsMid ? `<div class="intel-mid-pill">↳ ⚡ ${childUnreadCnt} NEW BELOW</div>` : "")}
+                      ${pIsTarget ? renderTargetIntelPillHtml(pUnread[0]) : (pIsMid ? renderMidIntelPillHtml(childBd) : "")}
                       ${p.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(p.scheduleHint)}</div>` : ''}
                     </div>
                     <div class="bento-v-foot">${renderSymBadgeHtml(p.symKey)}</div>
@@ -3742,6 +4138,7 @@
 
     const totalGroups = sortedGroups.length;
     const isVaultTab = (activeCommandKey === "wtrArchives");
+    const hasVaultBridgedCols = isVaultTab && sortedGroups.some(g => g.children && g.children.length > 1);
     const getGroupSpan = (g) => {
       if (isVaultTab) return 1;
       const n = g.children ? g.children.length : 0;
@@ -3751,9 +4148,12 @@
     const totalSlotSpan = sortedGroups.reduce((sum, g) => sum + getGroupSpan(g), 0);
     const slotCnt = Math.max(1, Math.min(6, totalSlotSpan));
     const hasAnySubs = sortedGroups.some(g => g.children && g.children.length > 0);
-    const allowTabGap = hasAnySubs || activeCommandKey === "baseOps";
+    const allowTabGap = hasAnySubs || activeCommandKey === "baseOps" || activeCommandKey === "adminBug";
 
     gridEl.classList.add("tab-unit-grid");
+    if (hasVaultBridgedCols) {
+      gridEl.classList.add("is-vault-bridged-grid");
+    }
     if (hasAnySubs) {
       gridEl.classList.add("has-any-stack");
     }
@@ -3775,15 +4175,19 @@
       const numBadge = String(rankIdx + 1).padStart(2, "0");
       const childCnt = grp.children.length;
       const hasBranches = childCnt > 0;
+      const useVault2ColSubs = isVaultTab && childCnt > 1;
       const useSubBay = !isVaultTab && childCnt > 1;
       const grpSpan = getGroupSpan(grp);
       const pHasInline = Boolean((p.embedCode || "").trim() || p.openInIframe);
       const pVaultOverlayHtml = renderVaultQuickOverlayHtml(p, activeCommandKey, p.origIdx);
       const pUnread = getCardUnreadSignals(p, activeCommandKey);
-      const childUnreadCnt = grp.children.filter(ch => getCardUnreadSignals(ch, activeCommandKey).length > 0).length;
+      const childUnreadSigs = grp.children.map(ch => getCardUnreadSignals(ch, activeCommandKey)).filter(s => s.length > 0);
+      const childBd = summarizeUnreadSignalLists(childUnreadSigs);
+      const childUnreadCnt = childBd.total;
       const pIsTarget = pUnread.length > 0;
       const pIsMid = !pIsTarget && childUnreadCnt > 0;
       const grpHasIntel = pIsTarget || pIsMid;
+      const grpBd = summarizeUnreadSignalLists([...(pIsTarget ? [pUnread] : []), ...childUnreadSigs]);
       const pTrailStyle = pIsTarget
         ? buildCardTrailStyleVars(pCatColor, "target")
         : (pIsMid ? buildCardTrailStyleVars(pCatColor, "mid") : "");
@@ -3802,7 +4206,8 @@
 
       const stackCls = [
         "bento-group-stack",
-        useSubBay ? "wide-sub-group has-sub-bay" : (hasBranches ? "has-sub-stack" : "")
+        useSubBay ? "wide-sub-group has-sub-bay" : (hasBranches ? "has-sub-stack" : ""),
+        useVault2ColSubs ? "is-vault-2col-group" : ""
       ].filter(Boolean).join(" ");
 
       const extraCardCls = [
@@ -3812,11 +4217,11 @@
       ].filter(Boolean).join(" ");
 
       const pBeaconHtml = pIsTarget
-        ? `<div class="intel-target-pill">${escapeHtml(pUnread[0].tag)}</div>`
-        : (pIsMid ? `<div class="intel-mid-pill">↳ ⚡ ${childUnreadCnt} NEW BELOW</div>` : "");
+        ? renderTargetIntelPillHtml(pUnread[0])
+        : (pIsMid ? renderMidIntelPillHtml(childBd) : "");
       const pInlineBeaconSpan = pIsTarget
-        ? `<span class="intel-target-pill" style="margin-left:8px;">${escapeHtml(pUnread[0].tag)}</span>`
-        : (pIsMid ? `<span class="intel-mid-pill" style="margin-left:8px;">↳ ⚡ ${childUnreadCnt} NEW BELOW</span>` : "");
+        ? renderTargetIntelPillHtml(pUnread[0], true, "margin-left:8px;")
+        : (pIsMid ? renderMidIntelPillHtml(childBd, true, "margin-left:8px;") : "");
 
       const parentBtnHtml = useSubBay ? `
         <button type="button" class="bento-main-btn" style="flex:1; min-width:0;" title="${pHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(p.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${p.origIdx})">
@@ -3845,7 +4250,7 @@
       `;
 
       html += `
-        <div class="${stackCls}" data-has-intel="${grpHasIntel ? '1' : '0'}" style="--grp-span: ${grpSpan};">
+        <div class="${stackCls}" data-has-intel="${grpHasIntel ? '1' : '0'}" data-intel-mode="${grpBd.mode || 'new'}" style="--grp-span: ${grpSpan};">
           <div class="bento-module-card ${extraCardCls}" style="--item-accent: ${pCatColor}; ${pTrailStyle}">
             <div class="bento-card-row-wrap">
               ${parentBtnHtml}
@@ -3885,7 +4290,7 @@
                     </div>
                     <div class="bento-v-body">
                       <div class="bento-v-title" style="color: ${chCatColor};">${escapeHtml(ch.title)}</div>
-                      ${chIsTarget ? `<div class="intel-target-pill">${escapeHtml(chUnread[0].tag)}</div>` : ""}
+                      ${chIsTarget ? renderTargetIntelPillHtml(chUnread[0]) : ""}
                       ${ch.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(ch.scheduleHint)}</div>` : ''}
                     </div>
                     <div class="bento-v-foot">${renderSymBadgeHtml(ch.symKey)}</div>
@@ -3896,6 +4301,8 @@
             `;
           });
           html += `</div>`;
+        } else if (useVault2ColSubs) {
+          html += renderVaultBridgedSubColumnsHtml(grp.children, numBadge, pCatColor, isMasterStudio, activeCommandKey);
         } else {
           html += renderSubStackItemsHtml(grp.children, numBadge, pCatColor, isMasterStudio, activeCommandKey);
         }
@@ -3905,6 +4312,9 @@
     });
 
     gridEl.innerHTML = html;
+    if (hasVaultBridgedCols) {
+      attachVaultBridgedStageObserver();
+    }
     updateTabToCenterConduitLine();
     requestAnimationFrame(updateTabToCenterConduitLine);
   }
@@ -4024,13 +4434,13 @@
             <textarea rows="3" placeholder="Paste full Published HTML of a module here to open it inside the main page with an ✕ Close button..." oninput="updateCardField('${secKey}', ${idx}, 'embedCode', this.value, true)" style="font-family:monospace; font-size:11px; resize:vertical;">${escapeHtml(c.embedCode || '')}</textarea>
           </div>
 
-          <div class="card-intel-beacon-bar">
-            <label style="font-size:10.5px; font-family:monospace; color:${isIntelArmed ? '#4ade80' : '#94a3b8'}; font-weight:900;">
-              ⚡ INTEL TRAIL BEACON: ${isIntelArmed ? `ACTIVE (${escapeHtml(curIntelTag)})` : 'OFF (AUTO LIVE / VAULT STILL ACTIVE)'}
+          <div class="card-intel-beacon-bar" style="${isIntelArmed && /UPDATED|\bUPD\b/i.test(curIntelTag) ? 'border-color:rgba(251,191,36,0.48); background:rgba(26,18,6,0.72);' : ''}">
+            <label style="font-size:10.5px; font-family:monospace; color:${isIntelArmed ? (/UPDATED|\bUPD\b/i.test(curIntelTag) ? '#fbbf24' : '#4ade80') : '#94a3b8'}; font-weight:900;">
+              ${isIntelArmed && /UPDATED|\bUPD\b/i.test(curIntelTag) ? '🔄' : '⚡'} INTEL NOTICE TRAIL: ${isIntelArmed ? `ACTIVE (${escapeHtml(curIntelTag)})` : 'OFF (AUTO LIVE / VAULT STILL ACTIVE)'}
             </label>
             <div class="card-intel-beacon-btns">
               <button type="button" class="intel-beacon-opt-btn${curIntelTag === '✨ NEW INTEL' ? ' active-opt' : ''}" onclick="setCardIntelFlag('${secKey}', ${idx}, '✨ NEW INTEL', event)">✨ Flag NEW</button>
-              <button type="button" class="intel-beacon-opt-btn${curIntelTag === '🔄 UPDATED' ? ' active-opt' : ''}" onclick="setCardIntelFlag('${secKey}', ${idx}, '🔄 UPDATED', event)">🔄 Flag UPDATED</button>
+              <button type="button" class="intel-beacon-opt-btn${curIntelTag === '🔄 UPDATED' ? ' active-updated-opt' : ''}" onclick="setCardIntelFlag('${secKey}', ${idx}, '🔄 UPDATED', event)">🔄 Flag UPDATED</button>
               ${isIntelArmed ? `<button type="button" class="intel-beacon-opt-btn" style="border-color:#fca5a5; color:#fca5a5;" onclick="setCardIntelFlag('${secKey}', ${idx}, '', event)">✕ Clear Trail</button>` : ''}
             </div>
           </div>
