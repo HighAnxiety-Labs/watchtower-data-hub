@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER PRE-RELEASE HOLDING BRIEF // NOV 2026 SHADOW OPS: CHAPTER 1 -->
+<!-- WATCHTOWER LIVE TACTICAL DOSSIER // SHADOW OPS: DRIFTING DRAGON (CHAPTERS 1–3) -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -12,26 +12,31 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>[-WTR-] Data Hub — NOV 2026 SHADOW OPS: CHAPTER 1 (Pre-Release Brief)</title>
+  <title>[-WTR-] Data Hub — SHADOW OPS: DRIFTING DRAGON (Chapter 1–3 Tactical Brief)</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[-WTR-] Shadow Ops: Drifting Dragon — Chapter 1–3 Tactical Brief">
+  <meta property="og:description" content="Unique Unit: The Komodo • Baron Anansi Repair Logistic (Limit 3) • 4 Argus Techs (Lv 1–5) • Enemy: Onyx • Chapters 1, 2 & 3 Phase Schedule.">
+  <meta property="og:image" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8">
   <script src="./wtr-view-mode.js"></script>
   <style>
     :root {
       --primary-color: #465299;
       --primary-bar-bg: #465299;
-      --accent-green: #7986cb;
-      --theme-glow: rgba(70, 82, 153, 0.28);
-      --border-dark: #202440;
-      --tab-top-border: #30365e;
-      --corner-block-width: 280px;
+      --accent-indigo: #8c9eff;
+      --accent-green: #00e676;
+      --theme-glow: rgba(70, 82, 153, 0.36);
+      --border-dark: #202642;
+      --tab-top-border: #333c68;
+      --corner-block-width: 265px;
       --bg-dark: #070a0e;
       --bg-panel: #10151c;
       --bg-header: #0c1117;
       --text-main: #dbe2ea;
-      --text-muted: #8b9bb0;
-      --text-gold: #d4af37;
-      --text-cyan: #2ea3d6;
-      --text-orange: #d96b16;
-      --text-red: #d9534f;
+      --text-muted: #94a3b8;
+      --text-gold: #ffd54f;
+      --text-cyan: #38bdf8;
+      --text-orange: #fb923c;
+      --text-red: #f43f5e;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,178 +45,231 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      padding: 12px;
-      line-height: 1.5;
-      font-size: 15px;
+      padding: 10px;
+      line-height: 1.45;
+      font-size: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .brief-card {
+    .dossier-card {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1448px;
       margin: 0 auto;
       background: var(--bg-panel);
       border: 1px solid var(--border-dark);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.72), 0 0 16px rgba(70, 82, 153, 0.18);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
+      max-height: calc(100vh - 20px);
     }
 
+    .dossier-card.unconstrained-height {
+      max-height: none;
+    }
+
+    .dossier-card.unconstrained-height .brief-scroll-viewport {
+      overflow-y: visible;
+      max-height: none;
+    }
+
+    .dossier-card.brief-collapsed {
+      max-height: none;
+    }
+
+    .dossier-card.brief-collapsed .file-tabs-rail,
+    .dossier-card.brief-collapsed .so-collapsible-section {
+      display: none !important;
+    }
+
+    .dossier-card.brief-collapsed .brief-scroll-viewport {
+      overflow-y: visible;
+      max-height: none;
+    }
+
+    /* ==================== FLEX V-BACKED UPPER & LOWER BARS (UNCOMPRESSED BLACK OUTER CORNERS) ==================== */
     .locked-top-hud {
       flex-shrink: 0;
       width: 100%;
       background: #080c0a;
-      z-index: 10;
+      z-index: 40;
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.8);
     }
 
-    .bar-solid-label {
+    .classification-bar,
+    .bottom-clock-bar-m1 {
+      position: relative;
+      background: linear-gradient(180deg, #5563b0 0%, var(--primary-bar-bg) 52%, #37417d 100%);
       color: #ffffff;
+      font-weight: 900;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      font-family: "Arial Black", Impact, sans-serif;
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      min-height: 38px;
+      padding: 0;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .bottom-clock-bar-m1 {
+      border-bottom: none;
+      border-top: 2px solid rgba(0, 0, 0, 0.45);
+      z-index: 35;
+    }
+
+    /* Compact V-Backed Center Label — yields 100% priority so outer corners never compress */
+    .bar-solid-label {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      color: #ffffff;
+      position: relative;
+      z-index: 2;
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 1.2px;
+      text-align: center;
       text-shadow:
         -1px -1px 0 #000,
          1px -1px 0 #000,
         -1px  1px 0 #000,
          1px  1px 0 #000,
-         0px  2px 5px rgba(0, 0, 0, 0.85);
-    }
-
-    .classification-bar {
-      position: relative;
-      background: var(--primary-bar-bg);
-      font-weight: 900;
-      text-align: center;
-      letter-spacing: 2px;
-      font-size: 13px;
-      padding: 6px calc(var(--corner-block-width) + 12px);
-      text-transform: uppercase;
-      font-family: "Arial Black", sans-serif;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 38px;
+         0px  2px 5px rgba(0, 0, 0, 0.88);
+      white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
 
+    /* Uncompressed Black Beveled Outer Edge Corners */
     .corner-block-4 {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: var(--corner-block-width);
+      flex: 0 0 auto;
+      min-width: 240px;
       background: #080c0a;
       color: #e2e8f0;
       text-shadow: none;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-family: "Arial Black", sans-serif;
+      font-family: "Arial Black", Impact, sans-serif;
       font-size: 12px;
-      letter-spacing: 1.2px;
+      letter-spacing: 0.8px;
       white-space: nowrap;
-      z-index: 2;
+      position: relative;
+      z-index: 3;
     }
 
     .corner-top-left {
-      left: 0;
       justify-content: flex-start;
-      padding: 0 22px 0 16px;
+      padding: 6px 26px 6px 16px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
     .corner-top-left::before {
       content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
+      color: var(--accent-indigo);
+      font-size: 12px;
+      flex-shrink: 0;
     }
 
     .corner-top-right {
-      right: 0;
       justify-content: flex-end;
-      padding: 0 16px 0 22px;
+      padding: 6px 16px 6px 26px;
       border: none;
       cursor: pointer;
-      font-family: monospace;
-      font-size: 11.5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
       font-weight: 900;
       letter-spacing: 0.7px;
       text-transform: uppercase;
       color: var(--accent-green);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%);
       box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+      transition: filter 0.15s ease;
     }
 
-    .corner-top-right.is-prerelease-locked {
-      color: var(--text-gold);
-      cursor: not-allowed;
+    .corner-top-right:hover {
+      filter: brightness(1.2);
     }
 
     .corner-bottom-left {
-      left: 0;
       justify-content: flex-start;
-      padding: 0 22px 0 16px;
+      padding: 6px 26px 6px 16px;
       clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
     .corner-bottom-left::before {
       content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
+      color: var(--accent-indigo);
+      font-size: 12px;
+      flex-shrink: 0;
     }
 
     .corner-bottom-left .clock-lbl {
       color: var(--text-gold);
-      font-size: 11.5px;
-      letter-spacing: 1px;
+      font-size: 12px;
+      letter-spacing: 0.7px;
     }
 
     .corner-bottom-left .dyn-clock-readout {
-      font-family: monospace;
-      font-size: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
       font-weight: 900;
       color: var(--accent-green);
-      letter-spacing: 1px;
+      letter-spacing: 0.6px;
       text-transform: none;
     }
 
     .corner-bottom-right {
-      right: 0;
       justify-content: flex-end;
-      padding: 0 16px 0 22px;
-      font-family: monospace;
+      padding: 6px 16px 6px 26px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
       font-weight: 900;
-      letter-spacing: 1.2px;
-      color: var(--text-gold);
+      letter-spacing: 0.8px;
+      color: var(--accent-green);
       clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
       box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
     .corner-bottom-right::before {
       content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
+      color: var(--accent-indigo);
+      font-size: 12px;
+      flex-shrink: 0;
     }
 
+    /* ==================== FILE TABS RAIL (MOVED BELOW TITLE HEADER) ==================== */
     .file-tabs-rail {
+      position: sticky;
+      top: 0;
+      z-index: 30;
       background: #080c0a;
-      padding: 8px 14px 0 14px;
+      padding: 8px 28px 0 28px;
       border-bottom: 2px solid var(--primary-color);
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 4px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     .file-tabs-group {
       display: flex;
       align-items: flex-end;
-      gap: 4px;
+      gap: 5px;
       flex-wrap: wrap;
     }
 
@@ -220,9 +278,9 @@
       background: linear-gradient(180deg, #151e26 0%, #0b1015 100%);
       color: var(--text-muted);
       border: none;
-      padding: 6px 10px 5px 10px;
-      font-family: monospace;
-      font-size: 10.5px;
+      padding: 6px 12px 5px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
       font-weight: 900;
       letter-spacing: 0.4px;
       text-transform: uppercase;
@@ -232,14 +290,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      min-width: 38px;
+      gap: 5px;
       white-space: nowrap;
+      transition: filter 0.15s ease, background 0.15s ease;
+    }
+
+    .file-tab-btn:hover {
+      filter: brightness(1.18);
     }
 
     .file-tab-btn .tab-idx {
-      color: var(--accent-green);
-      font-size: 10.5px;
+      color: var(--accent-indigo);
       font-weight: 900;
     }
 
@@ -247,14 +308,10 @@
       color: #cbd5e1;
     }
 
-    .file-tab-btn .tab-lbl:empty {
-      display: none;
-    }
-
     .file-tab-btn.active-file-tab {
       background: var(--primary-color);
       color: #ffffff;
-      border-top-color: #cbd5e1;
+      border-top-color: #e2e8f0;
     }
 
     .file-tab-btn.active-file-tab .tab-idx,
@@ -263,15 +320,55 @@
       text-shadow: 0 1px 2px #000;
     }
 
-    .file-tab-btn.calc-tab { border-top-color: var(--text-gold); }
-    .file-tab-btn.calc-tab .tab-lbl { color: var(--text-gold); }
-    .file-tab-btn.enemy-tab { border-top-color: var(--text-red); }
-    .file-tab-btn.enemy-tab .tab-lbl { color: #fca5a5; }
-    .file-tab-btn.tabs-locked { opacity: 0.55; cursor: not-allowed; }
+    .file-tab-btn.enemy-tab {
+      border-top-color: var(--text-red);
+    }
 
+    .file-tab-btn.enemy-tab .tab-idx {
+      color: #fda4af;
+    }
+
+    .file-tab-btn.enemy-tab .tab-lbl {
+      color: #fecdd3;
+    }
+
+    .file-tab-btn.enemy-tab.active-file-tab {
+      background: #9f1239;
+      border-top-color: #fda4af;
+    }
+
+    .file-tab-btn.height-toggle-tab {
+      border-top-color: var(--text-cyan);
+      color: var(--text-cyan);
+    }
+
+    /* ==================== SCROLLING DOSSIER VIEWPORT ==================== */
+    .brief-scroll-viewport {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .brief-scroll-viewport::-webkit-scrollbar {
+      width: 9px;
+    }
+    .brief-scroll-viewport::-webkit-scrollbar-track {
+      background: #080c10;
+    }
+    .brief-scroll-viewport::-webkit-scrollbar-thumb {
+      background: #2b3561;
+      border-radius: 4px;
+    }
+    .brief-scroll-viewport::-webkit-scrollbar-thumb:hover {
+      background: #465299;
+    }
+
+    /* ==================== HEADER: FULL-SIZE 96×96 WTR RADAR LOGO LEFT | DATES META RIGHT ==================== */
     .event-header {
-      padding: 18px 24px;
+      padding: 16px 28px;
       background: var(--bg-header);
+      border-bottom: 1px solid #1d2540;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -280,27 +377,62 @@
       position: relative;
     }
 
+    .header-classified-watermark {
+      position: absolute;
+      right: 335px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-7deg);
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 32px;
+      letter-spacing: 4px;
+      color: rgba(255, 255, 255, 0.025);
+      border: 3px solid rgba(255, 255, 255, 0.03);
+      padding: 2px 12px;
+      border-radius: 4px;
+      pointer-events: none;
+      user-select: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
     .header-left-wrap {
       display: flex;
       align-items: center;
       gap: 20px;
       flex: 1 1 420px;
-      min-width: 280px;
+      min-width: 260px;
     }
 
     .header-logo-link {
-      width: 90px;
-      height: 90px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       padding: 3px;
       background: linear-gradient(135deg, var(--border-dark) 0%, #0b1118 50%, var(--primary-color) 100%);
-      box-shadow: 0 0 16px var(--theme-glow), inset 0 0 8px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 18px var(--theme-glow), inset 0 0 8px rgba(0, 0, 0, 0.92);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       text-decoration: none;
       position: relative;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .header-logo-link:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 26px rgba(0, 230, 118, 0.55);
+    }
+
+    .logo-radar-ring::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 250deg, var(--accent-green) 360deg);
+      animation: radarSpin 4s linear infinite;
+      z-index: 1;
+      opacity: 0.85;
     }
 
     .header-logo-img {
@@ -314,18 +446,21 @@
       z-index: 2;
     }
 
-    .event-header-text { flex: 1; min-width: 0; }
+    .event-header-text {
+      flex: 1;
+      min-width: 0;
+    }
 
     .event-sub-tag {
-      font-size: clamp(11px, 1.25vw, 13px);
-      letter-spacing: 1.3px;
-      color: var(--accent-green);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      color: var(--accent-indigo);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       flex-wrap: wrap;
     }
 
@@ -336,19 +471,35 @@
       font-weight: 900;
     }
 
+    .data-source-link:hover {
+      color: #7dd3fc;
+      border-bottom-style: solid;
+    }
+
     .event-main-title {
-      font-family: "Arial Black", sans-serif;
-      font-size: clamp(24px, 3.8vw, 35px);
-      color: var(--accent-green);
-      letter-spacing: 1.5px;
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: clamp(22px, 2.7vw, 31px);
+      color: #a5b4fc;
+      letter-spacing: 1.3px;
       text-transform: uppercase;
-      line-height: 1.1;
+      line-height: 1.08;
       margin: 0;
+      cursor: pointer;
+      text-shadow: 0 2px 10px rgba(70, 82, 153, 0.35);
+    }
+
+    .event-campaign-sub {
+      margin-top: 5px;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--text-gold);
+      text-transform: uppercase;
     }
 
     .event-meta-box {
       flex: 0 0 auto;
-      background: #080d0b;
+      background: #080d11;
       border: 1px solid var(--border-dark);
       border-left: 3px solid var(--primary-color);
       border-radius: 4px;
@@ -357,7 +508,7 @@
       flex-direction: column;
       gap: 4px;
       min-width: 285px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.75);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.78);
       position: relative;
       z-index: 2;
     }
@@ -367,31 +518,581 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      font-family: monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12.5px;
       color: var(--text-main);
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
       white-space: nowrap;
     }
 
-    .bottom-clock-bar-m1 {
-      position: relative;
-      background: var(--primary-bar-bg);
-      font-family: "Arial Black", sans-serif;
-      font-size: 12.5px;
-      padding: 6px calc(var(--corner-block-width) + 12px);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
+    /* ==================== 4 EQUAL 330×330 FULL-IMAGE-VIEW FRAMES + INCREASED MARGINS ==================== */
+    .chapters-showcase-band {
+      padding: 26px 30px;
+      background: linear-gradient(180deg, #0e1422 0%, #0a101b 100%);
+      border-bottom: 1px solid #1f2947;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 38px;
-      border-top: 2px solid rgba(0, 0, 0, 0.35);
-      overflow: hidden;
+      flex-direction: column;
+      gap: 18px;
     }
 
+    .equal-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 330px));
+      justify-content: space-between;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    /* Every frame matches the exact 330×330 (1:1) full Shadow Ops image view */
+    .equal-box-frame {
+      width: 100%;
+      max-width: 330px;
+      aspect-ratio: 1 / 1;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 0 14px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Box 1: Full Uncropped 330×330 Shadow Ops Image View — ZERO rescaling/cropping inside frame */
+    .equal-art-box {
+      border: 2px solid rgba(129, 140, 248, 0.72);
+      background: #080c14;
+      padding: 0;
+      cursor: zoom-in;
+      box-shadow: 0 0 22px rgba(70, 82, 153, 0.45), 0 8px 20px rgba(0, 0, 0, 0.82);
+    }
+
+    .equal-art-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Boxes 2–4: Kept exact text sizes, increased margin width & height inside frames */
+    .equal-chapter-box {
+      padding: 18px 20px;
+      gap: 12px;
+      background: #0b101d;
+      border: 1px solid rgba(129, 140, 248, 0.5);
+    }
+
+    .equal-chapter-box.ch-live {
+      background: #0a131a;
+      border: 2px solid rgba(16, 185, 129, 0.65);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.14), inset 0 0 14px rgba(0, 0, 0, 0.55);
+    }
+
+    .equal-chapter-box.ch-three {
+      background: #100e1f;
+      border: 1px solid rgba(192, 132, 252, 0.5);
+    }
+
+    .chapter-head-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+    }
+
+    .chapter-title-lg {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 14.5px;
+      line-height: 1.1;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .chapter-sub-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .phase-stack-tall {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .beam-row-tall {
+      flex: 1 1 0%;
+      border-radius: 5px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+      position: relative;
+      transition: transform 0.12s ease;
+    }
+
+    .beam-phase-title {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 13px;
+      line-height: 1.15;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .beam-phase-dates {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .beam-p1 {
+      background: rgba(92, 107, 192, 0.24);
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      border-left: 4px solid #6366f1;
+      color: #eef2ff;
+    }
+
+    .beam-p2 {
+      background: rgba(41, 182, 246, 0.19);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-left: 4px solid #29b6f6;
+      color: #e0f2fe;
+    }
+
+    .beam-p3 {
+      background: rgba(126, 87, 194, 0.24);
+      border: 1px solid rgba(168, 85, 247, 0.36);
+      border-left: 4px solid #8b5cf6;
+      color: #f3e8ff;
+    }
+
+    .beam-row-tall.is-active-phase {
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.22);
+      border-color: rgba(16, 185, 129, 0.65);
+    }
+
+    .beam-row-tall.is-tbd {
+      opacity: 0.9;
+    }
+
+    .phase-live-pip {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      color: #34d399;
+      letter-spacing: 0.4px;
+    }
+
+    .chapter-foot-line {
+      padding-top: 9px;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .pst-detail-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pst-detail-pill {
+      background: rgba(8, 12, 20, 0.85);
+      border: 1px solid #1d2742;
+      border-radius: 4px;
+      padding: 7px 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pst-detail-pill strong {
+      color: #a5b4fc;
+    }
+
+    /* ==================== MAIN TACTICAL BODY GRID (LEFT INTEL + RIGHT ENLARGED ONYX) ==================== */
+    .intel-body-grid {
+      padding: 20px 30px 24px 30px;
+      background: var(--bg-header);
+      display: grid;
+      grid-template-columns: minmax(0, 1.95fr) minmax(300px, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .intel-left-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .section-panel {
+      background: #0f1624;
+      border: 1px solid #232f52;
+      border-radius: 6px;
+      padding: 13px 15px;
+      box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .section-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(129, 140, 248, 0.25);
+      flex-wrap: wrap;
+    }
+
+    .section-title-bar h2 {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #c7d2fe;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-num-chip {
+      background: var(--primary-color);
+      color: #ffffff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    .kixeye-divider-img {
+      height: 26px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.92;
+      display: block;
+    }
+
+    /* Featured Rewards Cards */
+    .rewards-cards-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .reward-item-card {
+      background: #0a101b;
+      border: 1px solid #28365e;
+      border-left: 3px solid var(--text-gold);
+      border-radius: 5px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .reward-item-card.logistic-card {
+      border-left-color: var(--text-cyan);
+    }
+
+    .reward-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 5px;
+      object-fit: cover;
+      border: 1px solid #3b4b7c;
+      background: #060910;
+      flex-shrink: 0;
+    }
+
+    .reward-meta h3 {
+      font-size: 13.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--text-gold);
+      line-height: 1.2;
+    }
+
+    .reward-item-card.logistic-card .reward-meta h3 {
+      color: #7dd3fc;
+    }
+
+    .reward-meta p {
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .unit-db-link {
+      display: inline-block;
+      margin-top: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--accent-green);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(0, 230, 118, 0.55);
+    }
+
+    .unit-db-link:hover {
+      border-bottom-style: solid;
+    }
+
+    /* Argus Tech Table */
+    .argus-unit-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #0a101c;
+      border: 1px solid #243156;
+      border-radius: 5px;
+      padding: 7px 11px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .argus-unit-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .argus-unit-left img {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 1px solid #465299;
+      background: #05080f;
+    }
+
+    .tech-table-wrap {
+      overflow-x: auto;
+      border: 1px solid #263359;
+      border-radius: 5px;
+    }
+
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+    }
+
+    .tech-table thead tr {
+      background: #1a2442;
+      color: #c7d2fe;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tech-table th,
+    .tech-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #1c2642;
+      vertical-align: top;
+    }
+
+    .tech-table tbody tr {
+      background: #090e18;
+    }
+
+    .tech-table tbody tr:nth-child(even) {
+      background: #0c1320;
+    }
+
+    .tech-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tech-name-def {
+      font-weight: 800;
+      color: #7dd3fc;
+    }
+
+    .tech-name-off {
+      font-weight: 800;
+      color: #fde047;
+    }
+
+    .slot-pill {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: rgba(99, 102, 241, 0.16);
+      border: 1px solid rgba(129, 140, 248, 0.32);
+      color: #e0e7ff;
+      white-space: nowrap;
+    }
+
+    .fn-def {
+      color: #38bdf8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .fn-off {
+      color: #fb923c;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    /* Mission Rules */
+    .rules-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .rule-box {
+      background: #09101b;
+      border: 1px solid #233055;
+      border-top: 2px solid #5c6bc0;
+      border-radius: 5px;
+      padding: 9px 11px;
+    }
+
+    .rule-box .rule-pts {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 14px;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .rule-box.repeat-box .rule-pts {
+      color: var(--text-cyan);
+    }
+
+    .rule-box.replay-box .rule-pts {
+      color: var(--text-gold);
+    }
+
+    .rule-box p {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.38;
+    }
+
+    /* ==================== RIGHT COLUMN: ADVERSARY ONYX (ENLARGED PORTRAIT BELOW HEADER) ==================== */
+    .adversary-onyx-card {
+      background: linear-gradient(180deg, #170d15 0%, #0f0a11 100%);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      border-radius: 6px;
+      padding: 14px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: 12px;
+      box-shadow: inset 0 0 18px rgba(244, 63, 94, 0.08), 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .onyx-header-block {
+      width: 100%;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(244, 63, 94, 0.32);
+    }
+
+    .onyx-kicker {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1.6px;
+      color: #fb7185;
+      text-transform: uppercase;
+    }
+
+    .onyx-title {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+      color: #ffe4e6;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-top: 2px;
+      text-shadow: 0 2px 10px rgba(244, 63, 94, 0.4);
+    }
+
+    .onyx-counterpart {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-top: 3px;
+    }
+
+    .onyx-portrait-frame {
+      width: 100%;
+      max-width: 246px;
+      aspect-ratio: 4 / 5;
+      border-radius: 7px;
+      padding: 3px;
+      background: linear-gradient(145deg, #f43f5e 0%, #1f1018 50%, #fb7185 100%);
+      box-shadow: 0 0 22px rgba(244, 63, 94, 0.36), 0 8px 18px rgba(0, 0, 0, 0.85);
+      cursor: zoom-in;
+    }
+
+    .onyx-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      border: 1px solid #090508;
+    }
+
+    .onyx-lore-quote {
+      background: rgba(9, 6, 11, 0.72);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 5px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.48;
+      color: #e2e8f0;
+      font-style: italic;
+      text-align: left;
+    }
+
+    /* ==================== ANIMATIONS & LIGHTBOX ==================== */
     @keyframes radarSpin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -407,23 +1108,12 @@
       100% { left: 115%; }
     }
 
-    .logo-radar-ring::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent 0deg, transparent 260deg, var(--accent-green) 360deg);
-      animation: radarSpin 4s linear infinite;
-      z-index: 1;
-      opacity: 0.75;
-    }
-
     .live-beacon-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--text-gold);
-      box-shadow: 0 0 8px var(--text-gold);
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
       display: inline-block;
       animation: beaconPulse 1.8s ease-in-out infinite;
     }
@@ -441,126 +1131,664 @@
       z-index: 1;
     }
 
-    .header-classified-watermark {
-      position: absolute;
-      right: 310px;
-      top: 50%;
-      transform: translateY(-50%) rotate(-8deg);
-      font-family: "Arial Black", sans-serif;
-      font-size: 36px;
-      letter-spacing: 5px;
-      color: rgba(255, 255, 255, 0.025);
-      border: 3px solid rgba(255, 255, 255, 0.03);
-      padding: 2px 14px;
-      border-radius: 4px;
-      pointer-events: none;
-      user-select: none;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .img-lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 12, 0.9);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
     }
 
-    @media (max-width: 960px) {
+    .img-lightbox-backdrop.open {
+      display: flex;
+    }
+
+    .img-lightbox-backdrop img {
+      max-width: min(92vw, 760px);
+      max-height: 88vh;
+      border-radius: 8px;
+      border: 2px solid #818cf8;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.92);
+    }
+
+    /* ==================== RESPONSIVE BREAKPOINTS (4×1 → 2×2 → 1×4) ==================== */
+    @media (max-width: 1180px) {
       .header-classified-watermark { display: none; }
+      .corner-block-4 {
+        min-width: 0;
+      }
+      .corner-top-left,
+      .corner-bottom-left {
+        padding: 6px 20px 6px 12px;
+      }
+      .corner-top-right,
+      .corner-bottom-right {
+        padding: 6px 12px 6px 20px;
+      }
+      /* Tablet / Medium Viewport: 2×2 Grid of full 330×330 frames */
+      .equal-quad-grid {
+        grid-template-columns: repeat(2, minmax(0, 330px));
+        justify-content: center;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .intel-body-grid {
+        grid-template-columns: 1fr;
+      }
+      .onyx-portrait-frame {
+        max-width: 260px;
+      }
+      .event-meta-box {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 740px) {
+      /* Narrow Cellphone: 2-row HUD bar so outer corners keep 100% uncompressed data + 1×4 Frame Stack */
       .classification-bar,
       .bottom-clock-bar-m1 {
-        padding: 6px 8px;
-        justify-content: space-between;
         flex-wrap: wrap;
-        gap: 6px;
+      }
+      .classification-bar .bar-solid-label {
+        order: -1;
+        flex: 0 0 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+        padding: 4px 8px;
+      }
+      .bottom-clock-bar-m1 .bar-solid-label {
+        order: 2;
+        flex: 0 0 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.45);
+        padding: 4px 8px;
       }
       .corner-block-4 {
-        position: static;
-        width: auto;
-        padding: 4px 14px;
+        min-width: 0;
+        flex: 1 1 auto;
+        clip-path: none;
+        padding: 5px 10px;
+      }
+      .event-header {
+        padding: 14px 18px;
+      }
+      .header-logo-link {
+        width: 76px;
+        height: 76px;
+      }
+      .file-tabs-rail {
+        padding: 7px 14px 0 14px;
+      }
+      .chapters-showcase-band {
+        padding: 20px 18px;
+      }
+      .equal-quad-grid {
+        grid-template-columns: minmax(0, 330px);
+        justify-content: center;
+        gap: 20px;
+      }
+      .pst-detail-strip,
+      .rewards-cards-row,
+      .rules-list {
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+      .dossier-card {
+        max-height: none;
+      }
+      .brief-scroll-viewport {
+        overflow-y: visible;
+        max-height: none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="brief-card">
+  <div class="dossier-card unconstrained-height" id="mainShadowOpsDossier">
+    <!-- ==================== LOCKED TOP HUD (UNCOMPRESSED CORNERS + REDUCED V-BACKED CENTER) ==================== -->
     <div class="locked-top-hud">
       <div class="classification-bar scanline-shimmer">
-        <span class="corner-block-4 corner-top-left">NOV 2026</span>
-        <span class="bar-solid-label">CLASSIFIED // SHADOW OPS: PHASE 1</span>
-        <button type="button" class="corner-block-4 corner-top-right is-prerelease-locked">
-          🔒 COLLAPSE BRIEF (LOCKED)
+        <span class="corner-block-4 corner-top-left">NOVEMBER 2026</span>
+        <span class="bar-solid-label">UNCLASSIFIED // SHADOW OPS</span>
+        <button type="button" class="corner-block-4 corner-top-right" id="archiveToggleBtn" onclick="toggleBriefArchiveMode()">
+          <span id="archiveToggleIcon">▼</span>
+          <span id="archiveToggleText">COLLAPSE BRIEF</span>
         </button>
       </div>
-
-      <nav class="file-tabs-rail">
-          <div class="file-tabs-group">
-            <button type="button" class="file-tab-btn active-file-tab"><span class="tab-idx">01</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">02</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">03</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">04</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">05</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn calc-tab tabs-locked"><span class="tab-idx">06</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">07</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">08</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn enemy-tab tabs-locked"><span class="tab-idx">09</span><span class="tab-lbl"></span></button>
-          </div>
-      </nav>
     </div>
 
-    <header class="event-header">
-      <div class="header-classified-watermark">CLASSIFIED</div>
-      <div class="header-left-wrap">
-        <a class="header-logo-link logo-radar-ring" href="https://highanxiety-labs.github.io/watchtower-data-hub/" target="_top" title="Return to [-WTR-] Command Center">
-          <img class="header-logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem">
-        </a>
-        <div class="event-header-text">
-          <div class="event-sub-tag">
-            <span>[-WTR-] DATA HUB</span>
-            <span style="opacity:0.45;">|</span>
-            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener">Data Source ↗</a>
-          </div>
-          <div class="event-title-row">
-            <h1 class="event-main-title">SHADOW OPS: CHAPTER 1</h1>
+    <!-- ==================== SCROLLING VIEWPORT ==================== -->
+    <div class="brief-scroll-viewport" id="briefScrollViewport">
+
+      <!-- WATCHTOWER BRIEF HEADER: FULL-SIZE 96×96 RADAR CIRCLE WTR LOGO + TITLE LEFT | START/END DATES RIGHT -->
+      <header class="event-header" id="secTopHeader">
+        <div class="header-classified-watermark">UNCLASSIFIED</div>
+        <div class="header-left-wrap">
+          <a class="header-logo-link logo-radar-ring"
+             href="https://highanxiety-labs.github.io/watchtower-data-hub/"
+             target="_top"
+             rel="noopener noreferrer"
+             title="Return to [-WTR-] Command Center">
+            <img class="header-logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem">
+          </a>
+          <div class="event-header-text">
+            <div class="event-sub-tag">
+              <span>[-WTR-] DATA HUB</span>
+              <span style="opacity:0.45;">|</span>
+              <a class="data-source-link"
+                 href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
+                 target="_blank"
+                 rel="noopener noreferrer">Official Data Source (FAQ #1065) ↗</a>
+            </div>
+            <h1 class="event-main-title" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">
+              SHADOW OPS: DRIFTING DRAGON
+            </h1>
+            <div class="event-campaign-sub" id="headerSubStatus">
+              CHAPTER 1 ACTIVE • FEATURED UNIT: THE KOMODO
+            </div>
           </div>
         </div>
+
+        <div class="event-meta-box">
+          <div class="meta-line"><strong style="color: var(--text-cyan);">Starts:</strong><span>FRI, NOV 13, 2026 @ 10:00 AM PST</span></div>
+          <div class="meta-line"><strong style="color: var(--text-gold);">Ends:</strong><span style="color: var(--accent-green); font-weight: 900;">WED, DEC 2, 2026 @ 11:59 PM PST</span></div>
+          <div class="meta-line"><strong style="color: var(--text-orange);">Store Closes:</strong><span>END OF CHAPTER (DEC 2, 2026)</span></div>
+        </div>
+      </header>
+
+      <!-- FILE TABS RAIL: MOVED DIRECTLY BELOW THE TITLE HEADER -->
+      <nav class="file-tabs-rail" aria-label="Shadow Ops Section Locators">
+        <div class="file-tabs-group">
+          <button type="button" class="file-tab-btn active-file-tab" data-target="secChapters" onclick="jumpToSection('secChapters', this)">
+            <span class="tab-idx">01</span><span class="tab-lbl">OVERVIEW &amp; CHAPTERS</span>
+          </button>
+          <button type="button" class="file-tab-btn" data-target="secFeaturedRewards" onclick="jumpToSection('secFeaturedRewards', this)">
+            <span class="tab-idx">02</span><span class="tab-lbl">THE KOMODO &amp; REWARDS</span>
+          </button>
+          <button type="button" class="file-tab-btn" data-target="secArgusTech" onclick="jumpToSection('secArgusTech', this)">
+            <span class="tab-idx">03</span><span class="tab-lbl">ARGUS TECH (LV 1–5)</span>
+          </button>
+          <button type="button" class="file-tab-btn" data-target="secMissionRules" onclick="jumpToSection('secMissionRules', this)">
+            <span class="tab-idx">04</span><span class="tab-lbl">MISSION RULES</span>
+          </button>
+          <button type="button" class="file-tab-btn enemy-tab" data-target="secEnemyOnyx" onclick="jumpToSection('secEnemyOnyx', this)">
+            <span class="tab-idx">05</span><span class="tab-lbl">ENEMY: ONYX</span>
+          </button>
+        </div>
+        <button type="button" class="file-tab-btn height-toggle-tab" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Full Uncompressed Height and Locked-HUD Scroll Deck">
+          <span id="heightModeLabel">↕ LOCKED HUD</span>
+        </button>
+      </nav>
+
+      <!-- 4 EQUAL 330×330 FRAMES SCALED TO FULL SHADOW OPS IMAGE VIEW + KEPT TEXT SIZE + INCREASED MARGINS -->
+      <section class="chapters-showcase-band so-collapsible-section" id="secChapters">
+        <div class="equal-quad-grid">
+          <!-- BOX 1 OF 4: FULL UNCROPPED 330×330 SHADOW OPS IMAGE VIEW (ZERO RESCALE INSIDE FRAME) -->
+          <div class="equal-box-frame equal-art-box"
+               onclick="openBriefLightbox('https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8', 'Shadow Ops: Drifting Dragon — The Komodo')"
+               title="Click to enlarge Shadow Ops: Drifting Dragon artwork">
+            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8"
+                 alt="Shadow Ops: Drifting Dragon — The Komodo">
+          </div>
+
+          <!-- BOX 2 OF 4: CHAPTER 1 -->
+          <div class="equal-box-frame equal-chapter-box ch-live">
+            <div class="chapter-head-bar">
+              <span class="chapter-title-lg">CHAPTER 1</span>
+              <div class="chapter-sub-badge" style="color: #34d399;">
+                <span>NOVEMBER 2026</span>
+                <span id="ch1StatusBadge">● LIVE</span>
+              </div>
+            </div>
+
+            <div class="phase-stack-tall">
+              <div class="beam-row-tall beam-p1" id="beamRowP1">
+                <div class="beam-phase-title">
+                  <span>PHASE 1</span>
+                  <span class="phase-live-pip" id="pipP1" style="display:none;">ACTIVE</span>
+                </div>
+                <div class="beam-phase-dates" style="color: #e0e7ff;">November 13 – 20</div>
+              </div>
+
+              <div class="beam-row-tall beam-p2" id="beamRowP2">
+                <div class="beam-phase-title">
+                  <span>PHASE 2</span>
+                  <span class="phase-live-pip" id="pipP2" style="display:none;">ACTIVE</span>
+                </div>
+                <div class="beam-phase-dates" style="color: #bae6fd;">November 20 – 27</div>
+              </div>
+
+              <div class="beam-row-tall beam-p3" id="beamRowP3">
+                <div class="beam-phase-title">
+                  <span>PHASE 3</span>
+                  <span class="phase-live-pip" id="pipP3" style="display:none;">ACTIVE</span>
+                </div>
+                <div class="beam-phase-dates" style="color: #6ee7b7;">November 27 – December 2</div>
+              </div>
+            </div>
+
+            <div class="chapter-foot-line" style="color: #6ee7b7;">
+              Closes December 2 @ 11:59 PM
+            </div>
+          </div>
+
+          <!-- BOX 3 OF 4: CHAPTER 2 -->
+          <div class="equal-box-frame equal-chapter-box">
+            <div class="chapter-head-bar">
+              <span class="chapter-title-lg" style="color: #e0e7ff;">CHAPTER 2</span>
+              <div class="chapter-sub-badge" style="color: #a5b4fc;">
+                <span>DECEMBER 2026</span>
+              </div>
+            </div>
+
+            <div class="phase-stack-tall">
+              <div class="beam-row-tall beam-p1 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 4</span></div>
+                <div class="beam-phase-dates" style="color: #c7d2fe;">December Dates Pending</div>
+              </div>
+
+              <div class="beam-row-tall beam-p2 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 5</span></div>
+                <div class="beam-phase-dates" style="color: #bae6fd;">December Dates Pending</div>
+              </div>
+
+              <div class="beam-row-tall beam-p3 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 6</span></div>
+                <div class="beam-phase-dates" style="color: #e9d5ff;">December Dates Pending</div>
+              </div>
+            </div>
+
+            <div class="chapter-foot-line" style="color: #c7d2fe;">
+              December 2026 Campaign
+            </div>
+          </div>
+
+          <!-- BOX 4 OF 4: CHAPTER 3 -->
+          <div class="equal-box-frame equal-chapter-box ch-three">
+            <div class="chapter-head-bar">
+              <span class="chapter-title-lg" style="color: #f3e8ff;">CHAPTER 3</span>
+              <div class="chapter-sub-badge" style="color: #d8b4fe;">
+                <span>JANUARY 2027</span>
+              </div>
+            </div>
+
+            <div class="phase-stack-tall">
+              <div class="beam-row-tall beam-p1 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 7</span></div>
+                <div class="beam-phase-dates" style="color: #c7d2fe;">January Dates Pending</div>
+              </div>
+
+              <div class="beam-row-tall beam-p2 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 8</span></div>
+                <div class="beam-phase-dates" style="color: #bae6fd;">January Dates Pending</div>
+              </div>
+
+              <div class="beam-row-tall beam-p3 is-tbd">
+                <div class="beam-phase-title"><span>PHASE 9</span></div>
+                <div class="beam-phase-dates" style="color: #e9d5ff;">January Dates Pending</div>
+              </div>
+            </div>
+
+            <div class="chapter-foot-line" style="color: #e9d5ff;">
+              January 2027 Finale
+            </div>
+          </div>
+        </div>
+
+        <!-- Exact PST Windows for Chapter 1 -->
+        <div class="pst-detail-strip">
+          <div class="pst-detail-pill">
+            <strong>CHAPTER 1 • PHASE 1:</strong>
+            <span>Friday, November 13, 10:00 AM → Friday, November 20, 10:00 AM PST</span>
+          </div>
+          <div class="pst-detail-pill">
+            <strong>CHAPTER 1 • PHASE 2:</strong>
+            <span>Friday, November 20, 10:00 AM → Friday, November 27, 10:00 AM PST</span>
+          </div>
+          <div class="pst-detail-pill">
+            <strong>CHAPTER 1 • PHASE 3:</strong>
+            <span>Friday, November 27, 10:00 AM → Wednesday, December 2, 11:59 PM PST</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MAIN INTEL BODY: LEFT (KOMODO, ANANSI LOGISTIC, 4 ARGUS TECHS, RULES) | RIGHT (ENLARGED ONYX) -->
+      <div class="intel-body-grid so-collapsible-section">
+        <div class="intel-left-stack">
+
+          <!-- 02: FEATURED REWARDS -->
+          <section class="section-panel" id="secFeaturedRewards">
+            <div class="section-title-bar">
+              <h2><span class="sec-num-chip">02</span> FEATURED CAMPAIGN REWARDS</h2>
+              <span style="font-family: monospace; font-size: 11.5px; color: var(--text-gold); font-weight: 900;">DRIFTING DRAGON • CHAPTER 1–3</span>
+            </div>
+
+            <div class="rewards-cards-row">
+              <div class="reward-item-card">
+                <img class="reward-thumb"
+                     src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8"
+                     alt="Unique Unit: The Komodo">
+                <div class="reward-meta">
+                  <h3>★ Unique Unit: The Komodo</h3>
+                  <p>Earn parts across the <strong>Drifting Dragon</strong> campaign phases to unlock The Komodo. Replay the current Phase to recover any missed parts.</p>
+                </div>
+              </div>
+
+              <div class="reward-item-card logistic-card">
+                <img class="reward-thumb"
+                     src="https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr"
+                     alt="Baron Anansi Repair Logistic">
+                <div class="reward-meta">
+                  <h3>🔧 Baron Anansi Repair Logistic (Limit: 3)</h3>
+                  <p>Chapter 1 includes the <strong>Baron Anansi Repair Logistic</strong> with an earnable limit of <strong>3</strong>.</p>
+                  <a class="unit-db-link" href="./unit-briefs.html" onclick="handoffUnitToBriefs('BARON ANANSI')">Inspect Baron Anansi in Unit Briefs →</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03: 4 ARGUS TECHS (LV 1–5) -->
+          <section class="section-panel" id="secArgusTech">
+            <div class="section-title-bar">
+              <h2><span class="sec-num-chip">03</span> ARGUS TECH BREAKDOWN (LEVELS 1–5)</h2>
+              <img class="kixeye-divider-img"
+                   src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f02692d0-cd11-43bf-9806-8cc87493595c.png"
+                   alt="Shadow Ops Tech">
+            </div>
+
+            <div class="argus-unit-strip">
+              <div class="argus-unit-left">
+                <img src="https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM" alt="Argus">
+                <div>
+                  <div style="font-weight: 900; font-size: 13px; color: #f8fafc; text-transform: uppercase;">ARGUS — EQUINOX RECONNAISSANCE AIRCRAFT</div>
+                  <div style="font-size: 11.5px; color: #94a3b8;">4 earnable Chapter 1 tech upgrades (5 levels each) across Ablative Matrix &amp; Particle Munitions slots</div>
+                </div>
+              </div>
+              <a class="unit-db-link" href="./unit-briefs.html" onclick="handoffUnitToBriefs('ARGUS')" style="margin-top:0;">Inspect Argus in Unit Briefs →</a>
+            </div>
+
+            <div class="tech-table-wrap">
+              <table class="tech-table">
+                <thead>
+                  <tr>
+                    <th>Argus Tech Name</th>
+                    <th>Slot</th>
+                    <th>Role</th>
+                    <th>Level 1 → Level 5 Modifiers</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tech-name-def">Vector Evasion Thrusters</td>
+                    <td><span class="slot-pill">Ablative Matrix</span></td>
+                    <td><span class="fn-def">Defense</span></td>
+                    <td>
+                      <div><strong>Damage Taken from Air:</strong> <span style="color:#6ee7b7;">-20% / -25% / -30% / -35% / -40%</span></div>
+                      <div style="color:#cbd5e1; margin-top:2px;"><strong>Flat Damage Reduction</strong> (30s after dropping below 75% HP): <span style="color:#93c5fd;">+100 / +200 / +300 / +400 / +500</span></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tech-name-def">Ballistic Underbelly</td>
+                    <td><span class="slot-pill">Ablative Matrix</span></td>
+                    <td><span class="fn-def">Defense</span></td>
+                    <td>
+                      <div><strong>Damage Taken from Infantry:</strong> <span style="color:#6ee7b7;">-20% / -25% / -30% / -35% / -40%</span></div>
+                      <div style="color:#cbd5e1; margin-top:2px;"><strong>Flat Damage Reduction</strong> (30s after dropping below 75% HP): <span style="color:#93c5fd;">+100 / +200 / +300 / +400 / +500</span></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tech-name-off">A2A Plasma Pods</td>
+                    <td><span class="slot-pill">Particle Munitions</span></td>
+                    <td><span class="fn-off">Offense</span></td>
+                    <td>
+                      <div><strong>Increased Damage to Air:</strong> <span style="color:#fde047; font-weight:800;">+30% / +40% / +50% / +60% / +70%</span></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tech-name-off">Rotary Pulse Cannons</td>
+                    <td><span class="slot-pill">Particle Munitions</span></td>
+                    <td><span class="fn-off">Offense</span></td>
+                    <td>
+                      <div><strong>Increased Damage to Infantry:</strong> <span style="color:#fde047; font-weight:800;">+30% / +40% / +50% / +60% / +70%</span></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 04: MISSION DESCRIPTION & SCORING RULES -->
+          <section class="section-panel" id="secMissionRules">
+            <div class="section-title-bar">
+              <h2><span class="sec-num-chip">04</span> MISSION SCORING &amp; REPEAT PLAYTHROUGH RULES</h2>
+              <img class="kixeye-divider-img"
+                   src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/336a807c-b370-401a-a29f-cc1e245d090e.png"
+                   alt="Shadow Ops Mission Rules">
+            </div>
+
+            <div class="rules-list">
+              <div class="rule-box">
+                <div class="rule-pts">8,000 POINTS</div>
+                <p>Attack Shadow Ops bases and earn <strong>8,000 Shadow Ops Points</strong> to complete your initial playthrough.</p>
+              </div>
+              <div class="rule-box repeat-box">
+                <div class="rule-pts">+4,000 REPEAT</div>
+                <p>Earn <strong>4,000 additional points</strong> per repeated playthrough for extra tech + a <strong>damage bonus in the next monthly event</strong>.</p>
+              </div>
+              <div class="rule-box replay-box">
+                <div class="rule-pts">PHASE REPLAY</div>
+                <p>Missed a part earlier in the campaign? <strong>Replay the current Phase</strong> to earn any missed unit parts!</p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- 05: RIGHT COLUMN — ADVERSARY ONYX WITH ENLARGED PORTRAIT BELOW COUNTERPART: RUBI -->
+        <aside class="adversary-onyx-card" id="secEnemyOnyx">
+          <div class="onyx-header-block">
+            <div class="onyx-kicker">ADVERSARY</div>
+            <div class="onyx-title">ONYX</div>
+            <div class="onyx-counterpart">Counterpart: Rubi</div>
+          </div>
+
+          <div class="onyx-portrait-frame"
+               onclick="openBriefLightbox('https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005', 'Adversary: ONYX (Counterpart: Rubi)')"
+               title="Click to enlarge Adversary ONYX portrait">
+            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005"
+                 alt="Enemy — ONYX">
+          </div>
+
+          <blockquote class="onyx-lore-quote">
+            “Centuries have passed since Onyx was involved in anything good. Once, she was part of a larger AI designed to save the world from utter obliteration, now she is hell bent on global domination. Separated from her counterpart, Rubi, they’ve had various forms of interactions, never quite amalgamating into the grand savior of humanity once promised.”
+          </blockquote>
+        </aside>
       </div>
 
-      <div class="event-meta-box">
-        <div class="meta-line"><strong style="color: var(--text-cyan)">Starts:</strong><span>FRI NOV 13, 2026 @ 10:00 AM PST</span></div>
-        <div class="meta-line"><strong style="color: var(--text-gold)">Ends:</strong><span>FRI DEC 4, 2026 @ 10:00 AM PST</span></div>
-        <div class="meta-line"><strong style="color: var(--text-orange)">Store Closes:</strong><span>END OF CHAPTER (DEC 4, 2026)</span></div>
-      </div>
-    </header>
+    </div><!-- /#briefScrollViewport -->
 
+    <!-- ==================== LOCKED BOTTOM 4-CORNER CLOCK & STATUS BAR ==================== -->
     <div class="bottom-clock-bar-m1 scanline-shimmer">
       <span class="corner-block-4 corner-bottom-left">
-        <span class="clock-lbl">T-MINUS:</span>
-        <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
+        <span class="clock-lbl" id="bottomClockLabel">PHASE 1 ENDS:</span>
+        <span class="dyn-clock-readout" id="liveEventCountdown">--d --h --m --s</span>
       </span>
-      <span class="bar-solid-label">RELEASE NOTES PENDING // UNLOCKS PRIOR TO LAUNCH</span>
-      <span class="corner-block-4 corner-bottom-right">
-        <span class="live-beacon-dot"></span>
-        <span>STATUS: SEALED</span>
+      <span class="bar-solid-label" id="bottomCenterBanner">DRIFTING DRAGON</span>
+      <span class="corner-block-4 corner-bottom-right" id="bottomRightCorner">
+        <span class="live-beacon-dot" id="bottomBeaconDot"></span>
+        <span id="bottomStatusText">STATUS: CHAPTER 1 LIVE</span>
       </span>
     </div>
   </div>
 
+  <!-- Lightbox Modal for Artwork Inspection -->
+  <div class="img-lightbox-backdrop" id="briefLightbox" onclick="closeBriefLightbox()">
+    <img id="briefLightboxImg" src="" alt="">
+  </div>
+
   <script>
-  (function() {
-    var isKnown = true;
-    var startMs = new Date("2026-11-13T10:00:00-08:00").getTime();
-    var clockEl = document.getElementById("liveEventCountdown");
-    function tick() {
-      if (!isKnown || isNaN(startMs)) {
-        clockEl.textContent = "0d 0h 00m 0s";
-        return;
+    (function() {
+      var P1_START = new Date("2026-11-13T10:00:00-08:00").getTime();
+      var P1_END   = new Date("2026-11-20T10:00:00-08:00").getTime();
+      var P2_END   = new Date("2026-11-27T10:00:00-08:00").getTime();
+      var P3_END   = new Date("2026-12-02T23:59:59-08:00").getTime();
+
+      var clockLblEl = document.getElementById("bottomClockLabel");
+      var clockValEl = document.getElementById("liveEventCountdown");
+      var centerEl   = document.getElementById("bottomCenterBanner");
+      var statusEl   = document.getElementById("bottomStatusText");
+      var beaconEl   = document.getElementById("bottomBeaconDot");
+      var ch1BadgeEl = document.getElementById("ch1StatusBadge");
+      var hdrSubEl   = document.getElementById("headerSubStatus");
+
+      var rowP1 = document.getElementById("beamRowP1");
+      var rowP2 = document.getElementById("beamRowP2");
+      var rowP3 = document.getElementById("beamRowP3");
+      var pipP1 = document.getElementById("pipP1");
+      var pipP2 = document.getElementById("pipP2");
+      var pipP3 = document.getElementById("pipP3");
+
+      function formatRemain(ms) {
+        var diff = Math.max(0, ms);
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        var mPad = m < 10 ? "0" + m : "" + m;
+        var sPad = s < 10 ? "0" + s : "" + s;
+        return d + "d " + h + "h " + mPad + "m " + sPad + "s";
       }
-      var diff = Math.max(0, startMs - Date.now());
-      var d = Math.floor(diff / 86400000);
-      var h = Math.floor((diff % 86400000) / 3600000);
-      var m = Math.floor((diff % 3600000) / 60000);
-      var s = Math.floor((diff % 60000) / 1000);
-      var mPad = m < 10 ? "0" + m : "" + m;
-      clockEl.textContent = d + "d " + h + "h " + mPad + "m " + s + "s";
+
+      function setPhaseHighlight(activeIdx) {
+        [rowP1, rowP2, rowP3].forEach(function(r, idx) {
+          if (!r) return;
+          if (idx + 1 === activeIdx) r.classList.add("is-active-phase");
+          else r.classList.remove("is-active-phase");
+        });
+        [pipP1, pipP2, pipP3].forEach(function(p, idx) {
+          if (!p) return;
+          p.style.display = (idx + 1 === activeIdx) ? "inline-block" : "none";
+        });
+      }
+
+      function tick() {
+        var now = Date.now();
+        if (now < P1_START) {
+          clockLblEl.textContent = "T-MINUS:";
+          clockValEl.textContent = formatRemain(P1_START - now);
+          centerEl.textContent = "DRIFTING DRAGON";
+          statusEl.textContent = "STATUS: UPCOMING";
+          setPhaseHighlight(0);
+        } else if (now < P1_END) {
+          clockLblEl.textContent = "PHASE 1 ENDS:";
+          clockValEl.textContent = formatRemain(P1_END - now);
+          centerEl.textContent = "DRIFTING DRAGON";
+          statusEl.textContent = "STATUS: CHAPTER 1 LIVE";
+          if (hdrSubEl) hdrSubEl.textContent = "CHAPTER 1 ACTIVE (PHASE 1 LIVE) • FEATURED UNIT: THE KOMODO";
+          setPhaseHighlight(1);
+        } else if (now < P2_END) {
+          clockLblEl.textContent = "PHASE 2 ENDS:";
+          clockValEl.textContent = formatRemain(P2_END - now);
+          centerEl.textContent = "DRIFTING DRAGON";
+          statusEl.textContent = "STATUS: CHAPTER 1 LIVE";
+          if (hdrSubEl) hdrSubEl.textContent = "CHAPTER 1 ACTIVE (PHASE 2 LIVE) • FEATURED UNIT: THE KOMODO";
+          setPhaseHighlight(2);
+        } else if (now <= P3_END) {
+          clockLblEl.textContent = "CHAPTER 1 ENDS:";
+          clockValEl.textContent = formatRemain(P3_END - now);
+          centerEl.textContent = "DRIFTING DRAGON";
+          statusEl.textContent = "STATUS: CHAPTER 1 LIVE";
+          if (hdrSubEl) hdrSubEl.textContent = "CHAPTER 1 ACTIVE (PHASE 3 LIVE) • STORE CLOSES DECEMBER 2";
+          setPhaseHighlight(3);
+        } else {
+          clockLblEl.textContent = "CHAPTER 1:";
+          clockValEl.textContent = "CONCLUDED";
+          clockValEl.style.color = "#94a3b8";
+          centerEl.textContent = "DRIFTING DRAGON";
+          statusEl.textContent = "CHAPTER 1 COMPLETE";
+          if (beaconEl) {
+            beaconEl.style.background = "#94a3b8";
+            beaconEl.style.boxShadow = "none";
+          }
+          if (ch1BadgeEl) {
+            ch1BadgeEl.textContent = "COMPLETE";
+            ch1BadgeEl.style.color = "#a5b4fc";
+          }
+          setPhaseHighlight(0);
+        }
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    function jumpToSection(secId, btnEl) {
+      var card = document.getElementById("mainShadowOpsDossier");
+      if (card && card.classList.contains("brief-collapsed")) {
+        toggleBriefArchiveMode();
+      }
+      document.querySelectorAll(".file-tabs-group .file-tab-btn").forEach(function(b) {
+        b.classList.remove("active-file-tab");
+      });
+      if (btnEl) btnEl.classList.add("active-file-tab");
+
+      var target = document.getElementById(secId);
+      if (!target) return;
+      var viewport = document.getElementById("briefScrollViewport");
+      if (card && !card.classList.contains("unconstrained-height") && viewport) {
+        var topOffset = target.offsetTop - viewport.offsetTop;
+        viewport.scrollTo({ top: Math.max(0, topOffset - 6), behavior: "smooth" });
+      } else {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
-    tick();
-    setInterval(tick, 1000);
-  })();
+
+    function toggleBriefArchiveMode() {
+      var card = document.getElementById("mainShadowOpsDossier");
+      var icon = document.getElementById("archiveToggleIcon");
+      var txt  = document.getElementById("archiveToggleText");
+      if (!card) return;
+      var collapsed = card.classList.toggle("brief-collapsed");
+      if (icon) icon.textContent = collapsed ? "▲" : "▼";
+      if (txt)  txt.textContent  = collapsed ? "EXPAND BRIEF" : "COLLAPSE BRIEF";
+    }
+
+    function toggleViewportHeightMode() {
+      var card = document.getElementById("mainShadowOpsDossier");
+      var lbl  = document.getElementById("heightModeLabel");
+      if (!card) return;
+      var isFull = card.classList.toggle("unconstrained-height");
+      if (lbl) lbl.textContent = isFull ? "↕ LOCKED HUD" : "↕ FULL PAGE";
+    }
+
+    function handoffUnitToBriefs(unitName) {
+      try {
+        localStorage.setItem("wtr_target_unit_handoff", unitName);
+      } catch (e) {}
+    }
+
+    function openBriefLightbox(src, altText) {
+      var box = document.getElementById("briefLightbox");
+      var img = document.getElementById("briefLightboxImg");
+      if (!box || !img) return;
+      img.src = src;
+      img.alt = altText || "";
+      box.classList.add("open");
+    }
+
+    function closeBriefLightbox() {
+      var box = document.getElementById("briefLightbox");
+      if (box) box.classList.remove("open");
+    }
+
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeBriefLightbox();
+    });
   </script>
 </body>
 </html>

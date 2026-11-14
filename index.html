@@ -1037,10 +1037,10 @@
               <button type="button" class="timer-brief-btn" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn4);">🖥️ OPEN SECTOR BREACH BRIEF</button>
             </div>
             <div class="timer-card shadowops card-inherited" id="carouselCardShadowOps" style="display: flex; --dir-target-key: var(--dir-btn2); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Shadow Ops: Phase 1</span><span class="timer-status-badge" id="badge-shadowops">Upcoming</span></div>
+              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Drifting Dragon: Ch.1 / P1</span><span class="timer-status-badge" id="badge-shadowops">Phase Live</span></div>
               <div class="timer-clock-display" id="clock-shadowops">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-shadowops">Launches Nov 13, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Phase 1" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn2);">🖥️ OPEN SHADOW OPS BRIEF</button>
+              <div class="timer-subtext" id="sub-shadowops">Phase Ends Nov 20, 10:00 AM PT</div>
+              <button type="button" class="timer-brief-btn" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Drifting Dragon" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn2);">🖥️ OPEN SHADOW OPS BRIEF</button>
             </div>
             <div class="timer-card warpath card-inherited" id="carouselCardWarpath" style="display: none; --dir-target-key: var(--dir-archives); order: 10; opacity: 0.65;">
               <div class="timer-card-header"><span class="timer-card-title" id="clockTitleWarpath" style="color: #be8ee0;">Warpath</span><span class="timer-status-badge" id="badge-warpath">Concluded</span></div>
@@ -1579,7 +1579,7 @@
         { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "DEC 2026 • OPERATION: TBD", url: "./2026-dec-operation-brief.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
         { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", url: "./2026-pvp-season-60-brief.html", embedCode: "", openInIframe: true, eventCategory: "PVP_SEASON" },
         { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
-        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS BRIEF", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
+        { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS: DRIFTING DRAGON", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
         { enabled: true, isSubPage: false, order: 7, symbol: "LIVE", title: "NOV 2026 • SECTOR BREACH BRIEF", url: "./2026-nov-sector-breach-brief.html", embedCode: "", openInIframe: true, eventCategory: "SECTOR_BREACH" },
         { enabled: true, isSubPage: false, order: 8, symbol: "LIVE", title: "NOV 2026 • SKIRMISH BRIEF", url: "./2026-nov-skirmish-brief.html", embedCode: "", openInIframe: true, eventCategory: "SKIRMISH" }
       ]
@@ -4785,9 +4785,9 @@
           { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "./vault/2026-oct-skirmish-brief.html", sourceUrl: "" },
           { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: true,  label: "Skirmish II",         startDate: "NOV 27, 2026", endDate: "DEC 1, 2026",  storeDate: "DEC 2, 2026", briefUrl: "./2026-nov-skirmish-brief.html", sourceUrl: "" },
           { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",       startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A",         briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
-          { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
-          { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
-          { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3", startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+          { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Drifting Dragon: Ch.1 / P1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+          { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Drifting Dragon: Ch.1 / P2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+          { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Drifting Dragon: Ch.1 / P3", startDate: "NOV 27, 2026", endDate: "DEC 2, 2026",  storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
           { key: "bases",     tier: "bases", hex: "#fbc02d", enabled: true,  label: "Assigned Bases",      startDate: "MON / TUE / WED", endDate: "WEEKLY ROTATION", storeDate: "N/A", briefUrl: "", sourceUrl: "" }
         ],
         daysData: {
@@ -4824,9 +4824,9 @@
           "29": { resource: "Iridium",    events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }] },
           "30": { resource: "Medal/Adv",  events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
           "next_1": { resource: "Iridium",   events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "next_2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "next_3": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
-          "next_4": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] },
+          "next_2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3 Ends" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+          "next_3": { resource: "Iridium",   events: [] },
+          "next_4": { resource: "Medal/Adv", events: [] },
           "next_5": { resource: "Iridium",   events: [] }
         }
       },
@@ -4834,13 +4834,14 @@
         mainTitle: "DECEMBER 2026",
         sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/",
         legendItems: [
-          { key: "future", tier: "main", hex: "#ff2a85", enabled: true, label: "PVP Season 60", startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" }
+          { key: "future", tier: "main",  hex: "#ff2a85", enabled: true, label: "PVP Season 60",              startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A",            briefUrl: "./2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
+          { key: "phase1", tier: "lower", hex: "#5c6bc0", enabled: true, label: "Drifting Dragon: Ch.2 / P4", startDate: "TBD",          endDate: "TBD",          storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+          { key: "phase2", tier: "lower", hex: "#29b6f6", enabled: true, label: "Drifting Dragon: Ch.2 / P5", startDate: "TBD",          endDate: "TBD",          storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+          { key: "phase3", tier: "lower", hex: "#7e57c2", enabled: true, label: "Drifting Dragon: Ch.2 / P6", startDate: "TBD",          endDate: "TBD",          storeDate: "End of Chapter", briefUrl: "./2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" }
         ],
         daysData: {
           "1": { resource: "Iridium",   events: [{ type: "skirmish2", text: "Skirmish II" }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-          "3": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
-          "4": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] }
+          "2": { resource: "Medal/Adv", events: [{ type: "skirmish2", text: "🛒 Store Closes", isStoreTail: true }, { type: "phase3", text: "Ch.1 / Phase 3 Ends" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] }
         }
       }
     }
@@ -8117,13 +8118,16 @@
       slug = m2[2];
     }
 
-    const readable = slug
+    let readable = slug
       .replace(/=/g, ": ")
       .replace(/-/g, " ")
       .replace(/\boperation\s+/i, "OPERATION: ")
       .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
       .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
       .toUpperCase();
+    if (clean.toLowerCase() === "2026-nov-shadow-ops-brief.html") {
+      readable = "SHADOW OPS: DRIFTING DRAGON";
+    }
 
     const datePrefix = monthNum > 0 ? `${monthShort} ${year}` : `${year}`;
     const prefix = getWtrPublishedPrefix();

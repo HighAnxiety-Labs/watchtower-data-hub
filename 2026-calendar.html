@@ -2224,9 +2224,9 @@
       { key: "skirmish1", tier: "main",  hex: "#4caf50", enabled: true,  label: "Skirmish I",            startDate: "OCT 30, 2026", endDate: "NOV 3, 2026",  storeDate: "NOV 4, 2026", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html", sourceUrl: "" },
       { key: "skirmish2", tier: "main",  hex: "#10b981", enabled: false, label: "Skirmish II",           startDate: "TBD",          endDate: "TBD",          storeDate: "TBD", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-skirmish-brief.html", sourceUrl: "" },
       { key: "future",    tier: "main",  hex: "#ff2a85", enabled: true,  label: "PVP Season 60",         startDate: "NOV 12, 2026", endDate: "DEC 30, 2026", storeDate: "N/A", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" },
-      { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Shadow Ops: Phase 1",   startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
-      { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Shadow Ops: Phase 2",   startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
-      { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Shadow Ops: Phase 3",   startDate: "NOV 27, 2026", endDate: "DEC 4, 2026",  storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "" },
+      { key: "phase1",    tier: "lower", hex: "#5c6bc0", enabled: true,  label: "Drifting Dragon: Ch.1 / P1", startDate: "NOV 13, 2026", endDate: "NOV 20, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+      { key: "phase2",    tier: "lower", hex: "#29b6f6", enabled: true,  label: "Drifting Dragon: Ch.1 / P2", startDate: "NOV 20, 2026", endDate: "NOV 27, 2026", storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
+      { key: "phase3",    tier: "lower", hex: "#7e57c2", enabled: true,  label: "Drifting Dragon: Ch.1 / P3", startDate: "NOV 27, 2026", endDate: "DEC 2, 2026",  storeDate: "End of Chapter", briefUrl: "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html", sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/" },
       { key: "bases",     tier: "bases", hex: "#fbc02d", enabled: true,  label: "Assigned Bases",        startDate: "MON / TUE / WED", endDate: "WEEKLY ROTATION", storeDate: "N/A", briefUrl: "", sourceUrl: "" }
     ],
     daysData: {
@@ -2262,9 +2262,9 @@
       "30": { resource: "Medal/Adv",  events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
       /* Greyed-out Spillover into early December 2026 */
       "next_1": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-      "next_2": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
-      "next_3": { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] },
-      "next_4": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] },
+      "next_2": { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] },
+      "next_3": { resource: "Iridium",   events: [] },
+      "next_4": { resource: "Medal/Adv", events: [] },
       "next_5": { resource: "Iridium",   events: [] }
     }
   };
@@ -2281,10 +2281,17 @@
       decFuture.briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-pvp-season-60-brief.html";
       decFuture.sourceUrl = "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/";
     }
-    dec.daysData["1"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
-    dec.daysData["2"] = { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
-    dec.daysData["3"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Ch.1 / Phase 3" }] };
-    dec.daysData["4"] = { resource: "Medal/Adv", events: [{ type: "phase3", text: "Ch.1 / Phase 3 Ends" }] };
+    const decPhMap = { phase1: "Drifting Dragon: Ch.2 / P4", phase2: "Drifting Dragon: Ch.2 / P5", phase3: "Drifting Dragon: Ch.2 / P6" };
+    (dec.legendItems || []).forEach(it => {
+      if (decPhMap[it.key]) {
+        it.enabled = true;
+        it.label = decPhMap[it.key];
+        it.briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html";
+        it.sourceUrl = "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/";
+      }
+    });
+    dec.daysData["1"] = { resource: "Iridium",   events: [{ type: "phase3", text: "Drifting Dragon: Ch.1 / P3" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
+    dec.daysData["2"] = { resource: "Medal/Adv", events: [{ type: "phase3", text: "Drifting Dragon: Ch.1 / P3 Ends" }, { type: "bases", text: "Eidolon • Vesper • Ironside • Voidhammer" }] };
     return dec;
   }
 
@@ -2384,29 +2391,32 @@
     {
       "key": "phase1",
       "enabled": true,
-      "label": "Shadow Ops: Phase 1",
+      "label": "Drifting Dragon: Ch.1 / P1",
       "startDate": "NOV 13, 2026",
       "endDate": "NOV 20, 2026",
       "storeDate": "End of Chapter",
-      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+      "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
     },
     {
       "key": "phase2",
       "enabled": true,
-      "label": "Shadow Ops: Phase 2",
+      "label": "Drifting Dragon: Ch.1 / P2",
       "startDate": "NOV 20, 2026",
       "endDate": "NOV 27, 2026",
       "storeDate": "End of Chapter",
-      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+      "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
     },
     {
       "key": "phase3",
       "enabled": true,
-      "label": "Shadow Ops: Phase 3",
+      "label": "Drifting Dragon: Ch.1 / P3",
       "startDate": "NOV 27, 2026",
-      "endDate": "DEC 4, 2026",
+      "endDate": "DEC 2, 2026",
       "storeDate": "End of Chapter",
-      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html"
+      "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+      "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
     },
     {
       "key": "bases",
@@ -6905,29 +6915,32 @@
         {
           "key": "phase1",
           "enabled": true,
-          "label": "Shadow Ops: Phase 1",
+          "label": "Drifting Dragon: Ch.1 / P1",
           "startDate": "NOV 13, 2026",
           "endDate": "NOV 20, 2026",
           "storeDate": "End of Chapter",
-          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "phase2",
           "enabled": true,
-          "label": "Shadow Ops: Phase 2",
+          "label": "Drifting Dragon: Ch.1 / P2",
           "startDate": "NOV 20, 2026",
           "endDate": "NOV 27, 2026",
           "storeDate": "End of Chapter",
-          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "phase3",
           "enabled": true,
-          "label": "Shadow Ops: Phase 3",
+          "label": "Drifting Dragon: Ch.1 / P3",
           "startDate": "NOV 27, 2026",
-          "endDate": "DEC 4, 2026",
+          "endDate": "DEC 2, 2026",
           "storeDate": "End of Chapter",
-          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops.html"
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "bases",
@@ -7295,26 +7308,32 @@
         {
           "key": "phase1",
           "enabled": true,
-          "label": "Shadow Ops: Phase 1",
+          "label": "Drifting Dragon: Ch.2 / P4",
           "startDate": "TBD",
           "endDate": "TBD",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "phase2",
           "enabled": true,
-          "label": "Shadow Ops: Phase 2",
+          "label": "Drifting Dragon: Ch.2 / P5",
           "startDate": "TBD",
           "endDate": "TBD",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "phase3",
           "enabled": true,
-          "label": "Shadow Ops: Phase 3",
+          "label": "Drifting Dragon: Ch.2 / P6",
           "startDate": "TBD",
           "endDate": "TBD",
-          "storeDate": "End of Chapter"
+          "storeDate": "End of Chapter",
+          "briefUrl": "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-shadow-ops-brief.html",
+          "sourceUrl": "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
         },
         {
           "key": "bases",
@@ -7332,6 +7351,10 @@
             {
               "type": "skirmish2",
               "text": "Skirmish II"
+            },
+            {
+              "type": "phase3",
+              "text": "Drifting Dragon: Ch.1 / P3"
             }
           ]
         },
@@ -7342,6 +7365,10 @@
               "type": "skirmish2",
               "text": "🛒 Store Closes",
               "isStoreTail": true
+            },
+            {
+              "type": "phase3",
+              "text": "Drifting Dragon: Ch.1 / P3 Ends"
             }
           ]
         },
