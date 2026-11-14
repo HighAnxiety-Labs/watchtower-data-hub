@@ -645,6 +645,22 @@
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(244, 63, 94, 0.32);
       outline: none;
     }
+    .defect-tile.is-green {
+      border-top-color: var(--green-main);
+    }
+    .defect-tile.is-green:hover,
+    .defect-tile.is-green:focus-visible {
+      border-color: var(--green-main);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(0, 230, 118, 0.32);
+    }
+    .defect-tile.is-yellow {
+      border-top-color: var(--yellow-main);
+    }
+    .defect-tile.is-yellow:hover,
+    .defect-tile.is-yellow:focus-visible {
+      border-color: var(--yellow-main);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(250, 204, 21, 0.28);
+    }
 
     .tile-portrait-box {
       position: relative;
@@ -704,6 +720,65 @@
       border-radius: 50%;
       background: var(--red-main);
       box-shadow: 0 0 8px var(--red-main);
+    }
+    .status-pill-red.is-green {
+      background: rgba(4, 22, 13, 0.92);
+      border-color: var(--green-main);
+      color: #d0f8df;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 230, 118, 0.42);
+    }
+    .status-pill-dot.is-green {
+      background: var(--green-main);
+      box-shadow: 0 0 8px var(--green-main);
+    }
+    .status-pill-red.is-yellow {
+      background: rgba(24, 19, 4, 0.92);
+      border-color: var(--yellow-main);
+      color: #fef08a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(250, 204, 21, 0.38);
+    }
+    .status-pill-dot.is-yellow {
+      background: var(--yellow-main);
+      box-shadow: 0 0 8px var(--yellow-main);
+    }
+
+    /* Page-Specific -45° Bold Green FIXED Stamp Covering GREEN Status Portraits */
+    .fixed-stamp-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .fixed-stamp {
+      transform: rotate(-45deg);
+      width: 118%;
+      max-width: 290px;
+      text-align: center;
+      padding: 8px 0;
+      font-family: 'Arial Black', 'Orbitron', Impact, sans-serif;
+      font-size: clamp(26px, 2.5vw, 35px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 6px;
+      text-indent: 6px;
+      text-transform: uppercase;
+      color: var(--green-main);
+      background: rgba(3, 16, 10, 0.74);
+      border-top: 4px solid var(--green-main);
+      border-bottom: 4px solid var(--green-main);
+      outline: 2px solid rgba(0, 230, 118, 0.55);
+      outline-offset: -7px;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85), 0 0 16px rgba(0, 230, 118, 0.35), inset 0 0 12px rgba(0, 230, 118, 0.22);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 230, 118, 0.55);
+      user-select: none;
+    }
+    .defect-tile:hover .fixed-stamp-wrap,
+    .defect-tile:focus-visible .fixed-stamp-wrap {
+      opacity: 0.14;
     }
 
     .traffic-pod {
@@ -791,6 +866,16 @@
       letter-spacing: 0.7px;
       text-transform: uppercase;
     }
+    .ov-status-banner.is-green {
+      background: rgba(0, 230, 118, 0.2);
+      border-color: rgba(0, 230, 118, 0.8);
+      color: #b9f6ca;
+    }
+    .ov-status-banner.is-yellow {
+      background: rgba(250, 204, 21, 0.2);
+      border-color: rgba(250, 204, 21, 0.8);
+      color: #fef08a;
+    }
     .ov-headline {
       font-family: 'Orbitron', sans-serif;
       font-size: 13px;
@@ -807,6 +892,12 @@
       color: #f4f8fc;
       border-left: 3px solid var(--red-main);
       padding-left: 9px;
+    }
+    .ov-desc.is-green {
+      border-left-color: var(--green-main);
+    }
+    .ov-desc.is-yellow {
+      border-left-color: var(--yellow-main);
     }
     .ov-cta {
       font-family: 'Share Tech Mono', monospace;
@@ -867,6 +958,11 @@
       background: var(--red-main);
       border-color: #fda4af;
       color: #ffffff;
+    }
+    .defect-tile.is-green:hover .tile-action-chip {
+      background: #00c853;
+      border-color: #b9f6ca;
+      color: #03140a;
     }
 
     .portrait-monogram {
@@ -1036,15 +1132,15 @@
       unitBriefDivision: 'CONTRACTOR',
       fallbackImg: './assets/images/AGENTS/ScreenCapture Carol Hagen.png',
       liveImg: '',
-      statusPill: 'STATUS: RED • MISSING',
-      overlayBanner: '🔴 STATUS: RED — MISSING',
-      overlayHeadline: 'Missing From Agency List',
-      overlayDesc: 'MISSING from Agency list. If you\'ve previously purchased with Blood Thorium diamonds, some players are missing the contractor. It may be a result of using it once and swapping it out with another.',
+      statusPill: 'STATUS: GREEN • FIXED',
+      overlayBanner: '🟢 STATUS: GREEN — FIXED',
+      overlayHeadline: 'Now Showing in Contractor List',
+      overlayDesc: 'FIXED — Now showing in the Contractor List. (Previously missing from Agency list after Blood Thorium diamond purchase / swap.)',
       overlayCta: '📖 Click thumbnail to open Carol Hagen Unit Brief →',
       footerCta: '📖 Open Unit Brief →',
-      redLight: true,
+      redLight: false,
       yellowLight: false,
-      greenLight: false
+      greenLight: true
     },
     {
       id: 'cc22-tesla-lvl9',
@@ -1199,15 +1295,22 @@
     renderDefectGrid();
   }
 
+  function formatTabStatusBadge(items) {
+    const fixedCnt = items.filter(d => d.greenLight).length;
+    const redCnt = items.length - fixedCnt;
+    if (fixedCnt > 0 && redCnt > 0) return `${redCnt} RED • ${fixedCnt} FIXED`;
+    if (fixedCnt > 0) return `${fixedCnt} FIXED`;
+    return `${redCnt} STATUS RED`;
+  }
+
   function renderCategoryTabs() {
-    const totalCount = DEFECT_ITEMS.length;
-    const contractorCount = DEFECT_ITEMS.filter(d => d.category === 'CONTRACTOR').length;
-    const facilityCount = DEFECT_ITEMS.filter(d => d.category === 'FACILITY').length;
+    const contractorItems = DEFECT_ITEMS.filter(d => d.category === 'CONTRACTOR');
+    const facilityItems = DEFECT_ITEMS.filter(d => d.category === 'FACILITY');
 
     const tabs = [
-      { key: 'ALL', name: 'ALL BROKEN ITEMS', sub: 'CONTRACTORS & BASE FACILITIES', badge: `${totalCount} STATUS RED`, color: '#f43f5e' },
-      { key: 'CONTRACTOR', name: 'AGENCY CONTRACTORS', sub: 'CLICK THUMBNAIL FOR UNIT BRIEF', badge: `${contractorCount} STATUS RED`, color: '#00e676' },
-      { key: 'FACILITY', name: 'CC22 FACILITIES', sub: 'CLICK FOR LEVEL COMPARISON', badge: `${facilityCount} STATUS RED`, color: '#38bdf8' }
+      { key: 'ALL', name: 'ALL BROKEN ITEMS', sub: 'CONTRACTORS & BASE FACILITIES', badge: formatTabStatusBadge(DEFECT_ITEMS), color: '#f43f5e' },
+      { key: 'CONTRACTOR', name: 'AGENCY CONTRACTORS', sub: 'CLICK THUMBNAIL FOR UNIT BRIEF', badge: formatTabStatusBadge(contractorItems), color: '#00e676' },
+      { key: 'FACILITY', name: 'CC22 FACILITIES', sub: 'CLICK FOR LEVEL COMPARISON', badge: formatTabStatusBadge(facilityItems), color: '#38bdf8' }
     ];
 
     const bar = document.getElementById('categoryTabsBar');
@@ -1247,15 +1350,19 @@
       const backupSrc = (item.liveImg && item.fallbackImg && item.liveImg !== item.fallbackImg) ? item.fallbackImg : '';
       const initials = item.title.replace(/^Contractor:\s*/i, '').split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
       const isContractor = Boolean(item.unitBriefName);
+      const isGreen = Boolean(item.greenLight);
+      const isYellow = !isGreen && Boolean(item.yellowLight);
+      const statusToneClass = isGreen ? 'is-green' : (isYellow ? 'is-yellow' : '');
+      const podTitle = isGreen ? 'Status: GREEN (Fixed)' : (isYellow ? 'Status: YELLOW (Acknowledged)' : 'Status: RED (Unacknowledged)');
 
       const innerMarkup = `
         <div class="tile-portrait-box">
           <div class="tile-top-badges">
-            <span class="status-pill-red">
-              <span class="status-pill-dot"></span>
+            <span class="status-pill-red ${statusToneClass}">
+              <span class="status-pill-dot ${statusToneClass}"></span>
               <span>${escapeHtml(item.statusPill)}</span>
             </span>
-            <span class="traffic-pod" title="Status: RED (Unacknowledged)">
+            <span class="traffic-pod" title="${escapeHtml(podTitle)}">
               <span class="t-light red ${item.redLight ? 'active' : ''}"></span>
               <span class="t-light yellow ${item.yellowLight ? 'active' : ''}"></span>
               <span class="t-light green ${item.greenLight ? 'active' : ''}"></span>
@@ -1267,12 +1374,14 @@
                data-backup="${escapeHtml(backupSrc)}"
                onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">
 
+          ${isGreen ? `<div class="fixed-stamp-wrap"><div class="fixed-stamp">FIXED</div></div>` : ''}
+
           <span class="tile-cat-tag ${isContractor ? '' : 'facility'}">${escapeHtml(item.categoryBadge)}</span>
 
           <div class="tile-hover-overlay">
-            <span class="ov-status-banner">${escapeHtml(item.overlayBanner)}</span>
+            <span class="ov-status-banner ${statusToneClass}">${escapeHtml(item.overlayBanner)}</span>
             <div class="ov-headline">${escapeHtml(item.overlayHeadline)}</div>
-            <div class="ov-desc">${escapeHtml(item.overlayDesc)}</div>
+            <div class="ov-desc ${statusToneClass}">${escapeHtml(item.overlayDesc)}</div>
             <div class="ov-cta ${isContractor ? '' : 'report-cta'}">${escapeHtml(item.overlayCta)}</div>
           </div>
         </div>
@@ -1288,7 +1397,7 @@
         const safeUnitAttr = escapeHtml(item.unitBriefName).replace(/'/g, '&#39;');
         const safeDivAttr = escapeHtml(item.unitBriefDivision || 'CONTRACTOR').replace(/'/g, '&#39;');
         return `
-          <a class="defect-tile"
+          <a class="defect-tile ${statusToneClass}"
              href="${escapeHtml(briefUrl)}"
              data-track="Unit Brief: ${escapeHtml(item.unitBriefName)}"
              onclick="openContractorUnitBrief('${safeUnitAttr}', '${safeDivAttr}', event)">
@@ -1299,7 +1408,7 @@
 
       return `
         <button type="button"
-                class="defect-tile"
+                class="defect-tile ${statusToneClass}"
                 data-track="Facility Defect: ${escapeHtml(item.title)}"
                 onclick="showFacilityReport(${origIdx})">
           ${innerMarkup}
