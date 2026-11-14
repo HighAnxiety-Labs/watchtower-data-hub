@@ -295,6 +295,37 @@
       border-color: var(--blue-border);
       background: var(--blue-dim);
     }
+    .meta-chip.energy {
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(31, 111, 235, 0.2);
+    }
+    .meta-chip.fire {
+      color: #fdba74;
+      border-color: rgba(240, 136, 62, 0.55);
+      background: rgba(189, 86, 29, 0.22);
+    }
+    .meta-chip.pierce {
+      color: #e2e8f0;
+      border-color: #365373;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .matrix-jump-link {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #b9f6ca;
+      text-decoration: none;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      background: rgba(0, 230, 118, 0.12);
+      padding: 3px 9px;
+      border-radius: 3px;
+      transition: all 0.18s ease;
+    }
+    .matrix-jump-link:hover {
+      background: rgba(0, 230, 118, 0.26);
+      color: #ffffff;
+    }
     .brief-jump-link {
       font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
@@ -1080,6 +1111,7 @@
           </div>
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span class="meta-chip" id="dbStatusText" style="color:#b9f6ca; border-color:rgba(0,230,118,0.4);">Syncing MASTER_DB...</span>
+            <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
             <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Unit Brief</a>
           </div>
         </div>
@@ -1214,6 +1246,7 @@
     <div class="modal-top-bar">
       <div class="modal-title" id="modalMatchupTitle">⚔️ HEAD-TO-HEAD COMBAT &amp; WORKSHOP ANALYSIS</div>
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
         <span class="meta-chip gold" title="Tac Ops Center & Gold Store player boosts queued for Phase 2">🔒 Phase 2 Ready: Tac Ops &amp; Gold Boosts</span>
         <button type="button" class="close-modal-btn" onclick="closeMatchupModal()">✕ BACK TO THUMBNAIL RADAR</button>
       </div>
@@ -1777,6 +1810,7 @@
     const armor = cleanVal(me.STAT_ARMOR_TYPE) || 'Standard';
     const dmg = cleanVal(me.STAT_DAMAGE_TYPE) || 'Standard';
     const rng = cleanVal(me.STAT_RANGE) || '—';
+    const myDmgInfo = normalizeDamage(me.STAT_DAMAGE_TYPE);
 
     document.getElementById('myHeroMetaChips').innerHTML = `
       <span class="meta-chip gen">${escapeHtml(genLbl)}</span>
@@ -1784,6 +1818,8 @@
       <span class="meta-chip">${escapeHtml(uType)}</span>
       <span class="meta-chip">🛡️ Armor: ${escapeHtml(armor)}</span>
       <span class="meta-chip">💥 Weapon: ${escapeHtml(dmg)}</span>
+      ${myDmgInfo.isEnergy ? `<span class="meta-chip energy">⚡ Former Energy (-25% DR)</span>` : ''}
+      ${myDmgInfo.isFire ? `<span class="meta-chip fire">🔥 Former Fire (2x vs Zombies)</span>` : ''}
       <span class="meta-chip">🎯 Range: ${escapeHtml(rng)}</span>
     `;
     renderRadarGrid();
@@ -1960,8 +1996,18 @@
     return out;
   }
 
+  function extractDrPiercePct(clauseText) {
+    if (!clauseText) return 0;
+    let total = 0;
+    const m1 = [...String(clauseText).matchAll(/(?:ignores?|pierces?|bypass(?:es)?)\s*(\d+(?:\.\d+)?)\s*%\s*(?:of\s*)?(?:flat\s*)?(?:damage\s*reduction|armor|dr\b)/gi)];
+    m1.forEach(m => { total += parseFloat(m[1]) || 0; });
+    const m2 = [...String(clauseText).matchAll(/\+?(\d+(?:\.\d+)?)\s*%\s*(?:flat\s*)?(?:damage\s*reduction|dr)\s*(?:pierc|ignor|bypass)[a-z]*/gi)];
+    m2.forEach(m => { total += parseFloat(m[1]) || 0; });
+    return total;
+  }
+
   function extractTalentModifiers(talents, opponent) {
-    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0, unlocksAir: false };
+    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0, unlocksAir: false };
     if (!talents || !talents.length) return mod;
 
     const oppDiv = getDivisionBucket(opponent);
@@ -1984,12 +2030,15 @@
         }
         if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) return;
 
+        const pierceVal = extractDrPiercePct(cTrim);
+        if (pierceVal > 0) mod.drPiercePct += pierceVal;
+
         const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
         pctMatches.forEach(m => {
           const sign = m[1] || '';
           const val = parseFloat(m[2]) || 0;
           const lbl = m[3].toUpperCase();
-          if (lbl.includes('IGNORES') || lbl.includes('SPLASH RADIUS') || lbl.includes('SLOWER')) return;
+          if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS') || lbl.includes('SPLASH RADIUS') || lbl.includes('SLOWER')) return;
           if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
             mod.drPct += val;
           } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
@@ -2022,12 +2071,36 @@
 
   function normalizeDamage(raw) {
     const s = String(raw || '').toUpperCase();
-    const isEnergy = s.includes('ENERGY');
-    let core = 'STANDARD';
-    if (s.includes('AREA') || s.includes('SPLASH') || s.includes('EXPLOSIVE')) core = 'AREA';
-    else if (s.includes('SUSTAIN') || s.includes('BALLISTIC')) core = 'SUSTAIN';
-    else if (s.includes('BURST') || s.includes('PENETRAT')) core = 'BURST';
-    return { core, isEnergy, rawLabel: cleanVal(raw) || core };
+    const isEnergy = /\bENERGY\b/.test(s);
+    const isFire = /\bFIRE\b|\bFLAME\b|\bINCENDIAR|\bNAPALM\b/.test(s);
+
+    const foundCores = [];
+    const tokenRegex = /\b(AREA|SPLASH|EXPLOSIVE|SUSTAIN|BALLISTIC|BURST|PENETRAT[A-Z]*)\b/g;
+    let m;
+    while ((m = tokenRegex.exec(s)) !== null) {
+      const tok = m[1];
+      let mapped = 'STANDARD';
+      if (tok === 'AREA' || tok === 'SPLASH' || tok === 'EXPLOSIVE') mapped = 'AREA';
+      else if (tok === 'SUSTAIN' || tok === 'BALLISTIC') mapped = 'SUSTAIN';
+      else if (tok === 'BURST' || tok.startsWith('PENETRAT')) mapped = 'BURST';
+      if (mapped !== 'STANDARD' && !foundCores.includes(mapped)) {
+        foundCores.push(mapped);
+      }
+    }
+
+    let core = foundCores[0] || 'STANDARD';
+    const secondaryCore = foundCores[1] || null;
+    if (core === 'STANDARD' && isFire) core = 'AREA';
+    else if (core === 'STANDARD' && isEnergy) core = 'SUSTAIN';
+
+    const displayCore = secondaryCore ? `${core}+${secondaryCore}` : core;
+    return { core, secondaryCore, displayCore, isEnergy, isFire, rawLabel: cleanVal(raw) || displayCore };
+  }
+
+  function isZombieOrHostileUnit(rec) {
+    if (!rec) return false;
+    const hay = `${rec.UNIT_NAME || ''} ${rec.STAT_FACTION || ''} ${rec.CLASSIFICATION || ''} ${rec.STAT_TYPE || ''} ${rec.STAT_GENERATION || ''}`.toUpperCase();
+    return /\bZOMBIE\b|\bZOMBIES\b|\bINFESTED\b|\bONYX\b|\bUNDEAD\b/.test(hay);
   }
 
   function getDomain(rec) {
@@ -2059,6 +2132,18 @@
       (dmgCore === 'BURST' && targetArmor === 'HEAVY')
     ) return 2.0;
     return 1.0;
+  }
+
+  function computeDamageMatrixBreakdown(dmgInfo, targetArmor, targetRec) {
+    const primaryMult = computeArmorMult(dmgInfo.core, targetArmor);
+    const secondaryMult = dmgInfo.secondaryCore ? computeArmorMult(dmgInfo.secondaryCore, targetArmor) : 1.0;
+    const armorMult = primaryMult === 2.0 ? 2.0 : (secondaryMult === 2.0 ? 1.5 : 1.0);
+    const fireMult = (dmgInfo.isFire && isZombieOrHostileUnit(targetRec)) ? 2.0 : 1.0;
+    return {
+      armorMult,
+      fireMult,
+      totalMult: armorMult * fireMult
+    };
   }
 
   function evaluateWorkshopsAgainstOpponent(unit, opponent, myTier = 'MAX', oppTier = 'MAX') {
@@ -2192,7 +2277,7 @@
   }
 
   function extractWorkshopModifiers(wsItem, opponent) {
-    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
     const txt = `${wsItem.title} ${wsItem.desc}`;
     if (wsItem.kind === 'FACTION_WS') {
       const oppFac = cleanVal(opponent.STAT_FACTION).toUpperCase();
@@ -2216,6 +2301,14 @@
       if (!cTrim) return;
       const cUpper = cTrim.toUpperCase();
 
+      const pierceVal = extractDrPiercePct(cTrim);
+      if (pierceVal > 0) {
+        foundExplicitStat = true;
+        if (clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) {
+          mod.drPiercePct += pierceVal;
+        }
+      }
+
       const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
       if (pctMatches.length) foundExplicitStat = true;
 
@@ -2225,7 +2318,7 @@
         const sign = m[1] || '';
         const val = parseFloat(m[2]) || 0;
         const lbl = m[3].toUpperCase();
-        if (lbl.includes('IGNORES')) return;
+        if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS')) return;
         if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
           mod.drPct += val;
         } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
@@ -2246,7 +2339,7 @@
       }
     });
 
-    if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
+    if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.drPiercePct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
       const upper = txt.toUpperCase();
       if (upper.includes('DOUBLE DAMAGE')) {
         foundExplicitStat = true;
@@ -2263,7 +2356,7 @@
   function buildProfile(unit, opponent, tier, equippedSet, oppTier = tier) {
     const wsEval = evaluateWorkshopsAgainstOpponent(unit, opponent, tier, oppTier);
     const allWs = [...wsEval.unitWorkshops, ...wsEval.factionWorkshops];
-    const totals = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+    const totals = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
 
     if (equippedSet) {
       allWs.forEach(item => {
@@ -2272,6 +2365,7 @@
           totals.dmgPct += m.dmgPct;
           totals.hpPct += m.hpPct;
           totals.drPct += m.drPct;
+          totals.drPiercePct += m.drPiercePct;
           totals.rangeFlat += m.rangeFlat;
           totals.rangePct += m.rangePct;
           totals.speedPct += m.speedPct;
@@ -2284,10 +2378,16 @@
     totals.dmgPct += tMod.dmgPct;
     totals.hpPct += tMod.hpPct;
     totals.drPct += tMod.drPct;
+    totals.drPiercePct += tMod.drPiercePct;
     totals.rangeFlat += tMod.rangeFlat;
     totals.rangePct += tMod.rangePct;
     totals.speedPct += tMod.speedPct;
     totals.drPct = Math.min(65, totals.drPct);
+
+    const dmgInfo = normalizeDamage(unit.STAT_DAMAGE_TYPE);
+    const energyPiercePct = dmgInfo.isEnergy ? 25 : 0;
+    const bonusDrPiercePct = Math.round(totals.drPiercePct);
+    const drPiercePct = energyPiercePct + bonusDrPiercePct;
 
     const baseHp = parseRangeStatForTier(unit, 'STAT_HP_RANGE', tier) || 50000;
     const baseDps = parseRangeStatForTier(unit, 'STAT_DPS_RANGE', tier) || 3500;
@@ -2307,7 +2407,10 @@
       speed: Math.round(baseSpeed * (1 + totals.speedPct / 100)),
       splash,
       drPct: totals.drPct,
-      dmgInfo: normalizeDamage(unit.STAT_DAMAGE_TYPE),
+      energyPiercePct,
+      bonusDrPiercePct,
+      drPiercePct,
+      dmgInfo,
       armorType: normalizeArmor(unit.STAT_ARMOR_TYPE),
       domain: getDomain(unit)
     };
@@ -2317,11 +2420,13 @@
     const aCanHitB = canHitDomain(A.unit, B.domain, A.tier, A.unlockedAirByTalent);
     const bCanHitA = canHitDomain(B.unit, A.domain, B.tier, B.unlockedAirByTalent);
 
-    const aArmorMult = computeArmorMult(A.dmgInfo.core, B.armorType);
-    const bArmorMult = computeArmorMult(B.dmgInfo.core, A.armorType);
+    const aMat = computeDamageMatrixBreakdown(A.dmgInfo, B.armorType, B.unit);
+    const bMat = computeDamageMatrixBreakdown(B.dmgInfo, A.armorType, A.unit);
+    const aArmorMult = aMat.totalMult;
+    const bArmorMult = bMat.totalMult;
 
-    const bEffectiveDr = Math.max(0, B.drPct - (A.dmgInfo.isEnergy ? 25 : 0));
-    const aEffectiveDr = Math.max(0, A.drPct - (B.dmgInfo.isEnergy ? 25 : 0));
+    const bEffectiveDr = Math.max(0, B.drPct - A.drPiercePct);
+    const aEffectiveDr = Math.max(0, A.drPct - B.drPiercePct);
 
     const aEffDps = aCanHitB ? Math.round(A.rawDps * aArmorMult * (1 - bEffectiveDr / 100)) : 0;
     const bEffDps = bCanHitA ? Math.round(B.rawDps * bArmorMult * (1 - aEffectiveDr / 100)) : 0;
@@ -2351,7 +2456,7 @@
     else if (youWinPct >= 55) bucket = 'GREEN';
 
     return {
-      A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult, aEffDps, bEffDps,
+      A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult, aMat, bMat, bEffectiveDr, aEffectiveDr, aEffDps, bEffDps,
       aFreeSec, bFreeSec, aTtk, bTtk, youWinPct, oppWinPct: 100 - youWinPct, bucket
     };
   }
@@ -2447,8 +2552,10 @@
     if (!aCanHitB && bCanHitA) strong.push(`Untouchable ${B.domain} target — ${A.unit.UNIT_NAME} cannot hit it!`);
     if (aCanHitB && !bCanHitA) weak.push(`Cannot fire back at your ${A.domain} unit!`);
 
-    if (bArmorMult >= 2.0) strong.push(`2.0x ${B.dmgInfo.core} counter shreds your ${A.armorType} Armor.`);
-    if (aArmorMult >= 2.0) weak.push(`Vulnerable (2.0x) to your ${A.dmgInfo.core} weapon.`);
+    if (bArmorMult >= 2.0) strong.push(`${bArmorMult.toFixed(1)}x ${B.dmgInfo.displayCore} counter shreds your ${A.armorType} Armor.`);
+    else if (bArmorMult === 1.5) strong.push(`1.5x dual-weapon (${B.dmgInfo.displayCore}) counter vs your ${A.armorType} Armor.`);
+    if (aArmorMult >= 2.0) weak.push(`Vulnerable (${aArmorMult.toFixed(1)}x) to your ${A.dmgInfo.displayCore} weapon.`);
+    else if (aArmorMult === 1.5) weak.push(`Takes 1.5x blended counter from your ${A.dmgInfo.displayCore} weapons.`);
 
     if (B.range > A.range + 12) strong.push(`Outranges you by +${B.range - A.range} (strikes first).`);
     else if (A.range > B.range + 12) weak.push(`Outranged by you (-${A.range - B.range} Range).`);
@@ -2615,28 +2722,33 @@
     recalculateModalMatchup();
   }
 
-  function renderModalFighterCard(prefix, rec) {
+  function renderModalFighterCard(prefix, rec, profile) {
     document.getElementById(`modal${prefix}Portrait`).innerHTML = render4x5PortraitHtml(rec);
     document.getElementById(`modal${prefix}Name`).textContent = rec.UNIT_NAME;
     document.getElementById(`modal${prefix}BriefLink`).href = `./unit-briefs.html?unit=${encodeURIComponent(rec.UNIT_NAME)}`;
+    const dmgInfo = profile ? profile.dmgInfo : normalizeDamage(rec.STAT_DAMAGE_TYPE);
+    const bonusPierce = profile ? profile.bonusDrPiercePct : 0;
     document.getElementById(`modal${prefix}Chips`).innerHTML = `
       <span class="meta-chip gen">${escapeHtml(getGenerationLabel(rec))}</span>
       <span class="meta-chip gold">${escapeHtml(cleanVal(rec.STAT_FACTION) || 'Unaligned')}</span>
       <span class="meta-chip">🛡️ ${escapeHtml(cleanVal(rec.STAT_ARMOR_TYPE) || 'Std')}</span>
       <span class="meta-chip">💥 ${escapeHtml(cleanVal(rec.STAT_DAMAGE_TYPE) || 'Std')}</span>
+      ${dmgInfo.isEnergy ? `<span class="meta-chip energy">⚡ Former Energy (-25% DR)</span>` : ''}
+      ${dmgInfo.isFire ? `<span class="meta-chip fire">🔥 Former Fire (2x vs Zombies)</span>` : ''}
+      ${bonusPierce > 0 ? `<span class="meta-chip pierce">🔩 +${bonusPierce}% DR Pierce</span>` : ''}
     `;
   }
 
   function recalculateModalMatchup() {
     if (!modalYouUnit || !modalOppUnit) return;
-    renderModalFighterCard('You', modalYouUnit);
-    renderModalFighterCard('Opp', modalOppUnit);
 
     const youTier = document.getElementById('modalYouLvl').value;
     const oppTier = document.getElementById('modalOppLvl').value;
 
     const A = buildProfile(modalYouUnit, modalOppUnit, youTier, modalEquipped.you, oppTier);
     const B = buildProfile(modalOppUnit, modalYouUnit, oppTier, modalEquipped.opp, youTier);
+    renderModalFighterCard('You', modalYouUnit, A);
+    renderModalFighterCard('Opp', modalOppUnit, B);
     const d = simulateDuel(A, B);
 
     document.getElementById('modalYouWsCount').textContent = `${A.equippedCount} Workshop${A.equippedCount === 1 ? '' : 's'} Equipped`;
@@ -2665,8 +2777,8 @@
 
     document.getElementById('modalMetricsGrid').innerHTML = `
       <div class="v-metric">
-        <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Armor Mult</div>
-        <div class="v-metric-val" style="color:${d.aArmorMult > 1 ? '#00e676' : '#e5eef7'}">${d.aArmorMult.toFixed(1)}x (${A.dmgInfo.core} → ${B.armorType})</div>
+        <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Matrix Mult</div>
+        <div class="v-metric-val" style="color:${d.aArmorMult > 1 ? '#00e676' : '#e5eef7'}">${d.aArmorMult.toFixed(1)}x (${A.dmgInfo.displayCore}${d.aMat.fireMult > 1 ? ' + Fire' : ''} → ${B.armorType})</div>
       </div>
       <div class="v-metric">
         <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Time-To-Kill</div>
@@ -2677,8 +2789,8 @@
         <div class="v-metric-val">${isFinite(d.bTtk) ? d.bTtk.toFixed(1) + 's' : 'Cannot Hit'}</div>
       </div>
       <div class="v-metric">
-        <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Armor Mult</div>
-        <div class="v-metric-val" style="color:${d.bArmorMult > 1 ? '#ff4d5a' : '#e5eef7'}">${d.bArmorMult.toFixed(1)}x (${B.dmgInfo.core} → ${A.armorType})</div>
+        <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Matrix Mult</div>
+        <div class="v-metric-val" style="color:${d.bArmorMult > 1 ? '#ff4d5a' : '#e5eef7'}">${d.bArmorMult.toFixed(1)}x (${B.dmgInfo.displayCore}${d.bMat.fireMult > 1 ? ' + Fire' : ''} → ${A.armorType})</div>
       </div>
     `;
 
@@ -2690,6 +2802,13 @@
       return p.range.toLocaleString();
     };
 
+    const fmtPierceSide = p => {
+      if (p.energyPiercePct > 0 && p.bonusDrPiercePct > 0) {
+        return `${p.drPiercePct}% <span style="font-size:0.78em;opacity:0.78;">(${p.energyPiercePct}% + ${p.bonusDrPiercePct}%)</span>`;
+      }
+      return `${p.drPiercePct}%`;
+    };
+
     const statRows = [
       { lbl: 'Hitpoints (HP)', a: A.hp, b: B.hp, fmt: v => v.toLocaleString() },
       { lbl: 'Base / Buffed DPS', a: A.rawDps, b: B.rawDps, fmt: v => v.toLocaleString() },
@@ -2697,6 +2816,7 @@
       { lbl: 'Weapon Range', a: A.range, b: B.range, fmtA: () => fmtRangeSide(A), fmtB: () => fmtRangeSide(B) },
       { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
       { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },
+      { lbl: 'Flat DR Piercing', a: A.drPiercePct, b: B.drPiercePct, fmtA: () => fmtPierceSide(A), fmtB: () => fmtPierceSide(B) },
       { lbl: 'Splash Radius', a: A.splash, b: B.splash, fmt: v => v > 0 ? v : 'Single' }
     ];
     document.getElementById('modalStatRows').innerHTML = statRows.map(r => `
@@ -2707,8 +2827,8 @@
       </div>
     `).join('');
 
-    renderModalProsCons('You', A, B, d.aCanHitB, d.bCanHitA, d.aArmorMult, d.bArmorMult, d.aFreeSec);
-    renderModalProsCons('Opp', B, A, d.bCanHitA, d.aCanHitB, d.bArmorMult, d.aArmorMult, d.bFreeSec);
+    renderModalProsCons('You', A, B, d.aCanHitB, d.bCanHitA, d.aMat, d.bMat, d.bEffectiveDr, d.aFreeSec);
+    renderModalProsCons('Opp', B, A, d.bCanHitA, d.aCanHitB, d.bMat, d.aMat, d.aEffectiveDr, d.bFreeSec);
     renderModalTalents(A, B);
     renderModalWorkshops('you', 'You', modalYouUnit.UNIT_NAME, modalOppUnit.UNIT_NAME, A.wsEval);
     renderModalWorkshops('opp', 'Opp', modalOppUnit.UNIT_NAME, modalYouUnit.UNIT_NAME, B.wsEval);
@@ -2740,14 +2860,23 @@
     document.getElementById('modalOppTalentList').innerHTML = renderList(oList, B.unit.UNIT_NAME);
   }
 
-  function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMult, oppMult, myFreeSec) {
+  function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMat, oppMat, oppEffectiveDr, myFreeSec) {
     document.getElementById(`modal${prefix}PcTitle`).textContent = `${me.unit.UNIT_NAME} (${me.tier === 'MAX' ? 'MAX' : 'Lvl ' + me.tier})`;
     const items = [];
     if (!meCanHit) items.push({ type: 'con', text: `Cannot target ${opp.domain} units.` });
     if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} cannot fire at ${me.domain}.` });
-    if (myMult >= 2.0) items.push({ type: 'pro', text: `2.0x Counter Multiplier: ${me.dmgInfo.core} shreds ${opp.armorType} Armor.` });
-    if (oppMult >= 2.0) items.push({ type: 'con', text: `Takes 2.0x counter damage from ${opp.unit.UNIT_NAME}'s ${opp.dmgInfo.core}.` });
-    if (me.dmgInfo.isEnergy) items.push({ type: 'pro', text: `Legacy Energy Perk: Pierces 25% flat Damage Reduction.` });
+    if (myMat.armorMult >= 2.0) items.push({ type: 'pro', text: `2.0x Counter Multiplier: ${me.dmgInfo.core} shreds ${opp.armorType} Armor.` });
+    else if (myMat.armorMult === 1.5) items.push({ type: 'pro', text: `1.5x Blended Counter: Secondary ${me.dmgInfo.secondaryCore} weapon counters ${opp.armorType} Armor.` });
+    if (myMat.fireMult > 1.0) items.push({ type: 'pro', text: `Former Fire Perk Active: 2.0x bonus damage against Zombie / Hostile target.` });
+    if (oppMat.totalMult >= 2.0) items.push({ type: 'con', text: `Takes ${oppMat.totalMult.toFixed(1)}x counter damage from ${opp.unit.UNIT_NAME}'s ${opp.dmgInfo.displayCore}.` });
+    else if (oppMat.totalMult === 1.5) items.push({ type: 'con', text: `Takes 1.5x blended counter damage from ${opp.unit.UNIT_NAME}'s ${opp.dmgInfo.displayCore}.` });
+    if (me.drPiercePct > 0) {
+      const pierceSrc = (me.energyPiercePct > 0 && me.bonusDrPiercePct > 0)
+        ? `Former Energy (${me.energyPiercePct}%) + Tech (${me.bonusDrPiercePct}%)`
+        : (me.energyPiercePct > 0 ? `Former Energy Perk (${me.energyPiercePct}%)` : `Workshop / Talent (${me.bonusDrPiercePct}%)`);
+      const drEffect = opp.drPct > 0 ? ` (${opp.drPct}% → ${oppEffectiveDr}% Enemy DR)` : '';
+      items.push({ type: 'pro', text: `${pierceSrc} pierces ${me.drPiercePct}% flat Damage Reduction${drEffect}.` });
+    }
     if (me.range > opp.range + 10) items.push({ type: 'pro', text: `+${me.range - opp.range} Range Edge (~${myFreeSec.toFixed(1)}s free first-strike).` });
     else if (opp.range > me.range + 10) items.push({ type: 'con', text: `Outranged by ${opp.range - me.range} — takes approach fire.` });
     if (me.speed > opp.speed + 4) items.push({ type: 'pro', text: `+${me.speed - opp.speed} Speed edge for kiting/retreat.` });
@@ -2792,6 +2921,20 @@
       <div class="ws-sub-label"><span>🏛️ Faction Workshop Counter</span><span>Matches Opponent Faction</span></div>
       ${fHtml}
     `;
+  }
+
+  function openDamageMatrixInPage(ev) {
+    if (ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1)) return true;
+    if (ev) ev.preventDefault();
+    const targetUrl = './damage-type.html';
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
+        window.parent.openInlineModuleViewport('DAMAGE TYPE & ARMOR MATRIX', '#3d9e65', null, targetUrl, targetUrl);
+        return false;
+      }
+    } catch (e) {}
+    window.open(targetUrl, '_blank', 'noopener');
+    return false;
   }
 
   function openUnitBriefInPage(ev, unitName) {

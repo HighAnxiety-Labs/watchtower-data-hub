@@ -2959,10 +2959,18 @@
 
   function mhNormDamage(raw) {
     const s = String(raw || '').toUpperCase();
-    if (s.includes('AREA') || s.includes('SPLASH') || s.includes('EXPLOSIVE')) return 'AREA';
-    if (s.includes('SUSTAIN') || s.includes('BALLISTIC')) return 'SUSTAIN';
-    if (s.includes('BURST') || s.includes('PENETRAT')) return 'BURST';
-    return 'STANDARD';
+    const isFire = /\bFIRE\b|\bFLAME\b|\bINCENDIAR|\bNAPALM\b/.test(s);
+    const isEnergy = /\bENERGY\b/.test(s);
+    const cores = [];
+    const rx = /\b(AREA|SPLASH|EXPLOSIVE|SUSTAIN|BALLISTIC|BURST|PENETRAT[A-Z]*)\b/g;
+    let m;
+    while ((m = rx.exec(s)) !== null) {
+      const tok = m[1];
+      const mapped = (tok === 'AREA' || tok === 'SPLASH' || tok === 'EXPLOSIVE') ? 'AREA' : ((tok === 'SUSTAIN' || tok === 'BALLISTIC') ? 'SUSTAIN' : 'BURST');
+      if (!cores.includes(mapped)) cores.push(mapped);
+    }
+    let core = cores[0] || (isFire ? 'AREA' : (isEnergy ? 'SUSTAIN' : 'STANDARD'));
+    return { core, secondaryCore: cores[1] || null, isFire };
   }
 
   function mhGetDomain(rec) {
@@ -2982,6 +2990,15 @@
     return 1.0;
   }
 
+  function mhTotalMatrixMult(dmgObj, arm, targetRec) {
+    const m1 = mhArmorMult(dmgObj.core, arm);
+    const m2 = dmgObj.secondaryCore ? mhArmorMult(dmgObj.secondaryCore, arm) : 1.0;
+    const armMult = m1 === 2.0 ? 2.0 : (m2 === 2.0 ? 1.5 : 1.0);
+    const hay = `${targetRec.UNIT_NAME || ''} ${targetRec.STAT_FACTION || ''} ${targetRec.CLASSIFICATION || ''} ${targetRec.STAT_TYPE || ''}`.toUpperCase();
+    const fireMult = (dmgObj.isFire && /\bZOMBIE\b|\bZOMBIES\b|\bINFESTED\b|\bONYX\b|\bUNDEAD\b/.test(hay)) ? 2.0 : 1.0;
+    return armMult * fireMult;
+  }
+
   function mhQuickWinPct(me, opp) {
     const domA = mhGetDomain(me), domB = mhGetDomain(opp);
     const aHitsB = mhCanHit(me, domB), bHitsA = mhCanHit(opp, domA);
@@ -2991,8 +3008,8 @@
 
     const hpA = mhGetMaxStat(me, 'STAT_HP_RANGE', 50000);
     const hpB = mhGetMaxStat(opp, 'STAT_HP_RANGE', 50000);
-    const dpsA = mhGetMaxStat(me, 'STAT_DPS_RANGE', 3500) * mhArmorMult(mhNormDamage(me.STAT_DAMAGE_TYPE), mhNormArmor(opp.STAT_ARMOR_TYPE));
-    const dpsB = mhGetMaxStat(opp, 'STAT_DPS_RANGE', 3500) * mhArmorMult(mhNormDamage(opp.STAT_DAMAGE_TYPE), mhNormArmor(me.STAT_ARMOR_TYPE));
+    const dpsA = mhGetMaxStat(me, 'STAT_DPS_RANGE', 3500) * mhTotalMatrixMult(mhNormDamage(me.STAT_DAMAGE_TYPE), mhNormArmor(opp.STAT_ARMOR_TYPE), opp);
+    const dpsB = mhGetMaxStat(opp, 'STAT_DPS_RANGE', 3500) * mhTotalMatrixMult(mhNormDamage(opp.STAT_DAMAGE_TYPE), mhNormArmor(me.STAT_ARMOR_TYPE), me);
     const rngA = mhParseNum(me.STAT_RANGE) || 350, rngB = mhParseNum(opp.STAT_RANGE) || 350;
     const spdA = mhParseNum(me.STAT_SPEED) || 30, spdB = mhParseNum(opp.STAT_SPEED) || 30;
 
