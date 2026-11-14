@@ -922,6 +922,38 @@
     .pc-item.pro { border-left: 3px solid var(--green-main); color: #dbfbe6; }
     .pc-item.con { border-left: 3px solid #f97316; color: #fed7aa; }
 
+    /* Active Talents inside Modal */
+    .talents-panel-wrap {
+      margin-bottom: 16px;
+    }
+    .talents-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mu-talent-item {
+      margin-bottom: 8px;
+      font-size: 12.8px;
+    }
+    .mu-talent-item:last-child { margin-bottom: 0; }
+    .mu-talent-tier {
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .you-pc .mu-talent-tier { color: var(--green-main); }
+    .opp-pc .mu-talent-tier { color: #ff858e; }
+    .mu-talent-desc {
+      color: #cfd8dc;
+      padding-left: 8px;
+      border-left: 2px solid #1e334a;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+
     /* Best Workshop Advisor inside Modal */
     .workshop-advisor-panel {
       background: linear-gradient(180deg, #0a131f 0%, #070d15 100%);
@@ -1001,7 +1033,7 @@
     @media (max-width: 980px) {
       .modal-fighters-deck { grid-template-columns: 1fr; }
       .vs-center-col { flex-direction: row; }
-      .mid-analysis-grid, .ws-columns, .pros-cons-split { grid-template-columns: 1fr; }
+      .mid-analysis-grid, .ws-columns, .pros-cons-split, .talents-split { grid-template-columns: 1fr; }
       .verdict-metrics-grid { grid-template-columns: repeat(2, 1fr); }
       .class-bar { grid-template-columns: 200px 1fr 200px; }
     }
@@ -1086,6 +1118,10 @@
               <option value="1">Level 1</option>
               <option value="10">Level 10</option>
               <option value="20">Level 20</option>
+              <option value="30">Level 30</option>
+              <option value="31">Level 31</option>
+              <option value="35">Level 35</option>
+              <option value="40">Level 40</option>
               <option value="MAX" selected>MAX Level</option>
             </select>
           </div>
@@ -1096,6 +1132,10 @@
               <option value="1">Level 1</option>
               <option value="10">Level 10</option>
               <option value="20">Level 20</option>
+              <option value="30">Level 30</option>
+              <option value="31">Level 31</option>
+              <option value="35">Level 35</option>
+              <option value="40">Level 40</option>
               <option value="MAX" selected>MAX Level</option>
             </select>
           </div>
@@ -1194,6 +1234,10 @@
               <option value="1">Lvl 1</option>
               <option value="10">Lvl 10</option>
               <option value="20">Lvl 20</option>
+              <option value="30">Lvl 30</option>
+              <option value="31">Lvl 31</option>
+              <option value="35">Lvl 35</option>
+              <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
             <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalYouUnit?.UNIT_NAME)" class="brief-jump-link" id="modalYouBriefLink">📖 Unit Brief</a>
@@ -1221,6 +1265,10 @@
               <option value="1">Lvl 1</option>
               <option value="10">Lvl 10</option>
               <option value="20">Lvl 20</option>
+              <option value="30">Lvl 30</option>
+              <option value="31">Lvl 31</option>
+              <option value="35">Lvl 35</option>
+              <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
             <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalOppUnit?.UNIT_NAME)" class="brief-jump-link" id="modalOppBriefLink">📖 Unit Brief</a>
@@ -1269,6 +1317,24 @@
             <div class="pc-unit-hdr" id="modalOppPcTitle">Opponent</div>
             <ul class="pc-list" id="modalOppPcList"></ul>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVE TALENTS (UNLOCKED <= SELECTED LEVEL, HIDDEN WHEN BLANK) -->
+    <section class="sub-panel talents-panel-wrap" id="modalTalentsSection" style="display:none;">
+      <div class="section-hdr">
+        <h2>🧬 Active Talents</h2>
+        <span>Unlocked Up To Selected Level</span>
+      </div>
+      <div class="talents-split">
+        <div class="pc-box you-pc">
+          <div class="pc-unit-hdr" id="modalYouTalentHdr">Your Unit</div>
+          <div id="modalYouTalentList"></div>
+        </div>
+        <div class="pc-box opp-pc">
+          <div class="pc-unit-hdr" id="modalOppTalentHdr">Opponent</div>
+          <div id="modalOppTalentList"></div>
         </div>
       </div>
     </section>
@@ -1443,7 +1509,8 @@
   function isPureBuildingRecord(rec) {
     const hasCombat = Boolean(
       rec.STAT_FACTION || rec.STAT_ARMOR_TYPE || rec.STAT_DAMAGE_TYPE ||
-      rec.STAT_DPS_RANGE || rec.STAT_DPS_RANGE_MAX || rec.STAT_HP_RANGE || rec.STAT_HP_RANGE_MAX
+      rec.STAT_DPS_RANGE || rec.STAT_DPS_RANGE_MAX || rec.STAT_DPS_RANGE_40 || rec.STAT_DPS_RANGE_31 || rec.STAT_DPS_RANGE_30 || rec.STAT_DPS_RANGE_20 ||
+      rec.STAT_HP_RANGE || rec.STAT_HP_RANGE_MAX || rec.STAT_HP_RANGE_40 || rec.STAT_HP_RANGE_31 || rec.STAT_HP_RANGE_30 || rec.STAT_HP_RANGE_20
     );
     return !hasCombat;
   }
@@ -1596,6 +1663,10 @@
             STAT_SPEED: '5',
             STAT_RANGE: '550 (590 with Lvl 20 Midway)',
             STAT_SPLASH: '100',
+            TALENT_LVL_1: 'Main Cannon does +100% Damage to Buildings and Turrets. Main Cannon projectiles cause Turrets to fire and reload 30% slower for 3 seconds.',
+            TALENT_LVL_10: 'Main Cannon projectiles cause Turrets to fire and reload 40% slower for 4 seconds.',
+            TALENT_LVL_15: "Broadside's ballistic missile system can now target air units. Missiles targeting air have a 10% larger splash radius.",
+            TALENT_LVL_20: 'Main Cannon projectiles cause Turrets to fire and reload 50% slower for 5 seconds.',
             WORKSHOP_1_TITLE: 'DOUBLE RIVETS',
             WORKSHOP_1_TAG: 'BULKHEADS',
             WORKSHOP_1_DESC: 'Effect: -30% Damage Taken from Vehicles.\n(Defense Function)',
@@ -1770,47 +1841,175 @@
     return numTier >= reqLvl ? upgVal : baseVal;
   }
 
+  const TALENT_TIERS = [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40];
+
   function parseRangeStatForTier(rec, baseKey, tier) {
-    const specific = cleanVal(rec[`${baseKey}_${tier}`]);
-    if (specific) return parseNumeric(specific);
-    if (tier !== 'MAX') {
-      const upgKey = baseKey.includes('HP') ? `UPGRADE_HP_${tier}` : `UPGRADE_DPS_${tier}`;
-      if (cleanVal(rec[upgKey])) return parseNumeric(rec[upgKey]);
-    }
-    const minDirect = cleanVal(rec[`${baseKey}_1`]);
-    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]);
-    if (minDirect && maxDirect) {
-      const minV = parseNumeric(minDirect);
-      const maxV = parseNumeric(maxDirect);
-      if (minV > 0 && maxV > 0) {
-        if (tier === '1') return minV;
-        if (tier === '10') return Math.round(minV + (maxV - minV) * 0.35);
-        if (tier === '20') return Math.round(minV + (maxV - minV) * 0.72);
-        return maxV;
-      }
-    }
-    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
-    if (rangeStr && !(/\bdrone\b/i.test(rangeStr) && minDirect)) {
+    const shortKey = baseKey.replace('_RANGE', '');
+    const upgPrefix = baseKey.includes('HP') ? 'UPGRADE_HP' : 'UPGRADE_DPS';
+
+    const readDirect = t => {
+      const raw = cleanVal(rec[`${baseKey}_${t}`]) ||
+                  cleanVal(rec[`${shortKey}_${t}`]) ||
+                  (t !== 'MAX' ? cleanVal(rec[`${upgPrefix}_${t}`]) : '');
+      return raw ? parseNumeric(raw) : 0;
+    };
+
+    const minDirectVal = readDirect('1');
+    const maxDirectVal = readDirect('MAX');
+
+    let rangeMin = 0, rangeMax = 0;
+    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[shortKey]);
+    if (rangeStr && !(/\bdrone\b/i.test(rangeStr) && minDirectVal > 0)) {
       const { nums } = extractStatValueInfo(rangeStr);
       if (nums.length >= 2) {
-        const minV = nums[0];
-        const maxV = nums[nums.length - 1];
-        if (tier === '1') return minV;
-        if (tier === '10') return Math.round(minV + (maxV - minV) * 0.35);
-        if (tier === '20') return Math.round(minV + (maxV - minV) * 0.72);
-        return maxV;
+        rangeMin = nums[0];
+        rangeMax = nums[nums.length - 1];
+      } else if (nums.length === 1) {
+        rangeMin = nums[0];
+        rangeMax = nums[0];
       }
-      if (nums.length === 1) return nums[0];
     }
-    if (maxDirect) {
-      const m = parseNumeric(maxDirect);
-      if (tier === '1') return Math.round(m * 0.42);
-      if (tier === '10') return Math.round(m * 0.64);
-      if (tier === '20') return Math.round(m * 0.84);
-      return m;
+
+    const numericLvls = [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40];
+    const anchors = [];
+    numericLvls.forEach(lvl => {
+      const v = readDirect(String(lvl));
+      if (v > 0) anchors.push({ lvl, val: v });
+    });
+    if (!anchors.some(a => a.lvl === 1) && rangeMin > 0) {
+      anchors.unshift({ lvl: 1, val: rangeMin });
     }
-    if (minDirect) return parseNumeric(minDirect);
-    return 0;
+    anchors.sort((a, b) => a.lvl - b.lvl);
+
+    const highestAnchorVal = anchors.reduce((m, a) => Math.max(m, a.val), 0);
+    const overallMax = Math.max(maxDirectVal, rangeMax, highestAnchorVal);
+
+    if (tier === 'MAX') {
+      return overallMax;
+    }
+
+    const exactVal = readDirect(tier);
+    if (exactVal > 0) return exactVal;
+
+    const targetLvl = parseInt(tier, 10) || 1;
+
+    // If multiple explicit level benchmarks exist, piecewise interpolate across them
+    const hasMidOrHighBenchmarks = anchors.some(a => a.lvl > 1);
+    if (hasMidOrHighBenchmarks) {
+      if (targetLvl <= anchors[0].lvl) return anchors[0].val;
+      for (let i = 0; i < anchors.length - 1; i++) {
+        const a0 = anchors[i], a1 = anchors[i + 1];
+        if (targetLvl >= a0.lvl && targetLvl <= a1.lvl) {
+          const frac = (targetLvl - a0.lvl) / Math.max(1, a1.lvl - a0.lvl);
+          return Math.round(a0.val + (a1.val - a0.val) * frac);
+        }
+      }
+      const topAnchor = anchors[anchors.length - 1];
+      if (overallMax > topAnchor.val) {
+        const capLvl = topAnchor.lvl < 20 ? 20 : 40;
+        if (targetLvl >= capLvl) return overallMax;
+        const frac = (targetLvl - topAnchor.lvl) / Math.max(1, capLvl - topAnchor.lvl);
+        return Math.round(topAnchor.val + (overallMax - topAnchor.val) * frac);
+      }
+      return topAnchor.val;
+    }
+
+    const minV = minDirectVal || rangeMin;
+    const maxV = overallMax;
+    if (minV > 0 && maxV > 0) {
+      if (targetLvl <= 1) return minV;
+      if (targetLvl === 10) return Math.round(minV + (maxV - minV) * 0.35);
+      if (targetLvl === 20) return Math.round(minV + (maxV - minV) * 0.72);
+      if (targetLvl === 30) return Math.round(minV + (maxV - minV) * 0.88);
+      if (targetLvl === 31) return Math.round(minV + (maxV - minV) * 0.90);
+      if (targetLvl === 35) return Math.round(minV + (maxV - minV) * 0.95);
+      return maxV;
+    }
+    if (maxV > 0) {
+      if (targetLvl <= 1) return Math.round(maxV * 0.42);
+      if (targetLvl === 10) return Math.round(maxV * 0.64);
+      if (targetLvl === 20) return Math.round(maxV * 0.84);
+      if (targetLvl === 30) return Math.round(maxV * 0.92);
+      if (targetLvl === 31) return Math.round(maxV * 0.94);
+      if (targetLvl === 35) return Math.round(maxV * 0.97);
+      return maxV;
+    }
+    return minV || 0;
+  }
+
+  function getUnlockedTalentsForTier(rec, tier = 'MAX') {
+    if (!rec) return [];
+    const maxLvl = tier === 'MAX' ? 999 : (parseInt(tier, 10) || 1);
+    const out = [];
+    const baseTalent = cleanVal(rec.TALENT);
+    const lvl1Talent = cleanVal(rec.TALENT_LVL_1);
+    if (baseTalent && baseTalent !== lvl1Talent) {
+      out.push({ lvl: 1, tierLabel: 'PASSIVE TALENT', desc: baseTalent });
+    }
+    TALENT_TIERS.forEach(lvl => {
+      if (lvl > maxLvl) return;
+      const desc = cleanVal(rec[`TALENT_LVL_${lvl}`]);
+      if (!desc) return;
+      const customTier = cleanVal(rec[`TALENT_LVL_${lvl}_TIER`]);
+      out.push({
+        lvl,
+        tierLabel: customTier || `LEVEL ${lvl}`,
+        desc
+      });
+    });
+    return out;
+  }
+
+  function extractTalentModifiers(talents, opponent) {
+    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0, unlocksAir: false };
+    if (!talents || !talents.length) return mod;
+
+    const oppDiv = getDivisionBucket(opponent);
+    const oppArmor = normalizeArmor(opponent.STAT_ARMOR_TYPE);
+    const oppDmgCore = normalizeDamage(opponent.STAT_DAMAGE_TYPE).core;
+
+    talents.forEach(t => {
+      const rawDesc = String(t.desc || '');
+      if (/\b(?:target|targets|attack|attacks|hit|hits)\s+air\b/i.test(rawDesc) || /\banti-air\b/i.test(rawDesc)) {
+        mod.unlocksAir = true;
+      }
+      const clauses = rawDesc.split(/[.;\n]+/);
+      clauses.forEach(clause => {
+        const cTrim = clause.trim();
+        if (!cTrim) return;
+        const cUpper = cTrim.toUpperCase();
+        // Skip PvE-only Building / Turret clauses so PvE perks do not distort unit-vs-unit duels
+        if (/\bBUILDINGS?\b|\bTURRETS?\b|\bSTRUCTURES?\b|\bBASE\b/.test(cUpper) && !/\bVEHICLES?\b|\bINFANTRY\b|\bAIR(?:CRAFT)?\b|\bUNITS?\b/.test(cUpper)) {
+          return;
+        }
+        if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) return;
+
+        const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
+        pctMatches.forEach(m => {
+          const sign = m[1] || '';
+          const val = parseFloat(m[2]) || 0;
+          const lbl = m[3].toUpperCase();
+          if (lbl.includes('IGNORES') || lbl.includes('SPLASH RADIUS') || lbl.includes('SLOWER')) return;
+          if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
+            mod.drPct += val;
+          } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
+            mod.dmgPct += val;
+          } else if (lbl.includes('HEALTH') || lbl.includes('HP')) {
+            mod.hpPct += val;
+          } else if (lbl.includes('RANGE')) {
+            mod.rangePct += val;
+          } else if (lbl.includes('SPEED')) {
+            mod.speedPct += val;
+          }
+        });
+
+        const flatRange = cTrim.match(/\+(\d+)\s*Range\b/i);
+        if (flatRange) {
+          mod.rangeFlat += parseFloat(flatRange[1]) || 0;
+        }
+      });
+    });
+    return mod;
   }
 
   function normalizeArmor(raw) {
@@ -1835,11 +2034,22 @@
     return getDivisionBucket(rec) === 'AIR' ? 'AIR' : 'GROUND';
   }
 
-  function canHitDomain(attackerRec, defenderDomain) {
-    const t = String(attackerRec.STAT_TARGETS || 'Ground & Air').toUpperCase();
-    if (!t || t.includes('BOTH') || (t.includes('GROUND') && t.includes('AIR')) || t.includes('ALL')) return true;
-    if (defenderDomain === 'AIR') return t.includes('AIR');
-    return t.includes('GROUND') || !t.includes('AIR ONLY');
+  function canHitDomain(attackerRec, defenderDomain, tier = 'MAX', unlockedAirByTalent = false) {
+    const rawTargets = String(attackerRec.STAT_TARGETS || 'Ground & Air');
+    const t = rawTargets.toUpperCase();
+    const numTier = tier === 'MAX' ? 999 : (parseInt(tier, 10) || 1);
+
+    if (defenderDomain === 'AIR') {
+      if (unlockedAirByTalent) return true;
+      const airGateMatch = rawTargets.match(/air\s*(?:@|\bat\b|\bwith\b)?\s*(?:lvl|level|lv|rank)s?\s*(\d{1,2})/i);
+      if (airGateMatch) {
+        return numTier >= parseInt(airGateMatch[1], 10);
+      }
+      if (!t || t.includes('BOTH') || t.includes('ALL') || t.includes('AIR')) return true;
+      return false;
+    }
+    if (!t || t.includes('BOTH') || t.includes('ALL') || t.includes('GROUND')) return true;
+    return !t.includes('AIR ONLY');
   }
 
   function computeArmorMult(dmgCore, targetArmor) {
@@ -1866,10 +2076,20 @@
       (oppDmg.core === 'SUSTAIN' && myArmor === 'MEDIUM') ||
       (oppDmg.core === 'BURST' && myArmor === 'HEAVY');
 
+    const resolveWorkshopTag = slotIdx => {
+      let cur = slotIdx;
+      while (cur >= 1) {
+        const directTag = cleanVal(unit[`WORKSHOP_${cur}_TAG`]) || cleanVal(unit[`TECH_${cur}_TAG`]);
+        if (directTag) return directTag;
+        cur -= 3;
+      }
+      return `Workshop #${slotIdx}`;
+    };
+
     const unitWorkshops = [];
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 9; i++) {
       const title = cleanVal(unit[`WORKSHOP_${i}_TITLE`]) || cleanVal(unit[`TECH_${i}_TITLE`]);
-      const tag = cleanVal(unit[`WORKSHOP_${i}_TAG`]) || cleanVal(unit[`TECH_${i}_TAG`]) || `Workshop #${i}`;
+      const tag = resolveWorkshopTag(i);
       const desc = cleanVal(unit[`WORKSHOP_${i}_DESC`]) || cleanVal(unit[`TECH_${i}_DESC`]);
       if (!title && !desc) continue;
 
@@ -2058,6 +2278,15 @@
         }
       });
     }
+
+    const unlockedTalents = getUnlockedTalentsForTier(unit, tier);
+    const tMod = extractTalentModifiers(unlockedTalents, opponent);
+    totals.dmgPct += tMod.dmgPct;
+    totals.hpPct += tMod.hpPct;
+    totals.drPct += tMod.drPct;
+    totals.rangeFlat += tMod.rangeFlat;
+    totals.rangePct += tMod.rangePct;
+    totals.speedPct += tMod.speedPct;
     totals.drPct = Math.min(65, totals.drPct);
 
     const baseHp = parseRangeStatForTier(unit, 'STAT_HP_RANGE', tier) || 50000;
@@ -2068,6 +2297,8 @@
 
     return {
       unit, tier, wsEval,
+      talents: unlockedTalents,
+      unlockedAirByTalent: tMod.unlocksAir,
       equippedCount: equippedSet ? equippedSet.size : 0,
       hp: Math.round(baseHp * (1 + totals.hpPct / 100)),
       rawDps: Math.round(baseDps * (1 + totals.dmgPct / 100)),
@@ -2083,8 +2314,8 @@
   }
 
   function simulateDuel(A, B) {
-    const aCanHitB = canHitDomain(A.unit, B.domain);
-    const bCanHitA = canHitDomain(B.unit, A.domain);
+    const aCanHitB = canHitDomain(A.unit, B.domain, A.tier, A.unlockedAirByTalent);
+    const bCanHitA = canHitDomain(B.unit, A.domain, B.tier, B.unlockedAirByTalent);
 
     const aArmorMult = computeArmorMult(A.dmgInfo.core, B.armorType);
     const bArmorMult = computeArmorMult(B.dmgInfo.core, A.armorType);
@@ -2478,8 +2709,35 @@
 
     renderModalProsCons('You', A, B, d.aCanHitB, d.bCanHitA, d.aArmorMult, d.bArmorMult, d.aFreeSec);
     renderModalProsCons('Opp', B, A, d.bCanHitA, d.aCanHitB, d.bArmorMult, d.aArmorMult, d.bFreeSec);
+    renderModalTalents(A, B);
     renderModalWorkshops('you', 'You', modalYouUnit.UNIT_NAME, modalOppUnit.UNIT_NAME, A.wsEval);
     renderModalWorkshops('opp', 'Opp', modalOppUnit.UNIT_NAME, modalYouUnit.UNIT_NAME, B.wsEval);
+  }
+
+  function renderModalTalents(A, B) {
+    const sec = document.getElementById('modalTalentsSection');
+    if (!sec) return;
+    const yList = A.talents || [];
+    const oList = B.talents || [];
+    if (!yList.length && !oList.length) {
+      sec.style.display = 'none';
+      return;
+    }
+    sec.style.display = 'block';
+    document.getElementById('modalYouTalentHdr').textContent = `${A.unit.UNIT_NAME} (${A.tier === 'MAX' ? 'MAX' : 'Lvl ' + A.tier})`;
+    document.getElementById('modalOppTalentHdr').textContent = `${B.unit.UNIT_NAME} (${B.tier === 'MAX' ? 'MAX' : 'Lvl ' + B.tier})`;
+
+    const renderList = (arr, unitName) => arr.length
+      ? arr.map(t => `
+          <div class="mu-talent-item">
+            <div class="mu-talent-tier">${escapeHtml(t.tierLabel)}</div>
+            <div class="mu-talent-desc">${escapeHtml(t.desc)}</div>
+          </div>
+        `).join('')
+      : `<div class="ws-empty">No unlocked talent descriptions entered for ${escapeHtml(unitName)} at this level.</div>`;
+
+    document.getElementById('modalYouTalentList').innerHTML = renderList(yList, A.unit.UNIT_NAME);
+    document.getElementById('modalOppTalentList').innerHTML = renderList(oList, B.unit.UNIT_NAME);
   }
 
   function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMult, oppMult, myFreeSec) {

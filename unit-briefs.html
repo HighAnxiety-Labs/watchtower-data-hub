@@ -2190,8 +2190,29 @@
       classif = 'UNIQUE';
     }
     const relDate = cleanVal(rec.RELEASE_DATE);
-    const maxHp = cleanVal(rec.STAT_HP_RANGE_MAX) || cleanVal(rec.STAT_HP_MAX) || cleanVal(rec.STAT_HP_RANGE_40) || cleanVal(rec.STAT_HP_40) || cleanVal(rec.STAT_HP_RANGE_31) || cleanVal(rec.STAT_HP_RANGE_30) || cleanVal(rec.STAT_HP_30) || cleanVal(rec.STAT_HP_RANGE_20) || cleanVal(rec.STAT_HP_RANGE) || cleanVal(rec.STAT_HP) || '—';
-    const maxDps = cleanVal(rec.STAT_DPS_RANGE_MAX) || cleanVal(rec.STAT_DPS_MAX) || cleanVal(rec.STAT_DPS_RANGE_40) || cleanVal(rec.STAT_DPS_40) || cleanVal(rec.STAT_DPS_RANGE_31) || cleanVal(rec.STAT_DPS_RANGE_30) || cleanVal(rec.STAT_DPS_30) || cleanVal(rec.STAT_DPS_RANGE_20) || cleanVal(rec.STAT_DPS_RANGE) || cleanVal(rec.STAT_DPS) || '—';
+    const pickHighestStatStr = (keys, fallbackKeys) => {
+      let bestStr = '', bestVal = -1;
+      keys.forEach(k => {
+        const s = cleanVal(rec[k]);
+        if (!s) return;
+        const n = mhParseNum(s);
+        if (n > bestVal) { bestVal = n; bestStr = s; }
+      });
+      if (bestStr) return bestStr;
+      for (const fk of fallbackKeys) {
+        const s = cleanVal(rec[fk]);
+        if (s) return s;
+      }
+      return '—';
+    };
+    const maxHp = pickHighestStatStr(
+      ['STAT_HP_RANGE_MAX', 'STAT_HP_MAX', 'STAT_HP_RANGE_40', 'STAT_HP_40', 'STAT_HP_RANGE_31', 'STAT_HP_RANGE_30', 'STAT_HP_30', 'STAT_HP_RANGE_20'],
+      ['STAT_HP_RANGE', 'STAT_HP']
+    );
+    const maxDps = pickHighestStatStr(
+      ['STAT_DPS_RANGE_MAX', 'STAT_DPS_MAX', 'STAT_DPS_RANGE_40', 'STAT_DPS_40', 'STAT_DPS_RANGE_31', 'STAT_DPS_RANGE_30', 'STAT_DPS_30', 'STAT_DPS_RANGE_20'],
+      ['STAT_DPS_RANGE', 'STAT_DPS']
+    );
     const rng = cleanVal(rec.STAT_RANGE) || '—';
     const spd = cleanVal(rec.STAT_SPEED) || cleanVal(rec.STAT_MAX_SPEED) || '—';
     const dmgArm = [cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE)].filter(Boolean).join(' / ') || '—';
@@ -2914,16 +2935,18 @@
   }
 
   function mhGetMaxStat(rec, baseKey, fallbackVal) {
-    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]) || cleanVal(rec[`${baseKey}_40`]) || cleanVal(rec[`${baseKey}_31`]) || cleanVal(rec[`${baseKey}_30`]) || cleanVal(rec[`${baseKey}_20`]);
-    if (maxDirect) return mhParseNum(maxDirect) || fallbackVal;
+    const shortKey = baseKey.replace('_RANGE', '');
+    let best = 0;
+    ['MAX', '40', '31', '30', '20', '10', '1'].forEach(t => {
+      const raw = cleanVal(rec[`${baseKey}_${t}`]) || cleanVal(rec[`${shortKey}_${t}`]);
+      if (raw) best = Math.max(best, mhParseNum(raw));
+    });
     const minDirect = cleanVal(rec[`${baseKey}_1`]);
-    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
+    const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[shortKey]);
     if (rangeStr && !(/\bdrone\b/i.test(rangeStr) && minDirect)) {
-      const v = mhParseNum(rangeStr);
-      if (v > 0) return v;
+      best = Math.max(best, mhParseNum(rangeStr));
     }
-    if (minDirect) return mhParseNum(minDirect) || fallbackVal;
-    return fallbackVal;
+    return best > 0 ? best : fallbackVal;
   }
 
   function mhNormArmor(raw) {
