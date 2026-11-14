@@ -916,6 +916,7 @@
             <tr><td class="stats-label" style="text-align: right;">HP (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_1}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_10}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_20}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Level 30)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_30}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 31)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_31}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 40)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_40}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Max Level)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_MAX}}</td></tr>
@@ -923,6 +924,7 @@
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_1}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_10}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_20}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Level 30)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_30}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 31)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_31}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 40)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_40}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Max Level)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_MAX}}</td></tr>
@@ -1048,6 +1050,7 @@
     { key: 'STAT_HP_RANGE_1',   defaultLabel: 'HP (Level 1)' },
     { key: 'STAT_HP_RANGE_10',  defaultLabel: 'HP (Level 10)' },
     { key: 'STAT_HP_RANGE_20',  defaultLabel: 'HP (Level 20)' },
+    { key: 'STAT_HP_RANGE_30',  defaultLabel: 'HP (Level 30)' },
     { key: 'STAT_HP_RANGE_31',  defaultLabel: 'HP (Level 31)' },
     { key: 'STAT_HP_RANGE_40',  defaultLabel: 'HP (Level 40)' },
     { key: 'STAT_HP_RANGE_MAX', defaultLabel: 'HP (Max Level)' },
@@ -1055,6 +1058,7 @@
     { key: 'STAT_DPS_RANGE_1',  defaultLabel: 'DPS (Level 1)' },
     { key: 'STAT_DPS_RANGE_10', defaultLabel: 'DPS (Level 10)' },
     { key: 'STAT_DPS_RANGE_20', defaultLabel: 'DPS (Level 20)' },
+    { key: 'STAT_DPS_RANGE_30', defaultLabel: 'DPS (Level 30)' },
     { key: 'STAT_DPS_RANGE_31', defaultLabel: 'DPS (Level 31)' },
     { key: 'STAT_DPS_RANGE_40', defaultLabel: 'DPS (Level 40)' },
     { key: 'STAT_DPS_RANGE_MAX',defaultLabel: 'DPS (Max Level)' },
@@ -2186,8 +2190,8 @@
       classif = 'UNIQUE';
     }
     const relDate = cleanVal(rec.RELEASE_DATE);
-    const maxHp = cleanVal(rec.STAT_HP_RANGE_MAX) || cleanVal(rec.STAT_HP_MAX) || cleanVal(rec.STAT_HP_RANGE_40) || cleanVal(rec.STAT_HP_40) || cleanVal(rec.STAT_HP_RANGE_31) || cleanVal(rec.STAT_HP_RANGE_20) || cleanVal(rec.STAT_HP_RANGE) || cleanVal(rec.STAT_HP) || '—';
-    const maxDps = cleanVal(rec.STAT_DPS_RANGE_MAX) || cleanVal(rec.STAT_DPS_MAX) || cleanVal(rec.STAT_DPS_RANGE_40) || cleanVal(rec.STAT_DPS_40) || cleanVal(rec.STAT_DPS_RANGE_31) || cleanVal(rec.STAT_DPS_RANGE_20) || cleanVal(rec.STAT_DPS_RANGE) || cleanVal(rec.STAT_DPS) || '—';
+    const maxHp = cleanVal(rec.STAT_HP_RANGE_MAX) || cleanVal(rec.STAT_HP_MAX) || cleanVal(rec.STAT_HP_RANGE_40) || cleanVal(rec.STAT_HP_40) || cleanVal(rec.STAT_HP_RANGE_31) || cleanVal(rec.STAT_HP_RANGE_30) || cleanVal(rec.STAT_HP_30) || cleanVal(rec.STAT_HP_RANGE_20) || cleanVal(rec.STAT_HP_RANGE) || cleanVal(rec.STAT_HP) || '—';
+    const maxDps = cleanVal(rec.STAT_DPS_RANGE_MAX) || cleanVal(rec.STAT_DPS_MAX) || cleanVal(rec.STAT_DPS_RANGE_40) || cleanVal(rec.STAT_DPS_40) || cleanVal(rec.STAT_DPS_RANGE_31) || cleanVal(rec.STAT_DPS_RANGE_30) || cleanVal(rec.STAT_DPS_30) || cleanVal(rec.STAT_DPS_RANGE_20) || cleanVal(rec.STAT_DPS_RANGE) || cleanVal(rec.STAT_DPS) || '—';
     const rng = cleanVal(rec.STAT_RANGE) || '—';
     const spd = cleanVal(rec.STAT_SPEED) || cleanVal(rec.STAT_MAX_SPEED) || '—';
     const dmgArm = [cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE)].filter(Boolean).join(' / ') || '—';
@@ -2464,6 +2468,7 @@
       'STAT_HP_RANGE_1': cleanVal(data['STAT_HP_RANGE_1']),
       'STAT_HP_RANGE_10': cleanVal(data['STAT_HP_RANGE_10']),
       'STAT_HP_RANGE_20': cleanVal(data['STAT_HP_RANGE_20']),
+      'STAT_HP_RANGE_30': cleanVal(data['STAT_HP_RANGE_30']) || cleanVal(data['STAT_HP_30']),
       'STAT_HP_RANGE_31': cleanVal(data['STAT_HP_RANGE_31']) || cleanVal(data['STAT_HP_31']),
       'STAT_HP_RANGE_40': cleanVal(data['STAT_HP_RANGE_40']) || cleanVal(data['STAT_HP_40']),
       'STAT_HP_RANGE_MAX': cleanVal(data['STAT_HP_RANGE_MAX']) || cleanVal(data['STAT_HP_MAX']),
@@ -2471,6 +2476,7 @@
       'STAT_DPS_RANGE_1': cleanVal(data['STAT_DPS_RANGE_1']),
       'STAT_DPS_RANGE_10': cleanVal(data['STAT_DPS_RANGE_10']),
       'STAT_DPS_RANGE_20': cleanVal(data['STAT_DPS_RANGE_20']),
+      'STAT_DPS_RANGE_30': cleanVal(data['STAT_DPS_RANGE_30']) || cleanVal(data['STAT_DPS_30']),
       'STAT_DPS_RANGE_31': cleanVal(data['STAT_DPS_RANGE_31']) || cleanVal(data['STAT_DPS_31']),
       'STAT_DPS_RANGE_40': cleanVal(data['STAT_DPS_RANGE_40']) || cleanVal(data['STAT_DPS_40']),
       'STAT_DPS_RANGE_MAX': cleanVal(data['STAT_DPS_RANGE_MAX']) || cleanVal(data['STAT_DPS_MAX']),
@@ -2526,7 +2532,7 @@
 
       // Also auto-append any extra STAT_* columns present in MASTER_DB that aren't in DEFAULT_STAT_SCHEMA
       const knownStatKeys = new Set(DEFAULT_STAT_SCHEMA.map(s => s.key));
-      ['STAT_BUILDING_MAX', 'STAT_HP', 'STAT_HP_MAX', 'STAT_HP_31', 'STAT_HP_40', 'STAT_DPS', 'STAT_DPS_MAX', 'STAT_DPS_31', 'STAT_DPS_40', 'STAT_MAX_SPEED'].forEach(k => knownStatKeys.add(k));
+      ['STAT_BUILDING_MAX', 'STAT_HP', 'STAT_HP_MAX', 'STAT_HP_30', 'STAT_HP_31', 'STAT_HP_40', 'STAT_DPS', 'STAT_DPS_MAX', 'STAT_DPS_30', 'STAT_DPS_31', 'STAT_DPS_40', 'STAT_MAX_SPEED'].forEach(k => knownStatKeys.add(k));
       Object.keys(data).forEach(k => {
         if (k.startsWith('STAT_') && !knownStatKeys.has(k)) {
           const val = cleanVal(data[k]);
@@ -2908,7 +2914,7 @@
   }
 
   function mhGetMaxStat(rec, baseKey, fallbackVal) {
-    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]) || cleanVal(rec[`${baseKey}_40`]) || cleanVal(rec[`${baseKey}_31`]) || cleanVal(rec[`${baseKey}_20`]);
+    const maxDirect = cleanVal(rec[`${baseKey}_MAX`]) || cleanVal(rec[`${baseKey}_40`]) || cleanVal(rec[`${baseKey}_31`]) || cleanVal(rec[`${baseKey}_30`]) || cleanVal(rec[`${baseKey}_20`]);
     if (maxDirect) return mhParseNum(maxDirect) || fallbackVal;
     const minDirect = cleanVal(rec[`${baseKey}_1`]);
     const rangeStr = cleanVal(rec[baseKey]) || cleanVal(rec[baseKey.replace('_RANGE', '')]);
