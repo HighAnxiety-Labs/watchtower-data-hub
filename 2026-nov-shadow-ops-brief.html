@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="[-WTR-] Shadow Ops: Drifting Dragon — Chapter 1–3 Tactical Brief">
   <meta property="og:description" content="Unique Unit: The Komodo • Baron Anansi Repair Logistic (Limit 3) • 4 Argus Techs (Lv 1–5) • Enemy: Onyx • Chapters 1, 2 & 3 Phase Schedule.">
-  <meta property="og:image" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8">
+  <meta property="og:image" content="./assets/images/UNITS/KAMODO_CLASSIFIED.jpg">
   <script src="./wtr-view-mode.js"></script>
   <style>
     :root {
@@ -24,10 +24,8 @@
       --primary-bar-bg: #465299;
       --accent-indigo: #8c9eff;
       --accent-green: #00e676;
-      --theme-glow: rgba(70, 82, 153, 0.36);
+      --theme-glow: rgba(70, 82, 153, 0.42);
       --border-dark: #202642;
-      --tab-top-border: #333c68;
-      --corner-block-width: 265px;
       --bg-dark: #070a0e;
       --bg-panel: #10151c;
       --bg-header: #0c1117;
@@ -63,31 +61,10 @@
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
-      max-height: calc(100vh - 20px);
     }
 
-    .dossier-card.unconstrained-height {
-      max-height: none;
-    }
-
-    .dossier-card.unconstrained-height .brief-scroll-viewport {
-      overflow-y: visible;
-      max-height: none;
-    }
-
-    .dossier-card.brief-collapsed {
-      max-height: none;
-    }
-
-    .dossier-card.brief-collapsed .file-tabs-rail,
     .dossier-card.brief-collapsed .so-collapsible-section {
       display: none !important;
-    }
-
-    .dossier-card.brief-collapsed .brief-scroll-viewport {
-      overflow-y: visible;
-      max-height: none;
     }
 
     /* ==================== FLEX V-BACKED UPPER & LOWER BARS (UNCOMPRESSED BLACK OUTER CORNERS) ==================== */
@@ -125,7 +102,6 @@
       z-index: 35;
     }
 
-    /* Compact V-Backed Center Label — yields 100% priority so outer corners never compress */
     .bar-solid-label {
       flex: 1 1 auto;
       min-width: 0;
@@ -151,7 +127,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Uncompressed Black Beveled Outer Edge Corners */
     .corner-block-4 {
       flex: 0 0 auto;
       min-width: 240px;
@@ -176,7 +151,9 @@
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
-    .corner-top-left::before {
+    .corner-top-left::before,
+    .corner-bottom-left::before,
+    .corner-bottom-right::before {
       content: "■";
       color: var(--accent-indigo);
       font-size: 12px;
@@ -210,13 +187,6 @@
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
-    .corner-bottom-left::before {
-      content: "■";
-      color: var(--accent-indigo);
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
     .corner-bottom-left .clock-lbl {
       color: var(--text-gold);
       font-size: 12px;
@@ -244,142 +214,22 @@
       box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
     }
 
-    .corner-bottom-right::before {
-      content: "■";
-      color: var(--accent-indigo);
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
-    /* ==================== FILE TABS RAIL (MOVED BELOW TITLE HEADER) ==================== */
-    .file-tabs-rail {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: #080c0a;
-      padding: 8px 28px 0 28px;
-      border-bottom: 2px solid var(--primary-color);
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .file-tabs-group {
-      display: flex;
-      align-items: flex-end;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    .file-tab-btn {
-      position: relative;
-      background: linear-gradient(180deg, #151e26 0%, #0b1015 100%);
-      color: var(--text-muted);
-      border: none;
-      padding: 6px 12px 5px 12px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      cursor: pointer;
-      clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 100%, 0 100%);
-      border-top: 2px solid var(--tab-top-border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      white-space: nowrap;
-      transition: filter 0.15s ease, background 0.15s ease;
-    }
-
-    .file-tab-btn:hover {
-      filter: brightness(1.18);
-    }
-
-    .file-tab-btn .tab-idx {
-      color: var(--accent-indigo);
-      font-weight: 900;
-    }
-
-    .file-tab-btn .tab-lbl {
-      color: #cbd5e1;
-    }
-
-    .file-tab-btn.active-file-tab {
-      background: var(--primary-color);
-      color: #ffffff;
-      border-top-color: #e2e8f0;
-    }
-
-    .file-tab-btn.active-file-tab .tab-idx,
-    .file-tab-btn.active-file-tab .tab-lbl {
-      color: #ffffff;
-      text-shadow: 0 1px 2px #000;
-    }
-
-    .file-tab-btn.enemy-tab {
-      border-top-color: var(--text-red);
-    }
-
-    .file-tab-btn.enemy-tab .tab-idx {
-      color: #fda4af;
-    }
-
-    .file-tab-btn.enemy-tab .tab-lbl {
-      color: #fecdd3;
-    }
-
-    .file-tab-btn.enemy-tab.active-file-tab {
-      background: #9f1239;
-      border-top-color: #fda4af;
-    }
-
-    .file-tab-btn.height-toggle-tab {
-      border-top-color: var(--text-cyan);
-      color: var(--text-cyan);
-    }
-
-    /* ==================== SCROLLING DOSSIER VIEWPORT ==================== */
-    .brief-scroll-viewport {
-      flex: 1 1 auto;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    .brief-scroll-viewport::-webkit-scrollbar {
-      width: 9px;
-    }
-    .brief-scroll-viewport::-webkit-scrollbar-track {
-      background: #080c10;
-    }
-    .brief-scroll-viewport::-webkit-scrollbar-thumb {
-      background: #2b3561;
-      border-radius: 4px;
-    }
-    .brief-scroll-viewport::-webkit-scrollbar-thumb:hover {
-      background: #465299;
-    }
-
-    /* ==================== HEADER: FULL-SIZE 96×96 WTR RADAR LOGO LEFT | DATES META RIGHT ==================== */
+    /* ==================== HEADER: HIGH-RES MASTER WTR RADAR LOGO LEFT | DATES META RIGHT ==================== */
     .event-header {
-      padding: 16px 28px;
+      padding: 18px 30px;
       background: var(--bg-header);
-      border-bottom: 1px solid #1d2540;
+      border-bottom: 2px solid #1d2540;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
       flex-wrap: wrap;
       position: relative;
     }
 
     .header-classified-watermark {
       position: absolute;
-      right: 335px;
+      right: 345px;
       top: 50%;
       transform: translateY(-50%) rotate(-7deg);
       font-family: "Arial Black", Impact, sans-serif;
@@ -398,30 +248,30 @@
     .header-left-wrap {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 22px;
       flex: 1 1 420px;
       min-width: 260px;
     }
 
+    /* Master Hub & Event Brief Emblem Frame (600×600 Master PNG, Isolated GPU Spin Layer for Crisp Rendering) */
     .header-logo-link {
-      width: 96px;
-      height: 96px;
+      width: 104px;
+      height: 104px;
       border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, var(--border-dark) 0%, #0b1118 50%, var(--primary-color) 100%);
-      box-shadow: 0 0 18px var(--theme-glow), inset 0 0 8px rgba(0, 0, 0, 0.92);
+      padding: 4px;
+      background: linear-gradient(135deg, #41586f 0%, #151e29 50%, var(--primary-color) 100%);
+      box-shadow: 0 0 20px var(--theme-glow), inset 0 0 10px rgba(0, 0, 0, 0.92);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       text-decoration: none;
       position: relative;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: box-shadow 0.18s ease;
     }
 
     .header-logo-link:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 26px rgba(0, 230, 118, 0.55);
+      box-shadow: 0 0 28px rgba(0, 230, 118, 0.65), inset 0 0 10px rgba(0, 0, 0, 0.92);
     }
 
     .logo-radar-ring::after {
@@ -429,10 +279,12 @@
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent 0deg, transparent 250deg, var(--accent-green) 360deg);
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 255deg, var(--accent-green) 360deg);
       animation: radarSpin 4s linear infinite;
+      will-change: transform;
       z-index: 1;
       opacity: 0.85;
+      pointer-events: none;
     }
 
     .header-logo-img {
@@ -444,6 +296,7 @@
       border: 2px solid #000;
       position: relative;
       z-index: 2;
+      image-rendering: -webkit-optimize-contrast;
     }
 
     .event-header-text {
@@ -453,14 +306,14 @@
 
     .event-sub-tag {
       font-size: 12px;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.3px;
       color: var(--accent-indigo);
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
@@ -478,9 +331,9 @@
 
     .event-main-title {
       font-family: "Arial Black", Impact, sans-serif;
-      font-size: clamp(22px, 2.7vw, 31px);
+      font-size: clamp(23px, 2.8vw, 33px);
       color: #a5b4fc;
-      letter-spacing: 1.3px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       line-height: 1.08;
       margin: 0;
@@ -526,9 +379,9 @@
       white-space: nowrap;
     }
 
-    /* ==================== 4 EQUAL 330×330 FULL-IMAGE-VIEW FRAMES + INCREASED MARGINS ==================== */
+    /* ==================== 3 EQUAL CHAPTER FRAMES ACROSS FULL WIDTH (SHADOW OPS IMAGE REMOVED) ==================== */
     .chapters-showcase-band {
-      padding: 26px 30px;
+      padding: 24px 30px;
       background: linear-gradient(180deg, #0e1422 0%, #0a101b 100%);
       border-bottom: 1px solid #1f2947;
       display: flex;
@@ -536,50 +389,31 @@
       gap: 18px;
     }
 
-    .equal-quad-grid {
+    .equal-tri-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 330px));
-      justify-content: space-between;
-      gap: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
       align-items: stretch;
     }
 
-    /* Every frame matches the exact 330×330 (1:1) full Shadow Ops image view */
     .equal-box-frame {
       width: 100%;
-      max-width: 330px;
-      aspect-ratio: 1 / 1;
       border-radius: 7px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      overflow: hidden;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 0 14px rgba(0, 0, 0, 0.55);
     }
 
-    /* Box 1: Full Uncropped 330×330 Shadow Ops Image View — ZERO rescaling/cropping inside frame */
-    .equal-art-box {
-      border: 2px solid rgba(129, 140, 248, 0.72);
-      background: #080c14;
-      padding: 0;
-      cursor: zoom-in;
-      box-shadow: 0 0 22px rgba(70, 82, 153, 0.45), 0 8px 20px rgba(0, 0, 0, 0.82);
-    }
-
-    .equal-art-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    /* Boxes 2–4: Kept exact text sizes, increased margin width & height inside frames */
+    /* Chapters 1–3: Equal size across full page width, NEVER hides or clips bottom text at any zoom/DPI! */
     .equal-chapter-box {
-      padding: 18px 20px;
-      gap: 12px;
+      min-height: 288px;
+      padding: 15px 20px;
+      gap: 10px;
       background: #0b101d;
       border: 1px solid rgba(129, 140, 248, 0.5);
+      overflow: visible;
     }
 
     .equal-chapter-box.ch-live {
@@ -596,9 +430,10 @@
     .chapter-head-bar {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      padding-bottom: 9px;
+      gap: 2px;
+      padding-bottom: 7px;
       border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+      flex-shrink: 0;
     }
 
     .chapter-title-lg {
@@ -627,17 +462,17 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      gap: 7px;
     }
 
     .beam-row-tall {
       flex: 1 1 0%;
       border-radius: 5px;
-      padding: 10px 14px;
+      padding: 6px 12px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 3px;
+      gap: 2px;
       position: relative;
       transition: transform 0.12s ease;
     }
@@ -658,7 +493,7 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
       font-weight: 800;
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
     .beam-p1 {
@@ -700,13 +535,14 @@
     }
 
     .chapter-foot-line {
-      padding-top: 9px;
-      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      padding-top: 7px;
+      border-top: 1px solid rgba(148, 163, 184, 0.22);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.25;
       text-align: center;
+      flex-shrink: 0;
     }
 
     .pst-detail-strip {
@@ -734,29 +570,44 @@
       color: #a5b4fc;
     }
 
-    /* ==================== MAIN TACTICAL BODY GRID (LEFT INTEL + RIGHT ENLARGED ONYX) ==================== */
-    .intel-body-grid {
-      padding: 20px 30px 24px 30px;
+    /* ==================== MAIN TACTICAL BODY STACK (REWARDS + ONYX ROW → 100% WIDTH ARGUS TECH → RULES) ==================== */
+    .intel-body-stack {
+      padding: 22px 30px 26px 30px;
       background: var(--bg-header);
-      display: grid;
-      grid-template-columns: minmax(0, 1.95fr) minmax(300px, 1fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .intel-left-stack {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      min-width: 0;
+      gap: 18px;
+    }
+
+    .rewards-adversary-row {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
     }
 
     .section-panel {
       background: #0f1624;
       border: 1px solid #232f52;
       border-radius: 6px;
-      padding: 13px 15px;
+      padding: 14px 16px;
       box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-panel.adversary-panel {
+      background: linear-gradient(180deg, #160e18 0%, #0f1320 100%);
+      border-color: rgba(244, 63, 94, 0.48);
+      box-shadow: inset 0 0 16px rgba(244, 63, 94, 0.08);
+    }
+
+    .section-panel.adversary-panel .section-title-bar {
+      border-bottom-color: rgba(244, 63, 94, 0.28);
+    }
+
+    .section-panel.adversary-panel .section-title-bar h2 {
+      color: #fecdd3;
     }
 
     .section-title-bar {
@@ -764,8 +615,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
+      padding-bottom: 9px;
+      margin-bottom: 12px;
       border-bottom: 1px solid rgba(129, 140, 248, 0.25);
       flex-wrap: wrap;
     }
@@ -781,13 +632,9 @@
       gap: 8px;
     }
 
-    .sec-num-chip {
-      background: var(--primary-color);
-      color: #ffffff;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 11px;
-      padding: 1px 6px;
-      border-radius: 3px;
+    .sec-marker-pip {
+      color: var(--accent-indigo);
+      font-size: 13px;
     }
 
     .kixeye-divider-img {
@@ -798,109 +645,254 @@
       display: block;
     }
 
-    /* Featured Rewards Cards */
+    /* ==================== STRICT 4:5 SECTION-HEIGHT INTERACTIVE UNIT PORTRAITS ==================== */
+    .unit-portrait-trigger {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 6px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 40%, #172138 0%, #060910 100%);
+      border: 2px solid rgba(129, 140, 248, 0.55);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.75);
+      cursor: pointer;
+      flex-shrink: 0;
+      align-self: flex-start;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .unit-portrait-trigger:hover {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 20px rgba(0, 230, 118, 0.4), 0 8px 20px rgba(0, 0, 0, 0.85);
+      transform: translateY(-1px);
+    }
+
+    .unit-portrait-trigger img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .unit-portrait-trigger.contain-art img {
+      object-fit: contain;
+      padding: 4px;
+    }
+
+    /* On-Image Tactical Hover Overlay */
+    .unit-card-hover-veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6, 10, 16, 0.25) 0%, rgba(5, 12, 10, 0.94) 68%, rgba(4, 10, 8, 0.98) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10px 9px;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+
+    .unit-portrait-trigger:hover .unit-card-hover-veil {
+      opacity: 1;
+    }
+
+    .veil-unit-name {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 12.5px;
+      color: #ffffff;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .veil-unit-role {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-gold);
+      line-height: 1.2;
+    }
+
+    .veil-unit-cta {
+      margin-top: 3px;
+      background: rgba(0, 230, 118, 0.18);
+      border: 1px solid rgba(0, 230, 118, 0.65);
+      border-radius: 3px;
+      padding: 3px 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--accent-green);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* Subtle Persistent Corner Cue on 4:5 Portraits */
+    .unit-corner-cue {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(8, 12, 18, 0.86);
+      border: 1px solid rgba(129, 140, 248, 0.55);
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10px;
+      font-weight: 900;
+      color: #c7d2fe;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .unit-portrait-trigger:hover .unit-corner-cue {
+      opacity: 0;
+    }
+
+    /* Featured Rewards & Adversary Onyx Split Cards (Equal 4:5 Unit Portraits = Full Section Height) */
     .rewards-cards-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 14px;
+      align-items: stretch;
+      flex: 1 1 auto;
     }
 
-    .reward-item-card {
+    .reward-split-card {
       background: #0a101b;
       border: 1px solid #28365e;
       border-left: 3px solid var(--text-gold);
-      border-radius: 5px;
-      padding: 10px 12px;
+      border-radius: 6px;
+      padding: 0;
       display: flex;
-      align-items: center;
-      gap: 11px;
+      align-items: stretch;
+      overflow: hidden;
+      flex: 1 1 auto;
     }
 
-    .reward-item-card.logistic-card {
+    .reward-split-card.kamodo-card .unit-portrait-trigger {
+      border-right-color: rgba(244, 63, 94, 0.5);
+    }
+
+    .reward-split-card.logistic-card {
       border-left-color: var(--text-cyan);
     }
 
-    .reward-thumb {
-      width: 54px;
-      height: 54px;
-      border-radius: 5px;
-      object-fit: cover;
-      border: 1px solid #3b4b7c;
-      background: #060910;
-      flex-shrink: 0;
+    .reward-split-card.adversary-split-card {
+      background: #0e0a13;
+      border-color: rgba(244, 63, 94, 0.42);
+      border-left: 3px solid var(--text-red);
+    }
+
+    .reward-split-card.adversary-split-card .unit-portrait-trigger {
+      border-right-color: rgba(244, 63, 94, 0.5);
+    }
+
+    .reward-split-card .unit-portrait-trigger {
+      width: 160px;
+      height: 200px;
+      border-radius: 0;
+      border-top: none;
+      border-bottom: none;
+      border-left: none;
+      border-right: 2px solid rgba(129, 140, 248, 0.45);
+      align-self: center;
+    }
+
+    .reward-meta {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
     }
 
     .reward-meta h3 {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 900;
       text-transform: uppercase;
       color: var(--text-gold);
       line-height: 1.2;
     }
 
-    .reward-item-card.logistic-card .reward-meta h3 {
+    .reward-split-card.logistic-card .reward-meta h3 {
       color: #7dd3fc;
     }
 
-    .reward-meta p {
-      font-size: 12px;
-      color: #cbd5e1;
-      margin-top: 3px;
-      line-height: 1.35;
+    .reward-split-card.adversary-split-card .reward-meta h3 {
+      color: #ffe4e6;
     }
 
-    .unit-db-link {
-      display: inline-block;
-      margin-top: 4px;
+    .reward-meta p {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.42;
+    }
+
+    .reward-quick-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .reward-tag-chip {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 11px;
-      font-weight: 900;
-      color: var(--accent-green);
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(0, 230, 118, 0.55);
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(70, 82, 153, 0.22);
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      color: #e0e7ff;
     }
 
-    .unit-db-link:hover {
-      border-bottom-style: solid;
+    /* Argus Tech Split Body (4:5 Argus Portrait = Strictly 4:5 & At Least Full Section Height Beside Lv 1–5 Table) */
+    .argus-section-split {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
     }
 
-    /* Argus Tech Table */
-    .argus-unit-strip {
+    .argus-section-split .unit-portrait-trigger {
+      width: 232px;
+    }
+
+    .argus-right-col {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .argus-unit-banner {
+      background: #0a101c;
+      border: 1px solid #243156;
+      border-radius: 5px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: #0a101c;
-      border: 1px solid #243156;
-      border-radius: 5px;
-      padding: 7px 11px;
-      margin-bottom: 10px;
       flex-wrap: wrap;
-    }
-
-    .argus-unit-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .argus-unit-left img {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      object-fit: cover;
-      border: 1px solid #465299;
-      background: #05080f;
     }
 
     .tech-table-wrap {
       overflow-x: auto;
       border: 1px solid #263359;
       border-radius: 5px;
+      flex: 1 1 auto;
     }
 
     .tech-table {
       width: 100%;
+      height: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 12.5px;
@@ -977,7 +969,7 @@
     .rules-list {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 9px;
+      gap: 10px;
     }
 
     .rule-box {
@@ -985,7 +977,7 @@
       border: 1px solid #233055;
       border-top: 2px solid #5c6bc0;
       border-radius: 5px;
-      padding: 9px 11px;
+      padding: 10px 12px;
     }
 
     .rule-box .rule-pts {
@@ -1007,89 +999,281 @@
     .rule-box p {
       font-size: 12px;
       color: #cbd5e1;
-      line-height: 1.38;
+      line-height: 1.4;
     }
 
-    /* ==================== RIGHT COLUMN: ADVERSARY ONYX (ENLARGED PORTRAIT BELOW HEADER) ==================== */
-    .adversary-onyx-card {
-      background: linear-gradient(180deg, #170d15 0%, #0f0a11 100%);
-      border: 1px solid rgba(244, 63, 94, 0.5);
+    /* ==================== FLOATING HOVER QUICK-BRIEF OVERLAY ==================== */
+    .unit-floating-hover-card {
+      position: fixed;
+      z-index: 100005;
+      width: 340px;
+      max-width: calc(100vw - 24px);
+      pointer-events: none;
+      display: none;
+      background: rgba(8, 13, 20, 0.98);
+      border: 1.5px solid var(--accent-green);
+      border-top: 3px solid var(--accent-green);
       border-radius: 6px;
-      padding: 14px 15px;
+      padding: 12px 14px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.94), 0 0 20px rgba(0, 230, 118, 0.25);
+    }
+
+    .unit-floating-hover-card.show {
+      display: block;
+    }
+
+    .ufhc-top {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: space-between;
-      text-align: center;
-      gap: 12px;
-      box-shadow: inset 0 0 18px rgba(244, 63, 94, 0.08), 0 4px 16px rgba(0, 0, 0, 0.5);
+      align-items: flex-start;
+      gap: 8px;
+      padding-bottom: 8px;
+      margin-bottom: 9px;
+      border-bottom: 1px solid #1e2d45;
     }
 
-    .onyx-header-block {
-      width: 100%;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(244, 63, 94, 0.32);
+    .ufhc-name {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 15px;
+      color: #ffffff;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      line-height: 1.15;
     }
 
-    .onyx-kicker {
+    .ufhc-sub {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 11.5px;
-      font-weight: 900;
-      letter-spacing: 1.6px;
-      color: #fb7185;
+      color: var(--accent-green);
+      font-weight: 800;
       text-transform: uppercase;
-    }
-
-    .onyx-title {
-      font-family: "Arial Black", Impact, sans-serif;
-      font-size: 24px;
-      letter-spacing: 1.5px;
-      color: #ffe4e6;
-      text-transform: uppercase;
-      line-height: 1.1;
       margin-top: 2px;
-      text-shadow: 0 2px 10px rgba(244, 63, 94, 0.4);
     }
 
-    .onyx-counterpart {
+    .ufhc-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--text-gold);
+      background: rgba(255, 213, 79, 0.14);
+      border: 1px solid rgba(255, 213, 79, 0.48);
+      padding: 2px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .ufhc-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 5px 7px;
+      margin-bottom: 9px;
+    }
+
+    .ufhc-stat-box {
+      background: #0d1524;
+      border: 1px solid #1e2c4a;
+      border-radius: 3px;
+      padding: 4px 7px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+    }
+
+    .ufhc-stat-k {
+      color: #94a3b8;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      white-space: nowrap;
+    }
+
+    .ufhc-stat-v {
+      color: #ffffff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ufhc-talent-note {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.38;
+      padding: 6px 8px;
+      background: rgba(70, 82, 153, 0.16);
+      border-left: 2px solid var(--accent-indigo);
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .ufhc-footer {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--accent-green);
+      text-align: center;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.35);
+      border-radius: 3px;
+      padding: 4px 6px;
+      text-transform: uppercase;
+    }
+
+    /* ==================== IN-PAGE FULL UNIT BRIEF MODAL ==================== */
+    .wtr-overlay-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 12, 0.9);
+      backdrop-filter: blur(4px);
+      z-index: 100010;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .wtr-overlay-modal.open {
+      display: flex;
+    }
+
+    .wtr-overlay-window {
+      width: 100%;
+      max-width: 1080px;
+      max-height: 92vh;
+      background: #0d131f;
+      border: 2px solid var(--accent-indigo);
+      border-radius: 7px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(70, 82, 153, 0.35);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .wtr-overlay-topbar {
+      background: linear-gradient(90deg, #1b2444 0%, #0b101b 100%);
+      border-bottom: 2px solid #26335b;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .wtr-overlay-title {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 15px;
+      color: #e0e7ff;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .wtr-overlay-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .wtr-overlay-ext-btn {
+      background: #0f2027;
+      border: 1px solid var(--text-cyan);
+      color: var(--text-cyan);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
-      font-weight: 700;
-      color: #cbd5e1;
-      margin-top: 3px;
+      font-weight: 900;
+      padding: 7px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
     }
 
-    .onyx-portrait-frame {
+    .wtr-overlay-ext-btn:hover {
+      background: var(--text-cyan);
+      color: #041016;
+    }
+
+    .wtr-overlay-close-btn {
+      background: #dc2626;
+      border: 1px solid #fca5a5;
+      color: #ffffff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .wtr-overlay-close-btn:hover {
+      background: #ef4444;
+    }
+
+    .wtr-overlay-content {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1 1 auto;
+    }
+
+    .overlay-unit-grid {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr) minmax(0, 1.2fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .overlay-poster-frame {
       width: 100%;
-      max-width: 246px;
+      max-width: 248px;
       aspect-ratio: 4 / 5;
-      border-radius: 7px;
-      padding: 3px;
-      background: linear-gradient(145deg, #f43f5e 0%, #1f1018 50%, #fb7185 100%);
-      box-shadow: 0 0 22px rgba(244, 63, 94, 0.36), 0 8px 18px rgba(0, 0, 0, 0.85);
-      cursor: zoom-in;
+      background: #060910;
+      border: 2px solid rgba(129, 140, 248, 0.6);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
     }
 
-    .onyx-portrait-frame img {
+    .overlay-poster-frame img {
       width: 100%;
       height: 100%;
-      border-radius: 5px;
       object-fit: cover;
-      object-position: top center;
       display: block;
-      border: 1px solid #090508;
     }
 
-    .onyx-lore-quote {
-      background: rgba(9, 6, 11, 0.72);
-      border: 1px solid rgba(244, 63, 94, 0.25);
-      border-radius: 5px;
-      padding: 10px 12px;
-      font-size: 12.5px;
-      line-height: 1.48;
-      color: #e2e8f0;
-      font-style: italic;
-      text-align: left;
+    .overlay-poster-frame.contain-art img {
+      object-fit: contain;
+      padding: 6px;
+    }
+
+    .overlay-stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .overlay-stats-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #1d2846;
+    }
+
+    .overlay-stats-lbl {
+      color: var(--text-muted);
+      font-weight: 700;
+      width: 46%;
+    }
+
+    .overlay-stats-val {
+      color: #ffffff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 800;
+      text-align: right;
     }
 
     /* ==================== ANIMATIONS & LIGHTBOX ==================== */
@@ -1135,7 +1319,7 @@
       position: fixed;
       inset: 0;
       background: rgba(4, 7, 12, 0.9);
-      z-index: 999;
+      z-index: 100020;
       display: none;
       align-items: center;
       justify-content: center;
@@ -1155,8 +1339,8 @@
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.92);
     }
 
-    /* ==================== RESPONSIVE BREAKPOINTS (4×1 → 2×2 → 1×4) ==================== */
-    @media (max-width: 1180px) {
+    /* ==================== RESPONSIVE BREAKPOINTS ==================== */
+    @media (max-width: 1280px) {
       .header-classified-watermark { display: none; }
       .corner-block-4 {
         min-width: 0;
@@ -1169,29 +1353,47 @@
       .corner-bottom-right {
         padding: 6px 12px 6px 20px;
       }
-      /* Tablet / Medium Viewport: 2×2 Grid of full 330×330 frames */
-      .equal-quad-grid {
-        grid-template-columns: repeat(2, minmax(0, 330px));
-        justify-content: center;
-        gap: 24px;
+    }
+
+    @media (max-width: 1120px) {
+      .rewards-adversary-row {
+        grid-template-columns: 1fr;
+      }
+      .equal-tri-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
       }
     }
 
-    @media (max-width: 980px) {
-      .intel-body-grid {
-        grid-template-columns: 1fr;
-      }
-      .onyx-portrait-frame {
-        max-width: 260px;
-      }
+    @media (max-width: 1020px) {
       .event-meta-box {
         width: 100%;
         min-width: 0;
       }
+      .overlay-unit-grid {
+        grid-template-columns: 1fr;
+      }
+      .overlay-poster-frame {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .rewards-cards-row {
+        grid-template-columns: 1fr;
+      }
+      .argus-section-split {
+        flex-direction: column;
+        align-items: center;
+      }
+      .argus-section-split .unit-portrait-trigger {
+        width: 220px;
+        height: 275px;
+        align-self: center;
+      }
     }
 
     @media (max-width: 740px) {
-      /* Narrow Cellphone: 2-row HUD bar so outer corners keep 100% uncompressed data + 1×4 Frame Stack */
       .classification-bar,
       .bottom-clock-bar-m1 {
         flex-wrap: wrap;
@@ -1218,39 +1420,61 @@
         padding: 14px 18px;
       }
       .header-logo-link {
-        width: 76px;
-        height: 76px;
+        width: 84px;
+        height: 84px;
       }
-      .file-tabs-rail {
-        padding: 7px 14px 0 14px;
+      .chapters-showcase-band,
+      .intel-body-stack {
+        padding: 18px 16px;
       }
-      .chapters-showcase-band {
-        padding: 20px 18px;
-      }
-      .equal-quad-grid {
-        grid-template-columns: minmax(0, 330px);
-        justify-content: center;
-        gap: 20px;
+      .equal-tri-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
       }
       .pst-detail-strip,
-      .rewards-cards-row,
       .rules-list {
         grid-template-columns: 1fr;
         width: 100%;
       }
-      .dossier-card {
-        max-height: none;
+    }
+
+    @media (max-width: 480px) {
+      .reward-split-card {
+        flex-direction: column;
+        align-items: center;
       }
-      .brief-scroll-viewport {
-        overflow-y: visible;
-        max-height: none;
+      .reward-split-card .unit-portrait-trigger {
+        width: 168px !important;
+        height: 210px !important;
+        border-right: none;
+        border-bottom: 2px solid rgba(129, 140, 248, 0.45);
+        margin-top: 10px;
+        border-radius: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="dossier-card unconstrained-height" id="mainShadowOpsDossier">
-    <!-- ==================== LOCKED TOP HUD (UNCOMPRESSED CORNERS + REDUCED V-BACKED CENTER) ==================== -->
+
+  <!-- Floating Quick-Intel Hover Card for 4:5 Unit Portraits -->
+  <div class="unit-floating-hover-card" id="wtrUnitHoverCard"></div>
+
+  <!-- In-Page Full Unit Brief Overlay Modal -->
+  <div class="wtr-overlay-modal" id="wtrUnitBriefModal" onclick="if(event.target===this) closeUnitBriefModal()">
+    <div class="wtr-overlay-window">
+      <div class="wtr-overlay-topbar">
+        <span class="wtr-overlay-title" id="unitModalTitle">🖥️ WATCHTOWER FULL UNIT BRIEF</span>
+        <div class="wtr-overlay-actions">
+          <a id="unitModalGalleryLink" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="wtr-overlay-ext-btn">↗ Open Unit Briefs Gallery</a>
+          <button type="button" class="wtr-overlay-close-btn" onclick="closeUnitBriefModal()">✕ Close Brief</button>
+        </div>
+      </div>
+      <div class="wtr-overlay-content" id="unitModalBody"></div>
+    </div>
+  </div>
+
+  <div class="dossier-card" id="mainShadowOpsDossier">
+    <!-- ==================== TOP HUD BAR ==================== -->
     <div class="locked-top-hud">
       <div class="classification-bar scanline-shimmer">
         <span class="corner-block-4 corner-top-left">NOVEMBER 2026</span>
@@ -1262,254 +1486,312 @@
       </div>
     </div>
 
-    <!-- ==================== SCROLLING VIEWPORT ==================== -->
-    <div class="brief-scroll-viewport" id="briefScrollViewport">
+    <!-- ==================== HEADER (HIGH-RES MASTER WTR RADAR EMBLEM + TITLE + DATES) ==================== -->
+    <header class="event-header" id="secTopHeader">
+      <div class="header-classified-watermark">UNCLASSIFIED</div>
+      <div class="header-left-wrap">
+        <a class="header-logo-link logo-radar-ring"
+           href="https://highanxiety-labs.github.io/watchtower-data-hub/"
+           target="_top"
+           rel="noopener noreferrer"
+           onclick="if(location.protocol==='file:'){location.href='./index.html';return false;}"
+           title="Return to [-WTR-] Command Center">
+          <img class="header-logo-img"
+               src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png"
+               alt="[-WTR-] WatchToweR Master Emblem">
+        </a>
+        <div class="event-header-text">
+          <div class="event-sub-tag">
+            <span>[-WTR-] DATA HUB</span>
+            <span style="opacity:0.45;">|</span>
+            <a class="data-source-link"
+               href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
+               target="_blank"
+               rel="noopener noreferrer">Official Data Source (FAQ #1065) ↗</a>
+          </div>
+          <h1 class="event-main-title" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">
+            SHADOW OPS: DRIFTING DRAGON
+          </h1>
+          <div class="event-campaign-sub" id="headerSubStatus">
+            CHAPTER 1 ACTIVE • FEATURED UNIT: THE KOMODO
+          </div>
+        </div>
+      </div>
 
-      <!-- WATCHTOWER BRIEF HEADER: FULL-SIZE 96×96 RADAR CIRCLE WTR LOGO + TITLE LEFT | START/END DATES RIGHT -->
-      <header class="event-header" id="secTopHeader">
-        <div class="header-classified-watermark">UNCLASSIFIED</div>
-        <div class="header-left-wrap">
-          <a class="header-logo-link logo-radar-ring"
-             href="https://highanxiety-labs.github.io/watchtower-data-hub/"
-             target="_top"
-             rel="noopener noreferrer"
-             title="Return to [-WTR-] Command Center">
-            <img class="header-logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-] Emblem">
-          </a>
-          <div class="event-header-text">
-            <div class="event-sub-tag">
-              <span>[-WTR-] DATA HUB</span>
-              <span style="opacity:0.45;">|</span>
-              <a class="data-source-link"
-                 href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1065-shadow-ops-drifting-dragon---chapter-1/"
-                 target="_blank"
-                 rel="noopener noreferrer">Official Data Source (FAQ #1065) ↗</a>
+      <div class="event-meta-box">
+        <div class="meta-line"><strong style="color: var(--text-cyan);">Starts:</strong><span>FRI, NOV 13, 2026 @ 10:00 AM PST</span></div>
+        <div class="meta-line"><strong style="color: var(--text-gold);">Ends:</strong><span style="color: var(--accent-green); font-weight: 900;">WED, DEC 2, 2026 @ 11:59 PM PST</span></div>
+        <div class="meta-line"><strong style="color: var(--text-orange);">Store Closes:</strong><span>END OF CHAPTER (DEC 2, 2026)</span></div>
+      </div>
+    </header>
+
+    <!-- ==================== 3 EQUAL CHAPTER FRAMES ACROSS FULL WIDTH (SHADOW OPS IMAGE REMOVED) ==================== -->
+    <section class="chapters-showcase-band so-collapsible-section" id="secChapters">
+      <div class="equal-tri-grid">
+        <!-- CHAPTER 1 -->
+        <div class="equal-box-frame equal-chapter-box ch-live">
+          <div class="chapter-head-bar">
+            <span class="chapter-title-lg">CHAPTER 1</span>
+            <div class="chapter-sub-badge" style="color: #34d399;">
+              <span>NOVEMBER 2026</span>
+              <span id="ch1StatusBadge">● LIVE</span>
             </div>
-            <h1 class="event-main-title" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">
-              SHADOW OPS: DRIFTING DRAGON
-            </h1>
-            <div class="event-campaign-sub" id="headerSubStatus">
-              CHAPTER 1 ACTIVE • FEATURED UNIT: THE KOMODO
+          </div>
+
+          <div class="phase-stack-tall">
+            <div class="beam-row-tall beam-p1" id="beamRowP1">
+              <div class="beam-phase-title">
+                <span>PHASE 1</span>
+                <span class="phase-live-pip" id="pipP1" style="display:none;">ACTIVE</span>
+              </div>
+              <div class="beam-phase-dates" style="color: #e0e7ff;">November 13 – 20</div>
             </div>
+
+            <div class="beam-row-tall beam-p2" id="beamRowP2">
+              <div class="beam-phase-title">
+                <span>PHASE 2</span>
+                <span class="phase-live-pip" id="pipP2" style="display:none;">ACTIVE</span>
+              </div>
+              <div class="beam-phase-dates" style="color: #bae6fd;">November 20 – 27</div>
+            </div>
+
+            <div class="beam-row-tall beam-p3" id="beamRowP3">
+              <div class="beam-phase-title">
+                <span>PHASE 3</span>
+                <span class="phase-live-pip" id="pipP3" style="display:none;">ACTIVE</span>
+              </div>
+              <div class="beam-phase-dates" style="color: #6ee7b7;">November 27 – December 2</div>
+            </div>
+          </div>
+
+          <div class="chapter-foot-line" style="color: #6ee7b7;">
+            Closes December 2 @ 11:59 PM
           </div>
         </div>
 
-        <div class="event-meta-box">
-          <div class="meta-line"><strong style="color: var(--text-cyan);">Starts:</strong><span>FRI, NOV 13, 2026 @ 10:00 AM PST</span></div>
-          <div class="meta-line"><strong style="color: var(--text-gold);">Ends:</strong><span style="color: var(--accent-green); font-weight: 900;">WED, DEC 2, 2026 @ 11:59 PM PST</span></div>
-          <div class="meta-line"><strong style="color: var(--text-orange);">Store Closes:</strong><span>END OF CHAPTER (DEC 2, 2026)</span></div>
-        </div>
-      </header>
-
-      <!-- FILE TABS RAIL: MOVED DIRECTLY BELOW THE TITLE HEADER -->
-      <nav class="file-tabs-rail" aria-label="Shadow Ops Section Locators">
-        <div class="file-tabs-group">
-          <button type="button" class="file-tab-btn active-file-tab" data-target="secChapters" onclick="jumpToSection('secChapters', this)">
-            <span class="tab-idx">01</span><span class="tab-lbl">OVERVIEW &amp; CHAPTERS</span>
-          </button>
-          <button type="button" class="file-tab-btn" data-target="secFeaturedRewards" onclick="jumpToSection('secFeaturedRewards', this)">
-            <span class="tab-idx">02</span><span class="tab-lbl">THE KOMODO &amp; REWARDS</span>
-          </button>
-          <button type="button" class="file-tab-btn" data-target="secArgusTech" onclick="jumpToSection('secArgusTech', this)">
-            <span class="tab-idx">03</span><span class="tab-lbl">ARGUS TECH (LV 1–5)</span>
-          </button>
-          <button type="button" class="file-tab-btn" data-target="secMissionRules" onclick="jumpToSection('secMissionRules', this)">
-            <span class="tab-idx">04</span><span class="tab-lbl">MISSION RULES</span>
-          </button>
-          <button type="button" class="file-tab-btn enemy-tab" data-target="secEnemyOnyx" onclick="jumpToSection('secEnemyOnyx', this)">
-            <span class="tab-idx">05</span><span class="tab-lbl">ENEMY: ONYX</span>
-          </button>
-        </div>
-        <button type="button" class="file-tab-btn height-toggle-tab" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Full Uncompressed Height and Locked-HUD Scroll Deck">
-          <span id="heightModeLabel">↕ LOCKED HUD</span>
-        </button>
-      </nav>
-
-      <!-- 4 EQUAL 330×330 FRAMES SCALED TO FULL SHADOW OPS IMAGE VIEW + KEPT TEXT SIZE + INCREASED MARGINS -->
-      <section class="chapters-showcase-band so-collapsible-section" id="secChapters">
-        <div class="equal-quad-grid">
-          <!-- BOX 1 OF 4: FULL UNCROPPED 330×330 SHADOW OPS IMAGE VIEW (ZERO RESCALE INSIDE FRAME) -->
-          <div class="equal-box-frame equal-art-box"
-               onclick="openBriefLightbox('https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8', 'Shadow Ops: Drifting Dragon — The Komodo')"
-               title="Click to enlarge Shadow Ops: Drifting Dragon artwork">
-            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8"
-                 alt="Shadow Ops: Drifting Dragon — The Komodo">
-          </div>
-
-          <!-- BOX 2 OF 4: CHAPTER 1 -->
-          <div class="equal-box-frame equal-chapter-box ch-live">
-            <div class="chapter-head-bar">
-              <span class="chapter-title-lg">CHAPTER 1</span>
-              <div class="chapter-sub-badge" style="color: #34d399;">
-                <span>NOVEMBER 2026</span>
-                <span id="ch1StatusBadge">● LIVE</span>
-              </div>
-            </div>
-
-            <div class="phase-stack-tall">
-              <div class="beam-row-tall beam-p1" id="beamRowP1">
-                <div class="beam-phase-title">
-                  <span>PHASE 1</span>
-                  <span class="phase-live-pip" id="pipP1" style="display:none;">ACTIVE</span>
-                </div>
-                <div class="beam-phase-dates" style="color: #e0e7ff;">November 13 – 20</div>
-              </div>
-
-              <div class="beam-row-tall beam-p2" id="beamRowP2">
-                <div class="beam-phase-title">
-                  <span>PHASE 2</span>
-                  <span class="phase-live-pip" id="pipP2" style="display:none;">ACTIVE</span>
-                </div>
-                <div class="beam-phase-dates" style="color: #bae6fd;">November 20 – 27</div>
-              </div>
-
-              <div class="beam-row-tall beam-p3" id="beamRowP3">
-                <div class="beam-phase-title">
-                  <span>PHASE 3</span>
-                  <span class="phase-live-pip" id="pipP3" style="display:none;">ACTIVE</span>
-                </div>
-                <div class="beam-phase-dates" style="color: #6ee7b7;">November 27 – December 2</div>
-              </div>
-            </div>
-
-            <div class="chapter-foot-line" style="color: #6ee7b7;">
-              Closes December 2 @ 11:59 PM
+        <!-- BOX 3 OF 4: CHAPTER 2 -->
+        <div class="equal-box-frame equal-chapter-box">
+          <div class="chapter-head-bar">
+            <span class="chapter-title-lg" style="color: #e0e7ff;">CHAPTER 2</span>
+            <div class="chapter-sub-badge" style="color: #a5b4fc;">
+              <span>DECEMBER 2026</span>
             </div>
           </div>
 
-          <!-- BOX 3 OF 4: CHAPTER 2 -->
-          <div class="equal-box-frame equal-chapter-box">
-            <div class="chapter-head-bar">
-              <span class="chapter-title-lg" style="color: #e0e7ff;">CHAPTER 2</span>
-              <div class="chapter-sub-badge" style="color: #a5b4fc;">
-                <span>DECEMBER 2026</span>
-              </div>
+          <div class="phase-stack-tall">
+            <div class="beam-row-tall beam-p1 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 4</span></div>
+              <div class="beam-phase-dates" style="color: #c7d2fe;">December Dates Pending</div>
             </div>
 
-            <div class="phase-stack-tall">
-              <div class="beam-row-tall beam-p1 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 4</span></div>
-                <div class="beam-phase-dates" style="color: #c7d2fe;">December Dates Pending</div>
-              </div>
-
-              <div class="beam-row-tall beam-p2 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 5</span></div>
-                <div class="beam-phase-dates" style="color: #bae6fd;">December Dates Pending</div>
-              </div>
-
-              <div class="beam-row-tall beam-p3 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 6</span></div>
-                <div class="beam-phase-dates" style="color: #e9d5ff;">December Dates Pending</div>
-              </div>
+            <div class="beam-row-tall beam-p2 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 5</span></div>
+              <div class="beam-phase-dates" style="color: #bae6fd;">December Dates Pending</div>
             </div>
 
-            <div class="chapter-foot-line" style="color: #c7d2fe;">
-              December 2026 Campaign
+            <div class="beam-row-tall beam-p3 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 6</span></div>
+              <div class="beam-phase-dates" style="color: #e9d5ff;">December Dates Pending</div>
             </div>
           </div>
 
-          <!-- BOX 4 OF 4: CHAPTER 3 -->
-          <div class="equal-box-frame equal-chapter-box ch-three">
-            <div class="chapter-head-bar">
-              <span class="chapter-title-lg" style="color: #f3e8ff;">CHAPTER 3</span>
-              <div class="chapter-sub-badge" style="color: #d8b4fe;">
-                <span>JANUARY 2027</span>
-              </div>
-            </div>
-
-            <div class="phase-stack-tall">
-              <div class="beam-row-tall beam-p1 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 7</span></div>
-                <div class="beam-phase-dates" style="color: #c7d2fe;">January Dates Pending</div>
-              </div>
-
-              <div class="beam-row-tall beam-p2 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 8</span></div>
-                <div class="beam-phase-dates" style="color: #bae6fd;">January Dates Pending</div>
-              </div>
-
-              <div class="beam-row-tall beam-p3 is-tbd">
-                <div class="beam-phase-title"><span>PHASE 9</span></div>
-                <div class="beam-phase-dates" style="color: #e9d5ff;">January Dates Pending</div>
-              </div>
-            </div>
-
-            <div class="chapter-foot-line" style="color: #e9d5ff;">
-              January 2027 Finale
-            </div>
+          <div class="chapter-foot-line" style="color: #c7d2fe;">
+            December 2026 Campaign
           </div>
         </div>
 
-        <!-- Exact PST Windows for Chapter 1 -->
-        <div class="pst-detail-strip">
-          <div class="pst-detail-pill">
-            <strong>CHAPTER 1 • PHASE 1:</strong>
-            <span>Friday, November 13, 10:00 AM → Friday, November 20, 10:00 AM PST</span>
+        <!-- BOX 4 OF 4: CHAPTER 3 -->
+        <div class="equal-box-frame equal-chapter-box ch-three">
+          <div class="chapter-head-bar">
+            <span class="chapter-title-lg" style="color: #f3e8ff;">CHAPTER 3</span>
+            <div class="chapter-sub-badge" style="color: #d8b4fe;">
+              <span>JANUARY 2027</span>
+            </div>
           </div>
-          <div class="pst-detail-pill">
-            <strong>CHAPTER 1 • PHASE 2:</strong>
-            <span>Friday, November 20, 10:00 AM → Friday, November 27, 10:00 AM PST</span>
+
+          <div class="phase-stack-tall">
+            <div class="beam-row-tall beam-p1 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 7</span></div>
+              <div class="beam-phase-dates" style="color: #c7d2fe;">January Dates Pending</div>
+            </div>
+
+            <div class="beam-row-tall beam-p2 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 8</span></div>
+              <div class="beam-phase-dates" style="color: #bae6fd;">January Dates Pending</div>
+            </div>
+
+            <div class="beam-row-tall beam-p3 is-tbd">
+              <div class="beam-phase-title"><span>PHASE 9</span></div>
+              <div class="beam-phase-dates" style="color: #e9d5ff;">January Dates Pending</div>
+            </div>
           </div>
-          <div class="pst-detail-pill">
-            <strong>CHAPTER 1 • PHASE 3:</strong>
-            <span>Friday, November 27, 10:00 AM → Wednesday, December 2, 11:59 PM PST</span>
+
+          <div class="chapter-foot-line" style="color: #e9d5ff;">
+            January 2027 Finale
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- MAIN INTEL BODY: LEFT (KOMODO, ANANSI LOGISTIC, 4 ARGUS TECHS, RULES) | RIGHT (ENLARGED ONYX) -->
-      <div class="intel-body-grid so-collapsible-section">
-        <div class="intel-left-stack">
+      <!-- Exact PST Windows for Chapter 1 -->
+      <div class="pst-detail-strip">
+        <div class="pst-detail-pill">
+          <strong>CHAPTER 1 • PHASE 1:</strong>
+          <span>Friday, November 13, 10:00 AM → Friday, November 20, 10:00 AM PST</span>
+        </div>
+        <div class="pst-detail-pill">
+          <strong>CHAPTER 1 • PHASE 2:</strong>
+          <span>Friday, November 20, 10:00 AM → Friday, November 27, 10:00 AM PST</span>
+        </div>
+        <div class="pst-detail-pill">
+          <strong>CHAPTER 1 • PHASE 3:</strong>
+          <span>Friday, November 27, 10:00 AM → Wednesday, December 2, 11:59 PM PST</span>
+        </div>
+      </div>
+    </section>
 
-          <!-- 02: FEATURED REWARDS -->
-          <section class="section-panel" id="secFeaturedRewards">
-            <div class="section-title-bar">
-              <h2><span class="sec-num-chip">02</span> FEATURED CAMPAIGN REWARDS</h2>
-              <span style="font-family: monospace; font-size: 11.5px; color: var(--text-gold); font-weight: 900;">DRIFTING DRAGON • CHAPTER 1–3</span>
-            </div>
+    <!-- ==================== MAIN INTEL BODY: REWARDS + ONYX SAME LEVEL (EQUAL 4:5 SIZE) & FULL-WIDTH ARGUS TECH ==================== -->
+    <div class="intel-body-stack so-collapsible-section">
 
-            <div class="rewards-cards-row">
-              <div class="reward-item-card">
-                <img class="reward-thumb"
-                     src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a0bd7a08-2598-446b-9107-26eaade2a4f8"
-                     alt="Unique Unit: The Komodo">
-                <div class="reward-meta">
-                  <h3>★ Unique Unit: The Komodo</h3>
-                  <p>Earn parts across the <strong>Drifting Dragon</strong> campaign phases to unlock The Komodo. Replay the current Phase to recover any missed parts.</p>
+      <!-- ROW 1: FEATURED CAMPAIGN REWARDS (LEFT 2/3) + ADVERSARY: ONYX (RIGHT 1/3) ON EXACT SAME HORIZONTAL LEVEL -->
+      <div class="rewards-adversary-row">
+
+        <!-- FEATURED CAMPAIGN REWARDS (KAMODO CLASSIFIED 4:5 CARD + BARON ANANSI 4:5 CARD) -->
+        <section class="section-panel" id="secFeaturedRewards">
+          <div class="section-title-bar">
+            <h2><span class="sec-marker-pip">■</span> FEATURED CAMPAIGN REWARDS</h2>
+            <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; color: var(--text-gold); font-weight: 900;">HOVER UNIT FOR INTEL • CLICK FOR FULL BRIEF</span>
+          </div>
+
+          <div class="rewards-cards-row">
+            <!-- CARD 1: KAMODO (BARON-STYLE 4:5 WC FRAME, RED BG + 45° CLASSIFIED, BARON-SIZED KAMODO TITLE) -->
+            <div class="reward-split-card kamodo-card">
+              <div class="unit-portrait-trigger"
+                   data-unit="THE KOMODO"
+                   onmouseenter="showUnitHoverOverlay(event, 'THE KOMODO')"
+                   onmousemove="moveUnitHoverOverlay(event)"
+                   onmouseleave="hideUnitHoverOverlay()"
+                   onclick="openFullUnitBrief('THE KOMODO')">
+                <img src="./assets/images/UNITS/KAMODO_CLASSIFIED.jpg"
+                     alt="KAMODO — Classified War Commander Card">
+                <span class="unit-corner-cue" style="border-color: rgba(244,63,94,0.55); color: #fecdd3;">4:5 BRIEF</span>
+                <div class="unit-card-hover-veil">
+                  <div class="veil-unit-name">KAMODO</div>
+                  <div class="veil-unit-role" style="color: #fda4af;">CLASSIFIED • Ch.1–3</div>
+                  <div class="veil-unit-cta">🖱️ Click: Full Brief</div>
                 </div>
               </div>
-
-              <div class="reward-item-card logistic-card">
-                <img class="reward-thumb"
-                     src="https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr"
-                     alt="Baron Anansi Repair Logistic">
-                <div class="reward-meta">
-                  <h3>🔧 Baron Anansi Repair Logistic (Limit: 3)</h3>
-                  <p>Chapter 1 includes the <strong>Baron Anansi Repair Logistic</strong> with an earnable limit of <strong>3</strong>.</p>
-                  <a class="unit-db-link" href="./unit-briefs.html" onclick="handoffUnitToBriefs('BARON ANANSI')">Inspect Baron Anansi in Unit Briefs →</a>
+              <div class="reward-meta">
+                <h3>★ Unique Unit: The Komodo</h3>
+                <p>Earn parts across the <strong>Drifting Dragon</strong> campaign phases (Chapters 1–3) to unlock <strong>The Komodo</strong>. Replay the active Phase at any time to recover missed parts.</p>
+                <div class="reward-quick-tags">
+                  <span class="reward-tag-chip" style="background: rgba(244, 63, 94, 0.18); border-color: rgba(244, 63, 94, 0.5); color: #fecdd3;">CLASSIFIED REPORT</span>
+                  <span class="reward-tag-chip">Campaign: Phases 1–9</span>
                 </div>
               </div>
             </div>
-          </section>
 
-          <!-- 03: 4 ARGUS TECHS (LV 1–5) -->
-          <section class="section-panel" id="secArgusTech">
-            <div class="section-title-bar">
-              <h2><span class="sec-num-chip">03</span> ARGUS TECH BREAKDOWN (LEVELS 1–5)</h2>
-              <img class="kixeye-divider-img"
-                   src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f02692d0-cd11-43bf-9806-8cc87493595c.png"
-                   alt="Shadow Ops Tech">
-            </div>
-
-            <div class="argus-unit-strip">
-              <div class="argus-unit-left">
-                <img src="https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM" alt="Argus">
-                <div>
-                  <div style="font-weight: 900; font-size: 13px; color: #f8fafc; text-transform: uppercase;">ARGUS — EQUINOX RECONNAISSANCE AIRCRAFT</div>
-                  <div style="font-size: 11.5px; color: #94a3b8;">4 earnable Chapter 1 tech upgrades (5 levels each) across Ablative Matrix &amp; Particle Munitions slots</div>
+            <!-- CARD 2: BARON ANANSI (SAME 4:5 FULL-SECTION-HEIGHT PORTRAIT SIZE) -->
+            <div class="reward-split-card logistic-card">
+              <div class="unit-portrait-trigger"
+                   data-unit="BARON ANANSI"
+                   onmouseenter="showUnitHoverOverlay(event, 'BARON ANANSI')"
+                   onmousemove="moveUnitHoverOverlay(event)"
+                   onmouseleave="hideUnitHoverOverlay()"
+                   onclick="openFullUnitBrief('BARON ANANSI')">
+                <img src="./assets/images/UNITS/Baron Anansi.jpg"
+                     onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr';"
+                     alt="Baron Anansi">
+                <span class="unit-corner-cue">4:5 BRIEF</span>
+                <div class="unit-card-hover-veil">
+                  <div class="veil-unit-name">BARON ANANSI</div>
+                  <div class="veil-unit-role">Unique • Factionless</div>
+                  <div class="veil-unit-cta">🖱️ Click: Full Brief</div>
                 </div>
               </div>
-              <a class="unit-db-link" href="./unit-briefs.html" onclick="handoffUnitToBriefs('ARGUS')" style="margin-top:0;">Inspect Argus in Unit Briefs →</a>
+              <div class="reward-meta">
+                <h3>🔧 Baron Anansi Repair Logistic (Limit: 3)</h3>
+                <p>Chapter 1 awards the <strong>Baron Anansi Repair Logistic</strong> with an earnable cap of <strong>3</strong> for rapid post-battle recovery of Baron Anansi &amp; his Gatherer/Vespid drones.</p>
+                <div class="reward-quick-tags">
+                  <span class="reward-tag-chip" style="border-color: rgba(56,189,248,0.45); color: #bae6fd;">Earnable Limit: 3</span>
+                  <span class="reward-tag-chip">Chapter 1 Store</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ADVERSARY: ONYX — SAME LEVEL & CARD LAYOUT AS FEATURED REWARDS (IMAGE LEFT = EXACT BARON SIZE, TITLE & TEXT RIGHT) -->
+        <section class="section-panel adversary-panel" id="secEnemyOnyx">
+          <div class="section-title-bar">
+            <h2><span class="sec-marker-pip" style="color: #fb7185;">■</span> ADVERSARY: ONYX</h2>
+            <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; color: #fda4af; font-weight: 900;">COUNTERPART: RUBI</span>
+          </div>
+
+          <div class="reward-split-card adversary-split-card">
+            <div class="unit-portrait-trigger"
+                 data-unit="ONYX"
+                 onmouseenter="showUnitHoverOverlay(event, 'ONYX')"
+                 onmousemove="moveUnitHoverOverlay(event)"
+                 onmouseleave="hideUnitHoverOverlay()"
+                 onclick="openFullUnitBrief('ONYX')">
+              <img src="./assets/images/UNITS/ONYX.jpg"
+                   onerror="this.onerror=null;this.src='https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005';"
+                   alt="Adversary: ONYX">
+              <span class="unit-corner-cue" style="border-color: rgba(244,63,94,0.55); color: #fecdd3;">4:5 BRIEF</span>
+              <div class="unit-card-hover-veil">
+                <div class="veil-unit-name">ONYX</div>
+                <div class="veil-unit-role" style="color: #fda4af;">Rogue AI • Adversary</div>
+                <div class="veil-unit-cta">🖱️ Click: Full Brief</div>
+              </div>
+            </div>
+            <div class="reward-meta">
+              <h3>⚔️ Adversary: Onyx</h3>
+              <p style="font-style: italic;">“Once part of a larger AI designed to save the world from utter obliteration, Onyx is now hell bent on global domination—separated from her counterpart, Rubi.”</p>
+              <div class="reward-quick-tags">
+                <span class="reward-tag-chip" style="background: rgba(244, 63, 94, 0.16); border-color: rgba(244, 63, 94, 0.45); color: #fecdd3;">Counterpart: Rubi</span>
+                <span class="reward-tag-chip" style="background: rgba(244, 63, 94, 0.12); border-color: rgba(244, 63, 94, 0.35); color: #fda4af;">Rogue AI</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ROW 2 (100% FULL PAGE WIDTH): ARGUS TECH BREAKDOWN (LEVELS 1–5) -->
+      <section class="section-panel" id="secArgusTech">
+        <div class="section-title-bar">
+          <h2><span class="sec-marker-pip">■</span> ARGUS TECH BREAKDOWN (LEVELS 1–5)</h2>
+          <img class="kixeye-divider-img"
+               src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f02692d0-cd11-43bf-9806-8cc87493595c.png"
+               alt="Shadow Ops Tech">
+        </div>
+
+        <div class="argus-section-split">
+          <!-- Full-Section-Height 4:5 Argus Unit Portrait (Hover Overlay + Click Full Brief) -->
+          <div class="unit-portrait-trigger"
+               data-unit="ARGUS"
+               onmouseenter="showUnitHoverOverlay(event, 'ARGUS')"
+               onmousemove="moveUnitHoverOverlay(event)"
+               onmouseleave="hideUnitHoverOverlay()"
+               onclick="openFullUnitBrief('ARGUS')">
+            <img src="./assets/images/UNITS/ARGUS.jpg"
+                 onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM';"
+                 alt="Argus — Equinox Reconnaissance Aircraft">
+            <span class="unit-corner-cue">4:5 BRIEF</span>
+            <div class="unit-card-hover-veil">
+              <div class="veil-unit-name">ARGUS</div>
+              <div class="veil-unit-role">Equinox • Air (Arc 3)</div>
+              <div class="veil-unit-cta">🖱️ Click: Full Brief</div>
+            </div>
+          </div>
+
+          <div class="argus-right-col">
+            <div class="argus-unit-banner">
+              <div>
+                <div style="font-weight: 900; font-size: 13.5px; color: #f8fafc; text-transform: uppercase;">ARGUS — EQUINOX RECONNAISSANCE AIRCRAFT</div>
+                <div style="font-size: 12px; color: #94a3b8;">4 earnable Chapter 1 tech upgrades (5 levels each) across Ablative Matrix &amp; Particle Munitions slots</div>
+              </div>
+              <span class="slot-pill" style="border-color: rgba(0,230,118,0.45); color: #6ee7b7;">HOVER / CLICK PORTRAIT FOR FULL BRIEF</span>
             </div>
 
             <div class="tech-table-wrap">
@@ -1560,57 +1842,36 @@
                 </tbody>
               </table>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          <!-- 04: MISSION DESCRIPTION & SCORING RULES -->
-          <section class="section-panel" id="secMissionRules">
-            <div class="section-title-bar">
-              <h2><span class="sec-num-chip">04</span> MISSION SCORING &amp; REPEAT PLAYTHROUGH RULES</h2>
-              <img class="kixeye-divider-img"
-                   src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/336a807c-b370-401a-a29f-cc1e245d090e.png"
-                   alt="Shadow Ops Mission Rules">
-            </div>
-
-            <div class="rules-list">
-              <div class="rule-box">
-                <div class="rule-pts">8,000 POINTS</div>
-                <p>Attack Shadow Ops bases and earn <strong>8,000 Shadow Ops Points</strong> to complete your initial playthrough.</p>
-              </div>
-              <div class="rule-box repeat-box">
-                <div class="rule-pts">+4,000 REPEAT</div>
-                <p>Earn <strong>4,000 additional points</strong> per repeated playthrough for extra tech + a <strong>damage bonus in the next monthly event</strong>.</p>
-              </div>
-              <div class="rule-box replay-box">
-                <div class="rule-pts">PHASE REPLAY</div>
-                <p>Missed a part earlier in the campaign? <strong>Replay the current Phase</strong> to earn any missed unit parts!</p>
-              </div>
-            </div>
-          </section>
-
+      <!-- ROW 3 (100% FULL PAGE WIDTH): MISSION DESCRIPTION & SCORING RULES -->
+      <section class="section-panel" id="secMissionRules">
+        <div class="section-title-bar">
+          <h2><span class="sec-marker-pip">■</span> MISSION SCORING &amp; REPEAT PLAYTHROUGH RULES</h2>
+          <img class="kixeye-divider-img"
+               src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/336a807c-b370-401a-a29f-cc1e245d090e.png"
+               alt="Shadow Ops Mission Rules">
         </div>
 
-        <!-- 05: RIGHT COLUMN — ADVERSARY ONYX WITH ENLARGED PORTRAIT BELOW COUNTERPART: RUBI -->
-        <aside class="adversary-onyx-card" id="secEnemyOnyx">
-          <div class="onyx-header-block">
-            <div class="onyx-kicker">ADVERSARY</div>
-            <div class="onyx-title">ONYX</div>
-            <div class="onyx-counterpart">Counterpart: Rubi</div>
+        <div class="rules-list">
+          <div class="rule-box">
+            <div class="rule-pts">8,000 POINTS</div>
+            <p>Attack Shadow Ops bases and earn <strong>8,000 Shadow Ops Points</strong> to complete your initial playthrough.</p>
           </div>
-
-          <div class="onyx-portrait-frame"
-               onclick="openBriefLightbox('https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005', 'Adversary: ONYX (Counterpart: Rubi)')"
-               title="Click to enlarge Adversary ONYX portrait">
-            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005"
-                 alt="Enemy — ONYX">
+          <div class="rule-box repeat-box">
+            <div class="rule-pts">+4,000 REPEAT</div>
+            <p>Earn <strong>4,000 additional points</strong> per repeated playthrough for extra tech + a <strong>damage bonus in the next monthly event</strong>.</p>
           </div>
+          <div class="rule-box replay-box">
+            <div class="rule-pts">PHASE REPLAY</div>
+            <p>Missed a part earlier in the campaign? <strong>Replay the current Phase</strong> to earn any missed unit parts!</p>
+          </div>
+        </div>
+      </section>
 
-          <blockquote class="onyx-lore-quote">
-            “Centuries have passed since Onyx was involved in anything good. Once, she was part of a larger AI designed to save the world from utter obliteration, now she is hell bent on global domination. Separated from her counterpart, Rubi, they’ve had various forms of interactions, never quite amalgamating into the grand savior of humanity once promised.”
-          </blockquote>
-        </aside>
-      </div>
-
-    </div><!-- /#briefScrollViewport -->
+    </div>
 
     <!-- ==================== LOCKED BOTTOM 4-CORNER CLOCK & STATUS BAR ==================== -->
     <div class="bottom-clock-bar-m1 scanline-shimmer">
@@ -1632,6 +1893,365 @@
   </div>
 
   <script>
+    /* ==================== BAKED MASTER_DB UNIT RECORDS + LIVE GOOGLE SHEET SYNC ==================== */
+    var UNIT_INTEL_DB = {
+      "THE KOMODO": {
+        UNIT_NAME: "KAMODO (THE KOMODO)",
+        CLASSIFICATION: "CLASSIFIED REPORT",
+        RELEASE_DATE: "Nov 2026 – Jan 2027",
+        UNIT_SUBTITLE: "Shadow Ops: Drifting Dragon Campaign Reward",
+        UNIT_IMAGE_URL: "./assets/images/UNITS/KAMODO_CLASSIFIED.jpg",
+        CONTAIN_ART: false,
+        UNIT_QUOTE: "Featured Shadow Ops Unique Unit unlocked by collecting parts across Chapters 1, 2, and 3 (Phases 1–9) of the Drifting Dragon campaign against Onyx.",
+        STAT_GENERATION: "Arc 3",
+        STAT_FACTION: "Shadow Ops Unique",
+        STAT_TYPE: "Classified Report",
+        STAT_TARGETS: "Combat Stats Releasing",
+        STAT_HP_RANGE_1: "Classified",
+        STAT_DPS_RANGE_1: "Classified",
+        STAT_SPEED: "Classified",
+        STAT_RANGE: "Classified",
+        HOVER_NOTE: "CLASSIFIED REPORT — Earn parts across Chapters 1–3 (Phases 1–9) of Shadow Ops: Drifting Dragon. Replay the active Phase to recover any missed parts.",
+        TALENT_LVL_1: "Initial Playthrough: Earn 8,000 Shadow Ops Points attacking Onyx bases to claim Phase progression rewards and Komodo unit parts.",
+        TALENT_LVL_5: "Repeat Playthroughs: Earn +4,000 additional Shadow Ops Points per repeat run for bonus tech and a next-monthly-event damage boost.",
+        TALENT_LVL_10: "Phase Replay Catch-Up: Replay the currently active Phase at any time during the campaign to recover missed Komodo parts."
+      },
+      "ONYX": {
+        UNIT_NAME: "ONYX",
+        CLASSIFICATION: "ADVERSARY AI",
+        RELEASE_DATE: "Shadow Ops: Drifting Dragon",
+        UNIT_SUBTITLE: "Rogue AI Adversary • Counterpart: Rubi",
+        UNIT_IMAGE_URL: "./assets/images/UNITS/ONYX.jpg",
+        FALLBACK_IMAGE_URL: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005",
+        UNIT_QUOTE: "“Centuries have passed since Onyx was involved in anything good. Once, she was part of a larger AI designed to save the world from utter obliteration, now she is hell bent on global domination. Separated from her counterpart, Rubi, they’ve had various forms of interactions, never quite amalgamating into the grand savior of humanity once promised.”",
+        STAT_GENERATION: "Arc 3",
+        STAT_FACTION: "Onyx Collective",
+        STAT_TYPE: "Rogue AI Commander",
+        STAT_TARGETS: "Global Domination",
+        STAT_HP_RANGE_1: "Shadow Ops Bases",
+        STAT_DPS_RANGE_1: "Hive & Drone Network",
+        STAT_SPEED: "Networked",
+        STAT_RANGE: "Sector-Wide",
+        HOVER_NOTE: "Counterpart: Rubi. Attack Onyx's Shadow Ops bases (8,000 pts initial / +4,000 pts repeat) across Chapters 1–3.",
+        TALENT_LVL_1: "Initial Campaign Target: Defeat Onyx Shadow Ops bases to earn 8,000 Shadow Ops Points and unlock Chapter 1 progression rewards.",
+        TALENT_LVL_5: "Repeat Assault Bonus: Every +4,000 additional points against Onyx bases awards extra tech plus a damage bonus in the next monthly event.",
+        WARPAINTS: [
+          { name: "Onyx", url: "./assets/images/UNITS/ONYX.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" },
+          { name: "Hive Command", url: "./assets/images/UNITS/ONYX HIVE COMMAND.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" },
+          { name: "Grand Citadel", url: "./assets/images/UNITS/ONYX GRAND CITADEL.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" },
+          { name: "Fortress Node", url: "./assets/images/UNITS/ONYX FORTRESS NODE.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" },
+          { name: "Vespid", url: "./assets/images/UNITS/ONYX VESPID.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" },
+          { name: "Forager", url: "./assets/images/UNITS/ONYX FORAGER.jpg", fallback: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/93923d83-fda8-41c1-b3f6-4f96ef11a005" }
+        ]
+      },
+      "BARON ANANSI": {
+        UNIT_NAME: "BARON ANANSI",
+        CLASSIFICATION: "UNIQUE",
+        RELEASE_DATE: "Oct / Nov 2026",
+        UNIT_SUBTITLE: "Operation Blue Baron • Chapter 1 Repair Logistic (Limit: 3)",
+        UNIT_IMAGE_URL: "./assets/images/UNITS/Baron Anansi.jpg",
+        FALLBACK_IMAGE_URL: "https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr",
+        UNIT_QUOTE: "Once a child soldier freed by Mutoto, Baron Anansi left the Eastern Horde when things refused to change. An adept technologist, Baron Anansi now aims to free drones from the control of AIs like Onyx.",
+        STAT_GENERATION: "Arc 3",
+        STAT_FACTION: "Factionless",
+        STAT_TYPE: "Infantry",
+        STAT_ARMOR_TYPE: "Medium",
+        STAT_WEAPON_TYPE: "Quad-Arm Blasters",
+        STAT_TARGETS: "Ground / Air",
+        STAT_DAMAGE_TYPE: "Sustain",
+        STAT_SIZE: "500",
+        STAT_BUILDING: "Academy (Lvl 30)",
+        STAT_HP_RANGE: "Gatherer: 100,000 • Vespid: 80,000",
+        STAT_HP_RANGE_1: "437,500",
+        STAT_HP_RANGE_MAX: "550,000",
+        STAT_DPS_RANGE: "Gatherer: 5,769 • Vespid: 4,000",
+        STAT_DPS_RANGE_1: "6,000 (24,000 x4 Arms)",
+        STAT_DPS_RANGE_10: "6,584 (26,336 x4 Arms)",
+        STAT_SPEED: "3",
+        STAT_RANGE: "600",
+        HOVER_NOTE: "Tech Bubble halves Turret damage within 400 range. Deploys Gatherer & Vespid Drones. Chapter 1 awards Repair Logistic (Limit: 3).",
+        TALENT: "Drone Bay Specs — Gatherer Drone: 100,000 HP / 5,769 DPS • Vespid Drone: 80,000 HP / 4,000 DPS.",
+        TALENT_LVL_1: "Hot Swap Ports: Starts with 2 free drone tech slots; gains a new slot each Grade (Elite, Omega).\nDoc Arack: Fires 3 additional weapons with variance angles to strike multiple front-arc targets.\nTech Bubble: Turrets within 400 Range have their Damage halved.",
+        TALENT_LVL_10: "Unlocks an additional Drone Tech Slot.",
+        WARPAINTS: [
+          { name: "Base Unit", url: "./assets/images/UNITS/Baron Anansi.jpg", fallback: "https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr" },
+          { name: "Onyx Hostile", url: "./assets/images/UNITS/Baron Anansi Onxy Hostile.jpg", fallback: "https://lh3.googleusercontent.com/d/1IeiWIeOPklUtnxQYOSO5cT7C5Cm5lbEr" }
+        ]
+      },
+      "ARGUS": {
+        UNIT_NAME: "ARGUS",
+        CLASSIFICATION: "SOLDIER",
+        RELEASE_DATE: "Nov 2026",
+        UNIT_SUBTITLE: "Equinox Reconnaissance Aircraft • 4 Techs in Chapter 1",
+        UNIT_IMAGE_URL: "./assets/images/UNITS/ARGUS.jpg",
+        FALLBACK_IMAGE_URL: "https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM",
+        UNIT_QUOTE: "The Argus is a lightly armored Equinox reconnaissance aircraft that exposes hidden mines and features an adaptable chassis, allowing for specialized offensive and defensive modifications.",
+        STAT_GENERATION: "Arc 3",
+        STAT_FACTION: "Equinox",
+        STAT_TYPE: "Air",
+        STAT_ARMOR_TYPE: "Light",
+        STAT_WEAPON_TYPE: "Dual Laser Blasters",
+        STAT_TARGETS: "Ground / Air",
+        STAT_DAMAGE_TYPE: "Sustain",
+        STAT_SIZE: "325",
+        STAT_BUILDING: "Aircraft Hangar (Lvl 50)",
+        STAT_HP_RANGE_1: "278,070",
+        STAT_HP_RANGE_MAX: "448,500",
+        STAT_DPS_RANGE_1: "3,474",
+        STAT_DPS_RANGE_MAX: "5,621",
+        STAT_SPEED: "4",
+        STAT_RANGE: "700",
+        HOVER_NOTE: "Detects Minefields (500→800 rng), applies Flux, gains Stealth @ Lv10 & 50% Turret Dodge @ Lv20. 4 Lv1–5 Techs earnable in Ch.1.",
+        TALENT_LVL_1: "Detects (but cannot fire at) Minefields within 500 range.",
+        TALENT_LVL_5: "Shots apply Flux.",
+        TALENT_LVL_10: "Unit gains Stealth. Recloaks after not firing for 5 seconds.",
+        TALENT_LVL_15: "Minefield detection range is increased to 800.",
+        TALENT_LVL_20: "Gains a 50% chance to dodge turret projectiles.",
+        WORKSHOPS: [
+          { title: "Vector Evasion Thrusters (Lv 1–5) [Ablative Matrix]", desc: "-20/25/30/35/40% Damage Taken from Air • +100/200/300/400/500 Flat Damage Reduction for 30s below 75% HP." },
+          { title: "Ballistic Underbelly (Lv 1–5) [Ablative Matrix]", desc: "-20/25/30/35/40% Damage Taken from Infantry • +100/200/300/400/500 Flat Damage Reduction for 30s below 75% HP." },
+          { title: "A2A Plasma Pods (Lv 1–5) [Particle Munitions]", desc: "+30/40/50/60/70% Damage Dealt to Air." },
+          { title: "Rotary Pulse Cannons (Lv 1–5) [Particle Munitions]", desc: "+30/40/50/60/70% Damage Dealt to Infantry." },
+          { title: "Resonance Charges (Lv 1–5) [Disruption Tech]", desc: "+30/40/50/60/70% Damage Dealt to Buildings (@MAX: Adds Busted Status)." },
+          { title: "Signal Scrambler (Lv 1–5) [Disruption Tech]", desc: "-20/25/30/35/40% Damage Taken from Turrets (@MAX: Immunity to Turbulence)." }
+        ],
+        WARPAINTS: [
+          { name: "Base Unit", url: "./assets/images/UNITS/ARGUS.jpg", fallback: "https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM" },
+          { name: "Black Biohazard", url: "./assets/images/UNITS/ARGUS BLACK BIOHAZARD.jpg", fallback: "https://lh3.googleusercontent.com/d/1_QpPeq-tdY-nqLSmAUoUvwrrPZT4vSAx" },
+          { name: "White Biohazard", url: "./assets/images/UNITS/ARGUS WHITE BIOHAZARD.jpg", fallback: "https://lh3.googleusercontent.com/d/1_PB4KwAO0LLir2IDVGUXMn2i8lW0pckw" },
+          { name: "Green Biohazard", url: "./assets/images/UNITS/ARGUS GREEN BIOHAZARD.jpg", fallback: "https://lh3.googleusercontent.com/d/1eE4EQ2BrexE735aFa-ZkUQs816fXycpO" },
+          { name: "Blue Biohazard", url: "./assets/images/UNITS/ARGUS BLUE BIOHAZARD.jpg", fallback: "https://lh3.googleusercontent.com/d/1d56Jod4o9L8Tjy1rJFXFi5tFfYpa3Mrf" }
+        ]
+      }
+    };
+
+    function escHtml(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    /* Optional Background Sync from Live MASTER_DB Google Sheet (Auto-Enriches KOMODO When Published) */
+    (function syncLiveMasterDbCsv() {
+      var csvUrl = "https://docs.google.com/spreadsheets/d/1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc/export?format=csv&gid=444355456";
+      fetch(csvUrl).then(function(r) { return r.ok ? r.text() : ""; }).then(function(csv) {
+        if (!csv) return;
+        var rows = [];
+        var cur = [], field = "", inQ = false;
+        for (var i = 0; i < csv.length; i++) {
+          var ch = csv[i], nx = csv[i + 1];
+          if (inQ) {
+            if (ch === '"' && nx === '"') { field += '"'; i++; }
+            else if (ch === '"') { inQ = false; }
+            else { field += ch; }
+          } else {
+            if (ch === '"') inQ = true;
+            else if (ch === ',') { cur.push(field); field = ""; }
+            else if (ch === '\n' || (ch === '\r' && nx === '\n')) {
+              if (ch === '\r') i++;
+              cur.push(field); rows.push(cur); cur = []; field = "";
+            } else { field += ch; }
+          }
+        }
+        if (field || cur.length) { cur.push(field); rows.push(cur); }
+        if (rows.length < 2) return;
+        var headers = rows[0].map(function(h) { return String(h || "").trim().toUpperCase(); });
+        for (var r = 1; r < rows.length; r++) {
+          var rec = {};
+          headers.forEach(function(k, idx) {
+            if (k && rows[r][idx]) rec[k] = String(rows[r][idx]).trim();
+          });
+          var uName = (rec.UNIT_NAME || "").toUpperCase();
+          if (uName === "KOMODO" || uName === "THE KOMODO" || uName === "KAMODO") {
+            var target = UNIT_INTEL_DB["THE KOMODO"];
+            Object.keys(rec).forEach(function(k) {
+              if (rec[k] && k !== "UNIT_IMAGE_URL" && k !== "UNIT_NAME") target[k] = rec[k];
+            });
+          }
+        }
+      }).catch(function() {});
+    })();
+
+    /* ==================== FLOATING HOVER OVERLAY LOGIC ==================== */
+    function showUnitHoverOverlay(e, unitKey) {
+      var card = document.getElementById("wtrUnitHoverCard");
+      var u = UNIT_INTEL_DB[unitKey];
+      if (!card || !u) return;
+
+      var hpDisp = u.STAT_HP_RANGE_MAX ? (u.STAT_HP_RANGE_1 + " → " + u.STAT_HP_RANGE_MAX) : (u.STAT_HP_RANGE_1 || "—");
+      var dpsDisp = (u.STAT_DPS_RANGE_MAX || u.STAT_DPS_RANGE_10)
+        ? ((u.STAT_DPS_RANGE_1 || "").split(" ")[0] + " → " + ((u.STAT_DPS_RANGE_MAX || u.STAT_DPS_RANGE_10) || "").split(" ")[0])
+        : (u.STAT_DPS_RANGE_1 || "—");
+
+      card.innerHTML =
+        '<div class="ufhc-top">' +
+          '<div>' +
+            '<div class="ufhc-name">' + escHtml(u.UNIT_NAME) + '</div>' +
+            '<div class="ufhc-sub">' + escHtml((u.STAT_FACTION || "Shadow Ops") + " • " + (u.STAT_TYPE || "Unit")) + '</div>' +
+          '</div>' +
+          '<span class="ufhc-badge">' + escHtml(u.CLASSIFICATION || "UNIT") + '</span>' +
+        '</div>' +
+        '<div class="ufhc-stats-grid">' +
+          '<div class="ufhc-stat-box"><span class="ufhc-stat-k">HP</span><span class="ufhc-stat-v">' + escHtml(hpDisp) + '</span></div>' +
+          '<div class="ufhc-stat-box"><span class="ufhc-stat-k">DPS</span><span class="ufhc-stat-v">' + escHtml(dpsDisp) + '</span></div>' +
+          '<div class="ufhc-stat-box"><span class="ufhc-stat-k">Range</span><span class="ufhc-stat-v">' + escHtml(u.STAT_RANGE || "—") + '</span></div>' +
+          '<div class="ufhc-stat-box"><span class="ufhc-stat-k">Speed</span><span class="ufhc-stat-v">' + escHtml(u.STAT_SPEED || "—") + '</span></div>' +
+        '</div>' +
+        '<div class="ufhc-talent-note">' + escHtml(u.HOVER_NOTE || u.UNIT_QUOTE || "") + '</div>' +
+        '<div class="ufhc-footer">🖱️ Click Portrait to Open Full Unit Brief</div>';
+
+      card.classList.add("show");
+      moveUnitHoverOverlay(e);
+    }
+
+    function moveUnitHoverOverlay(e) {
+      var card = document.getElementById("wtrUnitHoverCard");
+      if (!card || !card.classList.contains("show")) return;
+      var pad = 16;
+      var w = card.offsetWidth || 340;
+      var h = card.offsetHeight || 220;
+      var x = e.clientX + pad;
+      var y = e.clientY + pad;
+      if (x + w + 12 > window.innerWidth) x = Math.max(10, e.clientX - w - pad);
+      if (y + h + 12 > window.innerHeight) y = Math.max(10, window.innerHeight - h - 12);
+      card.style.left = x + "px";
+      card.style.top  = y + "px";
+    }
+
+    function hideUnitHoverOverlay() {
+      var card = document.getElementById("wtrUnitHoverCard");
+      if (card) card.classList.remove("show");
+    }
+
+    /* ==================== CLICK: IN-PAGE FULL UNIT BRIEF MODAL ==================== */
+    function switchModalWarpaint(imgSrc, fallbackSrc) {
+      var el = document.getElementById("modalMainUnitImg");
+      if (!el) return;
+      el.onerror = fallbackSrc ? function() { this.onerror = null; this.src = fallbackSrc; } : null;
+      el.src = imgSrc;
+    }
+
+    function openFullUnitBrief(unitKey) {
+      hideUnitHoverOverlay();
+      var modal   = document.getElementById("wtrUnitBriefModal");
+      var titleEl = document.getElementById("unitModalTitle");
+      var bodyEl  = document.getElementById("unitModalBody");
+      var galLink = document.getElementById("unitModalGalleryLink");
+      var u       = UNIT_INTEL_DB[unitKey];
+      if (!modal || !bodyEl || !u) return;
+
+      var handoffName = unitKey === "THE KOMODO" ? "KOMODO" : unitKey;
+      try { localStorage.setItem("wtr_target_unit_handoff", handoffName); } catch (err) {}
+      if (galLink) {
+        galLink.href = "./unit-briefs.html?unit=" + encodeURIComponent(handoffName) + "#unit=" + encodeURIComponent(handoffName);
+      }
+
+      titleEl.textContent = "🖥️ FULL UNIT BRIEF // " + u.UNIT_NAME;
+
+      var statPairs = [
+        ["Classification", u.CLASSIFICATION],
+        ["Generation", u.STAT_GENERATION],
+        ["Faction", u.STAT_FACTION],
+        ["Unit Type", u.STAT_TYPE],
+        ["Armor Type", u.STAT_ARMOR_TYPE],
+        ["Weapon Type", u.STAT_WEAPON_TYPE],
+        ["Targets", u.STAT_TARGETS],
+        ["Damage Type", u.STAT_DAMAGE_TYPE],
+        ["Unit Size", u.STAT_SIZE],
+        ["Building Req.", u.STAT_BUILDING],
+        ["HP (Level 1)", u.STAT_HP_RANGE_1],
+        ["HP (Max)", u.STAT_HP_RANGE_MAX],
+        ["Aux / Drone HP", u.STAT_HP_RANGE],
+        ["DPS (Level 1)", u.STAT_DPS_RANGE_1],
+        ["DPS (Max / Lv10)", u.STAT_DPS_RANGE_MAX || u.STAT_DPS_RANGE_10],
+        ["Aux / Drone DPS", u.STAT_DPS_RANGE],
+        ["Max Speed", u.STAT_SPEED],
+        ["Attack Range", u.STAT_RANGE]
+      ];
+
+      var statsRows = "";
+      statPairs.forEach(function(pair) {
+        if (pair[1]) {
+          statsRows += '<tr><td class="overlay-stats-lbl">' + escHtml(pair[0]) + '</td><td class="overlay-stats-val">' + escHtml(pair[1]) + '</td></tr>';
+        }
+      });
+
+      var talentsHtml = "";
+      if (u.TALENT) {
+        talentsHtml += '<div style="margin-bottom:10px; padding:8px 10px; background:rgba(56,189,248,0.1); border-left:3px solid var(--text-cyan); font-size:12.5px; color:#e0f2fe;">' + escHtml(u.TALENT) + '</div>';
+      }
+      [1, 5, 10, 15, 20, 25, 30, 35, 40].forEach(function(lvl) {
+        var t = u["TALENT_LVL_" + lvl];
+        if (t) {
+          var lines = escHtml(t).replace(/\n/g, "<br>");
+          talentsHtml +=
+            '<div style="margin-bottom:11px;">' +
+              '<div style="color:var(--accent-green); font-weight:900; font-size:12.5px; font-family:monospace;">LEVEL ' + lvl + '</div>' +
+              '<div style="padding-left:10px; border-left:2px solid #293866; font-size:12.5px; color:#e2e8f0; line-height:1.45;">' + lines + '</div>' +
+            '</div>';
+        }
+      });
+
+      var workshopHtml = "";
+      if (u.WORKSHOPS && u.WORKSHOPS.length) {
+        workshopHtml = '<div style="margin-top:14px; font-family:\'Arial Black\',sans-serif; color:var(--text-gold); border-bottom:1px solid #26335b; padding-bottom:5px; margin-bottom:8px; font-size:12.5px;">WORKSHOP &amp; CAMPAIGN TECHS</div>';
+        u.WORKSHOPS.forEach(function(ws) {
+          workshopHtml +=
+            '<div style="margin-bottom:8px; padding-left:9px; border-left:2px solid rgba(255,213,79,0.5); font-size:12.5px; color:#dbe2ea;">' +
+              '<strong style="color:#fde047;">' + escHtml(ws.title) + ':</strong> ' + escHtml(ws.desc) +
+            '</div>';
+        });
+      }
+
+      var warpaintHtml = "";
+      if (u.WARPAINTS && u.WARPAINTS.length > 1) {
+        warpaintHtml = '<div style="margin-top:12px; width:100%;"><div style="font-size:10.5px; font-family:monospace; color:var(--accent-green); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px; text-align:center;">WARPAINTS (CLICK TO PREVIEW)</div><div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center;">';
+        u.WARPAINTS.forEach(function(wp) {
+          warpaintHtml +=
+            '<button type="button" onclick="switchModalWarpaint(\'' + escHtml(wp.url) + '\',\'' + escHtml(wp.fallback || '') + '\')" ' +
+            'style="background:#090f1c; border:1px solid #2a3968; color:#e2e8f0; border-radius:4px; padding:4px 8px; font-size:11px; font-family:monospace; font-weight:800; cursor:pointer;">' +
+              escHtml(wp.name) +
+            '</button>';
+        });
+        warpaintHtml += '</div></div>';
+      }
+
+      var fallbackAttr = u.FALLBACK_IMAGE_URL ? ' onerror="this.onerror=null;this.src=\'' + escHtml(u.FALLBACK_IMAGE_URL) + '\';"' : '';
+
+      bodyEl.innerHTML =
+        '<div class="overlay-unit-grid">' +
+          '<div style="display:flex; flex-direction:column; align-items:center;">' +
+            '<div class="overlay-poster-frame' + (u.CONTAIN_ART ? ' contain-art' : '') + '">' +
+              '<img id="modalMainUnitImg" src="' + escHtml(u.UNIT_IMAGE_URL) + '"' + fallbackAttr + ' alt="' + escHtml(u.UNIT_NAME) + '">' +
+            '</div>' +
+            '<div style="margin-top:8px; font-family:monospace; color:var(--text-gold); font-weight:900; font-size:12px; text-align:center;">' + escHtml(u.RELEASE_DATE || "ACTIVE") + '</div>' +
+            (u.UNIT_SUBTITLE ? '<div style="margin-top:3px; font-size:12px; color:#94a3b8; text-align:center;">' + escHtml(u.UNIT_SUBTITLE) + '</div>' : '') +
+            warpaintHtml +
+          '</div>' +
+          '<div>' +
+            '<div style="font-family:\'Arial Black\',sans-serif; color:#a5b4fc; border-bottom:1px solid #26335b; padding-bottom:6px; margin-bottom:10px; font-size:13px;">SPECIFICATIONS</div>' +
+            (u.UNIT_QUOTE ? '<div style="margin-bottom:11px; padding:9px 11px; background:rgba(70,82,153,0.16); border-left:3px solid var(--accent-indigo); font-style:italic; color:#e2e8f0; font-size:12.5px; line-height:1.45;">' + escHtml(u.UNIT_QUOTE) + '</div>' : '') +
+            '<table class="overlay-stats-table"><tbody>' + statsRows + '</tbody></table>' +
+          '</div>' +
+          '<div>' +
+            '<div style="font-family:\'Arial Black\',sans-serif; color:#a5b4fc; border-bottom:1px solid #26335b; padding-bottom:6px; margin-bottom:10px; font-size:13px;">TALENTS &amp; CAPABILITIES</div>' +
+            talentsHtml +
+            workshopHtml +
+          '</div>' +
+        '</div>';
+
+      modal.classList.add("open");
+    }
+
+    function closeUnitBriefModal() {
+      var modal = document.getElementById("wtrUnitBriefModal");
+      if (modal) modal.classList.remove("open");
+    }
+
+    /* ==================== LIVE PHASE COUNTDOWN & HIGHLIGHTING ==================== */
     (function() {
       var P1_START = new Date("2026-11-13T10:00:00-08:00").getTime();
       var P1_END   = new Date("2026-11-20T10:00:00-08:00").getTime();
@@ -1727,27 +2347,6 @@
       setInterval(tick, 1000);
     })();
 
-    function jumpToSection(secId, btnEl) {
-      var card = document.getElementById("mainShadowOpsDossier");
-      if (card && card.classList.contains("brief-collapsed")) {
-        toggleBriefArchiveMode();
-      }
-      document.querySelectorAll(".file-tabs-group .file-tab-btn").forEach(function(b) {
-        b.classList.remove("active-file-tab");
-      });
-      if (btnEl) btnEl.classList.add("active-file-tab");
-
-      var target = document.getElementById(secId);
-      if (!target) return;
-      var viewport = document.getElementById("briefScrollViewport");
-      if (card && !card.classList.contains("unconstrained-height") && viewport) {
-        var topOffset = target.offsetTop - viewport.offsetTop;
-        viewport.scrollTo({ top: Math.max(0, topOffset - 6), behavior: "smooth" });
-      } else {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-
     function toggleBriefArchiveMode() {
       var card = document.getElementById("mainShadowOpsDossier");
       var icon = document.getElementById("archiveToggleIcon");
@@ -1756,21 +2355,80 @@
       var collapsed = card.classList.toggle("brief-collapsed");
       if (icon) icon.textContent = collapsed ? "▲" : "▼";
       if (txt)  txt.textContent  = collapsed ? "EXPAND BRIEF" : "COLLAPSE BRIEF";
+      if (!collapsed) setTimeout(syncUnitPortraitFrames, 30);
     }
 
-    function toggleViewportHeightMode() {
-      var card = document.getElementById("mainShadowOpsDossier");
-      var lbl  = document.getElementById("heightModeLabel");
-      if (!card) return;
-      var isFull = card.classList.toggle("unconstrained-height");
-      if (lbl) lbl.textContent = isFull ? "↕ LOCKED HUD" : "↕ FULL PAGE";
+    /* Ensures KAMODO, BARON ANANSI & ONYX share the EXACT same 4:5 portrait size (>= full card height), and ARGUS stays strict 4:5 */
+    function syncUnitPortraitFrames() {
+      var rewardCards = document.querySelectorAll(".reward-split-card");
+      if (rewardCards.length) {
+        if (window.innerWidth <= 480) {
+          for (var m = 0; m < rewardCards.length; m++) {
+            var mTrig = rewardCards[m].querySelector(".unit-portrait-trigger");
+            if (mTrig) { mTrig.style.width = ""; mTrig.style.height = ""; }
+            rewardCards[m].style.minHeight = "";
+          }
+        } else {
+          for (var r = 0; r < rewardCards.length; r++) {
+            var rTrig = rewardCards[r].querySelector(".unit-portrait-trigger");
+            if (rTrig) {
+              rTrig.style.width = "156px";
+              rTrig.style.height = "195px";
+            }
+            rewardCards[r].style.minHeight = "";
+          }
+          var sharedH = 195;
+          for (var pass = 0; pass < 2; pass++) {
+            var maxMetaH = 195;
+            for (var i = 0; i < rewardCards.length; i++) {
+              var meta = rewardCards[i].querySelector(".reward-meta");
+              if (meta && meta.scrollHeight > maxMetaH) {
+                maxMetaH = meta.scrollHeight;
+              }
+            }
+            sharedH = Math.ceil(maxMetaH / 5) * 5;
+            var sharedW = (sharedH * 4) / 5;
+            for (var j = 0; j < rewardCards.length; j++) {
+              var trig = rewardCards[j].querySelector(".unit-portrait-trigger");
+              if (trig) {
+                trig.style.width = sharedW + "px";
+                trig.style.height = sharedH + "px";
+              }
+              rewardCards[j].style.minHeight = sharedH + "px";
+            }
+          }
+        }
+      }
+
+      var argusSplit = document.querySelector(".argus-section-split");
+      if (argusSplit) {
+        var aTrig = argusSplit.querySelector(".unit-portrait-trigger");
+        var aCol  = argusSplit.querySelector(".argus-right-col");
+        if (aTrig && aCol) {
+          if (window.innerWidth <= 820) {
+            aTrig.style.width = "";
+            aTrig.style.height = "";
+            aCol.style.minHeight = "";
+          } else {
+            aCol.style.minHeight = "";
+            aTrig.style.width = "212px";
+            aTrig.style.height = "265px";
+            for (var ap = 0; ap < 2; ap++) {
+              var colH = Math.max(260, aCol.offsetHeight);
+              var argusH = Math.ceil(colH / 5) * 5;
+              var argusW = (argusH * 4) / 5;
+              aTrig.style.width = argusW + "px";
+              aTrig.style.height = argusH + "px";
+              aCol.style.minHeight = argusH + "px";
+            }
+          }
+        }
+      }
     }
 
-    function handoffUnitToBriefs(unitName) {
-      try {
-        localStorage.setItem("wtr_target_unit_handoff", unitName);
-      } catch (e) {}
-    }
+    window.addEventListener("load", syncUnitPortraitFrames);
+    window.addEventListener("resize", syncUnitPortraitFrames);
+    syncUnitPortraitFrames();
 
     function openBriefLightbox(src, altText) {
       var box = document.getElementById("briefLightbox");
@@ -1787,7 +2445,10 @@
     }
 
     window.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeBriefLightbox();
+      if (e.key === "Escape") {
+        closeBriefLightbox();
+        closeUnitBriefModal();
+      }
     });
   </script>
 </body>
