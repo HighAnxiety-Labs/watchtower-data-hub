@@ -138,12 +138,161 @@
   .sub-tag { font-size: 12px; font-weight: 700; letter-spacing: 1.6px; color: var(--lead-accent); font-family: monospace; text-transform: uppercase; margin-bottom: 3px; transition: color 0.2s ease; }
 
   .header-status-subrow { display: flex; align-items: center; width: 100%; }
-  .system-alert-pod { width: 100%; padding: 10px 16px; border-radius: 3px; background: #090e14; border: 1px solid var(--border-metal); display: flex; align-items: center; justify-content: flex-start; gap: 14px; transition: all 0.3s ease; }
-  .system-alert-pod.glowing-home { border-color: #d93854; background: linear-gradient(180deg, #261219 0%, #0d080b 100%); box-shadow: 0 0 14px rgba(217, 56, 84, 0.6), inset 0 0 8px rgba(217, 56, 84, 0.3); animation: alertGlowPulse 1.8s infinite alternate ease-in-out; }
-  @keyframes alertGlowPulse { 0% { box-shadow: 0 0 10px rgba(217, 56, 84, 0.45); border-color: rgba(217, 56, 84, 0.7); } 100% { box-shadow: 0 0 20px rgba(217, 56, 84, 0.85); border-color: #f28a9c; } }
-  .alert-tag-badge { font-family: monospace; font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 900; white-space: nowrap; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .system-alert-pod.glowing-home .alert-tag-badge { color: #f28a9c; }
-  .alert-text { font-size: 14px; font-weight: 800; line-height: 1.35; color: #fff; flex: 1; }
+  .system-alert-pod {
+    --alert-accent: #22c55e;
+    --alert-rgb: 34, 197, 94;
+    --alert-bg-top: #0d2118;
+    width: 100%;
+    padding: 9px 14px;
+    border-radius: 4px;
+    background: #090e14;
+    border: 1px solid var(--border-metal);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+  }
+  .system-alert-pod.glowing-home {
+    border-color: var(--alert-accent);
+    background: linear-gradient(180deg, var(--alert-bg-top) 0%, #090d13 100%);
+    box-shadow: 0 0 14px rgba(var(--alert-rgb), 0.42), inset 0 0 8px rgba(var(--alert-rgb), 0.2);
+    animation: alertGlowPulse 2.1s infinite alternate ease-in-out;
+  }
+  @keyframes alertGlowPulse {
+    0% { box-shadow: 0 0 9px rgba(var(--alert-rgb), 0.28), inset 0 0 6px rgba(var(--alert-rgb), 0.14); }
+    100% { box-shadow: 0 0 18px rgba(var(--alert-rgb), 0.62), inset 0 0 10px rgba(var(--alert-rgb), 0.26); }
+  }
+  .alert-tag-badge {
+    font-family: monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    font-weight: 900;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    padding: 4px 9px;
+    border-radius: 3px;
+    border: 1px solid var(--alert-accent);
+    background: rgba(var(--alert-rgb), 0.15);
+    color: var(--alert-accent);
+  }
+  .system-alert-pod.glowing-home .alert-tag-badge { color: var(--alert-accent); }
+  .alert-rotator-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+    cursor: pointer;
+  }
+  .alert-rotator-body.alert-fade-step {
+    animation: alertTickerStep 0.24s ease-out;
+  }
+  @keyframes alertTickerStep {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .alert-text {
+    font-size: 13.5px;
+    font-weight: 800;
+    line-height: 1.28;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .alert-rotator-body:hover .alert-text { color: var(--text-gold); }
+  .alert-sub-meta {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .alert-rotator-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+  .alert-cta-pill {
+    background: rgba(var(--alert-rgb), 0.14);
+    border: 1px solid var(--alert-accent);
+    color: #f8fafc;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .alert-cta-pill:hover {
+    background: var(--alert-accent);
+    color: #04080d;
+  }
+  .alert-feed-filter {
+    background: #060a10;
+    border: 1px solid var(--border-bevel);
+    color: #cbd5e1;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    text-transform: uppercase;
+  }
+  .alert-feed-filter:hover, .alert-feed-filter:focus {
+    border-color: var(--alert-accent);
+    color: #ffffff;
+  }
+  .alert-step-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #060a10;
+    border: 1px solid var(--border-metal);
+    border-radius: 3px;
+    padding: 2px 4px;
+  }
+  .alert-step-btn {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    line-height: 1;
+  }
+  .alert-step-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+  .alert-step-count {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 800;
+    color: #94a3b8;
+    min-width: 30px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
   .header-controls { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
   .action-btn { background: linear-gradient(180deg, #1f2b38 0%, #0d141c 100%); border: 1px solid var(--border-bevel); border-bottom: 2px solid var(--border-shadow); color: var(--lead-accent); font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; padding: 8px 11px; border-radius: 3px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 3px 6px rgba(0, 0, 0, 0.6); transition: all 0.15s ease-in-out; white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
   .action-btn:hover { background: linear-gradient(180deg, #27384a 0%, #131c26 100%); color: #fff; border-color: var(--lead-accent); }
@@ -828,7 +977,9 @@
     .title-group h1 { align-items: center; }
     .header-controls { width: 100%; justify-content: center; flex-wrap: wrap; }
     .header-controls .action-btn { flex: 1; text-align: center; }
-    .system-alert-pod { flex-direction: column; align-items: flex-start; text-align: left; gap: 6px; }
+    .system-alert-pod { flex-direction: column; align-items: stretch; text-align: left; gap: 8px; padding: 10px 12px; }
+    .alert-text, .alert-sub-meta { white-space: normal; }
+    .alert-rotator-controls { width: 100%; justify-content: space-between; }
     .category-filter-select, .menu-search-and-sort { width: 100%; }
     .bento-sub-row { padding-left: 24px; gap: 10px; }
     .carousel-btn { width: 32px; height: 110px; }
@@ -905,9 +1056,27 @@
           </div>
         </div>
         <div class="header-status-subrow">
-          <div class="system-alert-pod glowing-home" id="systemAlertPod">
-            <div class="alert-tag-badge" id="alertTagBadge"><span>⚡ ALERT: ACTIVE</span></div>
-            <div class="alert-text" id="systemAlertText">OPERATION: BLUE BARON LIVE NOW (NOV 5 – NOV 11): Deploy strike platoons across regional sectors.</div>
+          <div class="system-alert-pod glowing-home" id="systemAlertPod" data-manual-pin="" data-manual-exp="0" onmouseenter="window.wtrAlertTickerSetHover && window.wtrAlertTickerSetHover(true)" onmouseleave="window.wtrAlertTickerSetHover && window.wtrAlertTickerSetHover(false)">
+            <div class="alert-tag-badge" id="alertTagBadge"><span>🟢 LIVE EVENT</span></div>
+            <div class="alert-rotator-body" id="alertRotatorBody" onclick="window.wtrTriggerActiveAlertAction && window.wtrTriggerActiveAlertAction()" title="Click to open active intelligence module">
+              <div class="alert-text" id="systemAlertText">SCANNING LIVE WATCHTOWER TELEMETRY...</div>
+              <div class="alert-sub-meta" id="systemAlertMeta">Syncing Live Event Clocks • Unit &amp; Building Galleries • 24h Revisions • Defect Registry</div>
+            </div>
+            <div class="alert-rotator-controls" id="alertRotatorControls">
+              <button type="button" class="alert-cta-pill" id="alertActionBtn" onclick="window.wtrTriggerActiveAlertAction && window.wtrTriggerActiveAlertAction()">🖥️ OPEN BRIEF</button>
+              <select class="alert-feed-filter" id="alertFeedFilter" aria-label="Filter Active Alert Feed" onchange="window.wtrSetAlertFeedFilter && window.wtrSetAlertFeedFilter(this.value)">
+                <option value="ALL">ALL FEEDS</option>
+                <option value="LIVE">🟢 EVENTS</option>
+                <option value="GALLERY">🆕 GALLERY</option>
+                <option value="PAGES">🔄 24H PAGES</option>
+                <option value="BROKEN">🔴 BROKEN</option>
+              </select>
+              <div class="alert-step-group">
+                <button type="button" class="alert-step-btn" onclick="window.wtrStepAlertTicker && window.wtrStepAlertTicker(-1)" title="Previous Alert" aria-label="Previous Alert">◀</button>
+                <span class="alert-step-count" id="alertStepCounter">1/1</span>
+                <button type="button" class="alert-step-btn" onclick="window.wtrStepAlertTicker && window.wtrStepAlertTicker(1)" title="Next Alert" aria-label="Next Alert">▶</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -6405,6 +6574,7 @@
 
     const cloneDoc = document.documentElement.cloneNode(true);
     scrubBrowserExtensionsFromClone(cloneDoc);
+    if (typeof sanitizeAlertPodCloneForExport === "function") sanitizeAlertPodCloneForExport(cloneDoc);
 
     const cloneCardList = cloneDoc.querySelector("#adminCardEditorList");
     if (cloneCardList) cloneCardList.innerHTML = "";
@@ -6693,7 +6863,9 @@
     });
 
     const alertPod = doc.querySelector("#systemAlertPod");
-    const alertTxt = doc.querySelector("#systemAlertText");
+    const recoveredPin = alertPod ? (alertPod.getAttribute("data-manual-pin") || "").trim() : "";
+    const recoveredExp = alertPod ? (Number(alertPod.getAttribute("data-manual-exp")) || 0) : 0;
+    const validManualPin = (recoveredPin && recoveredExp > Date.now()) ? recoveredPin : "";
     const liveIntelEl = doc.querySelector("#liveTargetText");
     const menuCaptionEl = doc.querySelector("#displayMenuCaption");
     const footerSourceEl = doc.querySelector("#footerIntelSourceLink");
@@ -6702,8 +6874,9 @@
 
     return {
       savedAt: Date.now() + 5000,
-      alertGlow: alertPod ? alertPod.classList.contains("glowing-home") : true,
-      alertText: alertTxt ? alertTxt.textContent.trim() : "",
+      alertGlow: alertPod ? !alertPod.classList.contains("dull") : true,
+      alertText: validManualPin,
+      alertExpiresMs: validManualPin ? recoveredExp : 0,
       calImportUrl: footerSourceEl ? (footerSourceEl.getAttribute("data-url") || "") : "",
       menuCaption: menuCaptionEl ? menuCaptionEl.textContent.trim() : "",
       liveIntelText: liveIntelEl ? liveIntelEl.innerHTML.trim() : "",
@@ -6718,22 +6891,101 @@
     };
   }
 
-  function updateAlertModule() {
-    const alertTextEl = document.getElementById("cfgAlertText");
-    const glowToggleEl = document.getElementById("cfgAlertGlowToggle");
-    if (!alertTextEl || !glowToggleEl) return;
-    const alertText = alertTextEl.value.trim(), glowToggle = glowToggleEl.checked;
-    const alertPod = document.getElementById("systemAlertPod"), alertDisplay = document.getElementById("systemAlertText"), badge = document.getElementById("alertTagBadge");
+  function formatLocalDatetimeInputValue(ms) {
+    if (!ms || !(ms > 0)) return "";
+    const d = new Date(Number(ms));
+    if (isNaN(d.getTime())) return "";
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
 
-    if (alertText.length > 0 && glowToggle) {
-      alertPod.classList.remove("dull", "glowing-section"); alertPod.classList.add("glowing-home");
-      alertDisplay.textContent = alertText; if (badge) badge.innerHTML = "<span>⚡ ALERT: ACTIVE</span>";
-    } else if (alertText.length > 0 && !glowToggle) {
-      alertPod.classList.remove("glowing-home", "glowing-section"); alertPod.classList.add("dull");
-      alertDisplay.textContent = alertText; if (badge) badge.innerHTML = "<span>⚡ ALERT: POSTED</span>";
+  function parseLocalDatetimeInputMs(val) {
+    if (!val || !String(val).trim()) return 0;
+    const ms = new Date(String(val).trim()).getTime();
+    return isNaN(ms) ? 0 : ms;
+  }
+
+  function handleManualPinInput() {
+    const txtEl = document.getElementById("cfgAlertText");
+    const expEl = document.getElementById("cfgAlertExpiresAt");
+    if (!txtEl || !expEl) return;
+    if (txtEl.value.trim().length > 0) {
+      const curMs = parseLocalDatetimeInputMs(expEl.value);
+      if (!curMs || curMs <= Date.now()) {
+        expEl.value = formatLocalDatetimeInputValue(Date.now() + 86400000);
+      }
     } else {
-      alertPod.classList.remove("glowing-home", "glowing-section"); alertPod.classList.add("dull");
-      alertDisplay.textContent = "No active alert. Systems nominal."; if (badge) badge.innerHTML = "<span>⚡ ALERT: STANDBY</span>";
+      expEl.value = "";
+    }
+  }
+
+  function clearManualAlertPin() {
+    const txtEl = document.getElementById("cfgAlertText");
+    const expEl = document.getElementById("cfgAlertExpiresAt");
+    const alertPod = document.getElementById("systemAlertPod");
+    if (txtEl) txtEl.value = "";
+    if (expEl) expEl.value = "";
+    if (alertPod) {
+      alertPod.setAttribute("data-manual-pin", "");
+      alertPod.setAttribute("data-manual-exp", "0");
+    }
+    updateAlertModule();
+    if (typeof persistCompanionState === "function") persistCompanionState();
+  }
+
+  function sanitizeAlertPodCloneForExport(rootDoc) {
+    if (!rootDoc) return;
+    const pod = rootDoc.querySelector("#systemAlertPod");
+    const txt = rootDoc.querySelector("#systemAlertText");
+    const meta = rootDoc.querySelector("#systemAlertMeta");
+    const badge = rootDoc.querySelector("#alertTagBadge");
+    if (txt) txt.textContent = "SCANNING LIVE WATCHTOWER TELEMETRY...";
+    if (meta) meta.textContent = "Syncing Live Event Clocks • Unit & Building Galleries • 24h Revisions • Defect Registry";
+    if (badge) badge.innerHTML = "<span>🟢 LIVE EVENT</span>";
+    if (pod) {
+      const pin = (pod.getAttribute("data-manual-pin") || "").trim();
+      const exp = Number(pod.getAttribute("data-manual-exp")) || 0;
+      if (!pin || exp <= Date.now()) {
+        pod.setAttribute("data-manual-pin", "");
+        pod.setAttribute("data-manual-exp", "0");
+      }
+    }
+  }
+
+  function updateAlertModule() {
+    const alertPod = document.getElementById("systemAlertPod");
+    const alertTextEl = document.getElementById("cfgAlertText");
+    const expEl = document.getElementById("cfgAlertExpiresAt");
+    const glowToggleEl = document.getElementById("cfgAlertGlowToggle");
+
+    if (alertPod && alertTextEl) {
+      let pinText = alertTextEl.value.trim();
+      let expMs = expEl ? parseLocalDatetimeInputMs(expEl.value) : 0;
+      if (pinText && expMs > Date.now()) {
+        alertPod.setAttribute("data-manual-pin", pinText);
+        alertPod.setAttribute("data-manual-exp", String(expMs));
+      } else {
+        if (pinText && expMs > 0 && expMs <= Date.now()) {
+          alertTextEl.value = "";
+          if (expEl) expEl.value = "";
+        }
+        alertPod.setAttribute("data-manual-pin", "");
+        alertPod.setAttribute("data-manual-exp", "0");
+      }
+    }
+
+    if (alertPod && glowToggleEl) {
+      if (glowToggleEl.checked) {
+        alertPod.classList.remove("dull", "glowing-section");
+        alertPod.classList.add("glowing-home");
+      } else {
+        alertPod.classList.remove("glowing-home", "glowing-section");
+        alertPod.classList.add("dull");
+      }
+    }
+
+    if (typeof window.wtrRefreshAlertTickerNow === "function") {
+      window.wtrRefreshAlertTickerNow(false);
     }
   }
 
@@ -6869,8 +7121,17 @@
       releaseVersion: WTR_RELEASE_VERSION,
       savedAt: Date.now(),
       sectionTimestamps: sectionTimestamps,
-      alertGlow: document.getElementById("cfgAlertGlowToggle")?.checked ?? true,
-      alertText: document.getElementById("cfgAlertText")?.value ?? document.getElementById("systemAlertText")?.textContent ?? "",
+      alertGlow: document.getElementById("cfgAlertGlowToggle")?.checked ?? (!document.getElementById("systemAlertPod")?.classList.contains("dull")),
+      alertText: (() => {
+        const rawT = (document.getElementById("cfgAlertText")?.value ?? document.getElementById("systemAlertPod")?.getAttribute("data-manual-pin") ?? "").trim();
+        const rawE = parseLocalDatetimeInputMs(document.getElementById("cfgAlertExpiresAt")?.value) || Number(document.getElementById("systemAlertPod")?.getAttribute("data-manual-exp")) || 0;
+        return (rawT && rawE > Date.now()) ? rawT : "";
+      })(),
+      alertExpiresMs: (() => {
+        const rawT = (document.getElementById("cfgAlertText")?.value ?? document.getElementById("systemAlertPod")?.getAttribute("data-manual-pin") ?? "").trim();
+        const rawE = parseLocalDatetimeInputMs(document.getElementById("cfgAlertExpiresAt")?.value) || Number(document.getElementById("systemAlertPod")?.getAttribute("data-manual-exp")) || 0;
+        return (rawT && rawE > Date.now()) ? rawE : 0;
+      })(),
       calImportUrl: document.getElementById("cfgCalImportUrl")?.value ?? document.getElementById("footerIntelSourceLink")?.getAttribute("data-url") ?? "",
       menuCaption: document.getElementById("cfgMenuCaption")?.value ?? document.getElementById("displayMenuCaption")?.textContent ?? "",
       menuBgColor: document.getElementById("cfgMenuBgColor")?.value ?? "#162230",
@@ -7158,7 +7419,17 @@
     }
 
     if (state.alertGlow !== undefined && document.getElementById("cfgAlertGlowToggle")) document.getElementById("cfgAlertGlowToggle").checked = state.alertGlow;
-    if (state.alertText !== undefined && document.getElementById("cfgAlertText")) document.getElementById("cfgAlertText").value = state.alertText;
+    const validExpMs = Number(state.alertExpiresMs) || 0;
+    const validPinStr = (state.alertText && validExpMs > Date.now()) ? String(state.alertText).trim() : "";
+    if (document.getElementById("cfgAlertText")) document.getElementById("cfgAlertText").value = validPinStr;
+    if (document.getElementById("cfgAlertExpiresAt")) document.getElementById("cfgAlertExpiresAt").value = validPinStr ? formatLocalDatetimeInputValue(validExpMs) : "";
+    const podRef = document.getElementById("systemAlertPod");
+    if (podRef) {
+      podRef.setAttribute("data-manual-pin", validPinStr);
+      podRef.setAttribute("data-manual-exp", validPinStr ? String(validExpMs) : "0");
+      podRef.classList.toggle("glowing-home", state.alertGlow !== false);
+      podRef.classList.toggle("dull", state.alertGlow === false);
+    }
     if (state.calImportUrl && document.getElementById("cfgCalImportUrl")) document.getElementById("cfgCalImportUrl").value = state.calImportUrl;
     if (state.menuCaption && document.getElementById("cfgMenuCaption")) document.getElementById("cfgMenuCaption").value = state.menuCaption;
     if (state.menuBgColor && document.getElementById("cfgMenuBgColor")) document.getElementById("cfgMenuBgColor").value = state.menuBgColor;
@@ -7691,13 +7962,18 @@
       item.card.style.order = String(sortedIdx + 1);
     });
     const liveSigNow = clockDefs
-      .filter(c => eventSchedules[c.key] && now >= eventSchedules[c.key].start && now < eventSchedules[c.key].end)
-      .map(c => c.key + ":" + eventSchedules[c.key].start)
+      .filter(c => eventSchedules[c.key] && (
+        (now >= eventSchedules[c.key].start && now < eventSchedules[c.key].end) ||
+        (!eventSchedules[c.key].noStore && eventSchedules[c.key].store > eventSchedules[c.key].end && now >= eventSchedules[c.key].end && now < eventSchedules[c.key].store)
+      ))
+      .map(c => c.key + ":" + (now < eventSchedules[c.key].end ? "L" : ((eventSchedules[c.key].store - now) <= 43200000 ? "S12" : "S")))
       .join("|");
     if (window._wtrLastLiveSig !== undefined && window._wtrLastLiveSig !== liveSigNow) {
       if (typeof updateMenuButtonModuleCounts === "function") updateMenuButtonModuleCounts();
+      if (typeof window.wtrRefreshAlertTickerNow === "function") window.wtrRefreshAlertTickerNow(false);
     }
     window._wtrLastLiveSig = liveSigNow;
+    if (typeof window.wtrTickActiveAlertCountdown === "function") window.wtrTickActiveAlertCountdown();
     if (typeof tickOpBriefsOverheadClocks === "function") tickOpBriefsOverheadClocks();
   }
 
@@ -7722,6 +7998,7 @@
     const currentState = getCompanionState();
     const cloneDoc = document.documentElement.cloneNode(true);
     scrubBrowserExtensionsFromClone(cloneDoc);
+    if (typeof sanitizeAlertPodCloneForExport === "function") sanitizeAlertPodCloneForExport(cloneDoc);
 
     cloneDoc.querySelectorAll('img[src=""]').forEach(img => img.setAttribute("src", TRANSPARENT_1PX_GIF));
 
@@ -8781,6 +9058,9 @@
     }
 
     applySelfPopulatedDirectoriesToHub(Array.from(activeSet), Array.from(vaultSet));
+    if (typeof window.wtrIngestDirectoryManifestForTicker === "function") {
+      window.wtrIngestDirectoryManifestForTicker();
+    }
   }
 
   // Run immediately and after loadPersistedState completes
@@ -8830,6 +9110,889 @@
       btn.onclick = openUrlValidatorPrompt;
       bar.insertBefore(btn, bar.firstChild);
     }
+  })();
+
+  /* ==================== AUTOMATED ROTATING ACTIVE ALERT TICKER ENGINE ==================== */
+  /* Monitors: (1) Auto-Expiring Live Events & Store Closing, (2) Unit & Building Gallery Additions,
+     (3) Last-24h Page Revisions, and (4) Active Unfixed Game Defects (What's Broken). */
+  (function initWtrAutomatedAlertTicker() {
+    const DAY_MS = 86400000;
+    const ROTATE_INTERVAL_MS = 5500;
+    const MASTER_DB_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
+    const MASTER_DB_GID = "444355456";
+    const GALLERY_SEEN_STORAGE_KEY = "wtr_gallery_first_seen_v1";
+
+    const DEFAULT_GALLERY_BASELINE = {
+      units: [
+        "ABIGAIL DIAZ","ACHILLES","ARGUS","ARIKI TOA","ATLAS","BANSHEE","BARON ANANSI","BECCA FERGUSON",
+        "BLOODFANG","BROADSIDE","BROTHER MATSUMOTO","BRUTE","CAROL HAGEN","CASTOR & POLLUX","CATAPULT",
+        "CONDUIT","DAWN SLATER","DIXON","DR. ACHE","DUTCH","DYAD & TWIN","FERNANDO TORRES","FIREFLY",
+        "FLAME","FORAGER","FORTRESS NODE","FROSTPIERCER","GRAND CITADEL","GRAND OBSERVER","GRAND WITNESS",
+        "HIVE COMMAND","HIVE GUARD","HIVE WATCHER","IGNACIO DIAZ","JANELLE BROWN","JOHNNY BONES","JUGGERNAUT",
+        "KAI CHEN","LANDLOCHE","LEGENDARY ESCORT","LUCIA VEGA","MATCHLOCKE","MEDJAI","MICHAEL ST. JAMES",
+        "MIDWAY","MR. BARCLAY","MR. BRAINES","MYRMIDON","NOMAD UNIT","NORA MALIK","OBSERVER","OMICRON",
+        "ONYMITE","ONYX BARON","PELE","PHILLIP BROWN","RECRUITER","RHINO","ROCKETEER","ROLLER","RUTH BOGARD",
+        "SIMO","SLY HIGGINS","SOLDIER DRONE","SOLOMON HAMAD","STORMWAIL","SVEN OMAROV","TACHYON",
+        "TERRY MICHAELS","VEGA","VESPID","VIPER","VOIDHAMMER","WANDERER KABUTO","WITNESS","ZAKIA KAZMI"
+      ],
+      buildings: [
+        "ACADEMY","AIRCRAFT HANGER","AIRFIELD","BARRACKS","COMMAND CENTER 22","CONSTRUCTION YARD",
+        "MERCENARY CAMP","MINE FACTORY","RADIO TOWER","SKYGUARD","TACTICAL OPS CENTER","TECH CENTER",
+        "WAR FACTORY","WEAPONS LAB","WORKSHOP"
+      ]
+    };
+
+    const FALLBACK_ACTIVE_DEFECTS = [
+      {
+        id: "johnny-bones",
+        category: "CONTRACTOR",
+        title: "Contractor: Johnny Bones",
+        headline: "Last Stand Zombies Attacking Own Base",
+        desc: "Last Stand zombies spawned from destroyed buildings attack your own base instead of the attacker.",
+        unitBriefName: "Johnny Bones",
+        unitBriefDivision: "CONTRACTOR",
+        severity: "RED"
+      },
+      {
+        id: "cc22-tesla-lvl9",
+        category: "FACILITY",
+        title: "CC22 Weapons Lab: Tesla Turret (Lvl 9)",
+        headline: "Tesla Tower Level 8 → Level 9 (+0 Stat Gain)",
+        desc: "Upgrading Tesla Tower from Lvl 8 to Lvl 9 yields +0 Range, +0 DPS, and +0 RoF.",
+        severity: "RED"
+      },
+      {
+        id: "cc22-academy-cap",
+        category: "FACILITY",
+        title: "CC22 Academy Capacity (Lvl 45 → 50)",
+        headline: "Academy Lvl 45 → Lvl 50 Capacity Locked at 1200",
+        desc: "Advancing five upgrade tiers from Lvl 45 to Lvl 50 yields +0 unit storage capacity.",
+        severity: "RED"
+      },
+      {
+        id: "cc22-tech-center-cap",
+        category: "FACILITY",
+        title: "CC22 Tech Center Capacity (Lvl 45 → 50)",
+        headline: "Tech Center Lvl 45 → Lvl 50 Capacity Locked at 1200",
+        desc: "Advancing five upgrade tiers from Lvl 45 to Lvl 50 yields +0 vehicle reserve space.",
+        severity: "RED"
+      }
+    ];
+
+    const state = {
+      filter: "ALL",
+      idx: 0,
+      hovered: false,
+      queue: [],
+      counts: { ALL: 0, LIVE: 0, GALLERY: 0, PAGES: 0, BROKEN: 0 },
+      baselineUnits: new Set(DEFAULT_GALLERY_BASELINE.units),
+      baselineBuildings: new Set(DEFAULT_GALLERY_BASELINE.buildings),
+      totalTrackedUnits: DEFAULT_GALLERY_BASELINE.units.length,
+      totalTrackedBuildings: DEFAULT_GALLERY_BASELINE.buildings.length,
+      galleryAdditionsMap: new Map(),
+      pageRevisionsMap: new Map(),
+      defectsList: FALLBACK_ACTIVE_DEFECTS.slice()
+    };
+
+    function normGalleryKey(s) {
+      return String(s || "").toUpperCase().replace(/\+/g, "&").replace(/&AMP;/g, "&").replace(/\s+/g, " ").trim();
+    }
+
+    function cleanCell(v) {
+      if (v === undefined || v === null) return "";
+      let t = String(v).trim();
+      if (t.startsWith("'")) t = t.slice(1).trim();
+      return (t === "-" || t === "—" || t === "N/A" || t.startsWith("{{")) ? "" : t;
+    }
+
+    function formatRelativeAge(msAgo) {
+      const mins = Math.max(1, Math.floor(msAgo / 60000));
+      if (mins < 60) return `${mins}m ago`;
+      const hrs = Math.floor(mins / 60);
+      const remM = mins % 60;
+      return remM > 0 ? `${hrs}h ${remM}m ago` : `${hrs}h ago`;
+    }
+
+    function parseCsvMatrix(csvText) {
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
+      const s = String(csvText || "");
+      for (let i = 0; i < s.length; i++) {
+        const ch = s[i];
+        if (inQuotes) {
+          if (ch === '"') {
+            if (s[i + 1] === '"') { cur += '"'; i++; }
+            else { inQuotes = false; }
+          } else {
+            cur += ch;
+          }
+        } else if (ch === '"') {
+          inQuotes = true;
+        } else if (ch === ",") {
+          row.push(cur);
+          cur = "";
+        } else if (ch === "\n" || ch === "\r") {
+          if (ch === "\r" && s[i + 1] === "\n") i++;
+          row.push(cur);
+          if (row.some(cell => cell.trim().length > 0)) rows.push(row);
+          row = [];
+          cur = "";
+        } else {
+          cur += ch;
+        }
+      }
+      row.push(cur);
+      if (row.some(cell => cell.trim().length > 0)) rows.push(row);
+      return rows;
+    }
+
+    function loadLocalFirstSeenLedger() {
+      try {
+        const raw = localStorage.getItem(GALLERY_SEEN_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") return parsed;
+        }
+      } catch (e) {}
+      return {};
+    }
+
+    function saveLocalFirstSeenLedger(obj) {
+      try {
+        localStorage.setItem(GALLERY_SEEN_STORAGE_KEY, JSON.stringify(obj));
+      } catch (e) {}
+    }
+
+    function openHubTargetUrl(relUrl, titleHint, accentHex) {
+      const pfx = (typeof getWtrPublishedPrefix === "function") ? getWtrPublishedPrefix() : "./";
+      const cleanRel = String(relUrl || "").replace(/^\.\//, "");
+      const fullUrl = cleanRel.startsWith("http") ? cleanRel : (pfx + cleanRel);
+      const decUrl = (window.WTRViewMode && typeof window.WTRViewMode.decorateUrl === "function" && !fullUrl.startsWith("http"))
+        ? window.WTRViewMode.decorateUrl(fullUrl)
+        : fullUrl;
+      if (typeof openInlineModuleViewport === "function" && !fullUrl.startsWith("http")) {
+        openInlineModuleViewport(titleHint || "OPERATIONAL INTEL", accentHex || "#38bdf8", null, decUrl, fullUrl);
+      } else if (typeof openDirectExternalUrl === "function") {
+        openDirectExternalUrl(fullUrl);
+      } else {
+        window.open(fullUrl, "_blank");
+      }
+    }
+
+    /* 1. Manual Timed Pin (Auto-expires so stale manual text never sticks) */
+    function buildManualPinnedItems(now) {
+      const pod = document.getElementById("systemAlertPod");
+      const txtInput = document.getElementById("cfgAlertText");
+      const expInput = document.getElementById("cfgAlertExpiresAt");
+      let pinText = txtInput ? txtInput.value.trim() : (pod ? (pod.getAttribute("data-manual-pin") || "").trim() : "");
+      let expMs = expInput ? parseLocalDatetimeInputMs(expInput.value) : (pod ? (Number(pod.getAttribute("data-manual-exp")) || 0) : 0);
+
+      if (!pinText || !expMs || expMs <= now) {
+        if (pinText && expMs > 0 && expMs <= now) {
+          if (txtInput) txtInput.value = "";
+          if (expInput) expInput.value = "";
+          if (pod) {
+            pod.setAttribute("data-manual-pin", "");
+            pod.setAttribute("data-manual-exp", "0");
+          }
+        }
+        return [];
+      }
+
+      return [{
+        id: "manual-pin",
+        cat: "LIVE",
+        urgent: true,
+        badge: "⚡ PINNED ALERT",
+        accent: "#f43f5e",
+        rgb: "244, 63, 94",
+        bgTop: "#281119",
+        headline: pinText,
+        meta: `Pinned Command Broadcast • Auto-clears in ${typeof formatTimeDelta === "function" ? formatTimeDelta(expMs - now) : formatRelativeAge(expMs - now)}`,
+        cta: "🗓️ CALENDAR",
+        action: () => openHubTargetUrl("2026-calendar.html", "2026 EVENT CALENDAR", "#f43f5e")
+      }];
+    }
+
+    /* 2. Auto-Expiring Live Events & Store Closing Feed */
+    function buildLiveEventItems(now) {
+      const clockSpecs = [
+        { key: "nightmare", cardId: "carouselCardNightmare", titleId: "clockTitleNightmare", btnId: "clockBtnNightmare", fallback: "MAIN EVENT", brief: "2026-dec-operation-brief.html" },
+        { key: "holdout",   cardId: "carouselCardHoldout",   titleId: "clockTitleHoldout",   btnId: "clockBtnHoldout",   fallback: "HOLDOUT",    brief: "2026-nov-holdout-brief.html" },
+        { key: "shadowops", cardId: "carouselCardShadowOps", titleId: "clockTitleShadowOps", btnId: "clockBtnShadowOps", fallback: "SHADOW OPS", brief: "2026-nov-shadow-ops-brief.html" },
+        { key: "breach",    cardId: "carouselCardBreach",    titleId: "clockTitleBreach",    btnId: "clockBtnBreach",    fallback: "SECTOR BREACH", brief: "2026-nov-sector-breach-brief.html" },
+        { key: "skirmish",  cardId: "carouselCardSkirmish",  titleId: "clockTitleSkirmish",  btnId: "clockBtnSkirmish",  fallback: "SKIRMISH",   brief: "2026-nov-skirmish-brief.html" },
+        { key: "warpath",   cardId: "carouselCardWarpath",   titleId: "clockTitleWarpath",   btnId: "clockBtnWarpath",   fallback: "WARPATH",    brief: "2026-calendar.html" },
+        { key: "future",    cardId: "carouselCardFuture",    titleId: "clockTitleFuture",    btnId: "clockBtnFuture",    fallback: "PVP SEASON", brief: "2026-pvp-season-60-brief.html" }
+      ];
+
+      const items = [];
+      const fmtTs = (typeof formatStageTimestamp === "function")
+        ? formatStageTimestamp
+        : ((ms) => new Date(ms).toLocaleString());
+      const fmtDelta = (typeof formatTimeDelta === "function")
+        ? formatTimeDelta
+        : ((ms) => `${Math.max(1, Math.round(ms / 3600000))}h`);
+
+      clockSpecs.forEach(spec => {
+        const sched = (typeof eventSchedules === "object" && eventSchedules) ? eventSchedules[spec.key] : null;
+        if (!sched || !sched.start || !sched.end) return;
+        const cardEl = document.getElementById(spec.cardId);
+        if (cardEl && cardEl.style.display === "none") return;
+
+        const titleRaw = (document.getElementById(spec.titleId)?.textContent || spec.fallback).trim();
+        const titleUp = titleRaw.toUpperCase();
+        const btnEl = document.getElementById(spec.btnId);
+        const btnUrl = (btnEl && btnEl.getAttribute("data-url")) ? btnEl.getAttribute("data-url") : `./${spec.brief}`;
+        const hasStore = !sched.noStore && Number(sched.store) > Number(sched.end);
+
+        const triggerBrief = () => {
+          if (typeof openPopout === "function") openPopout(btnUrl, titleRaw);
+          else openHubTargetUrl(spec.brief, titleUp, "#22c55e");
+        };
+
+        if (now >= sched.start && now < sched.end) {
+          const isShadow = spec.key === "shadowops";
+          const remStr = fmtDelta(sched.end - now);
+          items.push({
+            id: `live-${spec.key}`,
+            schedKey: spec.key,
+            phase: "COMBAT",
+            cat: "LIVE",
+            urgent: false,
+            sortEnd: sched.end,
+            badge: isShadow ? "🟣 PHASE LIVE" : "🟢 LIVE EVENT",
+            accent: isShadow ? "#818cf8" : "#22c55e",
+            rgb: isShadow ? "129, 140, 248" : "34, 197, 94",
+            bgTop: isShadow ? "#161833" : "#0b2217",
+            headline: `${titleUp} LIVE NOW — ${isShadow ? "PHASE ENDS" : "ENDS"} ${fmtTs(sched.end).toUpperCase()}`,
+            meta: `Countdown: ${remStr} remaining${sched.customSubtext ? " • " + sched.customSubtext : " • Auto-clears on clock expiry"}`,
+            cta: "🖥️ OPEN BRIEF",
+            action: triggerBrief
+          });
+        } else if (hasStore && now >= sched.end && now < sched.store) {
+          const leftMs = sched.store - now;
+          const isFinal12h = leftMs <= 43200000;
+          items.push({
+            id: `store-${spec.key}`,
+            schedKey: spec.key,
+            phase: "STORE",
+            cat: "LIVE",
+            urgent: isFinal12h,
+            sortEnd: sched.store,
+            badge: isFinal12h ? "🛒 STORE < 12H" : "🛒 STORE OPEN",
+            accent: isFinal12h ? "#f59e0b" : "#eab308",
+            rgb: isFinal12h ? "245, 158, 11" : "234, 179, 8",
+            bgTop: isFinal12h ? "#281b08" : "#221c08",
+            headline: isFinal12h
+              ? `${titleUp} STORE CLOSING IN ${fmtDelta(leftMs)} — SPEND REMAINING EVENT XP NOW`
+              : `${titleUp} COMBAT CONCLUDED — EVENT STORE OPEN`,
+            meta: `Store Closes ${fmtTs(sched.store)} (${fmtDelta(leftMs)} remaining • Auto-clears at 0:00)`,
+            cta: "🖥️ EVENT BRIEF",
+            action: triggerBrief
+          });
+        }
+      });
+
+      items.sort((a, b) => {
+        if (a.urgent !== b.urgent) return a.urgent ? -1 : 1;
+        return (a.sortEnd || 0) - (b.sortEnd || 0);
+      });
+      return items;
+    }
+
+    /* 3. Unit & Building Gallery Additions (<24h) */
+    function buildGalleryAdditionItems(now) {
+      const items = [];
+      state.galleryAdditionsMap.forEach(entry => {
+        const ageMs = now - (Number(entry.firstSeenMs) || 0);
+        if (ageMs < 0 || ageMs > DAY_MS) return;
+        const isBldg = entry.gallery === "BUILDING";
+        const nameUp = String(entry.name || "").toUpperCase();
+        const subPart = entry.subLabel ? ` (${String(entry.subLabel).toUpperCase()})` : "";
+        items.push({
+          id: `gal-${entry.gallery}-${normGalleryKey(entry.name)}`,
+          cat: "GALLERY",
+          urgent: true,
+          sortTime: -(Number(entry.firstSeenMs) || now),
+          badge: isBldg ? "🏗️ NEW BUILDING" : "🆕 NEW UNIT",
+          accent: isBldg ? "#2dd4bf" : "#38bdf8",
+          rgb: isBldg ? "45, 212, 191" : "56, 189, 248",
+          bgTop: isBldg ? "#092321" : "#0a1e2c",
+          headline: `NEW IN ${isBldg ? "BUILDING" : "UNIT"} GALLERY: ${nameUp}${subPart}`,
+          meta: `Added ${formatRelativeAge(ageMs)} in MASTER_DB • Click to open full ${isBldg ? "Facility" : "Unit"} Brief`,
+          cta: isBldg ? "🏢 BUILDING BRIEF" : "📖 UNIT BRIEF",
+          action: () => {
+            if (isBldg) {
+              try { localStorage.setItem("wtr_target_building_handoff", entry.name); } catch (e) {}
+              openHubTargetUrl(`building-briefs.html?building=${encodeURIComponent(entry.name)}`, `BUILDING BRIEF: ${nameUp}`, "#2dd4bf");
+            } else {
+              try { localStorage.setItem("wtr_target_unit_handoff", JSON.stringify({ unit: entry.name, ts: Date.now() })); } catch (e) {}
+              openHubTargetUrl(`unit-briefs.html?unit=${encodeURIComponent(entry.name)}`, `UNIT BRIEF: ${nameUp}`, "#38bdf8");
+            }
+          }
+        });
+      });
+      items.sort((a, b) => a.sortTime - b.sortTime);
+      return items;
+    }
+
+    /* 4. Page Updates & Revisions (<24h) */
+    function buildRecentPageRevisionItems(now) {
+      const fresh = [];
+      state.pageRevisionsMap.forEach(rev => {
+        const modMs = Number(rev.modifiedMs) || 0;
+        if (!modMs) return;
+        const ageMs = now - modMs;
+        if (ageMs < -300000 || ageMs > DAY_MS) return;
+        if (String(rev.file || "").toLowerCase() === "index.html") return;
+        fresh.push({ ...rev, ageMs: Math.max(0, ageMs) });
+      });
+      fresh.sort((a, b) => a.ageMs - b.ageMs);
+
+      return fresh.slice(0, 5).map(rev => {
+        const cleanTitle = String(rev.title || rev.file || "").replace(/\.html$/i, "").toUpperCase();
+        return {
+          id: `page-${rev.file}`,
+          cat: "PAGES",
+          urgent: false,
+          badge: "🔄 UPDATED <24H",
+          accent: "#a78bfa",
+          rgb: "167, 139, 250",
+          bgTop: "#19122c",
+          headline: `PAGE REVISION: ${cleanTitle}`,
+          meta: `Updated ${formatRelativeAge(rev.ageMs)} (${rev.file}) • Ages off ticker after 24h`,
+          cta: "📂 OPEN PAGE",
+          action: () => openHubTargetUrl(rev.file, cleanTitle, "#a78bfa")
+        };
+      });
+    }
+
+    /* 5. Active Unfixed Game Defects (What's Broken — FIXED items excluded) */
+    function buildBrokenDefectItems() {
+      return state.defectsList.map(d => {
+        const isYellow = d.severity === "YELLOW";
+        const headText = d.headline ? `${d.title} — ${d.headline}` : d.title;
+        return {
+          id: `bug-${d.id}`,
+          cat: "BROKEN",
+          urgent: false,
+          badge: isYellow ? "🟡 BROKEN: ACK" : "🔴 BROKEN: RED",
+          accent: isYellow ? "#eab308" : "#f43f5e",
+          rgb: isYellow ? "234, 179, 8" : "244, 63, 94",
+          bgTop: isYellow ? "#241d08" : "#261018",
+          headline: headText.toUpperCase(),
+          meta: d.desc || "Active unfixed defect in What's Broken Registry • Click for details",
+          cta: "🛠️ WHAT'S BROKEN",
+          action: () => openHubTargetUrl("whats-broken.html", "WHAT'S BROKEN IN WAR COMMANDER", "#f43f5e")
+        };
+      });
+    }
+
+    function interleaveRotationPools(pools) {
+      const out = [];
+      const maxLen = Math.max(0, ...pools.map(p => p.length));
+      for (let i = 0; i < maxLen; i++) {
+        for (let p = 0; p < pools.length; p++) {
+          if (i < pools[p].length) out.push(pools[p][i]);
+        }
+      }
+      return out;
+    }
+
+    function rebuildAlertTickerQueue(resetIndex = false) {
+      const now = Date.now();
+      const prevCurrentId = (!resetIndex && state.queue[state.idx]) ? state.queue[state.idx].id : null;
+
+      const manualPins = buildManualPinnedItems(now);
+      const liveEvents = buildLiveEventItems(now);
+      const galleryNew = buildGalleryAdditionItems(now);
+      const recentPages = buildRecentPageRevisionItems(now);
+      const brokenBugs = buildBrokenDefectItems();
+
+      const urgentLive = liveEvents.filter(i => i.urgent);
+      const normalLive = liveEvents.filter(i => !i.urgent);
+
+      const allCombined = [
+        ...manualPins,
+        ...urgentLive,
+        ...galleryNew,
+        ...interleaveRotationPools([normalLive, recentPages, brokenBugs])
+      ];
+
+      state.counts = {
+        ALL: allCombined.length,
+        LIVE: manualPins.length + liveEvents.length,
+        GALLERY: galleryNew.length,
+        PAGES: recentPages.length,
+        BROKEN: brokenBugs.length
+      };
+
+      const filterSel = document.getElementById("alertFeedFilter");
+      if (filterSel) {
+        const labels = {
+          ALL: `ALL FEEDS (${state.counts.ALL})`,
+          LIVE: `🟢 EVENTS (${state.counts.LIVE})`,
+          GALLERY: `🆕 GALLERY (${state.counts.GALLERY})`,
+          PAGES: `🔄 24H PAGES (${state.counts.PAGES})`,
+          BROKEN: `🔴 BROKEN (${state.counts.BROKEN})`
+        };
+        Array.from(filterSel.options).forEach(opt => {
+          if (labels[opt.value]) opt.textContent = labels[opt.value];
+        });
+      }
+
+      let nextQueue = [];
+      if (state.filter === "LIVE") nextQueue = [...manualPins, ...liveEvents];
+      else if (state.filter === "GALLERY") nextQueue = galleryNew;
+      else if (state.filter === "PAGES") nextQueue = recentPages;
+      else if (state.filter === "BROKEN") nextQueue = brokenBugs;
+      else nextQueue = allCombined;
+
+      if (nextQueue.length === 0) {
+        if (state.filter === "GALLERY") {
+          nextQueue = [{
+            id: "empty-gallery",
+            cat: "GALLERY",
+            badge: "🛡️ GALLERY SYNCED",
+            accent: "#38bdf8",
+            rgb: "56, 189, 248",
+            bgTop: "#0a1e2c",
+            headline: "UNIT & BUILDING GALLERIES MONITORED LIVE — NO NEW ADDITIONS IN LAST 24H",
+            meta: `Tracking ${state.totalTrackedUnits} Units & ${state.totalTrackedBuildings} Base Facilities in MASTER_DB • Auto-alerts when new rows are added`,
+            cta: "📖 UNIT BRIEFS",
+            action: () => openHubTargetUrl("unit-briefs.html", "UNIT BRIEFS GALLERY", "#38bdf8")
+          }];
+        } else if (state.filter === "PAGES") {
+          nextQueue = [{
+            id: "empty-pages",
+            cat: "PAGES",
+            badge: "🔄 24H STANDBY",
+            accent: "#a78bfa",
+            rgb: "167, 139, 250",
+            bgTop: "#19122c",
+            headline: "NO MODULE REVISIONS PUBLISHED IN THE LAST 24 HOURS",
+            meta: "Monitoring directory-manifest.js & GitHub Commits feed automatically",
+            cta: "🗓️ CALENDAR",
+            action: () => openHubTargetUrl("2026-calendar.html", "2026 EVENT CALENDAR", "#a78bfa")
+          }];
+        } else if (state.filter === "LIVE") {
+          nextQueue = [{
+            id: "empty-live",
+            cat: "LIVE",
+            badge: "🗓️ SCHEDULE",
+            accent: "#22c55e",
+            rgb: "34, 197, 94",
+            bgTop: "#0b2217",
+            headline: "NO ACTIVE COMBAT WINDOW AT THIS MOMENT — CHECK UPCOMING EVENT TIMERS BELOW",
+            meta: "Ended events clear automatically • Next launch triggers live alert on schedule",
+            cta: "🗓️ 2026 CALENDAR",
+            action: () => openHubTargetUrl("2026-calendar.html", "2026 EVENT CALENDAR", "#22c55e")
+          }];
+        } else {
+          nextQueue = [{
+            id: "empty-standby",
+            cat: "LIVE",
+            badge: "⚡ WATCHTOWER",
+            accent: "#22c55e",
+            rgb: "34, 197, 94",
+            bgTop: "#0b2217",
+            headline: "ALL WATCHTOWER SYSTEMS NOMINAL — MONITORING LIVE EVENTS & GALLERIES",
+            meta: "Real-time telemetry active across Event Clocks, MASTER_DB Galleries, and Defect Registry",
+            cta: "🗓️ CALENDAR",
+            action: () => openHubTargetUrl("2026-calendar.html", "2026 EVENT CALENDAR", "#22c55e")
+          }];
+        }
+      }
+
+      state.queue = nextQueue;
+      if (resetIndex || !prevCurrentId) {
+        state.idx = 0;
+      } else {
+        const preservedIdx = state.queue.findIndex(it => it.id === prevCurrentId);
+        state.idx = preservedIdx !== -1 ? preservedIdx : (state.idx % state.queue.length);
+      }
+
+      renderCurrentAlertItem(resetIndex);
+    }
+
+    function renderCurrentAlertItem(animateStep = true) {
+      const pod = document.getElementById("systemAlertPod");
+      const badgeEl = document.getElementById("alertTagBadge");
+      const bodyEl = document.getElementById("alertRotatorBody");
+      const headEl = document.getElementById("systemAlertText");
+      const metaEl = document.getElementById("systemAlertMeta");
+      const ctaEl = document.getElementById("alertActionBtn");
+      const cntEl = document.getElementById("alertStepCounter");
+      if (!pod || !headEl || state.queue.length === 0) return;
+
+      if (state.idx >= state.queue.length) state.idx = 0;
+      if (state.idx < 0) state.idx = state.queue.length - 1;
+      const item = state.queue[state.idx];
+
+      pod.style.setProperty("--alert-accent", item.accent || "#22c55e");
+      pod.style.setProperty("--alert-rgb", item.rgb || "34, 197, 94");
+      pod.style.setProperty("--alert-bg-top", item.bgTop || "#0b2217");
+
+      if (badgeEl) badgeEl.innerHTML = `<span>${escapeHtml(item.badge)}</span>`;
+      if (headEl) headEl.textContent = item.headline || "";
+      if (metaEl) metaEl.textContent = item.meta || "";
+      if (ctaEl) ctaEl.textContent = item.cta || "OPEN →";
+      if (cntEl) cntEl.textContent = `${state.idx + 1}/${state.queue.length}`;
+
+      if (animateStep && bodyEl) {
+        bodyEl.classList.remove("alert-fade-step");
+        void bodyEl.offsetWidth;
+        bodyEl.classList.add("alert-fade-step");
+      }
+    }
+
+    /* Ingest pre-computed manifest data (works on file:// & HTTP immediately) */
+    function ingestDirectoryManifest() {
+      const m = window.WTR_DIRECTORY_MANIFEST;
+      if (!m || typeof m !== "object") return;
+
+      if (m.galleryBaseline) {
+        if (Array.isArray(m.galleryBaseline.units)) {
+          state.baselineUnits = new Set(m.galleryBaseline.units.map(normGalleryKey));
+        }
+        if (Array.isArray(m.galleryBaseline.buildings)) {
+          state.baselineBuildings = new Set(m.galleryBaseline.buildings.map(normGalleryKey));
+        }
+      }
+
+      if (Array.isArray(m.recentGalleryAdditions)) {
+        m.recentGalleryAdditions.forEach(add => {
+          if (!add || !add.name) return;
+          const gType = add.gallery === "BUILDING" ? "BUILDING" : "UNIT";
+          const mapKey = `${gType}::${normGalleryKey(add.name)}`;
+          state.galleryAdditionsMap.set(mapKey, {
+            name: add.name,
+            gallery: gType,
+            subLabel: add.subLabel || "",
+            firstSeenMs: Number(add.firstSeenMs) || Date.now()
+          });
+        });
+      }
+
+      if (Array.isArray(m.pageRevisions)) {
+        m.pageRevisions.forEach(rev => {
+          if (!rev || !rev.file) return;
+          const prev = state.pageRevisionsMap.get(rev.file);
+          if (!prev || Number(rev.modifiedMs) > Number(prev.modifiedMs)) {
+            state.pageRevisionsMap.set(rev.file, {
+              file: rev.file,
+              title: rev.title || rev.file,
+              modifiedMs: Number(rev.modifiedMs) || 0
+            });
+          }
+        });
+      }
+
+      if (Array.isArray(m.activeDefects) && m.activeDefects.length > 0) {
+        state.defectsList = m.activeDefects.slice();
+      }
+
+      rebuildAlertTickerQueue(false);
+    }
+
+    /* Live MASTER_DB Scanner for Unit & Building Galleries (CSV fetch + JSONP fallback for file://) */
+    function applyMasterDbMatrixToGalleryMonitor(matrix) {
+      if (!Array.isArray(matrix) || matrix.length <= 1) return;
+      const headers = matrix[0].map(h => String(h || "").trim().toUpperCase());
+      const seenLedger = loadLocalFirstSeenLedger();
+      let ledgerDirty = false;
+      const now = Date.now();
+      let unitCnt = 0;
+      let bldgCnt = 0;
+
+      for (let r = 1; r < matrix.length; r++) {
+        const rec = {};
+        headers.forEach((k, idx) => {
+          if (k) rec[k] = cleanCell(matrix[r][idx]);
+        });
+        const name = rec.UNIT_NAME || rec.BUILDING_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || "";
+        if (!name) continue;
+
+        const hasUnitCombat = Boolean(
+          rec.STAT_FACTION || rec.STAT_WEAPON_TYPE || rec.STAT_ARMOR_TYPE ||
+          rec.STAT_DPS_RANGE || rec.STAT_HP_RANGE || rec.TALENT_LVL_1 ||
+          rec.TALENT_LVL_10 || rec.WORKSHOP_1_TITLE || rec.FACTION_WS_1_FACTION || rec.BASE_TREE_TITLE
+        );
+        const classif = (rec.CLASSIFICATION || "").toUpperCase();
+        const cat = (rec.CATEGORY || "").toUpperCase();
+        const isBuilding = !hasUnitCombat && Boolean(
+          rec.DIR_1_LVL || rec.DIR_1_DESC || rec.DIR_1_IRID || rec.MAT_LVLS ||
+          rec.MAT_IRID || rec.SPEC_1_LBL || rec.FUNC_1_TITLE || rec.DOC_1_TITLE ||
+          classif.includes("BASE OPERATIONS") || classif.includes("FACILITY") ||
+          ["COMMAND", "MILITARY", "DEFENSE", "SUPPORT", "RESOURCE"].includes(cat)
+        );
+
+        const gType = isBuilding ? "BUILDING" : "UNIT";
+        if (isBuilding) bldgCnt++; else unitCnt++;
+
+        const normK = normGalleryKey(name);
+        const mapKey = `${gType}::${normK}`;
+        const subLabel = isBuilding
+          ? (cat || "BASE FACILITY")
+          : [rec.STAT_GENERATION, rec.CLASSIFICATION].filter(Boolean).join(" • ");
+
+        // Check optional explicit sheet timestamp column first
+        const rawSheetTs = rec.ADDED_AT || rec.DATE_ADDED || rec.ADDED_DATE || rec.CREATED_AT || rec.TIMESTAMP || rec.LAST_UPDATED || "";
+        let explicitMs = 0;
+        if (rawSheetTs) {
+          const parsed = Date.parse(rawSheetTs);
+          if (!isNaN(parsed) && parsed > 0) explicitMs = parsed;
+        }
+
+        if (explicitMs > 0 && (now - explicitMs) >= 0 && (now - explicitMs) <= DAY_MS) {
+          state.galleryAdditionsMap.set(mapKey, { name, gallery: gType, subLabel, firstSeenMs: explicitMs });
+          continue;
+        }
+
+        const inBaseline = isBuilding ? state.baselineBuildings.has(normK) : state.baselineUnits.has(normK);
+        if (!inBaseline) {
+          let firstSeenMs = Number(seenLedger[mapKey]) || Number(state.galleryAdditionsMap.get(mapKey)?.firstSeenMs) || 0;
+          if (!firstSeenMs) {
+            firstSeenMs = now;
+            seenLedger[mapKey] = firstSeenMs;
+            ledgerDirty = true;
+          }
+          if ((now - firstSeenMs) <= DAY_MS) {
+            state.galleryAdditionsMap.set(mapKey, { name, gallery: gType, subLabel, firstSeenMs });
+          }
+        }
+      }
+
+      if (unitCnt > 0) state.totalTrackedUnits = unitCnt;
+      if (bldgCnt > 0) state.totalTrackedBuildings = bldgCnt;
+      if (ledgerDirty) saveLocalFirstSeenLedger(seenLedger);
+      rebuildAlertTickerQueue(false);
+    }
+
+    function pollMasterDbGalleriesLive() {
+      const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${MASTER_DB_DOC_ID}/gviz/tq?tqx=out:csv&headers=1&gid=${MASTER_DB_GID}`;
+
+      function fallbackJsonp() {
+        const cbName = "wtrTickerMasterDbCb_" + Date.now() + "_" + Math.floor(Math.random() * 9999);
+        const script = document.createElement("script");
+        let done = false;
+        const timer = setTimeout(() => {
+          if (done) return;
+          done = true;
+          try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }, 8500);
+
+        window[cbName] = function(resp) {
+          if (done) return;
+          done = true;
+          clearTimeout(timer);
+          try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+          if (script.parentNode) script.parentNode.removeChild(script);
+          if (!resp || resp.status === "error" || !resp.table) return;
+          const cols = (resp.table.cols || []).map(c => (c && c.label ? String(c.label).trim() : ""));
+          const matrix = [cols];
+          (resp.table.rows || []).forEach(r => {
+            const cells = (r && r.c) ? r.c : [];
+            matrix.push(cols.map((_, idx) => {
+              const cell = cells[idx];
+              if (!cell || cell.v === null || cell.v === undefined) return "";
+              return cell.f !== undefined && cell.f !== null ? String(cell.f) : String(cell.v);
+            }));
+          });
+          applyMasterDbMatrixToGalleryMonitor(matrix);
+        };
+
+        script.onerror = function() {
+          if (done) return;
+          done = true;
+          clearTimeout(timer);
+          try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+          if (script.parentNode) script.parentNode.removeChild(script);
+        };
+        script.src = `https://docs.google.com/spreadsheets/d/${MASTER_DB_DOC_ID}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${MASTER_DB_GID}`;
+        document.head.appendChild(script);
+      }
+
+      if (window.location.protocol.startsWith("http")) {
+        fetch(gvizCsvUrl, { method: "GET", credentials: "omit" })
+          .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+          .then(txt => {
+            if (!txt || txt.trim().startsWith("<")) throw new Error("HTML response");
+            const matrix = parseCsvMatrix(txt);
+            if (matrix.length <= 1) throw new Error("Empty matrix");
+            applyMasterDbMatrixToGalleryMonitor(matrix);
+          })
+          .catch(() => fallbackJsonp());
+      } else {
+        fallbackJsonp();
+      }
+    }
+
+    /* Live What's Broken HTML Defect Sync (HTTP/HTTPS) */
+    function pollWhatsBrokenLive() {
+      if (!window.location.protocol.startsWith("http")) return;
+      const pfx = (typeof getWtrPublishedPrefix === "function") ? getWtrPublishedPrefix() : "./";
+      fetch(`${pfx}whats-broken.html`, { cache: "no-store" })
+        .then(r => r.ok ? r.text() : "")
+        .then(html => {
+          if (!html) return;
+          const m = html.match(/const\s+DEFECT_ITEMS\s*=\s*\[([\s\S]*?)\n\s*\];/);
+          if (!m) return;
+          const block = m[1];
+          const rx = /\{\s*id:\s*'([^']+)'([\s\S]*?)(?=\n\s*\{\s*id:|$)/g;
+          const parsed = [];
+          let hit;
+          while ((hit = rx.exec(block)) !== null) {
+            const id = hit[1];
+            const body = hit[2];
+            if (/greenLight:\s*true/.test(body)) continue;
+            const isYellow = /yellowLight:\s*true/.test(body);
+            const pick = (k) => {
+              const pm = body.match(new RegExp(k + ":\\s*'((?:\\\\'|[^'])*)'"));
+              return pm ? pm[1].replace(/\\'/g, "'") : "";
+            };
+            parsed.push({
+              id,
+              category: pick("category") || "DEFECT",
+              title: pick("title") || id,
+              headline: pick("overlayHeadline"),
+              desc: pick("overlayDesc"),
+              unitBriefName: pick("unitBriefName"),
+              unitBriefDivision: pick("unitBriefDivision"),
+              severity: isYellow ? "YELLOW" : "RED"
+            });
+          }
+          if (parsed.length > 0) {
+            state.defectsList = parsed;
+            rebuildAlertTickerQueue(false);
+          }
+        })
+        .catch(() => {});
+    }
+
+    /* Live GitHub Commits 24h Page Revisions Sync (Cached 5m in sessionStorage) */
+    async function pollGithubRecentRevisions() {
+      if (!window.location.protocol.startsWith("http")) return;
+      const cacheKey = "wtr_gh_24h_revs_v1";
+      try {
+        const cachedRaw = sessionStorage.getItem(cacheKey);
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw);
+          if (cached && (Date.now() - (cached.ts || 0) < 300000) && Array.isArray(cached.items)) {
+            cached.items.forEach(rev => {
+              const prev = state.pageRevisionsMap.get(rev.file);
+              if (!prev || rev.modifiedMs > prev.modifiedMs) state.pageRevisionsMap.set(rev.file, rev);
+            });
+            rebuildAlertTickerQueue(false);
+            return;
+          }
+        }
+
+        const sinceIso = new Date(Date.now() - DAY_MS).toISOString();
+        const resp = await fetch(`https://api.github.com/repos/HighAnxiety-Labs/watchtower-data-hub/commits?since=${encodeURIComponent(sinceIso)}&per_page=8`);
+        if (!resp.ok) return;
+        const commits = await resp.json();
+        if (!Array.isArray(commits) || commits.length === 0) return;
+
+        const discovered = [];
+        for (const c of commits.slice(0, 5)) {
+          if (!c || !c.sha) continue;
+          const commitMs = Date.parse(c.commit?.committer?.date || c.commit?.author?.date || "") || 0;
+          if (!commitMs || (Date.now() - commitMs) > DAY_MS) continue;
+          const shaKey = `wtr_gh_sha_${c.sha.slice(0, 10)}`;
+          let files = null;
+          try { files = JSON.parse(sessionStorage.getItem(shaKey) || "null"); } catch (e) {}
+          if (!files) {
+            const dResp = await fetch(`https://api.github.com/repos/HighAnxiety-Labs/watchtower-data-hub/commits/${c.sha}`);
+            if (dResp.ok) {
+              const dJson = await dResp.json();
+              files = (dJson.files || []).map(f => f.filename).filter(fn => fn && fn.toLowerCase().endsWith(".html") && !fn.includes("/"));
+              try { sessionStorage.setItem(shaKey, JSON.stringify(files)); } catch (e) {}
+            }
+          }
+          (files || []).forEach(fn => {
+            const existing = state.pageRevisionsMap.get(fn);
+            const title = existing?.title || fn.replace(/\.html$/i, "").replace(/-/g, " ");
+            const rec = { file: fn, title, modifiedMs: commitMs };
+            discovered.push(rec);
+            if (!existing || commitMs > existing.modifiedMs) {
+              state.pageRevisionsMap.set(fn, rec);
+            }
+          });
+        }
+        try { sessionStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), items: discovered })); } catch (e) {}
+        rebuildAlertTickerQueue(false);
+      } catch (e) {}
+    }
+
+    /* Public Window Hooks */
+    window.wtrAlertTickerSetHover = function(flag) {
+      state.hovered = Boolean(flag);
+    };
+    window.wtrStepAlertTicker = function(delta) {
+      if (!state.queue.length) return;
+      state.idx = (state.idx + delta + state.queue.length) % state.queue.length;
+      renderCurrentAlertItem(true);
+    };
+    window.wtrSetAlertFeedFilter = function(filterVal) {
+      state.filter = filterVal || "ALL";
+      rebuildAlertTickerQueue(true);
+    };
+    window.wtrTriggerActiveAlertAction = function() {
+      const item = state.queue[state.idx];
+      if (item && typeof item.action === "function") item.action();
+    };
+    window.wtrRefreshAlertTickerNow = function(resetIdx) {
+      rebuildAlertTickerQueue(Boolean(resetIdx));
+    };
+    window.wtrIngestDirectoryManifestForTicker = ingestDirectoryManifest;
+    window.wtrTickActiveAlertCountdown = function() {
+      const cur = state.queue[state.idx];
+      if (!cur || cur.cat !== "LIVE" || !cur.schedKey) return;
+      const sched = eventSchedules[cur.schedKey];
+      if (!sched) return;
+      const now = Date.now();
+      const metaEl = document.getElementById("systemAlertMeta");
+      const headEl = document.getElementById("systemAlertText");
+      if (!metaEl || typeof formatTimeDelta !== "function") return;
+      if (cur.phase === "COMBAT" && now < sched.end) {
+        metaEl.textContent = `Countdown: ${formatTimeDelta(sched.end - now)} remaining${sched.customSubtext ? " • " + sched.customSubtext : " • Auto-clears on clock expiry"}`;
+      } else if (cur.phase === "STORE" && now < sched.store) {
+        const left = sched.store - now;
+        metaEl.textContent = `Store Closes ${formatStageTimestamp(sched.store)} (${formatTimeDelta(left)} remaining • Auto-clears at 0:00)`;
+        if (left <= 43200000 && headEl) {
+          const titleRaw = cur.headline.split(" STORE CLOSING")[0];
+          headEl.textContent = `${titleRaw} STORE CLOSING IN ${formatTimeDelta(left)} — SPEND REMAINING EVENT XP NOW`;
+        }
+      }
+    };
+
+    // Auto-rotation timer (pauses on hover)
+    setInterval(() => {
+      if (state.hovered || state.queue.length <= 1) return;
+      state.idx = (state.idx + 1) % state.queue.length;
+      renderCurrentAlertItem(true);
+    }, ROTATE_INTERVAL_MS);
+
+    // Periodic background refresh (catches newly added MASTER_DB Units/Buildings & expires >24h pages)
+    setInterval(() => {
+      pollMasterDbGalleriesLive();
+      rebuildAlertTickerQueue(false);
+    }, 300000);
+
+    // Boot immediately + kick off live feed scanners
+    ingestDirectoryManifest();
+    rebuildAlertTickerQueue(true);
+    setTimeout(() => {
+      ingestDirectoryManifest();
+      pollMasterDbGalleriesLive();
+      pollWhatsBrokenLive();
+      pollGithubRecentRevisions();
+    }, 250);
   })();
 </script>
 </body>

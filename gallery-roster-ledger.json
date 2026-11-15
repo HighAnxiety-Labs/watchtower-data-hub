@@ -1,0 +1,734 @@
+{
+    "seededAt":  "2026-11-15T05:03:32Z",
+    "updatedAt":  "2026-11-15T05:41:24Z",
+    "entries":  {
+                    "UNIT::DYAD \u0026 TWIN":  {
+                                                   "key":  "DYAD \u0026 TWIN",
+                                                   "name":  "DYAD \u0026 TWIN",
+                                                   "gallery":  "UNIT",
+                                                   "subLabel":  "Arc 2 • SOLDIER",
+                                                   "firstSeenMs":  0,
+                                                   "firstSeenAt":  "BASELINE"
+                                               },
+                    "UNIT::MYRMIDON":  {
+                                           "key":  "MYRMIDON",
+                                           "name":  "MYRMIDON",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Arc 2 • SOLDIER",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       },
+                    "UNIT::CASTOR \u0026 POLLUX":  {
+                                                       "key":  "CASTOR \u0026 POLLUX",
+                                                       "name":  "CASTOR \u0026 POLLUX",
+                                                       "gallery":  "UNIT",
+                                                       "subLabel":  "Arc 2 • HERO",
+                                                       "firstSeenMs":  0,
+                                                       "firstSeenAt":  "BASELINE"
+                                                   },
+                    "UNIT::ACHILLES":  {
+                                           "key":  "ACHILLES",
+                                           "name":  "ACHILLES",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Arc2 • HERO",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       },
+                    "UNIT::ATLAS":  {
+                                        "key":  "ATLAS",
+                                        "name":  "ATLAS",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 2 • HERO",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::STORMWAIL":  {
+                                            "key":  "STORMWAIL",
+                                            "name":  "STORMWAIL",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 2 • HERO",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::VEGA":  {
+                                       "key":  "VEGA",
+                                       "name":  "VEGA",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • WARLORD",
+                                       "firstSeenMs":  0,
+                                       "firstSeenAt":  "BASELINE"
+                                   },
+                    "UNIT::BANSHEE":  {
+                                          "key":  "BANSHEE",
+                                          "name":  "BANSHEE",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • SOLDIER",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::JUGGERNAUT":  {
+                                             "key":  "JUGGERNAUT",
+                                             "name":  "JUGGERNAUT",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc 3 • UNIQUE",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::WANDERER KABUTO":  {
+                                                  "key":  "WANDERER KABUTO",
+                                                  "name":  "WANDERER KABUTO",
+                                                  "gallery":  "UNIT",
+                                                  "subLabel":  "Arc 2 • UNIQUE",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "UNIT::BLOODFANG":  {
+                                            "key":  "BLOODFANG",
+                                            "name":  "BLOODFANG",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 1 • UNIQUE",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::DUTCH":  {
+                                        "key":  "DUTCH",
+                                        "name":  "DUTCH",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 2 • UNIQUE",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "BUILDING::COMMAND CENTER 22":  {
+                                                        "key":  "COMMAND CENTER 22",
+                                                        "name":  "COMMAND CENTER 22",
+                                                        "gallery":  "BUILDING",
+                                                        "subLabel":  "COMMAND",
+                                                        "firstSeenMs":  0,
+                                                        "firstSeenAt":  "BASELINE"
+                                                    },
+                    "BUILDING::ACADEMY":  {
+                                              "key":  "ACADEMY",
+                                              "name":  "ACADEMY",
+                                              "gallery":  "BUILDING",
+                                              "subLabel":  "MILITARY",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "BUILDING::AIRCRAFT HANGER":  {
+                                                      "key":  "AIRCRAFT HANGER",
+                                                      "name":  "AIRCRAFT HANGER",
+                                                      "gallery":  "BUILDING",
+                                                      "subLabel":  "MILITARY",
+                                                      "firstSeenMs":  0,
+                                                      "firstSeenAt":  "BASELINE"
+                                                  },
+                    "BUILDING::AIRFIELD":  {
+                                               "key":  "AIRFIELD",
+                                               "name":  "AIRFIELD",
+                                               "gallery":  "BUILDING",
+                                               "subLabel":  "MILITARY",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "BUILDING::BARRACKS":  {
+                                               "key":  "BARRACKS",
+                                               "name":  "BARRACKS",
+                                               "gallery":  "BUILDING",
+                                               "subLabel":  "MILITARY",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "BUILDING::CONSTRUCTION YARD":  {
+                                                        "key":  "CONSTRUCTION YARD",
+                                                        "name":  "CONSTRUCTION YARD",
+                                                        "gallery":  "BUILDING",
+                                                        "subLabel":  "DEFENSE",
+                                                        "firstSeenMs":  0,
+                                                        "firstSeenAt":  "BASELINE"
+                                                    },
+                    "BUILDING::MERCENARY CAMP":  {
+                                                     "key":  "MERCENARY CAMP",
+                                                     "name":  "MERCENARY CAMP",
+                                                     "gallery":  "BUILDING",
+                                                     "subLabel":  "MILITARY",
+                                                     "firstSeenMs":  0,
+                                                     "firstSeenAt":  "BASELINE"
+                                                 },
+                    "BUILDING::MINE FACTORY":  {
+                                                   "key":  "MINE FACTORY",
+                                                   "name":  "MINE FACTORY",
+                                                   "gallery":  "BUILDING",
+                                                   "subLabel":  "DEFENSE",
+                                                   "firstSeenMs":  0,
+                                                   "firstSeenAt":  "BASELINE"
+                                               },
+                    "BUILDING::RADIO TOWER":  {
+                                                  "key":  "RADIO TOWER",
+                                                  "name":  "RADIO TOWER",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "MILITARY",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "BUILDING::SKYGUARD":  {
+                                               "key":  "SKYGUARD",
+                                               "name":  "SKYGUARD",
+                                               "gallery":  "BUILDING",
+                                               "subLabel":  "DEFENSE",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "BUILDING::TACTICAL OPS CENTER":  {
+                                                          "key":  "TACTICAL OPS CENTER",
+                                                          "name":  "TACTICAL OPS CENTER",
+                                                          "gallery":  "BUILDING",
+                                                          "subLabel":  "MILITARY",
+                                                          "firstSeenMs":  0,
+                                                          "firstSeenAt":  "BASELINE"
+                                                      },
+                    "BUILDING::TECH CENTER":  {
+                                                  "key":  "TECH CENTER",
+                                                  "name":  "TECH CENTER",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "MILITARY",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "BUILDING::WAR FACTORY":  {
+                                                  "key":  "WAR FACTORY",
+                                                  "name":  "WAR FACTORY",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "MILITARY",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "BUILDING::WEAPONS LAB":  {
+                                                  "key":  "WEAPONS LAB",
+                                                  "name":  "WEAPONS LAB",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "DEFENSE",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "BUILDING::WORKSHOP":  {
+                                               "key":  "WORKSHOP",
+                                               "name":  "WORKSHOP",
+                                               "gallery":  "BUILDING",
+                                               "subLabel":  "DEFENSE",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::MR. BRAINES":  {
+                                              "key":  "MR. BRAINES",
+                                              "name":  "MR. BRAINES",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Champion • MERCENARY",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::ARIKI TOA":  {
+                                            "key":  "ARIKI TOA",
+                                            "name":  "Ariki Toa",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Contractor • CONTRACTOR",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::ZAKIA KAZMI":  {
+                                              "key":  "ZAKIA KAZMI",
+                                              "name":  "Zakia Kazmi",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::NORA MALIK":  {
+                                             "key":  "NORA MALIK",
+                                             "name":  "Nora Malik",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Contractor • CONTRACTOR",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::JANELLE BROWN":  {
+                                                "key":  "JANELLE BROWN",
+                                                "name":  "Janelle Brown",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "Contractor • CONTRACTOR",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::BROTHER MATSUMOTO":  {
+                                                    "key":  "BROTHER MATSUMOTO",
+                                                    "name":  "Brother Matsumoto",
+                                                    "gallery":  "UNIT",
+                                                    "subLabel":  "Contractor • CONTRACTOR",
+                                                    "firstSeenMs":  0,
+                                                    "firstSeenAt":  "BASELINE"
+                                                },
+                    "UNIT::SVEN OMAROV":  {
+                                              "key":  "SVEN OMAROV",
+                                              "name":  "Sven Omarov",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::LUCIA VEGA":  {
+                                             "key":  "LUCIA VEGA",
+                                             "name":  "Lucia Vega",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Contractor • CONTRACTOR",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::MR. BARCLAY":  {
+                                              "key":  "MR. BARCLAY",
+                                              "name":  "Mr. Barclay",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::JOHNNY BONES":  {
+                                               "key":  "JOHNNY BONES",
+                                               "name":  "Johnny Bones",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Contractor • CONTRACTOR",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::CAROL HAGEN":  {
+                                              "key":  "CAROL HAGEN",
+                                              "name":  "Carol Hagen",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::BECCA FERGUSON":  {
+                                                 "key":  "BECCA FERGUSON",
+                                                 "name":  "Becca Ferguson",
+                                                 "gallery":  "UNIT",
+                                                 "subLabel":  "Contractor • CONTRACTOR",
+                                                 "firstSeenMs":  0,
+                                                 "firstSeenAt":  "BASELINE"
+                                             },
+                    "UNIT::ABIGAIL DIAZ":  {
+                                               "key":  "ABIGAIL DIAZ",
+                                               "name":  "Abigail Diaz",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Contractor • CONTRACTOR",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::TERRY MICHAELS":  {
+                                                 "key":  "TERRY MICHAELS",
+                                                 "name":  "Terry Michaels",
+                                                 "gallery":  "UNIT",
+                                                 "subLabel":  "Contractor • CONTRACTOR",
+                                                 "firstSeenMs":  0,
+                                                 "firstSeenAt":  "BASELINE"
+                                             },
+                    "UNIT::SOLOMON HAMAD":  {
+                                                "key":  "SOLOMON HAMAD",
+                                                "name":  "Solomon Hamad",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "Contractor • CONTRACTOR",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::IGNACIO DIAZ":  {
+                                               "key":  "IGNACIO DIAZ",
+                                               "name":  "Ignacio Diaz",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Contractor • CONTRACTOR",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::SLY HIGGINS":  {
+                                              "key":  "SLY HIGGINS",
+                                              "name":  "Sly Higgins",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::DAWN SLATER":  {
+                                              "key":  "DAWN SLATER",
+                                              "name":  "Dawn Slater",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::FERNANDO TORRES":  {
+                                                  "key":  "FERNANDO TORRES",
+                                                  "name":  "Fernando Torres",
+                                                  "gallery":  "UNIT",
+                                                  "subLabel":  "Contractor • CONTRACTOR",
+                                                  "firstSeenMs":  0,
+                                                  "firstSeenAt":  "BASELINE"
+                                              },
+                    "UNIT::BARON ANANSI":  {
+                                               "key":  "BARON ANANSI",
+                                               "name":  "BARON ANANSI",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Arc 3 • UNIQUE",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::VIPER":  {
+                                        "key":  "VIPER",
+                                        "name":  "VIPER",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 2 • SOLDIER",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::ONYMITE":  {
+                                          "key":  "ONYMITE",
+                                          "name":  "ONYMITE",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • WARLORD",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::SOLDIER DRONE":  {
+                                                "key":  "SOLDIER DRONE",
+                                                "name":  "SOLDIER DRONE",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "Arc 2 • SOLDIER",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::VOIDHAMMER":  {
+                                             "key":  "VOIDHAMMER",
+                                             "name":  "VOIDHAMMER",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc 2 • SOLDIER",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::OMICRON":  {
+                                          "key":  "OMICRON",
+                                          "name":  "OMICRON",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • HERO",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::BRUTE":  {
+                                        "key":  "BRUTE",
+                                        "name":  "BRUTE",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "ZOMBIE • KANE\u0027S FORCES",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::CATAPULT":  {
+                                           "key":  "CATAPULT",
+                                           "name":  "CATAPULT",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "ZOMBIE • KANE\u0027S FORCES",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       },
+                    "UNIT::ROCKETEER":  {
+                                            "key":  "ROCKETEER",
+                                            "name":  "ROCKETEER",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "ZOMBIE • KANE\u0027S FORCES",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::FLAME":  {
+                                        "key":  "FLAME",
+                                        "name":  "FLAME",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "ZOMBIE • KANE\u0027S FORCES",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::DIXON":  {
+                                        "key":  "DIXON",
+                                        "name":  "DIXON",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 3 • HERO",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::ARGUS":  {
+                                        "key":  "ARGUS",
+                                        "name":  "ARGUS",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 3 • SOLDIER",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::TACHYON":  {
+                                          "key":  "TACHYON",
+                                          "name":  "TACHYON",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • UNIQUE",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::RECRUITER":  {
+                                            "key":  "RECRUITER",
+                                            "name":  "RECRUITER",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 2 • UNIQUE",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::HIVE COMMAND":  {
+                                               "key":  "HIVE COMMAND",
+                                               "name":  "HIVE COMMAND",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "ONYX",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::HIVE WATCHER":  {
+                                               "key":  "HIVE WATCHER",
+                                               "name":  "HIVE WATCHER",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "ONYX",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::CONDUIT":  {
+                                          "key":  "CONDUIT",
+                                          "name":  "CONDUIT",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "ONYX",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::VESPID":  {
+                                         "key":  "VESPID",
+                                         "name":  "VESPID",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "ONYX",
+                                         "firstSeenMs":  0,
+                                         "firstSeenAt":  "BASELINE"
+                                     },
+                    "UNIT::FORAGER":  {
+                                          "key":  "FORAGER",
+                                          "name":  "FORAGER",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "ONYX",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::HIVE GUARD":  {
+                                             "key":  "HIVE GUARD",
+                                             "name":  "HIVE GUARD",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "ONYX",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::GRAND OBSERVER":  {
+                                                 "key":  "GRAND OBSERVER",
+                                                 "name":  "GRAND OBSERVER",
+                                                 "gallery":  "UNIT",
+                                                 "subLabel":  "ONYX",
+                                                 "firstSeenMs":  0,
+                                                 "firstSeenAt":  "BASELINE"
+                                             },
+                    "UNIT::WITNESS":  {
+                                          "key":  "WITNESS",
+                                          "name":  "WITNESS",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "ONYX",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::GRAND WITNESS":  {
+                                                "key":  "GRAND WITNESS",
+                                                "name":  "GRAND WITNESS",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "ONYX",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::FORTRESS NODE":  {
+                                                "key":  "FORTRESS NODE",
+                                                "name":  "FORTRESS NODE",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "ONYX",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::GRAND CITADEL":  {
+                                                "key":  "GRAND CITADEL",
+                                                "name":  "GRAND CITADEL",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "ONYX",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::OBSERVER":  {
+                                           "key":  "OBSERVER",
+                                           "name":  "OBSERVER",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "ONYX",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       },
+                    "UNIT::ONYX BARON":  {
+                                             "key":  "ONYX BARON",
+                                             "name":  "ONYX BARON",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "ONYX",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::MEDJAI":  {
+                                         "key":  "MEDJAI",
+                                         "name":  "MEDJAI",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc2 • HERO",
+                                         "firstSeenMs":  0,
+                                         "firstSeenAt":  "BASELINE"
+                                     },
+                    "UNIT::NOMAD UNIT":  {
+                                             "key":  "NOMAD UNIT",
+                                             "name":  "NOMAD UNIT",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc2 • SOLDIER",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::SIMO":  {
+                                       "key":  "SIMO",
+                                       "name":  "SIMO",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • HERO",
+                                       "firstSeenMs":  0,
+                                       "firstSeenAt":  "BASELINE"
+                                   },
+                    "UNIT::FROSTPIERCER":  {
+                                               "key":  "FROSTPIERCER",
+                                               "name":  "FROSTPIERCER",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Arc 2 • SOLDIER",
+                                               "firstSeenMs":  0,
+                                               "firstSeenAt":  "BASELINE"
+                                           },
+                    "UNIT::PELE":  {
+                                       "key":  "PELE",
+                                       "name":  "PELE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 1 • HERO",
+                                       "firstSeenMs":  0,
+                                       "firstSeenAt":  "BASELINE"
+                                   },
+                    "UNIT::FIREFLY":  {
+                                          "key":  "FIREFLY",
+                                          "name":  "FIREFLY",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 1 • SOLDIER",
+                                          "firstSeenMs":  0,
+                                          "firstSeenAt":  "BASELINE"
+                                      },
+                    "UNIT::MIDWAY":  {
+                                         "key":  "MIDWAY",
+                                         "name":  "MIDWAY",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc 2 • HERO",
+                                         "firstSeenMs":  0,
+                                         "firstSeenAt":  "BASELINE"
+                                     },
+                    "UNIT::BROADSIDE":  {
+                                            "key":  "BROADSIDE",
+                                            "name":  "BROADSIDE",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 2 • SOLDIER",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::MICHAEL ST. JAMES":  {
+                                                    "key":  "MICHAEL ST. JAMES",
+                                                    "name":  "Michael St. James",
+                                                    "gallery":  "UNIT",
+                                                    "subLabel":  "Contractor • CONTRACTOR",
+                                                    "firstSeenMs":  0,
+                                                    "firstSeenAt":  "BASELINE"
+                                                },
+                    "UNIT::PHILLIP BROWN":  {
+                                                "key":  "PHILLIP BROWN",
+                                                "name":  "Phillip Brown",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "Contractor • Contractor",
+                                                "firstSeenMs":  0,
+                                                "firstSeenAt":  "BASELINE"
+                                            },
+                    "UNIT::RUTH BOGARD":  {
+                                              "key":  "RUTH BOGARD",
+                                              "name":  "Ruth Bogard",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Contractor • CONTRACTOR",
+                                              "firstSeenMs":  0,
+                                              "firstSeenAt":  "BASELINE"
+                                          },
+                    "UNIT::KAI CHEN":  {
+                                           "key":  "KAI CHEN",
+                                           "name":  "Kai Chen",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Contractor • CONTRACTOR",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       },
+                    "UNIT::LEGENDARY ESCORT":  {
+                                                   "key":  "LEGENDARY ESCORT",
+                                                   "name":  "LEGENDARY ESCORT",
+                                                   "gallery":  "UNIT",
+                                                   "subLabel":  "Arc 3 • SOLDIER",
+                                                   "firstSeenMs":  0,
+                                                   "firstSeenAt":  "BASELINE"
+                                               },
+                    "UNIT::LANDLOCHE":  {
+                                            "key":  "LANDLOCHE",
+                                            "name":  "LANDLOCHE",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 3 • UNIQUE",
+                                            "firstSeenMs":  0,
+                                            "firstSeenAt":  "BASELINE"
+                                        },
+                    "UNIT::MATCHLOCKE":  {
+                                             "key":  "MATCHLOCKE",
+                                             "name":  "MATCHLOCKE",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc 3 • INFANTRY",
+                                             "firstSeenMs":  0,
+                                             "firstSeenAt":  "BASELINE"
+                                         },
+                    "UNIT::ROLLER":  {
+                                         "key":  "ROLLER",
+                                         "name":  "ROLLER",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc 2 • WARLORD",
+                                         "firstSeenMs":  0,
+                                         "firstSeenAt":  "BASELINE"
+                                     },
+                    "UNIT::RHINO":  {
+                                        "key":  "RHINO",
+                                        "name":  "RHINO",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "Arc 2 • SOLDIER",
+                                        "firstSeenMs":  0,
+                                        "firstSeenAt":  "BASELINE"
+                                    },
+                    "UNIT::DR. ACHE":  {
+                                           "key":  "DR. ACHE",
+                                           "name":  "DR. ACHE",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Legacy • LEGACY",
+                                           "firstSeenMs":  0,
+                                           "firstSeenAt":  "BASELINE"
+                                       }
+                }
+}
