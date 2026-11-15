@@ -209,10 +209,10 @@
       font-size: 12.5px;
       letter-spacing: 2.2px;
       text-transform: uppercase;
-      min-height: 36px;
-      display: grid;
-      grid-template-columns: var(--corner-w) 1fr var(--corner-w);
+      min-height: 38px;
+      display: flex;
       align-items: stretch;
+      justify-content: space-between;
       border-bottom: 2px solid rgba(255,255,255,0.15);
       transition: background-color 0.25s ease;
       overflow: hidden;
@@ -222,45 +222,61 @@
       border-top: 2px solid rgba(255,255,255,0.15);
     }
     .corner-block-4 {
-      background: rgba(0, 0, 0, 0.42);
-      display: flex;
+      flex: 0 0 auto;
+      min-width: var(--corner-w);
+      background: #080c0a;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 7px;
       font-family: monospace;
       font-size: 11.5px;
       font-weight: 900;
       letter-spacing: 1.1px;
-      padding: 0 12px;
       color: #f8fafc;
       white-space: nowrap;
+      position: relative;
+      z-index: 2;
     }
     .corner-top-left {
+      justify-content: flex-start;
+      padding: 6px 26px 6px 16px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
-      border-right: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
     .corner-top-right {
-      clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%);
-      border-left: 1px solid rgba(255,255,255,0.2);
+      justify-content: flex-end;
+      padding: 6px 16px 6px 26px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
       cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
-    .corner-top-right:hover { background: rgba(0, 0, 0, 0.65); color: var(--text-gold); }
+    .corner-top-right:hover { background: #12181a; color: var(--text-gold); }
     .corner-bottom-left {
+      justify-content: flex-start;
+      padding: 6px 26px 6px 16px;
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%);
-      border-right: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
     .corner-bottom-right {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%);
-      border-left: 1px solid rgba(255,255,255,0.2);
+      justify-content: flex-end;
+      padding: 6px 16px 6px 26px;
+      clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
     }
     .bar-center-label {
+      flex: 1 1 auto;
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0 10px;
+      padding: 6px 12px;
       text-shadow: 0 1px 3px rgba(0,0,0,0.85);
       font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .live-beacon-dot {
       width: 9px;
@@ -1260,8 +1276,30 @@
         grid-template-columns: 1fr;
       }
     }
+    @media (max-width: 760px) {
+      .classification-bar {
+        flex-wrap: wrap;
+      }
+      .classification-bar:not(.bottom-bar) .bar-center-label {
+        order: -1;
+        flex: 0 0 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+        padding: 4px 8px;
+      }
+      .classification-bar.bottom-bar .bar-center-label {
+        order: 2;
+        flex: 0 0 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.45);
+        padding: 4px 8px;
+      }
+      .corner-block-4 {
+        min-width: 0;
+        flex: 1 1 auto;
+        clip-path: none;
+        padding: 5px 10px;
+      }
+    }
     @media (max-width: 640px) {
-      :root { --corner-w: 115px; }
       .mode-tabs-grid,
       .hud-cards-grid,
       .boost-pills-grid {
@@ -1340,7 +1378,7 @@
             <span class="mode-card-name">🛡️ HOLDOUT</span>
             <span class="mode-live-tag" id="modeStatus-holdout">HOLDOUT</span>
           </div>
-          <div class="mode-card-sub" id="modeSub-holdout">3-Base vs 4-Base Gauntlet + XP Crates</div>
+          <div class="mode-card-sub" id="modeSub-holdout">3-Base vs Full 4-Base + XP Crates</div>
         </button>
 
         <button type="button" class="mode-card-btn" id="modeBtn-breach" style="--tab-color:#d97706;" onclick="switchEventMode('breach')">
@@ -2543,7 +2581,7 @@
             <div class="track-opt-head">
               <label class="track-opt-label">
                 <input type="radio" name="hoTrackMode" value="GAUNTLET4" ${st.activeTrack==='GAUNTLET4'?'checked':''} onchange="updateModeField('activeTrack','GAUNTLET4')">
-                <span>🔥 Full 4-Base Gauntlet</span>
+                <span>🔥 Full 4-Base</span>
               </label>
               <span class="track-opt-xp-pill" id="hoPillGauntletXp">62,000 XP</span>
             </div>
@@ -2571,7 +2609,7 @@
               <tbody>
                 <tr><td style="width:28px;"><input type="checkbox" ${st.stdB1?'checked':''} onchange="updateModeField('stdB1', this.checked)"></td><td>Holdout Base I</td><td class="num" id="hoValStdB1">14,000</td></tr>
                 <tr><td><input type="checkbox" ${st.stdB2?'checked':''} onchange="updateModeField('stdB2', this.checked)"></td><td>Holdout Base II</td><td class="num" id="hoValStdB2">14,000</td></tr>
-                <tr><td><input type="checkbox" ${st.stdB3?'checked':''} onchange="updateModeField('stdB3', this.checked)"></td><td>Holdout Base III</td><td class="num" id="hoValStdB3">14,000</td></tr>
+                <tr><td><input type="checkbox" ${st.stdB3?'checked':''} onchange="updateModeField('stdB3', this.checked)"></td><td>Holdout Base III (+ Logi)</td><td class="num" id="hoValStdB3">14,000</td></tr>
               </tbody>
             </table>
           </div>
@@ -2801,9 +2839,9 @@
         const isGnt = st.activeTrack !== "STANDARD3";
         return {
           activeYield: isGnt ? gntXp : stdXp,
-          trackName: isGnt ? "4-Base Gauntlet" : "3-Base Standard",
+          trackName: isGnt ? "Full 4-Base" : "3-Base Standard",
           subDesc: `Crates: ${tier}/3 (+${cratePerBase.toLocaleString()} XP/Base)`,
-          altName: isGnt ? "3-Base Set" : "4-Base Gauntlet",
+          altName: isGnt ? "3-Base Set" : "Full 4-Base",
           altYield: isGnt ? stdXp : gntXp,
           extraCreditedXp: 0,
           extraCreditLabel: ""
