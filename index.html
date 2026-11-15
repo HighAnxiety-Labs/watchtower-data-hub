@@ -823,33 +823,45 @@
   .map-intel-content { flex: 1; min-width: 240px; font-size: 14.5px; color: #fff; font-weight: 700; background: linear-gradient(180deg, rgba(226, 197, 71, 0.08) 0%, rgba(15, 21, 29, 0.7) 100%); border: 1px solid rgba(226, 197, 71, 0.32); border-left: 4px solid var(--text-gold); padding: 12px 16px; border-radius: 3px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 10px rgba(0, 0, 0, 0.5); }
   .timers-dashboard { background: linear-gradient(180deg, #131b26 0%, #070a0e 100%); border-bottom: 3px solid var(--border-metal); padding: 20px 28px; box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8); }
   .carousel-wrapper { display: flex; align-items: center; gap: 12px; }
-  .carousel-btn { background: linear-gradient(180deg, #1b2633 0%, #0f1620 100%); border: 1px solid var(--border-bevel); border-bottom: 2px solid var(--border-shadow); color: var(--text-primary); width: 40px; height: 120px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 3px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 8px rgba(0, 0, 0, 0.7); transition: all 0.2s; flex-shrink: 0; }
+  .carousel-btn { background: linear-gradient(180deg, #1b2633 0%, #0f1620 100%); border: 1px solid var(--border-bevel); border-bottom: 2px solid var(--border-shadow); color: var(--text-primary); width: 40px; height: 132px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 3px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 8px rgba(0, 0, 0, 0.7); transition: all 0.2s; flex-shrink: 0; }
   .carousel-btn:hover { background: linear-gradient(180deg, #253547 0%, #141d2a 100%); border-color: var(--lead-accent); color: var(--lead-accent); }
   .carousel-viewport { overflow: hidden; width: 100%; }
-  .timers-track { display: flex; gap: 14px; transition: transform 0.3s ease-in-out; }
-  .timer-card { min-width: calc(33.333% - 10px); flex: 0 0 calc(33.333% - 10px); background: linear-gradient(180deg, #151e28 0%, #0c1218 100%); border: 1px solid var(--border-metal); border-top: 1px solid rgba(255, 255, 255, 0.12); border-left: 4px solid var(--c-breach); padding: 15px 18px; border-radius: 3px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 14px rgba(0, 0, 0, 0.7); }
+  .timers-track { display: flex; gap: 14px; transition: transform 0.3s ease-in-out; align-items: stretch; }
+  .timer-card { --ev-accent: var(--c-breach); --ev-glow: rgba(255, 152, 0, 0.42); min-width: calc(33.333% - 10px); flex: 0 0 calc(33.333% - 10px); background: linear-gradient(180deg, #151e28 0%, #0b1017 100%); border: 1px solid var(--border-metal); border-top: 1px solid rgba(255, 255, 255, 0.12); border-left: 4px solid var(--c-breach); padding: 10px 12px; border-radius: 4px; display: flex; flex-direction: row; align-items: stretch; gap: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 14px rgba(0, 0, 0, 0.72); }
   @media (max-width: 960px) { .timer-card { min-width: calc(50% - 7px); flex: 0 0 calc(50% - 7px); } }
   @media (max-width: 640px) { .timer-card { min-width: 100%; flex: 0 0 100%; } }
-  .timer-card.nightmare { border-left-color: var(--c-nightmare); }
-  .timer-card.holdout { border-left-color: var(--c-holdout); }
-  .timer-card.breach { border-left-color: var(--c-breach); }
-  .timer-card.warpath { border-left-color: var(--c-warpath); }
-  .timer-card.skirmish { border-left-color: var(--c-skirmish); }
-  .timer-card.shadowops { border-left-color: var(--c-shadowops); }
-  .timer-card.future { border-left-color: var(--c-future); }
-  .timer-card-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .timer-card-title { font-size: 13.5px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; }
-  .timer-status-badge { font-size: 11px; font-family: monospace; font-weight: 800; padding: 3px 7px; border-radius: 2px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-metal); color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
-  .timer-clock-display { font-family: monospace; font-size: 22px; font-weight: 900; color: var(--text-gold); letter-spacing: 1px; }
-  .timer-subtext { font-size: 12px; color: var(--text-muted); font-family: monospace; text-transform: uppercase; }
-  .timer-actions-row { display: flex; align-items: stretch; gap: 8px; margin-top: 4px; width: 100%; }
-  .timer-brief-btn { margin-top: 4px; padding: 9px 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #f0f6fc; background: linear-gradient(180deg, #1c2734 0%, #0b1118 100%); border: 1px solid var(--border-metal); border-top: 1px solid rgba(255, 255, 255, 0.15); border-radius: 2px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 7px; transition: all 0.15s ease; }
-  .timer-actions-row .timer-brief-btn { margin-top: 0; flex: 1; min-width: 0; }
-  .timer-brief-ico { font-size: 15.5px; line-height: 1; flex-shrink: 0; }
-  .timer-brief-btn:hover { border-color: var(--lead-accent); color: #fff; background: linear-gradient(180deg, #27384a 0%, #101923 100%); }
-  .timer-calc-btn { padding: 9px 13px; font-size: 12px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; color: #5eead4; background: linear-gradient(180deg, #113235 0%, #07171a 100%); border: 1px solid rgba(56, 178, 166, 0.82); border-top: 2px solid #38b2a6; border-radius: 2px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0; white-space: nowrap; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.68), 0 0 10px rgba(56, 178, 166, 0.18); transition: all 0.15s ease; }
-  .timer-calc-btn:hover { background: linear-gradient(180deg, #174448 0%, #0b2227 100%); border-color: #5eead4; color: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 14px rgba(94, 234, 212, 0.3); }
-  .timer-calc-ico { font-size: 15.5px; line-height: 1; flex-shrink: 0; }
+  .timer-card.nightmare { --ev-accent: var(--c-nightmare); --ev-glow: rgba(229, 57, 53, 0.45); border-left-color: var(--c-nightmare); }
+  .timer-card.holdout { --ev-accent: var(--c-holdout); --ev-glow: rgba(0, 188, 212, 0.45); border-left-color: var(--c-holdout); }
+  .timer-card.breach { --ev-accent: var(--c-breach); --ev-glow: rgba(255, 152, 0, 0.45); border-left-color: var(--c-breach); }
+  .timer-card.warpath { --ev-accent: var(--c-warpath); --ev-glow: rgba(171, 71, 188, 0.45); border-left-color: var(--c-warpath); }
+  .timer-card.skirmish { --ev-accent: var(--c-skirmish); --ev-glow: rgba(76, 175, 80, 0.45); border-left-color: var(--c-skirmish); }
+  .timer-card.shadowops { --ev-accent: var(--c-shadowops); --ev-glow: rgba(107, 116, 214, 0.45); border-left-color: var(--c-shadowops); }
+  .timer-card.future { --ev-accent: var(--c-future); --ev-glow: rgba(255, 42, 133, 0.45); border-left-color: var(--c-future); }
+  .timer-art-square { position: relative; width: 112px; height: 112px; aspect-ratio: 1 / 1; flex-shrink: 0; align-self: center; border-radius: 4px; overflow: hidden; background: radial-gradient(circle at 50% 45%, #0e1622 0%, #05080d 100%); border: 1.5px solid rgba(255, 255, 255, 0.22); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.82), 0 0 0 1px rgba(0, 0, 0, 0.65); cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease; }
+  .timer-art-square:hover { border-color: var(--ev-accent); box-shadow: 0 0 14px var(--ev-glow), 0 4px 12px rgba(0, 0, 0, 0.9); transform: translateY(-1px); }
+  .timer-art-square img { width: 100%; height: 100%; display: block; transition: transform 0.22s ease; }
+  .timer-art-square img.fit-contain { object-fit: contain; }
+  .timer-art-square img.fit-cover { object-fit: cover; }
+  .timer-art-square img.fit-logo { object-fit: contain; padding: 5px; }
+  .timer-art-square:hover img { transform: scale(1.04); }
+  .timer-art-corner-cue { position: absolute; top: 3px; right: 3px; background: rgba(5, 9, 15, 0.82); border: 1px solid rgba(255, 255, 255, 0.25); color: #e2e8f0; font-size: 9.5px; font-weight: 900; line-height: 1; padding: 2px 4px; border-radius: 3px; pointer-events: none; }
+  .timer-art-hover-pill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(5, 8, 13, 0) 0%, rgba(5, 8, 13, 0.92) 48%, rgba(5, 8, 13, 0.98) 100%); color: #fde047; font-family: monospace; font-size: 9.5px; font-weight: 900; letter-spacing: 0.4px; padding: 10px 3px 3px 3px; text-align: center; opacity: 0; transition: opacity 0.16s ease; pointer-events: none; text-transform: uppercase; }
+  .timer-art-square:hover .timer-art-hover-pill { opacity: 1; }
+  .timer-card-right { display: flex; flex-direction: column; justify-content: space-between; flex: 1; min-width: 0; gap: 4px; padding: 1px 0; }
+  .timer-card-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; min-width: 0; }
+  .timer-card-title { font-size: 13px; font-weight: 900; letter-spacing: 0.7px; text-transform: uppercase; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); }
+  .timer-status-badge { font-size: 10px; font-family: monospace; font-weight: 800; padding: 2px 6px; border-radius: 2px; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-metal); color: var(--text-muted); text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+  .timer-clock-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .timer-clock-display { font-family: monospace; font-size: 19px; font-weight: 900; color: var(--text-gold); letter-spacing: 0.5px; line-height: 1.15; white-space: nowrap; }
+  .timer-subtext { font-size: 11px; color: var(--text-muted); font-family: monospace; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .timer-actions-row { display: flex; align-items: stretch; gap: 6px; margin-top: 2px; width: 100%; min-height: 27px; }
+  .timer-brief-btn { display: none; }
+  .timer-calc-btn { padding: 5px 10px; font-size: 11px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase; color: #5eead4; background: linear-gradient(180deg, #113235 0%, #07171a 100%); border: 1px solid rgba(56, 178, 166, 0.85); border-top: 2px solid #38b2a6; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%; white-space: nowrap; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.68), 0 0 10px rgba(56, 178, 166, 0.16); transition: all 0.15s ease; }
+  .timer-calc-btn:hover:not(.is-faded) { background: linear-gradient(180deg, #174448 0%, #0b2227 100%); border-color: #5eead4; color: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 14px rgba(94, 234, 212, 0.3); }
+  .timer-calc-btn.is-faded { padding: 5px 6px; font-size: 9.8px; font-weight: 800; letter-spacing: 0.4px; color: #94a3b8; background: linear-gradient(180deg, #0f1620 0%, #080c12 100%); border: 1px dashed rgba(148, 163, 184, 0.42); border-top: 1px dashed rgba(148, 163, 184, 0.42); opacity: 0.46; cursor: not-allowed; box-shadow: none; overflow: hidden; text-overflow: ellipsis; }
+  .timer-calc-btn.is-faded:hover { opacity: 0.65; }
+  .timer-calc-ico { font-size: 13.5px; line-height: 1; flex-shrink: 0; }
+  .timer-calc-spacer { height: 27px; width: 100%; }
 
   /* ==================== 2-WEEK / 4-WEEK CALENDAR SECTION & 3-TRACK CONTINUOUS BEAMS ==================== */
   .calendar-container { padding: 24px 28px; background: linear-gradient(180deg, #101620 0%, #06090d 100%); }
@@ -1200,46 +1212,117 @@
         <div class="carousel-viewport">
           <div class="timers-track" id="timersTrack">
             <div class="timer-card breach card-inherited" id="carouselCardBreach" style="display: flex; --dir-target-key: var(--dir-btn4); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleBreach" style="color: #e09f5a;">Sector Breach</span><span class="timer-status-badge" id="badge-breach">Upcoming</span></div>
-              <div class="timer-clock-display" id="clock-breach">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-breach">Launches Nov 20, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn4);">🖥️ OPEN SECTOR BREACH BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Sector Breach Brief" style="--glow-color: var(--c-breach);">
+                <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Sector Breach" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleBreach" style="color: #ff9800;">Sector Breach</span><span class="timer-status-badge" id="badge-breach">Upcoming</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-breach">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-breach">Launches Nov 20, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row">
+                  <button type="button" class="timer-calc-btn is-faded" id="clockCalcBtnBreach" data-calc-mode="breach" data-calc-label="Sector Breach" data-has-prizes="false" onclick="handleClockCalcClick(this, event)" title="No prize list available yet for Sector Breach — unlocks when active brief publishes"><span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span></button>
+                </div>
+              </div>
             </div>
             <div class="timer-card shadowops card-inherited" id="carouselCardShadowOps" style="display: flex; --dir-target-key: var(--dir-btn2); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Drifting Dragon: Ch.1 / P1</span><span class="timer-status-badge" id="badge-shadowops">Phase Live</span></div>
-              <div class="timer-clock-display" id="clock-shadowops">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-shadowops">Phase Ends Nov 20, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Drifting Dragon" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn2);">🖥️ OPEN SHADOW OPS BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Drifting Dragon" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Shadow Ops: Drifting Dragon Brief" style="background: radial-gradient(circle at 50% 45%, #0c1926 0%, #05080d 100%); --glow-color: var(--c-shadowops);">
+                <img src="./assets/images/clock-shadow-ops-drifting-dragon.jpg" alt="Drifting Dragon: Ch.1 / P1" class="fit-contain" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">OPEN SHADOW OPS BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Drifting Dragon: Ch.1 / P1</span><span class="timer-status-badge" id="badge-shadowops">Phase Live</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-shadowops">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-shadowops">Phase Ends Nov 20, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row"><div class="timer-calc-spacer"></div></div>
+              </div>
             </div>
             <div class="timer-card warpath card-inherited" id="carouselCardWarpath" style="display: none; --dir-target-key: var(--dir-archives); order: 10; opacity: 0.65;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleWarpath" style="color: #be8ee0;">Warpath</span><span class="timer-status-badge" id="badge-warpath">Concluded</span></div>
-              <div class="timer-clock-display" id="clock-warpath">CONCLUDED</div>
-              <div class="timer-subtext" id="sub-warpath">Event Ended Oct 27, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnWarpath" data-url="./vault/2026-oct-warpath.html" data-clock-title="Warpath" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-archives);">🖥️ OPEN WARPATH BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnWarpath" data-url="./vault/2026-oct-warpath.html" data-clock-title="Warpath" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Warpath Brief" style="--glow-color: var(--c-warpath);">
+                <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Warpath" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">OPEN WARPATH BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleWarpath" style="color: #ab47bc;">Warpath</span><span class="timer-status-badge" id="badge-warpath">Concluded</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-warpath">CONCLUDED</div>
+                  <div class="timer-subtext" id="sub-warpath">Event Ended Oct 27, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row"><div class="timer-calc-spacer"></div></div>
+              </div>
             </div>
             <div class="timer-card skirmish card-inherited" id="carouselCardSkirmish" style="display: flex; --dir-target-key: var(--dir-btn3); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleSkirmish" style="color: #71bf8d;">Skirmish</span><span class="timer-status-badge" id="badge-skirmish">Upcoming</span></div>
-              <div class="timer-clock-display" id="clock-skirmish">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-skirmish">Launches Nov 27, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnSkirmish" data-url="./2026-nov-skirmish-brief.html" data-clock-title="Skirmish" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn3);">🖥️ OPEN SKIRMISH BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnSkirmish" data-url="./2026-nov-skirmish-brief.html" data-clock-title="Skirmish II" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Skirmish Brief" style="--glow-color: var(--c-skirmish);">
+                <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Skirmish II" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleSkirmish" style="color: #4caf50;">Skirmish II</span><span class="timer-status-badge" id="badge-skirmish">Upcoming</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-skirmish">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-skirmish">Launches Nov 27, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row">
+                  <button type="button" class="timer-calc-btn is-faded" id="clockCalcBtnSkirmish" data-calc-mode="skirmish" data-calc-label="Skirmish II" data-has-prizes="false" onclick="handleClockCalcClick(this, event)" title="No prize list available yet for Skirmish II — unlocks when active brief publishes"><span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span></button>
+                </div>
+              </div>
             </div>
             <div class="timer-card holdout card-inherited" id="carouselCardHoldout" style="display: flex; --dir-target-key: var(--dir-btn1); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleHoldout" style="color: #53bfd1;">Holdout</span><span class="timer-status-badge" id="badge-holdout">Upcoming</span></div>
-              <div class="timer-clock-display" id="clock-holdout">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-holdout">Launches Nov 13, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnHoldout" data-url="./2026-nov-holdout-brief.html" data-clock-title="Holdout" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn1);">🖥️ OPEN HOLDOUT BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnHoldout" data-url="./2026-nov-holdout-brief.html" data-clock-title="Holdout" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Holdout Brief" style="background: radial-gradient(circle at 50% 42%, #2d090c 0%, #070406 100%); --glow-color: var(--c-holdout);">
+                <img src="./assets/images/clock-holdout-nov-2026.jpg" alt="Holdout" class="fit-contain" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">OPEN HOLDOUT BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleHoldout" style="color: #00bcd4;">Holdout</span><span class="timer-status-badge" id="badge-holdout">Live Event</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-holdout">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-holdout">Event Ends Nov 17, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row">
+                  <button type="button" class="timer-calc-btn" id="clockCalcBtnHoldout" data-calc-mode="holdout" data-calc-label="Holdout" data-has-prizes="true" onclick="handleClockCalcClick(this, event)" title="Quick Access: Holdout XP Calculator"><span class="timer-calc-ico">🧮</span><span>XP CALCULATOR</span></button>
+                </div>
+              </div>
             </div>
             <div class="timer-card nightmare card-inherited" id="carouselCardNightmare" style="display: flex; --dir-target-key: var(--dir-btn5); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e06c6c;">Operation: Blue Baron</span><span class="timer-status-badge" id="badge-nightmare">Live Event</span></div>
-              <div class="timer-clock-display" id="clock-nightmare">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-nightmare">Event Ends Nov 11, 10:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnNightmare" data-url="./operation-blue-baron.html" data-clock-title="Operation: Blue Baron" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--dir-btn5);">🖥️ OPEN OPERATION: BLUE BARON BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnNightmare" data-url="./2026-dec-operation-brief.html" data-clock-title="Dec Main Event" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Dec Main Event Brief" style="--glow-color: var(--c-nightmare);">
+                <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Dec Main Event" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e53935;">Dec Main Event</span><span class="timer-status-badge" id="badge-nightmare">Upcoming</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-nightmare">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-nightmare">Launches Dec 3, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row">
+                  <button type="button" class="timer-calc-btn is-faded" id="clockCalcBtnNightmare" data-calc-mode="operations" data-calc-label="Dec Main Event" data-has-prizes="false" onclick="handleClockCalcClick(this, event)" title="No prize list available yet for Dec Main Event — unlocks when active brief publishes"><span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span></button>
+                </div>
+              </div>
             </div>
             <div class="timer-card future card-inherited" id="carouselCardFuture" style="display: flex; --dir-target-key: var(--c-future); order: 0; opacity: 1;">
-              <div class="timer-card-header"><span class="timer-card-title" id="clockTitleFuture" style="color: #ff6ea7;">PVP Season 60</span><span class="timer-status-badge" id="badge-future">Upcoming</span></div>
-              <div class="timer-clock-display" id="clock-future">--d --h --m --s</div>
-              <div class="timer-subtext" id="sub-future">Launches Nov 12, 9:00 AM PT</div>
-              <button type="button" class="timer-brief-btn" id="clockBtnFuture" data-url="./2026-pvp-season-60-brief.html" data-clock-title="PVP Season 60" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" style="--glow-color: var(--c-future);">🖥️ OPEN PVP SEASON 60 BRIEF</button>
+              <button type="button" class="timer-art-square" id="clockBtnFuture" data-url="./2026-pvp-season-60-brief.html" data-clock-title="PVP Season 60" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open PVP Season 60 Brief" style="background: #06090e; --glow-color: var(--c-future);">
+                <img src="./assets/images/clock-pvp-season-60.png" alt="PVP Season 60" class="fit-cover" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <span class="timer-art-corner-cue">↗</span>
+                <span class="timer-art-hover-pill">OPEN PVP S60 BRIEF ↗</span>
+              </button>
+              <div class="timer-card-right">
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleFuture" style="color: #ff2a85;">PVP Season 60</span><span class="timer-status-badge" id="badge-future">Live Event</span></div>
+                <div class="timer-clock-block">
+                  <div class="timer-clock-display" id="clock-future">--d --h --m --s</div>
+                  <div class="timer-subtext" id="sub-future">Event Ends Dec 30, 10:00 AM PT</div>
+                </div>
+                <div class="timer-actions-row"><div class="timer-calc-spacer"></div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1702,13 +1785,13 @@
   });
 
   const eventSchedules = {
-    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "" },
-    "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "" },
-    "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "" },
-    "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "" },
-    "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "" },
-    "nightmare": { "start": 1793901600000, "end": 1794420000000, "store": 1794506400000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "" },
-    "future":    { "start": 1794510000000, "end": 1798653600000, "store": 1798653600000, "noStore": true,  "color": "var(--c-future)",    "bg": "rgba(255, 42, 133, 0.16)",  "customSubtext": "" }
+    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "", "artUrl": "./assets/images/clock-shadow-ops-drifting-dragon.jpg", "hasPrizeList": true },
+    "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-holdout-nov-2026.jpg", "hasPrizeList": true },
+    "nightmare": { "start": 1796320800000, "end": 1796839200000, "store": 1796925600000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "future":    { "start": 1794502800000, "end": 1798653600000, "store": 1798653600000, "noStore": true,  "color": "var(--c-future)",    "bg": "rgba(255, 42, 133, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-pvp-season-60.png", "hasPrizeList": true }
   };
 
   const defaultWorkspaceData = {
@@ -6835,6 +6918,9 @@
       const titleEl = doc.querySelector(`#${c.titleId}`);
       const btnEl = doc.querySelector(`#${c.btnId}`);
       const isEnabled = cardEl ? (cardEl.style.display !== "none") : true;
+      const imgInBtn = btnEl ? btnEl.querySelector("img") : null;
+      const domArtSrc = imgInBtn ? (imgInBtn.getAttribute("src") || "") : "";
+      const recoveredArt = (sched?.artUrl !== undefined) ? sched.artUrl : (domArtSrc && domArtSrc !== "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" ? domArtSrc : "");
       return {
         key: c.key,
         title: titleEl ? titleEl.textContent.trim() : c.key.toUpperCase(),
@@ -6847,7 +6933,9 @@
         noStore: Boolean(sched?.noStore),
         subtext: sched?.customSubtext || "",
         enabled: isEnabled,
-        link: btnEl ? (btnEl.getAttribute("data-url") || "") : ""
+        link: btnEl ? (btnEl.getAttribute("data-url") || "") : "",
+        artUrl: recoveredArt,
+        hasPrizeList: sched?.hasPrizeList !== undefined ? Boolean(sched.hasPrizeList) : (c.key === "holdout" || c.key === "shadowops" || c.key === "future")
       };
     });
 
@@ -6998,6 +7086,97 @@
     if (importUrlEl && footerLink) footerLink.setAttribute("data-url", importUrlEl.value.trim());
   }
 
+  const WTR_CLOCK_FALLBACK_LOGO = "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
+  const CLOCK_LEGEND_TITLE_COLORS = {
+    breach:    "#ff9800",
+    shadowops: "#939be0",
+    warpath:   "#ab47bc",
+    skirmish:  "#4caf50",
+    holdout:   "#00bcd4",
+    nightmare: "#e53935",
+    future:    "#ff2a85"
+  };
+
+  function resolveClockArtSrc(rawArtUrl) {
+    const clean = String(rawArtUrl || "").trim();
+    if (!clean) return WTR_CLOCK_FALLBACK_LOGO;
+    if (clean.startsWith("./") && (window.location.hostname.includes("googleusercontent.com") || window.location.protocol === "blob:")) {
+      return "https://highanxiety-labs.github.io/watchtower-data-hub/" + clean.slice(2);
+    }
+    return clean;
+  }
+
+  function syncClockArtButton(key, btnEl, linkVal, titleVal) {
+    if (!btnEl) return;
+    const sched = eventSchedules[key] || {};
+    const cleanLink = (linkVal !== undefined && linkVal !== null) ? String(linkVal).trim() : (btnEl.getAttribute("data-url") || "");
+    const cleanTitle = (titleVal !== undefined && titleVal !== null && String(titleVal).trim())
+      ? String(titleVal).trim()
+      : (btnEl.getAttribute("data-clock-title") || key.toUpperCase());
+
+    btnEl.setAttribute("data-url", cleanLink);
+    btnEl.setAttribute("data-clock-title", cleanTitle);
+    btnEl.title = (cleanLink && cleanLink !== "#")
+      ? `Click artwork to open ${cleanTitle} Brief`
+      : `${cleanTitle} Brief Pending`;
+
+    const rawArt = String(sched.artUrl || "").trim();
+    const hasCustomArt = Boolean(rawArt && rawArt !== WTR_CLOCK_FALLBACK_LOGO);
+    const resolvedSrc = resolveClockArtSrc(rawArt);
+    const fitClass = !hasCustomArt ? "fit-logo" : (key === "future" ? "fit-cover" : "fit-contain");
+
+    let imgEl = btnEl.querySelector("img");
+    if (!imgEl) {
+      imgEl = document.createElement("img");
+      imgEl.onerror = function() {
+        this.onerror = null;
+        this.src = WTR_CLOCK_FALLBACK_LOGO;
+        this.className = "fit-logo";
+      };
+      btnEl.insertBefore(imgEl, btnEl.firstChild);
+    }
+    if (imgEl.getAttribute("src") !== resolvedSrc) {
+      imgEl.setAttribute("src", resolvedSrc);
+    }
+    imgEl.alt = cleanTitle;
+    imgEl.className = fitClass;
+
+    if (!btnEl.querySelector(".timer-art-corner-cue")) {
+      const cue = document.createElement("span");
+      cue.className = "timer-art-corner-cue";
+      cue.textContent = "↗";
+      btnEl.appendChild(cue);
+    }
+
+    let pill = btnEl.querySelector(".timer-art-hover-pill");
+    if (!pill) {
+      pill = document.createElement("span");
+      pill.className = "timer-art-hover-pill";
+      btnEl.appendChild(pill);
+    }
+    const isPreRelease = (key === "breach" || key === "skirmish" || key === "nightmare") && !sched.hasPrizeList && !hasCustomArt;
+    const shortLabels = { shadowops: "SHADOW OPS", future: "PVP S60", warpath: "WARPATH", holdout: "HOLDOUT", breach: "BREACH", skirmish: "SKIRMISH", nightmare: "EVENT" };
+    const pillShort = cleanTitle.length <= 12 ? cleanTitle.toUpperCase() : (shortLabels[key] || "EVENT");
+    pill.textContent = (!cleanLink || cleanLink === "#")
+      ? "BRIEF PENDING"
+      : isPreRelease
+        ? "PRE-RELEASE BRIEF ↗"
+        : `OPEN ${pillShort} BRIEF ↗`;
+  }
+
+  function handleClockCalcClick(btnEl, evt) {
+    if (evt && typeof evt.stopPropagation === "function") {
+      evt.preventDefault();
+      evt.stopPropagation();
+    }
+    if (!btnEl) return;
+    if (btnEl.getAttribute("data-has-prizes") !== "true" || btnEl.classList.contains("is-faded")) {
+      return;
+    }
+    openQuickEventCalc(btnEl.getAttribute("data-calc-mode"), btnEl.getAttribute("data-calc-label"), evt);
+  }
+  window.handleClockCalcClick = handleClockCalcClick;
+
   function updateClockControls() {
     const clocks = [
       { key: "breach",    id: "carouselCardBreach",    titleId: "clockTitleBreach",    cfgIdx: 1, btnId: "clockBtnBreach",    linkId: "linkBreach" },
@@ -7037,13 +7216,17 @@
       }
       if (cfgSubEl) eventSchedules[c.key].customSubtext = cfgSubEl.value.trim();
 
-      if (titleEl) titleEl.textContent = titleVal;
+      if (titleEl) {
+        titleEl.textContent = titleVal;
+        if (CLOCK_LEGEND_TITLE_COLORS[c.key]) titleEl.style.color = CLOCK_LEGEND_TITLE_COLORS[c.key];
+      }
       if (card) card.style.display = isEnabled ? "flex" : "none";
+      const cfgArtEl = document.getElementById(`cfgClock${i}Art`);
+      if (cfgArtEl) eventSchedules[c.key].artUrl = cfgArtEl.value.trim();
+      const cfgPrizeEl = document.getElementById(`cfgClock${i}HasPrizes`);
+      if (cfgPrizeEl) eventSchedules[c.key].hasPrizeList = cfgPrizeEl.checked;
       if (btn) {
-        const hasMatchingEmbed = Boolean(findEmbeddedCardForClockOrUrl(linkVal, titleVal));
-        btn.innerHTML = `<span class="timer-brief-ico">${hasMatchingEmbed ? '🖥️' : '↗'}</span><span>${hasMatchingEmbed ? 'OPEN' : 'VIEW'} ${escapeHtml(titleVal.toUpperCase())} BRIEF</span>`;
-        btn.setAttribute("data-url", linkVal);
-        btn.setAttribute("data-clock-title", titleVal);
+        syncClockArtButton(c.key, btn, linkVal, titleVal);
       }
     });
     updateAllSystemClocks();
@@ -7170,7 +7353,9 @@
         storeMs: noStoreVal ? (parsePdtInputToUtcMs(endVal) || eventSchedules[k]?.end) : (parsePdtInputToUtcMs(storeVal) || eventSchedules[k]?.store),
         subtext: document.getElementById(`cfgClock${i}Subtext`)?.value ?? (eventSchedules[k]?.customSubtext || ""),
         enabled: document.getElementById(`cfgClock${i}Enabled`)?.checked ?? true,
-        link: document.getElementById(linkIds[i - 1])?.value ?? ""
+        link: document.getElementById(linkIds[i - 1])?.value ?? document.getElementById(`clockBtn${k === "shadowops" ? "ShadowOps" : k.charAt(0).toUpperCase() + k.slice(1)}`)?.getAttribute("data-url") ?? "",
+        artUrl: document.getElementById(`cfgClock${i}Art`)?.value?.trim() ?? (eventSchedules[k]?.artUrl || ""),
+        hasPrizeList: document.getElementById(`cfgClock${i}HasPrizes`) ? document.getElementById(`cfgClock${i}HasPrizes`).checked : Boolean(eventSchedules[k]?.hasPrizeList)
       });
     }
     for (let i = 1; i <= 6; i++) {
@@ -7485,6 +7670,37 @@
         const meta = clockMap[idx];
         if (!meta) return;
 
+        const rawCheckEndMs = c.endMs || parsePdtInputToUtcMs(c.end) || 0;
+        if (meta.key === "skirmish" && rawCheckEndMs > 0 && rawCheckEndMs < 1794000000000) {
+          c = Object.assign({}, c, {
+            title: "Skirmish II",
+            start: "2026-11-27T10:00",
+            end: "2026-12-01T10:00",
+            store: "2026-12-02T10:00",
+            startMs: 1795802400000,
+            endMs: 1796148000000,
+            storeMs: 1796234400000,
+            noStore: false,
+            link: "./2026-nov-skirmish-brief.html",
+            artUrl: c.artUrl || "",
+            hasPrizeList: false
+          });
+        } else if (meta.key === "nightmare" && rawCheckEndMs > 0 && rawCheckEndMs < 1794600000000) {
+          c = Object.assign({}, c, {
+            title: "Dec Main Event",
+            start: "2026-12-03T10:00",
+            end: "2026-12-09T10:00",
+            store: "2026-12-10T10:00",
+            startMs: 1796320800000,
+            endMs: 1796839200000,
+            storeMs: 1796925600000,
+            noStore: false,
+            link: "./2026-dec-operation-brief.html",
+            artUrl: c.artUrl || "",
+            hasPrizeList: false
+          });
+        }
+
         if (c.title !== undefined && document.getElementById(`cfgClock${i}Title`)) document.getElementById(`cfgClock${i}Title`).value = c.title;
         if (c.start && document.getElementById(`cfgClock${i}Start`)) document.getElementById(`cfgClock${i}Start`).value = c.start;
         if (c.end && document.getElementById(`cfgClock${i}End`)) document.getElementById(`cfgClock${i}End`).value = c.end;
@@ -7509,15 +7725,23 @@
         const titleEl = document.getElementById(meta.titleId);
         const cardEl = document.getElementById(meta.cardId);
         const btnEl = document.getElementById(meta.btnId);
-        if (titleEl && c.title) titleEl.textContent = c.title;
+        if (titleEl && c.title) {
+          titleEl.textContent = c.title;
+          if (CLOCK_LEGEND_TITLE_COLORS[meta.key]) titleEl.style.color = CLOCK_LEGEND_TITLE_COLORS[meta.key];
+        }
         if (cardEl && c.enabled !== undefined) cardEl.style.display = c.enabled ? "flex" : "none";
+        if (c.artUrl !== undefined) {
+          eventSchedules[meta.key].artUrl = c.artUrl;
+          const cfgArtEl = document.getElementById(`cfgClock${i}Art`);
+          if (cfgArtEl) cfgArtEl.value = c.artUrl;
+        }
+        if (c.hasPrizeList !== undefined) {
+          eventSchedules[meta.key].hasPrizeList = Boolean(c.hasPrizeList);
+          const cfgPrizeEl = document.getElementById(`cfgClock${i}HasPrizes`);
+          if (cfgPrizeEl) cfgPrizeEl.checked = Boolean(c.hasPrizeList);
+        }
         if (btnEl) {
-          const hasMatchingEmbed = Boolean(findEmbeddedCardForClockOrUrl(c.link, c.title));
-          if (c.title) {
-            btnEl.innerHTML = `<span class="timer-brief-ico">${hasMatchingEmbed ? '🖥️' : '↗'}</span><span>${hasMatchingEmbed ? 'OPEN' : 'VIEW'} ${escapeHtml(c.title.toUpperCase())} BRIEF</span>`;
-            btnEl.setAttribute("data-clock-title", c.title);
-          }
-          if (c.link !== undefined) btnEl.setAttribute("data-url", c.link);
+          syncClockArtButton(meta.key, btnEl, c.link !== undefined ? c.link : (btnEl.getAttribute("data-url") || ""), c.title || (titleEl ? titleEl.textContent : ""));
         }
       });
     }
@@ -7717,7 +7941,7 @@
     if (!track) return;
     const visibleCards = track.querySelectorAll('.timer-card:not([style*="display: none"])');
     const vMode = document.documentElement.getAttribute("data-wtr-view") || "auto";
-    const visibleCount = (vMode === "mobile" || window.innerWidth <= 640) ? 1 : window.innerWidth <= 960 ? 2 : (vMode === "wide" && window.innerWidth >= 1620) ? 4 : 3;
+    const visibleCount = (vMode === "mobile" || window.innerWidth <= 640) ? 1 : window.innerWidth <= 960 ? 2 : 3;
     const maxIndex = Math.max(0, visibleCards.length - visibleCount);
     currentCarouselIndex += direction;
     if (currentCarouselIndex < 0) currentCarouselIndex = 0;
@@ -7758,27 +7982,47 @@
   }
 
   function ensureManualClockOrderInputsExist() {
+    const clockKeys = ["breach", "shadowops", "warpath", "skirmish", "holdout", "nightmare", "future"];
+    const linkIds = ["linkBreach", "linkShadowOps", "linkWarpath", "linkSkirmish", "linkHoldout", "linkNightmare", "linkFuture"];
+    const calcClockKeys = { breach: true, skirmish: true, holdout: true, nightmare: true };
     for (let i = 1; i <= 7; i++) {
-      if (document.getElementById(`cfgClock${i}Order`)) continue;
-      const enInput = document.getElementById(`cfgClock${i}Enabled`);
-      const toggleLabel = enInput ? enInput.closest("label.toggle-row") : null;
-      if (!toggleLabel) continue;
-
-      const wrap = document.createElement("div");
-      wrap.style.cssText = "display:flex; justify-content:space-between; align-items:center; gap:8px; background:#05080c; border:1px solid #2a3b4c; padding:4px 8px; border-radius:3px;";
-      wrap.innerHTML = `
-        <span style="font-family:monospace; font-size:10px; color:var(--text-gold); font-weight:800;">CAROUSEL ORDER (0 = AUTO-SORT):</span>
-        <input type="number" id="cfgClock${i}Order" min="0" max="99" value="0" title="0 = Auto-Sort (Live -> Store Open -> Soonest Upcoming -> Concluded). Set 1–6 to pin position manually." oninput="updateClockControls(); persistCompanionState();" style="width:54px; padding:3px 6px; text-align:center; font-family:monospace; font-weight:900; color:#4ade80; background:#090e14; border:1px solid #41586f;">
-      `;
-      toggleLabel.insertAdjacentElement("afterend", wrap);
+      const k = clockKeys[i - 1];
+      if (!document.getElementById(`cfgClock${i}Order`)) {
+        const enInput = document.getElementById(`cfgClock${i}Enabled`);
+        const toggleLabel = enInput ? enInput.closest("label.toggle-row") : null;
+        if (toggleLabel) {
+          const wrap = document.createElement("div");
+          wrap.style.cssText = "display:flex; justify-content:space-between; align-items:center; gap:8px; background:#05080c; border:1px solid #2a3b4c; padding:4px 8px; border-radius:3px;";
+          wrap.innerHTML = `
+            <span style="font-family:monospace; font-size:10px; color:var(--text-gold); font-weight:800;">CAROUSEL ORDER (0 = AUTO-SORT):</span>
+            <input type="number" id="cfgClock${i}Order" min="0" max="99" value="0" title="0 = Auto-Sort (Live -> Store Open -> Soonest Upcoming -> Concluded). Set 1–6 to pin position manually." oninput="updateClockControls(); persistCompanionState();" style="width:54px; padding:3px 6px; text-align:center; font-family:monospace; font-weight:900; color:#4ade80; background:#090e14; border:1px solid #41586f;">
+          `;
+          toggleLabel.insertAdjacentElement("afterend", wrap);
+        }
+      }
+      if (!document.getElementById(`cfgClock${i}Art`)) {
+        const linkInp = document.getElementById(linkIds[i - 1]);
+        if (linkInp && linkInp.parentElement) {
+          const artWrap = document.createElement("div");
+          artWrap.style.cssText = "display:flex; flex-direction:column; gap:4px; margin-top:4px;";
+          const curArt = (eventSchedules[k] && eventSchedules[k].artUrl) ? String(eventSchedules[k].artUrl) : "";
+          const hasPrizes = Boolean(eventSchedules[k] && eventSchedules[k].hasPrizeList);
+          artWrap.innerHTML = `
+            <label style="font-family:monospace; font-size:10px; color:#38bdf8; font-weight:800;">EVENT ART URL (BLANK = WTR LOGO)</label>
+            <input type="text" id="cfgClock${i}Art" value="${escapeHtml(curArt)}" placeholder="Blank = WatchToweR Logo" oninput="updateClockControls(); persistCompanionState();">
+            ${calcClockKeys[k] ? `<label class="toggle-row" style="margin-top:2px;"><span style="font-size:10px; color:#5eead4;">🧮 PRIZE LIST / CALC LIVE</span><input type="checkbox" id="cfgClock${i}HasPrizes" ${hasPrizes ? "checked" : ""} onchange="updateClockControls(); persistCompanionState();"></label>` : ""}
+          `;
+          linkInp.insertAdjacentElement("afterend", artWrap);
+        }
+      }
     }
   }
 
   const CLOCK_CALC_MODES = {
-    breach:    { mode: "breach",     label: "SECTOR BREACH", btnId: "clockCalcBtnBreach",    briefBtnId: "clockBtnBreach",    titleId: "clockTitleBreach" },
-    skirmish:  { mode: "skirmish",   label: "SKIRMISH",      btnId: "clockCalcBtnSkirmish",  briefBtnId: "clockBtnSkirmish",  titleId: "clockTitleSkirmish" },
-    holdout:   { mode: "holdout",    label: "HOLDOUT",       btnId: "clockCalcBtnHoldout",   briefBtnId: "clockBtnHoldout",   titleId: "clockTitleHoldout" },
-    nightmare: { mode: "operations", label: "MAIN EVENT",    btnId: "clockCalcBtnNightmare", briefBtnId: "clockBtnNightmare", titleId: "clockTitleNightmare" }
+    breach:    { mode: "breach",     label: "SECTOR BREACH", btnId: "clockCalcBtnBreach",    briefBtnId: "clockBtnBreach",    titleId: "clockTitleBreach",    cardId: "carouselCardBreach" },
+    skirmish:  { mode: "skirmish",   label: "SKIRMISH",      btnId: "clockCalcBtnSkirmish",  briefBtnId: "clockBtnSkirmish",  titleId: "clockTitleSkirmish",  cardId: "carouselCardSkirmish" },
+    holdout:   { mode: "holdout",    label: "HOLDOUT",       btnId: "clockCalcBtnHoldout",   briefBtnId: "clockBtnHoldout",   titleId: "clockTitleHoldout",   cardId: "carouselCardHoldout" },
+    nightmare: { mode: "operations", label: "MAIN EVENT",    btnId: "clockCalcBtnNightmare", briefBtnId: "clockBtnNightmare", titleId: "clockTitleNightmare", cardId: "carouselCardNightmare" }
   };
 
   function openQuickEventCalc(mode, eventLabel, evt) {
@@ -7800,50 +8044,58 @@
   window.openQuickEventCalc = openQuickEventCalc;
 
   function ensureClockCalcButtonsExist() {
-    const allBriefBtnIds = [
-      "clockBtnBreach", "clockBtnShadowOps", "clockBtnWarpath",
-      "clockBtnSkirmish", "clockBtnHoldout", "clockBtnNightmare", "clockBtnFuture"
-    ];
-    allBriefBtnIds.forEach(bId => {
-      const bEl = document.getElementById(bId);
-      if (!bEl) return;
-      if (!bEl.querySelector(".timer-brief-ico")) {
-        const rawTxt = (bEl.textContent || "").trim();
-        const m = rawTxt.match(/^(🖥️|↗)\s*(.+)$/);
-        if (m) {
-          bEl.innerHTML = `<span class="timer-brief-ico">${m[1]}</span><span>${escapeHtml(m[2])}</span>`;
-        }
-      }
-      if (!bEl.parentElement || !bEl.parentElement.classList.contains("timer-actions-row")) {
-        const row = document.createElement("div");
-        row.className = "timer-actions-row";
-        bEl.parentNode.insertBefore(row, bEl);
-        row.appendChild(bEl);
-      }
-    });
-
     Object.keys(CLOCK_CALC_MODES).forEach(k => {
       const spec = CLOCK_CALC_MODES[k];
       if (document.getElementById(spec.btnId)) return;
-      const briefBtn = document.getElementById(spec.briefBtnId);
-      const row = (briefBtn && briefBtn.parentElement && briefBtn.parentElement.classList.contains("timer-actions-row"))
-        ? briefBtn.parentElement
-        : null;
-      if (!row) return;
+      const card = document.getElementById(spec.cardId);
+      if (!card) return;
+      let row = card.querySelector(".timer-card-right .timer-actions-row") || card.querySelector(".timer-actions-row");
+      if (!row) {
+        const rightCol = card.querySelector(".timer-card-right") || card;
+        row = document.createElement("div");
+        row.className = "timer-actions-row";
+        rightCol.appendChild(row);
+      }
       const calcBtn = document.createElement("button");
       calcBtn.type = "button";
       calcBtn.id = spec.btnId;
       calcBtn.className = "timer-calc-btn";
-      calcBtn.style.display = "none";
       calcBtn.style.setProperty("--glow-color", "#38b2a6");
       calcBtn.setAttribute("data-calc-mode", spec.mode);
       calcBtn.setAttribute("data-calc-label", spec.label);
-      calcBtn.title = `Quick Access: ${spec.label} XP Calculator`;
-      calcBtn.innerHTML = `<span class="timer-calc-ico">🧮</span><span>CALC</span>`;
+      calcBtn.setAttribute("data-has-prizes", Boolean(eventSchedules[k]?.hasPrizeList) ? "true" : "false");
       calcBtn.onclick = function(e) {
-        openQuickEventCalc(this.getAttribute("data-calc-mode"), this.getAttribute("data-calc-label"), e);
+        handleClockCalcClick(this, e);
       };
+      row.innerHTML = "";
       row.appendChild(calcBtn);
+    });
+  }
+
+  function probeClockBriefPrizeLists() {
+    if (!window.location.protocol.startsWith("http")) return;
+    const prefix = (typeof getWtrPublishedPrefix === "function") ? getWtrPublishedPrefix() : "./";
+    Object.keys(CLOCK_CALC_MODES).forEach(k => {
+      const spec = CLOCK_CALC_MODES[k];
+      const briefBtn = document.getElementById(spec.briefBtnId);
+      const rawHref = briefBtn ? (briefBtn.getAttribute("data-url") || "").trim() : "";
+      if (!rawHref || rawHref === "#" || !/\.html($|\?|#)/i.test(rawHref)) return;
+      const fetchUrl = rawHref.startsWith("./") ? (prefix + rawHref.slice(2)) : rawHref;
+      fetch(fetchUrl, { cache: "no-store" })
+        .then(r => r.ok ? r.text() : "")
+        .then(html => {
+          if (!html || !eventSchedules[k]) return;
+          const isPreRel = html.includes("WATCHTOWER PRE-RELEASE HOLDING BRIEF") || html.includes("is-prerelease-locked");
+          const hasCatalog = !isPreRel && (html.includes('"storeCatalog"') || html.includes("storeCatalog:"));
+          if (hasCatalog && !eventSchedules[k].hasPrizeList) {
+            eventSchedules[k].hasPrizeList = true;
+            const cfgIds = { breach: 1, skirmish: 4, holdout: 5, nightmare: 6 };
+            const cfgPrizeEl = document.getElementById(`cfgClock${cfgIds[k]}HasPrizes`);
+            if (cfgPrizeEl) cfgPrizeEl.checked = true;
+            updateAllSystemClocks();
+          }
+        })
+        .catch(() => {});
     });
   }
 
@@ -7852,13 +8104,13 @@
     ensureClockCalcButtonsExist();
     const now = new Date().getTime();
     const clockDefs = [
-      { key: 'breach',    cfgIdx: 1, elId: 'clock-breach',    subId: 'sub-breach',    badgeId: 'badge-breach',    cardId: 'carouselCardBreach' },
-      { key: 'shadowops', cfgIdx: 2, elId: 'clock-shadowops', subId: 'sub-shadowops', badgeId: 'badge-shadowops', cardId: 'carouselCardShadowOps' },
-      { key: 'warpath',   cfgIdx: 3, elId: 'clock-warpath',   subId: 'sub-warpath',   badgeId: 'badge-warpath',   cardId: 'carouselCardWarpath' },
-      { key: 'skirmish',  cfgIdx: 4, elId: 'clock-skirmish',  subId: 'sub-skirmish',  badgeId: 'badge-skirmish',  cardId: 'carouselCardSkirmish' },
-      { key: 'holdout',   cfgIdx: 5, elId: 'clock-holdout',   subId: 'sub-holdout',   badgeId: 'badge-holdout',   cardId: 'carouselCardHoldout' },
-      { key: 'nightmare', cfgIdx: 6, elId: 'clock-nightmare', subId: 'sub-nightmare', badgeId: 'badge-nightmare', cardId: 'carouselCardNightmare' },
-      { key: 'future',    cfgIdx: 7, elId: 'clock-future',    subId: 'sub-future',    badgeId: 'badge-future',    cardId: 'carouselCardFuture' }
+      { key: 'breach',    cfgIdx: 1, elId: 'clock-breach',    subId: 'sub-breach',    badgeId: 'badge-breach',    cardId: 'carouselCardBreach',    titleId: 'clockTitleBreach',    btnId: 'clockBtnBreach' },
+      { key: 'shadowops', cfgIdx: 2, elId: 'clock-shadowops', subId: 'sub-shadowops', badgeId: 'badge-shadowops', cardId: 'carouselCardShadowOps', titleId: 'clockTitleShadowOps', btnId: 'clockBtnShadowOps' },
+      { key: 'warpath',   cfgIdx: 3, elId: 'clock-warpath',   subId: 'sub-warpath',   badgeId: 'badge-warpath',   cardId: 'carouselCardWarpath',   titleId: 'clockTitleWarpath',   btnId: 'clockBtnWarpath' },
+      { key: 'skirmish',  cfgIdx: 4, elId: 'clock-skirmish',  subId: 'sub-skirmish',  badgeId: 'badge-skirmish',  cardId: 'carouselCardSkirmish',  titleId: 'clockTitleSkirmish',  btnId: 'clockBtnSkirmish' },
+      { key: 'holdout',   cfgIdx: 5, elId: 'clock-holdout',   subId: 'sub-holdout',   badgeId: 'badge-holdout',   cardId: 'carouselCardHoldout',   titleId: 'clockTitleHoldout',   btnId: 'clockBtnHoldout' },
+      { key: 'nightmare', cfgIdx: 6, elId: 'clock-nightmare', subId: 'sub-nightmare', badgeId: 'badge-nightmare', cardId: 'carouselCardNightmare', titleId: 'clockTitleNightmare', btnId: 'clockBtnNightmare' },
+      { key: 'future',    cfgIdx: 7, elId: 'clock-future',    subId: 'sub-future',    badgeId: 'badge-future',    cardId: 'carouselCardFuture',    titleId: 'clockTitleFuture',    btnId: 'clockBtnFuture' }
     ];
 
     const sortQueue = [];
@@ -7867,6 +8119,13 @@
       const sched = eventSchedules[c.key];
       if (!sched) return;
       const el = document.getElementById(c.elId), subEl = document.getElementById(c.subId), badge = document.getElementById(c.badgeId), card = document.getElementById(c.cardId);
+      const titleEl = document.getElementById(c.titleId), artBtnEl = document.getElementById(c.btnId);
+      if (titleEl && CLOCK_LEGEND_TITLE_COLORS[c.key]) {
+        titleEl.style.color = CLOCK_LEGEND_TITLE_COLORS[c.key];
+      }
+      if (artBtnEl) {
+        syncClockArtButton(c.key, artBtnEl, artBtnEl.getAttribute("data-url") || "", titleEl ? titleEl.textContent : "");
+      }
       const customSubOverride = (document.getElementById(`cfgClock${c.cfgIdx}Subtext`)?.value || sched.customSubtext || "").trim();
       const manualOrderVal = parseInt(document.getElementById(`cfgClock${c.cfgIdx}Order`)?.value, 10) || Number(sched.manualOrder) || 0;
       sched.manualOrder = manualOrderVal;
@@ -7916,16 +8175,32 @@
       if (calcSpec) {
         const calcBtnEl = document.getElementById(calcSpec.btnId);
         if (calcBtnEl) {
-          const liveEventTitle = document.getElementById(calcSpec.titleId)?.textContent?.trim() || calcSpec.label;
+          const liveEventTitle = titleEl?.textContent?.trim() || calcSpec.label;
+          const prizeReady = Boolean(sched.hasPrizeList);
           calcBtnEl.setAttribute("data-calc-label", liveEventTitle);
-          calcBtnEl.title = `Quick Access: ${liveEventTitle} XP Calculator`;
-          calcBtnEl.style.display = (stagePriority === 1) ? "inline-flex" : "none";
+          calcBtnEl.setAttribute("data-has-prizes", prizeReady ? "true" : "false");
+          calcBtnEl.style.display = "inline-flex";
+          if (prizeReady) {
+            calcBtnEl.classList.remove("is-faded");
+            calcBtnEl.title = `Quick Access: ${liveEventTitle} XP Calculator`;
+            if (calcBtnEl.getAttribute("data-rendered-state") !== "active") {
+              calcBtnEl.innerHTML = `<span class="timer-calc-ico">🧮</span><span>XP CALCULATOR</span>`;
+              calcBtnEl.setAttribute("data-rendered-state", "active");
+            }
+          } else {
+            calcBtnEl.classList.add("is-faded");
+            calcBtnEl.title = `No prize list available yet for ${liveEventTitle} — unlocks when active brief publishes`;
+            if (calcBtnEl.getAttribute("data-rendered-state") !== "faded") {
+              calcBtnEl.innerHTML = `<span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span>`;
+              calcBtnEl.setAttribute("data-rendered-state", "faded");
+            }
+          }
         }
       }
 
       if (el) {
         el.textContent = isConcluded ? "CONCLUDED" : formatTimeDelta(targetMs);
-        el.style.fontSize = isConcluded ? "15px" : "22px";
+        el.style.fontSize = isConcluded ? "14px" : "19px";
         el.style.color = isConcluded ? "var(--text-muted)" : "var(--text-gold)";
       }
       if (subEl) subEl.textContent = (!isLocalTimeMode && customSubOverride) ? customSubOverride : stageSubText;
@@ -8187,6 +8462,7 @@
 
   loadPersistedState().then(() => {
     if (typeof scanAndSyncWtrDirectories === "function") scanAndSyncWtrDirectories();
+    if (typeof probeClockBriefPrizeLists === "function") probeClockBriefPrizeLists();
     hasUnsavedDiskChanges = false;
   });
   /* ==================== GLOBAL URL VALIDATOR & SUB-DIRECTORY PATH UPDATER ==================== */
