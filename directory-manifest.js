@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-14T21:41:27-08:00",
-    "generatedMs":  1794721284626,
+    "generatedAt":  "2026-11-15T12:24:51-08:00",
+    "generatedMs":  1794774288708,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -173,8 +173,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-15T05:32:16Z",
-                              "modifiedMs":  1794720736742
+                              "modifiedAt":  "2026-11-15T17:46:28Z",
+                              "modifiedMs":  1794764788948
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -250,8 +250,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "whats-broken.html",
                               "path":  "./whats-broken.html",
                               "title":  "What\u0027s Broken in War Commander",
-                              "modifiedAt":  "2026-11-14T06:59:51Z",
-                              "modifiedMs":  1794639591197
+                              "modifiedAt":  "2026-11-15T20:05:27Z",
+                              "modifiedMs":  1794773127613
                           }
                       ],
     "activeDefects":  [

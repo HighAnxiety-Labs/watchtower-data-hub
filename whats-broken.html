@@ -13,7 +13,7 @@
     // Track in-page module, defect card & tab interactions
     window.addEventListener('DOMContentLoaded', function() {
       document.addEventListener('click', function(e) {
-        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill, .defect-tile, .hub-nav-pill, .div-tab-pill, .btn-involved') : null;
+        var btn = e.target && e.target.closest ? e.target.closest('.bento-main-btn, .bento-sub-btn, .brief-btn, .cal-event-pill, .thumb-frame, .tile-action-chip, .ryg-frame, .hub-nav-pill, .btn-involved') : null;
         if (!btn) return;
         var label = (btn.getAttribute('data-track') || btn.innerText || btn.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120);
         if (label) {
@@ -96,68 +96,93 @@
     /* ==================== 4-CORNER UNCLASSIFIED HEADER & FOOTER BARS ==================== */
     .class-bar {
       position: relative;
-      display: grid;
-      grid-template-columns: 270px 1fr 270px;
-      align-items: stretch;
-      height: 46px;
-      background: #060b12;
-      border: 1px solid rgba(0, 230, 118, 0.45);
-      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 282px;
+      background: #1e7a46;
+      border: 1px solid #2ea05f;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
       user-select: none;
+      overflow: hidden;
       z-index: 30;
     }
     .class-bar-top { border-radius: 6px 6px 0 0; }
     .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
 
     .corner-tab {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 270px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: #b9f6ca;
-      background: linear-gradient(180deg, rgba(0, 230, 118, 0.22), rgba(0, 230, 118, 0.07));
-      padding: 0 14px;
+      color: #e2e8f0;
+      background: #06090d;
+      z-index: 2;
     }
+    /* Top Bar: Center Green has / \ edges */
     .class-bar-top .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-top .corner-right {
-      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
+    /* Bottom Bar: Center Green has reversed \ / edges */
     .class-bar-bottom .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-bottom .corner-right {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-center {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2.6px;
-      color: var(--green-main);
-      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
       text-align: center;
       padding: 0 10px;
+      z-index: 1;
     }
     .status-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--red-main);
-      box-shadow: 0 0 9px var(--red-main);
+      background: var(--green-main);
+      box-shadow: 0 0 8px var(--green-main);
       animation: pulseDot 1.8s infinite;
     }
     @keyframes pulseDot {
@@ -165,17 +190,17 @@
       50% { opacity: 0.45; transform: scale(0.85); }
     }
     .collapse-toggle-btn {
-      background: rgba(0, 230, 118, 0.14);
-      border: 1px solid rgba(0, 230, 118, 0.55);
-      color: #d0f8df;
+      background: transparent;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #34c772;
       font-family: 'Share Tech Mono', monospace;
       font-size: 11.5px;
       font-weight: 700;
-      padding: 4px 11px;
+      padding: 4px 10px;
       border-radius: 3px;
       cursor: pointer;
       transition: all 0.18s ease;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -392,117 +417,135 @@
       transform: translateY(-1px);
     }
 
-    /* ==================== CATEGORY FILTER TABS BELOW TITLE ==================== */
-    .division-tabs-bar {
+    /* ==================== EVENLY SPACED & FRAMED RED / YELLOW / GREEN COUNTER BAR ==================== */
+    .ryg-status-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 14px;
     }
-    .div-tab-pill {
-      background: #0b131d;
-      border: 1px solid #1d2f44;
-      border-top: 3px solid var(--tab-color, #f43f5e);
-      border-radius: 5px;
-      padding: 11px 15px;
-      cursor: pointer;
+    .ryg-frame {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      transition: all 0.18s ease;
+      gap: 14px;
+      padding: 11px 15px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, #0b1420 0%, #070d16 100%);
+      cursor: pointer;
       user-select: none;
       text-align: left;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
     }
-    .div-tab-pill:hover {
-      background: #101c2b;
-      transform: translateY(-1px);
-      border-color: var(--tab-color, #f43f5e);
+    .ryg-frame:hover {
+      transform: translateY(-2px);
     }
-    .div-tab-pill.active {
-      background: rgba(20, 28, 42, 0.96);
-      border-color: var(--tab-color, #f43f5e);
-      box-shadow: 0 0 16px rgba(244, 63, 94, 0.16), inset 0 0 12px rgba(255, 255, 255, 0.04);
+    .ryg-frame.red {
+      border: 1.5px solid rgba(244, 63, 94, 0.68);
+      box-shadow: inset 0 0 16px rgba(244, 63, 94, 0.09), 0 5px 14px rgba(0, 0, 0, 0.55);
     }
-    .div-tab-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
+    .ryg-frame.red:hover {
+      border-color: #fb7185;
+      box-shadow: inset 0 0 18px rgba(244, 63, 94, 0.16), 0 0 16px rgba(244, 63, 94, 0.32);
     }
-    .div-tab-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 13.5px;
-      font-weight: 800;
-      letter-spacing: 0.9px;
-      color: #ffffff;
-      text-transform: uppercase;
+    .ryg-frame.yellow {
+      border: 1.5px solid rgba(250, 204, 21, 0.62);
+      box-shadow: inset 0 0 16px rgba(250, 204, 21, 0.08), 0 5px 14px rgba(0, 0, 0, 0.55);
     }
-    .div-tab-sub {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11.5px;
-      color: var(--tab-color, #93aac0);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .ryg-frame.yellow:hover {
+      border-color: #fde047;
+      box-shadow: inset 0 0 18px rgba(250, 204, 21, 0.15), 0 0 16px rgba(250, 204, 21, 0.28);
     }
-    .div-tab-badge {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      color: #fda4af;
-      background: rgba(244, 63, 94, 0.15);
-      border: 1px solid rgba(244, 63, 94, 0.5);
-      padding: 4px 9px;
-      border-radius: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .ryg-frame.green {
+      border: 1.5px solid rgba(34, 197, 94, 0.65);
+      box-shadow: inset 0 0 16px rgba(34, 197, 94, 0.09), 0 5px 14px rgba(0, 0, 0, 0.55);
+    }
+    .ryg-frame.green:hover {
+      border-color: #4ade80;
+      box-shadow: inset 0 0 18px rgba(34, 197, 94, 0.16), 0 0 16px rgba(34, 197, 94, 0.32);
     }
 
-    /* ==================== STATUS LEGEND & COMMUNITY REPORT BAR ==================== */
+    .color-counter-sq {
+      width: 46px;
+      height: 46px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .color-counter-sq.red {
+      background: linear-gradient(180deg, #ff4d6d 0%, #e11d48 100%);
+      color: #ffffff;
+      border: 1px solid #fda4af;
+      box-shadow: 0 0 14px rgba(244, 63, 94, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    }
+    .color-counter-sq.yellow {
+      background: linear-gradient(180deg, #fde047 0%, #eab308 100%);
+      color: #1a1200;
+      border: 1px solid #fef08a;
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.58), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .color-counter-sq.green {
+      background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+      color: #031a0b;
+      border: 1px solid #bbf7d0;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.62), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .ryg-label-wrap {
+      min-width: 0;
+      flex: 1;
+    }
+    .ryg-code {
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .ryg-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #cbd5e1;
+      line-height: 1.25;
+      margin-top: 3px;
+    }
+
+    /* ==================== SORT ORDER & COMMUNITY REPORT STRIP ==================== */
     .status-intel-bar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 12px 18px;
+      padding: 10px 16px;
       background: #070d15;
       border: 1px solid #1d3147;
       border-radius: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-    .legend-cluster {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-    }
-    .legend-item {
+    .sort-order-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #93c5fd;
+      letter-spacing: 0.6px;
     }
-    .legend-box {
-      width: 13px;
-      height: 13px;
-      border-radius: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      flex-shrink: 0;
-    }
-    .legend-box.red { background: var(--red-main); box-shadow: 0 0 9px rgba(244, 63, 94, 0.85); }
-    .legend-box.yellow { background: var(--yellow-main); box-shadow: 0 0 8px rgba(250, 204, 21, 0.75); }
-    .legend-box.green { background: var(--fixed-main); box-shadow: 0 0 8px rgba(34, 197, 94, 0.75); }
-
     .intel-links-right {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 600;
       color: #c5d6e8;
     }
@@ -616,133 +659,198 @@
       color: #eef5fc;
     }
 
-    /* ==================== 4-PER-ROW DEFECT THUMBNAIL GRID ==================== */
+    /* ==================== 3-PER-ROW FRAMED BROKEN GAME PIECE CARDS ==================== */
     .defect-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
-    .defect-tile {
+    .piece-card {
       position: relative;
-      background: linear-gradient(180deg, #0d1724 0%, #08101a 100%);
-      border: 1.5px solid #22384f;
-      border-top: 3px solid var(--red-main);
-      border-radius: 7px;
-      overflow: hidden;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
-      text-decoration: none;
-      color: inherit;
+      background: linear-gradient(180deg, #0d1724 0%, #08101a 100%);
+      border-radius: 7px;
+      overflow: hidden;
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65);
       transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
     }
-    .defect-tile:hover,
-    .defect-tile:focus-visible {
-      transform: translateY(-4px);
-      border-color: var(--red-main);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(244, 63, 94, 0.32);
-      outline: none;
+    .piece-card.status-red {
+      border: 2px solid #e11d48;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(244, 63, 94, 0.06);
     }
-    .defect-tile.is-green {
-      border-top-color: var(--green-main);
+    .piece-card.status-yellow {
+      border: 2px solid #eab308;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(250, 204, 21, 0.06);
     }
-    .defect-tile.is-green:hover,
-    .defect-tile.is-green:focus-visible {
-      border-color: var(--green-main);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(0, 230, 118, 0.32);
+    .piece-card.status-green {
+      border: 2px solid #16a34a;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(34, 197, 94, 0.06);
     }
-    .defect-tile.is-yellow {
-      border-top-color: var(--yellow-main);
+    .piece-card:hover {
+      transform: translateY(-3px);
     }
-    .defect-tile.is-yellow:hover,
-    .defect-tile.is-yellow:focus-visible {
-      border-color: var(--yellow-main);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.88), 0 0 20px rgba(250, 204, 21, 0.28);
+    .piece-card.status-red:hover {
+      border-color: #fb7185;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), 0 0 18px rgba(244, 63, 94, 0.3);
+    }
+    .piece-card.status-yellow:hover {
+      border-color: #fde047;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), 0 0 18px rgba(250, 204, 21, 0.28);
+    }
+    .piece-card.status-green:hover {
+      border-color: #4ade80;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 230, 118, 0.3);
+    }
+    .piece-card.flash-highlight {
+      animation: cardFlashPulse 1.3s ease;
+    }
+    @keyframes cardFlashPulse {
+      0%, 100% { filter: brightness(1); }
+      35% { filter: brightness(1.3); transform: translateY(-4px); }
     }
 
-    .tile-portrait-box {
-      position: relative;
+    /* Solid Color Top Status Bar with Broken Piece Name */
+    .piece-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 11px;
       width: 100%;
-      aspect-ratio: 4 / 5;
-      background: radial-gradient(circle at 50% 28%, #162940 0%, #050a12 82%);
+    }
+    .piece-card.status-red .piece-top-bar {
+      background: linear-gradient(90deg, #e11d48 0%, #be123c 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+    }
+    .piece-card.status-yellow .piece-top-bar {
+      background: linear-gradient(90deg, #facc15 0%, #eab308 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      color: #140f00;
+    }
+    .piece-card.status-green .piece-top-bar {
+      background: linear-gradient(90deg, #22c55e 0%, #15803d 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+    }
+    .piece-top-name {
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      line-height: 1.2;
+      min-width: 0;
+    }
+    .piece-card.status-red .piece-top-name,
+    .piece-card.status-green .piece-top-name {
+      text-shadow:
+        -1px -1px 0 rgba(0, 0, 0, 0.75),
+         1px -1px 0 rgba(0, 0, 0, 0.75),
+        -1px  1px 0 rgba(0, 0, 0, 0.75),
+         1px  1px 0 rgba(0, 0, 0, 0.75),
+         0px  1px 4px rgba(0, 0, 0, 0.65);
+    }
+    .piece-top-cat {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(5, 10, 18, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #f8fafc;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .piece-card.status-yellow .piece-top-cat {
+      background: rgba(10, 10, 10, 0.82);
+      color: #fef08a;
+      border-color: rgba(250, 204, 21, 0.45);
+    }
+
+    .piece-body-row {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      padding: 11px 12px 12px;
+      flex: 1 1 auto;
+    }
+
+    /* Left Column: Thumbnail + 5-Bar Game Damage Meter Below */
+    .piece-left-col {
+      width: 114px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .thumb-frame {
+      position: relative;
+      width: 114px;
+      height: 143px;
+      border-radius: 6px;
       overflow: hidden;
+      background: radial-gradient(circle at 50% 28%, #162940 0%, #050a12 82%);
+      border: 1.5px solid #28405c;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.72);
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
     }
-    .tile-portrait-box img {
+    .piece-card.status-red .thumb-frame { border-color: rgba(244, 63, 94, 0.65); }
+    .piece-card.status-yellow .thumb-frame { border-color: rgba(250, 204, 21, 0.65); }
+    .piece-card.status-green .thumb-frame { border-color: rgba(34, 197, 94, 0.68); }
+    .thumb-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top center;
       display: block;
-      transition: transform 0.28s ease, filter 0.24s ease;
+      transition: transform 0.24s ease;
     }
-    .defect-tile:hover .tile-portrait-box img {
-      transform: scale(1.05);
-      filter: brightness(0.45) contrast(1.06);
+    .thumb-frame.contain-mode img {
+      object-fit: contain;
+      object-position: center;
+      padding: 4px;
+      background: #060b13;
     }
-
-    /* Top Status Bar Inside Portrait */
-    .tile-top-badges {
+    .thumb-frame:hover img {
+      transform: scale(1.04);
+    }
+    .thumb-brief-tag {
       position: absolute;
-      top: 9px;
-      left: 9px;
-      right: 9px;
-      z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      padding: 4px 6px;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: #e2f8ee;
+      background: linear-gradient(180deg, rgba(4, 10, 18, 0.75) 0%, rgba(4, 12, 20, 0.94) 100%);
+      border-top: 1px solid rgba(0, 230, 118, 0.45);
+      opacity: 0.88;
+      transition: opacity 0.16s ease, background 0.16s ease, color 0.16s ease;
       pointer-events: none;
     }
-    .status-pill-red {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 9px;
-      border-radius: 4px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      background: rgba(24, 5, 10, 0.92);
-      border: 1.5px solid var(--red-main);
-      color: #ffe4e6;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(244, 63, 94, 0.45);
-    }
-    .status-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--red-main);
-      box-shadow: 0 0 8px var(--red-main);
-    }
-    .status-pill-red.is-green {
-      background: rgba(4, 22, 13, 0.92);
-      border-color: var(--green-main);
-      color: #d0f8df;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 230, 118, 0.42);
-    }
-    .status-pill-dot.is-green {
-      background: var(--green-main);
-      box-shadow: 0 0 8px var(--green-main);
-    }
-    .status-pill-red.is-yellow {
-      background: rgba(24, 19, 4, 0.92);
-      border-color: var(--yellow-main);
-      color: #fef08a;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(250, 204, 21, 0.38);
-    }
-    .status-pill-dot.is-yellow {
-      background: var(--yellow-main);
-      box-shadow: 0 0 8px var(--yellow-main);
+    .thumb-frame:hover .thumb-brief-tag {
+      opacity: 1;
+      background: rgba(20, 110, 62, 0.95);
+      color: #ffffff;
     }
 
-    /* Page-Specific -45° Bold Green FIXED Stamp Covering GREEN Status Portraits */
+    /* Diagonal FIXED Stamp for Green Portraits */
     .fixed-stamp-wrap {
       position: absolute;
       inset: 0;
@@ -751,34 +859,129 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      transition: opacity 0.2s ease;
     }
     .fixed-stamp {
-      transform: rotate(-45deg);
-      width: 118%;
-      max-width: 290px;
+      transform: rotate(-34deg);
+      width: 124%;
       text-align: center;
-      padding: 8px 0;
+      padding: 4px 0;
       font-family: 'Arial Black', 'Orbitron', Impact, sans-serif;
-      font-size: clamp(26px, 2.5vw, 35px);
+      font-size: 16px;
       font-weight: 900;
       line-height: 1;
-      letter-spacing: 6px;
-      text-indent: 6px;
+      letter-spacing: 3px;
+      text-indent: 3px;
       text-transform: uppercase;
-      color: var(--green-main);
-      background: rgba(3, 16, 10, 0.74);
-      border-top: 4px solid var(--green-main);
-      border-bottom: 4px solid var(--green-main);
-      outline: 2px solid rgba(0, 230, 118, 0.55);
-      outline-offset: -7px;
-      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85), 0 0 16px rgba(0, 230, 118, 0.35), inset 0 0 12px rgba(0, 230, 118, 0.22);
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 230, 118, 0.55);
+      color: #021308;
+      background: rgba(34, 197, 94, 0.92);
+      border-top: 2px solid #bbf7d0;
+      border-bottom: 2px solid #bbf7d0;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
       user-select: none;
     }
-    .defect-tile:hover .fixed-stamp-wrap,
-    .defect-tile:focus-visible .fixed-stamp-wrap {
-      opacity: 0.14;
+
+    /* 5-Bar Game Damage Meter Below Thumbnail */
+    .damage-box {
+      background: #060b12;
+      border: 1px solid #1e324a;
+      border-radius: 5px;
+      padding: 6px 8px 7px;
+      user-select: none;
+    }
+    .damage-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .bars-5-track {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      height: 11px;
+    }
+    .dmg-seg {
+      border-radius: 2px;
+      background: #132030;
+      border: 1px solid #22354d;
+    }
+    .dmg-seg.on-1 { background: #38bdf8; border-color: #bae6fd; box-shadow: 0 0 6px rgba(56, 189, 248, 0.55); }
+    .dmg-seg.on-2 { background: #facc15; border-color: #fef08a; box-shadow: 0 0 6px rgba(250, 204, 21, 0.55); }
+    .dmg-seg.on-3 { background: #fb923c; border-color: #fed7aa; box-shadow: 0 0 6px rgba(251, 146, 60, 0.6); }
+    .dmg-seg.on-4 { background: #f43f5e; border-color: #fda4af; box-shadow: 0 0 7px rgba(244, 63, 94, 0.68); }
+    .dmg-seg.on-5 { background: #dc2626; border-color: #fecaca; box-shadow: 0 0 9px rgba(239, 68, 68, 0.85); }
+    .dmg-seg.on-fixed { background: #22c55e; border-color: #bbf7d0; box-shadow: 0 0 6px rgba(34, 197, 94, 0.55); }
+    .damage-tier-txt {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 5px;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+    }
+
+    /* Right Column: Date Code + Unresolved Days + Description + Action */
+    .piece-right-col {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .date-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #192b40;
+    }
+    .date-badges-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .date-code-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #0d1a29;
+      border: 1px solid #294360;
+      color: #dbe7f3;
+      white-space: nowrap;
+    }
+    .elapsed-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .elapsed-pill.uncorrected {
+      background: rgba(244, 63, 94, 0.17);
+      border: 1px solid rgba(244, 63, 94, 0.62);
+      color: #fda4af;
+    }
+    .elapsed-pill.acknowledged {
+      background: rgba(250, 204, 21, 0.16);
+      border: 1px solid rgba(250, 204, 21, 0.58);
+      color: #fef08a;
+    }
+    .elapsed-pill.resolved {
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.58);
+      color: #86efac;
     }
 
     .traffic-pod {
@@ -790,6 +993,7 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.8);
+      flex-shrink: 0;
     }
     .t-light {
       width: 10px;
@@ -805,169 +1009,91 @@
     .t-light.active.yellow { opacity: 1; box-shadow: 0 0 9px var(--yellow-main); border-color: #fff; }
     .t-light.active.green { opacity: 1; box-shadow: 0 0 9px var(--fixed-main); border-color: #fff; }
 
-    /* Category Ribbon Above Nameplate */
-    .tile-cat-tag {
-      position: absolute;
-      bottom: 8px;
-      left: 9px;
-      z-index: 5;
-      padding: 3px 8px;
-      border-radius: 3px;
+    .cat-tag {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-      background: rgba(5, 11, 19, 0.88);
-      border: 1px solid rgba(56, 189, 248, 0.45);
       color: var(--cyan-main);
-      transition: opacity 0.2s ease;
-      pointer-events: none;
-    }
-    .tile-cat-tag.facility {
-      border-color: rgba(255, 215, 0, 0.45);
-      color: var(--gold-main);
-    }
-    .defect-tile:hover .tile-cat-tag {
-      opacity: 0;
-    }
-
-    /* ==================== FULL-PORTRAIT STATUS RED HOVER OVERLAY ==================== */
-    .tile-hover-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 7;
-      background: linear-gradient(180deg, rgba(16, 4, 9, 0.92) 0%, rgba(10, 6, 12, 0.96) 42%, rgba(6, 9, 15, 0.98) 100%);
-      padding: 46px 14px 13px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 8px;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .defect-tile:hover .tile-hover-overlay,
-    .defect-tile:focus-visible .tile-hover-overlay {
-      opacity: 1;
-    }
-    .ov-status-banner {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      align-self: flex-start;
-      padding: 3px 9px;
-      border-radius: 3px;
-      background: rgba(244, 63, 94, 0.22);
-      border: 1px solid rgba(244, 63, 94, 0.75);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #fecdd3;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
-    .ov-status-banner.is-green {
-      background: rgba(0, 230, 118, 0.2);
-      border-color: rgba(0, 230, 118, 0.8);
-      color: #b9f6ca;
-    }
-    .ov-status-banner.is-yellow {
-      background: rgba(250, 204, 21, 0.2);
-      border-color: rgba(250, 204, 21, 0.8);
-      color: #fef08a;
-    }
-    .ov-headline {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 13px;
-      font-weight: 800;
+    .cat-tag.facility {
       color: var(--gold-main);
+    }
+    .piece-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15.5px;
+      font-weight: 900;
+      color: #f8fafc;
       letter-spacing: 0.6px;
       text-transform: uppercase;
       line-height: 1.25;
-    }
-    .ov-desc {
-      font-size: 15.5px;
-      font-weight: 600;
-      line-height: 1.36;
-      color: #f4f8fc;
-      border-left: 3px solid var(--red-main);
-      padding-left: 9px;
-    }
-    .ov-desc.is-green {
-      border-left-color: var(--green-main);
-    }
-    .ov-desc.is-yellow {
-      border-left-color: var(--yellow-main);
-    }
-    .ov-cta {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--green-main);
-      border-top: 1px solid rgba(0, 230, 118, 0.3);
-      padding-top: 7px;
       margin-top: 2px;
     }
-    .ov-cta.report-cta {
-      color: var(--cyan-main);
-      border-top-color: rgba(56, 189, 248, 0.3);
-    }
-
-    /* Card Footer Nameplate & Action Button */
-    .tile-footer {
-      padding: 12px 12px 13px;
-      background: #07101a;
-      border-top: 1px solid #192b40;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: space-between;
-    }
-    .tile-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
+    .defect-headline {
+      font-size: 13.5px;
       font-weight: 800;
-      color: #f2f7fd;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
+      color: #fda4af;
+      margin-top: 4px;
       line-height: 1.3;
     }
+    .piece-card.status-yellow .defect-headline { color: #fef08a; }
+    .piece-card.status-green .defect-headline { color: #86efac; }
+
+    .defect-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: #d6e4f2;
+      line-height: 1.42;
+      background: rgba(4, 9, 16, 0.68);
+      border-left: 3px solid var(--red-main);
+      padding: 7px 10px;
+      border-radius: 0 5px 5px 0;
+      margin-top: 5px;
+    }
+    .piece-card.status-yellow .defect-desc { border-left-color: var(--yellow-main); }
+    .piece-card.status-green .defect-desc { border-left-color: var(--green-main); }
+
+    .card-footer-row {
+      padding-top: 4px;
+    }
     .tile-action-chip {
+      display: block;
       width: 100%;
+      text-align: center;
       font-family: 'Share Tech Mono', monospace;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       padding: 6px 10px;
       border-radius: 4px;
-      background: rgba(0, 230, 118, 0.12);
-      border: 1px solid rgba(0, 230, 118, 0.45);
+      background: rgba(0, 230, 118, 0.13);
+      border: 1px solid rgba(0, 230, 118, 0.48);
       color: #b9f6ca;
+      cursor: pointer;
+      text-decoration: none;
       transition: all 0.16s ease;
     }
     .tile-action-chip.facility-chip {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.13);
+      border-color: rgba(56, 189, 248, 0.48);
       color: #bae6fd;
     }
-    .defect-tile:hover .tile-action-chip {
+    .tile-action-chip:hover {
       background: var(--red-main);
       border-color: #fda4af;
       color: #ffffff;
     }
-    .defect-tile.is-green:hover .tile-action-chip {
+    .piece-card.status-green .tile-action-chip:hover {
       background: #00c853;
       border-color: #b9f6ca;
       color: #03140a;
     }
 
     .portrait-monogram {
-      width: 96px;
-      height: 96px;
+      width: 78px;
+      height: 78px;
       border-radius: 50%;
       border: 2px solid var(--red-border);
       background: rgba(244, 63, 94, 0.12);
@@ -975,25 +1101,29 @@
       align-items: center;
       justify-content: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 900;
       color: #fda4af;
     }
 
-    @media (max-width: 1080px) {
-      .defect-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 1120px) {
+      .defect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .ryg-status-grid { grid-template-columns: 1fr; gap: 10px; }
+      .defect-grid { grid-template-columns: 1fr; gap: 14px; }
     }
     @media (max-width: 820px) {
-      .defect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-      .division-tabs-bar { grid-template-columns: 1fr; }
       .comp-grid { grid-template-columns: 1fr; }
-      .class-bar { grid-template-columns: 1fr 1fr; height: auto; padding: 6px; gap: 4px; }
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
       .class-center { display: none; }
-      .class-bar .corner-tab { clip-path: none !important; border: none !important; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
       .hero-right-cluster { align-items: flex-start; width: 100%; flex-direction: row; flex-wrap: wrap; }
     }
-    @media (max-width: 500px) {
-      .defect-grid { grid-template-columns: 1fr; }
+    @media (max-width: 540px) {
+      .piece-body-row { flex-direction: column; align-items: center; }
+      .piece-left-col { width: 100%; align-items: center; }
+      .damage-box { width: 100%; max-width: 220px; }
     }
   </style>
 </head>
@@ -1017,23 +1147,15 @@
     <!-- ==================== HERO HEADER WITH WTR SPINNING RADAR LOGO ==================== -->
     <div class="hero-banner">
       <div class="hero-left-cluster">
-        <div class="logo-radar-wrap" onclick="closeFacilityReport()" title="WatchToweR Command Center — Click to reset view">
+        <div class="logo-radar-wrap" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
           <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
         </div>
         <div class="hero-title-group">
-          <div class="hero-eyebrow">
-            <button type="button" class="hub-nav-pill" id="backToHubBtn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
-            <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open What's Broken in a full standalone window">↗ POP-OUT FULL WINDOW</button>
-            <a class="hub-nav-pill" href="./agency-contractors.html">🤝 AGENCY CONTRACTORS</a>
-            <a class="hub-nav-pill" href="./unit-briefs.html">📖 UNIT BRIEFS</a>
-            <a class="hub-nav-pill" href="./building-briefs.html">🏢 BUILDINGS</a>
-            <span>ADMIN &amp; BUG HUB // DEFECT REGISTRY</span>
-          </div>
           <h1>
             <span><span class="title-red">WHAT'S BROKEN IN</span> WAR COMMANDER</span>
             <span class="sub-badge">LIVE DEFECT &amp; BUG TRACKER</span>
           </h1>
-          <p>Hover any thumbnail for <strong>Status RED</strong> bug details. Click <strong>Contractor</strong> thumbnails to open their full <strong>Unit Brief</strong>, or click <strong>Facility</strong> cards to inspect side-by-side level comparisons.</p>
+          <p>All tracked game pieces remain visible below — sorted <strong>RED → YELLOW → GREEN</strong> from <strong>newest to oldest</strong>. Click any <strong>Contractor</strong> or <strong>Building</strong> thumbnail to open its <strong>MASTER_DB Brief</strong>, or use the <strong>Report Box</strong> on Building cards to inspect side-by-side level comparisons.</p>
         </div>
       </div>
 
@@ -1045,24 +1167,37 @@
       </div>
     </div>
 
-    <!-- ==================== CATEGORY TABS BELOW TITLE ==================== -->
-    <div class="division-tabs-bar" id="categoryTabsBar" role="tablist" aria-label="Defect Category Filter"></div>
+    <!-- ==================== EVENLY SPACED & FRAMED RED / YELLOW / GREEN COUNTER BAR ==================== -->
+    <div class="ryg-status-grid" role="region" aria-label="Defect Status Summary">
+      <button type="button" class="ryg-frame red" onclick="jumpToStatusGroup('RED')" title="Jump to Status RED entries">
+        <div class="color-counter-sq red" id="countRedSquare">4</div>
+        <div class="ryg-label-wrap">
+          <div class="ryg-code" style="color: var(--red-main);">RED = UNACKNOWLEDGED</div>
+          <div class="ryg-sub">KIXEYE Has Not Acknowledged</div>
+        </div>
+      </button>
 
-    <!-- ==================== STATUS LEGEND & COMMUNITY REPORT STRIP ==================== -->
+      <button type="button" class="ryg-frame yellow" onclick="jumpToStatusGroup('YELLOW')" title="Jump to Status YELLOW entries">
+        <div class="color-counter-sq yellow" id="countYellowSquare">0</div>
+        <div class="ryg-label-wrap">
+          <div class="ryg-code" style="color: var(--yellow-main);">YELLOW = ACKNOWLEDGED</div>
+          <div class="ryg-sub">KIXEYE Has Acknowledged</div>
+        </div>
+      </button>
+
+      <button type="button" class="ryg-frame green" onclick="jumpToStatusGroup('GREEN')" title="Jump to Status GREEN Fixed entries">
+        <div class="color-counter-sq green" id="countGreenSquare">1</div>
+        <div class="ryg-label-wrap">
+          <div class="ryg-code" style="color: var(--fixed-main);">GREEN = FIXED</div>
+          <div class="ryg-sub">Verified Corrected In-Game</div>
+        </div>
+      </button>
+    </div>
+
+    <!-- ==================== SORT ORDER & COMMUNITY REPORT STRIP ==================== -->
     <div class="status-intel-bar">
-      <div class="legend-cluster">
-        <span class="legend-item">
-          <span class="legend-box red"></span>
-          <span style="color: var(--red-main);">RED = KIXEYE HAS NOT ACKNOWLEDGED</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-box yellow"></span>
-          <span style="color: var(--yellow-main);">YELLOW = KIXEYE HAS ACKNOWLEDGED</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-box green"></span>
-          <span style="color: var(--fixed-main);">GREEN = FIXED</span>
-        </span>
+      <div class="sort-order-pill">
+        <span>📋 DISPLAY ORDER: RED FIRST → YELLOW → GREEN LAST • NEWEST TO OLDEST</span>
       </div>
       <div class="intel-links-right">
         <span>Know of something broken? Send us the details:</span>
@@ -1074,7 +1209,7 @@
     <!-- ==================== IN-PAGE COMPARISON REPORT VIEWER (FACILITIES) ==================== -->
     <div id="reportDetailBox"></div>
 
-    <!-- ==================== 4-PER-ROW DEFECT CARDS GRID ==================== -->
+    <!-- ==================== 3-PER-ROW DEFECT CARDS GRID (ALL VISIBLE) ==================== -->
     <div class="defect-grid" id="cardsGrid"></div>
   </main>
 
@@ -1099,8 +1234,9 @@
   };
 
   const UNIT_HANDOFF_KEY = 'wtr_target_unit_handoff';
+  const BUILDING_HANDOFF_KEY = 'wtr_target_building_handoff';
 
-  /* Tracked War Commander Defects (Contractors pull live portrait thumbnails from MASTER_DB) */
+  /* Tracked War Commander Defects (Contractors & Buildings pull live portraits from MASTER_DB) */
   const DEFECT_ITEMS = [
     {
       id: 'johnny-bones',
@@ -1112,49 +1248,38 @@
       unitBriefDivision: 'CONTRACTOR',
       fallbackImg: './assets/images/AGENTS/JOHNNY BONES.jpg',
       liveImg: '',
+      datePosted: '2026-10-16',
+      dateFixed: '',
+      damageRating: 5,
+      containThumb: false,
       statusPill: 'STATUS: RED • BROKEN',
       overlayBanner: '🔴 STATUS: RED — BROKEN',
       overlayHeadline: 'Last Stand Zombies Attacking Own Base',
       overlayDesc: 'Zombies that come from buildings as Last Stand should defend base against attacker. Instead, they are attacking your own base.',
-      overlayCta: '📖 Click thumbnail to open Johnny Bones Unit Brief →',
-      footerCta: '📖 Open Unit Brief →',
+      overlayCta: '📖 Click image to open Johnny Bones Unit Brief →',
       redLight: true,
       yellowLight: false,
       greenLight: false
-    },
-    {
-      id: 'carol-hagen',
-      category: 'CONTRACTOR',
-      categoryBadge: 'CONTRACTOR • DEFENSE',
-      title: 'Contractor: Carol Hagen',
-      masterDbUnit: 'Carol Hagen',
-      unitBriefName: 'Carol Hagen',
-      unitBriefDivision: 'CONTRACTOR',
-      fallbackImg: './assets/images/AGENTS/ScreenCapture Carol Hagen.png',
-      liveImg: '',
-      statusPill: 'STATUS: GREEN • FIXED',
-      overlayBanner: '🟢 STATUS: GREEN — FIXED',
-      overlayHeadline: 'Now Showing in Contractor List',
-      overlayDesc: 'FIXED — Now showing in the Contractor List. (Previously missing from Agency list after Blood Thorium diamond purchase / swap.)',
-      overlayCta: '📖 Click thumbnail to open Carol Hagen Unit Brief →',
-      footerCta: '📖 Open Unit Brief →',
-      redLight: false,
-      yellowLight: false,
-      greenLight: true
     },
     {
       id: 'cc22-tesla-lvl9',
       category: 'FACILITY',
       categoryBadge: 'CC22 • WEAPONS LAB',
       title: 'cc22: Weapons Lab, Tesla Turret (level 9)',
-      fallbackImg: 'https://share1.cloudhq-mkt3.net/1bdc0cf359541e.png',
+      masterDbUnit: 'WEAPONS LAB',
+      buildingBriefName: 'WEAPONS LAB',
+      fallbackImg: './assets/images/BUILDINGS/weapons-lab.png',
       liveImg: '',
+      datePosted: '2026-09-24',
+      dateFixed: '',
+      damageRating: 4,
+      containThumb: false,
       statusPill: 'STATUS: RED • +0 STAT GAIN',
       overlayBanner: '🔴 STATUS: RED — BROKEN UPGRADE',
       overlayHeadline: 'Tesla Tower Level 8 → Level 9 (+0 Buff)',
       overlayDesc: 'Upgrading the Tesla Tower from Level 8 to Level 9 provides zero stat increase — Range (750), DPS (352), and RoF (32) remain completely unchanged.',
-      overlayCta: '🖥️ Click thumbnail to view Level 8 vs 9 Report →',
-      footerCta: '🖥️ View Embedded Report',
+      overlayCta: '🏢 Click thumbnail to open Weapons Lab Building Brief →',
+      footerCta: '🖥️ View Level 8 vs 9 Report →',
       redLight: true,
       yellowLight: false,
       greenLight: false,
@@ -1174,14 +1299,20 @@
       category: 'FACILITY',
       categoryBadge: 'CC22 • ACADEMY',
       title: 'cc22: Academy, Capacity (All Levels)',
-      fallbackImg: 'https://share1.cloudhq-mkt3.net/777862637a2d06.png',
+      masterDbUnit: 'ACADEMY',
+      buildingBriefName: 'ACADEMY',
+      fallbackImg: './assets/images/BUILDINGS/Academy.png',
       liveImg: '',
+      datePosted: '2026-09-24',
+      dateFixed: '',
+      damageRating: 4,
+      containThumb: false,
       statusPill: 'STATUS: RED • +0 CAPACITY',
       overlayBanner: '🔴 STATUS: RED — BROKEN SCALING',
       overlayHeadline: 'Academy Lvl 45 → Lvl 50 Capacity Locked',
       overlayDesc: 'Upgrading the Academy from Level 45 to Level 50 fails to scale unit storage capacity. Ceiling remains locked at 1200 across five full upgrade tiers.',
-      overlayCta: '🖥️ Click thumbnail to view Level 45 vs 50 Report →',
-      footerCta: '🖥️ View Embedded Report',
+      overlayCta: '🏢 Click thumbnail to open Academy Building Brief →',
+      footerCta: '🖥️ View Level 45 vs 50 Report →',
       redLight: true,
       yellowLight: false,
       greenLight: false,
@@ -1201,14 +1332,20 @@
       category: 'FACILITY',
       categoryBadge: 'CC22 • TECH CENTER',
       title: 'cc22: Tech Center, Capacity (All Levels)',
-      fallbackImg: 'https://share1.cloudhq-mkt3.net/a9326add99a105.png',
+      masterDbUnit: 'TECH CENTER',
+      buildingBriefName: 'TECH CENTER',
+      fallbackImg: './assets/images/BUILDINGS/Techcenter.png',
       liveImg: '',
+      datePosted: '2026-09-24',
+      dateFixed: '',
+      damageRating: 4,
+      containThumb: false,
       statusPill: 'STATUS: RED • +0 CAPACITY',
       overlayBanner: '🔴 STATUS: RED — BROKEN SCALING',
       overlayHeadline: 'Tech Center Lvl 45 → Lvl 50 Capacity Locked',
       overlayDesc: 'Upgrading the Tech Center from Level 45 to Level 50 fails to increase maximum vehicle reserve space, remaining capped at 1200/1200.',
-      overlayCta: '🖥️ Click thumbnail to view Level 45 vs 50 Report →',
-      footerCta: '🖥️ View Embedded Report',
+      overlayCta: '🏢 Click thumbnail to open Tech Center Building Brief →',
+      footerCta: '🖥️ View Level 45 vs 50 Report →',
       redLight: true,
       yellowLight: false,
       greenLight: false,
@@ -1222,10 +1359,39 @@
         rightStat: 'Tech Center Capacity: 1200 / 1200 (+0 MAX CAP — Expected ≥1450)',
         desc: 'Upgrading the Tech Center from Level 45 to Level 50 fails to increase the total storage capacity limit. Massive resource investment yields zero added vehicle reserve space.'
       }
+    },
+    {
+      id: 'carol-hagen',
+      category: 'CONTRACTOR',
+      categoryBadge: 'CONTRACTOR • DEFENSE',
+      title: 'Contractor: Carol Hagen',
+      masterDbUnit: 'Carol Hagen',
+      unitBriefName: 'Carol Hagen',
+      unitBriefDivision: 'CONTRACTOR',
+      fallbackImg: './assets/images/AGENTS/ScreenCapture Carol Hagen.png',
+      liveImg: '',
+      datePosted: '2026-10-24',
+      dateFixed: '2026-11-12',
+      damageRating: 3,
+      containThumb: false,
+      statusPill: 'STATUS: GREEN • FIXED',
+      overlayBanner: '🟢 STATUS: GREEN — FIXED',
+      overlayHeadline: 'Now Showing in Contractor List',
+      overlayDesc: 'FIXED — Now showing in the Contractor List. (Previously missing from Agency list after Blood Thorium diamond purchase / swap.)',
+      overlayCta: '📖 Click image to open Carol Hagen Unit Brief →',
+      redLight: false,
+      yellowLight: false,
+      greenLight: true
     }
   ];
 
-  let activeCategoryFilter = 'ALL';
+  const DAMAGE_META = {
+    1: { label: 'MINOR', color: '#38bdf8' },
+    2: { label: 'LOW', color: '#facc15' },
+    3: { label: 'MODERATE', color: '#fb923c' },
+    4: { label: 'SEVERE', color: '#fb7185' },
+    5: { label: 'CRITICAL', color: '#ff4d6d' }
+  };
 
   function escapeHtml(s) {
     return String(s || '')
@@ -1287,43 +1453,57 @@
     window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
   }
 
-  /* ==================== CATEGORY FILTER TABS & GRID RENDER ==================== */
-  function setCategoryFilter(cat) {
-    activeCategoryFilter = cat;
-    closeFacilityReport();
-    renderCategoryTabs();
-    renderDefectGrid();
+  /* ==================== DATE ELAPSED & SORTING ==================== */
+  function calcElapsedDays(isoStart, isoEnd) {
+    if (!isoStart) return 0;
+    const parts = String(isoStart).split('-').map(Number);
+    const startUtc = Date.UTC(parts[0] || 2026, (parts[1] || 1) - 1, parts[2] || 1);
+    let endUtc;
+    if (isoEnd) {
+      const ep = String(isoEnd).split('-').map(Number);
+      endUtc = Date.UTC(ep[0] || 2026, (ep[1] || 1) - 1, ep[2] || 1);
+    } else {
+      const now = new Date();
+      endUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    }
+    return Math.max(0, Math.round((endUtc - startUtc) / 86400000));
   }
 
-  function formatTabStatusBadge(items) {
-    const fixedCnt = items.filter(d => d.greenLight).length;
-    const redCnt = items.length - fixedCnt;
-    if (fixedCnt > 0 && redCnt > 0) return `${redCnt} RED • ${fixedCnt} FIXED`;
-    if (fixedCnt > 0) return `${fixedCnt} FIXED`;
-    return `${redCnt} STATUS RED`;
+  function getStatusGroup(item) {
+    if (item.greenLight) return 'GREEN';
+    if (item.yellowLight) return 'YELLOW';
+    return 'RED';
   }
 
-  function renderCategoryTabs() {
-    const contractorItems = DEFECT_ITEMS.filter(d => d.category === 'CONTRACTOR');
-    const facilityItems = DEFECT_ITEMS.filter(d => d.category === 'FACILITY');
+  function getStatusSortRank(item) {
+    if (item.greenLight) return 2;
+    if (item.yellowLight) return 1;
+    return 0; // RED first, GREEN last
+  }
 
-    const tabs = [
-      { key: 'ALL', name: 'ALL BROKEN ITEMS', sub: 'CONTRACTORS & BASE FACILITIES', badge: formatTabStatusBadge(DEFECT_ITEMS), color: '#f43f5e' },
-      { key: 'CONTRACTOR', name: 'AGENCY CONTRACTORS', sub: 'CLICK THUMBNAIL FOR UNIT BRIEF', badge: formatTabStatusBadge(contractorItems), color: '#00e676' },
-      { key: 'FACILITY', name: 'CC22 FACILITIES', sub: 'CLICK FOR LEVEL COMPARISON', badge: formatTabStatusBadge(facilityItems), color: '#38bdf8' }
-    ];
+  function updateStatusCounterSquares() {
+    const redCnt = DEFECT_ITEMS.filter(i => getStatusGroup(i) === 'RED').length;
+    const yelCnt = DEFECT_ITEMS.filter(i => getStatusGroup(i) === 'YELLOW').length;
+    const grnCnt = DEFECT_ITEMS.filter(i => getStatusGroup(i) === 'GREEN').length;
 
-    const bar = document.getElementById('categoryTabsBar');
-    if (!bar) return;
-    bar.innerHTML = tabs.map(t => `
-      <button type="button" class="div-tab-pill ${activeCategoryFilter === t.key ? 'active' : ''}" style="--tab-color: ${t.color};" onclick="setCategoryFilter('${t.key}')">
-        <div class="div-tab-left">
-          <span class="div-tab-name">${escapeHtml(t.name)}</span>
-          <span class="div-tab-sub">${escapeHtml(t.sub)}</span>
-        </div>
-        <span class="div-tab-badge">${escapeHtml(t.badge)}</span>
-      </button>
-    `).join('');
+    const rEl = document.getElementById('countRedSquare');
+    const yEl = document.getElementById('countYellowSquare');
+    const gEl = document.getElementById('countGreenSquare');
+    if (rEl) rEl.textContent = String(redCnt);
+    if (yEl) yEl.textContent = String(yelCnt);
+    if (gEl) gEl.textContent = String(grnCnt);
+  }
+
+  /* Smooth scroll & pulse highlight without hiding any cards */
+  function jumpToStatusGroup(group) {
+    const cards = Array.from(document.querySelectorAll(`.piece-card[data-status-group="${group}"]`));
+    if (cards.length === 0) return;
+    cards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    cards.forEach(c => {
+      c.classList.remove('flash-highlight');
+      void c.offsetWidth;
+      c.classList.add('flash-highlight');
+    });
   }
 
   function openContractorUnitBrief(unitName, division, ev) {
@@ -1338,81 +1518,160 @@
     window.location.href = targetHref;
   }
 
+  function openBuildingMasterBrief(buildingName, ev) {
+    try {
+      localStorage.setItem(BUILDING_HANDOFF_KEY, buildingName);
+    } catch (e) {}
+    const targetHref = `./building-briefs.html?building=${encodeURIComponent(buildingName)}`;
+    if (ev && (ev.ctrlKey || ev.metaKey || ev.button === 1)) {
+      return; // allow native anchor new-tab behavior
+    }
+    if (ev) ev.preventDefault();
+    window.location.href = targetHref;
+  }
+
   function renderDefectGrid() {
+    updateStatusCounterSquares();
     const grid = document.getElementById('cardsGrid');
     if (!grid) return;
 
-    const visible = DEFECT_ITEMS.filter(item => activeCategoryFilter === 'ALL' || item.category === activeCategoryFilter);
+    /* Keep ALL cards visible at all times; sort RED -> YELLOW -> GREEN, newest to oldest */
+    const sorted = DEFECT_ITEMS.slice().sort((a, b) => {
+      const rankDiff = getStatusSortRank(a) - getStatusSortRank(b);
+      if (rankDiff !== 0) return rankDiff;
+      return String(b.datePosted || '').localeCompare(String(a.datePosted || ''));
+    });
 
-    grid.innerHTML = visible.map((item) => {
+    grid.innerHTML = sorted.map((item) => {
       const origIdx = DEFECT_ITEMS.indexOf(item);
       const primarySrc = item.liveImg || item.fallbackImg;
       const backupSrc = (item.liveImg && item.fallbackImg && item.liveImg !== item.fallbackImg) ? item.fallbackImg : '';
-      const initials = item.title.replace(/^Contractor:\s*/i, '').split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+      const initials = item.title.replace(/^(?:Contractor|cc22):\s*/i, '').split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
       const isContractor = Boolean(item.unitBriefName);
-      const isGreen = Boolean(item.greenLight);
-      const isYellow = !isGreen && Boolean(item.yellowLight);
-      const statusToneClass = isGreen ? 'is-green' : (isYellow ? 'is-yellow' : '');
-      const podTitle = isGreen ? 'Status: GREEN (Fixed)' : (isYellow ? 'Status: YELLOW (Acknowledged)' : 'Status: RED (Unacknowledged)');
+      const isBuilding = Boolean(item.buildingBriefName);
+      const statusGroup = getStatusGroup(item);
+      const isGreen = (statusGroup === 'GREEN');
+      const isYellow = (statusGroup === 'YELLOW');
+      const cardStatusClass = isGreen ? 'status-green' : (isYellow ? 'status-yellow' : 'status-red');
 
-      const innerMarkup = `
-        <div class="tile-portrait-box">
-          <div class="tile-top-badges">
-            <span class="status-pill-red ${statusToneClass}">
-              <span class="status-pill-dot ${statusToneClass}"></span>
-              <span>${escapeHtml(item.statusPill)}</span>
-            </span>
-            <span class="traffic-pod" title="${escapeHtml(podTitle)}">
-              <span class="t-light red ${item.redLight ? 'active' : ''}"></span>
-              <span class="t-light yellow ${item.yellowLight ? 'active' : ''}"></span>
-              <span class="t-light green ${item.greenLight ? 'active' : ''}"></span>
-            </span>
-          </div>
+      /* Date Code & Unresolved Elapsed Duration */
+      const postedDateStr = item.datePosted || '2026-09-24';
+      let elapsedPillHtml = '';
+      if (isGreen && item.dateFixed) {
+        const fixedDays = calcElapsedDays(postedDateStr, item.dateFixed);
+        elapsedPillHtml = `<span class="elapsed-pill resolved">✅ FIXED IN ${fixedDays} DAYS</span>`;
+      } else if (isGreen) {
+        elapsedPillHtml = `<span class="elapsed-pill resolved">✅ FIXED &amp; VERIFIED</span>`;
+      } else {
+        const openDays = calcElapsedDays(postedDateStr, '');
+        const pillCls = isYellow ? 'acknowledged' : 'uncorrected';
+        elapsedPillHtml = `<span class="elapsed-pill ${pillCls}">⏱️ ${openDays} DAYS NOT CORRECTED</span>`;
+      }
 
-          <img src="${escapeHtml(primarySrc)}"
-               alt="${escapeHtml(item.title)}"
-               data-backup="${escapeHtml(backupSrc)}"
-               onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">
+      /* 5-Bar Game Damage Rating Below Thumbnail */
+      const dmg = Math.min(5, Math.max(1, Number(item.damageRating) || 3));
+      const meta = DAMAGE_META[dmg] || DAMAGE_META[3];
+      let barsHtml = '';
+      for (let b = 1; b <= 5; b++) {
+        let segCls = 'dmg-seg';
+        if (b <= dmg) {
+          segCls += isGreen ? ' on-fixed' : ` on-${dmg}`;
+        }
+        barsHtml += `<div class="${segCls}"></div>`;
+      }
+      const damageWord = isGreen ? `RESOLVED (${dmg}/5)` : `${dmg}/5 ${meta.label}`;
+      const damageColor = isGreen ? '#4ade80' : meta.color;
 
-          ${isGreen ? `<div class="fixed-stamp-wrap"><div class="fixed-stamp">FIXED</div></div>` : ''}
-
-          <span class="tile-cat-tag ${isContractor ? '' : 'facility'}">${escapeHtml(item.categoryBadge)}</span>
-
-          <div class="tile-hover-overlay">
-            <span class="ov-status-banner ${statusToneClass}">${escapeHtml(item.overlayBanner)}</span>
-            <div class="ov-headline">${escapeHtml(item.overlayHeadline)}</div>
-            <div class="ov-desc ${statusToneClass}">${escapeHtml(item.overlayDesc)}</div>
-            <div class="ov-cta ${isContractor ? '' : 'report-cta'}">${escapeHtml(item.overlayCta)}</div>
-          </div>
-        </div>
-
-        <div class="tile-footer">
-          <div class="tile-title">${escapeHtml(item.title)}</div>
-          <div class="tile-action-chip ${isContractor ? '' : 'facility-chip'}">${escapeHtml(item.footerCta)}</div>
-        </div>
+      const imgHtml = `
+        <img src="${escapeHtml(primarySrc)}"
+             alt="${escapeHtml(item.title)}"
+             data-backup="${escapeHtml(backupSrc)}"
+             onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">
+        ${isGreen ? `<div class="fixed-stamp-wrap"><div class="fixed-stamp">FIXED</div></div>` : ''}
+        <span class="thumb-brief-tag">${isContractor ? 'UNIT BRIEF ↗' : 'BUILDING BRIEF ↗'}</span>
       `;
 
+      let thumbBoxHtml = '';
+      let footerActionHtml = '';
       if (isContractor) {
         const briefUrl = `./unit-briefs.html?division=${encodeURIComponent(item.unitBriefDivision || 'CONTRACTOR')}&unit=${encodeURIComponent(item.unitBriefName)}`;
         const safeUnitAttr = escapeHtml(item.unitBriefName).replace(/'/g, '&#39;');
         const safeDivAttr = escapeHtml(item.unitBriefDivision || 'CONTRACTOR').replace(/'/g, '&#39;');
-        return `
-          <a class="defect-tile ${statusToneClass}"
+        thumbBoxHtml = `
+          <a class="thumb-frame ${item.containThumb ? 'contain-mode' : ''}"
              href="${escapeHtml(briefUrl)}"
              data-track="Unit Brief: ${escapeHtml(item.unitBriefName)}"
-             onclick="openContractorUnitBrief('${safeUnitAttr}', '${safeDivAttr}', event)">
-            ${innerMarkup}
+             onclick="openContractorUnitBrief('${safeUnitAttr}', '${safeDivAttr}', event)"
+             title="${escapeHtml(item.overlayCta)}">
+            ${imgHtml}
+          </a>
+        `;
+      } else if (isBuilding) {
+        const bBriefUrl = `./building-briefs.html?building=${encodeURIComponent(item.buildingBriefName)}`;
+        const safeBldgAttr = escapeHtml(item.buildingBriefName).replace(/'/g, '&#39;');
+        thumbBoxHtml = `
+          <a class="thumb-frame ${item.containThumb ? 'contain-mode' : ''}"
+             href="${escapeHtml(bBriefUrl)}"
+             data-track="Building Brief: ${escapeHtml(item.buildingBriefName)}"
+             onclick="openBuildingMasterBrief('${safeBldgAttr}', event)"
+             title="${escapeHtml(item.overlayCta)}">
+            ${imgHtml}
           </a>
         `;
       }
 
+      if (item.report && item.footerCta) {
+        footerActionHtml = `
+          <div class="card-footer-row">
+            <button type="button"
+                    class="tile-action-chip facility-chip"
+                    data-track="Facility Defect: ${escapeHtml(item.title)}"
+                    onclick="showFacilityReport(${origIdx})">
+              ${escapeHtml(item.footerCta)}
+            </button>
+          </div>
+        `;
+      }
+
       return `
-        <button type="button"
-                class="defect-tile ${statusToneClass}"
-                data-track="Facility Defect: ${escapeHtml(item.title)}"
-                onclick="showFacilityReport(${origIdx})">
-          ${innerMarkup}
-        </button>
+        <article class="piece-card ${cardStatusClass}" data-status-group="${statusGroup}">
+          <div class="piece-top-bar">
+            <div class="piece-top-name">${escapeHtml(item.title)}</div>
+            <span class="piece-top-cat">${escapeHtml(item.categoryBadge)}</span>
+          </div>
+
+          <div class="piece-body-row">
+            <div class="piece-left-col">
+              ${thumbBoxHtml}
+              <div class="damage-box" title="5-Bar Game Damage Severity (${dmg}/5)">
+                <div class="damage-head">
+                  <span style="color: #93aac0;">DAMAGE</span>
+                  <span style="color: ${damageColor};">${dmg}/5</span>
+                </div>
+                <div class="bars-5-track">
+                  ${barsHtml}
+                </div>
+                <div class="damage-tier-txt" style="color: ${damageColor};">${escapeHtml(damageWord)}</div>
+              </div>
+            </div>
+
+            <div class="piece-right-col">
+              <div>
+                <div class="date-strip">
+                  <div class="date-badges-left">
+                    <span class="date-code-pill">📅 POSTED: ${escapeHtml(postedDateStr)}</span>
+                    ${elapsedPillHtml}
+                  </div>
+                </div>
+                <div style="margin-top: 8px;">
+                  <div class="defect-headline">${escapeHtml(item.overlayHeadline)}</div>
+                  <div class="defect-desc">${escapeHtml(item.overlayDesc)}</div>
+                </div>
+              </div>
+              ${footerActionHtml}
+            </div>
+          </div>
+        </article>
       `;
     }).join('');
   }
@@ -1476,12 +1735,12 @@
           if (v.startsWith("'")) v = v.slice(1);
           if (k) rec[k] = v;
         });
-        const rowName = normKey(rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '');
+        const rowName = normKey(rec.BUILDING_NAME || rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '');
         if (!rowName) continue;
 
         DEFECT_ITEMS.forEach(item => {
           if (item.masterDbUnit && normKey(item.masterDbUnit) === rowName) {
-            const rawImg = rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.UNIT_IMG_URL || '';
+            const rawImg = rec.UNIT_IMAGE_URL || rec.IMAGE_URL || rec.BUILDING_IMAGE_URL || rec.UNIT_IMG_URL || '';
             const resolved = normalizeMasterDbImage(rawImg);
             if (resolved) {
               item.liveImg = resolved;
@@ -1587,7 +1846,6 @@
     if (!inIframe && popBtn) {
       popBtn.style.display = 'none';
     }
-    renderCategoryTabs();
     renderDefectGrid();
     syncThumbnailsFromMasterDb();
   });
