@@ -975,10 +975,113 @@
     }
   });
 
+  /* ==========================================================================
+   * SILENT HUB PAGE VISIT TELEMETRY COLLECTOR (FEEDS PRIVATE MASTER COUNTER)
+   * - Zero public UI; ignores local file:// & localhost Studio testing by default
+   * - Sends non-blocking CORS-simple POST to Google Sheet Apps Script (PAGE_HITS)
+   * ========================================================================== */
+  var DEFAULT_TELEMETRY_EXEC_URL = "https://script.google.com/macros/s/AKfycbwU6GAb7k-JknpKtaGmTCLu5QKkkrVyLuoL4rMuCRrwxQ6eFuSR-VDuIzIUhZQGdTz3Pg/exec";
+
+  function resolveTelemetryExecUrl() {
+    try {
+      if (window.WTR_DIRECTORY_MANIFEST && window.WTR_DIRECTORY_MANIFEST.telemetryExecUrl) {
+        return String(window.WTR_DIRECTORY_MANIFEST.telemetryExecUrl).trim();
+      }
+    } catch (e) {}
+    return DEFAULT_TELEMETRY_EXEC_URL;
+  }
+
+  function resolveCanonicalPageFile() {
+    var rawPath = "";
+    try { rawPath = String(window.location.pathname || ""); } catch (e) {}
+    rawPath = rawPath.replace(/\\/g, "/");
+    var lower = rawPath.toLowerCase();
+    var vaultIdx = lower.lastIndexOf("/vault/");
+    if (vaultIdx !== -1) {
+      var vSub = rawPath.slice(vaultIdx + 1);
+      return vSub || "vault/index.html";
+    }
+    var parts = rawPath.split("/").filter(Boolean);
+    if (parts.length === 0) return "index.html";
+    var last = parts[parts.length - 1];
+    if (!/\.html?$/i.test(last)) return "index.html";
+    return last;
+  }
+
+  function recordWtrPageVisit(forceTest) {
+    try {
+      var proto = String(window.location.protocol || "").toLowerCase();
+      var host = String(window.location.hostname || "").toLowerCase();
+      var params = new URLSearchParams(window.location.search || "");
+      var allowTest = Boolean(forceTest) || params.get("wtrTestHit") === "1";
+
+      if (!allowTest) {
+        if (proto === "file:" || proto === "about:" || host === "localhost" || host === "127.0.0.1") {
+          return;
+        }
+      }
+
+      var execUrl = resolveTelemetryExecUrl();
+      if (!execUrl || execUrl.indexOf("https://script.google.com/") !== 0) return;
+
+      var pageFile = resolveCanonicalPageFile();
+      var nowMs = Date.now();
+      var sessKey = "wtr_hit_sess_v1_" + pageFile;
+      var coolKey = "wtr_hit_cool_v1_" + pageFile;
+      var isNewSession = true;
+
+      if (!allowTest) {
+        try {
+          var lastHitMs = Number(window.sessionStorage.getItem(coolKey) || "0");
+          if (lastHitMs && (nowMs - lastHitMs) < 60000) {
+            return; // 60s anti-refresh spam guard per page
+          }
+          window.sessionStorage.setItem(coolKey, String(nowMs));
+          if (window.sessionStorage.getItem(sessKey) === "1") {
+            isNewSession = false;
+          } else {
+            window.sessionStorage.setItem(sessKey, "1");
+          }
+        } catch (eSess) {}
+      }
+
+      var rawTitle = String(document.title || pageFile)
+        .replace(/^\s*\[?-?WTR-?\]?\s*(?:WatchToweR\s*)?(?:Data\s*Hub|Command\s*Center)\s*[—–\-:]+\s*/i, "")
+        .trim();
+
+      var payloadStr = JSON.stringify({
+        action: "PAGE_HIT",
+        targetTab: "PAGE_HITS",
+        page: pageFile,
+        title: rawTitle || pageFile,
+        isNewSession: isNewSession,
+        isIframe: IS_EMBEDDED_FRAME,
+        ts: new Date(nowMs).toISOString()
+      });
+
+      if (typeof window.fetch === "function") {
+        window.fetch(execUrl, {
+          method: "POST",
+          mode: "no-cors",
+          keepalive: true,
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: payloadStr
+        }).catch(function () {});
+      } else if (navigator && typeof navigator.sendBeacon === "function") {
+        var blob = new Blob([payloadStr], { type: "text/plain;charset=utf-8" });
+        navigator.sendBeacon(execUrl, blob);
+      }
+    } catch (err) {}
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mountSelectorsOnDomReady);
+    document.addEventListener("DOMContentLoaded", function () {
+      mountSelectorsOnDomReady();
+      setTimeout(function () { recordWtrPageVisit(false); }, 350);
+    });
   } else {
     mountSelectorsOnDomReady();
+    setTimeout(function () { recordWtrPageVisit(false); }, 350);
   }
 
   window.WTRViewMode = {
@@ -997,6 +1100,7 @@
       }
     },
     syncIframes: pushStateToEmbeddedIframes,
-    decorateUrl: decorateRelativeHtmlUrl
+    decorateUrl: decorateRelativeHtmlUrl,
+    sendTestHit: function () { recordWtrPageVisit(true); }
   };
 })();

@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-16T02:24:26Z",
+    "updatedAt":  "2026-11-16T19:57:43Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -729,6 +729,14 @@
                                            "subLabel":  "Legacy • LEGACY",
                                            "firstSeenMs":  0,
                                            "firstSeenAt":  "BASELINE"
-                                       }
+                                       },
+                    "UNIT::WATCHTOWER COMMAND CENTER (HOME)":  {
+                                                                   "key":  "WATCHTOWER COMMAND CENTER (HOME)",
+                                                                   "name":  "WatchToweR Command Center (Home)",
+                                                                   "gallery":  "UNIT",
+                                                                   "subLabel":  "",
+                                                                   "firstSeenMs":  1794859063389,
+                                                                   "firstSeenAt":  "2026-11-16T19:57:43Z"
+                                                               }
                 }
 }

@@ -1,13 +1,12 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-15T18:24:29-08:00",
-    "generatedMs":  1794795866305,
+    "generatedAt":  "2026-11-16T11:57:46-08:00",
+    "generatedMs":  1794859063389,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
                         "2026-nov-holdout-brief.html",
-                        "2026-nov-operation-blue-baron-brief.html",
                         "2026-nov-sector-breach-brief.html",
                         "2026-nov-shadow-ops-brief.html",
                         "2026-nov-skirmish-brief.html",
@@ -77,13 +76,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "title":  "2026-nov-holdout-brief",
                               "modifiedAt":  "2026-11-12T19:59:15Z",
                               "modifiedMs":  1794513555883
-                          },
-                          {
-                              "file":  "2026-nov-operation-blue-baron-brief.html",
-                              "path":  "./2026-nov-operation-blue-baron-brief.html",
-                              "title":  "Operation: Blue Baron",
-                              "modifiedAt":  "2026-11-12T15:26:11Z",
-                              "modifiedMs":  1794497171307
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
@@ -402,6 +394,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-
+                                   {
+                                       "key":  "WATCHTOWER COMMAND CENTER (HOME)",
+                                       "name":  "WatchToweR Command Center (Home)",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "",
+                                       "firstSeenMs":  1794859063389,
+                                       "firstSeenAt":  "2026-11-16T19:57:43Z"
+                                   }
                                ]
 };
