@@ -980,6 +980,10 @@
    * - Zero public UI; ignores local file:// & localhost Studio testing by default
    * - Sends non-blocking CORS-simple POST to Google Sheet Apps Script (PAGE_HITS)
    * ========================================================================== */
+  var IS_EMBEDDED_FRAME = (function () {
+    try { return window.self !== window.top; } catch (e) { return true; }
+  })();
+
   var DEFAULT_TELEMETRY_EXEC_URL = "https://script.google.com/macros/s/AKfycbyaFrxwuN-EvOxJIPd-YE0VHgcyTNMczDY_ehm6v4l2h1ewMMCbEA7_qFO6eRsgwAespQ/exec";
 
   function resolveTelemetryExecUrl() {
@@ -1049,24 +1053,32 @@
         .replace(/^\s*\[?-?WTR-?\]?\s*(?:WatchToweR\s*)?(?:Data\s*Hub|Command\s*Center)\s*[—–\-:]+\s*/i, "")
         .trim();
 
+      var isFrame = false;
+      try { isFrame = (window.self !== window.top); } catch (eFr) { isFrame = true; }
+
       var payloadStr = JSON.stringify({
         action: "PAGE_HIT",
         targetTab: "PAGE_HITS",
         page: pageFile,
         title: rawTitle || pageFile,
         isNewSession: isNewSession,
-        isIframe: IS_EMBEDDED_FRAME,
+        isIframe: isFrame,
         ts: new Date(nowMs).toISOString()
       });
 
       if (typeof window.fetch === "function") {
         window.fetch(execUrl, {
           method: "POST",
-          mode: "no-cors",
-          keepalive: true,
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: payloadStr
-        }).catch(function () {});
+        }).catch(function () {
+          window.fetch(execUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: payloadStr
+          }).catch(function () {});
+        });
       } else if (navigator && typeof navigator.sendBeacon === "function") {
         var blob = new Blob([payloadStr], { type: "text/plain;charset=utf-8" });
         navigator.sendBeacon(execUrl, blob);
