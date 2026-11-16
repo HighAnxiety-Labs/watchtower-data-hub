@@ -69,25 +69,119 @@
     }
 
     /* 4-Corner Opposing-Angle Classification Header & Footer */
-    .classification-bar {
-      background: linear-gradient(90deg, #1b7a43 0%, #2ea043 50%, #1b7a43 100%);
-      color: #040806;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: 900;
-      font-size: 12.5px;
-      letter-spacing: 2.5px;
-      text-align: center;
-      padding: 7px 16px;
-      text-transform: uppercase;
-      border-bottom: 2px solid #4ade80;
-      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
+    .class-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 282px;
+      background: #1e7a46;
+      border-bottom: 1px solid #2ea05f;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
+      user-select: none;
+      overflow: hidden;
+      z-index: 30;
     }
-
-    .classification-bar.footer-bar {
+    .class-bar-bottom {
       border-bottom: none;
-      border-top: 2px solid #4ade80;
-      clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
-      margin-top: 12px;
+      border-top: 1px solid #2ea05f;
+    }
+    .corner-tab {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 270px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #e2e8f0;
+      background: #06090d;
+      z-index: 2;
+    }
+    .class-bar-top .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-top .corner-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-bottom .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-bottom .corner-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
+      text-align: center;
+      padding: 0 10px;
+      z-index: 1;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+    }
+    .collapse-toggle-btn {
+      background: transparent;
+      border: 1px solid rgba(74, 222, 128, 0.5);
+      color: #4ade80;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .collapse-toggle-btn:hover {
+      background: #4ade80;
+      color: #021008;
+    }
+    .master-shell.is-collapsed .quick-jump-bar,
+    .master-shell.is-collapsed .content-container {
+      display: none !important;
+    }
+    @media (max-width: 860px) {
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
     }
 
     /* Top Tactical Navigation Bar (In-Page + Pop-Out Support) */
@@ -640,27 +734,23 @@
   </style>
 </head>
 <body>
-  <div class="master-shell">
+  <div class="master-shell" id="boardShell">
     <!-- Top 4-Corner Classification Bar -->
-    <div class="classification-bar">
-      [-WTR-] WATCHTOWER COMMAND PROTOCOL // COMBAT GUIDES // BASE DEFENSE &amp; CHOKE ARCHITECTURE BRIEF
-    </div>
-
-    <!-- Top Utility Bar (Seamless In-Page & Pop-Out Controls) -->
-    <div class="top-utility-bar">
-      <div class="util-left">
-        <button type="button" class="tactical-btn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
-        <span class="status-pill">🏗️ LAYERED PERIMETER DOCTRINE • CC22 READY</span>
+    <div class="class-bar class-bar-top">
+      <div class="corner-tab corner-left">
+        <span class="status-dot"></span>
+        <span>WATCHTOWER // INTEL</span>
       </div>
-      <div class="util-right">
-        <button type="button" class="tactical-btn btn-cyan" id="btnPopOutWindow" onclick="popOutFullWindow()">↗ POP-OUT FULL WINDOW</button>
+      <div class="class-center">UNCLASSIFIED // BASE DEFENSE &amp; CHOKE ARCHITECTURE BRIEF</div>
+      <div class="corner-tab corner-right">
+        <button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">[—] COLLAPSE BRIEF</button>
       </div>
     </div>
 
     <!-- Hero Banner -->
     <header class="hero-banner">
       <div class="hero-left">
-        <div class="logo-radar-wrap">
+        <div class="logo-radar-wrap" onclick="returnToCommandCenter()" style="cursor:pointer;" title="WatchToweR Command Center — Click to return">
           <img class="logo-radar-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Emblem">
         </div>
         <div class="hero-titles">
@@ -668,6 +758,10 @@
           <h1>Base Defense Planning</h1>
           <div class="hero-subtitle">Zone Control • Choke Architecture • Tech Synergies</div>
         </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+        <button type="button" class="tactical-btn btn-cyan" id="btnPopOutWindow" onclick="popOutFullWindow()">↗ POP-OUT FULL WINDOW</button>
+        <span class="status-pill">🏗️ LAYERED PERIMETER DOCTRINE • CC22 READY</span>
       </div>
     </header>
 
@@ -835,9 +929,15 @@
     </div>
 
     <!-- Bottom 4-Corner Classification Bar -->
-    <div class="classification-bar footer-bar">
-      [-WTR-] WATCHTOWER COMMAND CENTER // BASE DEFENSE &amp; LAYOUTS BRIEF // END OF TRANSMISSION
-    </div>
+    <footer class="class-bar class-bar-bottom">
+      <div class="corner-tab corner-left">
+        <span>[-WTR-] DATA HUB</span>
+      </div>
+      <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • BASE DEFENSE &amp; LAYOUTS</div>
+      <div class="corner-tab corner-right">
+        <button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
+      </div>
+    </footer>
   </div>
 
   <!-- Blueprint Lightbox Modal -->
@@ -848,12 +948,18 @@
         <button type="button" class="tactical-btn" onclick="closeBlueprintLightbox()">✕ CLOSE</button>
       </div>
       <div class="lightbox-body">
-        <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged Perimeter Blueprint">
+        <img id="lightboxImg" alt="Enlarged Perimeter Blueprint">
       </div>
     </div>
   </div>
 
   <script>
+    function toggleBoardCollapse() {
+      const shell = document.getElementById('boardShell');
+      const btn = document.getElementById('collapseBtn');
+      const collapsed = shell.classList.toggle('is-collapsed');
+      btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+    }
     function filterDefenseMatrix(zone, btnEl) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       if (btnEl) btnEl.classList.add('active');

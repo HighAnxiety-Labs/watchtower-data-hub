@@ -26,21 +26,40 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="WatchToweR Data Hub — Report War Crimes">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub â€” Tactical Briefs, Event Calculators & Intelligence.">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Sector Incident Reporting Log & War Crimes Evidence Registry.">
   <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <script src="./wtr-view-mode.js"></script>
 <style>
-:root { --bg-dark:#05070a; --panel-bg:#0d1219; --border-metal:#2a3b4c; --border-bevel:#41586f; --text-primary:#e6edf3; --text-muted:#8394a5; --c-holdout:#00e5ff; --c-breach:#fb923c; --c-nightmare:#f43f5e; }
+:root { --bg-dark:#05070a; --panel-bg:#0d1219; --border-metal:#2a3b4c; --border-bevel:#41586f; --text-primary:#e6edf3; --text-muted:#8394a5; --c-holdout:#00e5ff; --c-breach:#fb923c; --c-nightmare:#f43f5e; --green-main:#00e676; }
 * { box-sizing:border-box; margin:0; padding:0; }
-body { background:var(--bg-dark); color:var(--text-primary); font-family:"Segoe UI",sans-serif; padding:16px; }
-.terminal-frame { max-width:1040px; margin:0 auto; border:2px solid var(--border-metal); background:var(--panel-bg); }
-.header { border-bottom:2px solid var(--border-metal); padding:16px 24px; display:flex; align-items:center; gap:16px; background:linear-gradient(180deg,#1c2633 0%,#101721 100%); }
-.logo-img { width:72px; height:72px; border-radius:50%; border:2px solid var(--c-holdout); }
-.sub-tag { font-size:12px; letter-spacing:2px; color:var(--c-breach); font-family:monospace; text-transform:uppercase; font-weight:700; }
-h1 { font-size:22px; font-weight:900; text-transform:uppercase; letter-spacing:2px; }
-.content-body { padding:24px; }
+body { background:var(--bg-dark); color:var(--text-primary); font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,sans-serif; padding:16px 16px 36px; min-height:100vh; }
+.board-shell { max-width:1180px; margin:0 auto; }
+.class-bar { position:relative; display:flex; align-items:center; justify-content:center; min-height:44px; padding:6px 282px; background:#1e7a46; border:1px solid #2ea05f; box-shadow:0 0 22px rgba(0,0,0,0.85); user-select:none; overflow:hidden; z-index:30; }
+.class-bar-top { border-radius:6px 6px 0 0; }
+.class-bar-bottom { border-radius:0 0 6px 6px; margin-top:-1px; }
+.corner-tab { position:absolute; top:0; bottom:0; width:270px; display:flex; align-items:center; gap:8px; font-family:'Orbitron','Arial Black',sans-serif; font-size:11.5px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#e2e8f0; background:#06090d; z-index:2; }
+.class-bar-top .corner-left { left:0; justify-content:flex-start; padding:0 24px 0 14px; clip-path:polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%); box-shadow:4px 0 12px rgba(0,0,0,0.6); }
+.class-bar-top .corner-right { right:0; justify-content:flex-end; padding:0 14px 0 24px; clip-path:polygon(0 0, 100% 0, 100% 100%, 18px 100%); box-shadow:-4px 0 12px rgba(0,0,0,0.6); }
+.class-bar-bottom .corner-left { left:0; justify-content:flex-start; padding:0 24px 0 14px; clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%); box-shadow:4px 0 12px rgba(0,0,0,0.6); }
+.class-bar-bottom .corner-right { right:0; justify-content:flex-end; padding:0 14px 0 24px; clip-path:polygon(18px 0, 100% 0, 100% 100%, 0 100%); box-shadow:-4px 0 12px rgba(0,0,0,0.6); }
+.class-center { display:flex; align-items:center; justify-content:center; font-family:'Orbitron','Arial Black',sans-serif; font-size:12.5px; font-weight:900; letter-spacing:2px; color:#fff; text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 2px 5px rgba(0,0,0,0.85); text-align:center; padding:0 10px; z-index:1; }
+.status-dot { width:8px; height:8px; border-radius:50%; background:var(--green-main); box-shadow:0 0 8px var(--green-main); }
+.collapse-toggle-btn { background:transparent; border:1px solid rgba(0,230,118,0.45); color:#34c772; font-family:monospace; font-size:11.5px; font-weight:800; padding:4px 10px; border-radius:3px; cursor:pointer; transition:all 0.18s ease; text-decoration:none; }
+.collapse-toggle-btn:hover { background:var(--green-main); color:#021008; }
+.terminal-frame { border-left:1px solid rgba(0,230,118,0.35); border-right:1px solid rgba(0,230,118,0.35); background:var(--panel-bg); padding:20px 24px 26px; }
+.header { border:1px solid var(--border-metal); border-left:4px solid var(--c-nightmare); border-radius:6px; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px; background:linear-gradient(135deg,#1c1622 0%,#101721 60%,#0a1018 100%); margin-bottom:20px; }
+.logo-radar-wrap { position:relative; width:86px; height:86px; border-radius:50%; background:radial-gradient(circle,#07140e 0%,#03070b 82%); border:2px solid var(--green-main); box-shadow:0 0 22px rgba(0,230,118,0.38); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; cursor:pointer; }
+.logo-radar-wrap::before { content:''; position:absolute; inset:3px; border-radius:50%; border:1px dashed rgba(0,230,118,0.55); animation:spinRing 18s linear infinite; pointer-events:none; }
+.logo-radar-wrap::after { content:''; position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 0deg, transparent 70%, rgba(0,230,118,0.35) 100%); animation:spinRing 4.5s linear infinite; pointer-events:none; }
+.logo-img { width:72px; height:72px; border-radius:50%; object-fit:cover; position:relative; z-index:2; border:2px solid #03070b; }
+@keyframes spinRing { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+.sub-tag { font-size:12px; letter-spacing:2px; color:var(--c-breach); font-family:monospace; text-transform:uppercase; font-weight:700; margin-bottom:4px; }
+h1 { font-size:clamp(20px,2.6vw,26px); font-weight:900; text-transform:uppercase; letter-spacing:1.8px; }
+.board-shell.is-collapsed .content-body { display:none !important; }
+.board-shell.is-collapsed .header { margin-bottom:0; }
+.board-shell.is-collapsed .terminal-frame { padding:16px 24px; }
 .header-badge { display:inline-block; background:var(--c-nightmare); color:#fff; font-size:11.5px; font-weight:800; padding:4px 10px; border-radius:3px; text-transform:uppercase; font-family:monospace; margin-bottom:10px; }
 .subtitle { color:var(--text-muted); font-size:14.5px; line-height:1.6; margin-bottom:20px; }
 .official-actions, .paired-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-bottom:20px; }
@@ -57,24 +76,82 @@ h1 { font-size:22px; font-weight:900; text-transform:uppercase; letter-spacing:2
 .card-desc { font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:14px; }
 .info-box { background:#0e151f; border:1px solid var(--border-metal); border-left:4px solid var(--c-holdout); border-radius:4px; padding:18px; font-size:13px; line-height:1.6; color:var(--text-muted); }
 .btn-red { background:linear-gradient(180deg,#f43f5e 0%,#be123c 100%); color:#fff; font-size:12px; font-weight:900; text-transform:uppercase; padding:8px 16px; border-radius:3px; border:1px solid #fda4af; text-decoration:none; display:inline-block; margin-top:12px; }
+@media (max-width:860px) {
+  .class-bar { justify-content:space-between; height:auto; padding:6px 10px; gap:6px; }
+  .class-center { display:none; }
+  .class-bar .corner-tab { position:static; width:auto; clip-path:none !important; background:#06090d; padding:4px 10px !important; border-radius:4px; }
+}
 </style></head><body>
-<div class="terminal-frame"><div class="header"><img class="logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="Logo"><div><div class="sub-tag">WatchTower Data Hub // Integrity Bureau</div><h1>Report War Commander <span style="color:var(--c-nightmare);">War Crimes</span></h1></div></div>
-<div class="content-body"><span class="header-badge">WatchTower Official & Public Incident Reporting</span><p class="subtitle">By Players for Players. Public incident tracking, integrity logs, and after-action combat reports compiled by the community on the WatchToweR Data Hub.</p>
-<div class="official-actions">
-  <div class="official-card"><div><div style="font-size:11px; color:#d29922; font-family:monospace; font-weight:800;">OFFICIAL CHANNEL</div><div style="font-size:15px; font-weight:700; color:#fff;">KIXEYE: Report a Player</div></div><a class="official-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfhKHldVeCwY4nsFY13FNPFdvVsHQoTZ_a5ZxA8y7iv7GmtXw/viewform" target="_blank" rel="noopener">↗ Report Link</a></div>
-  <div class="official-card"><div><div style="font-size:11px; color:#d29922; font-family:monospace; font-weight:800;">OFFICIAL CHANNEL</div><div style="font-size:15px; font-weight:700; color:#fff;">KIXEYE: Fair Play Updates</div></div><a class="official-btn" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/948-fair-play-roadmap/" target="_blank" rel="noopener">↗ View Updates</a></div>
+<div class="board-shell" id="boardShell">
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left"><span class="status-dot"></span><span>WATCHTOWER // INTEL</span></div>
+    <div class="class-center">UNCLASSIFIED // INTEGRITY BUREAU — REPORT WAR CRIMES</div>
+    <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">[—] COLLAPSE BRIEF</button></div>
+  </header>
+  <main class="terminal-frame">
+    <div class="header">
+      <div style="display:flex; align-items:center; gap:18px; flex:1; min-width:260px;">
+        <div class="logo-radar-wrap" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+          <img class="logo-img" src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
+        </div>
+        <div>
+          <div class="sub-tag">WatchToweR Data Hub // Integrity Bureau</div>
+          <h1>Report War Commander <span style="color:var(--c-nightmare);">War Crimes</span></h1>
+          <p style="font-size:13.5px; color:var(--text-muted); margin-top:4px;">Public incident tracking, integrity logs, and after-action combat reports compiled by players for players.</p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+        <a class="collapse-toggle-btn" id="popoutSelfBtn" href="./report-war-crimes.html" target="_blank" rel="noopener" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</a>
+        <a class="btn-red" style="margin-top:0;" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener">⚡ GET INVOLVED!</a>
+      </div>
+    </div>
+    <div class="content-body">
+      <span class="header-badge">WatchToweR Official &amp; Public Incident Reporting</span>
+      <p class="subtitle">Submit evidence-backed reports to both official KIXEYE enforcement channels and the community WatchToweR Integrity Registry below.</p>
+      <div class="official-actions">
+        <div class="official-card"><div><div style="font-size:11px; color:#d29922; font-family:monospace; font-weight:800;">OFFICIAL CHANNEL</div><div style="font-size:15px; font-weight:700; color:#fff;">KIXEYE: Report a Player</div></div><a class="official-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfhKHldVeCwY4nsFY13FNPFdvVsHQoTZ_a5ZxA8y7iv7GmtXw/viewform" target="_blank" rel="noopener">↗ Report Link</a></div>
+        <div class="official-card"><div><div style="font-size:11px; color:#d29922; font-family:monospace; font-weight:800;">OFFICIAL CHANNEL</div><div style="font-size:15px; font-weight:700; color:#fff;">KIXEYE: Fair Play Updates</div></div><a class="official-btn" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/948-fair-play-roadmap/" target="_blank" rel="noopener">↗ View Updates</a></div>
+      </div>
+      <div class="tool-banner"><div><div style="font-size:11px; color:#3fb950; font-family:monospace; font-weight:800;">EVIDENCE UPLOAD TOOL</div><div style="font-size:14px; color:#fff; font-weight:600;">Upload screenshots and battle recordings to support player incident reports.</div></div><a class="tool-btn" href="https://imglink.cc/" target="_blank" rel="noopener">↗ Share via IMGLINK.CC</a></div>
+      <div class="pairing-header">Cheat Reporting &amp; Incident Intake</div>
+      <div class="paired-grid">
+        <div class="card"><div><span class="card-tag report">Submission Portal</span><div class="card-title">Report War Crimes</div><div class="card-desc">Submit new player infraction logs, suspected botting/scripting, and game exploit reports.</div></div><a class="card-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfTzMVd3P4UnHJ6qRuxY51hmr7rE3T8qlZ-v5V-9zVs_8KnHw/viewform" target="_blank" rel="noopener">↗ Access Report Form</a></div>
+        <div class="card"><div><span class="card-tag">Report Logs</span><div class="card-title">Player Integrity Logs</div><div class="card-desc">Review verification logs, participant integrity records, and tactical compliance spreadsheets.</div></div><a class="card-btn" href="https://sites.google.com/view/watchtower-data-hub/admin-bug-hub/report-war-crimes/live-form-intake-feed" target="_blank" rel="noopener">↗ View Integrity Reports</a></div>
+      </div>
+      <div class="pairing-header">Enforcement &amp; After Action Debriefs</div>
+      <div class="paired-grid">
+        <div class="card"><div><span class="card-tag report">Submission Portal</span><div class="card-title">Report Banned Players</div><div class="card-desc">Log cratered bases and alliance ban waves observed across the sectors.</div></div><a class="card-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScplXEurZjBuirZ331rDp7c6dtq1StWRI23IKNP5axiSbIFiA/viewform" target="_blank" rel="noopener">↗ Submit Ban Report</a></div>
+        <div class="card"><div><span class="card-tag">Post-Battle Debrief</span><div class="card-title">After Action Reports</div><div class="card-desc">Detailed tactical post-mortems and verified BANNED account logs.</div></div><a class="card-btn" href="https://sites.google.com/view/watchtower-data-hub/admin-bug-hub/report-war-crimes/live-after-action" target="_blank" rel="noopener">↗ Review AARs</a></div>
+      </div>
+      <div class="info-box"><p>Fair play is the cornerstone of any competitive gaming experience. Recognizing that official KIXEYE bans can be delayed or go unenforced, WatchToweR steps in to support the War Commander community with a transparent, community-led reporting initiative.</p><a class="btn-red" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener">⚡ GET INVOLVED!</a></div>
+    </div>
+  </main>
+  <footer class="class-bar class-bar-bottom">
+    <div class="corner-tab corner-left"><span>[-WTR-] DATA HUB</span></div>
+    <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • INTEGRITY BUREAU</div>
+    <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP OF BRIEF</button></div>
+  </footer>
 </div>
-<div class="tool-banner"><div><div style="font-size:11px; color:#3fb950; font-family:monospace; font-weight:800;">EVIDENCE UPLOAD TOOL</div><div style="font-size:14px; color:#fff; font-weight:600;">Upload screenshots and battle recordings to support player incident reports.</div></div><a class="tool-btn" href="https://imglink.cc/" target="_blank" rel="noopener">↗ Share via IMGLINK.CC</a></div>
-<div class="pairing-header">Cheat Reporting & Incident Intake</div>
-<div class="paired-grid">
-  <div class="card"><div><span class="card-tag report">Submission Portal</span><div class="card-title">Report War Crimes</div><div class="card-desc">Submit new player infraction logs, suspected botting/scripting, and game exploit reports.</div></div><a class="card-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfTzMVd3P4UnHJ6qRuxY51hmr7rE3T8qlZ-v5V-9zVs_8KnHw/viewform" target="_blank" rel="noopener">↗ Access Report Form</a></div>
-  <div class="card"><div><span class="card-tag">Report Logs</span><div class="card-title">Player Integrity Logs</div><div class="card-desc">Review verification logs, participant integrity records, and tactical compliance spreadsheets.</div></div><a class="card-btn" href="https://sites.google.com/view/watchtower-data-hub/admin-bug-hub/report-war-crimes/live-form-intake-feed" target="_blank" rel="noopener">↗ View Integrity Reports</a></div>
-</div>
-<div class="pairing-header">Enforcement & After Action Debriefs</div>
-<div class="paired-grid">
-  <div class="card"><div><span class="card-tag report">Submission Portal</span><div class="card-title">Report Banned Players</div><div class="card-desc">Log cratered bases, and alliance ban waves observed across the sectors.</div></div><a class="card-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScplXEurZjBuirZ331rDp7c6dtq1StWRI23IKNP5axiSbIFiA/viewform" target="_blank" rel="noopener">↗ Submit Ban Report</a></div>
-  <div class="card"><div><span class="card-tag">Post-Battle Debrief</span><div class="card-title">After Action Reports</div><div class="card-desc">Detailed tactical post-mortems and verified BANNED account logs.</div></div><a class="card-btn" href="https://sites.google.com/view/watchtower-data-hub/admin-bug-hub/report-war-crimes/live-after-action" target="_blank" rel="noopener">↗ Review AARs</a></div>
-</div>
-<div class="info-box"><p>Fair play is the cornerstone of any competitive gaming experience. Recognizing that official Kixeye bans can be delayed or go unenforced, WatchToweR is stepping in to support the War Commander community with a transparent, community-led reporting initiative.</p><a class="btn-red" href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener">⚡ GET INVOLVED!</a></div>
-</div></div></body></html>
+<script>
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+  function toggleBoardCollapse() {
+    var shell = document.getElementById('boardShell');
+    var btn = document.getElementById('collapseBtn');
+    var collapsed = shell.classList.toggle('is-collapsed');
+    btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+  if (window.self === window.top) {
+    var popBtn = document.getElementById('popoutSelfBtn');
+    if (popBtn) popBtn.style.display = 'none';
+  }
+</script>
+</body></html>
 

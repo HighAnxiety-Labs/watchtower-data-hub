@@ -79,60 +79,85 @@
 
     /* 4-Corner Classification Bars */
     .class-bar {
-      display: grid;
-      grid-template-columns: 270px 1fr 270px;
-      align-items: stretch;
-      height: 42px;
-      background: #060b12;
-      border: 1px solid rgba(0, 230, 118, 0.45);
-      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 282px;
+      background: #1e7a46;
+      border: 1px solid #2ea05f;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
       user-select: none;
+      overflow: hidden;
+      z-index: 30;
     }
     .class-bar-top { border-radius: 6px 6px 0 0; }
     .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
 
     .corner-tab {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 270px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.3px;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: #b9f6ca;
-      background: linear-gradient(180deg, rgba(0, 230, 118, 0.2), rgba(0, 230, 118, 0.06));
-      padding: 0 12px;
+      color: #e2e8f0;
+      background: #06090d;
+      z-index: 2;
     }
     .class-bar-top .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-top .corner-right {
-      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-bottom .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-bottom .corner-right {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-center {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2.6px;
-      color: var(--green-main);
-      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
       text-align: center;
-      padding: 0 8px;
+      padding: 0 10px;
+      z-index: 1;
     }
     .status-dot {
       width: 8px;
@@ -140,22 +165,96 @@
       border-radius: 50%;
       background: var(--green-main);
       box-shadow: 0 0 8px var(--green-main);
+      animation: pulseDot 2s infinite;
     }
-    .nav-bar-btn {
-      background: rgba(0, 0, 0, 0.45);
-      color: #b9f6ca;
-      border: 1px solid rgba(0, 230, 118, 0.42);
-      border-radius: 3px;
-      padding: 3px 8px;
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .collapse-toggle-btn {
+      background: transparent;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #34c772;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 0.18s ease;
+      letter-spacing: 0.8px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .nav-bar-btn:hover {
-      background: rgba(0, 230, 118, 0.22);
-      color: #ffffff;
+    .collapse-toggle-btn:hover {
+      background: var(--green-main);
+      color: #021008;
+      box-shadow: 0 0 12px rgba(0, 230, 118, 0.45);
+    }
+
+    /* Hero Banner with Spinning WTR Radar Logo */
+    .hero-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, rgba(12, 24, 38, 0.96), rgba(7, 13, 22, 0.96));
+      border: 1px solid #1e354d;
+      border-left: 4px solid var(--gold-main);
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .logo-radar-wrap {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #07140e 0%, #03070b 82%);
+      border: 2px solid var(--green-main);
+      box-shadow: 0 0 24px rgba(0, 230, 118, 0.38), inset 0 0 14px rgba(0, 230, 118, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+    .logo-radar-wrap:hover { transform: scale(1.04); }
+    .logo-radar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 230, 118, 0.55);
+      animation: spinRing 18s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 70%, rgba(0, 230, 118, 0.35) 100%);
+      animation: spinRing 4.5s linear infinite;
+      pointer-events: none;
+    }
+    .logo-radar-wrap img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      border: 2px solid #03070b;
     }
 
     /* Main Panel */
@@ -165,6 +264,14 @@
       border-right: 1px solid rgba(0, 230, 118, 0.32);
       padding: 20px;
     }
+    .board-shell.is-collapsed .commander-deck,
+    .board-shell.is-collapsed .radar-toolbar,
+    .board-shell.is-collapsed .helper-banner,
+    .board-shell.is-collapsed .thumb-radar-grid {
+      display: none !important;
+    }
+    .board-shell.is-collapsed .brief-frame { padding: 16px 20px; }
+    .board-shell.is-collapsed .hero-banner { margin-bottom: 0; }
 
     /* Active Unit Command Deck */
     .commander-deck {
@@ -1066,39 +1173,58 @@
       .vs-center-col { flex-direction: row; }
       .mid-analysis-grid, .ws-columns, .pros-cons-split, .talents-split { grid-template-columns: 1fr; }
       .verdict-metrics-grid { grid-template-columns: repeat(2, 1fr); }
-      .class-bar { grid-template-columns: 200px 1fr 200px; }
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
     }
     @media (max-width: 640px) {
       .commander-deck { grid-template-columns: 92px 1fr; padding: 12px; gap: 12px; }
       .deck-controls-row { grid-template-columns: 1fr; }
       .deck-controls-row .unit-picker-col { grid-column: auto; }
       .thumb-radar-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
-      .class-bar { grid-template-columns: 1fr; height: auto; padding: 8px; gap: 6px; }
-      .corner-tab { clip-path: none !important; border: none !important; }
       .hover-brief-card { display: none !important; }
     }
   </style>
 </head>
 <body>
-<div class="board-shell">
+<div class="board-shell" id="boardShell">
 
   <!-- TOP 4-CORNER BAR -->
   <header class="class-bar class-bar-top">
     <div class="corner-tab corner-left">
-      <button type="button" class="nav-bar-btn" onclick="returnToCommandCenter()">← HUB</button>
       <span class="status-dot"></span>
-      <span>[-WTR-] THREAT RADAR</span>
+      <span>WATCHTOWER // INTEL</span>
     </div>
     <div class="class-center">
-      UNIT THREAT RADAR &amp; HEAD-TO-HEAD MATCHUP SIMULATOR
+      UNCLASSIFIED // UNIT THREAT RADAR &amp; HEAD-TO-HEAD MATCHUP SIMULATOR
     </div>
     <div class="corner-tab corner-right">
-      <span id="topSyncBadge">MASTER_DB</span>
-      <button type="button" class="nav-bar-btn" onclick="popOutFullWindow()">↗ POP-OUT</button>
+      <button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">[—] COLLAPSE BRIEF</button>
     </div>
   </header>
 
   <main class="brief-frame">
+    <!-- HERO HEADER WITH WTR SPINNING RADAR LOGO -->
+    <div class="hero-banner">
+      <div style="display:flex; align-items:center; gap:18px; flex:1; min-width:280px;">
+        <div class="logo-radar-wrap" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
+        </div>
+        <div>
+          <h1 style="font-family:'Orbitron',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.4px; color:#ffffff; text-transform:uppercase; margin-bottom:5px;">
+            UNIT MATCHUP SIMULATOR &amp; THREAT RADAR
+          </h1>
+          <p style="font-size:14.5px; color:#9bb4cc; line-height:1.45; max-width:780px;">
+            Pick your active unit below to instantly scan every opponent in <strong>MASTER_DB</strong> for <strong>2× Counter-Armor</strong>, range advantages, and optimal Unit &amp; Faction Workshop tech loadouts.
+          </p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+        <button type="button" class="collapse-toggle-btn" id="popoutSelfBtn" onclick="popOutFullWindow()" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</button>
+        <span id="topSyncBadge" style="font-family:'Share Tech Mono',monospace; font-size:11.5px; color:#b9f6ca; background:rgba(0,230,118,0.1); border:1px solid rgba(0,230,118,0.38); padding:3px 9px; border-radius:4px;">MASTER_DB</span>
+      </div>
+    </div>
+
     <!-- STEP 1: SELECT YOUR UNIT (4:5 PORTRAIT + SIMPLE PICKER) -->
     <section class="commander-deck">
       <div class="portrait-4x5" id="myHeroPortrait"></div>
@@ -1228,10 +1354,10 @@
       <span>[-WTR-] DATA HUB</span>
     </div>
     <div class="class-center">
-      BY PLAYERS FOR PLAYERS // 01.1 UNIT MATCHUP SUB-MODULE
+      UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNIT MATCHUP SIMULATOR
     </div>
     <div class="corner-tab corner-right">
-      <button type="button" class="nav-bar-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
+      <button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
     </div>
   </footer>
 
@@ -2969,7 +3095,18 @@
     window.open(url, '_blank', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
   }
 
+  function toggleBoardCollapse() {
+    const shell = document.getElementById('boardShell');
+    const btn = document.getElementById('collapseBtn');
+    const collapsed = shell.classList.toggle('is-collapsed');
+    btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    if (window.self === window.top) {
+      const popBtn = document.getElementById('popoutSelfBtn');
+      if (popBtn) popBtn.style.display = 'none';
+    }
     populateMyUnitSelect(false);
     fetchMasterDb();
   });

@@ -699,6 +699,7 @@
 
     <div class="panel-section">
       <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
+      <a href="./cc22-upgrade-path.html" onclick="return openCc22RoadmapInPage(event)" class="hub-back-pill" style="border-color: rgba(255, 215, 0, 0.55); background: rgba(255, 215, 0, 0.12); color: #ffd700;" title="Open Post-CC22 Upgrade Priority Roadmap">🗺️ CC22 UPGRADE PATH</a>
     </div>
   </div>
 
@@ -749,6 +750,7 @@
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="lg" aria-pressed="false" onclick="setGalleryImageBoost('lg')">IMG+</button>
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="xl" aria-pressed="false" onclick="setGalleryImageBoost('xl')">IMG++</button>
       </div>
+      <a href="./cc22-upgrade-path.html" onclick="return openCc22RoadmapInPage(event)" class="brief-step-btn" style="border-color: rgba(255, 215, 0, 0.55); color: #ffd700; background: rgba(255, 215, 0, 0.12); text-decoration: none;" title="Open Post-CC22 Upgrade Priority Roadmap">🗺️ CC22 UPGRADE PATH</a>
       <button type="button" class="brief-step-btn" id="btnPrevBuildingBrief" onclick="stepAdjacentBuilding(-1)">◀ PREV</button>
       <button type="button" class="brief-step-btn" id="btnNextBuildingBrief" onclick="stepAdjacentBuilding(1)">NEXT ▶</button>
       <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
@@ -2301,6 +2303,19 @@
     } else {
       secTech.style.display = 'none';
     }
+  }
+  function openCc22RoadmapInPage(ev) {
+    if (ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1)) return true;
+    if (ev) ev.preventDefault();
+    const targetUrl = './cc22-upgrade-path.html';
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
+        window.parent.openInlineModuleViewport('CC22 UPGRADE PATH', '#2b8cbe', null, targetUrl, targetUrl);
+        return false;
+      }
+    } catch (e) {}
+    window.location.href = targetUrl;
+    return false;
   }
 </script>
 </body>

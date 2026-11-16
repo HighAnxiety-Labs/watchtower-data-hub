@@ -1132,7 +1132,7 @@
       <button type="button" class="brief-btn" id="btnUtil3" data-sec="opIntel" data-color="#3d9e65" onclick="selectCommandTab('opIntel', this)" style="border-color: #3d9e65; color: #3d9e65; background-color: rgba(61, 158, 101, 0.16); --btn-accent: #3d9e65; --glow-color: #3d9e65;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil3" style="background-color: #3d9e65;"></span><span id="txtUtil3">COMBAT GUIDES</span></span>
-          <span class="brief-btn-mod-count" id="modCount-opIntel">8 MODULES</span>
+          <span class="brief-btn-mod-count" id="modCount-opIntel">7 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -1816,11 +1816,10 @@
         { enabled: true, isSubPage: false, order: 1, symbol: "NEW",        title: "PLATOON FORMATIONS GUIDE", url: "./platoon-guide.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 2, symbol: "NEW",        title: "KEYBOARD COMMANDS", url: "./keyboard-commands.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "BASE DEFENSE & LAYOUTS", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "BASE DEFENSE PLANNING", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 5, symbol: "NEW",        title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 6, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 7, symbol: "CALCULATOR", title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 8, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 5, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 6, symbol: "CALCULATOR", title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 7, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
       ]
     },
     opBriefs: {
@@ -2109,9 +2108,9 @@
     }
     if (targetWorkspaces.opIntel && Array.isArray(targetWorkspaces.opIntel.cards)) {
       targetWorkspaces.opIntel.cards = targetWorkspaces.opIntel.cards.filter(c => {
-        const t = String(c?.title || "").toUpperCase();
+        const t = String(c?.title || "").toUpperCase().trim();
         const u = String(c?.url || "").toLowerCase();
-        return !t.includes("EVENT CALENDAR") && !u.includes("2026-calendar");
+        return !t.includes("EVENT CALENDAR") && !u.includes("2026-calendar") && t !== "BASE DEFENSE PLANNING";
       });
       if (movedBaseDefenseCard && !targetWorkspaces.opIntel.cards.some(c => String(c?.title || "").toUpperCase().includes("BASE DEFENSE & LAYOUTS"))) {
         targetWorkspaces.opIntel.cards.push(movedBaseDefenseCard);
@@ -2133,8 +2132,7 @@
       { secKey: "tacticalBriefs", match: "MATCHUP",                 urlHint: "unit-matchup",          file: "./unit-matchup.html",             defaultTitle: "UNIT MATCHUP SIMULATOR",    defaultSym: "CALCULATOR", ensurePresent: true },
       { secKey: "opIntel",        match: "PLATOON",                 urlHint: "platoon-guide",         file: "./platoon-guide.html",            defaultTitle: "PLATOON FORMATIONS GUIDE",  defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "KEYBOARD",                urlHint: "keyboard-commands",     file: "./keyboard-commands.html",        defaultTitle: "KEYBOARD COMMANDS",         defaultSym: "NEW",       ensurePresent: true },
-      { secKey: "opIntel",        match: "BASE DEFENSE & LAYOUTS",  urlHint: "",                      file: "./base-defense-planning.html",    defaultTitle: "BASE DEFENSE & LAYOUTS",    defaultSym: "NEW",       ensurePresent: true },
-      { secKey: "opIntel",        match: "BASE DEFENSE PLANNING",   urlHint: "",                      file: "./base-defense-planning.html",    defaultTitle: "BASE DEFENSE PLANNING",     defaultSym: "NEW",       ensurePresent: true },
+      { secKey: "opIntel",        match: "BASE DEFENSE",            urlHint: "base-defense-planning", file: "./base-defense-planning.html",    defaultTitle: "BASE DEFENSE & LAYOUTS",    defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "FACTION",                 urlHint: "faction-intel",         file: "./faction-intel.html",            defaultTitle: "FACTION INTEL",             defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "DAMAGE TYPE",             urlHint: "damage-type",           file: "./damage-type.html",              defaultTitle: "DAMAGE TYPE MATRIX",        defaultSym: "CALCULATOR", ensurePresent: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",           urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",      defaultTitle: "SECTOR STATUS SHEET",       defaultSym: "CALCULATOR", ensurePresent: true },
@@ -3020,6 +3018,13 @@
   }
 
   function openInlineModuleViewport(title, accentColor, rawHtmlCode, iframeSrcUrl, backupUrl) {
+    // On narrow phone screens (< 768px), navigate directly instead of nesting a scrolling iframe inside a scrolling page
+    const mobileDirectUrl = (iframeSrcUrl || backupUrl || "").trim();
+    if (window.innerWidth < 768 && !rawHtmlCode && mobileDirectUrl) {
+      window.location.href = mobileDirectUrl;
+      return;
+    }
+
     const viewport = document.getElementById("inlineModuleViewport");
     const iframe = document.getElementById("inlineViewportIframe");
     const titleEl = document.getElementById("viewportModuleTitle");
@@ -9050,7 +9055,7 @@
       } else if (lowerFile === "operation-blue-baron.html") {
         ev.title = "NOV 2026 • OPERATION: BLUE BARON BRIEF";
         ev.sortScore = 202611;
-      } else if (lowerFile === "skirmish.html") {
+      } else if (lowerFile === "skirmish.html" || lowerFile === "2026-nov-skirmish-brief.html") {
         ev.title = "NOV 2026 • SKIRMISH BRIEF";
         ev.sortScore = 202611;
       } else if (lowerFile === "2026-pvp-season-60-brief.html") {

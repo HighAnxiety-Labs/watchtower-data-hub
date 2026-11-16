@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-16T11:57:46-08:00",
-    "generatedMs":  1794859063389,
+    "generatedAt":  "2026-11-16T14:27:08-08:00",
+    "generatedMs":  1794868024993,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -24,7 +24,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                         "platoon-guide.html",
                         "report-war-crimes.html",
                         "sector-status-sheet.html",
-                        "skirmish.html",
                         "unit-briefs.html",
                         "unit-matchup.html",
                         "vault-event-history.html",
@@ -60,8 +59,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-14T21:31:28Z",
-                              "modifiedMs":  1794691888985
+                              "modifiedAt":  "2026-11-16T22:25:50Z",
+                              "modifiedMs":  1794867950151
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
@@ -81,8 +80,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-12T15:46:03Z",
-                              "modifiedMs":  1794498363345
+                              "modifiedAt":  "2026-11-16T21:59:50Z",
+                              "modifiedMs":  1794866390144
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
@@ -95,8 +94,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-skirmish-brief.html",
                               "path":  "./2026-nov-skirmish-brief.html",
                               "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-12T15:46:03Z",
-                              "modifiedMs":  1794498363346
+                              "modifiedAt":  "2026-11-16T21:59:51Z",
+                              "modifiedMs":  1794866391815
                           },
                           {
                               "file":  "2026-pvp-season-60-brief.html",
@@ -109,43 +108,43 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "agency-contractors.html",
                               "path":  "./agency-contractors.html",
                               "title":  "Agency Contractors \u0026 Base Loadout Planner",
-                              "modifiedAt":  "2026-11-12T17:14:36Z",
-                              "modifiedMs":  1794503676969
+                              "modifiedAt":  "2026-11-16T22:25:51Z",
+                              "modifiedMs":  1794867951851
                           },
                           {
                               "file":  "base-defense-planning.html",
                               "path":  "./base-defense-planning.html",
                               "title":  "[-WTR-] Base Defense Planning — Zone Control \u0026 Choke Architecture",
-                              "modifiedAt":  "2026-11-12T15:26:11Z",
-                              "modifiedMs":  1794497171318
+                              "modifiedAt":  "2026-11-16T22:25:52Z",
+                              "modifiedMs":  1794867952493
                           },
                           {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-12T23:55:29Z",
-                              "modifiedMs":  1794527729101
+                              "modifiedAt":  "2026-11-16T22:10:51Z",
+                              "modifiedMs":  1794867051329
                           },
                           {
                               "file":  "cc-22-pre-release.html",
                               "path":  "./cc-22-pre-release.html",
                               "title":  "Command Center 22 Pre-Release Briefing",
-                              "modifiedAt":  "2026-11-12T15:46:03Z",
-                              "modifiedMs":  1794498363353
+                              "modifiedAt":  "2026-11-16T21:59:48Z",
+                              "modifiedMs":  1794866388245
                           },
                           {
                               "file":  "cc22-upgrade-path.html",
                               "path":  "./cc22-upgrade-path.html",
                               "title":  "Post-CC22 Upgrade Priority Roadmap",
-                              "modifiedAt":  "2026-11-12T19:59:16Z",
-                              "modifiedMs":  1794513556321
+                              "modifiedAt":  "2026-11-16T21:59:46Z",
+                              "modifiedMs":  1794866386018
                           },
                           {
                               "file":  "damage-type.html",
                               "path":  "./damage-type.html",
                               "title":  "Damage Type Matrix \u0026 Armor Rework",
-                              "modifiedAt":  "2026-11-12T19:59:16Z",
-                              "modifiedMs":  1794513556529
+                              "modifiedAt":  "2026-11-16T22:25:54Z",
+                              "modifiedMs":  1794867954173
                           },
                           {
                               "file":  "event-calculator.html",
@@ -158,78 +157,71 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-12T19:59:16Z",
-                              "modifiedMs":  1794513556752
+                              "modifiedAt":  "2026-11-16T22:25:55Z",
+                              "modifiedMs":  1794867955371
                           },
                           {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-15T17:46:28Z",
-                              "modifiedMs":  1794764788948
+                              "modifiedAt":  "2026-11-16T22:25:55Z",
+                              "modifiedMs":  1794867955418
                           },
                           {
                               "file":  "keyboard-commands.html",
                               "path":  "./keyboard-commands.html",
-                              "title":  "!WatchToweR — Keyboard Commands \u0026 Hotkey Matrix",
-                              "modifiedAt":  "2026-11-12T17:08:10Z",
-                              "modifiedMs":  1794503290492
+                              "title":  "Keyboard Commands \u0026 Hotkey Matrix",
+                              "modifiedAt":  "2026-11-16T22:25:56Z",
+                              "modifiedMs":  1794867956388
                           },
                           {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-12T19:59:17Z",
-                              "modifiedMs":  1794513557285
+                              "modifiedAt":  "2026-11-16T22:27:01Z",
+                              "modifiedMs":  1794868021774
                           },
                           {
                               "file":  "platoon-guide.html",
                               "path":  "./platoon-guide.html",
-                              "title":  "!WatchToweR — Platoon Formations \u0026 Management Guide",
-                              "modifiedAt":  "2026-11-12T17:08:10Z",
-                              "modifiedMs":  1794503290490
+                              "title":  "Platoon Formations \u0026 Management Guide",
+                              "modifiedAt":  "2026-11-16T22:25:57Z",
+                              "modifiedMs":  1794867957173
                           },
                           {
                               "file":  "report-war-crimes.html",
                               "path":  "./report-war-crimes.html",
                               "title":  "WatchToweR Data Hub — Report War Crimes",
-                              "modifiedAt":  "2026-11-12T15:26:11Z",
-                              "modifiedMs":  1794497171338
+                              "modifiedAt":  "2026-11-16T22:25:57Z",
+                              "modifiedMs":  1794867957192
                           },
                           {
                               "file":  "sector-status-sheet.html",
                               "path":  "./sector-status-sheet.html",
                               "title":  "Player Sector Status Board (Sectors 001–200)",
-                              "modifiedAt":  "2026-11-12T15:46:03Z",
-                              "modifiedMs":  1794498363382
-                          },
-                          {
-                              "file":  "skirmish.html",
-                              "path":  "./skirmish.html",
-                              "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-12T15:46:03Z",
-                              "modifiedMs":  1794498363383
+                              "modifiedAt":  "2026-11-16T22:25:57Z",
+                              "modifiedMs":  1794867957981
                           },
                           {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-14T06:00:23Z",
-                              "modifiedMs":  1794636023381
+                              "modifiedAt":  "2026-11-16T22:25:58Z",
+                              "modifiedMs":  1794867958005
                           },
                           {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-14T06:00:23Z",
-                              "modifiedMs":  1794636023522
+                              "modifiedAt":  "2026-11-16T22:25:58Z",
+                              "modifiedMs":  1794867958876
                           },
                           {
                               "file":  "vault-event-history.html",
                               "path":  "./vault-event-history.html",
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
-                              "modifiedAt":  "2026-11-12T15:26:11Z",
-                              "modifiedMs":  1794497171343
+                              "modifiedAt":  "2026-11-16T22:25:58Z",
+                              "modifiedMs":  1794867958901
                           },
                           {
                               "file":  "video-recon.html",

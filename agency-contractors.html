@@ -85,61 +85,84 @@
     /* 4-Corner UNCLASSIFIED Header & Footer Bars */
     .class-bar {
       position: relative;
-      display: grid;
-      grid-template-columns: 270px 1fr 270px;
-      align-items: stretch;
-      height: 46px;
-      background: #060b12;
-      border: 1px solid rgba(0, 230, 118, 0.45);
-      box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 14px rgba(0, 230, 118, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 282px;
+      background: #1e7a46;
+      border: 1px solid #2ea05f;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
       user-select: none;
+      overflow: hidden;
       z-index: 30;
     }
     .class-bar-top { border-radius: 6px 6px 0 0; }
     .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: -1px; }
 
     .corner-tab {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 270px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: #b9f6ca;
-      background: linear-gradient(180deg, rgba(0, 230, 118, 0.22), rgba(0, 230, 118, 0.07));
-      padding: 0 14px;
+      color: #e2e8f0;
+      background: #06090d;
+      z-index: 2;
     }
     .class-bar-top .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-top .corner-right {
-      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-bottom .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
       clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
-      border-right: 1px solid rgba(0, 230, 118, 0.4);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-bar-bottom .corner-right {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
-      border-left: 1px solid rgba(0, 230, 118, 0.4);
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
     }
     .class-center {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2.8px;
-      color: var(--green-main);
-      text-shadow: 0 0 10px rgba(0, 230, 118, 0.45);
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
       text-align: center;
       padding: 0 10px;
+      z-index: 1;
     }
     .status-dot {
       width: 8px;
@@ -154,17 +177,17 @@
       50% { opacity: 0.45; transform: scale(0.85); }
     }
     .collapse-toggle-btn {
-      background: rgba(0, 230, 118, 0.14);
-      border: 1px solid rgba(0, 230, 118, 0.55);
-      color: #d0f8df;
+      background: transparent;
+      border: 1px solid rgba(0, 230, 118, 0.45);
+      color: #34c772;
       font-family: 'Share Tech Mono', monospace;
       font-size: 11.5px;
       font-weight: 700;
-      padding: 4px 11px;
+      padding: 4px 10px;
       border-radius: 3px;
       cursor: pointer;
       transition: all 0.18s ease;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -186,8 +209,15 @@
       position: relative;
       overflow: hidden;
     }
-    .board-shell.is-collapsed .board-body { display: none; }
-    .board-shell.is-collapsed .class-bar-bottom { margin-top: 6px; }
+    .board-shell.is-collapsed .division-tabs-bar,
+    .board-shell.is-collapsed .filter-preset-bar,
+    .board-shell.is-collapsed .ai-tier-guide,
+    .board-shell.is-collapsed #factionsGalleryContainer,
+    .board-shell.is-collapsed .worksheet-studio-wrap {
+      display: none !important;
+    }
+    .board-shell.is-collapsed .board-body { padding: 16px 24px; }
+    .board-shell.is-collapsed .hero-banner { margin-bottom: 0; }
 
     /* Hero Banner with Spinning WTR Radar Logo */
     .hero-banner {
@@ -1617,9 +1647,9 @@
 
     @media (max-width: 780px) {
       .division-tabs-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .class-bar { grid-template-columns: 1fr 1fr; height: auto; padding: 6px; gap: 4px; }
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
       .class-center { display: none; }
-      .class-bar .corner-tab { clip-path: none !important; border: none !important; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
       .ws-inputs-row { grid-template-columns: 1fr; }
       .sfr-two-cols { grid-template-columns: 1fr; }
       .dm-body { grid-template-columns: 1fr; }
@@ -1665,17 +1695,10 @@
     <!-- ==================== HERO HEADER WITH WTR SPINNING RADAR LOGO ==================== -->
     <div class="hero-banner">
       <div class="hero-left-cluster">
-        <div class="logo-radar-wrap" title="WatchToweR Command Center">
+        <div class="logo-radar-wrap" onclick="returnToCommandCenter()" style="cursor:pointer;" title="WatchToweR Command Center — Click to return">
           <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Emblem">
         </div>
         <div class="hero-title-group">
-          <div class="hero-eyebrow">
-            <button type="button" class="hub-nav-pill" id="backToHubBtn" onclick="returnToCommandCenter()">◂ COMMAND CENTER</button>
-            <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open Agency Contractors in a full standalone window">↗ POP-OUT FULL WINDOW</button>
-            <a class="hub-nav-pill" href="./unit-briefs.html">📖 UNIT BRIEFS</a>
-            <a class="hub-nav-pill" href="./building-briefs.html">🏢 BUILDINGS</a>
-            <span>UNITS &amp; ASSETS // AGENCY DIVISION</span>
-          </div>
           <h1>
             WAR COMMANDER — AGENCY CONTRACTORS
             <span class="sub-badge">2 PER FACTION • A-SIZE WORKSHEET</span>
@@ -1683,7 +1706,10 @@
           <p>Hover any Contractor thumbnail for instant buff &amp; AI ranking intel, click for full Agency Dossier, and check up to <strong>2 Contractors per Faction</strong> to build your single-page Base Loadout Worksheet below.</p>
         </div>
       </div>
-      <div class="sync-pill" id="dbSyncStatus">⚡ Syncing MASTER_DB...</div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+        <button type="button" class="hub-nav-pill popout-pill" id="popoutSelfBtn" onclick="popOutFullWindow()" title="Open Agency Contractors in a full standalone window">↗ POP-OUT FULL WINDOW</button>
+        <div class="sync-pill" id="dbSyncStatus">⚡ Syncing MASTER_DB...</div>
+      </div>
     </div>
 
     <!-- ==================== 6-TAB FACTION DIVISION BAR BELOW TITLE ==================== -->

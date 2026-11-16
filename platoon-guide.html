@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJ4S885L7Z');
+  </script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>!WatchToweR — Platoon Formations & Management Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>[-WTR-] Data Hub — Platoon Formations &amp; Management Guide</title>
+  <!-- Open Graph / Discord / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — Platoon Formations &amp; Management Guide">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Platoon Formations &amp; Capacity Guide — CC22 platoon limits, loadouts, repair mechanics, and tactical deployment.">
+  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
@@ -144,48 +159,118 @@
     }
 
     /* 4-CORNER OPPOSING-ANGLE CLASSIFICATION HEADER & FOOTER */
-    .corner-banner {
+    .class-bar {
       position: relative;
-      background: linear-gradient(135deg, rgba(16, 22, 34, 0.96), rgba(9, 13, 21, 0.98));
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      padding: 10px 18px;
-      font-family: var(--font-mono);
-      font-size: 0.70rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-      box-shadow: inset 0 0 18px rgba(212, 175, 55, 0.06);
+      justify-content: center;
+      min-height: 44px;
+      padding: 6px 282px;
+      background: #1e7a46;
+      border: 1px solid #2ea05f;
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
+      user-select: none;
+      overflow: hidden;
+      z-index: 30;
     }
+    .class-bar-top { border-radius: 6px 6px 0 0; margin-bottom: 16px; }
+    .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: 28px; }
 
-    .corner-banner.footer-banner {
-      margin-top: 32px;
-      margin-bottom: 0;
-    }
-
-    .corner-banner::before,
-    .corner-banner::after,
-    .corner-banner .cb-bl,
-    .corner-banner .cb-br {
-      content: '';
+    .corner-tab {
       position: absolute;
-      width: 10px;
-      height: 10px;
-      border-color: var(--accent-cyan);
-      border-style: solid;
-      pointer-events: none;
+      top: 0;
+      bottom: 0;
+      width: 270px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #e2e8f0;
+      background: #06090d;
+      z-index: 2;
     }
-
-    .corner-banner::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-    .corner-banner::after  { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
-    .corner-banner .cb-bl  { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
-    .corner-banner .cb-br  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .class-bar-top .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-top .corner-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-bottom .corner-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 24px 0 14px;
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-bar-bottom .corner-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 14px 0 24px;
+      clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
+    }
+    .class-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', 'Arial Black', sans-serif;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 5px rgba(0, 0, 0, 0.85);
+      text-align: center;
+      padding: 0 10px;
+      z-index: 1;
+    }
+    .collapse-toggle-btn {
+      background: transparent;
+      border: 1px solid rgba(16, 185, 129, 0.55);
+      color: #34c772;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      letter-spacing: 0.8px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .collapse-toggle-btn:hover {
+      background: #00e676;
+      color: #021008;
+    }
+    .container.is-collapsed > *:not(.class-bar):not(.hero-header) {
+      display: none !important;
+    }
+    .container.is-collapsed .hero-header { margin-bottom: 0; }
+    .container.is-collapsed .class-bar-bottom { margin-top: 14px; }
+    @media (max-width: 860px) {
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
+    }
 
     /* HERO HEADER */
     .hero-header {
@@ -859,42 +944,36 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="boardShell">
 
-    <!-- TOP UTILITY BAR -->
-    <div class="utility-bar">
-      <div class="util-left">
-        <a href="./index.html" target="_top" class="util-btn">◂ COMMAND CENTER</a>
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          <span>COMBAT GUIDES // MODULE #02 // PLATOON FORMATIONS</span>
-        </div>
+    <!-- TOP 4-CORNER CLASSIFICATION BAR -->
+    <div class="class-bar class-bar-top">
+      <div class="corner-tab corner-left">
+        <span class="status-dot" style="background:#00e676; box-shadow:0 0 8px #00e676;"></span>
+        <span>WATCHTOWER // INTEL</span>
       </div>
-      <div class="util-right">
-        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/981-platoon-guide/" target="_blank" rel="noopener noreferrer" class="util-btn cyan">↗ KIXEYE SOURCE FAQ</a>
-        <a href="./platoon-guide.html" target="_blank" rel="noopener noreferrer" class="util-btn">↗ POP-OUT FULL WINDOW</a>
+      <div class="class-center">UNCLASSIFIED // PLATOON FORMATIONS &amp; DEPLOYMENT DOCTRINE</div>
+      <div class="corner-tab corner-right">
+        <button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">[—] COLLAPSE BRIEF</button>
       </div>
-    </div>
-
-    <!-- 4-CORNER OPPOSING-ANGLE CLASSIFICATION HEADER -->
-    <div class="corner-banner">
-      <span class="cb-bl"></span>
-      <span class="cb-br"></span>
-      <span>// !WATCHTOWER INTEL BRIEF // COMBAT GUIDES DIVISION</span>
-      <span>CLASSIFICATION: TACTICAL FORMATIONS &amp; DEPLOYMENT DOCTRINE // REV 2026.11</span>
     </div>
 
     <!-- HERO HEADER -->
     <header class="hero-header">
-      <div class="hero-text">
-        <div class="eyebrow-tag">🛡️ TACTICAL BRIEF #02 // FORCE ORGANIZATION</div>
-        <h1 class="hero-title">PLATOON <span>FORMATIONS &amp; MANAGEMENT</span> GUIDE</h1>
-        <p class="hero-sub">
-          Complete operational specification for Platoon capacities, World Map deployment limits, outline status indicators, Anti-Jailing sector rules, and building-governed squad classifications in War Commander.
-        </p>
+      <div style="display:flex; align-items:center; gap:22px; flex:1; min-width:280px; z-index:1;">
+        <div class="radar-emblem-wrap" onclick="returnToCommandCenter()" style="cursor:pointer;" title="WatchToweR Command Center — Click to return">
+          <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Emblem">
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-title">PLATOON <span>FORMATIONS &amp; MANAGEMENT</span> GUIDE</h1>
+          <p class="hero-sub">
+            Complete operational specification for Platoon capacities, World Map deployment limits, outline status indicators, Anti-Jailing sector rules, and building-governed squad classifications in War Commander.
+          </p>
+        </div>
       </div>
-      <div class="radar-emblem-wrap" title="!WatchToweR Tactical Feed">
-        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="!WatchToweR Emblem">
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px; z-index:1;">
+        <a href="./platoon-guide.html" target="_blank" rel="noopener noreferrer" class="util-btn" id="popoutSelfBtn">↗ POP-OUT FULL WINDOW</a>
+        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/981-platoon-guide/" target="_blank" rel="noopener noreferrer" class="util-btn cyan">↗ KIXEYE SOURCE FAQ</a>
       </div>
     </header>
 
@@ -1183,16 +1262,38 @@
     </section>
 
     <!-- 4-CORNER OPPOSING-ANGLE CLASSIFICATION FOOTER -->
-    <footer class="corner-banner footer-banner">
-      <span class="cb-bl"></span>
-      <span class="cb-br"></span>
-      <span>// END OF INTEL BRIEF // !WATCHTOWER DATA HUB — COMBAT GUIDES</span>
-      <span>SOURCE: KIXEYE WAR COMMANDER SPECIFICATION // VERIFIED 2026</span>
+    <footer class="class-bar class-bar-bottom">
+      <div class="corner-tab corner-left">
+        <span>[-WTR-] DATA HUB</span>
+      </div>
+      <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • COMBAT GUIDES DIVISION</div>
+      <div class="corner-tab corner-right">
+        <button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
+      </div>
     </footer>
 
   </div>
 
   <script>
+    function returnToCommandCenter() {
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+          window.parent.closeInlineModuleViewport();
+          return;
+        }
+      } catch (e) {}
+      window.location.href = './index.html';
+    }
+    function toggleBoardCollapse() {
+      const shell = document.getElementById('boardShell');
+      const btn = document.getElementById('collapseBtn');
+      const collapsed = shell.classList.toggle('is-collapsed');
+      btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+    }
+    if (window.self === window.top) {
+      const popBtn = document.getElementById('popoutSelfBtn');
+      if (popBtn) popBtn.style.display = 'none';
+    }
     (function () {
       const filterBtns = document.querySelectorAll('.filter-btn');
       const searchInput = document.getElementById('platoonSearch');

@@ -95,14 +95,16 @@
      ========================================================================== */
   .class-bar {
     position: relative;
-    display: grid;
-    grid-template-columns: 280px 1fr 280px;
-    align-items: stretch;
-    height: 44px;
-    background: #060b11;
-    border: 1px solid rgba(40, 199, 111, 0.45);
-    box-shadow: 0 0 22px rgba(0,0,0,0.8), inset 0 0 15px rgba(40, 199, 111, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 6px 288px;
+    background: #1e7a46;
+    border: 1px solid #2ea05f;
+    box-shadow: 0 0 22px rgba(0, 0, 0, 0.85);
     z-index: 30;
+    overflow: hidden;
     user-select: none;
   }
 
@@ -116,38 +118,51 @@
   }
 
   .corner-tab {
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 276px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
+    font-family: 'Orbitron', 'Arial Black', sans-serif;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #b9f6ca;
-    background: linear-gradient(180deg, rgba(40, 199, 111, 0.22), rgba(40, 199, 111, 0.08));
-    padding: 0 16px;
+    color: #e2e8f0;
+    background: #06090d;
     z-index: 2;
   }
 
   /* Opposing angles on top & bottom corner tabs */
   .class-bar-top .corner-left {
+    left: 0;
+    justify-content: flex-start;
+    padding: 0 24px 0 14px;
     clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-    border-right: 1px solid rgba(40, 199, 111, 0.4);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
   }
   .class-bar-top .corner-right {
-    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
-    border-left: 1px solid rgba(40, 199, 111, 0.4);
+    right: 0;
+    justify-content: flex-end;
+    padding: 0 14px 0 24px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
   }
   .class-bar-bottom .corner-left {
+    left: 0;
+    justify-content: flex-start;
+    padding: 0 24px 0 14px;
     clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
-    border-right: 1px solid rgba(40, 199, 111, 0.4);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
   }
   .class-bar-bottom .corner-right {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%);
-    border-left: 1px solid rgba(40, 199, 111, 0.4);
+    right: 0;
+    justify-content: flex-end;
+    padding: 0 14px 0 24px;
+    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.6);
   }
 
   .class-center {
@@ -155,12 +170,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--theme-accent);
-    text-shadow: 0 0 10px rgba(40, 199, 111, 0.5);
+    font-family: 'Orbitron', 'Arial Black', sans-serif;
+    font-size: 12.5px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow:
+      -1px -1px 0 #000,
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+       0px  2px 5px rgba(0, 0, 0, 0.85);
+    text-align: center;
+    padding: 0 10px;
+    z-index: 1;
   }
 
   .status-dot {
@@ -178,16 +201,21 @@
   }
 
   .collapse-toggle-btn {
-    background: rgba(40, 199, 111, 0.14);
-    border: 1px solid rgba(40, 199, 111, 0.55);
-    color: #d0f8df;
+    background: transparent;
+    border: 1px solid rgba(40, 199, 111, 0.45);
+    color: #34c772;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    padding: 4px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
     border-radius: 3px;
     cursor: pointer;
     transition: all 0.2s ease;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
   }
   .collapse-toggle-btn:hover {
     background: var(--theme-accent);
@@ -195,12 +223,9 @@
     box-shadow: 0 0 12px var(--theme-accent-glow);
   }
 
-  /* Center 90px Spinning Radar Logo */
+  /* Hero Spinning WTR Radar Logo */
   .radar-logo-wrap {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     width: 90px;
     height: 90px;
     border-radius: 50%;
@@ -210,9 +235,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 45;
+    flex-shrink: 0;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.18s ease;
   }
+  .radar-logo-wrap:hover { transform: scale(1.04); }
   .radar-logo-wrap::before {
     content: "";
     position: absolute;
@@ -250,17 +278,23 @@
     background: rgba(7, 12, 19, 0.94);
     border-left: 1px solid rgba(40, 199, 111, 0.35);
     border-right: 1px solid rgba(40, 199, 111, 0.35);
-    padding: 46px 22px 26px;
+    padding: 22px 22px 26px;
     position: relative;
     overflow: hidden;
     transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
   }
 
-  .board-shell.is-collapsed .brief-middle-body {
-    display: none;
+  .board-shell.is-collapsed .content-layer > *:not(.hero-header),
+  .board-shell.is-collapsed .watermark-stamp {
+    display: none !important;
   }
-  .board-shell.is-collapsed .class-bar-bottom {
-    margin-top: 6px;
+  .board-shell.is-collapsed .brief-middle-body {
+    padding: 16px 22px;
+  }
+  .board-shell.is-collapsed .hero-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   /* Unclassified background watermark */
@@ -586,16 +620,13 @@
     .sector-columns-grid {
       grid-template-columns: repeat(2, minmax(270px, 1fr));
     }
+    .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+    .class-center { display: none; }
+    .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
   }
   @media (max-width: 640px) {
     .sector-columns-grid {
       grid-template-columns: 1fr;
-    }
-    .class-bar {
-      grid-template-columns: 1fr 1fr;
-    }
-    .class-center {
-      display: none;
     }
   }
 
@@ -1082,13 +1113,9 @@
     </div>
 
     <div class="corner-tab corner-right">
-      <button class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">
-        [—] COLLAPSE BOARD
+      <button class="collapse-toggle-btn" id="collapseBtn" type="button" onclick="toggleBoardCollapse()">
+        [—] COLLAPSE BRIEF
       </button>
-    </div>
-
-    <div class="radar-logo-wrap" title="WatchToweR Command Center">
-      <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Logo">
     </div>
   </header>
 
@@ -1099,15 +1126,19 @@
     <div class="content-layer">
       <!-- HERO TITLE & SUBTITLE -->
       <div class="hero-header">
-        <div class="hero-title-block">
-          <div class="hero-eyebrow">
-            <a href="./index.html" class="back-hub-link">◂ COMMAND CENTER</a>
-            <span>OPERATIONAL INTEL // SECTORS 001–200</span>
+        <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:280px;">
+          <div class="radar-logo-wrap" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+            <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="WatchToweR Radar Logo">
           </div>
-          <h1 class="hero-title">WAR COMMANDER — PLAYER SECTOR STATUS BOARD</h1>
-          <p class="hero-subtitle">
-            Interactive 200-Sector Tactical Status Tracker &amp; Alliance Tag Notepad. Changes auto-save locally to your browser and can be exported/shared anytime.
-          </p>
+          <div class="hero-title-block">
+            <h1 class="hero-title">WAR COMMANDER — PLAYER SECTOR STATUS BOARD</h1>
+            <p class="hero-subtitle">
+              Interactive 200-Sector Tactical Status Tracker &amp; Alliance Tag Notepad. Changes auto-save locally to your browser and can be exported/shared anytime.
+            </p>
+          </div>
+        </div>
+        <div>
+          <a href="./sector-status-sheet.html" target="_blank" rel="noopener" class="back-hub-link" id="popoutSelfBtn" style="border-color: rgba(0,229,255,0.55); background: rgba(0,229,255,0.12); color: #7df9ff; padding: 5px 11px; font-family: 'Share Tech Mono', monospace; font-weight: 700;">↗ POP-OUT FULL WINDOW</a>
         </div>
       </div>
 
@@ -1792,11 +1823,26 @@
     renderGrid();
   }
 
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+
   function toggleBoardCollapse() {
     const shell = document.getElementById('boardShell');
     const btn = document.getElementById('collapseBtn');
     const collapsed = shell.classList.toggle('is-collapsed');
-    btn.textContent = collapsed ? '[+] EXPAND BOARD' : '[—] COLLAPSE BOARD';
+    btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+
+  if (window.self === window.top) {
+    const popBtn = document.getElementById('popoutSelfBtn');
+    if (popBtn) popBtn.style.display = 'none';
   }
 
   function updateClock() {
