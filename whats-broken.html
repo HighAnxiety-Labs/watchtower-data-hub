@@ -222,8 +222,18 @@
       position: relative;
       overflow: hidden;
     }
-    .board-shell.is-collapsed .board-body { display: none; }
-    .board-shell.is-collapsed .class-bar-bottom { margin-top: 6px; }
+    .board-shell.is-collapsed .ryg-status-grid,
+    .board-shell.is-collapsed .status-intel-bar,
+    .board-shell.is-collapsed #reportDetailBox,
+    .board-shell.is-collapsed .defect-grid {
+      display: none !important;
+    }
+    .board-shell.is-collapsed .board-body {
+      padding: 16px 24px;
+    }
+    .board-shell.is-collapsed .hero-banner {
+      margin-bottom: 0;
+    }
 
     /* ==================== HERO BANNER WITH SPINNING WTR RADAR LOGO ==================== */
     .hero-banner {
