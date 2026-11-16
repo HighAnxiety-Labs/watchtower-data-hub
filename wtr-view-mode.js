@@ -980,7 +980,7 @@
    * - Zero public UI; ignores local file:// & localhost Studio testing by default
    * - Sends non-blocking CORS-simple POST to Google Sheet Apps Script (PAGE_HITS)
    * ========================================================================== */
-  var DEFAULT_TELEMETRY_EXEC_URL = "https://script.google.com/macros/s/AKfycbwU6GAb7k-JknpKtaGmTCLu5QKkkrVyLuoL4rMuCRrwxQ6eFuSR-VDuIzIUhZQGdTz3Pg/exec";
+  var DEFAULT_TELEMETRY_EXEC_URL = "https://script.google.com/macros/s/AKfycbyaFrxwuN-EvOxJIPd-YE0VHgcyTNMczDY_ehm6v4l2h1ewMMCbEA7_qFO6eRsgwAespQ/exec";
 
   function resolveTelemetryExecUrl() {
     try {
@@ -1033,8 +1033,8 @@
       if (!allowTest) {
         try {
           var lastHitMs = Number(window.sessionStorage.getItem(coolKey) || "0");
-          if (lastHitMs && (nowMs - lastHitMs) < 60000) {
-            return; // 60s anti-refresh spam guard per page
+          if (lastHitMs && (nowMs - lastHitMs) < 10000) {
+            return; // 10s anti-double-load guard per page
           }
           window.sessionStorage.setItem(coolKey, String(nowMs));
           if (window.sessionStorage.getItem(sessKey) === "1") {
