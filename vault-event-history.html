@@ -32,11 +32,11 @@
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="[-WTR-] Vault — Self-Populating Event History Directory">
   <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Self-Populating Historical Event Briefs & Calculators Archive.">
-  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <script src="./directory-manifest.js"></script>
-  <script src="./wtr-view-mode.js"></script>
+  <script src="./wtr-view-mode.js?v=2.4"></script>
   <style>
     :root {
       --bg-dark: #05070a;
@@ -434,7 +434,9 @@
     </div>
     <header class="vault-header">
       <div class="vault-header-left">
-        <img src="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" alt="[-WTR-]" class="vault-logo" onclick="returnToCommandCenter()" style="cursor:pointer;" title="WatchToweR Command Center — Click to return">
+        <div class="wtr-std-radar-logo" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+          <img src="./assets/images/wtr-logo.png" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';" alt="[-WTR-]">
+        </div>
         <div>
           <div class="vault-subtag">[-WTR-] VAULT // SELF-POPULATING ARCHIVE DIRECTORY</div>
           <h1 class="vault-title" id="vaultPageHeading">EVENT HISTORY ARCHIVE</h1>

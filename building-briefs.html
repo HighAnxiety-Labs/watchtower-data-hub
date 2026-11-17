@@ -32,10 +32,10 @@
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Building Briefs | Gallery">
   <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Base Operations, CC22 Upgrade Directives, Planning Matrix & Infrastructure Intelligence.">
-  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
-  <script src="./wtr-view-mode.js"></script>
+  <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
+  <script src="./wtr-view-mode.js?v=2.4"></script>
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: auto; min-height: 100%; background-color: #0b0f0d; }
@@ -49,6 +49,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+  }
+
+  /* ==================== 4-CORNER HEADER & HERO BANNER ==================== */
+  .wtr-frame-shell { width: 100%; max-width: 1360px; margin: 0 auto 12px auto; }
+  .class-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px 282px; background: #1e7a46; border: 1px solid #2ea05f; box-shadow: 0 0 22px rgba(0,0,0,0.85); user-select: none; overflow: hidden; z-index: 30; }
+  .class-bar-top { border-radius: 6px 6px 0 0; }
+  .class-bar-bottom { width: 100%; max-width: 1360px; margin: 16px auto 0 auto; border-radius: 0 0 6px 6px; }
+  .corner-tab { position: absolute; top: 0; bottom: 0; width: 270px; display: flex; align-items: center; gap: 8px; font-family: 'Arial Black', sans-serif; font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #e2e8f0; background: #06090d; z-index: 2; }
+  .class-bar-top .corner-left { left: 0; justify-content: flex-start; padding: 0 24px 0 14px; clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%); }
+  .class-bar-top .corner-right { right: 0; justify-content: flex-end; padding: 0 14px 0 24px; clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%); }
+  .class-bar-bottom .corner-left { left: 0; justify-content: flex-start; padding: 0 24px 0 14px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%); }
+  .class-bar-bottom .corner-right { right: 0; justify-content: flex-end; padding: 0 14px 0 24px; clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%); }
+  .class-center { font-family: 'Arial Black', sans-serif; font-size: 12.5px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,0.85); text-align: center; padding: 0 10px; z-index: 1; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #00e676; box-shadow: 0 0 8px #00e676; }
+  .collapse-toggle-btn { background: transparent; border: 1px solid rgba(0,230,118,0.45); color: #34c772; font-family: monospace; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 3px; cursor: pointer; text-decoration: none; }
+  .collapse-toggle-btn:hover { background: #00e676; color: #021008; }
+  .gallery-hero-banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 22px; background: linear-gradient(135deg, rgba(13, 25, 38, 0.96), rgba(7, 12, 20, 0.98)); border: 1px solid rgba(0, 230, 118, 0.35); border-top: none; border-radius: 0 0 6px 6px; }
+  body.is-brief-collapsed .control-panel-wrapper, body.is-brief-collapsed #building-gallery-view, body.is-brief-collapsed #inpage-brief-wrapper { display: none !important; }
+  @media (max-width: 860px) {
+    .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+    .class-center { display: none; }
+    .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
   }
 
   /* ==================== TOP CONTROL PANEL ==================== */
@@ -678,13 +700,33 @@
 </head>
 <body>
 
+<!-- ==================== 4-CORNER HEADER & HERO BANNER ==================== -->
+<div class="wtr-frame-shell">
+  <header class="class-bar class-bar-top">
+    <div class="corner-tab corner-left"><span class="status-dot"></span><span>WATCHTOWER // INTEL</span></div>
+    <div class="class-center">UNCLASSIFIED // BASE OPERATIONS — BUILDING BRIEFS | GALLERY</div>
+    <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleGalleryBriefCollapse()">[—] COLLAPSE BRIEF</button></div>
+  </header>
+  <div class="gallery-hero-banner">
+    <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:260px;">
+      <div class="wtr-std-radar-logo" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+        <img src="./assets/images/wtr-logo.png" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';" alt="WatchToweR Radar Emblem">
+      </div>
+      <div>
+        <div style="font-family:monospace; font-size:11.5px; font-weight:800; letter-spacing:1.6px; color:#38bdf8; text-transform:uppercase; margin-bottom:4px;">BASE &amp; BUILDINGS // CC22 INFRASTRUCTURE</div>
+        <h1 style="font-family:'Arial Black',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.2px; color:#ffffff; text-transform:uppercase; line-height:1.15;">WAR COMMANDER — <span style="color:#38bdf8;">BUILDING BRIEFS | GALLERY</span></h1>
+        <p style="font-size:14px; color:#94a3b8; margin-top:5px; max-width:680px;">Visual facility gallery with R&amp;D ⇄ Production linked bars, upgrade directives, resource costs, and power grid requirements.</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+      <a href="./building-briefs.html" target="_blank" rel="noopener" class="collapse-toggle-btn" id="popoutSelfBtn" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</a>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== TOP CONTROL PANEL ==================== -->
 <div class="control-panel-wrapper">
   <div class="control-panel">
-    <div class="panel-section">
-      <a href="./index.html" class="hub-back-pill" title="Return to WatchToweR Command Center">◂ COMMAND CENTER</a>
-    </div>
-
     <div class="panel-section" style="flex: 1; min-width: 240px;">
       <label class="selector-label" for="buildingSearchInput">Search:</label>
       <input type="search" id="buildingSearchInput" class="unit-search-input" placeholder="Search facility, unlock, level, cost, or note..." oninput="handleGallerySearchInput(this.value)">
@@ -2317,6 +2359,32 @@
     window.location.href = targetUrl;
     return false;
   }
+
+  function returnToCommandCenter() {
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+        window.parent.closeInlineModuleViewport();
+        return;
+      }
+    } catch (e) {}
+    window.location.href = './index.html';
+  }
+
+  function toggleGalleryBriefCollapse() {
+    const collapsed = document.body.classList.toggle('is-brief-collapsed');
+    const btn = document.getElementById('collapseBtn');
+    if (btn) btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+  }
+
+  if (window.self === window.top) {
+    const popBtn = document.getElementById('popoutSelfBtn');
+    if (popBtn) popBtn.style.display = 'none';
+  }
 </script>
+<footer class="class-bar class-bar-bottom">
+  <div class="corner-tab corner-left"><span>[-WTR-] DATA HUB</span></div>
+  <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • BUILDING BRIEFS GALLERY</div>
+  <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP OF BRIEF</button></div>
+</footer>
 </body>
 </html>

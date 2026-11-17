@@ -16,13 +16,13 @@
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — Command Center 22 Pre-Release Briefing">
   <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Archive — Historical Command Center Level 22 Pre-Release Intelligence Briefing.">
-  <meta property="og:image" id="metaOgImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" id="metaTwitterImage" content="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png">
+  <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="./wtr-view-mode.js"></script>
+  <script src="./wtr-view-mode.js?v=2.4"></script>
   <style>
     :root {
       --bg-dark: #0a0c0f;
@@ -264,19 +264,54 @@
       color: var(--text-muted);
       text-transform: uppercase;
     }
+    /* 4-CORNER FRAME */
+    .class-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px 282px; background: #1e7a46; border: 1px solid #2ea05f; box-shadow: 0 0 22px rgba(0,0,0,0.85); user-select: none; overflow: hidden; z-index: 30; }
+    .class-bar-top { border-radius: 6px 6px 0 0; margin-bottom: 16px; }
+    .class-bar-bottom { border-radius: 0 0 6px 6px; margin-top: 28px; }
+    .corner-tab { position: absolute; top: 0; bottom: 0; width: 270px; display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif; font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #e2e8f0; background: #06090d; z-index: 2; }
+    .class-bar-top .corner-left { left: 0; justify-content: flex-start; padding: 0 24px 0 14px; clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%); }
+    .class-bar-top .corner-right { right: 0; justify-content: flex-end; padding: 0 14px 0 24px; clip-path: polygon(0 0, 100% 0, 100% 100%, 18px 100%); }
+    .class-bar-bottom .corner-left { left: 0; justify-content: flex-start; padding: 0 24px 0 14px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%); }
+    .class-bar-bottom .corner-right { right: 0; justify-content: flex-end; padding: 0 14px 0 24px; clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%); }
+    .class-center { font-family: 'Chakra Petch', sans-serif; font-size: 12.5px; font-weight: 800; letter-spacing: 2px; color: #fff; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; text-align: center; padding: 0 10px; z-index: 1; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #00e676; box-shadow: 0 0 8px #00e676; }
+    .collapse-toggle-btn { background: transparent; border: 1px solid rgba(0,230,118,0.45); color: #34c772; font-family: monospace; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 3px; cursor: pointer; text-decoration: none; }
+    .collapse-toggle-btn:hover { background: #00e676; color: #021008; }
+    .container.is-collapsed .unlock-banner, .container.is-collapsed .grid { display: none !important; }
+    @media (max-width: 860px) {
+      .class-bar { justify-content: space-between; height: auto; padding: 6px 10px; gap: 6px; }
+      .class-center { display: none; }
+      .class-bar .corner-tab { position: static; width: auto; clip-path: none !important; background: #06090d; padding: 4px 10px !important; border-radius: 4px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="boardShell">
+    <div class="class-bar class-bar-top">
+      <div class="corner-tab corner-left"><span class="status-dot"></span><span>WATCHTOWER // ARCHIVE</span></div>
+      <div class="class-center">UNCLASSIFIED // ARCHIVE — COMMAND CENTER 22 BRIEFING</div>
+      <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleBoardCollapse()">[—] COLLAPSE BRIEF</button></div>
+    </div>
+
     <!-- Intel Header -->
-    <header class="intel-header">
-      <div class="intel-meta">Watchtower Tactical Dispatch //
-        <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1022-command-center-22-briefing/" target="_blank" rel="noopener noreferrer">
-          <span style="color: #00ccff;">Original Patch Notes Link ↗</span>
-        </a>
+    <header class="intel-header" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:22px; text-align:left;">
+      <div style="display:flex; align-items:center; gap:22px; flex:1; min-width:260px;">
+        <div class="wtr-std-radar-logo" onclick="returnToCommandCenter()" title="WatchToweR Command Center — Click to return">
+          <img src="./assets/images/wtr-logo.png" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';" alt="WatchToweR Radar Emblem">
+        </div>
+        <div>
+          <div class="intel-meta">WatchToweR Tactical Dispatch //
+            <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1022-command-center-22-briefing/" target="_blank" rel="noopener noreferrer">
+              <span style="color: #00ccff;">Original Patch Notes Link ↗</span>
+            </a>
+          </div>
+          <h1 class="intel-title">Command Center 22 Briefing</h1>
+          <div class="release-tag">DEPLOYMENT TIMELINE: THURSDAY, SEPTEMBER 24TH, 2026 (APPROX. 17:00 PDT)</div>
+        </div>
       </div>
-      <h1 class="intel-title">Command Center 22 Briefing</h1>
-      <div class="release-tag">DEPLOYMENT TIMELINE: THURSDAY, SEPTEMBER 24TH, 2026 (APPROX. 17:00 PDT)</div>
+      <div>
+        <a href="./cc-22-pre-release.html" target="_blank" rel="noopener" class="collapse-toggle-btn" id="popoutSelfBtn" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</a>
+      </div>
     </header>
 
     <!-- Command Center Upgrade Stats -->
@@ -399,7 +434,32 @@
       </section>
     </div>
 
-    <footer>Sector Command // Tactical Briefing Document // All systems nominal</footer>
+    <footer class="class-bar class-bar-bottom" style="margin-top:28px;">
+      <div class="corner-tab corner-left"><span>[-WTR-] DATA HUB</span></div>
+      <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • [-WTR-] VAULT ARCHIVE</div>
+      <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP OF BRIEF</button></div>
+    </footer>
   </div>
+  <script>
+    function returnToCommandCenter() {
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.closeInlineModuleViewport === 'function') {
+          window.parent.closeInlineModuleViewport();
+          return;
+        }
+      } catch (e) {}
+      window.location.href = './index.html';
+    }
+    function toggleBoardCollapse() {
+      const shell = document.getElementById('boardShell');
+      const btn = document.getElementById('collapseBtn');
+      const collapsed = shell.classList.toggle('is-collapsed');
+      btn.textContent = collapsed ? '[+] EXPAND BRIEF' : '[—] COLLAPSE BRIEF';
+    }
+    if (window.self === window.top) {
+      const popBtn = document.getElementById('popoutSelfBtn');
+      if (popBtn) popBtn.style.display = 'none';
+    }
+  </script>
 </body>
 </html>

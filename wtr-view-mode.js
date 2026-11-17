@@ -163,6 +163,63 @@
       "  font-family: var(--wtr-font-sans);",
       "}",
 
+      /* ==================== MASTER WTR LOGO STANDARD (SCALE 4: 116x116px • STYLE A: DUAL RADAR) ==================== */
+      "@keyframes wtrMasterRadarSpin {",
+      "  from { transform: rotate(0deg); }",
+      "  to { transform: rotate(360deg); }",
+      "}",
+      ".wtr-std-radar-logo, .header-logo-frame, .logo-radar-wrap, .radar-logo-wrap, .radar-emblem-wrap, .header-logo-link, .wtr-logo-ring {",
+      "  position: relative !important;",
+      "  width: 116px !important; height: 116px !important;",
+      "  min-width: 116px !important; min-height: 116px !important;",
+      "  padding: 0 !important;",
+      "  border-radius: 50% !important;",
+      "  background: radial-gradient(circle, #07140e 0%, #03070b 82%) !important;",
+      "  border: 2.5px solid #00e676 !important;",
+      "  box-shadow: 0 0 26px rgba(0, 230, 118, 0.40), inset 0 0 14px rgba(0, 230, 118, 0.26) !important;",
+      "  display: flex !important; align-items: center !important; justify-content: center !important;",
+      "  flex-shrink: 0 !important; overflow: hidden !important;",
+      "  cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;",
+      "}",
+      ".wtr-std-radar-logo:hover, .header-logo-frame:hover, .logo-radar-wrap:hover, .radar-logo-wrap:hover, .radar-emblem-wrap:hover, .header-logo-link:hover, .wtr-logo-ring:hover {",
+      "  transform: scale(1.04);",
+      "  box-shadow: 0 0 32px rgba(0, 230, 118, 0.62), inset 0 0 16px rgba(0, 230, 118, 0.32) !important;",
+      "}",
+      ".wtr-std-radar-logo::before, .header-logo-frame::before, .logo-radar-wrap::before, .radar-logo-wrap::before, .radar-emblem-wrap::before, .header-logo-link::before, .wtr-logo-ring::before {",
+      "  content: '' !important; display: block !important;",
+      "  position: absolute !important; inset: 4px !important; top: 4px !important; right: 4px !important; bottom: 4px !important; left: 4px !important;",
+      "  width: auto !important; height: auto !important;",
+      "  border-radius: 50% !important;",
+      "  border: 1.5px dashed rgba(0, 230, 118, 0.62) !important;",
+      "  background: none !important;",
+      "  animation: wtrMasterRadarSpin 18s linear infinite !important;",
+      "  pointer-events: none !important; z-index: 1 !important; opacity: 1 !important;",
+      "}",
+      ".wtr-std-radar-logo::after, .header-logo-frame::after, .logo-radar-wrap::after, .radar-logo-wrap::after, .radar-emblem-wrap::after, .header-logo-link::after, .logo-radar-ring::after, .wtr-logo-ring::after {",
+      "  content: '' !important; display: block !important;",
+      "  position: absolute !important; inset: 0 !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important;",
+      "  width: auto !important; height: auto !important;",
+      "  border-radius: 50% !important;",
+      "  border: none !important;",
+      "  background: conic-gradient(from 0deg, transparent 68%, rgba(0, 230, 118, 0.48) 100%) !important;",
+      "  animation: wtrMasterRadarSpin 4.5s linear infinite !important;",
+      "  pointer-events: none !important; z-index: 2 !important; opacity: 1 !important;",
+      "}",
+      ".wtr-std-radar-logo > img, .header-logo-frame > img, .logo-radar-wrap > img, .radar-logo-wrap > img, .radar-emblem-wrap > img, .header-logo-link > img, .wtr-logo-ring > img {",
+      "  width: 100px !important; height: 100px !important;",
+      "  border-radius: 50% !important; object-fit: cover !important;",
+      "  position: relative !important; z-index: 3 !important;",
+      "  border: 2px solid #03070b !important; display: block !important; filter: none !important;",
+      "}",
+      "@media (max-width: 600px) {",
+      "  .wtr-std-radar-logo, .header-logo-frame, .logo-radar-wrap, .radar-logo-wrap, .radar-emblem-wrap, .header-logo-link, .wtr-logo-ring {",
+      "    width: 84px !important; height: 84px !important; min-width: 84px !important; min-height: 84px !important;",
+      "  }",
+      "  .wtr-std-radar-logo > img, .header-logo-frame > img, .logo-radar-wrap > img, .radar-logo-wrap > img, .radar-emblem-wrap > img, .header-logo-link > img, .wtr-logo-ring > img {",
+      "    width: 72px !important; height: 72px !important;",
+      "  }",
+      "}",
+
       /* ==================== GLOBAL TEXT SCALING (A / A+ / A++) ==================== */
       "html[data-wtr-font='lg'] #terminalMainFrame .header-logo-frame,",
       "html[data-wtr-font='lg'] #terminalMainFrame .title-group,",
@@ -1086,12 +1143,41 @@
     } catch (err) {}
   }
 
+  function standardizeWtrHeaderLogos() {
+    try {
+      var p = String(window.location.pathname || "").replace(/\\/g, "/").toLowerCase();
+      var inVault = p.indexOf("/vault/") !== -1;
+      var inMasters = p.indexOf("/masters/") !== -1;
+      var localSrc = inMasters
+        ? "../published/watchtower-data-hub/assets/images/wtr-logo.png"
+        : (inVault ? "../assets/images/wtr-logo.png" : "./assets/images/wtr-logo.png");
+      var cloudFallback = "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
+      var sel = ".wtr-std-radar-logo > img, .header-logo-frame > img, .logo-radar-wrap > img, .radar-logo-wrap > img, .radar-emblem-wrap > img, .header-logo-link > img, .wtr-logo-ring > img";
+      var imgs = document.querySelectorAll(sel);
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        var cur = img.getAttribute("src") || "";
+        if (!cur || cur.indexOf("68d9b0761a1ffb") !== -1 || cur.indexOf("wtr-logo.png") !== -1) {
+          img.onerror = function () {
+            this.onerror = null;
+            this.src = cloudFallback;
+          };
+          if (cur !== localSrc) {
+            img.src = localSrc;
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
+      standardizeWtrHeaderLogos();
       mountSelectorsOnDomReady();
       setTimeout(function () { recordWtrPageVisit(false); }, 350);
     });
   } else {
+    standardizeWtrHeaderLogos();
     mountSelectorsOnDomReady();
     setTimeout(function () { recordWtrPageVisit(false); }, 350);
   }
