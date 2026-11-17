@@ -885,7 +885,8 @@
   .day-cell.past-day { background: #06080c; border-color: rgba(34, 50, 68, 0.25); opacity: 0.42; }
   .day-cell.blank-day, .day-cell.inactive { background: rgba(15, 21, 29, 0.35); border: 1px dashed rgba(42, 59, 76, 0.35); opacity: 0.35; }
   .day-cell.spillover-active { background: rgba(14, 21, 30, 0.75); border: 1px dashed rgba(56, 189, 248, 0.45); opacity: 0.85; }
-  .day-cell.today-cell { border: 2px solid var(--text-gold) !important; box-shadow: 0 0 16px rgba(226, 197, 71, 0.3), inset 0 0 10px rgba(226, 197, 71, 0.08); z-index: 4; }
+  .day-cell.today-cell { border: 2px solid var(--text-gold) !important; box-shadow: 0 0 16px rgba(226, 197, 71, 0.3), inset 0 0 10px rgba(226, 197, 71, 0.08); z-index: 8; }
+  .day-cell.today-cell::before { content: "TODAY"; position: absolute; top: -9px; left: 50%; transform: translateX(-50%); background: linear-gradient(180deg, #ffd700 0%, #d4af37 100%); color: #090c10; font-family: monospace; font-size: 9px; font-weight: 900; letter-spacing: 1px; padding: 1px 7px; border-radius: 3px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.85); line-height: 1.25; pointer-events: none; z-index: 25; }
   .day-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; gap: 4px; height: 18px; flex-shrink: 0; }
   .day-num { font-family: monospace; font-size: 13px; font-weight: 900; color: #fff; white-space: nowrap; }
   .resource-badge { font-size: 9px; font-family: monospace; font-weight: 900; letter-spacing: 0.4px; text-transform: uppercase; padding: 2px 5px; border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.15); white-space: nowrap; color: #cbd5e1; background: rgba(0, 0, 0, 0.5); }
@@ -5663,7 +5664,7 @@
         cellType: evList.length > 0 ? "spillover-active" : "inactive",
         isToday: cellUtc === todayUtc,
         isPast: cellUtc < todayUtc,
-        dayLabel: cellUtc === todayUtc ? `${prevMonthAbbr} ${String(prevNum).padStart(2, '0')} (TODAY)` : `${prevMonthAbbr} ${String(prevNum).padStart(2, '0')}`,
+        dayLabel: `${prevMonthAbbr} ${String(prevNum).padStart(2, '0')}`,
         resLabel: evList.length > 0 ? ((spillRec && spillRec.resource) || getDefaultHomeResource(prevYear, prevMonth, prevNum)) : "",
         utcMs: cellUtc,
         events: evList
@@ -5685,7 +5686,7 @@
         cellType: "active",
         isToday: cellUtc === todayUtc,
         isPast: cellUtc < todayUtc,
-        dayLabel: cellUtc === todayUtc ? `${String(d).padStart(2, '0')} (TODAY)` : String(d).padStart(2, '0'),
+        dayLabel: String(d).padStart(2, '0'),
         resLabel: dayRec.resource !== undefined ? dayRec.resource : getDefaultHomeResource(year, month, d),
         utcMs: cellUtc,
         events: evList

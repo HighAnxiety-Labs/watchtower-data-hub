@@ -1204,6 +1204,7 @@
     grid-template-columns: repeat(7, minmax(0, 1fr));
     grid-auto-rows: 136px;
     gap: 8px;
+    padding-top: 4px;
   }
   @media (max-width: 860px) {
     .weekday-row { display: none; }
@@ -1250,6 +1251,33 @@
   .day-cell.spillover-active .day-num {
     color: #94a3b8;
     font-size: 11.5px;
+  }
+  .day-cell.today-cell {
+    border: 2px solid var(--text-gold) !important;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.34), inset 0 0 12px rgba(255, 215, 0, 0.10);
+    z-index: 8;
+  }
+  .day-cell.today-cell::before {
+    content: "TODAY";
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #ffd700 0%, #d4af37 100%);
+    color: #090c10;
+    font-family: monospace;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    padding: 1px 7px;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+    line-height: 1.25;
+    pointer-events: none;
+    z-index: 25;
+  }
+  .day-cell.today-cell .day-num {
+    color: var(--text-gold) !important;
   }
 
   /* Interactive Legend Hover/Click Glow Effects on Calendar Cells & Beams */
@@ -8794,6 +8822,8 @@
       return evList;
     };
 
+    const now = new Date();
+    const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
     const rawCells = [];
 
     // 1A. Leading padding days from previous month
@@ -8806,6 +8836,7 @@
       const evList = projectLegendSpansOntoCell(pUtc, (spillRec?.events || []).map(e => normalizeEventItem(e, prevNum)).filter(Boolean));
       rawCells.push({
         cellType: evList.length > 0 ? "spillover-active" : "inactive",
+        isToday: pUtc === todayUtc,
         dataDayAttr: `prev_${prevNum}`,
         dayLabel: `${prevMonthAbbr} ${String(prevNum).padStart(2, '0')}`,
         resLabel: evList.length > 0 ? (spillRec?.resource || getDefaultResourceForWeekday(pYear, pMonth, prevNum)) : "",
@@ -8840,6 +8871,7 @@
 
       rawCells.push({
         cellType: "active",
+        isToday: curUtc === todayUtc,
         dataDayAttr: String(d),
         dayLabel: String(d).padStart(2, '0'),
         resLabel: dayRec.resource !== undefined ? dayRec.resource : getDefaultResourceForWeekday(year, month, d),
@@ -8859,6 +8891,7 @@
       const evList = projectLegendSpansOntoCell(nUtc, (spillRec?.events || []).map(e => normalizeEventItem(e, t)).filter(Boolean));
       rawCells.push({
         cellType: evList.length > 0 ? "spillover-active" : "inactive",
+        isToday: nUtc === todayUtc,
         dataDayAttr: `next_${t}`,
         dayLabel: `${nextMonthAbbr} ${String(t).padStart(2, '0')}`,
         resLabel: evList.length > 0 ? (spillRec?.resource || getDefaultResourceForWeekday(nYear, nMonth, t)) : "",
@@ -8888,7 +8921,7 @@
     rawCells.forEach((cell, idx) => {
       if (cell.cellType === "inactive") {
         cellsHtml += `
-          <div class="day-cell inactive">
+          <div class="day-cell inactive${cell.isToday ? ' today-cell' : ''}"${cell.isToday ? ' id="cell-today"' : ''}>
             <div class="day-num">${escapeHtml(cell.dayLabel)}</div>
           </div>
         `;
@@ -8960,9 +8993,13 @@
         }).join("");
       }
 
-      const cellClasses = `day-cell ${cell.cellType === 'spillover-active' ? 'spillover-active' : ''}`;
+      const cellClasses = [
+        "day-cell",
+        cell.cellType === "spillover-active" ? "spillover-active" : "",
+        cell.isToday ? "today-cell" : ""
+      ].filter(Boolean).join(" ");
       cellsHtml += `
-        <div class="${cellClasses}" data-day="${escapeHtml(cell.dataDayAttr)}">
+        <div class="${cellClasses}" data-day="${escapeHtml(cell.dataDayAttr)}"${cell.isToday ? ' id="cell-today"' : ''}>
           <div class="day-header">
             <span class="day-num">${escapeHtml(cell.dayLabel)}</span>
             ${cell.resLabel ? `<span class="resource-badge ${resClass}">${escapeHtml(cell.resLabel)}</span>` : ''}

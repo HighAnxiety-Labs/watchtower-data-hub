@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-16T14:27:08-08:00",
-    "generatedMs":  1794868024993,
+    "generatedAt":  "2026-11-16T19:45:09-08:00",
+    "generatedMs":  1794887106155,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -59,8 +59,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-16T22:25:50Z",
-                              "modifiedMs":  1794867950151
+                              "modifiedAt":  "2026-11-17T03:42:29Z",
+                              "modifiedMs":  1794886949464
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-16T22:25:55Z",
-                              "modifiedMs":  1794867955418
+                              "modifiedAt":  "2026-11-17T03:43:43Z",
+                              "modifiedMs":  1794887023395
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -178,8 +178,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-16T22:27:01Z",
-                              "modifiedMs":  1794868021774
+                              "modifiedAt":  "2026-11-16T22:32:42Z",
+                              "modifiedMs":  1794868362248
                           },
                           {
                               "file":  "platoon-guide.html",
