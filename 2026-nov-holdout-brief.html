@@ -69,6 +69,7 @@
   <meta property="og:image" id="metaOgImage" content="https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM">
+  <script src="./directory-manifest.js"></script>
   <script src="./wtr-view-mode.js"></script>
   <style>
   :root {
@@ -4241,12 +4242,22 @@
   }
 
   
-  /* ==================== YOUTUBE 7-DAY SEARCH WINDOW ACTIVE VIDEO COUNTER ==================== */
+  /* ==================== YOUTUBE 7-DAY SEARCH WINDOW ACTIVE VIDEO COUNTER (3-LAYER HYBRID ENGINE) ==================== */
   const ytCountCache = {};
+  const YT_FEED_LOCAL_KEY = "wtr_yt_creator_feed_cache_v2";
+  const YT_FEED_TTL_MS = 30 * 60 * 1000; // 30-min browser cache to avoid rss2json rate-limits
+
+  const WTR_CREATOR_CHANNELS = [
+    { id: "project_d88",    tokens: ["projectd88"],                       owner: "Project_d88",      handle: "Project_d88",      channelId: "UCgLApDnJO92pQYt81v_T6oA" },
+    { id: "furiousbull2",   tokens: ["furiousbull2"],                     owner: "furious bull2",    handle: "furiousbull2",     channelId: "UCtzS9uHklZVwvyewJDmG8ww" },
+    { id: "stormygamingyt", tokens: ["stormygamingyt", "stormygamingyt99"], owner: "STORMY GAMING YT", handle: "STORMYGAMINGYT99", channelId: "UC5Nm3nZIMF0mp_BtXofnnIQ" },
+    { id: "dotsl1zo",       tokens: ["dotsl1zo"],                         owner: "DOT",              handle: "DOT-sl1zo",        channelId: "UCD3iqiGHAA70Goo9mF8obJw" },
+    { id: "wcjbsamar",      tokens: ["wcjbsamar"],                        owner: "WC JBsamar",       handle: "WCJBsamar",        channelId: "UCpBT5Xj1KLledXt_x7rzATA" },
+    { id: "mp184burnbase",  tokens: ["mp184burnbase", "mp184"],           owner: "MP184 BURN-BASE",  handle: "MP184BURNBASE",    channelId: "UCg3Ac0z5vikIlNgPqJ6F1rQ" }
+  ];
 
   function normalizeYtSearchUrl(rawUrl) {
     if (!rawUrl) return "";
-    // Fix double-encoded sp parameter (%253D -> %3D) so YouTube's This Week filter works properly
     return String(rawUrl).trim().replace(/sp=EgIIAw%253D%253D/gi, "sp=EgIIAw%3D%3D");
   }
 
@@ -4263,13 +4274,11 @@
     }
 
     const creators = [];
-    // Extract quoted creator names e.g. "Project_d88"
     const quoteRegex = /"([^"]+)"/g;
     let qm;
     while ((qm = quoteRegex.exec(rawQuery)) !== null) {
       if (qm[1].trim()) creators.push(qm[1].trim().toLowerCase());
     }
-    // Extract parenthesized OR groups e.g. (furiousbull2 OR STORMYGAMINGYT ...)
     const parenRegex = /\(([^)]+)\)/g;
     let pm;
     while ((pm = parenRegex.exec(rawQuery)) !== null) {
@@ -4295,114 +4304,174 @@
     return { rawQuery, creators, eventPart };
   }
 
-  async function fetchYouTubeHtmlViaProxy(targetUrl) {
-    const proxies = [
-      "https://api.allorigins.win/raw?url=" + encodeURIComponent(targetUrl),
-      "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(targetUrl),
-      "https://corsproxy.io/?" + encodeURIComponent(targetUrl)
-    ];
-    for (const pUrl of proxies) {
-      try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), 7500);
-        const res = await fetch(pUrl, { signal: ctrl.signal });
-        clearTimeout(timer);
-        if (res.ok) {
-          const txt = await res.text();
-          if (txt && txt.includes("ytInitialData")) return txt;
-        }
-      } catch (e) {}
-    }
-    return null;
+  function formatRelativeAgeFromMs(pubMs) {
+    const diffMs = Math.max(0, Date.now() - pubMs);
+    const hours = Math.floor(diffMs / 3600000);
+    if (hours < 1) return Math.max(1, Math.floor(diffMs / 60000)) + "m ago";
+    if (hours < 24) return hours + "h ago";
+    return Math.floor(hours / 24) + "d ago";
   }
 
-  function extractMatchedVideosFromYtHtml(htmlText, rules) {
-    if (!htmlText) return null;
-    const match = htmlText.match(/var\s+ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
-    if (!match || !match[1]) return null;
+  function resolveMappedChannelsForRules(rules) {
+    const normAlnum = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (!rules.creators || rules.creators.length === 0) return [];
+    const wanted = rules.creators.map(normAlnum);
+    return WTR_CREATOR_CHANNELS.filter(ch =>
+      ch.tokens.some(tk => wanted.some(w => w.includes(tk) || tk.includes(w)))
+    );
+  }
 
-    let data;
+  function filterFeedItemsByRules(items, rules) {
+    const nowMs = Date.now();
+    const windowMs = 7 * 24 * 3600 * 1000;
+    const normAlnum = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const eventWords = (rules.eventPart || "").split(/\s+/).filter(w => w.length >= 3);
+    const matched = [];
+    const seen = new Set();
+
+    (items || []).forEach(v => {
+      if (!v || !v.id || seen.has(v.id)) return;
+      const pubMs = Number(v.publishedMs) || Date.parse(v.publishedAt || "") || 0;
+      if (!pubMs || (nowMs - pubMs) > windowMs || (pubMs - nowMs) > 86400000) return;
+
+      const haystack = ((v.title || "") + " " + (v.descSnippet || "")).toLowerCase();
+      if (eventWords.length > 0 && !eventWords.every(w => haystack.includes(w))) return;
+
+      if (rules.creators && rules.creators.length > 0) {
+        const cHay = normAlnum((v.owner || "") + " " + (v.handle || "") + " " + (v.title || ""));
+        if (!rules.creators.some(c => cHay.includes(normAlnum(c)))) return;
+      }
+
+      seen.add(v.id);
+      matched.push({
+        id: v.id,
+        title: v.title || "Untitled Video",
+        owner: v.owner || v.handle || "Creator",
+        pubMs: pubMs,
+        pubTime: formatRelativeAgeFromMs(pubMs)
+      });
+    });
+
+    matched.sort((a, b) => b.pubMs - a.pubMs);
+    return matched;
+  }
+
+  function loadCachedChannelFeeds() {
     try {
-      data = JSON.parse(match[1]);
+      const raw = localStorage.getItem(YT_FEED_LOCAL_KEY);
+      if (raw) return JSON.parse(raw) || {};
+    } catch (e) {}
+    return {};
+  }
+
+  function saveCachedChannelFeeds(store) {
+    try { localStorage.setItem(YT_FEED_LOCAL_KEY, JSON.stringify(store)); } catch (e) {}
+  }
+
+  async function fetchLiveCreatorRssItems(ch, forceRefresh) {
+    const cache = loadCachedChannelFeeds();
+    const cachedEntry = cache[ch.channelId];
+    if (!forceRefresh && cachedEntry && Array.isArray(cachedEntry.items) && (Date.now() - (cachedEntry.fetchedAt || 0)) < YT_FEED_TTL_MS) {
+      return cachedEntry.items;
+    }
+
+    const rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + ch.channelId;
+    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 6500);
+      const res = await fetch(apiUrl, { signal: ctrl.signal });
+      clearTimeout(timer);
+      if (res.ok) {
+        const j = await res.json();
+        if (j && j.status === "ok" && Array.isArray(j.items)) {
+          const parsed = j.items.map(it => {
+            let vidId = "";
+            const guidM = String(it.guid || "").match(/video:([a-zA-Z0-9_-]{11})/);
+            const linkM = String(it.link || "").match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+            vidId = (guidM && guidM[1]) || (linkM && linkM[1]) || "";
+            const rawPub = String(it.pubDate || "").trim();
+            const isoPub = rawPub && !rawPub.endsWith("Z") && !/[+-]\d\d:?\d\d$/.test(rawPub)
+              ? rawPub.replace(" ", "T") + "Z"
+              : rawPub;
+            const pubMs = Date.parse(isoPub) || 0;
+            return {
+              id: vidId,
+              creatorId: ch.id,
+              handle: ch.handle,
+              owner: ch.owner,
+              channelId: ch.channelId,
+              title: it.title || "",
+              descSnippet: String(it.description || "").slice(0, 240),
+              publishedAt: pubMs ? new Date(pubMs).toISOString() : "",
+              publishedMs: pubMs
+            };
+          }).filter(x => x.id && x.publishedMs > 0);
+
+          const freshCache = loadCachedChannelFeeds();
+          freshCache[ch.channelId] = { fetchedAt: Date.now(), items: parsed };
+          saveCachedChannelFeeds(freshCache);
+          return parsed;
+        }
+      }
+    } catch (e) {}
+
+    return (cachedEntry && Array.isArray(cachedEntry.items)) ? cachedEntry.items : null;
+  }
+
+  async function fetchJinaFallbackMatches(cleanUrl, rules) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 18000);
+      const res = await fetch("https://r.jina.ai/" + cleanUrl, { signal: ctrl.signal });
+      clearTimeout(timer);
+      if (!res.ok) return null;
+      const mdText = await res.text();
+      if (!mdText || !mdText.includes("watch?v=")) return [];
+
+      let activeZone = mdText;
+      ["\nNo more results", "\nPeople also watched", "\nFor you\n", "\nPreviously watched"].forEach(mk => {
+        const idx = activeZone.indexOf(mk);
+        if (idx !== -1) activeZone = activeZone.slice(0, idx);
+      });
+
+      const headingRegex = /### \[([^\]]+)\]\(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})[^)]*\)/g;
+      const rawHits = [];
+      let m;
+      while ((m = headingRegex.exec(activeZone)) !== null) {
+        rawHits.push({ title: m[1].trim(), id: m[2], idx: m.index });
+      }
+      const normAlnum = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const eventWords = (rules.eventPart || "").split(/\s+/).filter(w => w.length >= 3);
+      const out = [];
+      const seen = new Set();
+
+      for (let i = 0; i < rawHits.length; i++) {
+        const cur = rawHits[i];
+        if (seen.has(cur.id)) continue;
+        const endIdx = (i + 1 < rawHits.length) ? rawHits[i + 1].idx : Math.min(activeZone.length, cur.idx + 1400);
+        const block = activeZone.slice(cur.idx, endIdx).replace(/\]\(https?:\/\/[^)\s]+(?:\s+"[^"]*")?\)/g, "]");
+        const chM = activeZone.slice(cur.idx, endIdx).match(/\[([^\]]+)\]\(https:\/\/www\.youtube\.com\/(@[^)\s]+|channel\/[^)\s]+)\)/);
+        const owner = chM ? chM[1].trim() : "Creator";
+        const handleUrl = chM ? "/" + chM[2].trim() : "";
+        const timeM = block.match(/(?:Streamed\s+)?\b(\d+\s*(?:s|sec|second|m|min|minute|h|hr|hour|d|day)s?\s+ago)\b/i);
+        const pubTime = timeM ? timeM[0].trim() : "";
+        const dayM = pubTime.match(/(\d+)\s*d/i);
+        if (!pubTime || (dayM && parseInt(dayM[1], 10) > 7)) continue;
+
+        const hay = (cur.title + " " + block).toLowerCase();
+        if (eventWords.length > 0 && !eventWords.every(w => hay.includes(w))) continue;
+        if (rules.creators && rules.creators.length > 0) {
+          const cHay = normAlnum(owner + " " + handleUrl + " " + cur.title);
+          if (!rules.creators.some(c => cHay.includes(normAlnum(c)))) continue;
+        }
+        seen.add(cur.id);
+        out.push({ id: cur.id, title: cur.title, owner: owner, pubTime: pubTime });
+      }
+      return out;
     } catch (e) {
       return null;
     }
-
-    const sections = data?.contents?.twoColumnSearchResultsRenderer?.primaryContents?.sectionListRenderer?.contents || [];
-    const matchedVideos = [];
-    const seenIds = new Set();
-    const normAlnum = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-
-    let hitNoResultsFallback = false;
-    for (const sec of sections) {
-      const items = sec?.itemSectionRenderer?.contents || [];
-      for (const item of items) {
-        if (item.backgroundPromoRenderer || item.showingResultsForRenderer || item.didYouMeanRenderer) {
-          hitNoResultsFallback = true;
-          break;
-        }
-        if (item.messageRenderer) {
-          const msgTxt = (item.messageRenderer.text?.runs || []).map(r => r.text).join(" ").toLowerCase();
-          if (msgTxt.includes("no results") || msgTxt.includes("othervideos")) {
-            hitNoResultsFallback = true;
-            break;
-          }
-        }
-        const v = item.videoRenderer;
-        if (!v || !v.videoId || seenIds.has(v.videoId)) continue;
-
-        const title = (v.title?.runs || []).map(r => r.text).join("") || v.title?.simpleText || "";
-        const owner = (v.ownerText?.runs || v.longBylineText?.runs || []).map(r => r.text).join("");
-        const handleUrl = v.ownerText?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl ||
-                          v.longBylineText?.runs?.[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl || "";
-        const desc = (v.detailedMetadataSnippets?.[0]?.snippetText?.runs || []).map(r => r.text).join("");
-        const pubTime = v.publishedTimeText?.simpleText || "";
-        const isLive = Boolean(
-          (v.badges || []).some(b => b?.metadataBadgeRenderer?.style === "BADGE_STYLE_TYPE_LIVE_NOW") ||
-          (!pubTime && (v.thumbnailOverlays || []).some(o => o?.thumbnailOverlayTimeStatusRenderer?.style === "LIVE"))
-        );
-
-        // 1. Verify video is within the 7-day search window
-        let withinWindow = isLive;
-        if (!withinWindow && pubTime) {
-          if (/\b(second|minute|hour)s?\s+ago\b/i.test(pubTime)) {
-            withinWindow = true;
-          } else {
-            const dayMatch = pubTime.match(/(\d+)\s+days?\s+ago/i);
-            if (dayMatch && parseInt(dayMatch[1], 10) <= 7) {
-              withinWindow = true;
-            }
-          }
-        }
-        if (!withinWindow) continue;
-
-        // 2. Verify event keyword match (prevents YouTube's unrelated fallback padding from counting)
-        const textHaystack = (title + " " + desc).toLowerCase();
-        if (rules.eventPart) {
-          const eventWords = rules.eventPart.split(/\s+/).filter(w => w.length >= 3);
-          const matchesEvent = eventWords.every(w => textHaystack.includes(w));
-          if (!matchesEvent) continue;
-        }
-
-        // 3. Verify creator match if creator handles/names were specified in the query
-        if (rules.creators && rules.creators.length > 0) {
-          const creatorHaystack = normAlnum(owner + " " + handleUrl + " " + title);
-          const matchesCreator = rules.creators.some(c => creatorHaystack.includes(normAlnum(c)));
-          if (!matchesCreator) continue;
-        }
-
-        seenIds.add(v.videoId);
-        matchedVideos.push({
-          id: v.videoId,
-          title: title,
-          owner: owner || handleUrl.replace(/^\/@/, ""),
-          pubTime: isLive ? "LIVE NOW" : pubTime
-        });
-      }
-      if (hitNoResultsFallback) break;
-    }
-
-    return matchedVideos;
   }
 
   async function updateSingleYouTubeCardCount(rawUrl, badgeId, btnId, forceRefresh = false) {
@@ -4424,22 +4493,48 @@
       return;
     }
 
-    badgeEl.textContent = "(...)";
-    badgeEl.title = "Checking YouTube 7-Day Search Window...";
-
     const rules = parseYtSearchQueryRules(cleanUrl, masterState?.mainTitle || "");
-    const html = await fetchYouTubeHtmlViaProxy(cleanUrl);
-    const matched = extractMatchedVideosFromYtHtml(html, rules);
+    const mappedChannels = resolveMappedChannelsForRules(rules);
 
-    if (matched === null) {
-      badgeEl.textContent = "(?)";
-      badgeEl.classList.remove("has-videos");
-      badgeEl.title = "Click to re-check active YouTube videos in search window";
+    // Layer 1: Instant 0ms render from directory-manifest.js + localStorage cache
+    const manifestItems = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
+      ? window.WTR_DIRECTORY_MANIFEST.creatorVideos
+      : [];
+    const poolById = new Map();
+    manifestItems.forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+    const localCache = loadCachedChannelFeeds();
+    Object.values(localCache).forEach(entry => {
+      (entry?.items || []).forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+    });
+
+    if (mappedChannels.length > 0 && poolById.size > 0) {
+      const instantMatched = filterFeedItemsByRules(Array.from(poolById.values()), rules);
+      applyYtCountToBadge(badgeEl, instantMatched);
+    } else {
+      badgeEl.textContent = "(...)";
+      badgeEl.title = "Checking YouTube 7-Day Search Window...";
+    }
+
+    // Layer 2: Live browser delta-refresh via official YouTube Atom feeds (rss2json, staggered)
+    if (mappedChannels.length > 0) {
+      for (let i = 0; i < mappedChannels.length; i++) {
+        if (i > 0) await new Promise(r => setTimeout(r, 380));
+        const liveItems = await fetchLiveCreatorRssItems(mappedChannels[i], forceRefresh);
+        if (Array.isArray(liveItems)) {
+          liveItems.forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+        }
+      }
+      const finalMatched = filterFeedItemsByRules(Array.from(poolById.values()), rules);
+      ytCountCache[cleanUrl] = finalMatched;
+      applyYtCountToBadge(badgeEl, finalMatched);
       return;
     }
 
-    ytCountCache[cleanUrl] = matched;
-    applyYtCountToBadge(badgeEl, matched);
+    // Layer 3: Unmapped search query fallback via Jina Reader
+    const jinaMatched = await fetchJinaFallbackMatches(cleanUrl, rules);
+    const safeList = Array.isArray(jinaMatched) ? jinaMatched : [];
+    ytCountCache[cleanUrl] = safeList;
+    applyYtCountToBadge(badgeEl, safeList);
   }
 
     function applyYtCountToBadge(badgeEl, matchedList) {
@@ -4459,9 +4554,9 @@
   let ytRefreshDebounce = null;
   function refreshYouTubeSearchCounts(forceRefresh = false) {
     if (ytRefreshDebounce) clearTimeout(ytRefreshDebounce);
-    ytRefreshDebounce = setTimeout(() => {
-      updateSingleYouTubeCardCount(masterState?.vidTopTier, "vid1MatchCount", "displayVidTopTier", forceRefresh);
-      updateSingleYouTubeCardCount(masterState?.vidWatchMe, "vid2MatchCount", "displayVidWatchMe", forceRefresh);
+    ytRefreshDebounce = setTimeout(async () => {
+      await updateSingleYouTubeCardCount(masterState?.vidTopTier, "vid1MatchCount", "displayVidTopTier", forceRefresh);
+      await updateSingleYouTubeCardCount(masterState?.vidWatchMe, "vid2MatchCount", "displayVidWatchMe", forceRefresh);
     }, forceRefresh ? 50 : 350);
   }
 

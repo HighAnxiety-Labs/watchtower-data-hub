@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="./directory-manifest.js"></script>
   <script src="./wtr-view-mode.js"></script>
   <style>
     :root {
@@ -1314,39 +1315,59 @@
       const currentDefault = Math.max(creator.defaultWcCount, Number(vault.counts[creator.id]) || 0);
       let candidateCount = currentDefault;
 
-      // 1. Check YouTube's official public Atom XML Feed for new post-baseline War Commander uploads
+      // 1. Check directory-manifest.js + YouTube's official Atom XML Feed via rss2json for new post-baseline War Commander uploads
+      const seenSet = new Set(vault.seenPostBaselineIds[creator.id] || []);
+      const ingestCandidateVid = (vidId, title, desc, pubMs) => {
+        if (!vidId || !pubMs || pubMs <= BASELINE_AUDIT_MS) return;
+        const haystack = `${title} ${desc}`;
+        const isWc = creator.mode === 'PURE_WC_CHANNEL'
+          ? !NON_WC_GAME_REGEX.test(haystack)
+          : (WC_KEYWORD_REGEX.test(haystack) && !NON_WC_GAME_REGEX.test(haystack));
+        if (isWc) seenSet.add(vidId);
+      };
+
+      const manifestVids = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
+        ? window.WTR_DIRECTORY_MANIFEST.creatorVideos.filter(v => v && v.channelId === creator.channelId)
+        : [];
+      manifestVids.forEach(v => ingestCandidateVid(v.id, v.title || '', v.descSnippet || '', Number(v.publishedMs) || Date.parse(v.publishedAt || '')));
+
       const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${creator.channelId}`;
-      const rssXml = await fetchTextViaCorsProxy(rssUrl);
-      if (rssXml && rssXml.includes('<entry>')) {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(rssXml, 'text/xml');
-        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
-        const seenSet = new Set(vault.seenPostBaselineIds[creator.id] || []);
-
-        entries.forEach(entry => {
-          const vidId = entry.getElementsByTagName('yt:videoId')[0]?.textContent ||
-                        entry.getElementsByTagName('videoId')[0]?.textContent || '';
-          const title = entry.getElementsByTagName('title')[0]?.textContent || '';
-          const desc = entry.getElementsByTagName('media:description')[0]?.textContent ||
-                       entry.getElementsByTagName('description')[0]?.textContent || '';
-          const pubStr = entry.getElementsByTagName('published')[0]?.textContent || '';
-          const pubMs = Date.parse(pubStr);
-
-          if (!vidId || isNaN(pubMs) || pubMs <= BASELINE_AUDIT_MS) return;
-
-          const haystack = `${title} ${desc}`;
-          const isWc = creator.mode === 'PURE_WC_CHANNEL'
-            ? !NON_WC_GAME_REGEX.test(haystack)
-            : (WC_KEYWORD_REGEX.test(haystack) && !NON_WC_GAME_REGEX.test(haystack));
-
-          if (isWc) {
-            seenSet.add(vidId);
+      let gotRssJson = false;
+      try {
+        const rjResp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl));
+        if (rjResp.ok) {
+          const rj = await rjResp.json();
+          if (rj && rj.status === 'ok' && Array.isArray(rj.items)) {
+            gotRssJson = true;
+            rj.items.forEach(it => {
+              const gM = String(it.guid || '').match(/video:([a-zA-Z0-9_-]{11})/);
+              const lM = String(it.link || '').match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+              const vidId = (gM && gM[1]) || (lM && lM[1]) || '';
+              const rawP = String(it.pubDate || '').trim();
+              const isoP = rawP && !rawP.endsWith('Z') ? rawP.replace(' ', 'T') + 'Z' : rawP;
+              ingestCandidateVid(vidId, it.title || '', it.description || '', Date.parse(isoP));
+            });
           }
-        });
+        }
+      } catch (e) {}
 
-        vault.seenPostBaselineIds[creator.id] = Array.from(seenSet);
-        candidateCount = Math.max(candidateCount, creator.defaultWcCount + seenSet.size);
+      if (!gotRssJson) {
+        const rssXml = await fetchTextViaCorsProxy(rssUrl);
+        if (rssXml && rssXml.includes('<entry>')) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(rssXml, 'text/xml');
+          Array.from(xmlDoc.getElementsByTagName('entry')).forEach(entry => {
+            const vidId = entry.getElementsByTagName('yt:videoId')[0]?.textContent || entry.getElementsByTagName('videoId')[0]?.textContent || '';
+            const title = entry.getElementsByTagName('title')[0]?.textContent || '';
+            const desc = entry.getElementsByTagName('media:description')[0]?.textContent || entry.getElementsByTagName('description')[0]?.textContent || '';
+            const pubStr = entry.getElementsByTagName('published')[0]?.textContent || '';
+            ingestCandidateVid(vidId, title, desc, Date.parse(pubStr));
+          });
+        }
       }
+
+      vault.seenPostBaselineIds[creator.id] = Array.from(seenSet);
+      candidateCount = Math.max(candidateCount, creator.defaultWcCount + seenSet.size);
 
       // 2. For Pure WC & Offset Channels, also check exact Uploads Playlist header count for bulk jumps (>15 uploads)
       if (creator.mode === 'PURE_WC_CHANNEL' || creator.mode === 'PLAYLIST_OFFSET') {
