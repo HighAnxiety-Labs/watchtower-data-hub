@@ -892,13 +892,12 @@
   .infusion-card { background: #0f1813; border-left: 3px solid #c084fc; padding: 10px 12px; font-size: 14.5px; }
   .infusion-card-title { font-weight: 800; color: #ffd700; margin-bottom: 4px; font-size: 14px; }
   .infusion-card p { color: #cfd8dc; line-height: 1.35; white-space: pre-line; }
-  .warpaints-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
-  .warpaints-grid.single-card { display: flex; justify-content: center; }
-  .warpaints-grid.single-card .warpaint-card { max-width: calc(220px * var(--wtr-img-scale, 1)); width: 100%; transition: max-width 0.18s ease; }
-  .warpaint-card { background: #0b1118; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; padding: 8px; display: flex; flex-direction: column; align-items: center; }
-  .warpaint-img-wrap { width: 100%; aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .warpaints-grid { display: grid; grid-template-columns: repeat(2, minmax(0, calc(220px * var(--wtr-img-scale, 1) + 14px))); justify-content: center; gap: 10px; margin-top: 10px; }
+  .warpaints-grid.single-card { grid-template-columns: minmax(0, calc(220px * var(--wtr-img-scale, 1) + 14px)); justify-content: center; }
+  .warpaint-card { background: #0b1118; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; padding: 7px; display: flex; flex-direction: column; align-items: center; min-width: 0; width: 100%; }
+  .warpaint-img-wrap { width: 100%; max-width: calc(220px * var(--wtr-img-scale, 1)); aspect-ratio: 4 / 5; background: #000; border: 1px solid rgba(0, 255, 128, 0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: max-width 0.18s ease; }
   .warpaint-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .warpaint-label { color: #c9d1d9; font-size: 1rem; font-weight: 800; text-align: center; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .warpaint-label { color: #c9d1d9; font-size: 0.92rem; font-weight: 800; text-align: center; margin-top: 7px; text-transform: uppercase; letter-spacing: 0.5px; word-break: break-word; }
 
   @media (min-width: 768px) {
     .header-content { flex-direction: row; align-items: center; gap: 30px; }
@@ -910,7 +909,7 @@
     .workshop-col.is-empty-col { display: flex; }
     html[data-wtr-view='mobile'] .workshop-col.is-empty-col { display: none !important; }
     .faction-ws-grid { grid-template-columns: repeat(4, 1fr); }
-    .warpaints-grid:not(.single-card) { grid-template-columns: repeat(4, 1fr); }
+    html:not([data-wtr-view='mobile']) .warpaints-grid:not(.single-card) { grid-template-columns: repeat(var(--wp-cols, 6), minmax(0, calc(220px * var(--wtr-img-scale, 1) + 14px))); justify-content: center; gap: 10px; }
   }
   </style>
 </head>
@@ -3103,7 +3102,7 @@
     const wpHeaderTitle = domDoc.getElementById('warpaints-header');
 
     let warpaints = [];
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 6; i++) {
       let img = cleanVal(data[`WARPAINT_${i}_IMAGE`]) || cleanVal(data[`WP_${i}_IMG`]);
       let label = cleanVal(data[`WARPAINT_${i}_NAME`]) || cleanVal(data[`WP_${i}_LABEL`]);
       if (img) warpaints.push({ img: formatImageUrl(img), label: label || 'Standard Paint' });
@@ -3117,6 +3116,7 @@
       if (wpHeaderTitle) wpHeaderTitle.textContent = customHeader ? customHeader : 'WARPAINTS';
       if (wpContainer) {
         wpContainer.className = (warpaints.length === 1) ? 'warpaints-grid single-card' : 'warpaints-grid';
+        wpContainer.style.setProperty('--wp-cols', String(Math.min(6, Math.max(1, warpaints.length))));
         wpContainer.innerHTML = warpaints.map(wp => `
           <div class="warpaint-card">
             <div class="warpaint-img-wrap">

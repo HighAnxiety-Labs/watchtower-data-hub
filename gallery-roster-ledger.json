@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-18T20:29:03Z",
+    "updatedAt":  "2026-11-18T21:40:34Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -761,6 +761,22 @@
                                           "subLabel":  "Arc 2 • SOLDIER",
                                           "firstSeenMs":  1795033743994,
                                           "firstSeenAt":  "2026-11-18T20:29:03Z"
-                                      }
+                                      },
+                    "UNIT::BURR":  {
+                                       "key":  "BURR",
+                                       "name":  "BURR",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • HERO",
+                                       "firstSeenMs":  1795038034733,
+                                       "firstSeenAt":  "2026-11-18T21:40:34Z"
+                                   },
+                    "UNIT::VALIANT MKII":  {
+                                               "key":  "VALIANT MKII",
+                                               "name":  "VALIANT MKII",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Arc 2 • SOLDIER",
+                                               "firstSeenMs":  1795038034733,
+                                               "firstSeenAt":  "2026-11-18T21:40:34Z"
+                                           }
                 }
 }
