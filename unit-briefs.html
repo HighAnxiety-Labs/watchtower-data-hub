@@ -1053,6 +1053,7 @@
             <tr><td class="stats-label" style="text-align: right;">HP (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_1}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_10}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 11)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_11}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">HP (Level 15)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_15}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_20}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 30)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_30}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Level 31)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE_31}}</td></tr>
@@ -1062,6 +1063,7 @@
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_1}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_10}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 11)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_11}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">DPS (Level 15)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_15}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_20}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 30)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_30}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">DPS (Level 31)</td><td class="stats-value" style="text-align: left;">{{STAT_DPS_RANGE_31}}</td></tr>
@@ -1072,6 +1074,7 @@
             <tr><td class="stats-label" style="text-align: right;">Range (Level 1)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_1}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Level 10)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_10}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Level 11)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_11}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Range (Level 15)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_15}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Level 20)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_20}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Level 30)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_30}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Level 31)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_31}}</td></tr>
@@ -1197,6 +1200,7 @@
     { key: 'STAT_HP_RANGE_1',   defaultLabel: 'HP (Level 1)' },
     { key: 'STAT_HP_RANGE_10',  defaultLabel: 'HP (Level 10)' },
     { key: 'STAT_HP_RANGE_11',  defaultLabel: 'HP (Level 11)' },
+    { key: 'STAT_HP_RANGE_15',  defaultLabel: 'HP (Level 15)' },
     { key: 'STAT_HP_RANGE_20',  defaultLabel: 'HP (Level 20)' },
     { key: 'STAT_HP_RANGE_30',  defaultLabel: 'HP (Level 30)' },
     { key: 'STAT_HP_RANGE_31',  defaultLabel: 'HP (Level 31)' },
@@ -1206,6 +1210,7 @@
     { key: 'STAT_DPS_RANGE_1',  defaultLabel: 'DPS (Level 1)' },
     { key: 'STAT_DPS_RANGE_10', defaultLabel: 'DPS (Level 10)' },
     { key: 'STAT_DPS_RANGE_11', defaultLabel: 'DPS (Level 11)' },
+    { key: 'STAT_DPS_RANGE_15', defaultLabel: 'DPS (Level 15)' },
     { key: 'STAT_DPS_RANGE_20', defaultLabel: 'DPS (Level 20)' },
     { key: 'STAT_DPS_RANGE_30', defaultLabel: 'DPS (Level 30)' },
     { key: 'STAT_DPS_RANGE_31', defaultLabel: 'DPS (Level 31)' },
@@ -1216,6 +1221,7 @@
     { key: 'STAT_RANGE_1',      defaultLabel: 'Range (Level 1)' },
     { key: 'STAT_RANGE_10',     defaultLabel: 'Range (Level 10)' },
     { key: 'STAT_RANGE_11',     defaultLabel: 'Range (Level 11)' },
+    { key: 'STAT_RANGE_15',     defaultLabel: 'Range (Level 15)' },
     { key: 'STAT_RANGE_20',     defaultLabel: 'Range (Level 20)' },
     { key: 'STAT_RANGE_30',     defaultLabel: 'Range (Level 30)' },
     { key: 'STAT_RANGE_31',     defaultLabel: 'Range (Level 31)' },
@@ -2081,12 +2087,50 @@
     window.WTRViewMode.syncControls();
   }
 
+  function buildBranchFilterCounts(allValidUnits, partnerMap) {
+    const wrap = document.getElementById('branchFilterPills');
+    if (!wrap) return;
+    const counts = { ALL: 0, INFANTRY: 0, VEHICLE: 0, AIRCRAFT: 0 };
+    (allValidUnits || []).forEach(rec => {
+      if (!rec || isOnyxRecord(rec) || isContractorRecord(rec)) return;
+      if (activeGenFilter !== 'ALL' && activeGenFilter !== 'HOSTILE' && activeGenFilter !== 'CONTRACTOR') {
+        if (!matchesGenerationFilterKey(rec, activeGenFilter, partnerMap)) return;
+      }
+      if (gallerySearchQuery) {
+        const hay = [
+          rec.UNIT_NAME, rec.CLASSIFICATION, rec.STAT_GENERATION, rec.STAT_FACTION,
+          rec.STAT_TYPE, rec.STAT_WEAPON_TYPE, rec.STAT_DAMAGE_TYPE, rec.STAT_ARMOR_TYPE,
+          rec.LINKED_UNIT_NAME, rec.RELEASE_DATE, rec.UNIT_QUOTE, rec.TALENT, rec.TALENT_LVL_1
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (!hay.includes(gallerySearchQuery)) return;
+      }
+      const bKey = resolveUnitBranch(rec);
+      counts.ALL++;
+      if (counts[bKey] !== undefined) counts[bKey]++;
+    });
+    const labels = {
+      ALL: 'ALL',
+      INFANTRY: '🪖 INFANTRY',
+      VEHICLE: '🛡️ VEHICLE',
+      AIRCRAFT: '✈️ AIRCRAFT'
+    };
+    wrap.querySelectorAll('.branch-pill').forEach(btn => {
+      const b = btn.getAttribute('data-branch') || '';
+      if (labels[b]) {
+        btn.innerHTML = `${labels[b]} <span class="gal-pill-cnt">${counts[b] || 0}</span>`;
+        btn.title = `${labels[b].replace(/^[^\w]+/, '')} (${counts[b] || 0} Allied Units — Hostiles Excluded)`;
+      }
+      btn.classList.toggle('active', b === activeBranchFilter);
+    });
+  }
+
   function applyFilter(isInitialLoad = false) {
     const unitSelect = document.getElementById('unitSelect');
     const allValidUnits = globalMatrixCache.filter(rec => rec && rec.UNIT_NAME && (!isPureBuildingRecord(rec) || rec._locallySaved));
     const partnerMap = buildLinkedPartnerMap(allValidUnits);
 
     buildGenerationFilterPills(allValidUnits, partnerMap);
+    buildBranchFilterCounts(allValidUnits, partnerMap);
 
     filteredUnits = allValidUnits.filter(rec => {
       const genInfo = resolveUnitGenerationInfo(rec);
@@ -2380,15 +2424,15 @@
       return '—';
     };
     const maxHp = formatBenchmarkStatString(pickHighestStatStr(
-      ['STAT_HP_RANGE_MAX', 'STAT_HP_MAX', 'STAT_HP_RANGE_40', 'STAT_HP_40', 'STAT_HP_RANGE_31', 'STAT_HP_RANGE_30', 'STAT_HP_30', 'STAT_HP_RANGE_20', 'STAT_HP_RANGE_11', 'STAT_HP_RANGE_10'],
+      ['STAT_HP_RANGE_MAX', 'STAT_HP_MAX', 'STAT_HP_RANGE_40', 'STAT_HP_40', 'STAT_HP_RANGE_31', 'STAT_HP_RANGE_30', 'STAT_HP_30', 'STAT_HP_RANGE_20', 'STAT_HP_RANGE_15', 'STAT_HP_RANGE_11', 'STAT_HP_RANGE_10'],
       ['STAT_HP_RANGE', 'STAT_HP']
     )) || '—';
     const maxDps = formatBenchmarkStatString(pickHighestStatStr(
-      ['STAT_DPS_RANGE_MAX', 'STAT_DPS_MAX', 'STAT_DPS_RANGE_40', 'STAT_DPS_40', 'STAT_DPS_RANGE_31', 'STAT_DPS_RANGE_30', 'STAT_DPS_30', 'STAT_DPS_RANGE_20', 'STAT_DPS_RANGE_11', 'STAT_DPS_RANGE_10'],
+      ['STAT_DPS_RANGE_MAX', 'STAT_DPS_MAX', 'STAT_DPS_RANGE_40', 'STAT_DPS_40', 'STAT_DPS_RANGE_31', 'STAT_DPS_RANGE_30', 'STAT_DPS_30', 'STAT_DPS_RANGE_20', 'STAT_DPS_RANGE_15', 'STAT_DPS_RANGE_11', 'STAT_DPS_RANGE_10'],
       ['STAT_DPS_RANGE', 'STAT_DPS']
     )) || '—';
     const rng = formatBenchmarkStatString(pickHighestStatStr(
-      ['STAT_RANGE_MAX', 'STAT_RANGE_40', 'STAT_RANGE_31', 'STAT_RANGE_30', 'STAT_RANGE_20', 'STAT_RANGE_11', 'STAT_RANGE_10', 'STAT_RANGE_1'],
+      ['STAT_RANGE_MAX', 'STAT_RANGE_40', 'STAT_RANGE_31', 'STAT_RANGE_30', 'STAT_RANGE_20', 'STAT_RANGE_15', 'STAT_RANGE_11', 'STAT_RANGE_10', 'STAT_RANGE_1'],
       ['STAT_RANGE']
     )) || '—';
     const spd = cleanVal(rec.STAT_SPEED) || cleanVal(rec.STAT_MAX_SPEED) || '—';
@@ -2666,6 +2710,7 @@
       'STAT_HP_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_1'])),
       'STAT_HP_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_10'])),
       'STAT_HP_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_11']) || cleanVal(data['STAT_HP_11'])),
+      'STAT_HP_RANGE_15': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_15']) || cleanVal(data['STAT_HP_15'])),
       'STAT_HP_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_20'])),
       'STAT_HP_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_30']) || cleanVal(data['STAT_HP_30'])),
       'STAT_HP_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_31']) || cleanVal(data['STAT_HP_31'])),
@@ -2675,6 +2720,7 @@
       'STAT_DPS_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_1'])),
       'STAT_DPS_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_10'])),
       'STAT_DPS_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_11']) || cleanVal(data['STAT_DPS_11'])),
+      'STAT_DPS_RANGE_15': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_15']) || cleanVal(data['STAT_DPS_15'])),
       'STAT_DPS_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_20'])),
       'STAT_DPS_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_30']) || cleanVal(data['STAT_DPS_30'])),
       'STAT_DPS_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_31']) || cleanVal(data['STAT_DPS_31'])),
@@ -2685,6 +2731,7 @@
       'STAT_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_1'])),
       'STAT_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_10'])),
       'STAT_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_11'])),
+      'STAT_RANGE_15': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_15'])),
       'STAT_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_20'])),
       'STAT_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_30'])),
       'STAT_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_31'])),
@@ -3131,7 +3178,7 @@
   function mhGetMaxStat(rec, baseKey, fallbackVal) {
     const shortKey = baseKey.replace('_RANGE', '');
     let best = 0;
-    ['MAX', '40', '31', '30', '20', '11', '10', '1'].forEach(t => {
+    ['MAX', '40', '31', '30', '20', '15', '11', '10', '1'].forEach(t => {
       const raw = cleanVal(rec[`${baseKey}_${t}`]) || cleanVal(rec[`${shortKey}_${t}`]);
       if (raw) best = Math.max(best, mhParseNum(raw));
     });
@@ -3373,6 +3420,7 @@
       { key: '1',   label: 'LVL 1',     hpKey: 'STAT_HP_RANGE_1',   dpsKey: 'STAT_DPS_RANGE_1',   rngKey: 'STAT_RANGE_1' },
       { key: '10',  label: 'LVL 10',    hpKey: 'STAT_HP_RANGE_10',  dpsKey: 'STAT_DPS_RANGE_10',  rngKey: 'STAT_RANGE_10' },
       { key: '11',  label: 'LVL 11',    hpKey: 'STAT_HP_RANGE_11',  dpsKey: 'STAT_DPS_RANGE_11',  rngKey: 'STAT_RANGE_11' },
+      { key: '15',  label: 'LVL 15',    hpKey: 'STAT_HP_RANGE_15',  dpsKey: 'STAT_DPS_RANGE_15',  rngKey: 'STAT_RANGE_15' },
       { key: '20',  label: 'LVL 20',    hpKey: 'STAT_HP_RANGE_20',  dpsKey: 'STAT_DPS_RANGE_20',  rngKey: 'STAT_RANGE_20' },
       { key: '30',  label: 'LVL 30',    hpKey: 'STAT_HP_RANGE_30',  dpsKey: 'STAT_DPS_RANGE_30',  rngKey: 'STAT_RANGE_30' },
       { key: '31',  label: 'LVL 31',    hpKey: 'STAT_HP_RANGE_31',  dpsKey: 'STAT_DPS_RANGE_31',  rngKey: 'STAT_RANGE_31' },
@@ -3616,28 +3664,28 @@
       statRowsHtml += renderCompareRow('Building Req', [cleanVal(recA.STAT_BUILDING), cleanVal(recA.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recA.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), [cleanVal(recB.STAT_BUILDING), cleanVal(recB.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recB.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), false);
 
       if (activeCmpLevel === 'ALL') {
-        ['1', '10', '11', '20', '30', '31', '40', 'MAX'].forEach(lk => {
+        ['1', '10', '11', '15', '20', '30', '31', '40', 'MAX'].forEach(lk => {
           const hpK = `STAT_HP_RANGE_${lk}`;
-          const vA = cleanVal(recA[hpK]) || (lk === 'MAX' ? cleanVal(recA.STAT_HP_RANGE) : '');
-          const vB = cleanVal(recB[hpK]) || (lk === 'MAX' ? cleanVal(recB.STAT_HP_RANGE) : '');
+          const vA = formatBenchmarkStatString(cleanVal(recA[hpK]) || (lk === 'MAX' ? cleanVal(recA.STAT_HP_RANGE) : ''));
+          const vB = formatBenchmarkStatString(cleanVal(recB[hpK]) || (lk === 'MAX' ? cleanVal(recB.STAT_HP_RANGE) : ''));
           if (vA || vB) statRowsHtml += renderCompareRow(`HP (Lvl ${lk})`, vA, vB, true);
         });
-        ['1', '10', '11', '20', '30', '31', '40', 'MAX'].forEach(lk => {
+        ['1', '10', '11', '15', '20', '30', '31', '40', 'MAX'].forEach(lk => {
           const dpsK = `STAT_DPS_RANGE_${lk}`;
-          const vA = cleanVal(recA[dpsK]) || (lk === 'MAX' ? cleanVal(recA.STAT_DPS_RANGE) : '');
-          const vB = cleanVal(recB[dpsK]) || (lk === 'MAX' ? cleanVal(recB.STAT_DPS_RANGE) : '');
+          const vA = formatBenchmarkStatString(cleanVal(recA[dpsK]) || (lk === 'MAX' ? cleanVal(recA.STAT_DPS_RANGE) : ''));
+          const vB = formatBenchmarkStatString(cleanVal(recB[dpsK]) || (lk === 'MAX' ? cleanVal(recB.STAT_DPS_RANGE) : ''));
           if (vA || vB) statRowsHtml += renderCompareRow(`DPS (Lvl ${lk})`, vA, vB, true);
         });
-        const anyLvlRng = ['1', '10', '11', '20', '30', '31', '40', 'MAX'].some(lk => cleanVal(recA[`STAT_RANGE_${lk}`]) || cleanVal(recB[`STAT_RANGE_${lk}`]));
+        const anyLvlRng = ['1', '10', '11', '15', '20', '30', '31', '40', 'MAX'].some(lk => cleanVal(recA[`STAT_RANGE_${lk}`]) || cleanVal(recB[`STAT_RANGE_${lk}`]));
         if (anyLvlRng) {
-          ['1', '10', '11', '20', '30', '31', '40', 'MAX'].forEach(lk => {
+          ['1', '10', '11', '15', '20', '30', '31', '40', 'MAX'].forEach(lk => {
             const rngK = `STAT_RANGE_${lk}`;
-            const rA = cleanVal(recA[rngK]) || (lk === 'MAX' ? cleanVal(recA.STAT_RANGE) : '');
-            const rB = cleanVal(recB[rngK]) || (lk === 'MAX' ? cleanVal(recB.STAT_RANGE) : '');
-            if (rA || rB) statRowsHtml += renderCompareRow(`Range (Lvl ${lk})`, rA || cleanVal(recA.STAT_RANGE), rB || cleanVal(recB.STAT_RANGE), true);
+            const rA = formatBenchmarkStatString(cleanVal(recA[rngK]) || (lk === 'MAX' ? cleanVal(recA.STAT_RANGE) : ''));
+            const rB = formatBenchmarkStatString(cleanVal(recB[rngK]) || (lk === 'MAX' ? cleanVal(recB.STAT_RANGE) : ''));
+            if (rA || rB) statRowsHtml += renderCompareRow(`Range (Lvl ${lk})`, rA || formatBenchmarkStatString(cleanVal(recA.STAT_RANGE)), rB || formatBenchmarkStatString(cleanVal(recB.STAT_RANGE)), true);
           });
         } else {
-          statRowsHtml += renderCompareRow('Range', cleanVal(recA.STAT_RANGE), cleanVal(recB.STAT_RANGE), true);
+          statRowsHtml += renderCompareRow('Range', formatBenchmarkStatString(cleanVal(recA.STAT_RANGE)), formatBenchmarkStatString(cleanVal(recB.STAT_RANGE)), true);
         }
       } else {
         const hpK = `STAT_HP_RANGE_${activeCmpLevel}`;
@@ -3655,7 +3703,7 @@
       // Talent milestones
       let talentRows = '';
       const tLvls = activeCmpLevel === 'ALL'
-        ? [1, 10, 11, 20, 30, 31, 40]
+        ? [1, 10, 11, 15, 20, 30, 31, 40]
         : [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40].filter(l => activeCmpLevel === 'MAX' || l <= parseInt(activeCmpLevel, 10));
       tLvls.forEach(lvl => {
         const tA = cleanVal(recA[`TALENT_LVL_${lvl}`]);

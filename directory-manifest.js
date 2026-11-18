@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-18T08:39:18-08:00",
-    "generatedMs":  1795019952362,
+    "generatedAt":  "2026-11-18T09:14:38-08:00",
+    "generatedMs":  1795022073844,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -206,8 +206,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-18T16:36:24Z",
-                              "modifiedMs":  1795019784269
+                              "modifiedAt":  "2026-11-18T17:14:15Z",
+                              "modifiedMs":  1795022055561
                           },
                           {
                               "file":  "unit-matchup.html",
