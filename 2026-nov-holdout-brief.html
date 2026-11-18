@@ -2065,9 +2065,14 @@
             <span class="tab-idx">09</span><span id="displayTab09Label">CHALLENGES</span>
           </button>
         </div>
-        <button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
-          <span>↕ FULL PAGE</span>
-        </button>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button type="button" class="file-tab-btn" id="btnCopyHoldoutDiscord" onclick="copyEventDiscordBrief(this)" title="1-Click Copy Formatted Event Brief &amp; Store Deadline for Alliance Discord" style="border-top-color: #818cf8; color: #c7d2fe; background: rgba(79, 70, 229, 0.22);">
+            <span>💬 DISCORD BRIEF</span>
+          </button>
+          <button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
+            <span>↕ FULL PAGE</span>
+          </button>
+        </div>
       </nav>
     </div>
 
@@ -2099,7 +2104,11 @@
                  href="javascript:void(0)"
                  data-no-overlay="true"
                  onclick="jumpToDossierSection('integratedStoreCalcSection')"
-                 style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
+                 style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a> | 
+              <a href="javascript:void(0)"
+                 data-no-overlay="true"
+                 onclick="copyEventDiscordBrief(this)"
+                 style="color: #a5b4fc; text-decoration: none; font-weight: 800;">💬 Copy for Alliance Discord</a>
             </div>
             <div class="event-title-row">
               <h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">HOLDOUT</h1>
@@ -5882,6 +5891,79 @@
     if (candidates[0] !== defaultMasterState) {
       masterState = Object.assign({}, JSON.parse(JSON.stringify(defaultMasterState)), candidates[0]);
       bakeResolvedDbDataIntoMasterState();
+    }
+  }
+
+  function copyEventDiscordBrief(btnEl) {
+    const title = (masterState.mainTitle || "HOLDOUT").trim();
+    const stamp = (masterState.cornerStampTop || "NOV 2026").trim();
+    const sStart = (masterState.schedStart || "").trim();
+    const sEnd = (masterState.schedEnd || "").trim();
+    const sStore = (masterState.schedStore || "").trim();
+
+    const rawFeatured = Array.isArray(masterState.featuredItems)
+      ? masterState.featuredItems
+      : String(masterState.featuredItems || "").split(/\r?\n/).filter(Boolean);
+    const cleanFeatured = rawFeatured
+      .map(f => String(f || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim())
+      .filter(Boolean)
+      .slice(0, 5);
+
+    const v1Cnt = (document.getElementById("vid1MatchCount")?.textContent || "").trim();
+    const v2Cnt = (document.getElementById("vid2MatchCount")?.textContent || "").trim();
+
+    const chosenStore = [];
+    let goalXp = 0;
+    if (Array.isArray(storeState)) {
+      storeState.forEach(st => {
+        if (st && st.checked && st.qty > 0) {
+          const sub = st.qty * (Number(st.cost) || 0);
+          goalXp += sub;
+          chosenStore.push(`> • **${st.qty}x ${st.name}** (\`${sub.toLocaleString()} XP\`)`);
+        }
+      });
+    }
+
+    const lines = [
+      `🛡️ **[-WTR-] ${stamp} ${title} — ALLIANCE INTEL BRIEF**`,
+      `• **Starts:** ${sStart}  |  **Ends:** ${sEnd}`,
+      ...(sStore ? [`• **🚨 Store Use-or-Lose Closes:** **${sStore}**`] : []),
+      ...((v1Cnt || v2Cnt) ? [`• **🎥 Video Recon:** Top Tier Guides \`${v1Cnt || '(0)'}\` • Watch Me Play \`${v2Cnt || '(0)'}\``] : []),
+      ...(cleanFeatured.length ? [`**Featured Store Highlights:**`, ...cleanFeatured.map(x => `> • ${x}`)] : []),
+      ...(chosenStore.length ? [`**My Checked Store Goal (\`${goalXp.toLocaleString()} XP\`):**`, ...chosenStore.slice(0, 8)] : []),
+      `🔗 **Full Brief & Live Calculator:** <https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html>`
+    ];
+    const msg = lines.join("\n");
+
+    const finish = () => {
+      if (typeof showToast === "function") showToast("💬 Copied Alliance Discord Event Brief!");
+      if (btnEl) {
+        const origHtml = btnEl.innerHTML;
+        btnEl.innerHTML = "<span>✅ COPIED TO DISCORD!</span>";
+        setTimeout(() => { btnEl.innerHTML = origHtml; }, 2200);
+      }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(msg).then(finish).catch(() => {
+        const ta = document.createElement("textarea");
+        ta.value = msg;
+        ta.style.cssText = "position:fixed;left:-9999px;top:-9999px;";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        finish();
+      });
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = msg;
+      ta.style.cssText = "position:fixed;left:-9999px;top:-9999px;";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      finish();
     }
   }
 

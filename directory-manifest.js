@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-17T00:27:04-08:00",
-    "generatedMs":  1794904019205,
+    "generatedAt":  "2026-11-17T23:09:30-08:00",
+    "generatedMs":  1794985766158,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -73,8 +73,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-holdout-brief.html",
                               "path":  "./2026-nov-holdout-brief.html",
                               "title":  "2026-nov-holdout-brief",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018860
+                              "modifiedAt":  "2026-11-18T07:09:02Z",
+                              "modifiedMs":  1794985742472
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
@@ -122,15 +122,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018878
+                              "modifiedAt":  "2026-11-17T08:30:06Z",
+                              "modifiedMs":  1794904206695
                           },
                           {
                               "file":  "cc-22-pre-release.html",
                               "path":  "./cc-22-pre-release.html",
                               "title":  "Command Center 22 Pre-Release Briefing",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018879
+                              "modifiedAt":  "2026-11-17T08:30:07Z",
+                              "modifiedMs":  1794904207204
                           },
                           {
                               "file":  "cc22-upgrade-path.html",
@@ -150,8 +150,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018890
+                              "modifiedAt":  "2026-11-18T07:09:02Z",
+                              "modifiedMs":  1794985742994
                           },
                           {
                               "file":  "faction-intel.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018903
+                              "modifiedAt":  "2026-11-18T07:09:03Z",
+                              "modifiedMs":  1794985743859
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -206,8 +206,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018924
+                              "modifiedAt":  "2026-11-18T07:09:04Z",
+                              "modifiedMs":  1794985744413
                           },
                           {
                               "file":  "unit-matchup.html",
@@ -220,8 +220,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "vault-event-history.html",
                               "path":  "./vault-event-history.html",
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018928
+                              "modifiedAt":  "2026-11-17T08:30:08Z",
+                              "modifiedMs":  1794904208220
                           },
                           {
                               "file":  "video-recon.html",
@@ -364,6 +364,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "VIPER",
                                           "VOIDHAMMER",
                                           "WANDERER KABUTO",
+                                          "WATCHTOWER COMMAND CENTER (HOME)",
                                           "WITNESS",
                                           "ZAKIA KAZMI"
                                       ],
@@ -386,14 +387,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-                                   {
-                                       "key":  "WATCHTOWER COMMAND CENTER (HOME)",
-                                       "name":  "WatchToweR Command Center (Home)",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "",
-                                       "firstSeenMs":  1794859063389,
-                                       "firstSeenAt":  "2026-11-16T19:57:43Z"
-                                   }
+
                                ],
     "creatorVideos":  [
                           {

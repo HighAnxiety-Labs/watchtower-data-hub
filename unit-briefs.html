@@ -475,6 +475,93 @@
     background: rgba(5, 10, 8, 0.86); border: 1px solid rgba(148, 163, 184, 0.35); color: #cbd5e1;
     max-width: 52%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+  .ugt-compare-pin-btn {
+    position: absolute; bottom: 7px; right: 7px; z-index: 5;
+    padding: 3px 7px; border-radius: 4px; font-family: monospace;
+    font-size: 10px; font-weight: 900; letter-spacing: 0.4px; text-transform: uppercase;
+    background: rgba(6, 12, 10, 0.88); border: 1px solid rgba(56, 189, 248, 0.48); color: #bae6fd;
+    cursor: pointer; backdrop-filter: blur(3px); transition: all 0.15s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .ugt-compare-pin-btn:hover { background: #38bdf8; color: #031520; border-color: #ffffff; transform: scale(1.05); }
+  .ugt-compare-pin-btn.is-pinned { background: #00e676; color: #03140a; border-color: #ffffff; box-shadow: 0 0 12px rgba(0, 230, 118, 0.6); }
+  .unit-gallery-tile.is-compare-pinned { border-color: #00e676 !important; box-shadow: 0 0 0 1.5px #00e676, 0 8px 24px rgba(0, 230, 118, 0.28) !important; }
+
+  /* ==================== IDEA #3 & #4: FLOATING COMPARE TRAY, LEVEL COMPARE MODAL & DISCORD TOAST ==================== */
+  .wtr-compare-tray {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 9500;
+    display: none; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    background: linear-gradient(90deg, #0b2218 0%, #091310 55%, #0e1d26 100%);
+    border: 2px solid #00e676; border-radius: 999px; padding: 8px 14px 8px 16px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.94), 0 0 24px rgba(0, 230, 118, 0.34);
+    max-width: min(94vw, 760px);
+  }
+  .wtr-compare-tray.open { display: flex; }
+  .wtr-cmp-slots { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .wtr-cmp-chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px;
+    background: rgba(0, 230, 118, 0.14); border: 1px solid rgba(0, 230, 118, 0.55);
+    font-family: monospace; font-size: 11.5px; font-weight: 900; color: #e2e8f0; text-transform: uppercase;
+  }
+  .wtr-cmp-chip.empty { background: rgba(255,255,255,0.04); border-style: dashed; border-color: rgba(148,163,184,0.4); color: #94a3b8; }
+  .wtr-cmp-chip button { background: none; border: none; color: #fca5a5; font-weight: 900; cursor: pointer; font-size: 11px; padding: 0 2px; }
+  .wtr-cmp-launch-btn {
+    background: #00e676; color: #02140a; border: 1px solid #dcfce7; border-radius: 999px;
+    padding: 6px 15px; font-family: monospace; font-size: 12px; font-weight: 900; letter-spacing: 0.6px;
+    text-transform: uppercase; cursor: pointer; transition: all 0.15s ease; white-space: nowrap;
+  }
+  .wtr-cmp-launch-btn:hover { background: #69f0ae; transform: translateY(-1px); }
+  .wtr-cmp-clear-btn {
+    background: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 999px;
+    padding: 5px 10px; font-family: monospace; font-size: 11px; font-weight: 800; cursor: pointer;
+  }
+  .wtr-cmp-clear-btn:hover { color: #fff; border-color: #ef4444; background: rgba(239,68,68,0.18); }
+
+  .wtr-cmp-modal-backdrop {
+    position: fixed; inset: 0; background: rgba(3, 7, 10, 0.92); backdrop-filter: blur(5px);
+    z-index: 10000; display: none; align-items: center; justify-content: center; padding: 14px;
+  }
+  .wtr-cmp-modal-backdrop.open { display: flex; }
+  .wtr-cmp-modal-win {
+    width: 100%; max-width: 1160px; max-height: 92vh; background: #0a110e;
+    border: 2px solid #00e676; border-radius: 8px; overflow: hidden;
+    display: flex; flex-direction: column; box-shadow: 0 24px 64px rgba(0,0,0,0.96), 0 0 30px rgba(0,230,118,0.22);
+  }
+  .wtr-cmp-topbar {
+    background: linear-gradient(90deg, #0f2419 0%, #09120e 60%, #101d24 100%);
+    border-bottom: 1.5px solid #1f3b2b; padding: 12px 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .wtr-cmp-lvl-bar {
+    background: #070c0a; border-bottom: 1px solid #1a3324; padding: 9px 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .wtr-cmp-body { padding: 16px 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+  .wtr-cmp-heads-grid { display: grid; grid-template-columns: 180px 1fr 1fr; gap: 12px; align-items: stretch; }
+  @media (max-width: 780px) { .wtr-cmp-heads-grid { grid-template-columns: 1fr; } }
+  .wtr-cmp-unit-card {
+    background: linear-gradient(180deg, #101d16 0%, #080f0c 100%); border: 1px solid #234733;
+    border-top: 3px solid #00e676; border-radius: 6px; padding: 12px; display: flex; gap: 12px; align-items: center;
+  }
+  .wtr-cmp-unit-card.unit-b { border-top-color: #38bdf8; border-color: #1e3a4c; background: linear-gradient(180deg, #0f1b24 0%, #080e13 100%); }
+  .wtr-cmp-thumb { width: 68px; height: 85px; border-radius: 4px; object-fit: cover; object-position: top center; background: #040706; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+  .wtr-cmp-select {
+    width: 100%; background: #050a08; border: 1px solid #2b543d; color: #ffffff;
+    font-family: 'Arial Black', sans-serif; font-size: 13px; padding: 5px 8px; border-radius: 4px; cursor: pointer;
+  }
+  .wtr-cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: #080e0b; border: 1px solid #1a3324; }
+  .wtr-cmp-table th, .wtr-cmp-table td { padding: 7px 11px; border-bottom: 1px solid #14261c; text-align: left; vertical-align: top; }
+  .wtr-cmp-table td.stat-k { width: 180px; color: #81c784; font-family: monospace; font-size: 12px; font-weight: 800; text-transform: uppercase; background: rgba(0,0,0,0.35); border-right: 1px solid #14261c; }
+  .wtr-cmp-table td.stat-v { font-family: monospace; color: #e2e8f0; font-weight: 700; width: calc((100% - 180px) / 2); }
+  .wtr-cmp-table td.stat-v.is-winner { color: #69f0ae; background: rgba(0, 230, 118, 0.09); font-weight: 900; }
+  .wtr-cmp-win-tag { font-size: 10px; color: #00e676; background: rgba(0,230,118,0.16); border: 1px solid rgba(0,230,118,0.45); border-radius: 3px; padding: 1px 5px; margin-left: 6px; }
+  .wtr-discord-toast {
+    position: fixed; bottom: 72px; right: 20px; z-index: 10500; display: none;
+    background: #0b2417; border: 1.5px solid #00e676; color: #d1fae5; padding: 10px 16px;
+    border-radius: 6px; font-family: monospace; font-size: 12.5px; font-weight: 900;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.9), 0 0 18px rgba(0,230,118,0.35);
+  }
+  .wtr-discord-toast.show { display: block; }
   .ugt-nameplate {
     padding: 9px 10px; min-height: 50px; justify-content: center; background: #070d0a; border-top: 1px solid #183022;
     display: flex; flex-direction: column; gap: 2px; text-align: center;
@@ -843,6 +930,9 @@
     </div>
     <div class="panel-section">
       <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
+      <button type="button" class="matchup-top-btn" style="border-color:rgba(0,230,118,0.65); color:#00e676; background:rgba(0,230,118,0.12);" onclick="openUnitCompareModal()" title="Open Side-by-Side Allied Unit Level Comparison">
+        ⚖️ COMPARE <span id="topCompareBadgeCnt"></span>
+      </button>
       <div class="matchup-hover-wrap" id="matchupHoverWrap"
            onmouseenter="openMatchupBriefHover()"
            onmouseleave="closeMatchupBriefHover()">
@@ -898,6 +988,8 @@
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="lg" aria-pressed="false" onclick="setGalleryImageBoost('lg')">IMG+</button>
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="xl" aria-pressed="false" onclick="setGalleryImageBoost('xl')">IMG++</button>
       </div>
+      <button type="button" class="brief-step-btn" style="border-color: rgba(0, 230, 118, 0.65); color: #00e676; background: rgba(0, 230, 118, 0.12);" onclick="pinActiveUnitAndOpenCompare()" title="Compare this unit side-by-side across Lvl 1–MAX">⚖️ COMPARE</button>
+      <button type="button" class="brief-step-btn" style="border-color: rgba(129, 140, 248, 0.7); color: #c7d2fe; background: rgba(79, 70, 229, 0.2);" onclick="copyActiveUnitDiscordBrief()" title="1-Click Copy Unit Summary &amp; Deep-Link for Alliance Discord">💬 DISCORD BRIEF</button>
       <button type="button" class="brief-step-btn" style="border-color: rgba(255, 215, 0, 0.55); color: #ffd700; background: rgba(255, 215, 0, 0.12);" onclick="openMatchupInPageView()" title="Open this unit directly in the Head-to-Head Matchup &amp; Threat Radar">⚔️ MATCHUP RADAR</button>
       <button type="button" class="brief-step-btn" id="btnPrevUnitBrief" onclick="stepAdjacentUnit(-1)">◀ PREV</button>
       <button type="button" class="brief-step-btn" id="btnNextUnitBrief" onclick="stepAdjacentUnit(1)">NEXT ▶</button>
@@ -2135,8 +2227,9 @@
                  <span class="ugt-monogram-sub">${escapeAttr(bMeta.label)}</span>
                </div>`;
 
+          const isPinned = (typeof window.wtrIsUnitComparePinned === 'function') && window.wtrIsUnitComparePinned(uNorm);
           return `
-            <div class="unit-gallery-tile ${isRecent ? 'recently-viewed' : ''}"
+            <div class="unit-gallery-tile ${isRecent ? 'recently-viewed' : ''} ${isPinned ? 'is-compare-pinned' : ''}"
                  data-unit-key="${escapeAttr(uNorm)}"
                  onclick="openUnitBriefByName('${safeJsName}')"
                  onmouseenter="showUnitHoverBrief(event, '${safeJsName}')"
@@ -2145,6 +2238,7 @@
               <div class="ugt-portrait-box">
                 <span class="ugt-class-chip ${getClassChipClass(shortClass)}">${escapeAttr(shortClass)}</span>
                 ${faction ? `<span class="ugt-faction-chip">${escapeAttr(faction)}</span>` : ''}
+                <button type="button" class="ugt-compare-pin-btn ${isPinned ? 'is-pinned' : ''}" data-cmp-key="${escapeAttr(uNorm)}" onclick="toggleUnitComparePin(event, '${safeJsName}')" title="Pin/Unpin ${escapeAttr(uName)} for Side-by-Side Level Comparison">${isPinned ? '⚖️ PINNED' : '+ ⚖️'}</button>
                 ${portraitInner}
               </div>
               <div class="ugt-nameplate">
@@ -3181,5 +3275,426 @@
   <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNIT BRIEFS GALLERY</div>
   <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP OF BRIEF</button></div>
 </footer>
+
+<!-- ==================== IDEA #3 & #4: FLOATING COMPARE TRAY, LEVEL COMPARE MODAL & DISCORD TOAST ==================== -->
+<div id="wtrUnitCompareTray" class="wtr-compare-tray" aria-live="polite">
+  <div class="wtr-cmp-slots" id="wtrCompareTraySlots"></div>
+  <div style="display:flex; align-items:center; gap:7px;">
+    <button type="button" class="wtr-cmp-launch-btn" onclick="openUnitCompareModal()">⚖️ Compare Side-by-Side ▸</button>
+    <button type="button" class="wtr-cmp-clear-btn" onclick="clearUnitComparePins()" title="Clear Pinned Units">✕</button>
+  </div>
+</div>
+
+<div id="wtrUnitCompareModal" class="wtr-cmp-modal-backdrop" onclick="if(event.target===this) closeUnitCompareModal()">
+  <div class="wtr-cmp-modal-win">
+    <div class="wtr-cmp-topbar">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:18px;">⚖️</span>
+        <div>
+          <div style="font-family:'Arial Black',sans-serif; font-size:15px; letter-spacing:1px; color:#00e676; text-transform:uppercase;">Allied Unit Side-by-Side Level Comparator</div>
+          <div style="font-family:monospace; font-size:11px; color:#94a3b8;">Compare HP, DPS, Range, Speed, Armor/Weapon &amp; Talents across Lvl 1 → MAX</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <button type="button" class="brief-step-btn" style="border-color:rgba(129,140,248,0.75); color:#c7d2fe; background:rgba(79,70,229,0.22);" onclick="copyCompareDiscordCard()">💬 Copy Head-to-Head for Discord</button>
+        <button type="button" class="brief-close-x-btn" onclick="closeUnitCompareModal()">✕ CLOSE</button>
+      </div>
+    </div>
+    <div class="wtr-cmp-lvl-bar">
+      <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="wtrCmpLevelPills"></div>
+      <span style="font-family:monospace; font-size:11px; color:#69f0ae;">▲ Green = Higher Numeric Stat</span>
+    </div>
+    <div class="wtr-cmp-body" id="wtrUnitCompareModalBody"></div>
+  </div>
+</div>
+
+<div id="wtrDiscordToast" class="wtr-discord-toast"></div>
+
+<script>
+  /* ==================== IDEA #3 (SIDE-BY-SIDE COMPARE) & IDEA #4 (DISCORD BRIEF) ==================== */
+  (function initUnitCompareAndDiscord() {
+    const LEVEL_MODES = [
+      { key: 'ALL', label: 'ALL TIERS', hpKey: 'STAT_HP_RANGE_MAX', dpsKey: 'STAT_DPS_RANGE_MAX' },
+      { key: '1',   label: 'LVL 1',     hpKey: 'STAT_HP_RANGE_1',   dpsKey: 'STAT_DPS_RANGE_1' },
+      { key: '10',  label: 'LVL 10',    hpKey: 'STAT_HP_RANGE_10',  dpsKey: 'STAT_DPS_RANGE_10' },
+      { key: '20',  label: 'LVL 20',    hpKey: 'STAT_HP_RANGE_20',  dpsKey: 'STAT_DPS_RANGE_20' },
+      { key: '30',  label: 'LVL 30',    hpKey: 'STAT_HP_RANGE_30',  dpsKey: 'STAT_DPS_RANGE_30' },
+      { key: '31',  label: 'LVL 31',    hpKey: 'STAT_HP_RANGE_31',  dpsKey: 'STAT_DPS_RANGE_31' },
+      { key: '40',  label: 'LVL 40',    hpKey: 'STAT_HP_RANGE_40',  dpsKey: 'STAT_DPS_RANGE_40' },
+      { key: 'MAX', label: 'MAX LVL',   hpKey: 'STAT_HP_RANGE_MAX', dpsKey: 'STAT_DPS_RANGE_MAX' }
+    ];
+
+    let pinnedNames = [];
+    let activeCmpLevel = 'ALL';
+    let toastTimer = null;
+
+    function showDiscordToast(msg) {
+      const el = document.getElementById('wtrDiscordToast');
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 3100);
+    }
+
+    function copyTextToClipboard(txt, okMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(() => showDiscordToast(okMsg)).catch(() => fallbackCopy(txt, okMsg));
+      } else {
+        fallbackCopy(txt, okMsg);
+      }
+    }
+
+    function fallbackCopy(txt, okMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showDiscordToast(okMsg);
+    }
+
+    function findRecByName(name) {
+      const k = normUnitMatchKey(name);
+      if (!k) return null;
+      return globalMatrixCache.find(r => r && normUnitMatchKey(r.UNIT_NAME) === k) || null;
+    }
+
+    window.wtrIsUnitComparePinned = function(normKey) {
+      return pinnedNames.some(n => normUnitMatchKey(n) === normKey);
+    };
+
+    function syncPinnedDomState() {
+      const tray = document.getElementById('wtrUnitCompareTray');
+      const slots = document.getElementById('wtrCompareTraySlots');
+      const topBadge = document.getElementById('topCompareBadgeCnt');
+
+      if (topBadge) {
+        topBadge.textContent = pinnedNames.length ? `(${pinnedNames.length}/2)` : '';
+      }
+
+      document.querySelectorAll('.unit-gallery-tile').forEach(tile => {
+        const k = tile.getAttribute('data-unit-key') || '';
+        const pinned = window.wtrIsUnitComparePinned(k);
+        tile.classList.toggle('is-compare-pinned', pinned);
+        const btn = tile.querySelector('.ugt-compare-pin-btn');
+        if (btn) {
+          btn.classList.toggle('is-pinned', pinned);
+          btn.textContent = pinned ? '⚖️ PINNED' : '+ ⚖️';
+        }
+      });
+
+      if (!tray || !slots) return;
+      if (pinnedNames.length === 0) {
+        tray.classList.remove('open');
+        slots.innerHTML = '';
+        return;
+      }
+
+      const s1 = pinnedNames[0];
+      const s2 = pinnedNames[1] || '';
+      const safe1 = escapeAttr(s1).replace(/'/g, "\\'");
+      const safe2 = escapeAttr(s2).replace(/'/g, "\\'");
+
+      slots.innerHTML = `
+        <span class="wtr-cmp-chip">1. ${escapeAttr(s1)} <button type="button" onclick="removeUnitComparePin('${safe1}')" title="Remove">✕</button></span>
+        <span style="color:#00e676; font-weight:900; font-size:12px;">VS</span>
+        ${s2
+          ? `<span class="wtr-cmp-chip" style="border-color:rgba(56,189,248,0.65); background:rgba(56,189,248,0.15);">2. ${escapeAttr(s2)} <button type="button" onclick="removeUnitComparePin('${safe2}')" title="Remove">✕</button></span>`
+          : `<span class="wtr-cmp-chip empty">+ Pin 2nd unit (or pick inside modal)</span>`
+        }
+      `;
+      tray.classList.add('open');
+    }
+
+    window.toggleUnitComparePin = function(ev, unitName) {
+      if (ev && typeof ev.stopPropagation === 'function') {
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
+      const k = normUnitMatchKey(unitName);
+      if (!k) return;
+      const existingIdx = pinnedNames.findIndex(n => normUnitMatchKey(n) === k);
+      if (existingIdx !== -1) {
+        pinnedNames.splice(existingIdx, 1);
+      } else {
+        if (pinnedNames.length >= 2) pinnedNames.shift();
+        pinnedNames.push(unitName);
+      }
+      syncPinnedDomState();
+    };
+
+    window.removeUnitComparePin = function(unitName) {
+      const k = normUnitMatchKey(unitName);
+      pinnedNames = pinnedNames.filter(n => normUnitMatchKey(n) !== k);
+      syncPinnedDomState();
+    };
+
+    window.clearUnitComparePins = function() {
+      pinnedNames = [];
+      syncPinnedDomState();
+    };
+
+    window.pinActiveUnitAndOpenCompare = function() {
+      if (activeUnitRecord && activeUnitRecord.UNIT_NAME) {
+        const k = normUnitMatchKey(activeUnitRecord.UNIT_NAME);
+        if (!window.wtrIsUnitComparePinned(k)) {
+          if (pinnedNames.length >= 2) pinnedNames.pop();
+          pinnedNames.unshift(activeUnitRecord.UNIT_NAME);
+          syncPinnedDomState();
+        }
+      }
+      openUnitCompareModal();
+    };
+
+    function getAllComparableUnitsSorted() {
+      return globalMatrixCache
+        .filter(r => r && r.UNIT_NAME && !isPureBuildingRecord(r))
+        .slice()
+        .sort((a, b) => String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' }));
+    }
+
+    window.setCompareModalSlot = function(slotIdx, newUnitName) {
+      if (!newUnitName) return;
+      pinnedNames[slotIdx] = newUnitName;
+      syncPinnedDomState();
+      renderCompareModalContent();
+    };
+
+    window.setCompareModalLevel = function(lvlKey) {
+      activeCmpLevel = lvlKey || 'ALL';
+      renderCompareModalContent();
+    };
+
+    function parseFirstNum(val) {
+      if (!val) return NaN;
+      const s = String(val).replace(/,/g, '');
+      const m = s.match(/-?\d+(?:\.\d+)?/);
+      if (!m) return NaN;
+      // If range like "1,200 - 4,800", grab highest number in cell for fair max comparison
+      const allNums = s.match(/\d+(?:\.\d+)?/g);
+      if (allNums && allNums.length > 1) {
+        return Math.max(...allNums.map(Number));
+      }
+      return parseFloat(m[0]);
+    }
+
+    function pickBestStat(rec, primaryKey, fallbacks) {
+      if (!rec) return '—';
+      const p = cleanVal(rec[primaryKey]);
+      if (p) return p;
+      for (let i = 0; i < (fallbacks || []).length; i++) {
+        const fb = cleanVal(rec[fallbacks[i]]);
+        if (fb) return fb;
+      }
+      return '—';
+    }
+
+    function renderCompareRow(label, valA, valB, compareNumeric = false) {
+      let winA = false, winB = false;
+      if (compareNumeric) {
+        const nA = parseFirstNum(valA);
+        const nB = parseFirstNum(valB);
+        if (!isNaN(nA) && !isNaN(nB) && nA !== nB) {
+          winA = nA > nB;
+          winB = nB > nA;
+        }
+      }
+      return `
+        <tr>
+          <td class="stat-k">${escapeAttr(label)}</td>
+          <td class="stat-v ${winA ? 'is-winner' : ''}">${escapeAttr(valA || '—')}${winA ? '<span class="wtr-cmp-win-tag">▲ HIGHER</span>' : ''}</td>
+          <td class="stat-v ${winB ? 'is-winner' : ''}">${escapeAttr(valB || '—')}${winB ? '<span class="wtr-cmp-win-tag">▲ HIGHER</span>' : ''}</td>
+        </tr>
+      `;
+    }
+
+    function renderCompareModalContent() {
+      const pillsEl = document.getElementById('wtrCmpLevelPills');
+      const bodyEl = document.getElementById('wtrUnitCompareModalBody');
+      if (!bodyEl) return;
+
+      const roster = getAllComparableUnitsSorted();
+      if (roster.length === 0) {
+        bodyEl.innerHTML = `<div style="padding:24px; text-align:center; color:#94a3b8;">Still syncing MASTER_DB units — try again in a moment.</div>`;
+        return;
+      }
+
+      if (!pinnedNames[0]) {
+        pinnedNames[0] = (activeUnitRecord && activeUnitRecord.UNIT_NAME) ? activeUnitRecord.UNIT_NAME : roster[0].UNIT_NAME;
+      }
+      if (!pinnedNames[1]) {
+        const mateNorm = getUnitLinkedTargetNorm(findRecByName(pinnedNames[0]));
+        const mateRec = mateNorm ? roster.find(r => normUnitMatchKey(r.UNIT_NAME) === mateNorm) : null;
+        const altRec = mateRec || roster.find(r => normUnitMatchKey(r.UNIT_NAME) !== normUnitMatchKey(pinnedNames[0])) || roster[0];
+        pinnedNames[1] = altRec.UNIT_NAME;
+      }
+      syncPinnedDomState();
+
+      if (pillsEl) {
+        pillsEl.innerHTML = `<span class="filter-group-lbl" style="margin-right:4px;">Level Tier:</span>` +
+          LEVEL_MODES.map(m => `<button type="button" class="gal-pill ${activeCmpLevel === m.key ? 'active' : ''}" onclick="setCompareModalLevel('${m.key}')">${m.label}</button>`).join('');
+      }
+
+      const recA = findRecByName(pinnedNames[0]) || roster[0];
+      const recB = findRecByName(pinnedNames[1]) || roster[Math.min(1, roster.length - 1)];
+
+      const buildOpts = (selectedName) => roster.map(r => {
+        const sel = normUnitMatchKey(r.UNIT_NAME) === normUnitMatchKey(selectedName) ? 'selected' : '';
+        return `<option value="${escapeAttr(r.UNIT_NAME)}" ${sel}>${escapeAttr(r.UNIT_NAME)}</option>`;
+      }).join('');
+
+      const imgA = formatImageUrl(cleanVal(recA.UNIT_IMAGE_URL) || cleanVal(recA.IMAGE_URL)) || './assets/images/wtr-logo.png';
+      const imgB = formatImageUrl(cleanVal(recB.UNIT_IMAGE_URL) || cleanVal(recB.IMAGE_URL)) || './assets/images/wtr-logo.png';
+
+      let statRowsHtml = '';
+      statRowsHtml += renderCompareRow('Generation', cleanVal(recA.STAT_GENERATION), cleanVal(recB.STAT_GENERATION), false);
+      statRowsHtml += renderCompareRow('Class / Faction', [cleanVal(recA.CLASSIFICATION), cleanVal(recA.STAT_FACTION)].filter(Boolean).join(' • '), [cleanVal(recB.CLASSIFICATION), cleanVal(recB.STAT_FACTION)].filter(Boolean).join(' • '), false);
+      statRowsHtml += renderCompareRow('Type & Armor', [cleanVal(recA.STAT_TYPE), cleanVal(recA.STAT_ARMOR_TYPE)].filter(Boolean).join(' / '), [cleanVal(recB.STAT_TYPE), cleanVal(recB.STAT_ARMOR_TYPE)].filter(Boolean).join(' / '), false);
+      statRowsHtml += renderCompareRow('Weapon & Damage', [cleanVal(recA.STAT_WEAPON_TYPE), cleanVal(recA.STAT_DAMAGE_TYPE)].filter(Boolean).join(' • '), [cleanVal(recB.STAT_WEAPON_TYPE), cleanVal(recB.STAT_DAMAGE_TYPE)].filter(Boolean).join(' • '), false);
+      statRowsHtml += renderCompareRow('Targets', cleanVal(recA.STAT_TARGETS), cleanVal(recB.STAT_TARGETS), false);
+      statRowsHtml += renderCompareRow('Building Req', [cleanVal(recA.STAT_BUILDING), cleanVal(recA.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recA.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), [cleanVal(recB.STAT_BUILDING), cleanVal(recB.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recB.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), false);
+
+      if (activeCmpLevel === 'ALL') {
+        ['1', '10', '20', '30', '31', '40', 'MAX'].forEach(lk => {
+          const hpK = `STAT_HP_RANGE_${lk}`;
+          const vA = cleanVal(recA[hpK]) || (lk === 'MAX' ? cleanVal(recA.STAT_HP_RANGE) : '');
+          const vB = cleanVal(recB[hpK]) || (lk === 'MAX' ? cleanVal(recB.STAT_HP_RANGE) : '');
+          if (vA || vB) statRowsHtml += renderCompareRow(`HP (Lvl ${lk})`, vA, vB, true);
+        });
+        ['1', '10', '20', '30', '31', '40', 'MAX'].forEach(lk => {
+          const dpsK = `STAT_DPS_RANGE_${lk}`;
+          const vA = cleanVal(recA[dpsK]) || (lk === 'MAX' ? cleanVal(recA.STAT_DPS_RANGE) : '');
+          const vB = cleanVal(recB[dpsK]) || (lk === 'MAX' ? cleanVal(recB.STAT_DPS_RANGE) : '');
+          if (vA || vB) statRowsHtml += renderCompareRow(`DPS (Lvl ${lk})`, vA, vB, true);
+        });
+      } else {
+        const hpK = `STAT_HP_RANGE_${activeCmpLevel}`;
+        const dpsK = `STAT_DPS_RANGE_${activeCmpLevel}`;
+        statRowsHtml += renderCompareRow(`HP (Lvl ${activeCmpLevel})`, pickBestStat(recA, hpK, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']), pickBestStat(recB, hpK, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']), true);
+        statRowsHtml += renderCompareRow(`DPS (Lvl ${activeCmpLevel})`, pickBestStat(recA, dpsK, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']), pickBestStat(recB, dpsK, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']), true);
+      }
+
+      statRowsHtml += renderCompareRow('Range', cleanVal(recA.STAT_RANGE), cleanVal(recB.STAT_RANGE), true);
+      statRowsHtml += renderCompareRow('Max Speed', cleanVal(recA.STAT_SPEED), cleanVal(recB.STAT_SPEED), true);
+      statRowsHtml += renderCompareRow('Splash Radius', cleanVal(recA.STAT_SPLASH), cleanVal(recB.STAT_SPLASH), true);
+      statRowsHtml += renderCompareRow('Linked Partner', cleanVal(recA.LINKED_UNIT_NAME), cleanVal(recB.LINKED_UNIT_NAME), false);
+
+      // Talent milestones
+      let talentRows = '';
+      const tLvls = activeCmpLevel === 'ALL'
+        ? [1, 10, 20, 30, 31, 40]
+        : [1, 5, 10, 15, 20, 25, 30, 31, 35, 40].filter(l => activeCmpLevel === 'MAX' || l <= parseInt(activeCmpLevel, 10));
+      tLvls.forEach(lvl => {
+        const tA = cleanVal(recA[`TALENT_LVL_${lvl}`]);
+        const tB = cleanVal(recB[`TALENT_LVL_${lvl}`]);
+        if (tA || tB) {
+          talentRows += renderCompareRow(`Talent Lvl ${lvl}`, tA || '—', tB || '—', false);
+        }
+      });
+
+      bodyEl.innerHTML = `
+        <div class="wtr-cmp-heads-grid">
+          <div style="display:flex; flex-direction:column; justify-content:center; padding:8px 10px; background:#070d0a; border:1px solid #1a3324; border-radius:6px; font-family:monospace; font-size:11.5px; color:#81c784;">
+            <strong style="color:#fff; font-size:12.5px; margin-bottom:4px;">SELECT ANY 2 UNITS</strong>
+            Swap Unit A or Unit B anytime using the dropdowns.
+          </div>
+          <div class="wtr-cmp-unit-card">
+            <img class="wtr-cmp-thumb" src="${escapeAttr(imgA)}" alt="${escapeAttr(recA.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
+            <div style="flex:1; min-width:0;">
+              <div style="font-family:monospace; font-size:10.5px; color:#00e676; font-weight:900; margin-bottom:4px;">UNIT A</div>
+              <select class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
+              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recA.STAT_GENERATION), cleanVal(recA.CLASSIFICATION), cleanVal(recA.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
+            </div>
+          </div>
+          <div class="wtr-cmp-unit-card unit-b">
+            <img class="wtr-cmp-thumb" src="${escapeAttr(imgB)}" alt="${escapeAttr(recB.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
+            <div style="flex:1; min-width:0;">
+              <div style="font-family:monospace; font-size:10.5px; color:#38bdf8; font-weight:900; margin-bottom:4px;">UNIT B</div>
+              <select class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
+              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recB.STAT_GENERATION), cleanVal(recB.CLASSIFICATION), cleanVal(recB.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
+            </div>
+          </div>
+        </div>
+        <table class="wtr-cmp-table">
+          <tbody>
+            ${statRowsHtml}
+            ${talentRows}
+          </tbody>
+        </table>
+      `;
+    }
+
+    window.openUnitCompareModal = function() {
+      const modal = document.getElementById('wtrUnitCompareModal');
+      if (!modal) return;
+      renderCompareModalContent();
+      modal.classList.add('open');
+    };
+
+    window.closeUnitCompareModal = function() {
+      const modal = document.getElementById('wtrUnitCompareModal');
+      if (modal) modal.classList.remove('open');
+    };
+
+    window.copyActiveUnitDiscordBrief = function() {
+      const rec = activeUnitRecord;
+      if (!rec || !rec.UNIT_NAME) {
+        showDiscordToast('⚠️ Open a Unit Brief first to copy its Discord card!');
+        return;
+      }
+      const uName = cleanVal(rec.UNIT_NAME);
+      const gen = cleanVal(rec.STAT_GENERATION);
+      const cls = cleanVal(rec.CLASSIFICATION);
+      const fac = cleanVal(rec.STAT_FACTION);
+      const bld = [cleanVal(rec.STAT_BUILDING), cleanVal(rec.STAT_BUILDING_REQ) ? `Lvl ${cleanVal(rec.STAT_BUILDING_REQ)}` : ''].filter(Boolean).join(' ');
+      const maxHp = pickBestStat(rec, 'STAT_HP_RANGE_MAX', ['STAT_HP_RANGE_40', 'STAT_HP_RANGE_30', 'STAT_HP_RANGE']);
+      const maxDps = pickBestStat(rec, 'STAT_DPS_RANGE_MAX', ['STAT_DPS_RANGE_40', 'STAT_DPS_RANGE_30', 'STAT_DPS_RANGE']);
+      const rng = cleanVal(rec.STAT_RANGE) || '—';
+      const spd = cleanVal(rec.STAT_SPEED) || '—';
+      const dmg = [cleanVal(rec.STAT_WEAPON_TYPE), cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE) ? `${cleanVal(rec.STAT_ARMOR_TYPE)} Armor` : ''].filter(Boolean).join(' • ');
+      const linked = cleanVal(rec.LINKED_UNIT_NAME);
+      const t1 = (cleanVal(rec.TALENT_LVL_1) || cleanVal(rec.TALENT) || '').replace(/\s+/g, ' ').trim();
+      const shortTalent = t1.length > 220 ? (t1.slice(0, 217) + '...') : t1;
+      const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=${encodeURIComponent(uName)}`;
+
+      const lines = [
+        `🛡️ **[-WTR-] UNIT INTEL — ${uName}** *(${[gen, cls, fac].filter(Boolean).join(' • ')})*`,
+        `• **Max HP / DPS:** \`${maxHp}\` HP  |  \`${maxDps}\` DPS`,
+        `• **Combat Spec:** Range \`${rng}\` • Speed \`${spd}\`${dmg ? ' • ' + dmg : ''}`,
+        ...(bld ? [`• **Unlock / Linked:** ${bld}${linked ? '  |  ⇄ Linked: **' + linked + '**' : ''}`] : []),
+        ...(shortTalent ? [`> 💡 **Core Talent:** ${shortTalent}`] : []),
+        `🔗 **Full 40-Lvl Dossier:** <${shareUrl}>`
+      ];
+      copyTextToClipboard(lines.join('\n'), `💬 Copied Alliance Discord Brief for ${uName}!`);
+    };
+
+    window.copyCompareDiscordCard = function() {
+      const roster = getAllComparableUnitsSorted();
+      const recA = findRecByName(pinnedNames[0]) || roster[0];
+      const recB = findRecByName(pinnedNames[1]) || roster[1];
+      if (!recA || !recB) return;
+      const lvlLbl = activeCmpLevel === 'ALL' ? 'MAX' : activeCmpLevel;
+      const hpA = pickBestStat(recA, `STAT_HP_RANGE_${lvlLbl}`, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']);
+      const hpB = pickBestStat(recB, `STAT_HP_RANGE_${lvlLbl}`, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']);
+      const dpsA = pickBestStat(recA, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
+      const dpsB = pickBestStat(recB, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
+      const lines = [
+        `⚖️ **[-WTR-] UNIT HEAD-TO-HEAD (${lvlLbl === 'MAX' ? 'MAX LVL' : 'LVL ' + lvlLbl}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
+        `• **HP:** ${recA.UNIT_NAME} \`${hpA}\`  vs  ${recB.UNIT_NAME} \`${hpB}\``,
+        `• **DPS:** ${recA.UNIT_NAME} \`${dpsA}\`  vs  ${recB.UNIT_NAME} \`${dpsB}\``,
+        `• **Range / Speed:** \`${cleanVal(recA.STAT_RANGE) || '—'} / ${cleanVal(recA.STAT_SPEED) || '—'}\`  vs  \`${cleanVal(recB.STAT_RANGE) || '—'} / ${cleanVal(recB.STAT_SPEED) || '—'}\``,
+        `🔗 **Compare Live on [-WTR-] Data Hub:** <https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html>`
+      ];
+      copyTextToClipboard(lines.join('\n'), `💬 Copied ${recA.UNIT_NAME} vs ${recB.UNIT_NAME} for Discord!`);
+    };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeUnitCompareModal();
+    });
+  })();
+</script>
 </body>
 </html>
