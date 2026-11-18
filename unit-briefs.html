@@ -537,24 +537,57 @@
     display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
   }
   .wtr-cmp-body { padding: 16px 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
-  .wtr-cmp-heads-grid { display: grid; grid-template-columns: 180px 1fr 1fr; gap: 12px; align-items: stretch; }
-  @media (max-width: 780px) { .wtr-cmp-heads-grid { grid-template-columns: 1fr; } }
+  .wtr-cmp-heads-grid { display: grid; grid-template-columns: minmax(0, 1fr) 172px minmax(0, 1fr); gap: 12px; align-items: stretch; }
   .wtr-cmp-unit-card {
     background: linear-gradient(180deg, #101d16 0%, #080f0c 100%); border: 1px solid #234733;
-    border-top: 3px solid #00e676; border-radius: 6px; padding: 12px; display: flex; gap: 12px; align-items: center;
+    border-top: 3px solid #00e676; border-radius: 6px; padding: 12px; display: flex; gap: 12px; align-items: center; min-width: 0;
   }
+  .wtr-cmp-unit-card.unit-a { flex-direction: row-reverse; text-align: right; }
+  .wtr-cmp-unit-card.unit-a .wtr-cmp-select { text-align: right; }
   .wtr-cmp-unit-card.unit-b { border-top-color: #38bdf8; border-color: #1e3a4c; background: linear-gradient(180deg, #0f1b24 0%, #080e13 100%); }
+  .wtr-cmp-spine-box {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 8px 10px; background: #070d0a; border: 1px solid #1a3324; border-radius: 6px;
+    font-family: monospace; font-size: 11px; color: #81c784; line-height: 1.35;
+  }
   .wtr-cmp-thumb { width: 68px; height: 85px; border-radius: 4px; object-fit: cover; object-position: top center; background: #040706; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
   .wtr-cmp-select {
-    width: 100%; background: #050a08; border: 1px solid #2b543d; color: #ffffff;
+    width: 100%; max-width: 100%; background: #050a08; border: 1px solid #2b543d; color: #ffffff;
     font-family: 'Arial Black', sans-serif; font-size: 13px; padding: 5px 8px; border-radius: 4px; cursor: pointer;
   }
-  .wtr-cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: #080e0b; border: 1px solid #1a3324; }
-  .wtr-cmp-table th, .wtr-cmp-table td { padding: 7px 11px; border-bottom: 1px solid #14261c; text-align: left; vertical-align: top; }
-  .wtr-cmp-table td.stat-k { width: 180px; color: #81c784; font-family: monospace; font-size: 12px; font-weight: 800; text-transform: uppercase; background: rgba(0,0,0,0.35); border-right: 1px solid #14261c; }
-  .wtr-cmp-table td.stat-v { font-family: monospace; color: #e2e8f0; font-weight: 700; width: calc((100% - 180px) / 2); }
+  .wtr-cmp-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13.5px; background: #080e0b; border: 1px solid #1a3324; }
+  .wtr-cmp-table th, .wtr-cmp-table td {
+    padding: 7px 12px; border-bottom: 1px solid #14261c; vertical-align: top;
+    white-space: normal; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; line-height: 1.38;
+  }
+  .wtr-cmp-table td.stat-k {
+    width: 172px; color: #81c784; font-family: monospace; font-size: 11.5px; font-weight: 800;
+    text-transform: uppercase; text-align: center; vertical-align: middle;
+    background: rgba(0, 0, 0, 0.42); border-left: 1px solid #172e21; border-right: 1px solid #172e21;
+  }
+  .wtr-cmp-table td.stat-v { font-family: monospace; color: #e2e8f0; font-weight: 700; width: calc((100% - 172px) / 2); }
+  .wtr-cmp-table td.stat-v.side-a { text-align: right; }
+  .wtr-cmp-table td.stat-v.side-b { text-align: left; }
   .wtr-cmp-table td.stat-v.is-winner { color: #69f0ae; background: rgba(0, 230, 118, 0.09); font-weight: 900; }
-  .wtr-cmp-win-tag { font-size: 10px; color: #00e676; background: rgba(0,230,118,0.16); border: 1px solid rgba(0,230,118,0.45); border-radius: 3px; padding: 1px 5px; margin-left: 6px; }
+  .wtr-cmp-table td.stat-v.is-winner-b { color: #7dd3fc; background: rgba(56, 189, 248, 0.1); font-weight: 900; }
+  .wtr-cmp-win-tag { display: inline-block; font-size: 10px; color: #00e676; background: rgba(0,230,118,0.16); border: 1px solid rgba(0,230,118,0.45); border-radius: 3px; padding: 1px 5px; vertical-align: middle; }
+  .wtr-cmp-win-tag.mr { margin-right: 6px; }
+  .wtr-cmp-win-tag.ml { margin-left: 6px; }
+  .wtr-cmp-win-tag.b-tag { color: #38bdf8; background: rgba(56, 189, 248, 0.16); border-color: rgba(56, 189, 248, 0.45); }
+  .wtr-cmp-talent-card {
+    text-align: left; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px; font-weight: 500; color: #d4e0db; line-height: 1.42;
+    background: rgba(255, 255, 255, 0.025); border-left: 2.5px solid #00e676;
+    padding: 6px 9px; border-radius: 3px; white-space: pre-line; overflow-wrap: break-word; word-wrap: break-word;
+  }
+  .wtr-cmp-talent-card.b-side { border-left-color: #38bdf8; }
+  @media (max-width: 780px) {
+    .wtr-cmp-heads-grid { grid-template-columns: 1fr; }
+    .wtr-cmp-unit-card.unit-a { flex-direction: row; text-align: left; }
+    .wtr-cmp-unit-card.unit-a .wtr-cmp-select { text-align: left; }
+    .wtr-cmp-table td.stat-k { width: 118px; font-size: 10.5px; padding: 6px 6px; }
+    .wtr-cmp-table td.stat-v { width: calc((100% - 118px) / 2); padding: 6px 8px; }
+  }
   .wtr-discord-toast {
     position: fixed; bottom: 72px; right: 20px; z-index: 10500; display: none;
     background: #0b2417; border: 1.5px solid #00e676; color: #d1fae5; padding: 10px 16px;
@@ -3610,9 +3643,19 @@
       }
       return `
         <tr>
+          <td class="stat-v side-a ${winA ? 'is-winner' : ''}">${winA ? '<span class="wtr-cmp-win-tag mr">HIGHER ▲</span>' : ''}${escapeAttr(valA || '—')}</td>
           <td class="stat-k">${escapeAttr(label)}</td>
-          <td class="stat-v ${winA ? 'is-winner' : ''}">${escapeAttr(valA || '—')}${winA ? '<span class="wtr-cmp-win-tag">▲ HIGHER</span>' : ''}</td>
-          <td class="stat-v ${winB ? 'is-winner' : ''}">${escapeAttr(valB || '—')}${winB ? '<span class="wtr-cmp-win-tag">▲ HIGHER</span>' : ''}</td>
+          <td class="stat-v side-b ${winB ? 'is-winner-b' : ''}">${escapeAttr(valB || '—')}${winB ? '<span class="wtr-cmp-win-tag b-tag ml">▲ HIGHER</span>' : ''}</td>
+        </tr>
+      `;
+    }
+
+    function renderCompareTalentRow(label, valA, valB) {
+      return `
+        <tr>
+          <td class="stat-v"><div class="wtr-cmp-talent-card">${escapeAttr(valA || '—')}</div></td>
+          <td class="stat-k">${escapeAttr(label)}</td>
+          <td class="stat-v"><div class="wtr-cmp-talent-card b-side">${escapeAttr(valB || '—')}</div></td>
         </tr>
       `;
     }
@@ -3702,6 +3745,11 @@
 
       // Talent milestones
       let talentRows = '';
+      const baseTalA = cleanVal(recA.TALENT);
+      const baseTalB = cleanVal(recB.TALENT);
+      if (baseTalA || baseTalB) {
+        talentRows += renderCompareTalentRow('Base Talent', baseTalA || '—', baseTalB || '—');
+      }
       const tLvls = activeCmpLevel === 'ALL'
         ? [1, 10, 11, 15, 20, 30, 31, 40]
         : [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40].filter(l => activeCmpLevel === 'MAX' || l <= parseInt(activeCmpLevel, 10));
@@ -3709,30 +3757,30 @@
         const tA = cleanVal(recA[`TALENT_LVL_${lvl}`]);
         const tB = cleanVal(recB[`TALENT_LVL_${lvl}`]);
         if (tA || tB) {
-          talentRows += renderCompareRow(`Talent Lvl ${lvl}`, tA || '—', tB || '—', false);
+          talentRows += renderCompareTalentRow(`Talent Lvl ${lvl}`, tA || '—', tB || '—');
         }
       });
 
       bodyEl.innerHTML = `
         <div class="wtr-cmp-heads-grid">
-          <div style="display:flex; flex-direction:column; justify-content:center; padding:8px 10px; background:#070d0a; border:1px solid #1a3324; border-radius:6px; font-family:monospace; font-size:11.5px; color:#81c784;">
-            <strong style="color:#fff; font-size:12.5px; margin-bottom:4px;">SELECT ANY 2 UNITS</strong>
-            Swap Unit A or Unit B anytime using the dropdowns.
-          </div>
-          <div class="wtr-cmp-unit-card">
+          <div class="wtr-cmp-unit-card unit-a">
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgA)}" alt="${escapeAttr(recA.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
               <div style="font-family:monospace; font-size:10.5px; color:#00e676; font-weight:900; margin-bottom:4px;">UNIT A</div>
               <select id="wtrCmpSelectSlot0" name="wtrCmpSelectSlot0" aria-label="Select Unit A to Compare" title="Select Unit A to Compare" class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
-              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recA.STAT_GENERATION), cleanVal(recA.CLASSIFICATION), cleanVal(recA.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
+              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px; white-space:normal; overflow-wrap:break-word;">${escapeAttr([cleanVal(recA.STAT_GENERATION), cleanVal(recA.CLASSIFICATION), cleanVal(recA.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
+          </div>
+          <div class="wtr-cmp-spine-box">
+            <strong style="color:#ffd700; font-family:'Arial Black',sans-serif; font-size:14px; letter-spacing:1px; margin-bottom:3px;">⚖️ VS</strong>
+            <span>Swap Unit A or B anytime</span>
           </div>
           <div class="wtr-cmp-unit-card unit-b">
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgB)}" alt="${escapeAttr(recB.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
               <div style="font-family:monospace; font-size:10.5px; color:#38bdf8; font-weight:900; margin-bottom:4px;">UNIT B</div>
               <select id="wtrCmpSelectSlot1" name="wtrCmpSelectSlot1" aria-label="Select Unit B to Compare" title="Select Unit B to Compare" class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
-              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recB.STAT_GENERATION), cleanVal(recB.CLASSIFICATION), cleanVal(recB.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
+              <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px; white-space:normal; overflow-wrap:break-word;">${escapeAttr([cleanVal(recB.STAT_GENERATION), cleanVal(recB.CLASSIFICATION), cleanVal(recB.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
           </div>
         </div>

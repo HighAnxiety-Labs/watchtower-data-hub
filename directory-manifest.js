@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-18T11:12:00-08:00",
-    "generatedMs":  1795029115091,
+    "generatedAt":  "2026-11-18T12:29:08-08:00",
+    "generatedMs":  1795033743994,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -206,15 +206,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-18T19:11:26Z",
-                              "modifiedMs":  1795029086375
+                              "modifiedAt":  "2026-11-18T20:28:38Z",
+                              "modifiedMs":  1795033718907
                           },
                           {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018926
+                              "modifiedAt":  "2026-11-18T20:28:39Z",
+                              "modifiedMs":  1795033719447
                           },
                           {
                               "file":  "vault-event-history.html",
@@ -402,6 +402,14 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 1 • UNIQUE",
                                        "firstSeenMs":  1795019952362,
                                        "firstSeenAt":  "2026-11-18T16:39:12Z"
+                                   },
+                                   {
+                                       "key":  "EIDOLON",
+                                       "name":  "EIDOLON",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • SOLDIER",
+                                       "firstSeenMs":  1795033743994,
+                                       "firstSeenAt":  "2026-11-18T20:29:03Z"
                                    }
                                ],
     "creatorVideos":  [

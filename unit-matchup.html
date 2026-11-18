@@ -1003,7 +1003,7 @@
 
     .stat-comp-row {
       display: grid;
-      grid-template-columns: 1fr 132px 1fr;
+      grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr);
       align-items: center;
       gap: 8px;
       padding: 6px 0;
@@ -1011,8 +1011,8 @@
       font-size: 14px;
     }
     .stat-comp-row:last-child { border-bottom: none; }
-    .stat-val-left { text-align: right; font-weight: 700; color: #d7e5f2; }
-    .stat-val-right { text-align: left; font-weight: 700; color: #d7e5f2; }
+    .stat-val-left { text-align: right; font-weight: 700; color: #d7e5f2; min-width: 0; white-space: normal; overflow-wrap: break-word; word-wrap: break-word; }
+    .stat-val-right { text-align: left; font-weight: 700; color: #d7e5f2; min-width: 0; white-space: normal; overflow-wrap: break-word; word-wrap: break-word; }
     .stat-val-left.win { color: var(--green-main); font-weight: 800; }
     .stat-val-right.win { color: var(--red-main); font-weight: 800; }
     .stat-center-lbl {

@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-18T19:11:55Z",
+    "updatedAt":  "2026-11-18T20:29:03Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -753,6 +753,14 @@
                                             "subLabel":  "Arc 1 • UNIQUE",
                                             "firstSeenMs":  1795019952362,
                                             "firstSeenAt":  "2026-11-18T16:39:12Z"
-                                        }
+                                        },
+                    "UNIT::EIDOLON":  {
+                                          "key":  "EIDOLON",
+                                          "name":  "EIDOLON",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • SOLDIER",
+                                          "firstSeenMs":  1795033743994,
+                                          "firstSeenAt":  "2026-11-18T20:29:03Z"
+                                      }
                 }
 }
