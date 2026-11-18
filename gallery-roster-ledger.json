@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-18T07:09:26Z",
+    "updatedAt":  "2026-11-18T16:39:12Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -737,6 +737,22 @@
                                                                    "subLabel":  "",
                                                                    "firstSeenMs":  1794859063389,
                                                                    "firstSeenAt":  "2026-11-16T19:57:43Z"
-                                                               }
+                                                               },
+                    "UNIT::LANDLOCKE":  {
+                                            "key":  "LANDLOCKE",
+                                            "name":  "LANDLOCKE",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 3 • UNIQUE",
+                                            "firstSeenMs":  1795019952362,
+                                            "firstSeenAt":  "2026-11-18T16:39:12Z"
+                                        },
+                    "UNIT::DR. AEGON":  {
+                                            "key":  "DR. AEGON",
+                                            "name":  "DR. AEGON",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 1 • UNIQUE",
+                                            "firstSeenMs":  1795019952362,
+                                            "firstSeenAt":  "2026-11-18T16:39:12Z"
+                                        }
                 }
 }

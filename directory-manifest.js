@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-17T23:09:30-08:00",
-    "generatedMs":  1794985766158,
+    "generatedAt":  "2026-11-18T08:39:18-08:00",
+    "generatedMs":  1795019952362,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -206,8 +206,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-18T07:09:04Z",
-                              "modifiedMs":  1794985744413
+                              "modifiedAt":  "2026-11-18T16:36:24Z",
+                              "modifiedMs":  1795019784269
                           },
                           {
                               "file":  "unit-matchup.html",
@@ -387,7 +387,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-
+                                   {
+                                       "key":  "LANDLOCKE",
+                                       "name":  "LANDLOCKE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 3 • UNIQUE",
+                                       "firstSeenMs":  1795019952362,
+                                       "firstSeenAt":  "2026-11-18T16:39:12Z"
+                                   },
+                                   {
+                                       "key":  "DR. AEGON",
+                                       "name":  "DR. AEGON",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 1 • UNIQUE",
+                                       "firstSeenMs":  1795019952362,
+                                       "firstSeenAt":  "2026-11-18T16:39:12Z"
+                                   }
                                ],
     "creatorVideos":  [
                           {

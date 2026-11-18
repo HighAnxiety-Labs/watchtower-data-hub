@@ -53,7 +53,7 @@
 
   /* ==================== 4-CORNER HEADER & HERO BANNER ==================== */
   .wtr-frame-shell { width: 100%; max-width: 1360px; margin: 0 auto 12px auto; }
-  .class-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px 282px; background: #1e7a46; border: 1px solid #2ea05f; box-shadow: 0 0 22px rgba(0,0,0,0.85); user-select: none; overflow: hidden; z-index: 30; }
+  .class-bar { position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 6px 282px; background: #1e7a46; border: 1px solid #2ea05f; box-shadow: 0 0 22px rgba(0,0,0,0.85); -webkit-user-select: none; user-select: none; overflow: hidden; z-index: 30; }
   .class-bar-top { border-radius: 6px 6px 0 0; }
   .class-bar-bottom { width: 100%; max-width: 1360px; margin: 16px auto 0 auto; border-radius: 0 0 6px 6px; }
   .corner-tab { position: absolute; top: 0; bottom: 0; width: 270px; display: flex; align-items: center; gap: 8px; font-family: 'Arial Black', sans-serif; font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: #e2e8f0; background: #06090d; z-index: 2; }
@@ -187,7 +187,7 @@
   .gen-section-header {
     display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     padding: 11px 16px; background: linear-gradient(90deg, rgba(0, 230, 118, 0.1) 0%, rgba(11, 18, 14, 0.95) 65%);
-    border-bottom: 1px solid #1a3324; cursor: pointer; user-select: none;
+    border-bottom: 1px solid #1a3324; cursor: pointer; -webkit-user-select: none; user-select: none;
   }
   .gen-section-header:hover { background: linear-gradient(90deg, rgba(0, 230, 118, 0.16) 0%, rgba(14, 24, 18, 0.98) 65%); }
   .gen-hdr-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
@@ -317,7 +317,7 @@
     font-weight: 900;
     letter-spacing: 0.7px;
     text-transform: uppercase;
-    user-select: none;
+    -webkit-user-select: none; user-select: none;
   }
   .unit-pair-link-bar::before,
   .unit-pair-link-bar::after {
@@ -383,7 +383,7 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    user-select: none;
+    -webkit-user-select: none; user-select: none;
   }
   @media (max-width: 560px) {
     :root { --ugt-tile-w: 150px; --ugt-grid-gap: 12px; }
@@ -459,7 +459,7 @@
     padding: 2px 7px; border-radius: 3px; font-family: monospace;
     font-size: 10.5px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase;
     background: rgba(5, 10, 8, 0.88); border: 1px solid rgba(255, 255, 255, 0.25); color: #e2e8f0;
-    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
   }
   .ugt-class-chip.cls-hero { color: #ffd700; border-color: rgba(255, 215, 0, 0.7); background: rgba(20, 16, 4, 0.9); }
   .ugt-class-chip.cls-warlord { color: #ff9100; border-color: rgba(255, 145, 0, 0.78); background: rgba(28, 12, 4, 0.92); }
@@ -480,7 +480,7 @@
     padding: 3px 7px; border-radius: 4px; font-family: monospace;
     font-size: 10px; font-weight: 900; letter-spacing: 0.4px; text-transform: uppercase;
     background: rgba(6, 12, 10, 0.88); border: 1px solid rgba(56, 189, 248, 0.48); color: #bae6fd;
-    cursor: pointer; backdrop-filter: blur(3px); transition: all 0.15s ease;
+    cursor: pointer; -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); transition: all 0.15s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.8);
   }
   .ugt-compare-pin-btn:hover { background: #38bdf8; color: #031520; border-color: #ffffff; transform: scale(1.05); }
@@ -518,7 +518,7 @@
   .wtr-cmp-clear-btn:hover { color: #fff; border-color: #ef4444; background: rgba(239,68,68,0.18); }
 
   .wtr-cmp-modal-backdrop {
-    position: fixed; inset: 0; background: rgba(3, 7, 10, 0.92); backdrop-filter: blur(5px);
+    position: fixed; inset: 0; background: rgba(3, 7, 10, 0.92); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
     z-index: 10000; display: none; align-items: center; justify-content: center; padding: 14px;
   }
   .wtr-cmp-modal-backdrop.open { display: flex; }
@@ -613,7 +613,7 @@
   .ufhc-summary {
     font-size: 12.5px; color: #d4e0db; line-height: 1.38;
     border-left: 2px solid #00e676; padding-left: 8px; margin-bottom: 8px;
-    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
   }
   .ufhc-cta {
     font-family: monospace; font-size: 11px; font-weight: 800; color: #ffd700;
@@ -909,7 +909,7 @@
 <div class="control-panel-wrapper">
   <div class="control-panel">
     <div class="panel-section">
-      <select id="divisionSelect" class="selector-select" style="display: none;" onchange="applyFilter()">
+      <select id="divisionSelect" name="divisionSelect" aria-label="Filter by Unit Division" title="Filter by Unit Division" class="selector-select" style="display: none;" onchange="applyFilter()">
         <option value="ALL">ALL UNITS</option>
         <option value="ACADEMY">ACADEMY / INFANTRY</option>
         <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR / AIRCRAFT</option>
@@ -920,7 +920,7 @@
       </select>
     </div>
     <div class="panel-section" style="flex: 1.2; min-width: 220px;">
-      <input type="search" id="unitSearchInput" class="unit-search-input" placeholder="🔍 Search unit, faction, weapon, or talent..." oninput="handleGallerySearchInput(this.value)">
+      <input type="search" id="unitSearchInput" name="unitSearchInput" aria-label="Search units, factions, weapons, or talents" title="Search units, factions, weapons, or talents" class="unit-search-input" placeholder="🔍 Search unit, faction, weapon, or talent..." oninput="handleGallerySearchInput(this.value)">
     </div>
     <div class="panel-section" style="flex: 0.9; min-width: 200px;">
       <label class="selector-label" for="unitSelect">Quick Jump:</label>
@@ -1269,6 +1269,21 @@
     if (!v) return '';
     const trimmed = v.toString().trim();
     return (trimmed === '-' || trimmed === '—' || trimmed === 'N/A' || trimmed.startsWith('{{')) ? '' : trimmed;
+  }
+
+  const BENCHMARK_STAT_KEY_REGEX = /^STAT_(?:HP_RANGE|DPS_RANGE|RANGE|HP|DPS)(?:_|$)/i;
+
+  function formatBenchmarkStatString(rawStr) {
+    if (rawStr === undefined || rawStr === null) return '';
+    const str = String(rawStr);
+    if (!str.trim()) return '';
+    return str.replace(/(?<![.\d])\d[\d,]*/g, function(match) {
+      let digits = match.replace(/,/g, '');
+      if (!digits) return match;
+      digits = digits.replace(/^0+(?=\d)/, '');
+      if (digits.length > 7) digits = digits.slice(0, 7);
+      return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    });
   }
 
   function getStatRowLabel(statKey) {
@@ -2364,18 +2379,18 @@
       }
       return '—';
     };
-    const maxHp = pickHighestStatStr(
+    const maxHp = formatBenchmarkStatString(pickHighestStatStr(
       ['STAT_HP_RANGE_MAX', 'STAT_HP_MAX', 'STAT_HP_RANGE_40', 'STAT_HP_40', 'STAT_HP_RANGE_31', 'STAT_HP_RANGE_30', 'STAT_HP_30', 'STAT_HP_RANGE_20', 'STAT_HP_RANGE_11', 'STAT_HP_RANGE_10'],
       ['STAT_HP_RANGE', 'STAT_HP']
-    );
-    const maxDps = pickHighestStatStr(
+    )) || '—';
+    const maxDps = formatBenchmarkStatString(pickHighestStatStr(
       ['STAT_DPS_RANGE_MAX', 'STAT_DPS_MAX', 'STAT_DPS_RANGE_40', 'STAT_DPS_40', 'STAT_DPS_RANGE_31', 'STAT_DPS_RANGE_30', 'STAT_DPS_30', 'STAT_DPS_RANGE_20', 'STAT_DPS_RANGE_11', 'STAT_DPS_RANGE_10'],
       ['STAT_DPS_RANGE', 'STAT_DPS']
-    );
-    const rng = pickHighestStatStr(
+    )) || '—';
+    const rng = formatBenchmarkStatString(pickHighestStatStr(
       ['STAT_RANGE_MAX', 'STAT_RANGE_40', 'STAT_RANGE_31', 'STAT_RANGE_30', 'STAT_RANGE_20', 'STAT_RANGE_11', 'STAT_RANGE_10', 'STAT_RANGE_1'],
       ['STAT_RANGE']
-    );
+    )) || '—';
     const spd = cleanVal(rec.STAT_SPEED) || cleanVal(rec.STAT_MAX_SPEED) || '—';
     const dmgArm = [cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE)].filter(Boolean).join(' / ') || '—';
     const targetsOrLink = cleanVal(rec.LINKED_UNIT_NAME) ? `⇄ ${cleanVal(rec.LINKED_UNIT_NAME)}` : (cleanVal(rec.STAT_TARGETS) || '—');
@@ -2647,34 +2662,34 @@
       'STAT_SIZE': cleanVal(data['STAT_SIZE']),
       'STAT_BUILDING': cleanVal(data['STAT_BUILDING']),
       'STAT_BUILDING_REQ': cleanVal(data['STAT_BUILDING_REQ']) || cleanVal(data['STAT_BUILDING_MAX']),
-      'STAT_HP_RANGE': cleanVal(data['STAT_HP_RANGE']) || cleanVal(data['STAT_HP']),
-      'STAT_HP_RANGE_1': cleanVal(data['STAT_HP_RANGE_1']),
-      'STAT_HP_RANGE_10': cleanVal(data['STAT_HP_RANGE_10']),
-      'STAT_HP_RANGE_11': cleanVal(data['STAT_HP_RANGE_11']) || cleanVal(data['STAT_HP_11']),
-      'STAT_HP_RANGE_20': cleanVal(data['STAT_HP_RANGE_20']),
-      'STAT_HP_RANGE_30': cleanVal(data['STAT_HP_RANGE_30']) || cleanVal(data['STAT_HP_30']),
-      'STAT_HP_RANGE_31': cleanVal(data['STAT_HP_RANGE_31']) || cleanVal(data['STAT_HP_31']),
-      'STAT_HP_RANGE_40': cleanVal(data['STAT_HP_RANGE_40']) || cleanVal(data['STAT_HP_40']),
-      'STAT_HP_RANGE_MAX': cleanVal(data['STAT_HP_RANGE_MAX']) || cleanVal(data['STAT_HP_MAX']),
-      'STAT_DPS_RANGE': cleanVal(data['STAT_DPS_RANGE']) || cleanVal(data['STAT_DPS']),
-      'STAT_DPS_RANGE_1': cleanVal(data['STAT_DPS_RANGE_1']),
-      'STAT_DPS_RANGE_10': cleanVal(data['STAT_DPS_RANGE_10']),
-      'STAT_DPS_RANGE_11': cleanVal(data['STAT_DPS_RANGE_11']) || cleanVal(data['STAT_DPS_11']),
-      'STAT_DPS_RANGE_20': cleanVal(data['STAT_DPS_RANGE_20']),
-      'STAT_DPS_RANGE_30': cleanVal(data['STAT_DPS_RANGE_30']) || cleanVal(data['STAT_DPS_30']),
-      'STAT_DPS_RANGE_31': cleanVal(data['STAT_DPS_RANGE_31']) || cleanVal(data['STAT_DPS_31']),
-      'STAT_DPS_RANGE_40': cleanVal(data['STAT_DPS_RANGE_40']) || cleanVal(data['STAT_DPS_40']),
-      'STAT_DPS_RANGE_MAX': cleanVal(data['STAT_DPS_RANGE_MAX']) || cleanVal(data['STAT_DPS_MAX']),
+      'STAT_HP_RANGE': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE']) || cleanVal(data['STAT_HP'])),
+      'STAT_HP_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_1'])),
+      'STAT_HP_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_10'])),
+      'STAT_HP_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_11']) || cleanVal(data['STAT_HP_11'])),
+      'STAT_HP_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_20'])),
+      'STAT_HP_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_30']) || cleanVal(data['STAT_HP_30'])),
+      'STAT_HP_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_31']) || cleanVal(data['STAT_HP_31'])),
+      'STAT_HP_RANGE_40': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_40']) || cleanVal(data['STAT_HP_40'])),
+      'STAT_HP_RANGE_MAX': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE_MAX']) || cleanVal(data['STAT_HP_MAX'])),
+      'STAT_DPS_RANGE': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE']) || cleanVal(data['STAT_DPS'])),
+      'STAT_DPS_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_1'])),
+      'STAT_DPS_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_10'])),
+      'STAT_DPS_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_11']) || cleanVal(data['STAT_DPS_11'])),
+      'STAT_DPS_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_20'])),
+      'STAT_DPS_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_30']) || cleanVal(data['STAT_DPS_30'])),
+      'STAT_DPS_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_31']) || cleanVal(data['STAT_DPS_31'])),
+      'STAT_DPS_RANGE_40': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_40']) || cleanVal(data['STAT_DPS_40'])),
+      'STAT_DPS_RANGE_MAX': formatBenchmarkStatString(cleanVal(data['STAT_DPS_RANGE_MAX']) || cleanVal(data['STAT_DPS_MAX'])),
       'STAT_SPEED': cleanVal(data['STAT_SPEED']) || cleanVal(data['STAT_MAX_SPEED']),
-      'STAT_RANGE': cleanVal(data['STAT_RANGE']),
-      'STAT_RANGE_1': cleanVal(data['STAT_RANGE_1']),
-      'STAT_RANGE_10': cleanVal(data['STAT_RANGE_10']),
-      'STAT_RANGE_11': cleanVal(data['STAT_RANGE_11']),
-      'STAT_RANGE_20': cleanVal(data['STAT_RANGE_20']),
-      'STAT_RANGE_30': cleanVal(data['STAT_RANGE_30']),
-      'STAT_RANGE_31': cleanVal(data['STAT_RANGE_31']),
-      'STAT_RANGE_40': cleanVal(data['STAT_RANGE_40']),
-      'STAT_RANGE_MAX': cleanVal(data['STAT_RANGE_MAX']),
+      'STAT_RANGE': formatBenchmarkStatString(cleanVal(data['STAT_RANGE'])),
+      'STAT_RANGE_1': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_1'])),
+      'STAT_RANGE_10': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_10'])),
+      'STAT_RANGE_11': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_11'])),
+      'STAT_RANGE_20': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_20'])),
+      'STAT_RANGE_30': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_30'])),
+      'STAT_RANGE_31': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_31'])),
+      'STAT_RANGE_40': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_40'])),
+      'STAT_RANGE_MAX': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_MAX'])),
       'STAT_SPLASH': cleanVal(data['STAT_SPLASH']),
       'FACTION_WS_HEADER': cleanVal(data['FACTION_WS_HEADER']) || TEMPLATE_CONFIG.factionWsHeader || 'Faction Workshop',
       'DOCTRINE_TITLE': cleanVal(data['DOCTRINE_TITLE']) || 'EVOLUTION DOCTRINE // MILITARY TECH',
@@ -3524,11 +3539,13 @@
 
     function pickBestStat(rec, primaryKey, fallbacks) {
       if (!rec) return '—';
+      const fmtIfBench = (key, val) => BENCHMARK_STAT_KEY_REGEX.test(String(key || '')) ? formatBenchmarkStatString(val) : val;
       const p = cleanVal(rec[primaryKey]);
-      if (p) return p;
+      if (p) return fmtIfBench(primaryKey, p) || '—';
       for (let i = 0; i < (fallbacks || []).length; i++) {
-        const fb = cleanVal(rec[fallbacks[i]]);
-        if (fb) return fb;
+        const fbKey = fallbacks[i];
+        const fb = cleanVal(rec[fbKey]);
+        if (fb) return fmtIfBench(fbKey, fb) || '—';
       }
       return '—';
     }
@@ -3658,7 +3675,7 @@
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgA)}" alt="${escapeAttr(recA.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
               <div style="font-family:monospace; font-size:10.5px; color:#00e676; font-weight:900; margin-bottom:4px;">UNIT A</div>
-              <select class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
+              <select id="wtrCmpSelectSlot0" name="wtrCmpSelectSlot0" aria-label="Select Unit A to Compare" title="Select Unit A to Compare" class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
               <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recA.STAT_GENERATION), cleanVal(recA.CLASSIFICATION), cleanVal(recA.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
           </div>
@@ -3666,7 +3683,7 @@
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgB)}" alt="${escapeAttr(recB.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
               <div style="font-family:monospace; font-size:10.5px; color:#38bdf8; font-weight:900; margin-bottom:4px;">UNIT B</div>
-              <select class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
+              <select id="wtrCmpSelectSlot1" name="wtrCmpSelectSlot1" aria-label="Select Unit B to Compare" title="Select Unit B to Compare" class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
               <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px;">${escapeAttr([cleanVal(recB.STAT_GENERATION), cleanVal(recB.CLASSIFICATION), cleanVal(recB.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
           </div>
@@ -3703,9 +3720,9 @@
       const cls = cleanVal(rec.CLASSIFICATION);
       const fac = cleanVal(rec.STAT_FACTION);
       const bld = [cleanVal(rec.STAT_BUILDING), cleanVal(rec.STAT_BUILDING_REQ) ? `Lvl ${cleanVal(rec.STAT_BUILDING_REQ)}` : ''].filter(Boolean).join(' ');
-      const maxHp = pickBestStat(rec, 'STAT_HP_RANGE_MAX', ['STAT_HP_RANGE_40', 'STAT_HP_RANGE_30', 'STAT_HP_RANGE']);
-      const maxDps = pickBestStat(rec, 'STAT_DPS_RANGE_MAX', ['STAT_DPS_RANGE_40', 'STAT_DPS_RANGE_30', 'STAT_DPS_RANGE']);
-      const rng = cleanVal(rec.STAT_RANGE) || '—';
+      const maxHp = pickBestStat(rec, 'STAT_HP_RANGE_MAX', ['STAT_HP_RANGE_40', 'STAT_HP_RANGE_31', 'STAT_HP_RANGE_30', 'STAT_HP_RANGE']);
+      const maxDps = pickBestStat(rec, 'STAT_DPS_RANGE_MAX', ['STAT_DPS_RANGE_40', 'STAT_DPS_RANGE_31', 'STAT_DPS_RANGE_30', 'STAT_DPS_RANGE']);
+      const rng = pickBestStat(rec, 'STAT_RANGE_MAX', ['STAT_RANGE_40', 'STAT_RANGE_31', 'STAT_RANGE_30', 'STAT_RANGE']);
       const spd = cleanVal(rec.STAT_SPEED) || '—';
       const dmg = [cleanVal(rec.STAT_WEAPON_TYPE), cleanVal(rec.STAT_DAMAGE_TYPE), cleanVal(rec.STAT_ARMOR_TYPE) ? `${cleanVal(rec.STAT_ARMOR_TYPE)} Armor` : ''].filter(Boolean).join(' • ');
       const linked = cleanVal(rec.LINKED_UNIT_NAME);
@@ -3734,11 +3751,13 @@
       const hpB = pickBestStat(recB, `STAT_HP_RANGE_${lvlLbl}`, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']);
       const dpsA = pickBestStat(recA, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
       const dpsB = pickBestStat(recB, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
+      const rngA = pickBestStat(recA, `STAT_RANGE_${lvlLbl}`, ['STAT_RANGE_MAX', 'STAT_RANGE']);
+      const rngB = pickBestStat(recB, `STAT_RANGE_${lvlLbl}`, ['STAT_RANGE_MAX', 'STAT_RANGE']);
       const lines = [
         `⚖️ **[-WTR-] UNIT HEAD-TO-HEAD (${lvlLbl === 'MAX' ? 'MAX LVL' : 'LVL ' + lvlLbl}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
         `• **HP:** ${recA.UNIT_NAME} \`${hpA}\`  vs  ${recB.UNIT_NAME} \`${hpB}\``,
         `• **DPS:** ${recA.UNIT_NAME} \`${dpsA}\`  vs  ${recB.UNIT_NAME} \`${dpsB}\``,
-        `• **Range / Speed:** \`${cleanVal(recA.STAT_RANGE) || '—'} / ${cleanVal(recA.STAT_SPEED) || '—'}\`  vs  \`${cleanVal(recB.STAT_RANGE) || '—'} / ${cleanVal(recB.STAT_SPEED) || '—'}\``,
+        `• **Range / Speed:** \`${rngA} / ${cleanVal(recA.STAT_SPEED) || '—'}\`  vs  \`${rngB} / ${cleanVal(recB.STAT_SPEED) || '—'}\``,
         `🔗 **Compare Live on [-WTR-] Data Hub:** <https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html>`
       ];
       copyTextToClipboard(lines.join('\n'), `💬 Copied ${recA.UNIT_NAME} vs ${recB.UNIT_NAME} for Discord!`);
