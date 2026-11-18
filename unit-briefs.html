@@ -807,8 +807,8 @@
   .workshop-group > .workshop-item { background: transparent; border-left: none; }
   .workshop-group > .workshop-item + .workshop-item { border-top: 1px dashed rgba(0, 230, 118, 0.24); }
   .workshop-item p { color: #cfd8dc !important; line-height: 1.35; margin-top: 4px; margin-bottom: 8px; font-size: 14.5px; white-space: pre-line; }
-  .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 2px; font-size: 14px; text-transform: uppercase !important; letter-spacing: 0.5px; }
-  .workshop-tag { font-weight: 800; color: #00e676; font-size: 13px; margin-bottom: 4px; text-transform: uppercase !important; letter-spacing: 0.5px; }
+  .workshop-tag { font-weight: 800; color: #00e676; font-size: 13px; margin-bottom: 3px; text-transform: uppercase !important; letter-spacing: 0.6px; }
+  .workshop-title { font-weight: 800; color: #ffd700; margin-bottom: 4px; font-size: 14px; text-transform: uppercase !important; letter-spacing: 0.5px; }
   .workshop-img-frame { width: 100%; max-width: calc(200px * var(--wtr-img-scale, 1)); aspect-ratio: 4 / 5; margin: 8px auto 0 auto; background: #000; border: 1px solid rgba(0, 255, 128, 0.25); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: max-width 0.18s ease; }
   .workshop-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -2863,8 +2863,8 @@
     const renderWsEntryHtml = (t) => `
       <div class="workshop-item">
         <div>
-          ${t.title ? `<div class="workshop-title">${t.title}</div>` : ''}
           ${t.tag ? `<div class="workshop-tag">${t.tag}</div>` : ''}
+          ${t.title ? `<div class="workshop-title">${t.title}</div>` : ''}
           ${t.desc ? `<p>${t.desc}</p>` : ''}
         </div>
         ${t.img ? `<div class="workshop-img-frame"><img src="${t.img}" alt="${t.title || 'Tech'}"></div>` : ''}
