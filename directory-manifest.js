@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-18T13:40:39-08:00",
-    "generatedMs":  1795038034733,
+    "generatedAt":  "2026-11-18T15:24:09-08:00",
+    "generatedMs":  1795044245017,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-18T07:09:03Z",
-                              "modifiedMs":  1794985743859
+                              "modifiedAt":  "2026-11-18T23:23:51Z",
+                              "modifiedMs":  1795044231348
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -206,8 +206,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-18T21:40:17Z",
-                              "modifiedMs":  1795038017155
+                              "modifiedAt":  "2026-11-18T23:12:45Z",
+                              "modifiedMs":  1795043565596
                           },
                           {
                               "file":  "unit-matchup.html",
@@ -426,6 +426,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 2 • SOLDIER",
                                        "firstSeenMs":  1795038034733,
                                        "firstSeenAt":  "2026-11-18T21:40:34Z"
+                                   },
+                                   {
+                                       "key":  "MARSHAL",
+                                       "name":  "MARSHAL",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • HERO",
+                                       "firstSeenMs":  1795044245017,
+                                       "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                   },
+                                   {
+                                       "key":  "IRONSIDE",
+                                       "name":  "IRONSIDE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • SOLDIER",
+                                       "firstSeenMs":  1795044245017,
+                                       "firstSeenAt":  "2026-11-18T23:24:05Z"
                                    }
                                ],
     "creatorVideos":  [

@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-18T21:40:34Z",
+    "updatedAt":  "2026-11-18T23:24:05Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -777,6 +777,22 @@
                                                "subLabel":  "Arc 2 • SOLDIER",
                                                "firstSeenMs":  1795038034733,
                                                "firstSeenAt":  "2026-11-18T21:40:34Z"
-                                           }
+                                           },
+                    "UNIT::MARSHAL":  {
+                                          "key":  "MARSHAL",
+                                          "name":  "MARSHAL",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Arc 2 • HERO",
+                                          "firstSeenMs":  1795044245017,
+                                          "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                      },
+                    "UNIT::IRONSIDE":  {
+                                           "key":  "IRONSIDE",
+                                           "name":  "IRONSIDE",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Arc 2 • SOLDIER",
+                                           "firstSeenMs":  1795044245017,
+                                           "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                       }
                 }
 }

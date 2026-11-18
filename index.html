@@ -348,6 +348,7 @@
   .wtr-omni-tag.tag-event { background: rgba(249, 115, 22, 0.18); color: #fdba74; border: 1px solid rgba(249, 115, 22, 0.5); }
   .wtr-omni-tag.tag-bug { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); }
   .wtr-omni-tag.tag-vault { background: rgba(168, 85, 247, 0.18); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.48); }
+  .wtr-omni-tag.tag-video { background: rgba(236, 72, 153, 0.18); color: #f9a8d4; border: 1px solid rgba(236, 72, 153, 0.48); }
   .wtr-omni-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .wtr-omni-sub { font-family: monospace; font-size: 10.5px; color: #94a3b8; white-space: nowrap; flex-shrink: 0; }
   .menu-search-and-sort { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -10072,6 +10073,7 @@
       const now = Date.now();
       let unitCnt = 0;
       let bldgCnt = 0;
+      const liveSearchRecords = [];
 
       for (let r = 1; r < matrix.length; r++) {
         const rec = {};
@@ -10104,6 +10106,15 @@
           ? (cat || "BASE FACILITY")
           : [rec.STAT_GENERATION, rec.CLASSIFICATION].filter(Boolean).join(" • ");
 
+        liveSearchRecords.push({
+          name,
+          gallery: gType,
+          subLabel,
+          extraKw: isBuilding
+            ? [cat, rec.CLASSIFICATION, rec.BUILDING_SUBTITLE].filter(Boolean).join(" ")
+            : [rec.STAT_GENERATION, rec.CLASSIFICATION, rec.STAT_FACTION, rec.STAT_TYPE, rec.STAT_WEAPON_TYPE, rec.STAT_ARMOR_TYPE, rec.LINKED_UNIT_NAME, rec.RELEASE_DATE].filter(Boolean).join(" ")
+        });
+
         // Check optional explicit sheet timestamp column first
         const rawSheetTs = rec.ADDED_AT || rec.DATE_ADDED || rec.ADDED_DATE || rec.CREATED_AT || rec.TIMESTAMP || rec.LAST_UPDATED || "";
         let explicitMs = 0;
@@ -10131,6 +10142,10 @@
         }
       }
 
+      if (liveSearchRecords.length > 0) {
+        window.WTR_LIVE_MASTER_SEARCH_RECORDS = liveSearchRecords;
+        try { window.dispatchEvent(new CustomEvent("wtr:masterdb-search-ready")); } catch (e) {}
+      }
       if (unitCnt > 0) state.totalTrackedUnits = unitCnt;
       if (bldgCnt > 0) state.totalTrackedBuildings = bldgCnt;
       if (ledgerDirty) saveLocalFirstSeenLedger(seenLedger);
@@ -10437,49 +10452,75 @@
         });
       }
 
-      // 2. Units & Buildings + Defects + Vault from directory-manifest.js
+      // 2. Units & Buildings — Live MASTER_DB rows + recentGalleryAdditions + galleryBaseline
       const mf = window.WTR_DIRECTORY_MANIFEST || {};
-      const units = (mf.galleryBaseline && Array.isArray(mf.galleryBaseline.units)) ? mf.galleryBaseline.units : [];
-      units.forEach(uName => {
+      const pushUnitSearchItem = (uName, subLbl, extraKw) => {
         const clean = String(uName || "").trim();
         if (!clean) return;
         const k = "UNIT::" + clean.toUpperCase();
         if (seenKeys.has(k)) return;
         seenKeys.add(k);
+        const subText = subLbl ? `Unit Brief • ${subLbl}` : "Unit Briefs | 40-Lvl Dossier";
         items.push({
           tag: "UNIT",
           tagCls: "tag-unit",
           title: clean,
-          sub: "Unit Briefs | 40-Lvl Dossier",
-          keywords: (clean + " unit brief stats talent compare").toLowerCase(),
-          boost: 16,
+          sub: subText,
+          keywords: (clean + " unit units brief stats talent compare " + (subLbl || "") + " " + (extraKw || "")).toLowerCase(),
+          boost: 18,
           run: function() {
             try { localStorage.setItem("wtr_target_unit_handoff", clean); } catch (e) {}
             openHubUrlInViewport("UNIT BRIEF // " + clean.toUpperCase(), "#00e676", `${pfx}unit-briefs.html?unit=${encodeURIComponent(clean)}`);
           }
         });
-      });
-
-      const bldgs = (mf.galleryBaseline && Array.isArray(mf.galleryBaseline.buildings)) ? mf.galleryBaseline.buildings : [];
-      bldgs.forEach(bName => {
+      };
+      const pushBldgSearchItem = (bName, subLbl, extraKw) => {
         const clean = String(bName || "").trim();
         if (!clean) return;
         const k = "BLDG::" + clean.toUpperCase();
         if (seenKeys.has(k)) return;
         seenKeys.add(k);
+        const subText = subLbl ? `Building Brief • ${subLbl}` : "Building Briefs | Upgrade Matrix";
         items.push({
           tag: "FACILITY",
           tagCls: "tag-bldg",
           title: clean,
-          sub: "Building Briefs | Upgrade Matrix",
-          keywords: (clean + " building facility base upgrade cc22").toLowerCase(),
-          boost: 15,
+          sub: subText,
+          keywords: (clean + " building buildings facility base upgrade cc22 " + (subLbl || "") + " " + (extraKw || "")).toLowerCase(),
+          boost: 16,
           run: function() {
             try { localStorage.setItem("wtr_target_building_handoff", clean); } catch (e) {}
             openHubUrlInViewport("FACILITY BRIEF // " + clean.toUpperCase(), "#ffd700", `${pfx}building-briefs.html?building=${encodeURIComponent(clean)}`);
           }
         });
+      };
+
+      // 2a. Live MASTER_DB rows (instant sync for any unit/building added in Google Sheets)
+      if (Array.isArray(window.WTR_LIVE_MASTER_SEARCH_RECORDS)) {
+        window.WTR_LIVE_MASTER_SEARCH_RECORDS.forEach(rec => {
+          if (!rec || !rec.name) return;
+          if (rec.gallery === "BUILDING") pushBldgSearchItem(rec.name, rec.subLabel, rec.extraKw);
+          else pushUnitSearchItem(rec.name, rec.subLabel, rec.extraKw);
+        });
+      }
+
+      // 2b. Newly added units/buildings in directory-manifest.js (<24h recentGalleryAdditions)
+      const recentAdds = Array.isArray(mf.recentGalleryAdditions) ? mf.recentGalleryAdditions : [];
+      recentAdds.forEach(entry => {
+        if (!entry || !entry.name) return;
+        if (String(entry.gallery || "").toUpperCase() === "BUILDING") {
+          pushBldgSearchItem(entry.name, entry.subLabel || "", "new recent");
+        } else {
+          pushUnitSearchItem(entry.name, entry.subLabel || "", "new recent");
+        }
       });
+
+      // 2c. Baseline units & buildings from directory-manifest.js (offline / pre-sync coverage)
+      const units = (mf.galleryBaseline && Array.isArray(mf.galleryBaseline.units)) ? mf.galleryBaseline.units : [];
+      units.forEach(uName => pushUnitSearchItem(uName, "", ""));
+
+      const bldgs = (mf.galleryBaseline && Array.isArray(mf.galleryBaseline.buildings)) ? mf.galleryBaseline.buildings : [];
+      bldgs.forEach(bName => pushBldgSearchItem(bName, "", ""));
 
       const defects = Array.isArray(mf.activeDefects) ? mf.activeDefects : [];
       defects.forEach(d => {
@@ -10493,6 +10534,27 @@
           boost: 10,
           run: function() {
             openHubUrlInViewport("WHAT'S BROKEN IN WC", "#ef4444", `${pfx}whats-broken.html`);
+          }
+        });
+      });
+
+      // 2d. Creator Recon Videos from directory-manifest.js
+      const videos = Array.isArray(mf.creatorVideos) ? mf.creatorVideos : [];
+      videos.forEach(v => {
+        if (!v || !v.title) return;
+        const vKey = "VID::" + (v.id || v.title).toUpperCase();
+        if (seenKeys.has(vKey)) return;
+        seenKeys.add(vKey);
+        const creatorLbl = v.handle || v.owner || "Video Recon";
+        items.push({
+          tag: "VIDEO",
+          tagCls: "tag-video",
+          title: v.title,
+          sub: "Video Recon • " + creatorLbl,
+          keywords: (v.title + " " + creatorLbl + " " + (v.descSnippet || "") + " video youtube recon guide").toLowerCase(),
+          boost: 8,
+          run: function() {
+            openHubUrlInViewport("VIDEO RECON // CREATOR INTEL", "#ec4899", `${pfx}video-recon.html`);
           }
         });
       });
@@ -10530,24 +10592,32 @@
       }
       if (clearBtn) clearBtn.style.display = "inline-block";
 
+      const normCompact = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
       const tokens = q.split(/\s+/).filter(Boolean);
+      const qCore = q.replace(/^(?:unit|units|building|buildings|facility|video|videos|bug|vault)\s+/i, "").trim() || q;
+      const qCoreCompact = normCompact(qCore);
+      const qCompact = normCompact(q);
       const all = buildOmniSearchIndex();
       const scored = [];
 
       all.forEach(item => {
         const tLow = item.title.toLowerCase();
+        const tCompact = normCompact(tLow);
+        const kwCompact = normCompact(item.keywords);
         let matchedAll = true;
         for (let i = 0; i < tokens.length; i++) {
-          if (!item.keywords.includes(tokens[i])) {
+          const tok = tokens[i];
+          const tokCompact = normCompact(tok);
+          if (!item.keywords.includes(tok) && !(tokCompact && kwCompact.includes(tokCompact))) {
             matchedAll = false;
             break;
           }
         }
-        if (!matchedAll) return;
+        if (!matchedAll && !(qCompact.length >= 2 && kwCompact.includes(qCompact))) return;
         let score = item.boost || 10;
-        if (tLow === q) score += 100;
-        else if (tLow.startsWith(q)) score += 60;
-        else if (tLow.includes(q)) score += 35;
+        if (tLow === q || tLow === qCore || (qCoreCompact && tCompact === qCoreCompact)) score += 120;
+        else if (tLow.startsWith(q) || tLow.startsWith(qCore) || (qCoreCompact && tCompact.startsWith(qCoreCompact))) score += 70;
+        else if (tLow.includes(q) || tLow.includes(qCore) || (qCoreCompact && tCompact.includes(qCoreCompact))) score += 40;
         scored.push({ item, score });
       });
 
@@ -10615,6 +10685,9 @@
     }
 
     if (searchInput) {
+      window.addEventListener("wtr:masterdb-search-ready", function() {
+        if (searchInput.value && searchInput.value.trim()) renderSearchDropdown(searchInput.value);
+      });
       searchInput.addEventListener("input", function() {
         renderSearchDropdown(this.value);
       });
