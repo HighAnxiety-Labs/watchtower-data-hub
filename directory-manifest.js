@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T09:40:34-08:00",
-    "generatedMs":  1795110029901,
+    "generatedAt":  "2026-11-19T09:54:16-08:00",
+    "generatedMs":  1795110851723,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -59,8 +59,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353972
+                              "modifiedAt":  "2026-11-19T17:53:49Z",
+                              "modifiedMs":  1795110829900
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
