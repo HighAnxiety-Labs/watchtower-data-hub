@@ -1237,6 +1237,7 @@
           </div>
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span class="meta-chip" id="dbStatusText" style="color:#b9f6ca; border-color:rgba(0,230,118,0.4);">Syncing MASTER_DB...</span>
+            <button type="button" class="meta-chip" onclick="fetchMasterDb(true)" title="Force fresh sync from Google Sheets MASTER_DB" style="cursor:pointer; color:#7df9ff; border-color:rgba(0,229,255,0.5); background:rgba(0,229,255,0.1);">↻ Sync</button>
             <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
             <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Unit Brief</a>
           </div>
@@ -1272,9 +1273,11 @@
 
           <div class="ctrl-group">
             <label class="ctrl-lbl" for="myLevelSelect">Your Unit Level</label>
-            <select id="myLevelSelect" class="wtr-select" onchange="renderRadarGrid()">
+            <select id="myLevelSelect" class="wtr-select" onchange="onMyUnitChanged()">
               <option value="1">Level 1</option>
               <option value="10">Level 10</option>
+              <option value="11">Level 11</option>
+              <option value="15">Level 15</option>
               <option value="20">Level 20</option>
               <option value="30">Level 30</option>
               <option value="31">Level 31</option>
@@ -1289,6 +1292,8 @@
             <select id="oppGridLevelSelect" class="wtr-select" onchange="renderRadarGrid()">
               <option value="1">Level 1</option>
               <option value="10">Level 10</option>
+              <option value="11">Level 11</option>
+              <option value="15">Level 15</option>
               <option value="20">Level 20</option>
               <option value="30">Level 30</option>
               <option value="31">Level 31</option>
@@ -1392,6 +1397,8 @@
             <select id="modalYouLvl" class="wtr-select" style="width:110px; padding:4px 8px; font-size:13px;" aria-label="Your Unit Level in Modal" onchange="recalculateModalMatchup()">
               <option value="1">Lvl 1</option>
               <option value="10">Lvl 10</option>
+              <option value="11">Lvl 11</option>
+              <option value="15">Lvl 15</option>
               <option value="20">Lvl 20</option>
               <option value="30">Lvl 30</option>
               <option value="31">Lvl 31</option>
@@ -1423,6 +1430,8 @@
             <select id="modalOppLvl" class="wtr-select" style="width:110px; padding:4px 8px; font-size:13px;" aria-label="Opponent Level in Modal" onchange="recalculateModalMatchup()">
               <option value="1">Lvl 1</option>
               <option value="10">Lvl 10</option>
+              <option value="11">Lvl 11</option>
+              <option value="15">Lvl 15</option>
               <option value="20">Lvl 20</option>
               <option value="30">Lvl 30</option>
               <option value="31">Lvl 31</option>
@@ -1668,8 +1677,9 @@
   function isPureBuildingRecord(rec) {
     const hasCombat = Boolean(
       rec.STAT_FACTION || rec.STAT_ARMOR_TYPE || rec.STAT_DAMAGE_TYPE ||
-      rec.STAT_DPS_RANGE || rec.STAT_DPS_RANGE_MAX || rec.STAT_DPS_RANGE_40 || rec.STAT_DPS_RANGE_31 || rec.STAT_DPS_RANGE_30 || rec.STAT_DPS_RANGE_20 ||
-      rec.STAT_HP_RANGE || rec.STAT_HP_RANGE_MAX || rec.STAT_HP_RANGE_40 || rec.STAT_HP_RANGE_31 || rec.STAT_HP_RANGE_30 || rec.STAT_HP_RANGE_20
+      rec.STAT_DPS_RANGE || rec.STAT_DPS_RANGE_1 || rec.STAT_DPS_RANGE_10 || rec.STAT_DPS_RANGE_11 || rec.STAT_DPS_RANGE_15 || rec.STAT_DPS_RANGE_20 || rec.STAT_DPS_RANGE_30 || rec.STAT_DPS_RANGE_31 || rec.STAT_DPS_RANGE_40 || rec.STAT_DPS_RANGE_MAX ||
+      rec.STAT_HP_RANGE || rec.STAT_HP_RANGE_1 || rec.STAT_HP_RANGE_10 || rec.STAT_HP_RANGE_11 || rec.STAT_HP_RANGE_15 || rec.STAT_HP_RANGE_20 || rec.STAT_HP_RANGE_30 || rec.STAT_HP_RANGE_31 || rec.STAT_HP_RANGE_40 || rec.STAT_HP_RANGE_MAX ||
+      rec.STAT_RANGE || rec.STAT_RANGE_1 || rec.STAT_RANGE_MAX
     );
     return !hasCombat;
   }
@@ -1699,12 +1709,13 @@
     return cleanVal(rec.STAT_GENERATION) || 'Legacy';
   }
 
-  /* 3-Stage Bulletproof Google Sheet Reader */
+  /* 3-Stage Bulletproof Google Sheet Reader (Always Cache-Busted) */
   function fetchSheetMatrixUniversal(docId, gid, onSuccess, onError) {
     const cleanId = (docId || '').trim();
     const cleanGid = (gid || '0').trim();
-    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}`;
-    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}`;
+    const bust = Date.now();
+    const exportCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/export?format=csv&gid=${cleanGid}&_=${bust}`;
+    const gvizCsvUrl = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=out:csv&headers=1&gid=${cleanGid}&_=${bust}`;
 
     if (window.Papa) {
       Papa.parse(exportCsvUrl, {
@@ -1722,7 +1733,7 @@
     }
 
     function tryStage2GvizCsv() {
-      fetch(gvizCsvUrl, { method: 'GET', credentials: 'omit' })
+      fetch(gvizCsvUrl, { method: 'GET', credentials: 'omit', cache: 'no-store' })
         .then(r => r.ok ? r.text() : Promise.reject())
         .then(txt => {
           if (txt.trim().startsWith('<')) throw new Error('HTML');
@@ -1776,18 +1787,22 @@
         if (script.parentNode) script.parentNode.removeChild(script);
         onError();
       };
-      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}`;
+      script.src = `https://docs.google.com/spreadsheets/d/${cleanId}/gviz/tq?tqx=responseHandler:${cbName}&headers=1&gid=${cleanGid}&_=${Date.now()}`;
       document.head.appendChild(script);
     }
   }
 
-  function fetchMasterDb() {
+  function fetchMasterDb(isManual) {
+    if (isManual) {
+      const stEl = document.getElementById('dbStatusText');
+      if (stEl) stEl.textContent = '↻ Syncing MASTER_DB...';
+    }
     fetchSheetMatrixUniversal(
       SHEET_CONFIG.docId,
       SHEET_CONFIG.gid,
       function(matrix) {
         if (!matrix || matrix.length <= 1) return;
-        const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
+        const headers = matrix[0].map(h => String(h || '').trim().toUpperCase().replace(/\s+/g, '_'));
         const parsedUnits = [];
         for (let r = 1; r < matrix.length; r++) {
           const rec = {};
@@ -1848,15 +1863,6 @@
           if (!parsedUnits.some(u => (u.UNIT_NAME || '').trim().toUpperCase() === 'BROADSIDE')) {
             parsedUnits.push(stagedBroadside);
           }
-          parsedUnits.forEach(u => {
-            if ((u.UNIT_NAME || '').trim().toUpperCase() === 'BROADSIDE' && (u.WORKSHOP_2_TITLE || '').trim().toUpperCase() === 'OVERLAPPED PLATES') {
-              for (let i = 1; i <= 6; i++) {
-                u[`WORKSHOP_${i}_TITLE`] = stagedBroadside[`WORKSHOP_${i}_TITLE`];
-                u[`WORKSHOP_${i}_TAG`] = stagedBroadside[`WORKSHOP_${i}_TAG`];
-                u[`WORKSHOP_${i}_DESC`] = stagedBroadside[`WORKSHOP_${i}_DESC`];
-              }
-            }
-          });
           allCombatUnits = parsedUnits;
           document.getElementById('dbStatusText').textContent = `✅ MASTER_DB Live (${parsedUnits.length} Units)`;
           document.getElementById('topSyncBadge').textContent = `${parsedUnits.length} UNITS`;
@@ -1935,7 +1941,9 @@
     const uType = cleanVal(me.STAT_TYPE) || getDivisionBucket(me);
     const armor = cleanVal(me.STAT_ARMOR_TYPE) || 'Standard';
     const dmg = cleanVal(me.STAT_DAMAGE_TYPE) || 'Standard';
-    const rng = cleanVal(me.STAT_RANGE) || '—';
+    const myTierNow = document.getElementById('myLevelSelect')?.value || 'MAX';
+    const rngVal = parseTierRangeForUnit(me, myTierNow);
+    const rng = rngVal ? String(rngVal) : (cleanVal(me.STAT_RANGE_MAX) || cleanVal(me.STAT_RANGE) || '—');
     const myDmgInfo = normalizeDamage(me.STAT_DAMAGE_TYPE);
 
     document.getElementById('myHeroMetaChips').innerHTML = `
@@ -2004,6 +2012,34 @@
   }
 
   const TALENT_TIERS = [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40];
+
+  function parseTierRangeForUnit(rec, tier = 'MAX', fallback = 350) {
+    if (!rec) return fallback;
+    const readR = t => {
+      const raw = cleanVal(rec[`STAT_RANGE_${t}`]);
+      return raw ? parseNumeric(raw) : 0;
+    };
+    const rangeLvls = [1, 5, 10, 11, 15, 20, 21, 25, 30, 31, 35, 40];
+    const anchors = [];
+    rangeLvls.forEach(lvl => {
+      const v = readR(String(lvl));
+      if (v > 0) anchors.push({ lvl, val: v });
+    });
+    const maxDirect = readR('MAX');
+    const legacyVal = cleanVal(rec.STAT_RANGE) ? parseTierScaledStat(rec.STAT_RANGE, tier, 0) : 0;
+    if (tier === 'MAX') {
+      const topAnchor = anchors.reduce((m, a) => Math.max(m, a.val), 0);
+      return Math.max(maxDirect, topAnchor, legacyVal) || fallback;
+    }
+    const exact = readR(String(tier));
+    if (exact > 0) return exact;
+    const targetLvl = parseInt(tier, 10) || 1;
+    let best = 0;
+    anchors.forEach(a => { if (a.lvl <= targetLvl) best = a.val; });
+    if (best > 0) return best;
+    if (anchors.length) return anchors[0].val;
+    return legacyVal || maxDirect || fallback;
+  }
 
   function parseRangeStatForTier(rec, baseKey, tier) {
     const shortKey = baseKey.replace('_RANGE', '');
@@ -2517,7 +2553,7 @@
 
     const baseHp = parseRangeStatForTier(unit, 'STAT_HP_RANGE', tier) || 50000;
     const baseDps = parseRangeStatForTier(unit, 'STAT_DPS_RANGE', tier) || 3500;
-    const baseRange = parseTierScaledStat(unit.STAT_RANGE, tier, 350);
+    const baseRange = parseTierRangeForUnit(unit, tier, 350);
     const baseSpeed = parseTierScaledStat(unit.STAT_SPEED, tier, 30);
     const splash = parseNumeric(unit.STAT_SPLASH) || 0;
 
