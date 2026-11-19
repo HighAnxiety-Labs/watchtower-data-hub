@@ -1297,10 +1297,10 @@
         <div class="carousel-viewport">
           <div class="timers-track" id="timersTrack">
             <div class="timer-card breach card-inherited" id="carouselCardBreach" style="display: flex; --dir-target-key: var(--dir-btn4); order: 0; opacity: 1;">
-              <button type="button" class="timer-art-square" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Sector Breach Brief" style="--glow-color: var(--c-breach);">
-                <img src="./assets/images/wtr-logo.png" alt="Sector Breach" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+              <button type="button" class="timer-art-square" id="clockBtnBreach" data-url="./2026-nov-sector-breach-brief.html" data-clock-title="Sector Breach" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Sector Breach Brief" style="background: radial-gradient(circle at 50% 42%, #291605 0%, #070504 100%); --glow-color: var(--c-breach);">
+                <img src="./assets/images/clock-sector-breach-nov-2026.jpg" alt="Sector Breach" class="fit-contain" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
                 <span class="timer-art-corner-cue">↗</span>
-                <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
+                <span class="timer-art-hover-pill">OPEN BREACH BRIEF ↗</span>
               </button>
               <div class="timer-card-right">
                 <div class="timer-card-header"><span class="timer-card-title" id="clockTitleBreach" style="color: #ff9800;">Sector Breach</span><span class="timer-status-badge" id="badge-breach">Upcoming</span></div>
@@ -1309,7 +1309,7 @@
                   <div class="timer-subtext" id="sub-breach">Launches Nov 20, 10:00 AM PT</div>
                 </div>
                 <div class="timer-actions-row">
-                  <button type="button" class="timer-calc-btn is-faded" id="clockCalcBtnBreach" data-calc-mode="breach" data-calc-label="Sector Breach" data-has-prizes="false" onclick="handleClockCalcClick(this, event)" title="No prize list available yet for Sector Breach — unlocks when active brief publishes"><span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span></button>
+                  <button type="button" class="timer-calc-btn" id="clockCalcBtnBreach" data-calc-mode="breach" data-calc-label="Sector Breach" data-has-prizes="true" onclick="handleClockCalcClick(this, event)" title="Quick Access: Sector Breach XP Calculator"><span class="timer-calc-ico">🧮</span><span>XP CALCULATOR</span></button>
                 </div>
               </div>
             </div>
@@ -1870,7 +1870,7 @@
   });
 
   const eventSchedules = {
-    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-sector-breach-nov-2026.jpg", "hasPrizeList": true },
     "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "", "artUrl": "./assets/images/clock-shadow-ops-drifting-dragon.jpg", "hasPrizeList": true },
     "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "", "artUrl": "", "hasPrizeList": false },
     "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
@@ -8176,9 +8176,21 @@
         .then(html => {
           if (!html || !eventSchedules[k]) return;
           const isPreRel = html.includes("WATCHTOWER PRE-RELEASE HOLDING BRIEF") || html.includes("is-prerelease-locked");
-          const hasCatalog = !isPreRel && (html.includes('"storeCatalog"') || html.includes("storeCatalog:"));
+          const hasCatalog = !isPreRel && (
+            html.includes('"storeCatalog"') ||
+            html.includes("storeCatalog:") ||
+            html.includes("STORE_ITEMS") ||
+            html.includes("data-xp-cost") ||
+            html.includes("breachStoreTable") ||
+            html.includes("store-table")
+          );
           if (hasCatalog && !eventSchedules[k].hasPrizeList) {
             eventSchedules[k].hasPrizeList = true;
+            const briefBtn = document.getElementById(spec.briefBtnId);
+            const hoverPill = briefBtn ? briefBtn.querySelector(".timer-art-hover-pill") : null;
+            if (hoverPill && /PRE-RELEASE/i.test(hoverPill.textContent || "")) {
+              hoverPill.textContent = `OPEN ${spec.label} BRIEF ↗`;
+            }
             const cfgIds = { breach: 1, skirmish: 4, holdout: 5, nightmare: 6 };
             const cfgPrizeEl = document.getElementById(`cfgClock${cfgIds[k]}HasPrizes`);
             if (cfgPrizeEl) cfgPrizeEl.checked = true;
@@ -10415,7 +10427,7 @@
       if (typeof workspaceCardsState === "object" && workspaceCardsState && Array.isArray(MENU_SECTION_KEYS)) {
         const keywordExtras = {
           "event-calculator.html": "xp grind store tokens calculator holdout skirmish breach operations cart",
-          "unit-briefs.html": "units heroes warlords soldiers stats levels talents dossier compare",
+          "unit-briefs.html": "units heroes warlords soldiers stats levels talents brief report compare",
           "unit-matchup.html": "matchup counter radar threat simulator head to head",
           "building-briefs.html": "buildings facilities turret academy hangar tech center thorium",
           "cc22-upgrade-path.html": "cc22 command center 22 upgrade priority roadmap order",
@@ -10460,7 +10472,7 @@
         const k = "UNIT::" + clean.toUpperCase();
         if (seenKeys.has(k)) return;
         seenKeys.add(k);
-        const subText = subLbl ? `Unit Brief • ${subLbl}` : "Unit Briefs | 40-Lvl Dossier";
+        const subText = subLbl ? `Unit Brief • ${subLbl}` : "Unit Briefs | 40-Lvl Report";
         items.push({
           tag: "UNIT",
           tagCls: "tag-unit",

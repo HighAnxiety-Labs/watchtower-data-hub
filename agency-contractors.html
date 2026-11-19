@@ -16,7 +16,7 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="[-WTR-] Data Hub — Agency Contractors & Base Loadout Planner">
-  <meta property="og:description" content="Browse all War Commander Agency Contractors by Faction with AI Tactical Rankings, Hover Overlays, Full Dossier Popouts, 2-per-Faction Base Planning Worksheet, and 1-Click A-Size Screen Capture.">
+  <meta property="og:description" content="Browse all War Commander Agency Contractors by Faction with AI Tactical Rankings, Hover Overlays, Full Report Popouts, 2-per-Faction Base Planning Worksheet, and 1-Click A-Size Screen Capture.">
   <meta property="og:image" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
@@ -1703,7 +1703,7 @@
             WAR COMMANDER — AGENCY CONTRACTORS
             <span class="sub-badge">2 PER FACTION • A-SIZE WORKSHEET</span>
           </h1>
-          <p>Hover any Contractor thumbnail for instant buff &amp; AI ranking intel, click for full Agency Dossier, and check up to <strong>2 Contractors per Faction</strong> to build your single-page Base Loadout Worksheet below.</p>
+          <p>Hover any Contractor thumbnail for instant buff &amp; AI ranking intel, click for full Agency Report, and check up to <strong>2 Contractors per Faction</strong> to build your single-page Base Loadout Worksheet below.</p>
         </div>
       </div>
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
@@ -2537,7 +2537,7 @@
                     <div class="tile-hover-overlay">
                       <div class="ov-role">★ AI ${c.ai.tier}-TIER (${c.ai.score}/100) • ${escapeHtml(c.ai.subTag)}</div>
                       <div class="ov-talent">${escapeHtml(c.talentText)}</div>
-                      <div class="ov-cta">🖱️ Click for Full Dossier • ☑ Check for Sheet</div>
+                      <div class="ov-cta">🖱️ Click for Full Report • ☑ Check for Sheet</div>
                     </div>
                   </div>
                   <div class="tile-nameplate">
@@ -2648,7 +2648,7 @@
       <div class="fhc-talent">${escapeHtml(c.talentText)}</div>
       <div class="fhc-sec-lbl">🧠 [-WTR-] AI Tactical Read</div>
       <div class="fhc-ai-note">${escapeHtml(c.ai.bestFor)}</div>
-      <div class="fhc-hint">☑ Check box for Worksheet • 🖱️ Click for Full Dossier</div>
+      <div class="fhc-hint">☑ Check box for Worksheet • 🖱️ Click for Full Report</div>
     `;
     card.style.display = 'block';
     moveFloatingHover(ev);
@@ -2711,7 +2711,7 @@
 
     document.getElementById('dossierModalContent').innerHTML = `
       <div class="dm-hdr">
-        <span class="dm-hdr-tag">AGENCY PERSONNEL DOSSIER // ${escapeHtml(c.factionKey)} DIVISION</span>
+        <span class="dm-hdr-tag">AGENCY PERSONNEL REPORT // ${escapeHtml(c.factionKey)} DIVISION</span>
         <button type="button" class="dm-close" onclick="closeDossierModal()">✕ ESC</button>
       </div>
       <div class="dm-body">

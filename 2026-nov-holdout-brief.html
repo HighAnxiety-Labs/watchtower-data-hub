@@ -71,6 +71,7 @@
   <meta name="twitter:image" id="metaTwitterImage" content="https://lh3.googleusercontent.com/d/1x_GwFy81wVDJVHB_1sHS2S5LW8jnM1IM">
   <script src="./directory-manifest.js"></script>
   <script src="./wtr-view-mode.js?v=2.4"></script>
+  <script src="./wtr-social-share.js?v=1.0"></script>
   <style>
   :root {
     --primary-color: #00bf63;
@@ -2066,8 +2067,8 @@
           </button>
         </div>
         <div style="display:flex; align-items:center; gap:6px;">
-          <button type="button" class="file-tab-btn" id="btnCopyHoldoutDiscord" onclick="copyEventDiscordBrief(this)" title="1-Click Copy Formatted Event Brief &amp; Store Deadline for Alliance Discord" style="border-top-color: #818cf8; color: #c7d2fe; background: rgba(79, 70, 229, 0.22);">
-            <span>💬 DISCORD BRIEF</span>
+          <button type="button" class="file-tab-btn" id="btnCopyHoldoutDiscord" onclick="copyEventDiscordBrief(this)" title="Share Event Brief (Discord, Facebook &amp; Steam)" style="border-top-color: #818cf8; color: #c7d2fe; background: rgba(79, 70, 229, 0.22);">
+            <span>💬 SHARE BRIEF</span>
           </button>
           <button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
             <span>↕ FULL PAGE</span>
@@ -2601,7 +2602,7 @@
         <span class="clock-lbl" id="bottomClockLabel">T-MINUS:</span>
         <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
       </span>
-      <span class="bar-solid-label" id="displayBottomBarCenter">UNCLASSIFIED // NOVEMBER 2026 HOLDOUT TACTICAL DOSSIER</span>
+      <span class="bar-solid-label" id="displayBottomBarCenter">UNCLASSIFIED // NOVEMBER 2026 HOLDOUT TACTICAL BRIEF</span>
       <span class="corner-block-4 corner-bottom-right" id="bottomStatusRight">
         <span class="live-beacon-dot" id="bottomBeaconDot"></span>
         <span id="bottomStatusText">STATUS: PRE-LAUNCH</span>
@@ -4603,7 +4604,7 @@
     setTxt("displayCornerStampTop", masterState.cornerStamp);
     setTxt("displayClassBarTop", masterState.classBar);
     setTxt("displayHeaderWatermark", /^UNCLASSIFIED/i.test(masterState.classBar || "") ? "UNCLASSIFIED" : "CLASSIFIED");
-    setTxt("displayBottomBarCenter", `${masterState.classBar || "UNCLASSIFIED // HOLDOUT"} // ${masterState.cornerStamp || "NOV 2026"} TACTICAL DOSSIER`);
+    setTxt("displayBottomBarCenter", `${masterState.classBar || "UNCLASSIFIED // HOLDOUT"} // ${masterState.cornerStamp || "NOV 2026"} TACTICAL BRIEF`);
     setTxt("displayMainTitle", masterState.mainTitle);
     setTxt("displayWarningEventName", masterState.mainTitle);
     setTxt("displayHeaderPrefix", masterState.headerPrefix);
@@ -5900,40 +5901,43 @@
     const sStart = (masterState.schedStart || "").trim();
     const sEnd = (masterState.schedEnd || "").trim();
     const sStore = (masterState.schedStore || "").trim();
+    const briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html";
+    const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
 
-    const rawFeatured = Array.isArray(masterState.featuredItems)
-      ? masterState.featuredItems
-      : String(masterState.featuredItems || "").split(/\r?\n/).filter(Boolean);
-    const cleanFeatured = rawFeatured
-      .map(f => String(f || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim())
-      .filter(Boolean)
-      .slice(0, 5);
-
-    const v1Cnt = (document.getElementById("vid1MatchCount")?.textContent || "").trim();
-    const v2Cnt = (document.getElementById("vid2MatchCount")?.textContent || "").trim();
-
-    const chosenStore = [];
-    let goalXp = 0;
-    if (Array.isArray(storeState)) {
-      storeState.forEach(st => {
-        if (st && st.checked && st.qty > 0) {
-          const sub = st.qty * (Number(st.cost) || 0);
-          goalXp += sub;
-          chosenStore.push(`> • **${st.qty}x ${st.name}** (\`${sub.toLocaleString()} XP\`)`);
-        }
-      });
-    }
-
-    const lines = [
+    const discord = [
       `🛡️ **[-WTR-] ${stamp} ${title} — ALLIANCE INTEL BRIEF**`,
       `• **Starts:** ${sStart}  |  **Ends:** ${sEnd}`,
       ...(sStore ? [`• **🚨 Store Use-or-Lose Closes:** **${sStore}**`] : []),
-      ...((v1Cnt || v2Cnt) ? [`• **🎥 Video Recon:** Top Tier Guides \`${v1Cnt || '(0)'}\` • Watch Me Play \`${v2Cnt || '(0)'}\``] : []),
-      ...(cleanFeatured.length ? [`**Featured Store Highlights:**`, ...cleanFeatured.map(x => `> • ${x}`)] : []),
-      ...(chosenStore.length ? [`**My Checked Store Goal (\`${goalXp.toLocaleString()} XP\`):**`, ...chosenStore.slice(0, 8)] : []),
-      `🔗 **Full Brief & Live Calculator:** <https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html>`
-    ];
-    const msg = lines.join("\n");
+      `🔗 **Full Brief & Live Calculator:** ${briefUrl}`
+    ].join("\n");
+
+    const facebook = [
+      `🛡️ [-WTR-] ${stamp} ${title} — ALLIANCE INTEL BRIEF`,
+      `📅 Starts: ${sStart} | Ends: ${sEnd}`,
+      ...(sStore ? [`🚨 Store Use-or-Lose Closes: ${sStore}`] : []),
+      `🔗 Full Brief & Live Calculator: ${briefUrl}`,
+      "#WarCommander #WatchToweR #Holdout"
+    ].join("\n");
+
+    const steam = [
+      `[img]${logoUrl}[/img]`,
+      `[b]🛡️ [-WTR-] ${stamp} ${title} — ALLIANCE INTEL BRIEF[/b]`,
+      "[list]",
+      `  [*] [b]Starts:[/b] ${sStart}  |  [b]Ends:[/b] ${sEnd}`,
+      ...(sStore ? [`  [*] [b]🚨 Store Use-or-Lose Closes:[/b] ${sStore}`] : []),
+      `  [*] 🔗 [url=${briefUrl}]Open Full Brief & Live Calculator[/url]`,
+      "[/list]"
+    ].join("\n");
+
+    if (window.WTRSocialShare && typeof window.WTRSocialShare.open === "function") {
+      window.WTRSocialShare.open({
+        title: `${stamp} ${title} BRIEF`,
+        subtitle: "H1 Header • H2 Schedule • H3 Store Deadline • H7 Brief Link",
+        discord, facebook, steam
+      });
+      return;
+    }
+    const msg = discord;
 
     const finish = () => {
       if (typeof showToast === "function") showToast("💬 Copied Alliance Discord Event Brief!");

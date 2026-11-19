@@ -961,7 +961,7 @@
           <div class="hero-title-block">
             <h1 class="hero-title">WAR COMMANDER — FACTION INTEL BRIEFING</h1>
             <p class="hero-subtitle">
-              Operational dossiers on the four major Rogue Factions contesting the Sector: <strong>Equinox</strong>, <strong>Rangers</strong>, <strong>Corpus</strong>, and <strong>Sentinels</strong>. Click any faction graphic to inspect full-screen artwork or open its Tactical Notepad to log Faction Workshop tech &amp; unit pairings.
+              Operational briefs on the four major Rogue Factions contesting the Sector: <strong>Equinox</strong>, <strong>Rangers</strong>, <strong>Corpus</strong>, and <strong>Sentinels</strong>. Click any faction graphic to inspect full-screen artwork or open its Tactical Notepad to log Faction Workshop tech &amp; unit pairings.
             </p>
           </div>
         </div>
@@ -1056,7 +1056,7 @@
 <div class="lightbox-backdrop" id="artLightbox" onclick="closeArtLightbox(event)">
   <div class="lightbox-card" onclick="event.stopPropagation()">
     <div class="lightbox-top">
-      <span class="lightbox-title" id="lightboxTitle">FACTION DOSSIER ARTWORK</span>
+      <span class="lightbox-title" id="lightboxTitle">FACTION BRIEF ARTWORK</span>
       <button type="button" class="lightbox-close" onclick="closeArtLightbox()">✕ CLOSE [ESC]</button>
     </div>
     <div class="lightbox-body">
@@ -1308,7 +1308,7 @@
               </div>
             </div>
 
-            <div class="faction-graphic" onclick="openArtLightbox('${fac.id}')" title="Click to enlarge ${escapeHtml(fac.name)} dossier artwork">
+            <div class="faction-graphic" onclick="openArtLightbox('${fac.id}')" title="Click to enlarge ${escapeHtml(fac.name)} brief artwork">
               <img src="${fac.localImg}" onerror="if(this.src!=='${fac.remoteImg}')this.src='${fac.remoteImg}';" alt="${escapeHtml(fac.alt)}">
               <span class="zoom-hint-badge">🔍 CLICK TO ENLARGE</span>
             </div>

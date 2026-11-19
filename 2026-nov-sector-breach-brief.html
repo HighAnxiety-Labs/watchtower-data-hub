@@ -21,6 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <script src="./wtr-view-mode.js?v=2.4"></script>
+  <script src="./wtr-social-share.js?v=1.0"></script>
   <style>
     :root {
       --primary-color: #c77700;
@@ -1165,7 +1166,7 @@
           <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">05</span><span class="tab-lbl">STORE &amp; CALC</span></button>
           <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">06</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
         </div>
-        <button type="button" class="discord-rail-btn" onclick="copySectorBreachDiscordBrief()" title="Copy formatted November 2026 Sector Breach brief for Discord">💬 DISCORD BRIEF</button>
+        <button type="button" class="discord-rail-btn" onclick="copySectorBreachDiscordBrief()" title="Share November 2026 Sector Breach brief (Discord, Facebook &amp; Steam)">💬 SHARE BRIEF</button>
       </nav>
     </div>
 
@@ -1438,7 +1439,7 @@
           <div class="unit-ref-left">
             <img class="unit-ref-thumb" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/235d36df-1861-4fa5-9bda-3f4ff5865fd2" alt="ESCORT Unit Brief Reference">
             <div>
-              <div class="unit-ref-kicker">🛡️ LIVE IN WATCHTOWER MASTER_DB // UNIT BRIEF DOSSIER</div>
+              <div class="unit-ref-kicker">🛡️ LIVE IN WATCHTOWER MASTER_DB // FULL UNIT REPORT</div>
               <div class="unit-ref-title">ESCORT — FULL UNIT BRIEF &amp; STAT MATRIX</div>
               <div class="unit-ref-desc">Inspect the complete <strong>ESCORT</strong> record in Unit Briefs (40-Level benchmarks, Talents, Workshop Tech, and Side-by-Side Unit Compare).</div>
             </div>
@@ -1587,30 +1588,45 @@
     };
 
     window.copySectorBreachDiscordBrief = function() {
-      const selected = STORE_ITEMS.filter(it => it.checked);
-      const totalXp = selected.reduce((s, it) => s + it.qty * it.cost, 0);
-      const conqSets = Math.ceil(totalXp / 164000);
-      const lines = [
+      const briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html";
+      const calcUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/event-calculator.html?mode=breach";
+      const escortUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=ESCORT";
+      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
+
+      const discord = [
         "💥 **[-WTR-] NOV 2026 SECTOR BREACH BRIEF**",
         "• **Schedule:** Starts Fri Nov 20 @ 10 AM PST → Ends Tue Nov 24 @ 10 AM PST *(Store Closes Wed Nov 25 @ 10 AM PST)*",
-        "• **New Unit:** **LEGENDARY ESCORT** (Arc 3 Legendary Light Infantry • `320,000 → 360,000 HP` • `20,000 → 37,273 DPS` • `550` Range / `1,000` Lock-On • Enters Bunkers)",
-        "• **3 New Techs (275,000 XP ea):** Dumbfire Rockets (`+25% DPS`, 80 Splash) • Bodyguard Armor (`-30% Infantry DMG`) • Enhanced Jetpack (`+25% Speed`)",
-        "• **Tracks:** General `61,000 XP/Set` | Conqueror `164,000 XP/Set`",
-        ...(totalXp > 0 ? [`• **Selected Store Goal:** \`${totalXp.toLocaleString()} XP\` (~**${conqSets} Conqueror Sets**)`] : []),
-        "🔗 **Full Brief:** <https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html>",
-        "🛡️ **ESCORT Unit Dossier:** <https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=ESCORT>"
-      ];
-      const text = lines.join("\n");
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => showToast("💬 Copied NOV 2026 Sector Breach Brief for Discord!")).catch(() => {});
-      } else {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch (e) {}
-        document.body.removeChild(ta);
-        showToast("💬 Copied NOV 2026 Sector Breach Brief for Discord!");
+        `🔗 **Full Brief:** ${briefUrl}`,
+        `🧮 **Event Calculator:** <${calcUrl}>`,
+        `🛡️ **ESCORT Unit Brief:** <${escortUrl}>`
+      ].join("\n");
+
+      const facebook = [
+        "💥 [-WTR-] NOV 2026 SECTOR BREACH BRIEF",
+        "📅 Schedule: Fri Nov 20 @ 10 AM PST → Tue Nov 24 @ 10 AM PST (Store Closes Wed Nov 25 @ 10 AM PST)",
+        `🔗 Full Brief: ${briefUrl}`,
+        `🧮 Event Calculator: ${calcUrl}`,
+        `🛡️ ESCORT Unit Brief: ${escortUrl}`,
+        "#WarCommander #WatchToweR #SectorBreach"
+      ].join("\n");
+
+      const steam = [
+        `[img]${logoUrl}[/img]`,
+        "[b]💥 [-WTR-] NOV 2026 SECTOR BREACH BRIEF[/b]",
+        "[list]",
+        "  [*] [b]Schedule:[/b] Starts Fri Nov 20 @ 10 AM PST → Ends Tue Nov 24 @ 10 AM PST [i](Store Closes Wed Nov 25 @ 10 AM PST)[/i]",
+        `  [*] 🔗 [url=${briefUrl}]Open Full NOV 2026 Sector Breach Brief[/url]`,
+        `  [*] 🧮 [url=${calcUrl}]Open Sector Breach Event Calculator[/url]`,
+        `  [*] 🛡️ [url=${escortUrl}]Open ESCORT Unit Brief[/url]`,
+        "[/list]"
+      ].join("\n");
+
+      if (window.WTRSocialShare && typeof window.WTRSocialShare.open === "function") {
+        window.WTRSocialShare.open({
+          title: "NOV 2026 SECTOR BREACH BRIEF",
+          subtitle: "S1 Header • S2 Schedule • Brief, Calculator & ESCORT Links",
+          discord, facebook, steam
+        });
       }
     };
 

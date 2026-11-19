@@ -36,6 +36,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <script src="./wtr-view-mode.js?v=2.4"></script>
+  <script src="./wtr-social-share.js?v=1.0"></script>
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: auto; min-height: 100%; background-color: #0b0f0d; }
@@ -918,7 +919,7 @@
 <div class="wtr-frame-shell">
   <header class="class-bar class-bar-top">
     <div class="corner-tab corner-left"><span class="status-dot"></span><span>WATCHTOWER // INTEL</span></div>
-    <div class="class-center">UNCLASSIFIED // UNIT BRIEFS &amp; TACTICAL DOSSIER GALLERY</div>
+    <div class="class-center">UNCLASSIFIED // UNIT BRIEFS &amp; TACTICAL REPORT GALLERY</div>
     <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleGalleryBriefCollapse()">[—] COLLAPSE BRIEF</button></div>
   </header>
   <div class="gallery-hero-banner">
@@ -3826,15 +3827,49 @@
       const shortTalent = t1.length > 220 ? (t1.slice(0, 217) + '...') : t1;
       const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=${encodeURIComponent(uName)}`;
 
-      const lines = [
-        `🛡️ **[-WTR-] UNIT INTEL — ${uName}** *(${[gen, cls, fac].filter(Boolean).join(' • ')})*`,
+      const logoUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png';
+      const metaLine = [gen, cls, fac].filter(Boolean).join(' • ');
+
+      const discord = [
+        `🛡️ **[-WTR-] UNIT INTEL — ${uName}** *(${metaLine})*`,
         `• **Max HP / DPS:** \`${maxHp}\` HP  |  \`${maxDps}\` DPS`,
         `• **Combat Spec:** Range \`${rng}\` • Speed \`${spd}\`${dmg ? ' • ' + dmg : ''}`,
         ...(bld ? [`• **Unlock / Linked:** ${bld}${linked ? '  |  ⇄ Linked: **' + linked + '**' : ''}`] : []),
         ...(shortTalent ? [`> 💡 **Core Talent:** ${shortTalent}`] : []),
-        `🔗 **Full 40-Lvl Dossier:** <${shareUrl}>`
-      ];
-      copyTextToClipboard(lines.join('\n'), `💬 Copied Alliance Discord Brief for ${uName}!`);
+        `🔗 **Full 40-Lvl Report:** ${shareUrl}`
+      ].join('\n');
+
+      const facebook = [
+        `🛡️ [-WTR-] UNIT INTEL — ${uName}${metaLine ? ' (' + metaLine + ')' : ''}`,
+        `❤️ Max HP: ${maxHp}  |  🔥 Max DPS: ${maxDps}`,
+        `🎯 Range: ${rng} | Speed: ${spd}${dmg ? ' | ' + dmg : ''}`,
+        ...(bld ? [`🏗️ Unlock: ${bld}${linked ? ' | Linked: ' + linked : ''}`] : []),
+        ...(shortTalent ? [`💡 Core Talent: ${shortTalent}`] : []),
+        `🔗 Full 40-Lvl Report: ${shareUrl}`,
+        '#WarCommander #WatchToweR'
+      ].join('\n');
+
+      const steam = [
+        `[img]${logoUrl}[/img]`,
+        `[b]🛡️ [-WTR-] UNIT INTEL — ${uName}[/b]${metaLine ? ' [i](' + metaLine + ')[/i]' : ''}`,
+        '[list]',
+        `  [*] [b]Max HP / DPS:[/b] ${maxHp} HP | ${maxDps} DPS`,
+        `  [*] [b]Combat Spec:[/b] Range ${rng} • Speed ${spd}${dmg ? ' • ' + dmg : ''}`,
+        ...(bld ? [`  [*] [b]Unlock / Linked:[/b] ${bld}${linked ? ' | Linked: ' + linked : ''}`] : []),
+        '[/list]',
+        ...(shortTalent ? [`[quote][b]Core Talent:[/b] ${shortTalent}[/quote]`] : []),
+        `🔗 [url=${shareUrl}]Open ${uName} Full 40-Lvl Report[/url]`
+      ].join('\n');
+
+      if (window.WTRSocialShare && typeof window.WTRSocialShare.open === 'function') {
+        window.WTRSocialShare.open({
+          title: `UNIT INTEL — ${uName}`,
+          subtitle: 'Discord Markdown • Facebook Plain Text • Steam BBCode',
+          discord, facebook, steam
+        });
+        return;
+      }
+      copyTextToClipboard(discord, `💬 Copied Alliance Discord Brief for ${uName}!`);
     };
 
     window.copyCompareDiscordCard = function() {
@@ -3843,20 +3878,55 @@
       const recB = findRecByName(pinnedNames[1]) || roster[1];
       if (!recA || !recB) return;
       const lvlLbl = activeCmpLevel === 'ALL' ? 'MAX' : activeCmpLevel;
+      const lvlTxt = lvlLbl === 'MAX' ? 'MAX LVL' : ('LVL ' + lvlLbl);
       const hpA = pickBestStat(recA, `STAT_HP_RANGE_${lvlLbl}`, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']);
       const hpB = pickBestStat(recB, `STAT_HP_RANGE_${lvlLbl}`, ['STAT_HP_RANGE_MAX', 'STAT_HP_RANGE']);
       const dpsA = pickBestStat(recA, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
       const dpsB = pickBestStat(recB, `STAT_DPS_RANGE_${lvlLbl}`, ['STAT_DPS_RANGE_MAX', 'STAT_DPS_RANGE']);
       const rngA = pickBestStat(recA, `STAT_RANGE_${lvlLbl}`, ['STAT_RANGE_MAX', 'STAT_RANGE']);
       const rngB = pickBestStat(recB, `STAT_RANGE_${lvlLbl}`, ['STAT_RANGE_MAX', 'STAT_RANGE']);
-      const lines = [
-        `⚖️ **[-WTR-] UNIT HEAD-TO-HEAD (${lvlLbl === 'MAX' ? 'MAX LVL' : 'LVL ' + lvlLbl}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
+      const spdA = cleanVal(recA.STAT_SPEED) || '—';
+      const spdB = cleanVal(recB.STAT_SPEED) || '—';
+      const hubUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html';
+      const logoUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png';
+
+      const discord = [
+        `⚖️ **[-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
         `• **HP:** ${recA.UNIT_NAME} \`${hpA}\`  vs  ${recB.UNIT_NAME} \`${hpB}\``,
         `• **DPS:** ${recA.UNIT_NAME} \`${dpsA}\`  vs  ${recB.UNIT_NAME} \`${dpsB}\``,
-        `• **Range / Speed:** \`${rngA} / ${cleanVal(recA.STAT_SPEED) || '—'}\`  vs  \`${rngB} / ${cleanVal(recB.STAT_SPEED) || '—'}\``,
-        `🔗 **Compare Live on [-WTR-] Data Hub:** <https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html>`
-      ];
-      copyTextToClipboard(lines.join('\n'), `💬 Copied ${recA.UNIT_NAME} vs ${recB.UNIT_NAME} for Discord!`);
+        `• **Range / Speed:** \`${rngA} / ${spdA}\`  vs  \`${rngB} / ${spdB}\``,
+        `🔗 **Compare Live on [-WTR-] Data Hub:** ${hubUrl}`
+      ].join('\n');
+
+      const facebook = [
+        `⚖️ [-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}`,
+        `❤️ HP: ${recA.UNIT_NAME} ${hpA} vs ${recB.UNIT_NAME} ${hpB}`,
+        `🔥 DPS: ${recA.UNIT_NAME} ${dpsA} vs ${recB.UNIT_NAME} ${dpsB}`,
+        `🎯 Range / Speed: ${rngA} / ${spdA} vs ${rngB} / ${spdB}`,
+        `🔗 Compare Live on [-WTR-] Data Hub: ${hubUrl}`,
+        '#WarCommander #WatchToweR'
+      ].join('\n');
+
+      const steam = [
+        `[img]${logoUrl}[/img]`,
+        `[b]⚖️ [-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}[/b]`,
+        '[list]',
+        `  [*] [b]HP:[/b] ${recA.UNIT_NAME} ${hpA} vs ${recB.UNIT_NAME} ${hpB}`,
+        `  [*] [b]DPS:[/b] ${recA.UNIT_NAME} ${dpsA} vs ${recB.UNIT_NAME} ${dpsB}`,
+        `  [*] [b]Range / Speed:[/b] ${rngA} / ${spdA} vs ${rngB} / ${spdB}`,
+        '[/list]',
+        `🔗 [url=${hubUrl}]Compare Units Live on [-WTR-] Data Hub[/url]`
+      ].join('\n');
+
+      if (window.WTRSocialShare && typeof window.WTRSocialShare.open === 'function') {
+        window.WTRSocialShare.open({
+          title: `${recA.UNIT_NAME} vs ${recB.UNIT_NAME} (${lvlTxt})`,
+          subtitle: 'Discord Markdown • Facebook Plain Text • Steam BBCode',
+          discord, facebook, steam
+        });
+        return;
+      }
+      copyTextToClipboard(discord, `💬 Copied ${recA.UNIT_NAME} vs ${recB.UNIT_NAME} for Discord!`);
     };
 
     document.addEventListener('keydown', function(e) {

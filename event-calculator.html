@@ -16,7 +16,7 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — Multi-Event XP & Store Calculator">
-  <meta property="og:description" content="Unified WatchToweR Event Requisition & Run Calculator for Main Events (Operations), Holdout, Sector Breach, and Skirmish. Auto-pulls live storeCatalog prizes and MASTER_DB unit dossiers.">
+  <meta property="og:description" content="Unified WatchToweR Event Requisition & Run Calculator for Main Events (Operations), Holdout, Sector Breach, and Skirmish. Auto-pulls live storeCatalog prizes and MASTER_DB unit reports.">
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
@@ -25,6 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script src="./wtr-view-mode.js?v=2.4"></script>
+  <script src="./wtr-social-share.js?v=1.0"></script>
   <style>
     :root {
       /* Default Mode: Holdout (WatchToweR Active Green + Tactical Cyan) */
@@ -1383,7 +1384,6 @@
           </h1>
           <div class="header-sub-pills">
             <span class="meta-pill green" id="masterDbStatusPill" onclick="syncMasterDbFromSheet(true)" style="cursor:pointer;" title="Click to Re-Sync Live MASTER_DB Sheet">🗄️ MASTER_DB: Syncing...</span>
-            <span class="meta-pill cyan" id="catalogSyncStatusPill">📡 STORE: Auto-Synced</span>
             <span class="meta-pill gold" id="toastBannerPill" style="display:none;"></span>
           </div>
         </div>
@@ -1600,7 +1600,7 @@
       <img id="hoverPodImg" src="./assets/images/wtr-logo.png" alt="Preview">
     </div>
     <div class="hover-pod-meta" id="hoverPodMeta">MASTER_DB UNIT</div>
-    <div class="hover-pod-hint">CLICK TO OPEN FULL UNIT DOSSIER</div>
+    <div class="hover-pod-hint">CLICK TO OPEN FULL UNIT REPORT</div>
   </div>
 
   <!-- IN-PAGE MASTER_DB UNIT DOSSIER MODAL -->
@@ -1608,7 +1608,7 @@
     <div class="wtr-modal-window">
       <div class="wtr-modal-topbar">
         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-          <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--mode-accent);">🗄️ LIVE MASTER_DB DOSSIER //</span>
+          <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--mode-accent);">🗄️ LIVE MASTER_DB REPORT //</span>
           <strong id="dossierModalTitle" style="font-family:'Arial Black',sans-serif; font-size:18px; color:#fff; text-transform:uppercase;">UNIT NAME</strong>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -3330,6 +3330,20 @@
       const dailyXp = Math.ceil(rem / paceDays).toLocaleString();
       const storeDeadline = p.schedStore && p.schedStore !== "N/A" ? p.schedStore : p.schedEnd;
       const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/event-calculator.html?mode=${encodeURIComponent(currentMode)}`;
+      const briefFile = String(p.briefUrl || "").replace(/^\.\//, "");
+      const briefUrlFull = briefFile ? `https://highanxiety-labs.github.io/watchtower-data-hub/${briefFile}` : "";
+      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
+
+      const chosenFb = [];
+      const chosenSteam = [];
+      (p.storeCatalog || []).forEach((c, i) => {
+        const u = st.items[i];
+        if (u && u.checked && u.qty > 0) {
+          const sub = u.qty * c.cost;
+          chosenFb.push(`- ${u.qty}x ${c.name} (${sub.toLocaleString()} XP)`);
+          chosenSteam.push(`  [*] [b]${u.qty}x ${c.name}[/b] — ${sub.toLocaleString()} XP`);
+        }
+      });
 
       const discordMsg = [
         `🧮 **[-WTR-] ${p.prefix} ${p.eventName} — ALLIANCE STORE PLAN**`,
@@ -3340,8 +3354,50 @@
         `**Selected Store Requisitions (${chosen.length}):**`,
         ...(chosen.length ? chosen.slice(0, 14) : [`> • *No store items checked yet*`]),
         ...(chosen.length > 14 ? [`> • *...and ${chosen.length - 14} more items*`] : []),
-        `🔗 **Build Your Plan:** <${shareUrl}>`
+        `🔗 **Build Your Plan:** ${shareUrl}`,
+        ...(briefUrlFull ? [`📖 **${p.prefix} ${p.eventName} Brief:** <${briefUrlFull}>`] : [])
       ].join("\n");
+
+      const facebookMsg = [
+        `🧮 [-WTR-] ${p.prefix} ${p.eventName} — ALLIANCE STORE PLAN`,
+        `🎯 Active Track: ${m.trackName} (${m.activeYield.toLocaleString()} XP/run • ${m.subDesc})`,
+        `📊 Target Cart: ${goalXp.toLocaleString()} XP | Banked: ${credited.toLocaleString()} XP | Remaining: ${rem.toLocaleString()} XP`,
+        `⏱️ Grind Pace (${paceDays}d): ${runs} runs left (${dailyRuns}/day • ${dailyXp} XP/day)`,
+        ...(storeDeadline ? [`🛒 Store Deadline: ${storeDeadline}`] : []),
+        `Selected Store Requisitions (${chosenFb.length}):`,
+        ...(chosenFb.length ? chosenFb.slice(0, 14) : [`- No store items checked yet`]),
+        ...(chosenFb.length > 14 ? [`- ...and ${chosenFb.length - 14} more items`] : []),
+        `🔗 Build Your Plan: ${shareUrl}`,
+        ...(briefUrlFull ? [`📖 ${p.prefix} ${p.eventName} Brief: ${briefUrlFull}`] : []),
+        "#WarCommander #WatchToweR"
+      ].join("\n");
+
+      const steamMsg = [
+        `[img]${logoUrl}[/img]`,
+        `[b]🧮 [-WTR-] ${p.prefix} ${p.eventName} — ALLIANCE STORE PLAN[/b]`,
+        "[list]",
+        `  [*] [b]Active Track:[/b] ${m.trackName} (${m.activeYield.toLocaleString()} XP/run • ${m.subDesc})`,
+        `  [*] [b]Target Cart:[/b] ${goalXp.toLocaleString()} XP | [b]Banked:[/b] ${credited.toLocaleString()} XP | [b]Remaining:[/b] ${rem.toLocaleString()} XP`,
+        `  [*] [b]Grind Pace (${paceDays}d):[/b] ${runs} runs left (${dailyRuns}/day • ${dailyXp} XP/day)`,
+        ...(storeDeadline ? [`  [*] [b]🛒 Store Deadline:[/b] ${storeDeadline}`] : []),
+        "[/list]",
+        `[b]Selected Store Requisitions (${chosenSteam.length}):[/b]`,
+        "[list]",
+        ...(chosenSteam.length ? chosenSteam.slice(0, 14) : [`  [*] [i]No store items checked yet[/i]`]),
+        ...(chosenSteam.length > 14 ? [`  [*] [i]...and ${chosenSteam.length - 14} more items[/i]`] : []),
+        "[/list]",
+        `🔗 [url=${shareUrl}]Open ${p.eventName} Event Calculator[/url]`,
+        ...(briefUrlFull ? [`📖 [url=${briefUrlFull}]Open ${p.prefix} ${p.eventName} Brief[/url]`] : [])
+      ].join("\n");
+
+      if (window.WTRSocialShare && typeof window.WTRSocialShare.open === "function") {
+        window.WTRSocialShare.open({
+          title: `${p.prefix} ${p.eventName} STORE PLAN`,
+          subtitle: "C1–C7 Full Calculator Plan + Matching Event Brief Link",
+          discord: discordMsg, facebook: facebookMsg, steam: steamMsg
+        });
+        return;
+      }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(discordMsg).then(() => showToast("💬 Copied Formatted Alliance Discord Build!"));
@@ -3396,7 +3452,7 @@
       if (!modal || !body) return;
 
       const uName = (rec && rec.UNIT_NAME) ? rec.UNIT_NAME : unitKey;
-      titleEl.textContent = rec ? `${uName} — ${rec.CLASSIFICATION || "TACTICAL DOSSIER"}` : `${uName} — EVENT STORE INTEL`;
+      titleEl.textContent = rec ? `${uName} — ${rec.CLASSIFICATION || "TACTICAL BRIEF"}` : `${uName} — EVENT STORE INTEL`;
       fullBtn.href = `${UNIT_BRIEFS_PAGE}?unit=${encodeURIComponent(uName)}`;
 
       const relatedStore = (EVENT_PROFILES[currentMode].storeCatalog || []).filter(it => resolveStoreItemVisual(it).unitKey === resolveUnitAlias(uName));
