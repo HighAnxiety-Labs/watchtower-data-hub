@@ -1901,7 +1901,7 @@
     const list = allCombatUnits.filter(u =>
       (divVal === 'ALL' || getDivisionBucket(u) === divVal) &&
       (genVal === 'ALL' || getGenerationBucket(u) === genVal)
-    );
+    ).sort((a, b) => String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' }));
     if (list.length === 0) {
       sel.innerHTML = `<option value="">No units in selected Division + Generation</option>`;
       onMyUnitChanged();

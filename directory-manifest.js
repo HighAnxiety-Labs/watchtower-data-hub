@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T00:01:08-08:00",
-    "generatedMs":  1795075263062,
+    "generatedAt":  "2026-11-19T06:56:34-08:00",
+    "generatedMs":  1795100189177,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -213,8 +213,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-18T20:28:39Z",
-                              "modifiedMs":  1795033719447
+                              "modifiedAt":  "2026-11-19T14:56:20Z",
+                              "modifiedMs":  1795100180690
                           },
                           {
                               "file":  "vault-event-history.html",
@@ -791,8 +791,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
                               "title":  "GTA 6 IS FINALLY HERE! 🔥 FIRST DAY GAMEPLAY LIVE! 🚗",
                               "descSnippet":  "🔥 GTA 6 LAUNCH DAY LIVE — THE WAIT IS FINALLY OVER! 🔥\n\nGet ready for GTA 6 LIVE GAMEPLAY on the very first day of release! 🎮 Join STORMY GAMING YT as we dive into the world of Grand Theft Auto VI and experience the excitement together!\n\n",
-                              "publishedAt":  "2026-10-28T22:07:05Z",
-                              "publishedMs":  1793225225000
+                              "publishedAt":  "2026-11-19T10:26:56Z",
+                              "publishedMs":  1795084016000
                           },
                           {
                               "id":  "f2Ye3ziUKFo",
