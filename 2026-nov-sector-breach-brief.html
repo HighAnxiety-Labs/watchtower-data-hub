@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER PRE-RELEASE HOLDING BRIEF // NOV 2026 SECTOR BREACH -->
+<!-- WATCHTOWER TACTICAL EVENT BRIEF // NOV 2026 SECTOR BREACH (OFFICIAL RELEASE NOTES - KIXEYE FAQ #1070) -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -12,11 +12,11 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>[-WTR-] Data Hub — NOV 2026 SECTOR BREACH (Pre-Release Brief)</title>
+  <title>[-WTR-] Data Hub — NOV 2026 SECTOR BREACH Tactical Brief</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — NOV 2026 SECTOR BREACH Brief">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Event Brief — November 2026 Sector Breach Schedule, Targets &amp; Store Requisition Intelligence.">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — NOV 2026 SECTOR BREACH Tactical Brief">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Official Brief — November 2026 Sector Breach (Nov 20–24): New Legendary Escort Infantry, 3 Techs, General/Conqueror Tracks &amp; 6-Item Store Calculator.">
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
@@ -33,15 +33,19 @@
       --bg-dark: #070a0e;
       --bg-panel: #10151c;
       --bg-header: #0c1117;
+      --bg-inner: #0b1016;
       --text-main: #dbe2ea;
       --text-muted: #8b9bb0;
       --text-gold: #d4af37;
+      --text-bright-gold: #ffd700;
       --text-cyan: #2ea3d6;
       --text-orange: #d96b16;
       --text-red: #d9534f;
+      --wtr-green: #00e676;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg-dark);
@@ -72,7 +76,9 @@
       flex-shrink: 0;
       width: 100%;
       background: #080c0a;
-      z-index: 10;
+      z-index: 20;
+      position: sticky;
+      top: 0;
     }
 
     .bar-solid-label {
@@ -149,11 +155,12 @@
       color: var(--accent-green);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%);
       box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
+      transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .corner-top-right.is-prerelease-locked {
-      color: var(--text-gold);
-      cursor: not-allowed;
+    .corner-top-right:hover {
+      background: #141c18;
+      color: var(--text-bright-gold);
     }
 
     .corner-bottom-left {
@@ -211,7 +218,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 4px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -227,7 +234,7 @@
       background: linear-gradient(180deg, #151e26 0%, #0b1015 100%);
       color: var(--text-muted);
       border: none;
-      padding: 6px 10px 5px 10px;
+      padding: 6px 11px 5px 11px;
       font-family: monospace;
       font-size: 10.5px;
       font-weight: 900;
@@ -239,9 +246,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      min-width: 38px;
+      gap: 5px;
       white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .file-tab-btn:hover {
+      background: linear-gradient(180deg, #22303c 0%, #101820 100%);
+      color: #ffffff;
     }
 
     .file-tab-btn .tab-idx {
@@ -254,14 +266,10 @@
       color: #cbd5e1;
     }
 
-    .file-tab-btn .tab-lbl:empty {
-      display: none;
-    }
-
     .file-tab-btn.active-file-tab {
       background: var(--primary-color);
       color: #ffffff;
-      border-top-color: #cbd5e1;
+      border-top-color: #fde68a;
     }
 
     .file-tab-btn.active-file-tab .tab-idx,
@@ -270,11 +278,33 @@
       text-shadow: 0 1px 2px #000;
     }
 
-    .file-tab-btn.calc-tab { border-top-color: var(--text-gold); }
-    .file-tab-btn.calc-tab .tab-lbl { color: var(--text-gold); }
-    .file-tab-btn.enemy-tab { border-top-color: var(--text-red); }
-    .file-tab-btn.enemy-tab .tab-lbl { color: #fca5a5; }
-    .file-tab-btn.tabs-locked { opacity: 0.55; cursor: not-allowed; }
+    .file-tab-btn.calc-tab { border-top-color: var(--text-bright-gold); }
+    .file-tab-btn.calc-tab .tab-lbl { color: var(--text-bright-gold); }
+    .file-tab-btn.unit-tab { border-top-color: var(--wtr-green); }
+    .file-tab-btn.unit-tab .tab-lbl { color: #69f0ae; }
+
+    .discord-rail-btn {
+      margin-bottom: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #6366f1;
+      background: rgba(88, 101, 242, 0.18);
+      color: #c7d2fe;
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .discord-rail-btn:hover {
+      background: #5865f2;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(88, 101, 242, 0.45);
+    }
 
     .event-header {
       padding: 18px 24px;
@@ -285,6 +315,7 @@
       gap: 20px;
       flex-wrap: wrap;
       position: relative;
+      border-bottom: 1px solid var(--border-dark);
     }
 
     .header-left-wrap {
@@ -343,6 +374,8 @@
       font-weight: 900;
     }
 
+    .data-source-link:hover { color: #7dd3fc; }
+
     .event-main-title {
       font-family: "Arial Black", sans-serif;
       font-size: clamp(24px, 3.8vw, 35px);
@@ -351,6 +384,12 @@
       text-transform: uppercase;
       line-height: 1.1;
       margin: 0;
+    }
+
+    .event-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 5px;
     }
 
     .event-meta-box {
@@ -382,6 +421,600 @@
       white-space: nowrap;
     }
 
+    /* ==================== COLLAPSIBLE BRIEF BODY ==================== */
+    .brief-body {
+      padding: 20px 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: linear-gradient(180deg, #0e131a 0%, #0a0f15 100%);
+    }
+
+    .brief-card.is-collapsed .brief-body {
+      display: none;
+    }
+
+    .brief-section {
+      background: var(--bg-inner);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      overflow: hidden;
+      scroll-margin-top: 90px;
+    }
+
+    .sec-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, rgba(199, 119, 0, 0.22) 0%, rgba(16, 21, 28, 0.96) 72%);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .sec-hdr-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: 14px;
+      letter-spacing: 1.2px;
+      color: var(--text-bright-gold);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-hdr-badge {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: rgba(224, 142, 27, 0.16);
+      border: 1px solid rgba(224, 142, 27, 0.48);
+      color: #fde68a;
+      text-transform: uppercase;
+    }
+
+    .sec-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* OVERVIEW BANNER + HIGHLIGHTS */
+    .official-banner-wrap {
+      width: 100%;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid var(--border-dark);
+      background: #05080c;
+    }
+
+    .official-banner-wrap img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 14px;
+    }
+
+    .intel-box {
+      background: #0d141d;
+      border: 1px solid #243242;
+      border-left: 3px solid var(--primary-color);
+      border-radius: 4px;
+      padding: 13px 15px;
+    }
+
+    .intel-box h3 {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .intel-box p {
+      color: var(--text-main);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .intel-box p:last-child { margin-bottom: 0; }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feature-list li {
+      padding: 5px 9px;
+      background: rgba(199, 119, 0, 0.08);
+      border: 1px solid rgba(199, 119, 0, 0.28);
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-list li::before {
+      content: "▸";
+      color: var(--text-bright-gold);
+      font-weight: 900;
+    }
+
+    /* NEW UNIT: LEGENDARY ESCORT */
+    .unit-showcase-grid {
+      display: grid;
+      grid-template-columns: 230px 1fr 1.25fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .unit-portrait-card {
+      background: #060a0f;
+      border: 1px solid rgba(224, 142, 27, 0.5);
+      border-radius: 5px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .unit-portrait-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .unit-portrait-cap {
+      padding: 8px 10px;
+      background: #171006;
+      border-top: 1px solid var(--border-dark);
+      font-family: "Arial Black", sans-serif;
+      font-size: 12px;
+      color: var(--text-bright-gold);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .unit-flavor {
+      font-style: italic;
+      color: #cbd5e1;
+      font-size: 13.5px;
+      border-left: 3px solid var(--primary-color);
+      padding: 8px 12px;
+      background: rgba(199, 119, 0, 0.08);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      background: #0a1017;
+      border: 1px solid #24303e;
+    }
+
+    .stats-table tr { border-bottom: 1px solid #182330; }
+    .stats-table td { padding: 6px 10px; }
+    .stats-table td.k {
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      font-family: monospace;
+      width: 48%;
+    }
+    .stats-table td.v {
+      color: #ffffff;
+      font-family: monospace;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .talents-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .talent-card {
+      background: #0d141d;
+      border: 1px solid #243242;
+      border-left: 3px solid var(--accent-green);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+
+    .talent-lvl {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text-bright-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 5px;
+    }
+
+    .talent-card ul {
+      margin-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13.5px;
+      color: #dbe2ea;
+    }
+
+    /* 3 TECH CARDS (Slot/Tag above Gold Tech Title) */
+    .tech-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tech-card {
+      background: #0d141d;
+      border: 1px solid var(--border-dark);
+      border-top: 3px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tech-slot-tag {
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: var(--wtr-green);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .tech-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: 15px;
+      color: var(--text-bright-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 2px 0 6px 0;
+    }
+
+    .tech-effect {
+      font-size: 13.5px;
+      color: #dbe2ea;
+      line-height: 1.45;
+    }
+
+    .tech-specs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(224, 142, 27, 0.3);
+      font-family: monospace;
+      font-size: 11px;
+    }
+
+    .tech-spec-pill {
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(46, 163, 214, 0.14);
+      border: 1px solid rgba(46, 163, 214, 0.4);
+      color: #7dd3fc;
+      font-weight: 800;
+    }
+
+    .tech-spec-pill.xp {
+      background: rgba(255, 215, 0, 0.12);
+      border-color: rgba(255, 215, 0, 0.45);
+      color: var(--text-bright-gold);
+    }
+
+    /* TARGET TRACKS */
+    .tracks-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .track-card {
+      background: #0d141d;
+      border: 1px solid #243242;
+      border-top: 3px solid var(--text-cyan);
+      border-radius: 5px;
+      padding: 14px 16px;
+    }
+
+    .track-card.conqueror {
+      border-color: #593512;
+      border-top-color: var(--text-bright-gold);
+      background: linear-gradient(180deg, rgba(199, 119, 0, 0.12) 0%, #0d141d 60%);
+    }
+
+    .track-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .track-name {
+      font-family: "Arial Black", sans-serif;
+      font-size: 15px;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .track-total {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--wtr-green);
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.4);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .track-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .track-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 8px;
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 3px;
+    }
+
+    .track-row.bonus {
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      color: var(--text-bright-gold);
+      font-weight: 900;
+    }
+
+    /* INTERACTIVE STORE & CALCULATOR */
+    .store-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .store-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      background: #0a1017;
+      border: 1px solid var(--border-dark);
+    }
+
+    .store-table th {
+      background: #1c1206;
+      color: var(--text-bright-gold);
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      padding: 9px 10px;
+      text-align: left;
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    .store-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #182330;
+      vertical-align: middle;
+    }
+
+    .store-table td.num {
+      text-align: right;
+      font-family: monospace;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .store-qty-input {
+      width: 62px;
+      background: #05080c;
+      border: 1px solid #593512;
+      color: #ffffff;
+      padding: 4px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .store-chk {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-green);
+      cursor: pointer;
+    }
+
+    .calc-kpi-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .calc-kpi {
+      background: #0d141d;
+      border: 1px solid #243242;
+      border-radius: 5px;
+      padding: 10px 12px;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    .calc-kpi-lbl {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .calc-kpi-val {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--wtr-green);
+      margin-top: 3px;
+    }
+
+    .calc-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .wtr-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .wtr-btn-amber {
+      background: linear-gradient(90deg, #b45309 0%, #d97706 100%);
+      color: #ffffff;
+      border-color: #fde68a;
+    }
+
+    .wtr-btn-amber:hover {
+      background: #f59e0b;
+      color: #05080c;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
+    }
+
+    .wtr-btn-outline {
+      background: #101822;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+
+    .wtr-btn-outline:hover {
+      border-color: var(--accent-green);
+      color: #ffffff;
+    }
+
+    /* BOTTOM UNIT BRIEF REFERENCE CARD (ESCORT IN MASTER_DB) */
+    .unit-ref-banner {
+      background: linear-gradient(135deg, #0b1f15 0%, #0d141d 55%, #1c1206 100%);
+      border: 1.5px solid var(--wtr-green);
+      border-left: 5px solid var(--wtr-green);
+      border-radius: 6px;
+      padding: 16px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0, 230, 118, 0.12);
+    }
+
+    .unit-ref-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1 1 360px;
+      min-width: 240px;
+    }
+
+    .unit-ref-thumb {
+      width: 68px;
+      height: 85px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 1.5px solid var(--wtr-green);
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    .unit-ref-kicker {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--wtr-green);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .unit-ref-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: 18px;
+      color: #ffffff;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .unit-ref-desc {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-top: 3px;
+    }
+
+    .unit-ref-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .wtr-btn-green {
+      background: var(--wtr-green);
+      color: #03140a;
+      border-color: #b9f6ca;
+      box-shadow: 0 0 14px rgba(0, 230, 118, 0.32);
+    }
+
+    .wtr-btn-green:hover {
+      background: #69f0ae;
+      transform: translateY(-1px);
+    }
+
+    /* BOTTOM BAR & ANIMATIONS */
     .bottom-clock-bar-m1 {
       position: relative;
       background: var(--primary-bar-bg);
@@ -429,8 +1062,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--text-gold);
-      box-shadow: 0 0 8px var(--text-gold);
+      background: var(--wtr-green);
+      box-shadow: 0 0 8px var(--wtr-green);
       display: inline-block;
       animation: beaconPulse 1.8s ease-in-out infinite;
     }
@@ -461,10 +1094,30 @@
       padding: 2px 14px;
       border-radius: 4px;
       pointer-events: none;
+      -webkit-user-select: none;
       user-select: none;
       text-transform: uppercase;
       white-space: nowrap;
     }
+
+    .wtr-toast {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 9999;
+      display: none;
+      background: #0b2417;
+      border: 1.5px solid var(--wtr-green);
+      color: #d1fae5;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12.5px;
+      font-weight: 900;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.9);
+    }
+
+    .wtr-toast.show { display: block; }
 
     @media (max-width: 960px) {
       .header-classified-watermark { display: none; }
@@ -480,37 +1133,44 @@
         width: auto;
         padding: 4px 14px;
       }
+      .unit-showcase-grid,
+      .overview-grid,
+      .tech-grid-3,
+      .tracks-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .calc-kpi-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-  <div class="brief-card">
+  <div class="brief-card" id="briefCardRoot">
     <div class="locked-top-hud">
       <div class="classification-bar scanline-shimmer">
         <span class="corner-block-4 corner-top-left">NOV 2026</span>
-        <span class="bar-solid-label">CLASSIFIED // SECTOR BREACH</span>
-        <button type="button" class="corner-block-4 corner-top-right is-prerelease-locked">
-          🔒 COLLAPSE BRIEF (LOCKED)
+        <span class="bar-solid-label">UNCLASSIFIED // SECTOR BREACH</span>
+        <button type="button" class="corner-block-4 corner-top-right" id="btnCollapseBrief" onclick="toggleBriefCollapse()">
+          [—] COLLAPSE BRIEF
         </button>
       </div>
 
-      <nav class="file-tabs-rail">
-          <div class="file-tabs-group">
-            <button type="button" class="file-tab-btn active-file-tab"><span class="tab-idx">01</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">02</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">03</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">04</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">05</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn calc-tab tabs-locked"><span class="tab-idx">06</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">07</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">08</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn enemy-tab tabs-locked"><span class="tab-idx">09</span><span class="tab-lbl"></span></button>
-          </div>
+      <nav class="file-tabs-rail" aria-label="Sector Breach Brief Sections">
+        <div class="file-tabs-group">
+          <button type="button" class="file-tab-btn active-file-tab" onclick="jumpToBriefSection('sec-overview', this)"><span class="tab-idx">01</span><span class="tab-lbl">OVERVIEW</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-unit', this)"><span class="tab-idx">02</span><span class="tab-lbl">ESCORT UNIT</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tech', this)"><span class="tab-idx">03</span><span class="tab-lbl">TECH (3)</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tracks', this)"><span class="tab-idx">04</span><span class="tab-lbl">TRACKS</span></button>
+          <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">05</span><span class="tab-lbl">STORE &amp; CALC</span></button>
+          <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">06</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
+        </div>
+        <button type="button" class="discord-rail-btn" onclick="copySectorBreachDiscordBrief()" title="Copy formatted November 2026 Sector Breach brief for Discord">💬 DISCORD BRIEF</button>
       </nav>
     </div>
 
     <header class="event-header">
-      <div class="header-classified-watermark">CLASSIFIED</div>
+      <div class="header-classified-watermark">SECTOR BREACH</div>
       <div class="header-left-wrap">
         <a class="header-logo-link logo-radar-ring" href="https://highanxiety-labs.github.io/watchtower-data-hub/" target="_top" title="Return to [-WTR-] Command Center">
           <img class="header-logo-img" src="./assets/images/wtr-logo.png" alt="[-WTR-] Emblem">
@@ -519,11 +1179,12 @@
           <div class="event-sub-tag">
             <span>[-WTR-] DATA HUB</span>
             <span style="opacity:0.45;">|</span>
-            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener">Data Source ↗</a>
+            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1070-sector-breach-november-2026/" target="_blank" rel="noopener">Official KIXEYE FAQ #1070 ↗</a>
           </div>
           <div class="event-title-row">
             <h1 class="event-main-title">SECTOR BREACH</h1>
           </div>
+          <div class="event-subtitle">Featuring New Arc 3 Legendary Infantry <strong style="color:#ffd700;">LEGENDARY ESCORT</strong>, 3 Unique Techs &amp; Legendary Juggernaut Elite Upgrade Tokens.</div>
         </div>
       </div>
 
@@ -534,37 +1195,464 @@
       </div>
     </header>
 
+    <main class="brief-body" id="briefBodyMain">
+      <!-- 01: OVERVIEW & MISSION INTEL -->
+      <section class="brief-section" id="sec-overview">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>01 //</span> MISSION BRIEFING &amp; EVENT HIGHLIGHTS</h2>
+          <span class="sec-hdr-badge">4-DAY EVENT • ASSAULT PLATOONS</span>
+        </div>
+        <div class="sec-content">
+          <div class="official-banner-wrap">
+            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9127b9df-0095-4fde-bb3f-8e38e7e559a8" alt="November 2026 Sector Breach Official Banner" onerror="this.parentElement.style.display='none'">
+          </div>
+          <div class="overview-grid">
+            <div class="intel-box">
+              <h3>Rogue Player Bases — Operational Intel</h3>
+              <p>Sarkis Cloning Technology has been used on Player Bases, creating <strong>Rogue Player Bases</strong>, and it is up to Sector Commanders to push them out. Attack PvE copies of player bases using <strong>Assault Platoons</strong> to earn Sector Breach XP for the Sector Breach Store.</p>
+              <p>Play through either the <strong>General Set</strong> or the <strong>Conqueror Set</strong> in any order to earn a bonus XP Cache. Targets can be hit multiple times, and wins count toward future set completions — you are never penalized for repeating a target.</p>
+            </div>
+            <div class="intel-box">
+              <h3>Featuring in November Sector Breach</h3>
+              <ul class="feature-list">
+                <li>New Legendary Unit — Legendary Escort</li>
+                <li>Legendary Escort Upgrade Tokens</li>
+                <li>Legendary Escort Tech — Dumbfire Rockets</li>
+                <li>Legendary Escort Tech — Bodyguard Armor</li>
+                <li>Legendary Escort Tech — Enhanced Jetpack</li>
+                <li>Legendary Juggernaut — Elite Upgrade Tokens</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: NEW UNIT - LEGENDARY ESCORT -->
+      <section class="brief-section" id="sec-unit">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>02 //</span> NEW UNIT — LEGENDARY ESCORT</h2>
+          <span class="sec-hdr-badge">ARC 3 • LEGENDARY • LIGHT INFANTRY</span>
+        </div>
+        <div class="sec-content">
+          <div class="unit-flavor">
+            "Once exclusive to Corpus executives, these elite strike troops have split off into self-governed warbands."
+          </div>
+          <div class="unit-showcase-grid">
+            <div class="unit-portrait-card">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/235d36df-1861-4fa5-9bda-3f4ff5865fd2" alt="Legendary Escort Unit Render">
+              <div class="unit-portrait-cap">LEGENDARY ESCORT</div>
+            </div>
+
+            <table class="stats-table" aria-label="Legendary Escort Combat Stats">
+              <tbody>
+                <tr><td class="k">Generation</td><td class="v">Arc 3</td></tr>
+                <tr><td class="k">Faction</td><td class="v" style="color:#ffd700;">Legendary</td></tr>
+                <tr><td class="k">Armor Type</td><td class="v">Light</td></tr>
+                <tr><td class="k">Type</td><td class="v">Infantry</td></tr>
+                <tr><td class="k">Weapon</td><td class="v">SMG</td></tr>
+                <tr><td class="k">Targets</td><td class="v">Ground / Air</td></tr>
+                <tr><td class="k">Damage Type</td><td class="v">Sustain</td></tr>
+                <tr><td class="k">Size</td><td class="v">200</td></tr>
+                <tr><td class="k">HP (Level 1)</td><td class="v" style="color:#69f0ae;">320,000</td></tr>
+                <tr><td class="k">HP (Max Level)</td><td class="v" style="color:#00e676;">360,000</td></tr>
+                <tr><td class="k">DPS (Level 1)</td><td class="v" style="color:#fca5a5;">20,000</td></tr>
+                <tr><td class="k">DPS (Max Level)</td><td class="v" style="color:#f87171;">37,273</td></tr>
+                <tr><td class="k">Max Speed</td><td class="v">4</td></tr>
+                <tr><td class="k">Max Range</td><td class="v" style="color:#38bdf8;">550 (1,000 Lock-On)</td></tr>
+                <tr><td class="k">Splash</td><td class="v">30</td></tr>
+              </tbody>
+            </table>
+
+            <div class="talents-stack">
+              <div class="talent-card">
+                <div class="talent-lvl">Level 1 Talent</div>
+                <ul>
+                  <li>Low Altitude Unit that <strong>can enter bunkers</strong>.</li>
+                  <li>Has <strong>'Lock-On'</strong>: Once locked onto a target within range (550), it will continue to fire from up to <strong>1,000 range</strong> away.</li>
+                </ul>
+              </div>
+              <div class="talent-card">
+                <div class="talent-lvl">Level 10 Talent</div>
+                <ul>
+                  <li>Gains a <strong>50% chance to dodge</strong> incoming projectiles for 5 seconds after the first time damage is taken.</li>
+                  <li><strong>Defense:</strong> Deal up to <strong>+60% more damage</strong> the closer you are to an enemy (begins at 550 range).</li>
+                  <li><strong>Offense:</strong> Deal up to <strong>+60% more damage</strong> the further you are from an enemy (begins at 550 range).</li>
+                </ul>
+              </div>
+              <div class="talent-card">
+                <div class="talent-lvl">Level 20 Talent</div>
+                <ul>
+                  <li>Gain a <strong>30% chance to dodge</strong> incoming attacks.</li>
+                  <li><strong>Defense:</strong> Deal up to <strong>+100% more damage</strong> the closer you are to an enemy (begins at 550 range).</li>
+                  <li><strong>Offense:</strong> Deal up to <strong>+100% more damage</strong> the further you are from an enemy (begins at 550 range).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03: WORKSHOP TECH (3) -->
+      <section class="brief-section" id="sec-tech">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>03 //</span> LEGENDARY ESCORT — WORKSHOP TECH (3)</h2>
+          <span class="sec-hdr-badge">LEVEL 1 • WEIGHT 500 • 275,000 XP EACH</span>
+        </div>
+        <div class="sec-content">
+          <div class="tech-grid-3">
+            <div class="tech-card">
+              <div>
+                <div class="tech-slot-tag">WEAPON • OFFENSE</div>
+                <div class="tech-title">Dumbfire Rockets</div>
+                <div class="tech-effect">Replace Machine Gun with <strong>Dumbfire AREA Damage Rockets</strong> with <strong>80 splash</strong> and <strong>+25% higher DPS</strong>.</div>
+              </div>
+              <div class="tech-specs-row">
+                <span class="tech-spec-pill">LVL 1</span>
+                <span class="tech-spec-pill">WEIGHT 500</span>
+                <span class="tech-spec-pill xp">275,000 XP</span>
+              </div>
+            </div>
+
+            <div class="tech-card">
+              <div>
+                <div class="tech-slot-tag">ARMOR • DEFENSE</div>
+                <div class="tech-title">Bodyguard Armor</div>
+                <div class="tech-effect"><strong>-30% Damage</strong> taken from Infantry units.</div>
+              </div>
+              <div class="tech-specs-row">
+                <span class="tech-spec-pill">LVL 1</span>
+                <span class="tech-spec-pill">WEIGHT 500</span>
+                <span class="tech-spec-pill xp">275,000 XP</span>
+              </div>
+            </div>
+
+            <div class="tech-card">
+              <div>
+                <div class="tech-slot-tag">PROPULSION • MOBILITY</div>
+                <div class="tech-title">Enhanced Jetpack</div>
+                <div class="tech-effect">Gain <strong>+25% movement speed</strong>.</div>
+              </div>
+              <div class="tech-specs-row">
+                <span class="tech-spec-pill">LVL 1</span>
+                <span class="tech-spec-pill">WEIGHT 500</span>
+                <span class="tech-spec-pill xp">275,000 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04: GENERAL & CONQUEROR TRACKS -->
+      <section class="brief-section" id="sec-tracks">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>04 //</span> TARGET SETS &amp; XP TRACKS</h2>
+          <span class="sec-hdr-badge">GENERAL 61K • CONQUEROR 164K</span>
+        </div>
+        <div class="sec-content">
+          <div class="tracks-grid-2">
+            <div class="track-card">
+              <div class="track-hdr">
+                <span class="track-name">General Track</span>
+                <span class="track-total">61,000 XP / SET</span>
+              </div>
+              <div class="track-rows">
+                <div class="track-row"><span>General Base I</span><strong>5,500 XP</strong></div>
+                <div class="track-row"><span>General Base II</span><strong>5,500 XP</strong></div>
+                <div class="track-row"><span>General Base III</span><strong>10,000 XP</strong></div>
+                <div class="track-row bonus"><span>General Set Completion Bonus</span><strong>40,000 XP</strong></div>
+              </div>
+            </div>
+
+            <div class="track-card conqueror">
+              <div class="track-hdr">
+                <span class="track-name" style="color:#ffd700;">Conqueror Track</span>
+                <span class="track-total">164,000 XP / SET</span>
+              </div>
+              <div class="track-rows">
+                <div class="track-row"><span>Conqueror Base I</span><strong>17,000 XP</strong></div>
+                <div class="track-row"><span>Conqueror Base II</span><strong>17,000 XP</strong></div>
+                <div class="track-row"><span>Conqueror Base III</span><strong>30,000 XP</strong></div>
+                <div class="track-row bonus"><span>Conqueror Set Completion Bonus</span><strong>100,000 XP</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05: SECTOR BREACH STORE & INTERACTIVE XP CALCULATOR -->
+      <section class="brief-section" id="sec-store">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>05 //</span> SECTOR BREACH STORE &amp; XP CALCULATOR</h2>
+          <span class="sec-hdr-badge">6 OFFICIAL ITEMS • STORE CLOSES NOV 25 @ 10 AM PST</span>
+        </div>
+        <div class="sec-content">
+          <div class="store-table-wrap">
+            <table class="store-table" id="breachStoreTable" aria-label="November 2026 Sector Breach Store Prizes">
+              <thead>
+                <tr>
+                  <th style="width:42px; text-align:center;">Pick</th>
+                  <th>Prize Item</th>
+                  <th style="width:92px; text-align:center;">Qty</th>
+                  <th style="width:86px; text-align:right;">Limit</th>
+                  <th style="width:128px; text-align:right;">XP Cost</th>
+                  <th style="width:136px; text-align:right;">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="breachStoreTbody"></tbody>
+            </table>
+          </div>
+
+          <div class="calc-kpi-bar">
+            <div class="calc-kpi">
+              <div class="calc-kpi-lbl">Selected Target XP</div>
+              <div class="calc-kpi-val" id="kpiTotalXp">0 XP</div>
+            </div>
+            <div class="calc-kpi">
+              <div class="calc-kpi-lbl">Conqueror Sets (164K)</div>
+              <div class="calc-kpi-val" style="color:#ffd700;" id="kpiConqSets">0 Sets</div>
+            </div>
+            <div class="calc-kpi">
+              <div class="calc-kpi-lbl">General Sets (61K)</div>
+              <div class="calc-kpi-val" style="color:#38bdf8;" id="kpiGenSets">0 Sets</div>
+            </div>
+            <div class="calc-kpi">
+              <div class="calc-kpi-lbl">4-Day Daily Pace (Conq)</div>
+              <div class="calc-kpi-val" style="color:#fb923c;" id="kpiDailyPace">0 / Day</div>
+            </div>
+          </div>
+
+          <div class="calc-actions-row">
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button type="button" class="wtr-btn wtr-btn-outline" onclick="applyStorePreset('escort')">🎯 Full Escort Kit (3.995M)</button>
+              <button type="button" class="wtr-btn wtr-btn-outline" onclick="applyStorePreset('all')">🔥 Full Store (6.745M)</button>
+              <button type="button" class="wtr-btn wtr-btn-outline" onclick="applyStorePreset('none')">✕ Clear All</button>
+            </div>
+            <a class="wtr-btn wtr-btn-amber" href="./event-calculator.html?mode=breach" onclick="openEventCalcFromBrief(event)">💥 Open Full Event Calculator (Breach Mode) ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06: BOTTOM MASTER_DB UNIT BRIEF REFERENCE (ESCORT) -->
+      <section class="brief-section" id="sec-escort-ref" style="border-color: rgba(0, 230, 118, 0.55);">
+        <div class="unit-ref-banner">
+          <div class="unit-ref-left">
+            <img class="unit-ref-thumb" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/235d36df-1861-4fa5-9bda-3f4ff5865fd2" alt="ESCORT Unit Brief Reference">
+            <div>
+              <div class="unit-ref-kicker">🛡️ LIVE IN WATCHTOWER MASTER_DB // UNIT BRIEF DOSSIER</div>
+              <div class="unit-ref-title">ESCORT — FULL UNIT BRIEF &amp; STAT MATRIX</div>
+              <div class="unit-ref-desc">Inspect the complete <strong>ESCORT</strong> record in Unit Briefs (40-Level benchmarks, Talents, Workshop Tech, and Side-by-Side Unit Compare).</div>
+            </div>
+          </div>
+          <div class="unit-ref-actions">
+            <a class="wtr-btn wtr-btn-green" href="./unit-briefs.html?unit=ESCORT" onclick="openMasterUnitBrief(event, 'ESCORT')">🛡️ Open ESCORT Unit Brief ↗</a>
+            <a class="wtr-btn wtr-btn-outline" href="./unit-briefs.html?unit=JUGGERNAUT" onclick="openMasterUnitBrief(event, 'JUGGERNAUT')">⚙️ JUGGERNAUT Brief ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
     <div class="bottom-clock-bar-m1 scanline-shimmer">
       <span class="corner-block-4 corner-bottom-left">
-        <span class="clock-lbl">T-MINUS:</span>
+        <span class="clock-lbl" id="liveClockLabel">T-MINUS:</span>
         <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
       </span>
-      <span class="bar-solid-label">RELEASE NOTES PENDING // UNLOCKS PRIOR TO LAUNCH</span>
+      <span class="bar-solid-label" id="bottomBarStatusMsg">OFFICIAL RELEASE NOTES ACTIVE // NOV 20–24 • STORE CLOSES NOV 25</span>
       <span class="corner-block-4 corner-bottom-right">
         <span class="live-beacon-dot"></span>
-        <span>STATUS: SEALED</span>
+        <span id="bottomRightBadge">STATUS: LIVE INTEL</span>
       </span>
     </div>
   </div>
 
+  <div id="wtrToast" class="wtr-toast"></div>
+
   <script>
   (function() {
-    var isKnown = true;
-    var startMs = new Date("2026-11-20T10:00:00-08:00").getTime();
-    var clockEl = document.getElementById("liveEventCountdown");
-    function tick() {
-      if (!isKnown || isNaN(startMs)) {
-        clockEl.textContent = "0d 0h 00m 0s";
-        return;
-      }
-      var diff = Math.max(0, startMs - Date.now());
-      var d = Math.floor(diff / 86400000);
-      var h = Math.floor((diff % 86400000) / 3600000);
-      var m = Math.floor((diff % 3600000) / 60000);
-      var s = Math.floor((diff % 60000) / 1000);
-      var mPad = m < 10 ? "0" + m : "" + m;
-      clockEl.textContent = d + "d " + h + "h " + mPad + "m " + s + "s";
+    const STORE_ITEMS = [
+      { name: "Legendary Escort", maxLimit: 28, cost: 77500, costLabel: "77,500 / Each", checked: true, qty: 28 },
+      { name: "Legendary Escort Upgrade Token", maxLimit: 10, cost: 100000, costLabel: "100,000 / Each", checked: true, qty: 10 },
+      { name: "Legendary Escort Tech - Dumbfire Rockets", maxLimit: 1, cost: 275000, costLabel: "275,000", checked: true, qty: 1 },
+      { name: "Legendary Escort Tech - Bodyguard Armor", maxLimit: 1, cost: 275000, costLabel: "275,000", checked: true, qty: 1 },
+      { name: "Legendary Escort Tech - Enhanced Jetpack", maxLimit: 1, cost: 275000, costLabel: "275,000", checked: true, qty: 1 },
+      { name: "Legendary Juggernaut - Elite Upgrade Tokens", maxLimit: 55, cost: 50000, costLabel: "50,000 / Each", checked: false, qty: 55 }
+    ];
+
+    function showToast(msg) {
+      const el = document.getElementById("wtrToast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(window._wtrSbToastTimer);
+      window._wtrSbToastTimer = setTimeout(() => el.classList.remove("show"), 3200);
     }
+
+    function renderStoreTable() {
+      const tbody = document.getElementById("breachStoreTbody");
+      if (!tbody) return;
+      let totalXp = 0;
+
+      tbody.innerHTML = STORE_ITEMS.map((it, idx) => {
+        const sub = it.checked ? (it.qty * it.cost) : 0;
+        totalXp += sub;
+        return `
+          <tr data-item-name="${it.name}" data-max-limit="${it.maxLimit}" data-xp-cost="${it.cost}">
+            <td style="text-align:center;">
+              <input class="store-chk" type="checkbox" aria-label="Select ${it.name}" ${it.checked ? "checked" : ""} onchange="window.wtrSbToggle(${idx}, this.checked)">
+            </td>
+            <td><strong>${it.name}</strong></td>
+            <td style="text-align:center;">
+              <input class="store-qty-input" type="number" aria-label="Quantity for ${it.name}" min="1" max="${it.maxLimit}" value="${it.qty}" onchange="window.wtrSbQty(${idx}, this.value)">
+            </td>
+            <td class="num">${it.maxLimit}</td>
+            <td class="num">${it.costLabel}</td>
+            <td class="num" style="color:${it.checked ? "#00e676" : "#64748b"};">${sub.toLocaleString()} XP</td>
+          </tr>
+        `;
+      }).join("");
+
+      const conqSets = Math.ceil(totalXp / 164000);
+      const genSets = Math.ceil(totalXp / 61000);
+      const dailyConq = (conqSets / 4).toFixed(1).replace(/\.0$/, "");
+
+      document.getElementById("kpiTotalXp").textContent = totalXp.toLocaleString() + " XP";
+      document.getElementById("kpiConqSets").textContent = conqSets.toLocaleString() + (conqSets === 1 ? " Set" : " Sets");
+      document.getElementById("kpiGenSets").textContent = genSets.toLocaleString() + (genSets === 1 ? " Set" : " Sets");
+      document.getElementById("kpiDailyPace").textContent = dailyConq + " / Day";
+    }
+
+    window.wtrSbToggle = function(idx, checked) {
+      if (!STORE_ITEMS[idx]) return;
+      STORE_ITEMS[idx].checked = Boolean(checked);
+      renderStoreTable();
+    };
+
+    window.wtrSbQty = function(idx, val) {
+      if (!STORE_ITEMS[idx]) return;
+      const n = Math.max(1, Math.min(STORE_ITEMS[idx].maxLimit, parseInt(val, 10) || 1));
+      STORE_ITEMS[idx].qty = n;
+      renderStoreTable();
+    };
+
+    window.applyStorePreset = function(preset) {
+      STORE_ITEMS.forEach((it, idx) => {
+        if (preset === "all") { it.checked = true; it.qty = it.maxLimit; }
+        else if (preset === "none") { it.checked = false; }
+        else { it.checked = idx < 5; it.qty = it.maxLimit; }
+      });
+      renderStoreTable();
+    };
+
+    window.toggleBriefCollapse = function() {
+      const root = document.getElementById("briefCardRoot");
+      const btn = document.getElementById("btnCollapseBrief");
+      if (!root || !btn) return;
+      const collapsed = root.classList.toggle("is-collapsed");
+      btn.textContent = collapsed ? "[+] EXPAND BRIEF" : "[—] COLLAPSE BRIEF";
+    };
+
+    window.jumpToBriefSection = function(secId, btn) {
+      const root = document.getElementById("briefCardRoot");
+      const cBtn = document.getElementById("btnCollapseBrief");
+      if (root && root.classList.contains("is-collapsed")) {
+        root.classList.remove("is-collapsed");
+        if (cBtn) cBtn.textContent = "[—] COLLAPSE BRIEF";
+      }
+      document.querySelectorAll(".file-tab-btn").forEach(b => b.classList.remove("active-file-tab"));
+      if (btn) btn.classList.add("active-file-tab");
+      const target = document.getElementById(secId);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    window.openMasterUnitBrief = function(ev, unitName) {
+      try { localStorage.setItem("wtr_target_unit_handoff", unitName); } catch (e) {}
+      const relUrl = "./unit-briefs.html?unit=" + encodeURIComponent(unitName);
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === "function") {
+          ev.preventDefault();
+          window.parent.openInlineModuleViewport("UNIT BRIEF // " + unitName.toUpperCase(), "#00e676", null, relUrl, relUrl);
+          return;
+        }
+      } catch (e) {}
+    };
+
+    window.openEventCalcFromBrief = function(ev) {
+      const relUrl = "./event-calculator.html?mode=breach";
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === "function") {
+          ev.preventDefault();
+          window.parent.openInlineModuleViewport("EVENT CALCULATOR // SECTOR BREACH", "#d97706", null, relUrl, relUrl);
+          return;
+        }
+      } catch (e) {}
+    };
+
+    window.copySectorBreachDiscordBrief = function() {
+      const selected = STORE_ITEMS.filter(it => it.checked);
+      const totalXp = selected.reduce((s, it) => s + it.qty * it.cost, 0);
+      const conqSets = Math.ceil(totalXp / 164000);
+      const lines = [
+        "💥 **[-WTR-] NOV 2026 SECTOR BREACH BRIEF**",
+        "• **Schedule:** Starts Fri Nov 20 @ 10 AM PST → Ends Tue Nov 24 @ 10 AM PST *(Store Closes Wed Nov 25 @ 10 AM PST)*",
+        "• **New Unit:** **LEGENDARY ESCORT** (Arc 3 Legendary Light Infantry • `320,000 → 360,000 HP` • `20,000 → 37,273 DPS` • `550` Range / `1,000` Lock-On • Enters Bunkers)",
+        "• **3 New Techs (275,000 XP ea):** Dumbfire Rockets (`+25% DPS`, 80 Splash) • Bodyguard Armor (`-30% Infantry DMG`) • Enhanced Jetpack (`+25% Speed`)",
+        "• **Tracks:** General `61,000 XP/Set` | Conqueror `164,000 XP/Set`",
+        ...(totalXp > 0 ? [`• **Selected Store Goal:** \`${totalXp.toLocaleString()} XP\` (~**${conqSets} Conqueror Sets**)`] : []),
+        "🔗 **Full Brief:** <https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html>",
+        "🛡️ **ESCORT Unit Dossier:** <https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=ESCORT>"
+      ];
+      const text = lines.join("\n");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast("💬 Copied NOV 2026 Sector Breach Brief for Discord!")).catch(() => {});
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        showToast("💬 Copied NOV 2026 Sector Breach Brief for Discord!");
+      }
+    };
+
+    // Dynamic 3-Stage Event Clock (Pre-Launch -> Event Live -> Store Closing -> Concluded)
+    const startMs = new Date("2026-11-20T10:00:00-08:00").getTime();
+    const endMs = new Date("2026-11-24T10:00:00-08:00").getTime();
+    const storeMs = new Date("2026-11-25T10:00:00-08:00").getTime();
+    const clockEl = document.getElementById("liveEventCountdown");
+    const lblEl = document.getElementById("liveClockLabel");
+    const rightBadge = document.getElementById("bottomRightBadge");
+
+    function fmtDiff(ms) {
+      const diff = Math.max(0, ms);
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      return d + "d " + h + "h " + (m < 10 ? "0" + m : m) + "m " + s + "s";
+    }
+
+    function tick() {
+      const now = Date.now();
+      if (now < startMs) {
+        if (lblEl) lblEl.textContent = "T-MINUS:";
+        if (clockEl) clockEl.textContent = fmtDiff(startMs - now);
+        if (rightBadge) rightBadge.textContent = "STATUS: READY";
+      } else if (now < endMs) {
+        if (lblEl) lblEl.textContent = "ENDS IN:";
+        if (clockEl) clockEl.textContent = fmtDiff(endMs - now);
+        if (rightBadge) rightBadge.textContent = "STATUS: EVENT LIVE";
+      } else if (now < storeMs) {
+        if (lblEl) lblEl.textContent = "STORE CLOSES:";
+        if (clockEl) clockEl.textContent = fmtDiff(storeMs - now);
+        if (rightBadge) rightBadge.textContent = "STATUS: SPEND XP";
+      } else {
+        if (lblEl) lblEl.textContent = "COMPLETE:";
+        if (clockEl) clockEl.textContent = "0d 0h 00m 0s";
+        if (rightBadge) rightBadge.textContent = "STATUS: ARCHIVED";
+      }
+    }
+
+    renderStoreTable();
     tick();
     setInterval(tick, 1000);
   })();

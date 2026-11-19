@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-18T15:24:09-08:00",
-    "generatedMs":  1795044245017,
+    "generatedAt":  "2026-11-18T21:27:06-08:00",
+    "generatedMs":  1795066021363,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -79,9 +79,9 @@ window.WTR_DIRECTORY_MANIFEST = {
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
-                              "title":  "NOV 2026 SECTOR BREACH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018861
+                              "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
+                              "modifiedAt":  "2026-11-19T05:12:02Z",
+                              "modifiedMs":  1795065122889
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
@@ -150,8 +150,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-18T07:09:02Z",
-                              "modifiedMs":  1794985742994
+                              "modifiedAt":  "2026-11-19T05:26:41Z",
+                              "modifiedMs":  1795066001479
                           },
                           {
                               "file":  "faction-intel.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-18T23:23:51Z",
-                              "modifiedMs":  1795044231348
+                              "modifiedAt":  "2026-11-18T23:51:08Z",
+                              "modifiedMs":  1795045868680
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -442,6 +442,14 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 2 • SOLDIER",
                                        "firstSeenMs":  1795044245017,
                                        "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                   },
+                                   {
+                                       "key":  "ESCORT",
+                                       "name":  "ESCORT",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 3 • SOLDIER",
+                                       "firstSeenMs":  1795066021363,
+                                       "firstSeenAt":  "2026-11-19T05:27:01Z"
                                    }
                                ],
     "creatorVideos":  [
@@ -776,6 +784,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793388595000
                           },
                           {
+                              "id":  "RnitVi5OVwY",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "GTA 6 IS FINALLY HERE! 🔥 FIRST DAY GAMEPLAY LIVE! 🚗",
+                              "descSnippet":  "🔥 GTA 6 LAUNCH DAY LIVE — THE WAIT IS FINALLY OVER! 🔥\n\nGet ready for GTA 6 LIVE GAMEPLAY on the very first day of release! 🎮 Join STORMY GAMING YT as we dive into the world of Grand Theft Auto VI and experience the excitement together!\n\n",
+                              "publishedAt":  "2026-10-28T22:07:05Z",
+                              "publishedMs":  1793225225000
+                          },
+                          {
                               "id":  "f2Ye3ziUKFo",
                               "creatorId":  "stormygamingyt",
                               "handle":  "STORMYGAMINGYT99",
@@ -851,17 +870,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "LETS PLAY GTA 5",
                               "publishedAt":  "2026-10-30T15:58:49Z",
                               "publishedMs":  1793375929000
-                          },
-                          {
-                              "id":  "RnitVi5OVwY",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "GTA 6 IS FINALLY HERE! 🔥 FIRST DAY GAMEPLAY LIVE! 🚗",
-                              "descSnippet":  "🔥 GTA 6 LAUNCH DAY LIVE — THE WAIT IS FINALLY OVER! 🔥\n\nGet ready for GTA 6 LIVE GAMEPLAY on the very first day of release! 🎮 Join STORMY GAMING YT as we dive into the world of Grand Theft Auto VI and experience the excitement together!\n\n",
-                              "publishedAt":  "2026-10-28T22:07:05Z",
-                              "publishedMs":  1793225225000
                           },
                           {
                               "id":  "D1FIZKsINBo",

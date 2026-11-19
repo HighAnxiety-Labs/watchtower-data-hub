@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-18T23:24:05Z",
+    "updatedAt":  "2026-11-19T05:27:01Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -793,6 +793,14 @@
                                            "subLabel":  "Arc 2 • SOLDIER",
                                            "firstSeenMs":  1795044245017,
                                            "firstSeenAt":  "2026-11-18T23:24:05Z"
-                                       }
+                                       },
+                    "UNIT::ESCORT":  {
+                                         "key":  "ESCORT",
+                                         "name":  "ESCORT",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc 3 • SOLDIER",
+                                         "firstSeenMs":  1795066021363,
+                                         "firstSeenAt":  "2026-11-19T05:27:01Z"
+                                     }
                 }
 }

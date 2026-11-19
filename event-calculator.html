@@ -891,6 +891,34 @@
       border-color: var(--mode-accent);
       box-shadow: 0 0 10px var(--mode-glow);
     }
+    .boost-pill-card.is-disabled-redout {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(127, 29, 29, 0.24),
+        rgba(127, 29, 29, 0.24) 6px,
+        rgba(24, 9, 12, 0.92) 6px,
+        rgba(24, 9, 12, 0.92) 12px
+      );
+      border: 1px dashed rgba(239, 68, 68, 0.55);
+      color: #f87171;
+      cursor: not-allowed;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .boost-pill-card.is-disabled-redout:hover {
+      border-color: rgba(239, 68, 68, 0.55);
+    }
+    .boost-pill-card.is-disabled-redout .boost-pill-top {
+      color: #f87171;
+    }
+    .boost-pill-card.is-disabled-redout .boost-pill-top span:first-child {
+      text-decoration: line-through;
+      opacity: 0.78;
+    }
+    .boost-pill-card.is-disabled-redout .boost-pill-sub {
+      color: #fca5a5;
+      opacity: 0.78;
+    }
     .boost-pill-top {
       display: flex;
       justify-content: space-between;
@@ -1769,23 +1797,20 @@
         schedStore: "WED NOV 25, 2026 @ 10:00 AM PST",
         eventDays: 4,
         briefUrl: "./2026-nov-sector-breach-brief.html",
-        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
-        syncSourceLabel: "NOV Pre-Release (Using Latest Breach Store)",
-        isPreReleaseFallback: true,
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1070-sector-breach-november-2026/",
+        syncSourceLabel: "NOV 2026 Official Brief (FAQ #1070)",
+        isPreReleaseFallback: false,
         tracksCfg: {
           genB1Xp: 5500, genB2Xp: 5500, genB3Xp: 10000, genBonusXp: 40000,
           conqB1Xp: 17000, conqB2Xp: 17000, conqB3Xp: 30000, conqBonusXp: 100000
         },
         storeCatalog: [
-          { name: "Legendary Juggernaut Part", maxLimit: 100, cost: 10000, costLabel: "10,000 / Each", unit: "JUGGERNAUT", defaultChecked: true },
-          { name: "Legendary Juggernaut Part (4-Pack)", maxLimit: 25, cost: 40000, costLabel: "40,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Legendary Juggernaut Part (10-Pack)", maxLimit: 10, cost: 100000, costLabel: "100,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Legendary Juggernaut Upgrade Token", maxLimit: 45, cost: 50000, costLabel: "50,000 / Each", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Juggernaut Tech: Manual Override", maxLimit: 1, cost: 0, costLabel: "FREE", unit: "JUGGERNAUT", defaultChecked: true },
-          { name: "Juggernaut Tech: Armored Crest", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Juggernaut Tech: Fallout", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Juggernaut Tech: Adaptive Protocol", maxLimit: 1, cost: 500000, costLabel: "500,000", unit: "JUGGERNAUT", defaultChecked: false },
-          { name: "Warlord Stormwail Upgrade Token", maxLimit: 20, cost: 125000, costLabel: "125,000 / Each", unit: "WARLORD STORMWAIL", defaultChecked: false }
+          { name: "Legendary Escort", maxLimit: 28, cost: 77500, costLabel: "77,500 / Each", unit: "ESCORT", defaultChecked: true },
+          { name: "Legendary Escort Upgrade Token", maxLimit: 10, cost: 100000, costLabel: "100,000 / Each", unit: "ESCORT", defaultChecked: true },
+          { name: "Legendary Escort Tech - Dumbfire Rockets", maxLimit: 1, cost: 275000, costLabel: "275,000", unit: "ESCORT", defaultChecked: true },
+          { name: "Legendary Escort Tech - Bodyguard Armor", maxLimit: 1, cost: 275000, costLabel: "275,000", unit: "ESCORT", defaultChecked: true },
+          { name: "Legendary Escort Tech - Enhanced Jetpack", maxLimit: 1, cost: 275000, costLabel: "275,000", unit: "ESCORT", defaultChecked: true },
+          { name: "Legendary Juggernaut - Elite Upgrade Tokens", maxLimit: 55, cost: 50000, costLabel: "50,000 / Each", unit: "JUGGERNAUT", defaultChecked: false }
         ]
       },
 
@@ -2688,12 +2713,17 @@
           </div>
 
           <div>
-            <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Active Event XP Multiplier</div>
+            <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Active Event XP Multiplier <span style="color:#fca5a5; font-weight:700;">(1.0x Base Only in Sector Breach)</span></div>
             <div class="boost-pills-grid">
-              ${[1.0, 1.2, 1.5, 2.0].map(m => `
-                <div class="boost-pill-card ${Math.abs(st.multiplier - m) < 0.01 ? 'active' : ''}" onclick="updateModeField('multiplier', ${m}); renderLeftModeTracksPanel();">
-                  <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>${Math.abs(st.multiplier - m) < 0.01 ? '✓' : ''}</span></div>
-                  <div class="boost-pill-sub">${m === 1.0 ? 'Standard Payout' : 'Boost Active'}</div>
+              ${[1.0, 1.2, 1.5, 2.0].map(m => m === 1.0 ? `
+                <div class="boost-pill-card active" onclick="updateModeField('multiplier', 1.0); renderLeftModeTracksPanel();">
+                  <div class="boost-pill-top"><span>1.0x XP</span><span>✓</span></div>
+                  <div class="boost-pill-sub">Standard Payout</div>
+                </div>
+              ` : `
+                <div class="boost-pill-card is-disabled-redout" aria-disabled="true" title="XP Boost Multipliers are disabled in Sector Breach (1.0x Base XP only)">
+                  <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>🚫</span></div>
+                  <div class="boost-pill-sub">Disabled — No Boost</div>
                 </div>
               `).join("")}
             </div>
@@ -2863,7 +2893,8 @@
       }
 
       if (currentMode === "breach") {
-        const mult = st.multiplier || 1.0;
+        const mult = 1.0;
+        st.multiplier = 1.0;
         const conqOk = st.conqB1 && st.conqB2 && st.conqB3;
         const conqXp = Math.round(((st.conqB1 ? cfg.conqB1Xp : 0) + (st.conqB2 ? cfg.conqB2Xp : 0) + (st.conqB3 ? cfg.conqB3Xp : 0) + (conqOk ? cfg.conqBonusXp : 0)) * mult);
 
