@@ -1953,6 +1953,7 @@
       <span class="meta-chip gen">${escapeHtml(genLbl)}</span>
       <span class="meta-chip gold">${escapeHtml(fac)}</span>
       <span class="meta-chip">${escapeHtml(uType)}</span>
+      ${isLowAltitudeUnit(me) ? `<span class="meta-chip" style="border-color:rgba(56,189,248,0.65); color:#7dd3fc; background:rgba(56,189,248,0.12);">✈️ Low Altitude (Air Target)</span>` : ''}
       <span class="meta-chip">🛡️ Armor: ${escapeHtml(armor)}</span>
       <span class="meta-chip">💥 Weapon: ${escapeHtml(dmg)}</span>
       ${myDmgInfo.isEnergy ? `<span class="meta-chip energy">⚡ Former Energy (-25% DR)</span>` : ''}
@@ -2268,8 +2269,20 @@
     return /\bZOMBIE\b|\bZOMBIES\b|\bINFESTED\b|\bONYX\b|\bUNDEAD\b/.test(hay);
   }
 
+  function isLowAltitudeUnit(rec) {
+    if (!rec) return false;
+    const hay = `${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.TALENT || ''} ${rec.TALENT_LVL_1 || ''}`;
+    return /\blow[\s-]*altitude\b/i.test(hay);
+  }
+
   function getDomain(rec) {
-    return getDivisionBucket(rec) === 'AIR' ? 'AIR' : 'GROUND';
+    if (getDivisionBucket(rec) === 'AIR' || isLowAltitudeUnit(rec)) return 'AIR';
+    return 'GROUND';
+  }
+
+  function getDomainLabel(rec) {
+    if (isLowAltitudeUnit(rec) && getDivisionBucket(rec) !== 'AIR') return 'LOW ALTITUDE (AIR)';
+    return getDomain(rec);
   }
 
   function canHitDomain(attackerRec, defenderDomain, tier = 'MAX', unlockedAirByTalent = false) {
@@ -2577,7 +2590,8 @@
       drPiercePct,
       dmgInfo,
       armorType: normalizeArmor(unit.STAT_ARMOR_TYPE),
-      domain: getDomain(unit)
+      domain: getDomain(unit),
+      domainLabel: getDomainLabel(unit)
     };
   }
 
@@ -2714,8 +2728,8 @@
     const weak = [];
     const { A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult } = duel;
 
-    if (!aCanHitB && bCanHitA) strong.push(`Untouchable ${B.domain} target — ${A.unit.UNIT_NAME} cannot hit it!`);
-    if (aCanHitB && !bCanHitA) weak.push(`Cannot fire back at your ${A.domain} unit!`);
+    if (!aCanHitB && bCanHitA) strong.push(`Untouchable ${B.domainLabel || B.domain} target — ${A.unit.UNIT_NAME} cannot hit it!`);
+    if (aCanHitB && !bCanHitA) weak.push(`Cannot fire back at your ${A.domainLabel || A.domain} unit!`);
 
     if (bArmorMult >= 2.0) strong.push(`${bArmorMult.toFixed(1)}x ${B.dmgInfo.displayCore} counter shreds your ${A.armorType} Armor.`);
     else if (bArmorMult === 1.5) strong.push(`1.5x dual-weapon (${B.dmgInfo.displayCore}) counter vs your ${A.armorType} Armor.`);
@@ -2896,6 +2910,7 @@
     document.getElementById(`modal${prefix}Chips`).innerHTML = `
       <span class="meta-chip gen">${escapeHtml(getGenerationLabel(rec))}</span>
       <span class="meta-chip gold">${escapeHtml(cleanVal(rec.STAT_FACTION) || 'Unaligned')}</span>
+      ${isLowAltitudeUnit(rec) ? `<span class="meta-chip" style="border-color:rgba(56,189,248,0.65); color:#7dd3fc; background:rgba(56,189,248,0.12);">✈️ Low Altitude (Air Target)</span>` : ''}
       <span class="meta-chip">🛡️ ${escapeHtml(cleanVal(rec.STAT_ARMOR_TYPE) || 'Std')}</span>
       <span class="meta-chip">💥 ${escapeHtml(cleanVal(rec.STAT_DAMAGE_TYPE) || 'Std')}</span>
       ${dmgInfo.isEnergy ? `<span class="meta-chip energy">⚡ Former Energy (-25% DR)</span>` : ''}
@@ -2921,9 +2936,9 @@
 
     let headline = '';
     if (!d.aCanHitB && d.bCanHitA) {
-      headline = `🔴 AVOID CONTACT — ${modalYouUnit.UNIT_NAME} CANNOT TARGET ${B.domain}`;
+      headline = `🔴 AVOID CONTACT — ${modalYouUnit.UNIT_NAME} CANNOT TARGET ${B.domainLabel || B.domain}`;
     } else if (d.aCanHitB && !d.bCanHitA) {
-      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} CANNOT TARGET ${A.domain}`;
+      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} CANNOT TARGET ${A.domainLabel || A.domain}`;
     } else if (d.youWinPct >= 55) {
       const remHp = Math.max(4, Math.round((1 - (d.aTtk / d.bTtk)) * 100));
       headline = `🟢 EASY KILL: ${modalYouUnit.UNIT_NAME} WINS (${d.youWinPct}% • ~${remHp}% HP LEFT)`;
@@ -3028,8 +3043,8 @@
   function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMat, oppMat, oppEffectiveDr, myFreeSec) {
     document.getElementById(`modal${prefix}PcTitle`).textContent = `${me.unit.UNIT_NAME} (${me.tier === 'MAX' ? 'MAX' : 'Lvl ' + me.tier})`;
     const items = [];
-    if (!meCanHit) items.push({ type: 'con', text: `Cannot target ${opp.domain} units.` });
-    if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} cannot fire at ${me.domain}.` });
+    if (!meCanHit) items.push({ type: 'con', text: `Cannot target ${opp.domainLabel || opp.domain} units.` });
+    if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} cannot fire at ${me.domainLabel || me.domain}.` });
     if (myMat.armorMult >= 2.0) items.push({ type: 'pro', text: `2.0x Counter Multiplier: ${me.dmgInfo.core} shreds ${opp.armorType} Armor.` });
     else if (myMat.armorMult === 1.5) items.push({ type: 'pro', text: `1.5x Blended Counter: Secondary ${me.dmgInfo.secondaryCore} weapon counters ${opp.armorType} Armor.` });
     if (myMat.fireMult > 1.0) items.push({ type: 'pro', text: `Former Fire Perk Active: 2.0x bonus damage against Zombie / Hostile target.` });
