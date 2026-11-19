@@ -2066,10 +2066,12 @@
             <span class="tab-idx">09</span><span id="displayTab09Label">CHALLENGES</span>
           </button>
         </div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <button type="button" class="file-tab-btn" id="btnCopyHoldoutDiscord" onclick="copyEventDiscordBrief(this)" title="Share Event Brief (Discord, Facebook &amp; Steam)" style="border-top-color: #818cf8; color: #c7d2fe; background: rgba(79, 70, 229, 0.22);">
-            <span>💬 SHARE BRIEF</span>
-          </button>
+        <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
+          <div class="wtr-share-btn-group" aria-label="Share Brief">
+            <button type="button" class="wtr-sbtn wtr-sbtn-discord" id="btnCopyHoldoutDiscord" onclick="copyEventDiscordBrief(this, 'discord')" title="Share Event Brief for Discord">💬 Discord</button>
+            <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copyEventDiscordBrief(this, 'facebook')" title="Share Event Brief for Facebook">📘 Facebook</button>
+            <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copyEventDiscordBrief(this, 'steam')" title="Share Event Brief for Steam BBCode">🎮 Steam</button>
+          </div>
           <button type="button" class="file-tab-btn" id="btnToggleHeightMode" onclick="toggleViewportHeightMode()" title="Switch between Locked-HUD Scroll Deck and Full Uncompressed Height" style="border-top-color: var(--text-cyan); color: var(--text-cyan);">
             <span>↕ FULL PAGE</span>
           </button>
@@ -5895,14 +5897,14 @@
     }
   }
 
-  function copyEventDiscordBrief(btnEl) {
+  function copyEventDiscordBrief(btnEl, initialFmt) {
     const title = (masterState.mainTitle || "HOLDOUT").trim();
     const stamp = (masterState.cornerStampTop || "NOV 2026").trim();
     const sStart = (masterState.schedStart || "").trim();
     const sEnd = (masterState.schedEnd || "").trim();
     const sStore = (masterState.schedStore || "").trim();
     const briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-holdout-brief.html";
-    const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
+    const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo-badge.png";
 
     const discord = [
       `🛡️ **[-WTR-] ${stamp} ${title} — ALLIANCE INTEL BRIEF**`,
@@ -5933,6 +5935,7 @@
       window.WTRSocialShare.open({
         title: `${stamp} ${title} BRIEF`,
         subtitle: "H1 Header • H2 Schedule • H3 Store Deadline • H7 Brief Link",
+        initialFormat: initialFmt || "discord",
         discord, facebook, steam
       });
       return;

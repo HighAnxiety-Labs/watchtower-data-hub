@@ -1166,7 +1166,11 @@
           <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">05</span><span class="tab-lbl">STORE &amp; CALC</span></button>
           <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">06</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
         </div>
-        <button type="button" class="discord-rail-btn" onclick="copySectorBreachDiscordBrief()" title="Share November 2026 Sector Breach brief (Discord, Facebook &amp; Steam)">💬 SHARE BRIEF</button>
+        <div class="wtr-share-btn-group" aria-label="Share Brief">
+          <button type="button" class="wtr-sbtn wtr-sbtn-discord" onclick="copySectorBreachDiscordBrief('discord')" title="Share NOV 2026 Sector Breach Brief for Discord">💬 Discord</button>
+          <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copySectorBreachDiscordBrief('facebook')" title="Share NOV 2026 Sector Breach Brief for Facebook">📘 Facebook</button>
+          <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copySectorBreachDiscordBrief('steam')" title="Share NOV 2026 Sector Breach Brief for Steam BBCode">🎮 Steam</button>
+        </div>
       </nav>
     </div>
 
@@ -1587,11 +1591,11 @@
       } catch (e) {}
     };
 
-    window.copySectorBreachDiscordBrief = function() {
+    window.copySectorBreachDiscordBrief = function(initialFmt) {
       const briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html";
       const calcUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/event-calculator.html?mode=breach";
       const escortUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=ESCORT";
-      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
+      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo-badge.png";
 
       const discord = [
         "💥 **[-WTR-] NOV 2026 SECTOR BREACH BRIEF**",
@@ -1625,6 +1629,7 @@
         window.WTRSocialShare.open({
           title: "NOV 2026 SECTOR BREACH BRIEF",
           subtitle: "S1 Header • S2 Schedule • Brief, Calculator & ESCORT Links",
+          initialFormat: initialFmt || "discord",
           discord, facebook, steam
         });
       }

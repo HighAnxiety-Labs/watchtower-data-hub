@@ -1022,7 +1022,11 @@
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="xl" aria-pressed="false" onclick="setGalleryImageBoost('xl')">IMG++</button>
       </div>
       <button type="button" class="brief-step-btn" style="border-color: rgba(0, 230, 118, 0.65); color: #00e676; background: rgba(0, 230, 118, 0.12);" onclick="pinActiveUnitAndOpenCompare()" title="Compare this unit side-by-side across Lvl 1–MAX">⚖️ COMPARE</button>
-      <button type="button" class="brief-step-btn" style="border-color: rgba(129, 140, 248, 0.7); color: #c7d2fe; background: rgba(79, 70, 229, 0.2);" onclick="copyActiveUnitDiscordBrief()" title="1-Click Copy Unit Summary &amp; Deep-Link for Alliance Discord">💬 DISCORD BRIEF</button>
+      <div class="wtr-share-btn-group" aria-label="Share Unit Brief">
+        <button type="button" class="wtr-sbtn wtr-sbtn-discord" onclick="copyActiveUnitDiscordBrief('discord')" title="Share Unit Brief for Discord">💬 Discord</button>
+        <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copyActiveUnitDiscordBrief('facebook')" title="Share Unit Brief for Facebook">📘 Facebook</button>
+        <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copyActiveUnitDiscordBrief('steam')" title="Share Unit Brief for Steam BBCode">🎮 Steam</button>
+      </div>
       <button type="button" class="brief-step-btn" style="border-color: rgba(255, 215, 0, 0.55); color: #ffd700; background: rgba(255, 215, 0, 0.12);" onclick="openMatchupInPageView()" title="Open this unit directly in the Head-to-Head Matchup &amp; Threat Radar">⚔️ MATCHUP RADAR</button>
       <button type="button" class="brief-step-btn" id="btnPrevUnitBrief" onclick="stepAdjacentUnit(-1)">◀ PREV</button>
       <button type="button" class="brief-step-btn" id="btnNextUnitBrief" onclick="stepAdjacentUnit(1)">NEXT ▶</button>
@@ -3432,7 +3436,11 @@
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <button type="button" class="brief-step-btn" style="border-color:rgba(129,140,248,0.75); color:#c7d2fe; background:rgba(79,70,229,0.22);" onclick="copyCompareDiscordCard()">💬 Copy Head-to-Head for Discord</button>
+        <div class="wtr-share-btn-group" aria-label="Share Comparison">
+          <button type="button" class="wtr-sbtn wtr-sbtn-discord" onclick="copyCompareDiscordCard('discord')" title="Share Head-to-Head for Discord">💬 Discord</button>
+          <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copyCompareDiscordCard('facebook')" title="Share Head-to-Head for Facebook">📘 Facebook</button>
+          <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copyCompareDiscordCard('steam')" title="Share Head-to-Head for Steam BBCode">🎮 Steam</button>
+        </div>
         <button type="button" class="brief-close-x-btn" onclick="closeUnitCompareModal()">✕ CLOSE</button>
       </div>
     </div>
@@ -3806,7 +3814,7 @@
       if (modal) modal.classList.remove('open');
     };
 
-    window.copyActiveUnitDiscordBrief = function() {
+    window.copyActiveUnitDiscordBrief = function(initialFmt) {
       const rec = activeUnitRecord;
       if (!rec || !rec.UNIT_NAME) {
         showDiscordToast('⚠️ Open a Unit Brief first to copy its Discord card!');
@@ -3865,6 +3873,7 @@
         window.WTRSocialShare.open({
           title: `UNIT INTEL — ${uName}`,
           subtitle: 'Discord Markdown • Facebook Plain Text • Steam BBCode',
+          initialFormat: initialFmt || 'discord',
           discord, facebook, steam
         });
         return;
@@ -3872,7 +3881,7 @@
       copyTextToClipboard(discord, `💬 Copied Alliance Discord Brief for ${uName}!`);
     };
 
-    window.copyCompareDiscordCard = function() {
+    window.copyCompareDiscordCard = function(initialFmt) {
       const roster = getAllComparableUnitsSorted();
       const recA = findRecByName(pinnedNames[0]) || roster[0];
       const recB = findRecByName(pinnedNames[1]) || roster[1];
@@ -3922,6 +3931,7 @@
         window.WTRSocialShare.open({
           title: `${recA.UNIT_NAME} vs ${recB.UNIT_NAME} (${lvlTxt})`,
           subtitle: 'Discord Markdown • Facebook Plain Text • Steam BBCode',
+          initialFormat: initialFmt || 'discord',
           discord, facebook, steam
         });
         return;

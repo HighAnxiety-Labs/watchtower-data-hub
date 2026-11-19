@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-18T21:27:06-08:00",
-    "generatedMs":  1795066021363,
+    "generatedAt":  "2026-11-19T00:01:08-08:00",
+    "generatedMs":  1795075263062,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -59,8 +59,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018855
+                              "modifiedAt":  "2026-11-19T05:50:14Z",
+                              "modifiedMs":  1795067414392
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
@@ -73,15 +73,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-holdout-brief.html",
                               "path":  "./2026-nov-holdout-brief.html",
                               "title":  "2026-nov-holdout-brief",
-                              "modifiedAt":  "2026-11-18T07:09:02Z",
-                              "modifiedMs":  1794985742472
+                              "modifiedAt":  "2026-11-19T08:00:45Z",
+                              "modifiedMs":  1795075245816
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-19T05:12:02Z",
-                              "modifiedMs":  1795065122889
+                              "modifiedAt":  "2026-11-19T08:00:46Z",
+                              "modifiedMs":  1795075246834
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
@@ -108,8 +108,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "agency-contractors.html",
                               "path":  "./agency-contractors.html",
                               "title":  "Agency Contractors \u0026 Base Loadout Planner",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018866
+                              "modifiedAt":  "2026-11-19T05:50:16Z",
+                              "modifiedMs":  1795067416795
                           },
                           {
                               "file":  "base-defense-planning.html",
@@ -150,22 +150,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-19T05:26:41Z",
-                              "modifiedMs":  1795066001479
+                              "modifiedAt":  "2026-11-19T08:00:47Z",
+                              "modifiedMs":  1795075247648
                           },
                           {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018891
+                              "modifiedAt":  "2026-11-19T05:50:18Z",
+                              "modifiedMs":  1795067418284
                           },
                           {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-18T23:51:08Z",
-                              "modifiedMs":  1795045868680
+                              "modifiedAt":  "2026-11-19T08:00:48Z",
+                              "modifiedMs":  1795075248834
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -192,8 +192,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "report-war-crimes.html",
                               "path":  "./report-war-crimes.html",
                               "title":  "WatchToweR Data Hub — Report War Crimes",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018922
+                              "modifiedAt":  "2026-11-19T05:50:19Z",
+                              "modifiedMs":  1795067419776
                           },
                           {
                               "file":  "sector-status-sheet.html",
@@ -206,8 +206,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-18T23:12:45Z",
-                              "modifiedMs":  1795043565596
+                              "modifiedAt":  "2026-11-19T08:00:49Z",
+                              "modifiedMs":  1795075249741
                           },
                           {
                               "file":  "unit-matchup.html",
@@ -234,8 +234,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "whats-broken.html",
                               "path":  "./whats-broken.html",
                               "title":  "What\u0027s Broken in War Commander",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018931
+                              "modifiedAt":  "2026-11-19T05:50:20Z",
+                              "modifiedMs":  1795067420816
                           }
                       ],
     "activeDefects":  [
@@ -619,6 +619,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1790280576000
                           },
                           {
+                              "id":  "qJCsq5YlOAc",
+                              "creatorId":  "furiousbull2",
+                              "handle":  "furiousbull2",
+                              "owner":  "furious bull2",
+                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
+                              "title":  "War Commander SECTOR BREACH November 2026 Event Briefing,",
+                              "descSnippet":  "War Commander SECTOR BREACH November 2026 Event Briefing,\nNew Legendary Unit - Legendary Escort\nGood Luck Thank you for watching",
+                              "publishedAt":  "2026-11-19T05:32:12Z",
+                              "publishedMs":  1795066332000
+                          },
+                          {
                               "id":  "ljWrkpEib3s",
                               "creatorId":  "furiousbull2",
                               "handle":  "furiousbull2",
@@ -771,17 +782,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "War Commander Skirmish Officer Bases 1-2 / Another easy way Free Repair .\nThank you for watching",
                               "publishedAt":  "2026-10-31T00:29:55Z",
                               "publishedMs":  1793406595000
-                          },
-                          {
-                              "id":  "ARBrb_7a8iw",
-                              "creatorId":  "furiousbull2",
-                              "handle":  "furiousbull2",
-                              "owner":  "furious bull2",
-                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
-                              "title":  "War Commander Skirmish Officer Bases 1-2 / Easy Free Repair .",
-                              "descSnippet":  "War Commander Skirmish Officer Bases 1-2 / Easy Free Repair .\nUnits Showing In video / Any Question Drop me Comment \nGood luck Thank you for watching",
-                              "publishedAt":  "2026-10-30T19:29:55Z",
-                              "publishedMs":  1793388595000
                           },
                           {
                               "id":  "RnitVi5OVwY",

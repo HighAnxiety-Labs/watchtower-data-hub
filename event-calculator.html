@@ -1489,7 +1489,11 @@
           </div>
 
           <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-            <button type="button" class="calc-btn discord" onclick="copyDiscordRequisitionCard()" title="1-Click Copy Formatted Markdown Build for Alliance Discord">💬 Discord Share</button>
+            <div class="wtr-share-btn-group" aria-label="Share Calculator Plan">
+              <button type="button" class="wtr-sbtn wtr-sbtn-discord" onclick="copyDiscordRequisitionCard('discord')" title="Share Alliance Store Plan for Discord">💬 Discord</button>
+              <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copyDiscordRequisitionCard('facebook')" title="Share Alliance Store Plan for Facebook">📘 Facebook</button>
+              <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copyDiscordRequisitionCard('steam')" title="Share Alliance Store Plan for Steam BBCode">🎮 Steam</button>
+            </div>
             <button type="button" class="calc-btn cyan" onclick="copyGrindSummaryToClipboard()">📋 Copy Summary</button>
             <button type="button" class="calc-btn gold" onclick="window.print()">🖨️ Print / PDF</button>
             <button type="button" class="calc-btn" onclick="exportPlayerPlanJson()">💾 Save JSON</button>
@@ -1571,7 +1575,11 @@
             <div style="font-size:14px; font-weight:900; color:var(--mode-accent);">
               SELECTED GOAL: <span id="footerSelectedGoalXp">0</span> XP
             </div>
-            <button type="button" class="calc-btn discord" onclick="copyDiscordRequisitionCard()">💬 Share Cart to Discord</button>
+            <div class="wtr-share-btn-group" aria-label="Share Cart">
+              <button type="button" class="wtr-sbtn wtr-sbtn-discord" onclick="copyDiscordRequisitionCard('discord')" title="Share Cart for Discord">💬 Discord</button>
+              <button type="button" class="wtr-sbtn wtr-sbtn-facebook" onclick="copyDiscordRequisitionCard('facebook')" title="Share Cart for Facebook">📘 Facebook</button>
+              <button type="button" class="wtr-sbtn wtr-sbtn-steam" onclick="copyDiscordRequisitionCard('steam')" title="Share Cart for Steam BBCode">🎮 Steam</button>
+            </div>
           </div>
         </div>
       </section>
@@ -1697,6 +1705,12 @@
         "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/e2aec0ad-99ab-4a02-b9cd-9a26feaf58fb",
         "STAT_FACTION": "Retaliators", "STAT_TYPE": "Heavy Infantry", "STAT_ARMOR_TYPE": "Heavy", "STAT_DAMAGE_TYPE": "Area",
         "STAT_BUILDING": "Academy", "TALENT_LVL_1": "Every 10% health lost grants 100,000 temporary health."
+      },
+      {
+        "UNIT_NAME": "ESCORT", "CLASSIFICATION": "LEGENDARY UNIQUE", "RELEASE_DATE": "Nov 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/2a7074e8-8454-4a57-a96f-946e266466d2",
+        "STAT_FACTION": "Vortex", "STAT_TYPE": "Legendary Infantry", "STAT_ARMOR_TYPE": "Heavy", "STAT_DAMAGE_TYPE": "Area",
+        "STAT_BUILDING": "Academy", "TALENT_LVL_1": "Protective Escort legendary infantry with Dumbfire Rockets, Bodyguard Armor, and Enhanced Jetpack techs."
       },
       {
         "UNIT_NAME": "WARLORD STORMWAIL", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "2026",
@@ -1972,7 +1986,7 @@
       let thumbUrl = formatImageUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL || "");
       let matchedWarpaint = "";
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 6; i++) {
         const wpName = String(rec[`WARPAINT_${i}_NAME`] || "").trim();
         const wpImg = formatImageUrl(rec[`WARPAINT_${i}_IMAGE`] || "");
         if (wpName && wpImg && itemUp.includes(wpName.toUpperCase())) {
@@ -2168,9 +2182,28 @@
       if (!profile) return false;
 
       const isSealedPreRelease = /WATCHTOWER PRE-RELEASE HOLDING BRIEF|STATUS:\s*SEALED/i.test(html);
-      const rawCat = extractBalancedJsonArray(html, "storeCatalog")
-                  || extractBalancedJsonArray(html, "prizes")
-                  || extractBalancedJsonArray(html, "storeItems");
+      let rawCat = extractBalancedJsonArray(html, "storeCatalog")
+                || extractBalancedJsonArray(html, "prizes")
+                || extractBalancedJsonArray(html, "storeItems");
+
+      // Also parse HTML store tables (e.g., #breachStoreTable rows with data-xp-cost)
+      if ((!Array.isArray(rawCat) || !rawCat.length) && !isSealedPreRelease && /breachStoreTable|data-xp-cost/i.test(html)) {
+        try {
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const rows = doc.querySelectorAll("#breachStoreTable tbody tr, tr[data-xp-cost]");
+          const parsedRows = [];
+          rows.forEach(tr => {
+            const tds = tr.querySelectorAll("td");
+            const costAttr = tr.getAttribute("data-xp-cost") || (tds[2] ? tds[2].textContent : "");
+            const nameTxt = tds[0] ? tds[0].textContent.trim() : "";
+            const limTxt = tds[1] ? tds[1].textContent.trim() : "1";
+            if (nameTxt && costAttr) {
+              parsedRows.push({ name: nameTxt, maxLimit: limTxt, cost: costAttr });
+            }
+          });
+          if (parsedRows.length > 0) rawCat = parsedRows;
+        } catch (e) {}
+      }
 
       // Extract schedule strings even from Pre-Release Holding Pages!
       const sStart = extractStringProp(html, "schedStart") || ((html.match(/Starts:<\/strong><span>([^<]+)<\/span>/i) || [])[1] || "");
@@ -2254,7 +2287,9 @@
       for (const mode of ["operations", "holdout", "breach", "skirmish"]) {
         const candidates = discoveredBriefFilesByMode[mode] || [];
         let loadedCatalog = false;
+        const alreadyVerifiedActive = Boolean(EVENT_PROFILES[mode] && !EVENT_PROFILES[mode].isPreReleaseFallback && (EVENT_PROFILES[mode].storeCatalog || []).length > 0);
         for (const cand of candidates) {
+          if (cand.isVault && alreadyVerifiedActive) continue;
           try {
             const resp = await fetch(cand.path, { cache: "no-cache" });
             if (!resp.ok) continue;
@@ -2287,7 +2322,8 @@
     function getEffectiveItemMaxLimit(mode, itemDef) {
       const baseMax = Math.max(1, parseInt(itemDef.maxLimit, 10) || 1);
       if (mode === "operations" && itemDef.isBtUnitTarget) {
-        const btStages = Math.max(0, Math.min(5, parseInt(modeUserStates.operations.btStages, 10) ?? 5));
+        const parsedBt = parseInt(modeUserStates.operations.btStages, 10);
+        const btStages = Math.max(0, Math.min(5, Number.isFinite(parsedBt) ? parsedBt : 5));
         const perStage = EVENT_PROFILES.operations.tracksCfg.btUnitsPerStage || 1;
         return Math.max(0, baseMax - (btStages * perStage));
       }
@@ -2326,10 +2362,11 @@
         const effMax = getEffectiveItemMaxLimit(mode, catItem);
         const prev = (!forceDefaults) ? savedByName[catItem.name.toUpperCase()] : null;
         if (prev) {
+          const parsedQty = parseInt(prev.qty, 10);
           return {
             name: catItem.name,
             checked: Boolean(prev.checked),
-            qty: Math.min(effMax, Math.max(0, parseInt(prev.qty, 10) ?? effMax))
+            qty: Math.min(effMax, Math.max(0, Number.isFinite(parsedQty) ? parsedQty : effMax))
           };
         }
         return {
@@ -2446,12 +2483,6 @@
       setTxt("schedStoreTxt", p.schedStore || "TBD");
       setTxt("leftPanelSub", p.modeLabel);
 
-      const syncPill = document.getElementById("catalogSyncStatusPill");
-      if (syncPill) {
-        syncPill.textContent = p.isPreReleaseFallback
-          ? `🔒 ${p.prefix} PRE-RELEASE • TEMPLATE STORE (${p.storeCatalog.length})`
-          : `📡 STORE: ${p.syncSourceLabel} (${p.storeCatalog.length})`;
-      }
       const syncDetail = document.getElementById("sourceSyncDetailTxt");
       if (syncDetail) {
         syncDetail.textContent = p.isPreReleaseFallback
@@ -2836,7 +2867,8 @@
         setTxt("opsValTacHvt2", (st.tacB2 && st.tacHvt2) ? Math.round(cfg.tacHvt2Xp * mult).toLocaleString() : "0");
         setTxt("opsValTacBonus", tacBonusOk ? Math.round(cfg.tacBonusXp * mult).toLocaleString() : "0 (Need I & II)");
 
-        const btStages = Math.max(0, Math.min(5, parseInt(st.btStages, 10) ?? 5));
+        const parsedBt2 = parseInt(st.btStages, 10);
+        const btStages = Math.max(0, Math.min(5, Number.isFinite(parsedBt2) ? parsedBt2 : 5));
         const btEarnedXp = btStages * (cfg.btXpPerStage || 200);
         const btItem = EVENT_PROFILES.operations.storeCatalog.find(i => i.isBtUnitTarget);
         const savedStoreXp = btItem ? (btStages * (cfg.btUnitsPerStage || 1) * btItem.cost) : 0;
@@ -3308,7 +3340,7 @@
       }
     }
 
-    function copyDiscordRequisitionCard() {
+    function copyDiscordRequisitionCard(initialFmt) {
       const p = EVENT_PROFILES[currentMode];
       const st = modeUserStates[currentMode];
       const m = computeActiveModeMetrics();
@@ -3332,7 +3364,7 @@
       const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/event-calculator.html?mode=${encodeURIComponent(currentMode)}`;
       const briefFile = String(p.briefUrl || "").replace(/^\.\//, "");
       const briefUrlFull = briefFile ? `https://highanxiety-labs.github.io/watchtower-data-hub/${briefFile}` : "";
-      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png";
+      const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo-badge.png";
 
       const chosenFb = [];
       const chosenSteam = [];
@@ -3394,6 +3426,7 @@
         window.WTRSocialShare.open({
           title: `${p.prefix} ${p.eventName} STORE PLAN`,
           subtitle: "C1–C7 Full Calculator Plan + Matching Event Brief Link",
+          initialFormat: initialFmt || "discord",
           discord: discordMsg, facebook: facebookMsg, steam: steamMsg
         });
         return;
@@ -3479,7 +3512,7 @@
       const baseImg = formatImageUrl(g("UNIT_IMAGE_URL") || g("IMAGE_URL")) || WTR_LOGO_FALLBACK;
       let activeImg = baseImg;
       const warpaints = [];
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 6; i++) {
         const wn = g(`WARPAINT_${i}_NAME`);
         const wi = formatImageUrl(g(`WARPAINT_${i}_IMAGE`));
         if (wn && wi) {
@@ -3492,9 +3525,9 @@
         ["Generation", "STAT_GENERATION"], ["Faction", "STAT_FACTION"], ["Type", "STAT_TYPE"],
         ["Armor Type", "STAT_ARMOR_TYPE"], ["Weapon", "STAT_WEAPON_TYPE"], ["Targets", "STAT_TARGETS"],
         ["Damage Type", "STAT_DAMAGE_TYPE"], ["Building", "STAT_BUILDING"],
-        ["HP Range", "STAT_HP_RANGE"], ["HP (Lvl 1)", "STAT_HP_RANGE_1"], ["HP (Max)", "STAT_HP_RANGE_MAX"],
-        ["DPS Range", "STAT_DPS_RANGE"], ["DPS (Lvl 1)", "STAT_DPS_RANGE_1"], ["DPS (Lvl 10)", "STAT_DPS_RANGE_10"], ["DPS (Max)", "STAT_DPS_RANGE_MAX"],
-        ["Speed", "STAT_SPEED"], ["Range", "STAT_RANGE"], ["Splash", "STAT_SPLASH"]
+        ["HP Range", "STAT_HP_RANGE"], ["HP (Lvl 1)", "STAT_HP_RANGE_1"], ["HP (Lvl 11)", "STAT_HP_RANGE_11"], ["HP (Lvl 15)", "STAT_HP_RANGE_15"], ["HP (Max)", "STAT_HP_RANGE_MAX"],
+        ["DPS Range", "STAT_DPS_RANGE"], ["DPS (Lvl 1)", "STAT_DPS_RANGE_1"], ["DPS (Lvl 10)", "STAT_DPS_RANGE_10"], ["DPS (Lvl 11)", "STAT_DPS_RANGE_11"], ["DPS (Lvl 15)", "STAT_DPS_RANGE_15"], ["DPS (Max)", "STAT_DPS_RANGE_MAX"],
+        ["Speed", "STAT_SPEED"], ["Range", "STAT_RANGE"], ["Range (Lvl 15)", "STAT_RANGE_15"], ["Splash", "STAT_SPLASH"]
       ];
       const specRows = specPairs.filter(p => g(p[1])).map(p => `<tr><td class="k">${p[0]}</td><td class="v">${escapeHtml(g(p[1]))}</td></tr>`).join("");
 
@@ -3591,7 +3624,7 @@
         const h = Math.floor((diff % 86400) / 3600);
         const m = Math.floor((diff % 3600) / 60);
         const s = diff % 60;
-        clkEl.textContent = `${d}d ${h}h ${String(m).padStart(2, "0")}m ${s}s`;
+        clkEl.textContent = `${d}d ${h}h ${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`;
       } else {
         clkEl.textContent = "CONCLUDED";
       }
