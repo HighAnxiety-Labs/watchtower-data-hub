@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T10:01:11-08:00",
-    "generatedMs":  1795111266981,
+    "generatedAt":  "2026-11-19T10:14:55-08:00",
+    "generatedMs":  1795112091331,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -66,8 +66,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-dec-operation-brief.html",
                               "path":  "./2026-dec-operation-brief.html",
                               "title":  "DEC 2026 OPERATION: TBD (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353946
+                              "modifiedAt":  "2026-11-19T18:14:27Z",
+                              "modifiedMs":  1795112067399
                           },
                           {
                               "file":  "2026-nov-holdout-brief.html",
@@ -80,29 +80,29 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-19T15:44:10Z",
-                              "modifiedMs":  1795103050313
+                              "modifiedAt":  "2026-11-19T18:10:18Z",
+                              "modifiedMs":  1795111818828
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
                               "path":  "./2026-nov-shadow-ops-brief.html",
                               "title":  "SHADOW OPS: DRIFTING DRAGON (Chapter 1–3 Tactical Brief)",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353941
+                              "modifiedAt":  "2026-11-19T18:14:28Z",
+                              "modifiedMs":  1795112068161
                           },
                           {
                               "file":  "2026-nov-skirmish-brief.html",
                               "path":  "./2026-nov-skirmish-brief.html",
                               "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353943
+                              "modifiedAt":  "2026-11-19T18:14:28Z",
+                              "modifiedMs":  1795112068929
                           },
                           {
                               "file":  "2026-pvp-season-60-brief.html",
                               "path":  "./2026-pvp-season-60-brief.html",
                               "title":  "PVP SEASON 60 Operational Brief (NOV 12 – DEC 30, 2026)",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353944
+                              "modifiedAt":  "2026-11-19T18:14:29Z",
+                              "modifiedMs":  1795112069719
                           },
                           {
                               "file":  "agency-contractors.html",
@@ -178,8 +178,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353892
+                              "modifiedAt":  "2026-11-19T18:14:30Z",
+                              "modifiedMs":  1795112070332
                           },
                           {
                               "file":  "platoon-guide.html",

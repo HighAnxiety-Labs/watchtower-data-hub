@@ -82,6 +82,61 @@
       top: 0;
     }
 
+    body.sb-tabs-unlocked .locked-top-hud {
+      position: relative;
+      top: auto;
+    }
+
+    [id^="sec-"] {
+      scroll-margin-top: 96px;
+    }
+
+    body.sb-tabs-unlocked [id^="sec-"] {
+      scroll-margin-top: 14px;
+    }
+
+    .sb-rail-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-bottom: 5px;
+    }
+
+    .sb-lock-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.78);
+      color: #7dd3fc;
+      transition: all 0.14s ease;
+    }
+
+    .sb-lock-btn:hover {
+      background: #38bdf8;
+      color: #03111c;
+    }
+
+    .sb-lock-btn.is-unlocked {
+      background: rgba(255, 215, 0, 0.16);
+      border-color: rgba(255, 215, 0, 0.82);
+      color: #ffd700;
+    }
+
+    .sb-lock-btn.is-unlocked:hover {
+      background: #ffd700;
+      color: #05080d;
+    }
+
     .bar-solid-label {
       color: #ffffff;
       text-shadow:
@@ -1166,7 +1221,10 @@
           <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">05</span><span class="tab-lbl">STORE &amp; CALC</span></button>
           <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">06</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
         </div>
-        <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="copySectorBreachDiscordBrief('discord')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
+        <div class="sb-rail-actions">
+          <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="copySectorBreachDiscordBrief('discord')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
+          <button type="button" class="sb-lock-btn" id="btnToggleTabLock" onclick="toggleSectorBreachTabLock()" title="Lock/Unlock the top tab rail while scrolling sections">🔒 LOCKED</button>
+        </div>
       </nav>
     </div>
 
@@ -1563,6 +1621,27 @@
       const target = document.getElementById(secId);
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     };
+
+    window.toggleSectorBreachTabLock = function() {
+      const unlocked = document.body.classList.toggle("sb-tabs-unlocked");
+      const btn = document.getElementById("btnToggleTabLock");
+      if (btn) {
+        btn.classList.toggle("is-unlocked", unlocked);
+        btn.textContent = unlocked ? "🔓 UNLOCKED" : "🔒 LOCKED";
+        btn.title = unlocked
+          ? "Tabs unlocked (scrolling freely with page) — click to Lock tabs at top"
+          : "Tabs locked at top while scrolling — click to Unlock full page scroll";
+      }
+      try { localStorage.setItem("wtr_sb_tabs_unlocked", unlocked ? "1" : "0"); } catch (e) {}
+    };
+
+    (function restoreSectorBreachTabLock() {
+      try {
+        if (localStorage.getItem("wtr_sb_tabs_unlocked") === "1") {
+          window.toggleSectorBreachTabLock();
+        }
+      } catch (e) {}
+    })();
 
     window.openMasterUnitBrief = function(ev, unitName) {
       try { localStorage.setItem("wtr_target_unit_handoff", unitName); } catch (e) {}

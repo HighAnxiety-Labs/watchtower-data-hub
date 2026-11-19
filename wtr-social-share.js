@@ -40,6 +40,20 @@
         padding: 5px 12px;
       }
       .wtr-sbtn-share:hover { background: #00e676; border-color: #b9f6ca; color: #03140a; }
+      body.wtr-in-viewport .wtr-sbtn-share,
+      body.wtr-in-viewport .wtr-auto-share-dock { display: none !important; }
+      body.sb-tabs-unlocked .locked-top-hud { position: relative !important; top: auto !important; }
+      .sb-rail-actions { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-bottom: 5px; }
+      .sb-lock-btn {
+        display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 4px;
+        font-family: monospace; font-size: 11px; font-weight: 900; letter-spacing: 0.4px;
+        text-transform: uppercase; cursor: pointer;
+        background: rgba(56, 189, 248, 0.16); border: 1px solid rgba(56, 189, 248, 0.78); color: #7dd3fc;
+        transition: all 0.14s ease;
+      }
+      .sb-lock-btn:hover { background: #38bdf8; color: #03111c; }
+      .sb-lock-btn.is-unlocked { background: rgba(255, 215, 0, 0.16); border-color: rgba(255, 215, 0, 0.82); color: #ffd700; }
+      .sb-lock-btn.is-unlocked:hover { background: #ffd700; color: #05080d; }
       .wtr-auto-share-dock {
         position: fixed; top: 10px; right: 14px; z-index: 9500;
         display: inline-flex; align-items: center; gap: 6px;
@@ -674,7 +688,21 @@
     }
   };
 
+  function isInsideActiveModuleViewport() {
+    try {
+      if (window.self !== window.top) {
+        if (window.frameElement && window.frameElement.id === "inlineViewportIframe") return true;
+        if (window.parent && window.parent.document && window.parent.document.getElementById("popoutShareBtn")) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   function autoMountShareButtonIfRequested() {
+    if (isInsideActiveModuleViewport()) {
+      if (document.body) document.body.classList.add("wtr-in-viewport");
+      return;
+    }
     const scripts = document.querySelectorAll('script[src*="wtr-social-share.js"]');
     let autoRequested = false;
     scripts.forEach(s => {
@@ -682,12 +710,6 @@
     });
     if (!autoRequested) return;
     if (document.querySelector(".wtr-sbtn-share") || document.getElementById("wtrAutoShareDock")) return;
-    // Skip floating dock if embedded inside index.html popout (index.html popout header has its own SHARE THIS PAGE button)
-    try {
-      if (window.self !== window.top && window.parent && window.parent.document && window.parent.document.getElementById("popoutShareBtn")) {
-        return;
-      }
-    } catch (e) {}
     const dock = document.createElement("div");
     dock.id = "wtrAutoShareDock";
     dock.className = "wtr-auto-share-dock";
@@ -697,6 +719,21 @@
     });
     document.body.appendChild(dock);
   }
+
+  window.toggleEventBriefTabLock = function(storageKey) {
+    const unlocked = document.body.classList.toggle("sb-tabs-unlocked");
+    const btn = document.getElementById("btnToggleTabLock");
+    if (btn) {
+      btn.classList.toggle("is-unlocked", unlocked);
+      btn.textContent = unlocked ? "🔓 UNLOCKED" : "🔒 LOCKED";
+      btn.title = unlocked
+        ? "Tabs unlocked (scrolling freely with page) — click to Lock tabs at top"
+        : "Tabs locked at top while scrolling — click to Unlock full page scroll";
+    }
+    if (storageKey) {
+      try { localStorage.setItem(storageKey, unlocked ? "1" : "0"); } catch (e) {}
+    }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", autoMountShareButtonIfRequested);
