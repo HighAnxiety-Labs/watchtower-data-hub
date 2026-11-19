@@ -25,6 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="./wtr-view-mode.js?v=2.4"></script>
+  <script src="./wtr-social-share.js?v=1.2"></script>
   <style>
     :root {
       --bg-void: #03060a;
@@ -1238,6 +1239,7 @@
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span class="meta-chip" id="dbStatusText" style="color:#b9f6ca; border-color:rgba(0,230,118,0.4);">Syncing MASTER_DB...</span>
             <button type="button" class="meta-chip" onclick="fetchMasterDb(true)" title="Force fresh sync from Google Sheets MASTER_DB" style="cursor:pointer; color:#7df9ff; border-color:rgba(0,229,255,0.5); background:rgba(0,229,255,0.1);">↻ Sync</button>
+            <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="shareMatchupRadar()" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
             <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
             <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Unit Brief</a>
           </div>
@@ -1377,6 +1379,7 @@
     <div class="modal-top-bar">
       <div class="modal-title" id="modalMatchupTitle">⚔️ HEAD-TO-HEAD COMBAT &amp; WORKSHOP ANALYSIS</div>
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="shareMatchupDuel()" title="Share this Head-to-Head Duel (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
         <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
         <span class="meta-chip gold" title="Tac Ops Center & Gold Store player boosts queued for Phase 2">🔒 Phase 2 Ready: Tac Ops &amp; Gold Boosts</span>
         <button type="button" class="close-modal-btn" onclick="closeMatchupModal()">✕ BACK TO THUMBNAIL RADAR</button>
@@ -3144,7 +3147,43 @@
       if (popBtn) popBtn.style.display = 'none';
     }
     populateMyUnitSelect(false);
-    fetchMasterDb();
+    function shareMatchupRadar() {
+    if (!window.WTRSocialShare) return;
+    const me = getMySelectedUnit();
+    const uName = me ? me.UNIT_NAME : "";
+    const lvl = document.getElementById("myLevelSelect")?.value || "MAX";
+    const lvlTxt = lvl === "MAX" ? "MAX LVL" : ("LVL " + lvl);
+    const red = document.getElementById("cntRed")?.textContent || "0";
+    const amb = document.getElementById("cntAmber")?.textContent || "0";
+    const grn = document.getElementById("cntGreen")?.textContent || "0";
+    const meta = me ? [getGenerationLabel(me), cleanVal(me.STAT_FACTION)].filter(Boolean).join(" • ") : "";
+    const file = uName ? `unit-matchup.html?unit=${encodeURIComponent(uName)}` : "unit-matchup.html";
+    window.WTRSocialShare.openPage({
+      icon: "🎯",
+      title: uName ? `UNIT MATCHUP RADAR — ${uName} (${lvlTxt})` : "UNIT MATCHUP SIMULATOR & THREAT RADAR",
+      detail: `**Threat Radar:** 🔴 ${red} Avoid | 🟡 ${amb} Even | 🟢 ${grn} Easy Kills${meta ? " (" + meta + ")" : ""}`,
+      file
+    });
+  }
+
+  function shareMatchupDuel() {
+    if (!window.WTRSocialShare) return;
+    const uA = modalYouUnit ? modalYouUnit.UNIT_NAME : "";
+    const uB = modalOppUnit ? modalOppUnit.UNIT_NAME : "";
+    const pctA = document.getElementById("modalYouWinPct")?.textContent || "50%";
+    const pctB = document.getElementById("modalOppWinPct")?.textContent || "50%";
+    const file = (uA && uB)
+      ? `unit-matchup.html?unitA=${encodeURIComponent(uA)}&unitB=${encodeURIComponent(uB)}`
+      : "unit-matchup.html";
+    window.WTRSocialShare.openPage({
+      icon: "⚔️",
+      title: (uA && uB) ? `HEAD-TO-HEAD DUEL — ${uA} vs ${uB}` : "HEAD-TO-HEAD UNIT MATCHUP",
+      detail: `**Win Odds:** ${uA} ${pctA} vs ${uB} ${pctB} | **Workshops:** Auto-recommended counter tech`,
+      file
+    });
+  }
+
+  fetchMasterDb();
   });
 </script>
 </body>

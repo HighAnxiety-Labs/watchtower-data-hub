@@ -35,6 +35,18 @@
         background: rgba(27, 40, 56, 0.88); border: 1px solid rgba(102, 192, 244, 0.8); color: #66c0f4;
       }
       .wtr-sbtn-steam:hover { background: #2a475e; border-color: #bae6fd; color: #fff; }
+      .wtr-sbtn-share {
+        background: rgba(0, 230, 118, 0.14); border: 1px solid rgba(0, 230, 118, 0.75); color: #b9f6ca;
+        padding: 5px 12px;
+      }
+      .wtr-sbtn-share:hover { background: #00e676; border-color: #b9f6ca; color: #03140a; }
+      .wtr-auto-share-dock {
+        position: fixed; top: 10px; right: 14px; z-index: 9500;
+        display: inline-flex; align-items: center; gap: 6px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+        border-radius: 5px;
+      }
+      @media print { .wtr-auto-share-dock { display: none !important; } }
 
       .wtr-share-backdrop {
         position: fixed; inset: 0; z-index: 12000;
@@ -97,6 +109,7 @@
       .wtr-share-tab.active-discord { background: #5865f2; color: #fff; border-color: #a5b4fc; }
       .wtr-share-tab.active-facebook { background: #1877f2; color: #fff; border-color: #93c5fd; }
       .wtr-share-tab.active-steam { background: #1b2838; color: #66c0f4; border-color: #66c0f4; }
+      .wtr-share-tab.active-link { background: #00e676; color: #03140a; border-color: #b9f6ca; }
       .wtr-share-body { padding: 14px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
       .wtr-share-hint {
         font-family: monospace; font-size: 11px; color: #94a3b8;
@@ -168,6 +181,7 @@
           <button type="button" class="wtr-share-tab active-discord" data-wtr-fmt="discord">💬 DISCORD</button>
           <button type="button" class="wtr-share-tab" data-wtr-fmt="facebook">📘 FACEBOOK</button>
           <button type="button" class="wtr-share-tab" data-wtr-fmt="steam">🎮 STEAM (BBCode)</button>
+          <button type="button" class="wtr-share-tab" data-wtr-fmt="link">🔗 PAGE LINK</button>
         </div>
         <div class="wtr-share-body">
           <div class="wtr-share-hint" id="wtrSharePlatformHint"></div>
@@ -220,7 +234,7 @@
     if (stat) stat.textContent = `${txt.length} chars • 3-Line Logo Ready`;
     const copyBtn = el.querySelector("#wtrShareCopyBtn");
     if (copyBtn) {
-      copyBtn.textContent = fmt === "discord" ? "📋 COPY FOR DISCORD" : (fmt === "facebook" ? "📋 COPY FOR FACEBOOK" : "📋 COPY FOR STEAM");
+      copyBtn.textContent = fmt === "discord" ? "📋 COPY FOR DISCORD" : (fmt === "facebook" ? "📋 COPY FOR FACEBOOK" : (fmt === "steam" ? "📋 COPY FOR STEAM" : "🔗 COPY PAGE LINK"));
     }
     const hint = el.querySelector("#wtrSharePlatformHint");
     if (hint) {
@@ -228,8 +242,10 @@
         hint.innerHTML = "💬 <strong>Discord Tip:</strong> Plain text cannot embed inline images. Click <strong>🖼️ COPY CARD PNG</strong> to paste a graphic card with the 3-line WTR Logo via <code>Ctrl+V</code>, or paste the Markdown text below.";
       } else if (fmt === "facebook") {
         hint.innerHTML = "📘 <strong>Facebook Tip:</strong> Facebook strips inline image tags from text. Use <strong>🖼️ COPY CARD PNG</strong> (or <strong>🛡️ 3-LINE LOGO PNG</strong>) to attach the branded graphic, then paste the text below.";
-      } else {
+      } else if (fmt === "steam") {
         hint.innerHTML = "🎮 <strong>Steam Tip:</strong> Uses compact 64×64 <code>[img]wtr-logo-badge.png[/img]</code> (3-line height) for Steam Guides &amp; Announcements.";
+      } else {
+        hint.innerHTML = "🔗 <strong>Direct Page Link:</strong> Clean URL only — paste anywhere (chat, SMS, email, or social) for a quick direct link.";
       }
     }
   }
@@ -436,16 +452,214 @@
     }, "image/png");
   }
 
+  const HUB_BASE = "https://highanxiety-labs.github.io/watchtower-data-hub/";
+
+  const PAGE_CATALOG = {
+    "2026-nov-sector-breach-brief.html": {
+      icon: "💥", title: "NOV 2026 SECTOR BREACH BRIEF",
+      detail: "**Schedule:** Fri Nov 20 @ 10 AM PST → Tue Nov 24 @ 10 AM PST (Store Closes Wed Nov 25)",
+      extraLinks: [
+        { icon: "🧮", label: "Event Calculator", url: HUB_BASE + "event-calculator.html?mode=breach" },
+        { icon: "🛡️", label: "ESCORT Unit Brief", url: HUB_BASE + "unit-briefs.html?unit=ESCORT" }
+      ]
+    },
+    "2026-nov-holdout-brief.html": {
+      icon: "🛡️", title: "NOV 2026 HOLDOUT BRIEF",
+      detail: "**Schedule:** Fri Nov 13 → Tue Nov 17 | **Store Closes:** Wed Nov 18 @ 10 AM PST"
+    },
+    "operation-blue-baron.html": {
+      icon: "⚔️", title: "NOV 2026 OPERATION: BLUE BARON BRIEF",
+      detail: "**Main Event Brief:** Full Schedule, Store Prizes & Basic Training Intel",
+      extraLinks: [
+        { icon: "🧮", label: "Event Calculator", url: HUB_BASE + "event-calculator.html?mode=operations" }
+      ]
+    },
+    "2026-nov-shadow-ops-brief.html": {
+      icon: "🐉", title: "NOV 2026 SHADOW OPS — DRIFTING DRAGON",
+      detail: "**Event Brief:** Active Shadow Ops Schedule, Parts & Rewards"
+    },
+    "2026-nov-skirmish-brief.html": {
+      icon: "🎖️", title: "NOV 2026 SKIRMISH BRIEF",
+      detail: "**Schedule:** Fri Nov 27 → Tue Dec 1 @ 10 AM PST (Store Closes Wed Dec 2)",
+      extraLinks: [
+        { icon: "🧮", label: "Event Calculator", url: HUB_BASE + "event-calculator.html?mode=skirmish" }
+      ]
+    },
+    "2026-pvp-season-60-brief.html": {
+      icon: "🏆", title: "2026 PVP SEASON 60 BRIEF",
+      detail: "**PVP Season Intel:** Leaderboard Payouts, Tiers & Season Dates"
+    },
+    "2026-dec-operation-brief.html": {
+      icon: "🔒", title: "DEC 2026 MAIN OPERATION BRIEF",
+      detail: "**Upcoming Main Event:** Pre-Release Schedule & Holding Brief"
+    },
+    "unit-matchup.html": {
+      icon: "🎯", title: "UNIT MATCHUP SIMULATOR & THREAT RADAR",
+      detail: "**Combat Radar:** 2× Counter-Armor, Range Advantage & Best Workshop Advisor"
+    },
+    "event-calculator.html": {
+      icon: "🧮", title: "MULTI-EVENT XP & STORE CALCULATOR",
+      detail: "**Alliance Requisition Planner:** Operations, Holdout, Sector Breach & Skirmish"
+    },
+    "unit-briefs.html": {
+      icon: "🛡️", title: "WATCHTOWER UNIT BRIEFS DATABASE",
+      detail: "**Full 40-Lvl Reports:** Stats, Talents, Workshops, Warpaints & Side-by-Side Compare"
+    },
+    "building-briefs.html": {
+      icon: "🏗️", title: "BUILDING BRIEFS — BASE INFRASTRUCTURE",
+      detail: "**Tactical Building Data:** Upgrade Levels, HP, Ranges & Requirements"
+    },
+    "agency-contractors.html": {
+      icon: "🕵️", title: "AGENCY CONTRACTORS INTEL",
+      detail: "**Contractor Profiles:** Active Agents, Perks & Deployment Intel"
+    },
+    "faction-intel.html": {
+      icon: "🏛️", title: "FACTION INTEL & ROSTERS",
+      detail: "**All Factions:** Sentinels, Equinox, Corpus, Rangers, Vortex & Retaliators"
+    },
+    "damage-type.html": {
+      icon: "📊", title: "3×3 DAMAGE & ARMOR COUNTER MATRIX",
+      detail: "**Combat Multipliers:** Burst / Sustain / Area vs Light / Medium / Heavy Armor"
+    },
+    "platoon-guide.html": {
+      icon: "🪖", title: "PLATOON GUIDE & FORMATIONS",
+      detail: "**Tactical Loadouts:** Proven Platoon Synergies & Roles"
+    },
+    "base-defense-planning.html": {
+      icon: "🧱", title: "BASE DEFENSE PLANNING",
+      detail: "**Defensive Layouts:** Turret Coverage, Traps & Garrison Strategy"
+    },
+    "cc22-upgrade-path.html": {
+      icon: "⬆️", title: "CC22 UPGRADE PATH",
+      detail: "**Command Center 22:** Full Prerequisite Tree, Costs & Timers"
+    },
+    "cc-22-pre-release.html": {
+      icon: "📡", title: "CC22 PRE-RELEASE INTEL",
+      detail: "**Preview Intel:** Upcoming CC22 Unlocks & Base Changes"
+    },
+    "2026-calendar.html": {
+      icon: "📅", title: "2026 WAR COMMANDER EVENT CALENDAR",
+      detail: "**Full Year Schedule:** Operations, Holdout, Sector Breach & Skirmish Dates"
+    },
+    "sector-status-sheet.html": {
+      icon: "🗺️", title: "SECTOR STATUS SHEET",
+      detail: "**Live Sector Tracking:** Alliance Sector Intel & Map Status"
+    },
+    "video-recon.html": {
+      icon: "🎥", title: "VIDEO RECON — CREATOR GUIDES",
+      detail: "**Community Recon:** Latest Walkthroughs, Base Hits & Event Guides"
+    },
+    "keyboard-commands.html": {
+      icon: "⌨️", title: "WAR COMMANDER KEYBOARD COMMANDS",
+      detail: "**Hotkeys Reference:** Micro Shortcuts & Combat Controls"
+    },
+    "whats-broken.html": {
+      icon: "🐛", title: "WHAT'S BROKEN — DEFECT TRACKER",
+      detail: "**Active Bug Log:** Known Game Issues, Workarounds & Fix Status"
+    },
+    "report-war-crimes.html": {
+      icon: "🚨", title: "REPORT WAR CRIMES",
+      detail: "**Alliance Intake:** Submit Incident Reports & Evidence"
+    },
+    "vault-event-history.html": {
+      icon: "🗄️", title: "EVENT VAULT & ARCHIVE HISTORY",
+      detail: "**Historical Archive:** Past 2026 Event Briefs & Store Logs"
+    }
+  };
+
+  function getCurrentFileName() {
+    try {
+      const p = decodeURIComponent(window.location.pathname || "").replace(/\\/g, "/");
+      const seg = p.split("/").filter(Boolean).pop() || "index.html";
+      return seg.toLowerCase();
+    } catch (e) {
+      return "index.html";
+    }
+  }
+
+  function buildStandardPayloads(cfg) {
+    const file = String(cfg.file || getCurrentFileName()).replace(/^\.\//, "");
+    const pageUrl = cfg.pageUrl || (HUB_BASE + file);
+    const icon = cfg.icon || "📡";
+    const title = String(cfg.title || document.title || "WATCHTOWER DATA HUB").replace(/^\[?-WTR-\]?\s*/i, "").trim();
+    const detail = cfg.detail || "";
+    const extras = Array.isArray(cfg.extraLinks) ? cfg.extraLinks : [];
+
+    const discord = [
+      `${icon} **[-WTR-] ${title}**`,
+      ...(detail ? [`• ${detail}`] : []),
+      `🔗 **Open Page:** ${pageUrl}`,
+      ...extras.map(ex => `${ex.icon || "🔗"} **${ex.label}:** <${ex.url}>`)
+    ].join("\n");
+
+    const facebook = [
+      `${icon} [-WTR-] ${title}`,
+      ...(detail ? [`📌 ${detail.replace(/\*\*/g, "")}`] : []),
+      `🔗 Open Page: ${pageUrl}`,
+      ...extras.map(ex => `${ex.icon || "🔗"} ${ex.label}: ${ex.url}`),
+      "#WarCommander #WatchToweR"
+    ].join("\n");
+
+    const steam = [
+      `[img]${WTR_BADGE_REMOTE}[/img]`,
+      `[b]${icon} [-WTR-] ${title}[/b]`,
+      "[list]",
+      ...(detail ? [`  [*] ${detail.replace(/\*\*([^*]+)\*\*/g, "[b]$1[/b]")}`] : []),
+      `  [*] 🔗 [url=${pageUrl}]Open ${title}[/url]`,
+      ...extras.map(ex => `  [*] ${ex.icon || "🔗"} [url=${ex.url}]${ex.label}[/url]`),
+      "[/list]"
+    ].join("\n");
+
+    return {
+      title,
+      subtitle: `${file} • Discord • Facebook • Steam • Page Link`,
+      pageUrl,
+      discord,
+      facebook,
+      steam
+    };
+  }
+
+  function resolvePageLink(opts) {
+    if (opts && opts.pageUrl) return String(opts.pageUrl).trim();
+    const combined = `${opts.discord || ""}\n${opts.facebook || ""}`;
+    const m = combined.match(/https:\/\/highanxiety-labs\.github\.io\/watchtower-data-hub\/[^\s<>\]"']+/i);
+    if (m && m[0] && !/assets\/images\//i.test(m[0])) return m[0];
+    try {
+      if (/^https?:/i.test(window.location.href)) return window.location.href;
+    } catch (e) {}
+    return HUB_BASE;
+  }
+
   window.WTRSocialShare = {
     LOGO_URL: WTR_LOGO_REMOTE,
     LOGO_BADGE_URL: WTR_BADGE_REMOTE,
+    PAGE_CATALOG: PAGE_CATALOG,
+    openPage: function(fileOrOpts) {
+      let cfg = {};
+      if (typeof fileOrOpts === "string") {
+        const cleanFile = fileOrOpts.replace(/^https?:\/\/[^/]+\/watchtower-data-hub\//i, "").replace(/^\.\//, "");
+        const baseFile = cleanFile.split("?")[0].split("#")[0].toLowerCase();
+        const cat = PAGE_CATALOG[baseFile] || {};
+        cfg = Object.assign({}, cat, { file: cleanFile, pageUrl: HUB_BASE + cleanFile });
+      } else if (fileOrOpts && typeof fileOrOpts === "object") {
+        const baseFile = String(fileOrOpts.file || getCurrentFileName()).split("?")[0].toLowerCase();
+        cfg = Object.assign({}, PAGE_CATALOG[baseFile] || {}, fileOrOpts);
+      } else {
+        const f = getCurrentFileName();
+        cfg = Object.assign({}, PAGE_CATALOG[f] || {}, { file: f });
+      }
+      const built = buildStandardPayloads(cfg);
+      window.WTRSocialShare.open(built);
+    },
     open: function(opts) {
       const el = ensureModal();
       const steamFixed = String(opts.steam || "").replace(/wtr-logo\.png/gi, "wtr-logo-badge.png");
       currentPayloads = {
         discord: opts.discord || "",
         facebook: opts.facebook || "",
-        steam: steamFixed
+        steam: steamFixed,
+        link: resolvePageLink(opts)
       };
       currentMeta = {
         title: opts.title || "SHARE WATCHTOWER BRIEF",
@@ -459,4 +673,34 @@
       el.classList.add("open");
     }
   };
+
+  function autoMountShareButtonIfRequested() {
+    const scripts = document.querySelectorAll('script[src*="wtr-social-share.js"]');
+    let autoRequested = false;
+    scripts.forEach(s => {
+      if (s.getAttribute("data-wtr-auto-share") === "true") autoRequested = true;
+    });
+    if (!autoRequested) return;
+    if (document.querySelector(".wtr-sbtn-share") || document.getElementById("wtrAutoShareDock")) return;
+    // Skip floating dock if embedded inside index.html popout (index.html popout header has its own SHARE THIS PAGE button)
+    try {
+      if (window.self !== window.top && window.parent && window.parent.document && window.parent.document.getElementById("popoutShareBtn")) {
+        return;
+      }
+    } catch (e) {}
+    const dock = document.createElement("div");
+    dock.id = "wtrAutoShareDock";
+    dock.className = "wtr-auto-share-dock";
+    dock.innerHTML = `<button type="button" class="wtr-sbtn wtr-sbtn-share" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>`;
+    dock.querySelector("button").addEventListener("click", () => {
+      window.WTRSocialShare.openPage(window.WTR_SHARE_CONFIG || getCurrentFileName());
+    });
+    document.body.appendChild(dock);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoMountShareButtonIfRequested);
+  } else {
+    autoMountShareButtonIfRequested();
+  }
 })();

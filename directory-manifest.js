@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T06:56:34-08:00",
-    "generatedMs":  1795100189177,
+    "generatedAt":  "2026-11-19T09:30:55-08:00",
+    "generatedMs":  1795109451398,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -59,183 +59,183 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-19T05:50:14Z",
-                              "modifiedMs":  1795067414392
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353972
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
                               "path":  "./2026-dec-operation-brief.html",
                               "title":  "DEC 2026 OPERATION: TBD (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018857
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353946
                           },
                           {
                               "file":  "2026-nov-holdout-brief.html",
                               "path":  "./2026-nov-holdout-brief.html",
                               "title":  "2026-nov-holdout-brief",
-                              "modifiedAt":  "2026-11-19T08:00:45Z",
-                              "modifiedMs":  1795075245816
+                              "modifiedAt":  "2026-11-19T15:44:09Z",
+                              "modifiedMs":  1795103049519
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-19T08:00:46Z",
-                              "modifiedMs":  1795075246834
+                              "modifiedAt":  "2026-11-19T15:44:10Z",
+                              "modifiedMs":  1795103050313
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
                               "path":  "./2026-nov-shadow-ops-brief.html",
                               "title":  "SHADOW OPS: DRIFTING DRAGON (Chapter 1–3 Tactical Brief)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018862
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353941
                           },
                           {
                               "file":  "2026-nov-skirmish-brief.html",
                               "path":  "./2026-nov-skirmish-brief.html",
                               "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018863
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353943
                           },
                           {
                               "file":  "2026-pvp-season-60-brief.html",
                               "path":  "./2026-pvp-season-60-brief.html",
                               "title":  "PVP SEASON 60 Operational Brief (NOV 12 – DEC 30, 2026)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018864
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353944
                           },
                           {
                               "file":  "agency-contractors.html",
                               "path":  "./agency-contractors.html",
                               "title":  "Agency Contractors \u0026 Base Loadout Planner",
-                              "modifiedAt":  "2026-11-19T05:50:16Z",
-                              "modifiedMs":  1795067416795
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353950
                           },
                           {
                               "file":  "base-defense-planning.html",
                               "path":  "./base-defense-planning.html",
                               "title":  "[-WTR-] Base Defense Planning — Zone Control \u0026 Choke Architecture",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018867
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353961
                           },
                           {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-17T08:30:06Z",
-                              "modifiedMs":  1794904206695
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353948
                           },
                           {
                               "file":  "cc-22-pre-release.html",
                               "path":  "./cc-22-pre-release.html",
                               "title":  "Command Center 22 Pre-Release Briefing",
-                              "modifiedAt":  "2026-11-17T08:30:07Z",
-                              "modifiedMs":  1794904207204
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353966
                           },
                           {
                               "file":  "cc22-upgrade-path.html",
                               "path":  "./cc22-upgrade-path.html",
                               "title":  "Post-CC22 Upgrade Priority Roadmap",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018880
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353964
                           },
                           {
                               "file":  "damage-type.html",
                               "path":  "./damage-type.html",
                               "title":  "Damage Type Matrix \u0026 Armor Rework",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018882
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353956
                           },
                           {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-19T08:00:47Z",
-                              "modifiedMs":  1795075247648
+                              "modifiedAt":  "2026-11-19T15:44:10Z",
+                              "modifiedMs":  1795103050918
                           },
                           {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-19T05:50:18Z",
-                              "modifiedMs":  1795067418284
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353953
                           },
                           {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-19T08:00:48Z",
-                              "modifiedMs":  1795075248834
+                              "modifiedAt":  "2026-11-19T16:40:44Z",
+                              "modifiedMs":  1795106444370
                           },
                           {
                               "file":  "keyboard-commands.html",
                               "path":  "./keyboard-commands.html",
                               "title":  "Keyboard Commands \u0026 Hotkey Matrix",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018904
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353980
                           },
                           {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018920
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353892
                           },
                           {
                               "file":  "platoon-guide.html",
                               "path":  "./platoon-guide.html",
                               "title":  "Platoon Formations \u0026 Management Guide",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018921
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353958
                           },
                           {
                               "file":  "report-war-crimes.html",
                               "path":  "./report-war-crimes.html",
                               "title":  "WatchToweR Data Hub — Report War Crimes",
-                              "modifiedAt":  "2026-11-19T05:50:19Z",
-                              "modifiedMs":  1795067419776
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353984
                           },
                           {
                               "file":  "sector-status-sheet.html",
                               "path":  "./sector-status-sheet.html",
                               "title":  "Player Sector Status Board (Sectors 001–200)",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018923
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353975
                           },
                           {
                               "file":  "unit-briefs.html",
                               "path":  "./unit-briefs.html",
                               "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-19T08:00:49Z",
-                              "modifiedMs":  1795075249741
+                              "modifiedAt":  "2026-11-19T15:44:11Z",
+                              "modifiedMs":  1795103051585
                           },
                           {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-19T14:56:20Z",
-                              "modifiedMs":  1795100180690
+                              "modifiedAt":  "2026-11-19T16:40:45Z",
+                              "modifiedMs":  1795106445147
                           },
                           {
                               "file":  "vault-event-history.html",
                               "path":  "./vault-event-history.html",
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
-                              "modifiedAt":  "2026-11-17T08:30:08Z",
-                              "modifiedMs":  1794904208220
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353986
                           },
                           {
                               "file":  "video-recon.html",
                               "path":  "./video-recon.html",
                               "title":  "[-WTR-] Video Recon Desk — WatchToweR Video Intelligence",
-                              "modifiedAt":  "2026-11-17T08:26:58Z",
-                              "modifiedMs":  1794904018929
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353977
                           },
                           {
                               "file":  "whats-broken.html",
                               "path":  "./whats-broken.html",
                               "title":  "What\u0027s Broken in War Commander",
-                              "modifiedAt":  "2026-11-19T05:50:20Z",
-                              "modifiedMs":  1795067420816
+                              "modifiedAt":  "2026-11-19T16:39:13Z",
+                              "modifiedMs":  1795106353982
                           }
                       ],
     "activeDefects":  [
@@ -309,6 +309,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "DAWN SLATER",
                                           "DIXON",
                                           "DR. ACHE",
+                                          "DR. AEGON",
                                           "DUTCH",
                                           "DYAD \u0026 TWIN",
                                           "FERNANDO TORRES",
@@ -329,6 +330,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "JUGGERNAUT",
                                           "KAI CHEN",
                                           "LANDLOCHE",
+                                          "LANDLOCKE",
                                           "LEGENDARY ESCORT",
                                           "LUCIA VEGA",
                                           "MATCHLOCKE",
@@ -387,22 +389,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-                                   {
-                                       "key":  "LANDLOCKE",
-                                       "name":  "LANDLOCKE",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 3 • UNIQUE",
-                                       "firstSeenMs":  1795019952362,
-                                       "firstSeenAt":  "2026-11-18T16:39:12Z"
-                                   },
-                                   {
-                                       "key":  "DR. AEGON",
-                                       "name":  "DR. AEGON",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 1 • UNIQUE",
-                                       "firstSeenMs":  1795019952362,
-                                       "firstSeenAt":  "2026-11-18T16:39:12Z"
-                                   },
                                    {
                                        "key":  "EIDOLON",
                                        "name":  "EIDOLON",

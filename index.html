@@ -33,6 +33,7 @@
   <meta property="og:title" content="[-WTR-] WatchToweR Command Center">
   <meta property="og:description" content="War Commander Strategic Deployment Grid • Live Event Timers, 6-Week Calendar, Unit & Building Briefs, and Tactical Guides.">
   <meta property="og:image" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
+  <script src="./wtr-social-share.js?v=1.2"></script>
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <script src="./wtr-view-mode.js?v=2.4"></script>
@@ -1230,6 +1231,7 @@
         <span id="viewportModuleTitle" style="color: rgb(179, 54, 54);">WHAT'S BROKEN IN WC</span>
       </div>
       <div class="viewport-actions-right">
+        <button type="button" class="wtr-sbtn wtr-sbtn-share" id="popoutShareBtn" onclick="shareActiveViewportPage()" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
         <button type="button" class="action-btn" id="viewportBackupPopoutBtn" onclick="openDirectExternalUrl(this.dataset.url)" style="display: inline-flex;" data-url="./whats-broken.html">↗ Pop-Out Full Page</button>
         <button type="button" class="viewport-close-x-btn" onclick="closeInlineModuleViewport()">✕ CLOSE VIEWPORT</button>
       </div>
@@ -3100,6 +3102,30 @@
         sessionStorage.setItem("wtr_hub_prev_list_v1", JSON.stringify(stateObj));
       }
     } catch (e) {}
+  }
+
+  function shareActiveViewportPage() {
+    if (!window.WTRSocialShare || typeof window.WTRSocialShare.openPage !== "function") return;
+    const backupBtn = document.getElementById("viewportBackupPopoutBtn");
+    const titleEl = document.getElementById("viewportModuleTitle");
+    const iframe = document.getElementById("inlineViewportIframe");
+    let rawUrl = (backupBtn && backupBtn.dataset && backupBtn.dataset.url) ? backupBtn.dataset.url : "";
+    try {
+      if (iframe && iframe.contentWindow && iframe.contentWindow.location && iframe.contentWindow.location.href && !iframe.contentWindow.location.href.startsWith("about:")) {
+        const href = iframe.contentWindow.location.href;
+        const m = href.match(/([^/\\]+\.html(?:\?[^#]*)?)$/i);
+        if (m && m[1]) rawUrl = m[1];
+      }
+    } catch (e) {}
+    const cleanFile = String(rawUrl || "").replace(/^https?:\/\/[^/]+\/watchtower-data-hub\//i, "").replace(/^\.\//, "").trim();
+    if (cleanFile && /\.html/i.test(cleanFile)) {
+      window.WTRSocialShare.openPage(cleanFile);
+    } else {
+      window.WTRSocialShare.openPage({
+        title: (titleEl && titleEl.textContent) ? titleEl.textContent.trim() : "WATCHTOWER COMMAND CENTER",
+        file: "index.html"
+      });
+    }
   }
 
   function openInlineModuleViewport(title, accentColor, rawHtmlCode, iframeSrcUrl, backupUrl) {
