@@ -357,16 +357,16 @@
   .category-filter-select:hover, .category-filter-select:focus { background: #0d1520; border-color: #ffffff; color: #ffffff; }
   .category-filter-select option { background: #090e14; color: #f0f6fc; font-weight: 800; }
 
-  .brief-buttons-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; width: 100%; position: relative; z-index: 3; }
-  @media (max-width: 1150px) { .brief-buttons-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
-  @media (max-width: 680px) { .brief-buttons-grid { grid-template-columns: repeat(2, 1fr); } }
+  .brief-buttons-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 100%; box-sizing: border-box; position: relative; z-index: 3; }
+  @media (max-width: 1150px) { .brief-buttons-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+  @media (max-width: 680px) { .brief-buttons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-  .brief-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; text-transform: uppercase; padding: 11px 12px; border-radius: 4px; border: 1px solid var(--border-metal); border-top: 2px solid var(--btn-accent, #2b8cbe); background: linear-gradient(180deg, #17222e 0%, #0c1219 100%); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6); cursor: pointer; text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease; position: relative; text-shadow: none !important; }
-  .brief-btn-center-stack { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 0; gap: 5px; text-align: center; }
-  .brief-btn-title-row { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; font-size: 12.5px; font-weight: 900; letter-spacing: 0.7px; }
-  .brief-btn-title-row span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brief-btn-mod-count { font-family: monospace; font-size: 11px; font-weight: 800; color: var(--text-gold) !important; background: #05080c; border: 1px solid rgba(226, 197, 71, 0.45); padding: 2px 9px; border-radius: 3px; letter-spacing: 0.8px; line-height: 1.15; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9); }
-  .brief-btn-chevron { font-family: monospace; font-size: 17.5px; font-weight: 900; line-height: 1; opacity: 0.95; transition: transform 0.2s ease; flex-shrink: 0; padding-left: 2px; }
+  .brief-btn { width: 100%; min-width: 0; max-width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 6px; text-transform: uppercase; padding: 10px 9px; border-radius: 4px; border: 1px solid var(--border-metal); border-top: 2px solid var(--btn-accent, #2b8cbe); background: linear-gradient(180deg, #17222e 0%, #0c1219 100%); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6); cursor: pointer; text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease; position: relative; text-shadow: none !important; overflow: hidden; }
+  .brief-btn-center-stack { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0%; min-width: 0; max-width: 100%; gap: 5px; text-align: center; }
+  .brief-btn-title-row { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-width: 0; font-size: clamp(10.5px, 0.92vw, 12.5px); font-weight: 900; letter-spacing: 0.5px; line-height: 1.2; }
+  .brief-btn-title-row span:last-child { white-space: normal; overflow-wrap: break-word; word-break: break-word; min-width: 0; text-align: center; }
+  .brief-btn-mod-count { font-family: monospace; font-size: clamp(9.5px, 0.8vw, 11px); font-weight: 800; color: var(--text-gold) !important; background: #05080c; border: 1px solid rgba(226, 197, 71, 0.45); padding: 2px 7px; border-radius: 3px; letter-spacing: 0.6px; line-height: 1.15; display: inline-flex; align-items: center; justify-content: center; gap: 4px; max-width: 100%; white-space: normal; text-align: center; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9); }
+  .brief-btn-chevron { font-family: monospace; font-size: clamp(14px, 1.2vw, 17.5px); font-weight: 900; line-height: 1; opacity: 0.95; transition: transform 0.2s ease; flex-shrink: 0; padding-left: 1px; }
   .brief-btn:not(.active-tab):hover { animation: briefHoverPulse 0.55s ease-out forwards; }
   .brief-btn.active-tab, .brief-btn.active-tab:hover { background: var(--btn-accent) !important; color: #05070a !important; border: 1px solid var(--border-bevel) !important; border-top: 2px solid rgba(255, 255, 255, 0.45) !important; box-shadow: none !important; filter: none !important; animation: none !important; font-weight: 900 !important; text-shadow: none !important; z-index: 5; }
   .brief-btn.active-tab .dot { background-color: #05070a !important; box-shadow: none !important; }
