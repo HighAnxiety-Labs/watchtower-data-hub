@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T10:14:55-08:00",
-    "generatedMs":  1795112091331,
+    "generatedAt":  "2026-11-19T10:36:23-08:00",
+    "generatedMs":  1795113377580,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -150,8 +150,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-19T15:44:10Z",
-                              "modifiedMs":  1795103050918
+                              "modifiedAt":  "2026-11-19T18:34:17Z",
+                              "modifiedMs":  1795113257769
                           },
                           {
                               "file":  "faction-intel.html",
