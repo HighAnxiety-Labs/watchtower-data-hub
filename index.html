@@ -1317,15 +1317,15 @@
             </div>
             <div class="timer-card shadowops card-inherited" id="carouselCardShadowOps" style="display: flex; --dir-target-key: var(--dir-btn2); order: 0; opacity: 1;">
               <button type="button" class="timer-art-square" id="clockBtnShadowOps" data-url="./2026-nov-shadow-ops-brief.html" data-clock-title="Shadow Ops: Drifting Dragon" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Shadow Ops: Drifting Dragon Brief" style="background: radial-gradient(circle at 50% 45%, #0c1926 0%, #05080d 100%); --glow-color: var(--c-shadowops);">
-                <img src="./assets/images/clock-shadow-ops-drifting-dragon.jpg" alt="Drifting Dragon: Ch.1 / P1" class="fit-contain" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <img src="./assets/images/clock-shadow-ops-drifting-dragon.jpg" alt="Drifting Dragon: Ch.1 / P2" class="fit-contain" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
                 <span class="timer-art-corner-cue">↗</span>
                 <span class="timer-art-hover-pill">OPEN SHADOW OPS BRIEF ↗</span>
               </button>
               <div class="timer-card-right">
-                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Drifting Dragon: Ch.1 / P1</span><span class="timer-status-badge" id="badge-shadowops">Phase Live</span></div>
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleShadowOps" style="color: #939be0;">Drifting Dragon: Ch.1 / P2</span><span class="timer-status-badge" id="badge-shadowops">Phase Live</span></div>
                 <div class="timer-clock-block">
                   <div class="timer-clock-display" id="clock-shadowops">--d --h --m --s</div>
-                  <div class="timer-subtext" id="sub-shadowops">Phase Ends Nov 20, 10:00 AM PT</div>
+                  <div class="timer-subtext" id="sub-shadowops">Phase Ends Nov 27, 10:00 AM PT</div>
                 </div>
                 <div class="timer-actions-row"><div class="timer-calc-spacer"></div></div>
               </div>
@@ -1873,7 +1873,11 @@
 
   const eventSchedules = {
     "breach":    { "start": 1795197600000, "end": 1795543200000, "store": 1795629600000, "noStore": false, "color": "var(--c-breach)",    "bg": "rgba(217, 119, 54, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/EVENT ART/SECTOR BREACH.png", "hasPrizeList": true },
-    "shadowops": { "start": 1794592800000, "end": 1795197600000, "store": 1795197600000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "", "artUrl": "./assets/images/clock-shadow-ops-drifting-dragon.jpg", "hasPrizeList": true },
+    "shadowops": { "start": 1795197600000, "end": 1795802400000, "store": 1795802400000, "noStore": true,  "color": "var(--c-shadowops)", "bg": "rgba(107, 116, 214, 0.18)", "customSubtext": "", "artUrl": "./assets/images/clock-shadow-ops-drifting-dragon.jpg", "hasPrizeList": true, "phases": [
+      { "label": "Drifting Dragon: Ch.1 / P1", "start": 1794592800000, "end": 1795197600000 },
+      { "label": "Drifting Dragon: Ch.1 / P2", "start": 1795197600000, "end": 1795802400000 },
+      { "label": "Drifting Dragon: Ch.1 / P3", "start": 1795802400000, "end": 1796234400000 }
+    ] },
     "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "", "artUrl": "", "hasPrizeList": false },
     "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
     "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-holdout-nov-2026.jpg", "hasPrizeList": true },
@@ -8227,6 +8231,16 @@
     });
   }
 
+  function syncActivePhaseForSchedule(sched, titleEl, nowMs) {
+    if (!sched || !Array.isArray(sched.phases) || !sched.phases.length) return;
+    const activePhase = sched.phases.find(ph => nowMs < ph.end) || sched.phases[sched.phases.length - 1];
+    if (!activePhase) return;
+    sched.start = activePhase.start;
+    sched.end = activePhase.end;
+    sched.store = activePhase.store || activePhase.end;
+    if (titleEl && activePhase.label) titleEl.textContent = activePhase.label;
+  }
+
   function updateAllSystemClocks() {
     ensureManualClockOrderInputsExist();
     ensureClockCalcButtonsExist();
@@ -8248,6 +8262,7 @@
       if (!sched) return;
       const el = document.getElementById(c.elId), subEl = document.getElementById(c.subId), badge = document.getElementById(c.badgeId), card = document.getElementById(c.cardId);
       const titleEl = document.getElementById(c.titleId), artBtnEl = document.getElementById(c.btnId);
+      syncActivePhaseForSchedule(sched, titleEl, now);
       if (titleEl && CLOCK_LEGEND_TITLE_COLORS[c.key]) {
         titleEl.style.color = CLOCK_LEGEND_TITLE_COLORS[c.key];
       }
@@ -8804,31 +8819,6 @@
       .replace(/-/g, " ")
       .replace(/\boperation\s+/i, "OPERATION: ")
       .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
-      .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
-      .toUpperCase();
-    if (clean.toLowerCase() === "2026-nov-shadow-ops-brief.html") {
-      readable = "SHADOW OPS: DRIFTING DRAGON";
-    }
-
-    const datePrefix = monthNum > 0 ? `${monthShort} ${year}` : `${year}`;
-    const prefix = getWtrPublishedPrefix();
-    const relUrl = `${prefix}${folderSubpath}${encodeURIComponent(clean)}`;
-
-    return {
-      fileName: clean,
-      category,
-      year,
-      monthNum,
-      sortScore: (year * 100) + monthNum,
-      title: `${datePrefix} • ${readable}`,
-      shortTitle: readable,
-      url: relUrl
-    };
-  }
-
-  // Upgrade openDirectExternalUrl so relative .html paths open directly without prepending https://
-  openDirectExternalUrl = function(rawUrl) {
-    let targetUrl = String(rawUrl || "").trim();
     const norm = targetUrl.replace(/\/+$/, "").toLowerCase();
     const isGenericOrEmpty = !targetUrl || targetUrl === "#" || norm.endsWith("/home") || norm.endsWith("/operational-briefs");
 
@@ -9743,6 +9733,9 @@
       clockSpecs.forEach(spec => {
         const sched = (typeof eventSchedules === "object" && eventSchedules) ? eventSchedules[spec.key] : null;
         if (!sched || !sched.start || !sched.end) return;
+        if (typeof syncActivePhaseForSchedule === "function") {
+          syncActivePhaseForSchedule(sched, document.getElementById(spec.titleId), now);
+        }
         const cardEl = document.getElementById(spec.cardId);
         if (cardEl && cardEl.style.display === "none") return;
 
