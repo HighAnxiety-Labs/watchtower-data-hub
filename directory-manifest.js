@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-20T15:03:52-08:00",
-    "generatedMs":  1795215827000,
+    "generatedAt":  "2026-11-20T15:36:46-08:00",
+    "generatedMs":  1795217801936,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -213,8 +213,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-20T23:02:37Z",
-                              "modifiedMs":  1795215757122
+                              "modifiedAt":  "2026-11-20T23:26:38Z",
+                              "modifiedMs":  1795217198594
                           },
                           {
                               "file":  "vault-event-history.html",
@@ -755,6 +755,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1790361886000
                           },
                           {
+                              "id":  "HJp4vFLKQi8",
+                              "creatorId":  "furiousbull2",
+                              "handle":  "furiousbull2",
+                              "owner":  "furious bull2",
+                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
+                              "title":  "War Commander Sector Breach Conqueror Base 1-2 -3 / 1-2 Free Repair - Base 03 Air Damage .",
+                              "descSnippet":  "War Commander Sector Breach Conqueror Base 1-2 -3 / 1-2 Free Repair - Base 03 Air Damage .\nUsing Rhino Level 20 And Banshee Level 20 With Their Hero / shock Ops \nThank you for watching",
+                              "publishedAt":  "2026-11-20T23:04:47Z",
+                              "publishedMs":  1795215887000
+                          },
+                          {
                               "id":  "qJCsq5YlOAc",
                               "creatorId":  "furiousbull2",
                               "handle":  "furiousbull2",
@@ -909,15 +920,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793457145000
                           },
                           {
-                              "id":  "ZXDiA0RqjGk",
-                              "creatorId":  "furiousbull2",
-                              "handle":  "furiousbull2",
-                              "owner":  "furious bull2",
-                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
-                              "title":  "War Commander Skirmish Officer Bases 1-2 / Another easy way Free Repair .",
-                              "descSnippet":  "War Commander Skirmish Officer Bases 1-2 / Another easy way Free Repair .\nThank you for watching",
-                              "publishedAt":  "2026-10-31T00:29:55Z",
-                              "publishedMs":  1793406595000
+                              "id":  "E78iiwNatKU",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "WAR COMMANDER SECTOR BREACH 11-20-2026 | MOST EFFECTIVE \u0026 FAST WAY | KT TEAM",
+                              "descSnippet":  "UNITS USED-\nL.VIPER - LVL 20\nL. RHINO - LVL20\nTIP - MAKE 8 TOONS SO YOU CAN KEEP SWAPING THEM WITH DAMAGED TOONS AND REPAIR THEM WHILE NOT USING THE DAMAGED TOONS AS I SHOWN IN MY VIDEO.",
+                              "publishedAt":  "2026-11-20T23:15:52Z",
+                              "publishedMs":  1795216552000
                           },
                           {
                               "id":  "vzNMfmok0qY",
@@ -1072,17 +1083,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "LETS PLAY GTA 5",
                               "publishedAt":  "2026-10-20T15:43:22Z",
                               "publishedMs":  1792511002000
-                          },
-                          {
-                              "id":  "myx4IaPMyh8",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "WAR COMMANDER | SECTOR BREACH 10/16/2026 CONQUEROR SET FAST \u0026 FREE REPAIR (RUBI ON) | KT TEAM",
-                              "descSnippet":  "UNITS USED-\nL. RHINO - LVL 20\nWARLORD ROLLER - LVL 20",
-                              "publishedAt":  "2026-10-17T00:12:02Z",
-                              "publishedMs":  1792195922000
                           },
                           {
                               "id":  "j4QoUxrz0_A",

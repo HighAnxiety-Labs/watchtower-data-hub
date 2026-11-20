@@ -2781,9 +2781,20 @@
     grid.innerHTML = filtered.map((row, idx) => {
       const b = row.duel.bucket;
       const cls = b === 'RED' ? 'threat-red' : (b === 'GREEN' ? 'kill-green' : 'even-amber');
-      const tagText = row.aaWorkshopThreat
-        ? (b === 'RED' ? 'AVOID • W/ AA TECH' : (b === 'AMBER' ? 'THREAT • W/ AA TECH' : 'W/ AA TECH'))
-        : (b === 'RED' ? 'AVOID' : (b === 'GREEN' ? 'EASY KILL' : 'EVEN'));
+      let tagText = b === 'RED' ? 'AVOID' : (b === 'GREEN' ? 'EASY KILL' : 'EVEN');
+      let tagTitle = '';
+      if (!row.duel.aCanHitB && !row.duel.bCanHitA) {
+        tagText = 'NWA';
+        tagTitle = 'NWA — No Weapon Available (neither unit can engage)';
+      } else if (!row.duel.aCanHitB && row.duel.bCanHitA) {
+        tagText = row.aaWorkshopThreat ? 'AVOID • W/ AA TECH' : 'AVOID • NWA';
+        tagTitle = 'NWA — No Weapon Available to hit this target';
+      } else if (row.duel.aCanHitB && !row.duel.bCanHitA) {
+        tagText = 'EASY KILL • OPP NWA';
+        tagTitle = 'Opponent has NWA (No Weapon Available) against your unit';
+      } else if (row.aaWorkshopThreat) {
+        tagText = b === 'RED' ? 'AVOID • W/ AA TECH' : (b === 'AMBER' ? 'THREAT • W/ AA TECH' : 'W/ AA TECH');
+      }
       const genTag = getGenerationLabel(row.opp);
       return `
         <div class="thumb-tile ${cls}"
@@ -2793,7 +2804,7 @@
              onclick="openMatchupModal(${idx})">
           <div class="thumb-img-box">
             ${render4x5PortraitHtml(row.opp)}
-            <span class="thumb-status-tag">${tagText}</span>
+            <span class="thumb-status-tag"${tagTitle ? ` title="${escapeHtml(tagTitle)}"` : ''}>${tagText}</span>
             <span class="thumb-gen-tag">${escapeHtml(genTag)}</span>
           </div>
           <div class="thumb-name-plate">${escapeHtml(row.opp.UNIT_NAME)}</div>
@@ -2811,8 +2822,14 @@
     if (duel.oppThreatIfEquipped && duel.oppThreatIfEquipped.length) {
       strong.push(`⚠️ THREAT IF EQUIPPED: [${duel.oppThreatIfEquipped.join(', ')}] converts ${B.unit.UNIT_NAME} to Dedicated Air (hits HIGH ALTITUDE)!`);
     }
-    if (!aCanHitB && bCanHitA) strong.push(`Untouchable ${B.domainLabel || B.domain} target — ${A.unit.UNIT_NAME} cannot hit it!`);
-    if (aCanHitB && !bCanHitA) weak.push(`Cannot fire back at your ${A.domainLabel || A.domain} unit!`);
+    if (!aCanHitB && !bCanHitA) {
+      strong.push(`NWA (No Weapon Available) — ${A.unit.UNIT_NAME} cannot hit ${B.domainLabel || B.domain}.`);
+      weak.push(`NWA (No Weapon Available) — ${B.unit.UNIT_NAME} cannot hit ${A.domainLabel || A.domain} either.`);
+    } else if (!aCanHitB && bCanHitA) {
+      strong.push(`NWA (No Weapon Available) — ${A.unit.UNIT_NAME} cannot hit ${B.domainLabel || B.domain}!`);
+    } else if (aCanHitB && !bCanHitA) {
+      weak.push(`NWA (No Weapon Available) — ${B.unit.UNIT_NAME} cannot fire back at your ${A.domainLabel || A.domain} unit!`);
+    }
 
     if (bArmorMult >= 2.0) strong.push(`${bArmorMult.toFixed(1)}x ${B.dmgInfo.displayCore} counter shreds your ${A.armorType} Armor.`);
     else if (bArmorMult === 1.5) strong.push(`1.5x dual-weapon (${B.dmgInfo.displayCore}) counter vs your ${A.armorType} Armor.`);
@@ -3019,10 +3036,12 @@
     document.getElementById('modalOppWsCount').textContent = `${B.equippedCount} Workshop${B.equippedCount === 1 ? '' : 's'} Equipped`;
 
     let headline = '';
-    if (!d.aCanHitB && d.bCanHitA) {
-      headline = `🔴 AVOID CONTACT — ${modalYouUnit.UNIT_NAME} CANNOT TARGET ${B.domainLabel || B.domain}`;
+    if (!d.aCanHitB && !d.bCanHitA) {
+      headline = `⚪ NWA (NO WEAPON AVAILABLE) — NEITHER UNIT CAN ENGAGE`;
+    } else if (!d.aCanHitB && d.bCanHitA) {
+      headline = `🔴 AVOID CONTACT — NWA (NO WEAPON AVAILABLE vs ${B.domainLabel || B.domain})`;
     } else if (d.aCanHitB && !d.bCanHitA) {
-      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} CANNOT TARGET ${A.domainLabel || A.domain}`;
+      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} HAS NWA (NO WEAPON AVAILABLE vs ${A.domainLabel || A.domain})`;
     } else if (d.youWinPct >= 55) {
       const remHp = Math.max(4, Math.round((1 - (d.aTtk / d.bTtk)) * 100));
       headline = `🟢 EASY KILL: ${modalYouUnit.UNIT_NAME} WINS (${d.youWinPct}% • ~${remHp}% HP LEFT)`;
@@ -3046,11 +3065,11 @@
       </div>
       <div class="v-metric">
         <div class="v-metric-lbl">${escapeHtml(modalYouUnit.UNIT_NAME)} Time-To-Kill</div>
-        <div class="v-metric-val">${isFinite(d.aTtk) ? d.aTtk.toFixed(1) + 's' : 'Cannot Hit'}</div>
+        <div class="v-metric-val">${isFinite(d.aTtk) ? d.aTtk.toFixed(1) + 's' : 'NWA (No Weapon Available)'}</div>
       </div>
       <div class="v-metric">
         <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Time-To-Kill</div>
-        <div class="v-metric-val">${isFinite(d.bTtk) ? d.bTtk.toFixed(1) + 's' : 'Cannot Hit'}</div>
+        <div class="v-metric-val">${isFinite(d.bTtk) ? d.bTtk.toFixed(1) + 's' : 'NWA (No Weapon Available)'}</div>
       </div>
       <div class="v-metric">
         <div class="v-metric-lbl">${escapeHtml(modalOppUnit.UNIT_NAME)} Matrix Mult</div>
@@ -3076,7 +3095,7 @@
     const statRows = [
       { lbl: 'Hitpoints (HP)', a: A.hp, b: B.hp, fmt: v => v.toLocaleString() },
       { lbl: 'Base / Buffed DPS', a: A.rawDps, b: B.rawDps, fmt: v => v.toLocaleString() },
-      { lbl: 'Effective Counter DPS', a: d.aEffDps, b: d.bEffDps, fmt: v => v.toLocaleString() },
+      { lbl: 'Effective Counter DPS', a: d.aEffDps, b: d.bEffDps, fmtA: () => d.aCanHitB ? d.aEffDps.toLocaleString() : 'NWA', fmtB: () => d.bCanHitA ? d.bEffDps.toLocaleString() : 'NWA' },
       { lbl: 'Weapon Range', a: A.range, b: B.range, fmtA: () => fmtRangeSide(A), fmtB: () => fmtRangeSide(B) },
       { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
       { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },
@@ -3127,8 +3146,8 @@
   function renderModalProsCons(prefix, me, opp, meCanHit, oppCanHit, myMat, oppMat, oppEffectiveDr, myFreeSec) {
     document.getElementById(`modal${prefix}PcTitle`).textContent = `${me.unit.UNIT_NAME} (${me.tier === 'MAX' ? 'MAX' : 'Lvl ' + me.tier})`;
     const items = [];
-    if (!meCanHit) items.push({ type: 'con', text: `Cannot target ${opp.domainLabel || opp.domain} units.` });
-    if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} cannot fire at ${me.domainLabel || me.domain}.` });
+    if (!meCanHit) items.push({ type: 'con', text: `NWA (No Weapon Available) — Cannot target ${opp.domainLabel || opp.domain} units.` });
+    if (!oppCanHit) items.push({ type: 'pro', text: `Untouchable! ${opp.unit.UNIT_NAME} has NWA (No Weapon Available) vs ${me.domainLabel || me.domain}.` });
     if (myMat.armorMult >= 2.0) items.push({ type: 'pro', text: `2.0x Counter Multiplier: ${me.dmgInfo.core} shreds ${opp.armorType} Armor.` });
     else if (myMat.armorMult === 1.5) items.push({ type: 'pro', text: `1.5x Blended Counter: Secondary ${me.dmgInfo.secondaryCore} weapon counters ${opp.armorType} Armor.` });
     if (myMat.fireMult > 1.0) items.push({ type: 'pro', text: `Former Fire Perk Active: 2.0x bonus damage against Zombie / Hostile target.` });
