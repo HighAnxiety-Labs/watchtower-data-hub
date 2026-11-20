@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-20T11:09:23-08:00",
-    "generatedMs":  1795201758383,
+    "generatedAt":  "2026-11-20T15:03:52-08:00",
+    "generatedMs":  1795215827000,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -213,8 +213,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-19T17:39:21Z",
-                              "modifiedMs":  1795109961840
+                              "modifiedAt":  "2026-11-20T23:02:37Z",
+                              "modifiedMs":  1795215757122
                           },
                           {
                               "file":  "vault-event-history.html",
@@ -590,6 +590,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                                ],
     "creatorVideos":  [
                           {
+                              "id":  "N_ULi0rwZ8M",
+                              "creatorId":  "project_d88",
+                              "handle":  "Project_d88",
+                              "owner":  "Project_d88",
+                              "channelId":  "UCgLApDnJO92pQYt81v_T6oA",
+                              "title":  "War Commander |Sector Breach 20-11-2026 | General Track | Free Repair",
+                              "descSnippet":  "The most efficient way. Enjoy !\n\nBuy us a Coffee:\nhttps://ko-fi.com/project_d88\n\nJoin us in Reddit:\nhttps://www.reddit.com/r/warcommander/\n\nFacebook Group:\nhttps://www.facebook.com/groups/projectd88\n\nDiscord:\nhttps://discord.gg/qrV6xS3q3r\n\n",
+                              "publishedAt":  "2026-11-20T20:55:39Z",
+                              "publishedMs":  1795208139000
+                          },
+                          {
                               "id":  "xEzgVwukWCY",
                               "creatorId":  "project_d88",
                               "handle":  "Project_d88",
@@ -742,17 +753,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "We found the most effective  way. Enjoy !\n\nBuy us a Coffee:\nhttps://ko-fi.com/project_d88\n\nJoin us in Reddit:\nhttps://www.reddit.com/r/warcommander/\n\nFacebook Group:\nhttps://www.facebook.com/groups/projectd88\n\nDiscord:\nhttps://discord.gg/qr",
                               "publishedAt":  "2026-09-25T18:44:46Z",
                               "publishedMs":  1790361886000
-                          },
-                          {
-                              "id":  "8Xh-D4Cs8AM",
-                              "creatorId":  "project_d88",
-                              "handle":  "Project_d88",
-                              "owner":  "Project_d88",
-                              "channelId":  "UCgLApDnJO92pQYt81v_T6oA",
-                              "title":  "Special Presentation | The COFFEE SONG",
-                              "descSnippet":  "Buy us a Coffee:\nhttps://ko-fi.com/project_d88\n\nJoin us in Reddit:\nhttps://www.reddit.com/r/warcommander/\n\nFacebook Group:\nhttps://www.facebook.com/groups/projectd88\n\nDiscord:\nhttps://discord.gg/qrV6xS3q3r\n\nJoin this channel to get access t",
-                              "publishedAt":  "2026-09-24T20:09:36Z",
-                              "publishedMs":  1790280576000
                           },
                           {
                               "id":  "qJCsq5YlOAc",
