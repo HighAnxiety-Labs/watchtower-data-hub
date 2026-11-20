@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-19T18:36:17Z",
+    "updatedAt":  "2026-11-20T19:09:18Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -801,6 +801,198 @@
                                          "subLabel":  "Arc 3 • SOLDIER",
                                          "firstSeenMs":  1795066021363,
                                          "firstSeenAt":  "2026-11-19T05:27:01Z"
-                                     }
+                                     },
+                    "BUILDING::ARMORY":  {
+                                             "key":  "ARMORY",
+                                             "name":  "ARMORY",
+                                             "gallery":  "BUILDING",
+                                             "subLabel":  "MILITARY",
+                                             "firstSeenMs":  1795201758383,
+                                             "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                         },
+                    "BUILDING::DEFENSE LAB":  {
+                                                  "key":  "DEFENSE LAB",
+                                                  "name":  "DEFENSE LAB",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "DEFENSE",
+                                                  "firstSeenMs":  1795201758383,
+                                                  "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                              },
+                    "BUILDING::DRAGON\u0027S TEETH":  {
+                                                          "key":  "DRAGON\u0027S TEETH",
+                                                          "name":  "DRAGON\u0027S TEETH",
+                                                          "gallery":  "BUILDING",
+                                                          "subLabel":  "DEFENSE",
+                                                          "firstSeenMs":  1795201758383,
+                                                          "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                      },
+                    "BUILDING::DRONE SILO":  {
+                                                 "key":  "DRONE SILO",
+                                                 "name":  "DRONE SILO",
+                                                 "gallery":  "BUILDING",
+                                                 "subLabel":  "DEFENSE",
+                                                 "firstSeenMs":  1795201758383,
+                                                 "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                             },
+                    "BUILDING::HELIPAD DELTA \u0026 TANGO":  {
+                                                                 "key":  "HELIPAD DELTA \u0026 TANGO",
+                                                                 "name":  "HELIPAD DELTA \u0026 TANGO",
+                                                                 "gallery":  "BUILDING",
+                                                                 "subLabel":  "MILITARY",
+                                                                 "firstSeenMs":  1795201758383,
+                                                                 "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                             },
+                    "BUILDING::LOW WIRE ENTANGLEMENT":  {
+                                                            "key":  "LOW WIRE ENTANGLEMENT",
+                                                            "name":  "LOW WIRE ENTANGLEMENT",
+                                                            "gallery":  "BUILDING",
+                                                            "subLabel":  "DEFENSE",
+                                                            "firstSeenMs":  1795201758383,
+                                                            "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                        },
+                    "BUILDING::METAL FACTORY":  {
+                                                    "key":  "METAL FACTORY",
+                                                    "name":  "METAL FACTORY",
+                                                    "gallery":  "BUILDING",
+                                                    "subLabel":  "RESOURCE",
+                                                    "firstSeenMs":  1795201758383,
+                                                    "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                },
+                    "BUILDING::METAL STORAGE":  {
+                                                    "key":  "METAL STORAGE",
+                                                    "name":  "METAL STORAGE",
+                                                    "gallery":  "BUILDING",
+                                                    "subLabel":  "RESOURCE",
+                                                    "firstSeenMs":  1795201758383,
+                                                    "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                },
+                    "BUILDING::OIL PUMP":  {
+                                               "key":  "OIL PUMP",
+                                               "name":  "OIL PUMP",
+                                               "gallery":  "BUILDING",
+                                               "subLabel":  "RESOURCE",
+                                               "firstSeenMs":  1795201758383,
+                                               "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                           },
+                    "BUILDING::OIL STORAGE":  {
+                                                  "key":  "OIL STORAGE",
+                                                  "name":  "OIL STORAGE",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "RESOURCE",
+                                                  "firstSeenMs":  1795201758383,
+                                                  "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                              },
+                    "BUILDING::POWER PLANT":  {
+                                                  "key":  "POWER PLANT",
+                                                  "name":  "POWER PLANT",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "RESOURCE",
+                                                  "firstSeenMs":  1795201758383,
+                                                  "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                              },
+                    "BUILDING::FUSION TOWER":  {
+                                                   "key":  "FUSION TOWER",
+                                                   "name":  "FUSION TOWER",
+                                                   "gallery":  "BUILDING",
+                                                   "subLabel":  "RESOURCE",
+                                                   "firstSeenMs":  1795201758383,
+                                                   "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                               },
+                    "BUILDING::DEEP REACTOR":  {
+                                                   "key":  "DEEP REACTOR",
+                                                   "name":  "DEEP REACTOR",
+                                                   "gallery":  "BUILDING",
+                                                   "subLabel":  "RESOURCE",
+                                                   "firstSeenMs":  1795201758383,
+                                                   "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                               },
+                    "BUILDING::VOLT ANCHOR":  {
+                                                  "key":  "VOLT ANCHOR",
+                                                  "name":  "VOLT ANCHOR",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "RESOURCE",
+                                                  "firstSeenMs":  1795201758383,
+                                                  "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                              },
+                    "BUILDING::THORIUM MINE":  {
+                                                   "key":  "THORIUM MINE",
+                                                   "name":  "THORIUM MINE",
+                                                   "gallery":  "BUILDING",
+                                                   "subLabel":  "RESOURCE",
+                                                   "firstSeenMs":  1795201758383,
+                                                   "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                               },
+                    "BUILDING::THORIUM VAULT":  {
+                                                    "key":  "THORIUM VAULT",
+                                                    "name":  "THORIUM VAULT",
+                                                    "gallery":  "BUILDING",
+                                                    "subLabel":  "RESOURCE",
+                                                    "firstSeenMs":  1795201758383,
+                                                    "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                },
+                    "UNIT::GENERATOR BASTION":  {
+                                                    "key":  "GENERATOR BASTION",
+                                                    "name":  "GENERATOR BASTION",
+                                                    "gallery":  "UNIT",
+                                                    "subLabel":  "",
+                                                    "firstSeenMs":  1795201758383,
+                                                    "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                },
+                    "UNIT::TACTICAL BACKUP BASTION":  {
+                                                          "key":  "TACTICAL BACKUP BASTION",
+                                                          "name":  "TACTICAL BACKUP BASTION",
+                                                          "gallery":  "UNIT",
+                                                          "subLabel":  "",
+                                                          "firstSeenMs":  1795201758383,
+                                                          "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                                      },
+                    "BUILDING::ROCKET SILO":  {
+                                                  "key":  "ROCKET SILO",
+                                                  "name":  "ROCKET SILO",
+                                                  "gallery":  "BUILDING",
+                                                  "subLabel":  "DEFENSE",
+                                                  "firstSeenMs":  1795201758383,
+                                                  "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                              },
+                    "UNIT::QUARTERMASTER":  {
+                                                "key":  "QUARTERMASTER",
+                                                "name":  "QUARTERMASTER",
+                                                "gallery":  "UNIT",
+                                                "subLabel":  "MERCENARY",
+                                                "firstSeenMs":  1795201758383,
+                                                "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                            },
+                    "UNIT::GUNSLINGER":  {
+                                             "key":  "GUNSLINGER",
+                                             "name":  "GUNSLINGER",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "MERCENARY",
+                                             "firstSeenMs":  1795201758383,
+                                             "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                         },
+                    "UNIT::BEARGUARD":  {
+                                            "key":  "BEARGUARD",
+                                            "name":  "BEARGUARD",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "MERCENARY",
+                                            "firstSeenMs":  1795201758383,
+                                            "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                        },
+                    "UNIT::SNOW MAN":  {
+                                           "key":  "SNOW MAN",
+                                           "name":  "SNOW MAN",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "MERCENARY",
+                                           "firstSeenMs":  1795201758383,
+                                           "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                       },
+                    "UNIT::YULEBREAKER":  {
+                                              "key":  "YULEBREAKER",
+                                              "name":  "YULEBREAKER",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Mercenary",
+                                              "firstSeenMs":  1795201758383,
+                                              "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                          }
                 }
 }

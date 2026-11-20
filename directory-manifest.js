@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-19T10:36:23-08:00",
-    "generatedMs":  1795113377580,
+    "generatedAt":  "2026-11-20T11:09:23-08:00",
+    "generatedMs":  1795201758383,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-19T17:59:38Z",
-                              "modifiedMs":  1795111178556
+                              "modifiedAt":  "2026-11-20T19:08:01Z",
+                              "modifiedMs":  1795201681146
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -302,6 +302,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "BROADSIDE",
                                           "BROTHER MATSUMOTO",
                                           "BRUTE",
+                                          "BURR",
                                           "CAROL HAGEN",
                                           "CASTOR \u0026 POLLUX",
                                           "CATAPULT",
@@ -312,6 +313,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "DR. AEGON",
                                           "DUTCH",
                                           "DYAD \u0026 TWIN",
+                                          "EIDOLON",
+                                          "ESCORT",
                                           "FERNANDO TORRES",
                                           "FIREFLY",
                                           "FLAME",
@@ -325,6 +328,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "HIVE GUARD",
                                           "HIVE WATCHER",
                                           "IGNACIO DIAZ",
+                                          "IRONSIDE",
                                           "JANELLE BROWN",
                                           "JOHNNY BONES",
                                           "JUGGERNAUT",
@@ -333,6 +337,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "LANDLOCKE",
                                           "LEGENDARY ESCORT",
                                           "LUCIA VEGA",
+                                          "MARSHAL",
                                           "MATCHLOCKE",
                                           "MEDJAI",
                                           "MICHAEL ST. JAMES",
@@ -361,6 +366,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "SVEN OMAROV",
                                           "TACHYON",
                                           "TERRY MICHAELS",
+                                          "VALIANT MKII",
                                           "VEGA",
                                           "VESPID",
                                           "VIPER",
@@ -390,52 +396,196 @@ window.WTR_DIRECTORY_MANIFEST = {
                         },
     "recentGalleryAdditions":  [
                                    {
-                                       "key":  "EIDOLON",
-                                       "name":  "EIDOLON",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795033743994,
-                                       "firstSeenAt":  "2026-11-18T20:29:03Z"
+                                       "key":  "ARMORY",
+                                       "name":  "ARMORY",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "MILITARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    },
                                    {
-                                       "key":  "BURR",
-                                       "name":  "BURR",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • HERO",
-                                       "firstSeenMs":  1795038034733,
-                                       "firstSeenAt":  "2026-11-18T21:40:34Z"
+                                       "key":  "DEFENSE LAB",
+                                       "name":  "DEFENSE LAB",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    },
                                    {
-                                       "key":  "VALIANT MKII",
-                                       "name":  "VALIANT MKII",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795038034733,
-                                       "firstSeenAt":  "2026-11-18T21:40:34Z"
+                                       "key":  "DRAGON\u0027S TEETH",
+                                       "name":  "DRAGON\u0027S TEETH",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    },
                                    {
-                                       "key":  "MARSHAL",
-                                       "name":  "MARSHAL",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • HERO",
-                                       "firstSeenMs":  1795044245017,
-                                       "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                       "key":  "DRONE SILO",
+                                       "name":  "DRONE SILO",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    },
                                    {
-                                       "key":  "IRONSIDE",
-                                       "name":  "IRONSIDE",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795044245017,
-                                       "firstSeenAt":  "2026-11-18T23:24:05Z"
+                                       "key":  "HELIPAD DELTA \u0026 TANGO",
+                                       "name":  "HELIPAD DELTA \u0026 TANGO",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "MILITARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    },
                                    {
-                                       "key":  "ESCORT",
-                                       "name":  "ESCORT",
+                                       "key":  "LOW WIRE ENTANGLEMENT",
+                                       "name":  "LOW WIRE ENTANGLEMENT",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "METAL FACTORY",
+                                       "name":  "METAL FACTORY",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "METAL STORAGE",
+                                       "name":  "METAL STORAGE",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "OIL PUMP",
+                                       "name":  "OIL PUMP",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "OIL STORAGE",
+                                       "name":  "OIL STORAGE",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "POWER PLANT",
+                                       "name":  "POWER PLANT",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "FUSION TOWER",
+                                       "name":  "FUSION TOWER",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "DEEP REACTOR",
+                                       "name":  "DEEP REACTOR",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "VOLT ANCHOR",
+                                       "name":  "VOLT ANCHOR",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "THORIUM MINE",
+                                       "name":  "THORIUM MINE",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "THORIUM VAULT",
+                                       "name":  "THORIUM VAULT",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "RESOURCE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "GENERATOR BASTION",
+                                       "name":  "GENERATOR BASTION",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "Arc 3 • SOLDIER",
-                                       "firstSeenMs":  1795066021363,
-                                       "firstSeenAt":  "2026-11-19T05:27:01Z"
+                                       "subLabel":  "",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "TACTICAL BACKUP BASTION",
+                                       "name":  "TACTICAL BACKUP BASTION",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "ROCKET SILO",
+                                       "name":  "ROCKET SILO",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "QUARTERMASTER",
+                                       "name":  "QUARTERMASTER",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "MERCENARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "GUNSLINGER",
+                                       "name":  "GUNSLINGER",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "MERCENARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "BEARGUARD",
+                                       "name":  "BEARGUARD",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "MERCENARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "SNOW MAN",
+                                       "name":  "SNOW MAN",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "MERCENARY",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                   },
+                                   {
+                                       "key":  "YULEBREAKER",
+                                       "name":  "YULEBREAKER",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Mercenary",
+                                       "firstSeenMs":  1795201758383,
+                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
                                    }
                                ],
     "creatorVideos":  [
@@ -770,6 +920,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793406595000
                           },
                           {
+                              "id":  "vzNMfmok0qY",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "GTA 6 ISLAND DREAMS MISSION 🌊 | DEEP SEA DIVING, SHIPWRECK \u0026 SHARK ATTACK!",
+                              "descSnippet":  "Dive deep into the underwater world of GTA 6! 🌊🔥\n\nJoin me for an exciting deep-sea adventure filled with underwater exploration, dangerous encounters and unexpected surprises!\n\n👍 LIKE | 💬 COMMENT | 🔔 SUBSCRIBE\n\nWelcome to **STORMY GAMI",
+                              "publishedAt":  "2026-11-20T03:58:36Z",
+                              "publishedMs":  1795147116000
+                          },
+                          {
                               "id":  "RnitVi5OVwY",
                               "creatorId":  "stormygamingyt",
                               "handle":  "STORMYGAMINGYT99",
@@ -922,17 +1083,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "UNITS USED-\nL. RHINO - LVL 20\nWARLORD ROLLER - LVL 20",
                               "publishedAt":  "2026-10-17T00:12:02Z",
                               "publishedMs":  1792195922000
-                          },
-                          {
-                              "id":  "taLUfyGp6WQ",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "WAR COMMANDER | SECTOR BREACH 2026-10-16 | GENERAL SET FAST  \u0026 FREE REPAIR RUBI ON | KT TEAM",
-                              "descSnippet":  "UNITS USED - \nL. RHINOS - LVL 20",
-                              "publishedAt":  "2026-10-16T18:15:17Z",
-                              "publishedMs":  1792174517000
                           },
                           {
                               "id":  "j4QoUxrz0_A",
