@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-20T15:36:46-08:00",
-    "generatedMs":  1795217801936,
+    "generatedAt":  "2026-11-20T23:57:24-08:00",
+    "generatedMs":  1795247840273,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -66,8 +66,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-dec-operation-brief.html",
                               "path":  "./2026-dec-operation-brief.html",
                               "title":  "DEC 2026 OPERATION: TBD (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-19T18:14:27Z",
-                              "modifiedMs":  1795112067399
+                              "modifiedAt":  "2026-11-21T07:49:36Z",
+                              "modifiedMs":  1795247376571
                           },
                           {
                               "file":  "2026-nov-holdout-brief.html",
@@ -80,8 +80,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-19T18:10:18Z",
-                              "modifiedMs":  1795111818828
+                              "modifiedAt":  "2026-11-21T07:50:14Z",
+                              "modifiedMs":  1795247414331
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
@@ -94,8 +94,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-skirmish-brief.html",
                               "path":  "./2026-nov-skirmish-brief.html",
                               "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-19T18:14:28Z",
-                              "modifiedMs":  1795112068929
+                              "modifiedAt":  "2026-11-21T07:49:34Z",
+                              "modifiedMs":  1795247374535
                           },
                           {
                               "file":  "2026-pvp-season-60-brief.html",
@@ -755,6 +755,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1790361886000
                           },
                           {
+                              "id":  "W3HTrIuE6uQ",
+                              "creatorId":  "furiousbull2",
+                              "handle":  "furiousbull2",
+                              "owner":  "furious bull2",
+                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
+                              "title":  "War Commander Sector Breach General Bases 1-2-3 Easy Way Free Repair .",
+                              "descSnippet":  "War Commander Sector Breach General Bases 1-2-3 Easy Way Free Repair .\nUsing Banshee / Rhino / Viper / Shock Ops \nThank you for watching",
+                              "publishedAt":  "2026-11-21T05:41:11Z",
+                              "publishedMs":  1795239671000
+                          },
+                          {
                               "id":  "HJp4vFLKQi8",
                               "creatorId":  "furiousbull2",
                               "handle":  "furiousbull2",
@@ -909,17 +920,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793567956000
                           },
                           {
-                              "id":  "o3a7BJ1KXc8",
-                              "creatorId":  "furiousbull2",
-                              "handle":  "furiousbull2",
-                              "owner":  "furious bull2",
-                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
-                              "title":  "War Commander Skirmish Officer Base 1-2 Multi-attacks / Free Repair",
-                              "descSnippet":  "War Commander Skirmish Officer Base 1-2 Multi-attacks / Free Repair\nAttacking Officer Bases 1-2 at the same time To Earn Quick Xp.\nThank you for watching",
-                              "publishedAt":  "2026-10-31T14:32:25Z",
-                              "publishedMs":  1793457145000
-                          },
-                          {
                               "id":  "E78iiwNatKU",
                               "creatorId":  "stormygamingyt",
                               "handle":  "STORMYGAMINGYT99",
@@ -940,17 +940,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "Dive deep into the underwater world of GTA 6! 🌊🔥\n\nJoin me for an exciting deep-sea adventure filled with underwater exploration, dangerous encounters and unexpected surprises!\n\n👍 LIKE | 💬 COMMENT | 🔔 SUBSCRIBE\n\nWelcome to **STORMY GAMI",
                               "publishedAt":  "2026-11-20T03:58:36Z",
                               "publishedMs":  1795147116000
-                          },
-                          {
-                              "id":  "RnitVi5OVwY",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "GTA 6 IS FINALLY HERE! 🔥 FIRST DAY GAMEPLAY LIVE! 🚗",
-                              "descSnippet":  "🔥 GTA 6 LAUNCH DAY LIVE — THE WAIT IS FINALLY OVER! 🔥\n\nGet ready for GTA 6 LIVE GAMEPLAY on the very first day of release! 🎮 Join STORMY GAMING YT as we dive into the world of Grand Theft Auto VI and experience the excitement together!\n\n",
-                              "publishedAt":  "2026-11-19T10:26:56Z",
-                              "publishedMs":  1795084016000
                           },
                           {
                               "id":  "f2Ye3ziUKFo",
@@ -1083,6 +1072,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "LETS PLAY GTA 5",
                               "publishedAt":  "2026-10-20T15:43:22Z",
                               "publishedMs":  1792511002000
+                          },
+                          {
+                              "id":  "myx4IaPMyh8",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "WAR COMMANDER | SECTOR BREACH 10/16/2026 CONQUEROR SET FAST \u0026 FREE REPAIR (RUBI ON) | KT TEAM",
+                              "descSnippet":  "UNITS USED-\nL. RHINO - LVL 20\nWARLORD ROLLER - LVL 20",
+                              "publishedAt":  "2026-10-17T00:12:02Z",
+                              "publishedMs":  1792195922000
                           },
                           {
                               "id":  "j4QoUxrz0_A",

@@ -42,6 +42,7 @@
       .wtr-sbtn-share:hover { background: #00e676; border-color: #b9f6ca; color: #03140a; }
       body.wtr-in-viewport .wtr-sbtn-share,
       body.wtr-in-viewport .wtr-auto-share-dock { display: none !important; }
+      body:not(.sb-tabs-unlocked) .locked-top-hud { position: sticky; top: 0; z-index: 25; }
       body.sb-tabs-unlocked .locked-top-hud { position: relative !important; top: auto !important; }
       .sb-rail-actions { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-bottom: 5px; }
       .sb-lock-btn {

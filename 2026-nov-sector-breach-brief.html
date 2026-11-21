@@ -20,8 +20,9 @@
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
+  <script src="./directory-manifest.js"></script>
   <script src="./wtr-view-mode.js?v=2.4"></script>
-  <script src="./wtr-social-share.js?v=1.0"></script>
+  <script src="./wtr-social-share.js?v=1.2"></script>
   <style>
     :root {
       --primary-color: #c77700;
@@ -70,7 +71,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
+      overflow: clip;
     }
 
     .locked-top-hud {
@@ -1199,6 +1200,140 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
+    .video-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .video-card {
+      background: rgba(12, 19, 27, 0.92);
+      border: 1px solid rgba(255, 140, 0, 0.28);
+      padding: 15px 16px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .overview-3col {
+      display: grid;
+      grid-template-columns: minmax(240px, 290px) 1.15fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 920px) {
+      .overview-3col { grid-template-columns: 1fr; }
+    }
+    .event-square-card {
+      background: radial-gradient(circle at 50% 42%, #291605 0%, #070504 100%);
+      border: 1.5px solid rgba(255, 140, 0, 0.55);
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: inset 0 0 22px rgba(255, 140, 0, 0.14);
+    }
+    .event-square-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 5px;
+      overflow: hidden;
+      background: #040608;
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .event-square-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .event-square-cap {
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--text-gold);
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+    }
+    .video-card h3 {
+      font-family: "Arial Black", sans-serif;
+      font-size: 14.5px;
+      color: var(--accent-green);
+      margin: 0 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .yt-match-count {
+      font-family: monospace;
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 1px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .yt-match-count.has-videos {
+      color: var(--text-gold);
+      background: rgba(255, 215, 0, 0.14);
+      border-color: var(--text-gold);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.25);
+    }
+    .yt-match-count:hover {
+      border-color: var(--accent-green);
+      color: #ffffff;
+    }
+    .window-pill {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--text-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .video-card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.48;
+    }
+    .video-btn {
+      display: inline-block;
+      background: #ff0000;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 12.5px;
+      padding: 8px 15px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.28);
+      transition: background-color 0.15s ease;
+    }
+    .video-btn:hover { background: #cc0000; }
+    .video-note {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -1215,11 +1350,12 @@
       <nav class="file-tabs-rail" aria-label="Sector Breach Brief Sections">
         <div class="file-tabs-group">
           <button type="button" class="file-tab-btn active-file-tab" onclick="jumpToBriefSection('sec-overview', this)"><span class="tab-idx">01</span><span class="tab-lbl">OVERVIEW</span></button>
-          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-unit', this)"><span class="tab-idx">02</span><span class="tab-lbl">ESCORT UNIT</span></button>
-          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tech', this)"><span class="tab-idx">03</span><span class="tab-lbl">TECH (3)</span></button>
-          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tracks', this)"><span class="tab-idx">04</span><span class="tab-lbl">TRACKS</span></button>
-          <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">05</span><span class="tab-lbl">STORE &amp; CALC</span></button>
-          <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">06</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-video', this)"><span class="tab-idx">02</span><span class="tab-lbl">VIDEO RECON</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-unit', this)"><span class="tab-idx">03</span><span class="tab-lbl">ESCORT UNIT</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tech', this)"><span class="tab-idx">04</span><span class="tab-lbl">TECH (3)</span></button>
+          <button type="button" class="file-tab-btn" onclick="jumpToBriefSection('sec-tracks', this)"><span class="tab-idx">05</span><span class="tab-lbl">TRACKS</span></button>
+          <button type="button" class="file-tab-btn calc-tab" onclick="jumpToBriefSection('sec-store', this)"><span class="tab-idx">06</span><span class="tab-lbl">STORE &amp; CALC</span></button>
+          <button type="button" class="file-tab-btn unit-tab" onclick="jumpToBriefSection('sec-escort-ref', this)"><span class="tab-idx">07</span><span class="tab-lbl">MASTER_DB: ESCORT</span></button>
         </div>
         <div class="sb-rail-actions">
           <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="copySectorBreachDiscordBrief('discord')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
@@ -1262,10 +1398,13 @@
           <span class="sec-hdr-badge">4-DAY EVENT • ASSAULT PLATOONS</span>
         </div>
         <div class="sec-content">
-          <div class="official-banner-wrap">
-            <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9127b9df-0095-4fde-bb3f-8e38e7e559a8" alt="November 2026 Sector Breach Official Banner" onerror="this.parentElement.style.display='none'">
-          </div>
-          <div class="overview-grid">
+          <div class="overview-3col">
+            <div class="event-square-card">
+              <div class="event-square-frame">
+                <img src="./assets/images/EVENT ART/SECTOR BREACH.png" alt="November 2026 Sector Breach Official Square Artwork" onerror="this.onerror=null;this.src='https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9127b9df-0095-4fde-bb3f-8e38e7e559a8';">
+              </div>
+              <div class="event-square-cap">NOV 2026 • SECTOR BREACH</div>
+            </div>
             <div class="intel-box">
               <h3>Rogue Player Bases — Operational Intel</h3>
               <p>Sarkis Cloning Technology has been used on Player Bases, creating <strong>Rogue Player Bases</strong>, and it is up to Sector Commanders to push them out. Attack PvE copies of player bases using <strong>Assault Platoons</strong> to earn Sector Breach XP for the Sector Breach Store.</p>
@@ -1286,10 +1425,50 @@
         </div>
       </section>
 
-      <!-- 02: NEW UNIT - LEGENDARY ESCORT -->
+      <!-- 02: VIDEO RECON & GUIDES -->
+      <section class="brief-section" id="sec-video">
+        <div class="sec-hdr">
+          <h2 class="sec-hdr-title"><span>02 //</span> VIDEO RECON &amp; GUIDES</h2>
+          <span class="sec-hdr-badge">7-DAY EVENT WINDOW: NOV 20 → NOV 27, 2026</span>
+        </div>
+        <div class="sec-content">
+          <div class="video-hub-grid">
+            <div class="video-card">
+              <div>
+                <h3>Top Tier Guides <span id="vid1MatchCount" class="yt-match-count" onclick="refreshSectorBreachVideoCounts(true)" title="Checking 7-Day Event Window (Nov 20–27, 2026)...">(...)</span></h3>
+                <span class="window-pill">📅 Window: Nov 20 – Nov 27, 2026 • "War Commander" + "Sector Breach"</span>
+                <p>Actionable, zero-fluff content featuring clear step-by-step breakdowns covering Sector Breach General &amp; Conqueror base hits, Assault Platoon compositions, and low-repair strategies.</p>
+              </div>
+              <div>
+                <a href="https://www.youtube.com/results?search_query=%22War+Commander%22+%22Sector+Breach%22+%22Project_d88%22+after%3A2026-11-19+before%3A2026-11-28"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="video-btn">▶ Top Tier YouTube Videos</a>
+                <div class="video-note"><strong>7-Day Event Window:</strong> Scoped to <code>"War Commander" "Sector Breach"</code> within 7 days of event start (Nov 20–27, 2026). Click the counter badge to refresh live.</div>
+              </div>
+            </div>
+            <div class="video-card">
+              <div>
+                <h3>Watch Me Play <span id="vid2MatchCount" class="yt-match-count" onclick="refreshSectorBreachVideoCounts(true)" title="Checking 7-Day Event Window (Nov 20–27, 2026)...">(...)</span></h3>
+                <span class="window-pill">📅 Window: Nov 20 – Nov 27, 2026 • "War Commander" + "Sector Breach"</span>
+                <p>Casual gameplay runs and live Sector Breach Conqueror &amp; General set playthrough recordings from community creators.</p>
+              </div>
+              <div>
+                <a href="https://www.youtube.com/results?search_query=%22War+Commander%22+%22Sector+Breach%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29+after%3A2026-11-19+before%3A2026-11-28"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="video-btn">▶ Watch Me Play Videos</a>
+                <div class="video-note"><strong>Event Creators (7 Days from Start):</strong> Scoped to <code>"War Commander" "Sector Breach"</code> uploaded Nov 20–27, 2026.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03: NEW UNIT - LEGENDARY ESCORT -->
       <section class="brief-section" id="sec-unit">
         <div class="sec-hdr">
-          <h2 class="sec-hdr-title"><span>02 //</span> NEW UNIT — LEGENDARY ESCORT</h2>
+          <h2 class="sec-hdr-title"><span>03 //</span> NEW UNIT — LEGENDARY ESCORT</h2>
           <span class="sec-hdr-badge">ARC 3 • LEGENDARY • LIGHT INFANTRY</span>
         </div>
         <div class="sec-content">
@@ -1354,7 +1533,7 @@
       <!-- 03: WORKSHOP TECH (3) -->
       <section class="brief-section" id="sec-tech">
         <div class="sec-hdr">
-          <h2 class="sec-hdr-title"><span>03 //</span> LEGENDARY ESCORT — WORKSHOP TECH (3)</h2>
+          <h2 class="sec-hdr-title"><span>04 //</span> LEGENDARY ESCORT — WORKSHOP TECH (3)</h2>
           <span class="sec-hdr-badge">LEVEL 1 • WEIGHT 500 • 275,000 XP EACH</span>
         </div>
         <div class="sec-content">
@@ -1404,7 +1583,7 @@
       <!-- 04: GENERAL & CONQUEROR TRACKS -->
       <section class="brief-section" id="sec-tracks">
         <div class="sec-hdr">
-          <h2 class="sec-hdr-title"><span>04 //</span> TARGET SETS &amp; XP TRACKS</h2>
+          <h2 class="sec-hdr-title"><span>05 //</span> TARGET SETS &amp; XP TRACKS</h2>
           <span class="sec-hdr-badge">GENERAL 61K • CONQUEROR 164K</span>
         </div>
         <div class="sec-content">
@@ -1441,7 +1620,7 @@
       <!-- 05: SECTOR BREACH STORE & INTERACTIVE XP CALCULATOR -->
       <section class="brief-section" id="sec-store">
         <div class="sec-hdr">
-          <h2 class="sec-hdr-title"><span>05 //</span> SECTOR BREACH STORE &amp; XP CALCULATOR</h2>
+          <h2 class="sec-hdr-title"><span>06 //</span> SECTOR BREACH STORE &amp; XP CALCULATOR</h2>
           <span class="sec-hdr-badge">6 OFFICIAL ITEMS • STORE CLOSES NOV 25 @ 10 AM PST</span>
         </div>
         <div class="sec-content">
@@ -1748,7 +1927,73 @@
       }
     }
 
+    /* 7-Day Event-Start Video Recon Counters (Nov 20 – Nov 27, 2026 | "War Commander" + "Sector Breach") */
+    const SB_WIN_START = new Date("2026-11-20T00:00:00-08:00").getTime();
+    const SB_WIN_END   = new Date("2026-11-27T23:59:59-08:00").getTime();
+    const SB_CREATOR_CHANNELS = {
+      project_d88:    { cid: "UCuQ4A4t9yS2n4lR3Y3vY5xw", aliases: ["project_d88", "projectd88"] },
+      furiousbull2:   { cid: "UCfuriousbull2", aliases: ["furiousbull2", "furiousbull"] },
+      stormygamingyt: { cid: "UCSTORMYGAMINGYT", aliases: ["stormygamingyt", "stormygaming"] },
+      dot_sl1zo:      { cid: "UCDOT-sl1zo", aliases: ["dotsl1zo", "dot-sl1zo", "sl1zo"] },
+      wcjbsamar:      { cid: "UCWCJBsamar", aliases: ["wcjbsamar", "jbsamar"] }
+    };
+
+    function normKey(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
+    function matchEventVideos(pool, creatorKeys) {
+      const aliasList = [];
+      creatorKeys.forEach(k => {
+        if (SB_CREATOR_CHANNELS[k]) aliasList.push(...SB_CREATOR_CHANNELS[k].aliases.map(normKey));
+      });
+      const seen = new Set();
+      const out = [];
+      (pool || []).forEach(v => {
+        if (!v || !v.id || seen.has(v.id)) return;
+        const pubMs = v.pubMs || Date.parse(v.pubDate || v.published || "");
+        if (!pubMs || isNaN(pubMs) || pubMs < SB_WIN_START || pubMs > SB_WIN_END) return;
+        const text = `${v.title || ""} ${v.description || ""} ${v.owner || v.channel || ""}`.toLowerCase();
+        const hasWc = text.includes("war commander") || /\bwc\b/.test(text);
+        const hasEvent = text.includes("sector breach") || text.includes("sectorbreach");
+        if (!hasWc || !hasEvent) return;
+        const ownerNorm = normKey(`${v.owner || ""} ${v.channel || ""} ${v.handle || ""} ${v.author || ""}`);
+        if (aliasList.length && !aliasList.some(a => ownerNorm.includes(a))) return;
+        seen.add(v.id);
+        out.push({
+          id: v.id,
+          title: v.title || "Sector Breach Video",
+          owner: v.owner || v.channel || v.author || "Creator",
+          pubStr: new Date(pubMs).toLocaleDateString([], { month: "short", day: "numeric" })
+        });
+      });
+      return out;
+    }
+
+    function applyCounterBadge(id, list) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const n = list.length;
+      el.textContent = "(" + n + ")";
+      el.classList.toggle("has-videos", n > 0);
+      if (n > 0) {
+        const lines = list.map((v, i) => `${i + 1}. ${v.title} — ${v.owner} (${v.pubStr})`);
+        el.title = `${n} War Commander: Sector Breach video${n === 1 ? "" : "s"} in 7-Day Window (Nov 20–27, 2026) — Click to Refresh:\n` + lines.join("\n");
+      } else {
+        el.title = "0 War Commander: Sector Breach videos found in 7-Day Window (Nov 20–27, 2026) — Click to Refresh";
+      }
+    }
+
+    window.refreshSectorBreachVideoCounts = function(isManual) {
+      const manifestPool = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
+        ? window.WTR_DIRECTORY_MANIFEST.creatorVideos
+        : [];
+      const topList = matchEventVideos(manifestPool, ["project_d88"]);
+      const watchList = matchEventVideos(manifestPool, ["furiousbull2", "stormygamingyt", "dot_sl1zo", "wcjbsamar"]);
+      applyCounterBadge("vid1MatchCount", topList);
+      applyCounterBadge("vid2MatchCount", watchList);
+    };
+
     renderStoreTable();
+    refreshSectorBreachVideoCounts(false);
     tick();
     setInterval(tick, 1000);
   })();
