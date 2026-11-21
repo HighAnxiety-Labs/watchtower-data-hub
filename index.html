@@ -8822,36 +8822,6 @@
       slug = m2[2];
     }
 
-    let readable = slug
-      .replace(/=/g, ": ")
-      .replace(/-/g, " ")
-      .replace(/\boperation\s+/i, "OPERATION: ")
-      .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
-      .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
-      .toUpperCase();
-    if (clean.toLowerCase() === "2026-nov-shadow-ops-brief.html") {
-      readable = "SHADOW OPS: DRIFTING DRAGON";
-    }
-
-    const datePrefix = monthNum > 0 ? `${monthShort} ${year}` : `${year}`;
-    const prefix = getWtrPublishedPrefix();
-    const relUrl = `${prefix}${folderSubpath}${encodeURIComponent(clean)}`;
-
-    return {
-      fileName: clean,
-      category,
-      year,
-      monthNum,
-      sortScore: (year * 100) + monthNum,
-      title: `${datePrefix} • ${readable}`,
-      shortTitle: readable,
-      url: relUrl
-    };
-  }
-
-  // Upgrade openDirectExternalUrl so relative .html paths open directly without prepending https://
-  openDirectExternalUrl = function(rawUrl) {
-    let targetUrl = String(rawUrl || "").trim();
     const norm = targetUrl.replace(/\/+$/, "").toLowerCase();
     const isGenericOrEmpty = !targetUrl || targetUrl === "#" || norm.endsWith("/home") || norm.endsWith("/operational-briefs");
 
