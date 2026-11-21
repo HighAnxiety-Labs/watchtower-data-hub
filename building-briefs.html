@@ -260,7 +260,34 @@
   .branch-subgroup.is-large-group {
     flex: 1 1 100%; max-width: 100%;
   }
-  .branch-subheader { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .branch-subheader { display: flex; align-items: center; gap: 8px; min-width: 0; flex-wrap: wrap; }
+  .branch-units-hdr-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 999px;
+    font-family: monospace; font-size: 10.5px; font-weight: 900; letter-spacing: 0.55px; text-transform: uppercase;
+    color: var(--fac-unit-accent, #00e676);
+    background: rgba(8, 16, 13, 0.92);
+    border: 1px solid var(--fac-unit-accent, #00e676);
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .branch-units-hdr-btn:hover,
+  .branch-units-hdr-btn.is-open {
+    background: var(--fac-unit-accent, #00e676);
+    color: #041008;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.32);
+  }
+  .branch-units-hdr-btn .buh-chev { display: inline-block; transition: transform 0.18s ease; }
+  .branch-units-hdr-btn.is-open .buh-chev { transform: rotate(180deg); }
+  .branch-units-drawer-panel {
+    display: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 3px solid var(--fac-unit-accent, #00e676);
+    background: rgba(5, 10, 14, 0.94);
+  }
+  .branch-units-drawer-panel.is-open { display: block; }
   .branch-pill-tag {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 3px 10px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
@@ -282,10 +309,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, var(--ugt-tile-w));
     grid-auto-columns: var(--ugt-tile-w);
-    justify-content: start;
+    justify-content: center;
     gap: var(--ugt-grid-gap);
-    align-items: end;
-    margin-top: auto;
+    align-items: start;
+    margin-top: 0;
   }
 
   /* Linked Infrastructure (R&D ⇄ Production) Overhead Bar & Side-by-Side Pair Pod (Exact 2 * --ugt-tile-w Inner Match) */
@@ -329,6 +356,151 @@
   .unit-linked-pair-pod:hover {
     border-color: var(--pair-accent);
     box-shadow: 0 0 16px rgba(0, 230, 118, 0.16), 0 8px 22px rgba(0, 0, 0, 0.65);
+  }
+  .unit-solo-with-units-pod {
+    --pair-accent: #f59e0b;
+    --pair-border: rgba(245, 158, 11, 0.42);
+    --pair-tint: rgba(245, 158, 11, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 5px;
+    border-radius: 7px;
+    background: linear-gradient(180deg, var(--pair-tint) 0%, rgba(9, 16, 12, 0.68) 100%);
+    border: 1px solid var(--pair-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 14px rgba(0, 0, 0, 0.45);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .unit-solo-with-units-pod:hover {
+    border-color: var(--pair-accent);
+  }
+  .facility-units-drawer {
+    margin-top: 7px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 3px solid var(--fac-unit-accent, var(--pair-accent, #00e676));
+    background: rgba(7, 12, 16, 0.9);
+    overflow: hidden;
+  }
+  .facility-units-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 10px;
+    background: linear-gradient(90deg, rgba(16, 26, 20, 0.95) 0%, rgba(10, 17, 22, 0.95) 100%);
+    border: none;
+    color: #e2e8f0;
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .facility-units-toggle:hover {
+    background: rgba(24, 38, 30, 0.98);
+    color: #ffffff;
+  }
+  .facility-units-toggle .fut-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  .facility-units-toggle .fut-count {
+    color: var(--fac-unit-accent, var(--pair-accent, #00e676));
+  }
+  .facility-units-toggle .fut-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--fac-unit-accent, var(--pair-accent, #00e676));
+    font-size: 9.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .facility-units-toggle .fut-chev {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+  .facility-units-drawer.is-open .facility-units-toggle .fut-chev {
+    transform: rotate(180deg);
+  }
+  .facility-units-body {
+    display: none;
+    padding: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(5, 9, 13, 0.92);
+  }
+  .facility-units-drawer.is-open .facility-units-body {
+    display: block;
+  }
+  .facility-units-chip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 5px;
+  }
+  .brief-units-chip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 7px;
+    margin-top: 8px;
+  }
+  .facility-unit-link-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #121c24 0%, #0a1016 100%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-left: 2.5px solid var(--fac-unit-accent, var(--pair-accent, #00e676));
+    color: #e2e8f0;
+    text-decoration: none;
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+    transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease, transform 0.12s ease;
+    min-width: 0;
+  }
+  .facility-unit-link-chip:hover {
+    border-color: var(--fac-unit-accent, var(--pair-accent, #00e676));
+    background: linear-gradient(180deg, #192935 0%, #0e1821 100%);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .facility-unit-link-chip .fulc-name {
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    min-width: 0;
+  }
+  .facility-unit-link-chip .fulc-arrow {
+    color: var(--fac-unit-accent, var(--pair-accent, #00e676));
+    font-size: 10px;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+  .brief-assoc-units-box {
+    background: rgba(8, 14, 18, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-left: 3px solid var(--fac-unit-accent, #00e676);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .brief-assoc-units-note {
+    font-family: monospace;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 4px;
   }
   .unit-pair-link-bar {
     position: relative;
@@ -515,11 +687,11 @@
   }
   .ugt-name {
     font-size: 14px; font-weight: 900; color: #f1f7f4; letter-spacing: 0.6px;
-    text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-transform: uppercase; white-space: normal; overflow-wrap: break-word; line-height: 1.2;
   }
   .ugt-meta-sub {
     font-family: monospace; font-size: 11px; color: #81c784;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase;
+    white-space: normal; overflow-wrap: break-word; line-height: 1.25; text-transform: uppercase;
   }
   .ugt-meta-sub .irid-inline { color: #d8b4fe; font-weight: 800; }
   @container (max-width: 190px) {
@@ -759,7 +931,8 @@
       <button type="button" class="gal-pill branch-pill" data-role="VEHICLE" onclick="setSubRoleFilter('VEHICLE')">🛡️ VEHICLE</button>
       <button type="button" class="gal-pill branch-pill" data-role="AIRCRAFT" onclick="setSubRoleFilter('AIRCRAFT')">✈️ AIRCRAFT</button>
       <button type="button" class="gal-pill branch-pill" data-role="FORTIFICATION" onclick="setSubRoleFilter('FORTIFICATION')">🛡️ DEFENSE</button>
-      <button type="button" class="gal-pill branch-pill" data-role="ENGINEERING" onclick="setSubRoleFilter('ENGINEERING')">🔧 ENGINEERING</button>
+      <button type="button" class="gal-pill branch-pill" data-role="CONSTRUCTION" onclick="setSubRoleFilter('CONSTRUCTION')">🏗️ CONSTRUCTION</button>
+      <button type="button" class="gal-pill branch-pill" data-role="WORKSHOP" onclick="setSubRoleFilter('WORKSHOP')">🔧 WORKSHOP</button>
       <button type="button" class="gal-pill branch-pill" data-role="OPS_ENG" onclick="setSubRoleFilter('OPS_ENG')">📡 OPS &amp; MERC</button>
     </div>
     <div class="vision-img-boost-group" title="3-Step Vision Accessibility Image Size Boost">
@@ -863,6 +1036,17 @@
         <div id="talents-container" class="talents-col-container">
           <span class="col-header">Core Functions &amp; Unlocks</span>
           <div id="d-talents-list"></div>
+        </div>
+      </div>
+
+      <div id="associated-units-section" class="record-section" style="display: none;">
+        <span class="col-header">
+          <span id="d-assoc-units-header">Associated Units // Built &amp; Upgraded Here</span>
+          <span id="d-assoc-units-sub" style="font-size: 11.5px; color: #00e676; font-family: monospace;">OPEN UNIT BRIEF ↗</span>
+        </span>
+        <div id="d-assoc-units-box" class="brief-assoc-units-box">
+          <div id="d-assoc-units-note" class="brief-assoc-units-note"></div>
+          <div id="d-assoc-units-grid" class="brief-units-chip-grid"></div>
         </div>
       </div>
 
@@ -1019,13 +1203,14 @@
   const SUBROLE_META = {
     HQ:            { key: 'HQ',            label: 'BASE COMMAND',                     icon: '🏛️', color: '#ffd700', order: 1 },
     SPEC_OPS:      { key: 'SPEC_OPS',      label: 'RECON & TACTICAL OPS',             icon: '📡', color: '#c084fc', order: 2 },
-    MERCENARY:     { key: 'MERCENARY',     label: 'MERCENARY OUTPOST',                icon: '🏴', color: '#f59e0b', order: 3 },
+    MERCENARY:     { key: 'MERCENARY',     label: 'MERCENARY CAMP',                   icon: '🏴', color: '#f59e0b', order: 3 },
     INFANTRY:      { key: 'INFANTRY',      label: 'INFANTRY',                         icon: '🪖', color: '#00e676', order: 4 },
     VEHICLE:       { key: 'VEHICLE',       label: 'VEHICLE',                          icon: '🛡️', color: '#ffd700', order: 5 },
     AIRCRAFT:      { key: 'AIRCRAFT',      label: 'AIRCRAFT',                         icon: '✈️', color: '#38bdf8', order: 6 },
     FORTIFICATION: { key: 'FORTIFICATION', label: 'TURRET, ANTI-AIR & ORDNANCE',      icon: '🛡️', color: '#fb923c', order: 7 },
-    ENGINEERING:   { key: 'ENGINEERING',   label: 'ENGINEERING & HEAVY PLATFORMS',    icon: '🔧', color: '#2dd4bf', order: 8 },
-    LOGISTICS:     { key: 'LOGISTICS',     label: 'RESOURCE & POWER GRID',            icon: '⚡', color: '#f59e0b', order: 9 }
+    CONSTRUCTION:  { key: 'CONSTRUCTION',  label: 'CONSTRUCTION YARD',                icon: '🏗️', color: '#2dd4bf', order: 8 },
+    WORKSHOP:      { key: 'WORKSHOP',      label: 'WORKSHOP & PLATFORMS',             icon: '🔧', color: '#c084fc', order: 9 },
+    LOGISTICS:     { key: 'LOGISTICS',     label: 'RESOURCE & POWER GRID',            icon: '⚡', color: '#f59e0b', order: 10 }
   };
 
   let globalMatrixCache = [];
@@ -1150,7 +1335,7 @@
     if (subRole === 'HQ' || bName.includes('COMMAND CENTER')) return CATEGORY_META.COMMAND;
     if (subRole === 'LOGISTICS' || cat.includes('RESOURCE') || classif.includes('RESOURCE')) return CATEGORY_META.RESOURCE;
     if (subRole === 'SPEC_OPS' || subRole === 'MERCENARY') return CATEGORY_META.SUPPORT;
-    if (subRole === 'FORTIFICATION' || subRole === 'ENGINEERING') return CATEGORY_META.DEFENSE;
+    if (subRole === 'FORTIFICATION' || subRole === 'CONSTRUCTION' || subRole === 'WORKSHOP') return CATEGORY_META.DEFENSE;
     if (subRole === 'INFANTRY' || subRole === 'VEHICLE' || subRole === 'AIRCRAFT') return CATEGORY_META.MILITARY;
 
     if (cat.includes('COMMAND')) return CATEGORY_META.COMMAND;
@@ -1172,7 +1357,8 @@
     if (/ACADEMY|BARRACK|INFANTRY/.test(combined)) return 'INFANTRY';
     if (/TECH\s*CENTER|WAR\s*FACTORY|VEHICLE/.test(combined)) return 'VEHICLE';
     if (/AIRCRAFT|HANGAR|HANGER|AIRFIELD|HELIPAD|AVIATION/.test(combined)) return 'AIRCRAFT';
-    if (/CONSTRUCTION\s*YARD|WORKSHOP|HEAVY\s*PLATFORM|BASE\s*ENGINEERING|EQUIPMENT\s*R&D/.test(combined)) return 'ENGINEERING';
+    if (/CONSTRUCTION\s*YARD|BASE\s*ENGINEERING/.test(combined)) return 'CONSTRUCTION';
+    if (/WORKSHOP|HEAVY\s*PLATFORM|EQUIPMENT\s*R&D/.test(combined)) return 'WORKSHOP';
     if (/THORIUM|METAL\s*FACTORY|METAL\s*STORAGE|OIL|POWER\s*PLANT|RESOURCE/.test(combined) || cat === 'RESOURCE') return 'LOGISTICS';
     if (/SKYGUARD|MINE\s*FACTORY|WEAPONS\s*LAB|DEFENSE\s*LAB|ARMORY|TURRET|ANTI-AIR|BASTION|EXPLOSIVE|ORDNANCE|SILO|WIRE|TEETH|VOLT/.test(combined) || cat === 'DEFENSE') return 'FORTIFICATION';
     if (cat === 'COMMAND') return 'HQ';
@@ -1246,6 +1432,262 @@
     const m = tier.match(/(?:LVL|LEVEL)\s*([0-9]+\s*(?:→|->|-)\s*[0-9]+|[0-9]+)/i);
     if (m && m[1]) return `LVL ${m[1]}`;
     return tier.slice(0, 14);
+  }
+
+  /* ==================== ASSOCIATED UNITS (BUILT / UPGRADED BY FACILITY) ==================== */
+  const UNIT_HANDOFF_KEY = 'wtr_target_unit_handoff';
+  let globalUnitsCache = [];
+
+  function isContractorUnitRow(rec) {
+    if (!rec) return false;
+    const bld = cleanVal(rec.STAT_BUILDING).toUpperCase();
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const gen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    const faction = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const uType = cleanVal(rec.STAT_TYPE).toUpperCase();
+    return (
+      classif.includes('CONTRACTOR') ||
+      gen.includes('CONTRACTOR') ||
+      faction.includes('DIPLOMAC') ||
+      bld.includes('AGENCY') ||
+      uType.includes('CONTRACTOR')
+    );
+  }
+
+  function isHostileUnitRow(rec) {
+    if (!rec) return false;
+    const combined = `${rec.STAT_FACTION || ''} ${rec.CLASSIFICATION || ''} ${rec.UNIT_DIVISION || ''} ${rec.STAT_BUILDING || ''} ${rec.STAT_GENERATION || ''}`.toUpperCase();
+    return combined.includes('ONYX') || combined.includes('ZOMBIE') || combined.includes('HOSTILE') || combined.includes('ENEMY') || combined.includes('KANE');
+  }
+
+  function isMercenaryUnitRow(rec) {
+    if (!rec || isContractorUnitRow(rec) || isHostileUnitRow(rec)) return false;
+    const bld = cleanVal(rec.STAT_BUILDING).toUpperCase();
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const faction = cleanVal(rec.STAT_FACTION).toUpperCase();
+    const upGen = cleanVal(rec.STAT_GENERATION).toUpperCase();
+    return classif.includes('MERCENARY') || upGen.includes('MERCENARY') || upGen.includes('CHAMPION') || faction.includes('MERCENARY') || bld.includes('MERCENARY');
+  }
+
+  function resolveUnitBranchForBuilding(rec) {
+    const uType = cleanVal(rec?.STAT_TYPE).toUpperCase();
+    const bld = cleanVal(rec?.STAT_BUILDING).toUpperCase();
+    const div = cleanVal(rec?.UNIT_DIVISION).toUpperCase();
+    const classif = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    if (/\b(?:AIRCRAFT|AIR|CHOPPER|HELI|HELICOPTER|PLANE|JET|GUNSHIP|BOMBER)\b/.test(uType) || /HANGAR|HANGER|AIRFIELD|AIRCRAFT/.test(bld) || /HANGAR|HANGER|AIRFIELD|AIRCRAFT/.test(div) || classif.includes('AIRCRAFT')) {
+      return 'AIRCRAFT';
+    }
+    if (/\b(?:VEHICLE|TANK|MECH|ARTILLERY|BUGGY|TRUCK|APC|ROVER)\b/.test(uType) || /TECH CENTER|WAR FACTORY|VEHICLE/.test(bld) || /TECH CENTER|WAR FACTORY|VEHICLE/.test(div) || classif.includes('VEHICLE')) {
+      return 'VEHICLE';
+    }
+    if (/\b(?:INFANTRY|LIGHT|MEDIUM|HEAVY|SNIPER|SOLDIER)\b/.test(uType) || /ACADEMY|BARRACK|MERCENARY/.test(bld) || /ACADEMY|BARRACK|INFANTRY/.test(div) || classif.includes('INFANTRY') || (!isContractorUnitRow(rec) && !isHostileUnitRow(rec) && /\bUNIQUE\b/.test(uType))) {
+      return 'INFANTRY';
+    }
+    return 'SPECIAL';
+  }
+
+  function hasWorkshopTechRow(rec) {
+    if (!rec) return false;
+    for (let i = 1; i <= 9; i++) {
+      if (cleanVal(rec[`WORKSHOP_${i}_TITLE`])) return true;
+    }
+    return false;
+  }
+
+  function getAllValidUnitRows() {
+    const seen = new Set();
+    const out = [];
+    for (const rec of globalUnitsCache) {
+      if (!rec || isValidBuildingRecord(rec)) continue;
+      const uName = cleanVal(rec.UNIT_NAME);
+      if (!uName) continue;
+      const k = uName.toUpperCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push(rec);
+    }
+    out.sort((a, b) => cleanVal(a.UNIT_NAME).localeCompare(cleanVal(b.UNIT_NAME), undefined, { sensitivity: 'base' }));
+    return out;
+  }
+
+  function getAssociatedUnitsSpecForFacility(bNameRaw) {
+    const bName = cleanVal(bNameRaw).toUpperCase();
+    if (!bName) return null;
+    const allUnits = getAllValidUnitRows();
+    if (allUnits.length === 0) return null;
+
+    if (bName.includes('ACADEMY') || bName.includes('BARRACK')) {
+      return {
+        key: 'INFANTRY',
+        icon: '🪖',
+        label: 'INFANTRY UNITS',
+        note: 'All Infantry units built at Barracks & upgraded at Academy (excludes Mercenaries, Contractors & Hostiles).',
+        accent: '#00e676',
+        units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'INFANTRY')
+      };
+    }
+    if (bName.includes('TECH CENTER') || bName.includes('WAR FACTORY')) {
+      return {
+        key: 'VEHICLE',
+        icon: '🛡️',
+        label: 'VEHICLE UNITS',
+        note: 'All Vehicle units built at War Factory & upgraded at Tech Center (excludes Mercenaries, Contractors & Hostiles).',
+        accent: '#ffd700',
+        units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'VEHICLE')
+      };
+    }
+    if (bName.includes('AIRCRAFT HANG') || bName.includes('AIRFIELD')) {
+      return {
+        key: 'AIRCRAFT',
+        icon: '✈️',
+        label: 'AIRCRAFT UNITS',
+        note: 'All Aircraft units built at Airfield & stored/upgraded at Aircraft Hangar (excludes Mercenaries, Contractors & Hostiles).',
+        accent: '#38bdf8',
+        units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'AIRCRAFT')
+      };
+    }
+    if (bName.includes('MERCENARY') || bName.includes('MERC CAMP')) {
+      return {
+        key: 'MERCENARY',
+        icon: '🏴',
+        label: 'MERCENARY UNITS',
+        note: 'All Mercenary & Champion units deployed via Mercenary Camp.',
+        accent: '#f59e0b',
+        units: allUnits.filter(u => isMercenaryUnitRow(u))
+      };
+    }
+    if (bName.includes('AGENCY')) {
+      return {
+        key: 'CONTRACTOR',
+        icon: '🕶️',
+        label: 'CONTRACTOR UNITS',
+        note: 'All Agency Contractor units.',
+        accent: '#c084fc',
+        units: allUnits.filter(u => isContractorUnitRow(u))
+      };
+    }
+    if (bName.includes('HELIPAD')) {
+      const heliUnits = allUnits.filter(u => {
+        if (isHostileUnitRow(u) || isMercenaryUnitRow(u) || isContractorUnitRow(u)) return false;
+        const txt = `${u.STAT_TYPE || ''} ${u.STAT_BUILDING || ''} ${u.CLASSIFICATION || ''} ${u.UNIT_NAME || ''}`.toUpperCase();
+        return /\b(?:HELI|HELICOPTER|CHOPPER|ROTOR|GUNSHIP)\b|HELIPAD/.test(txt);
+      });
+      if (heliUnits.length === 0) return null;
+      return {
+        key: 'HELIPAD',
+        icon: '🚁',
+        label: 'ROTORCRAFT / HELIPAD UNITS',
+        note: 'Helicopter & Rotorcraft units associated with Helipad operations.',
+        accent: '#38bdf8',
+        units: heliUnits
+      };
+    }
+    if (bName.includes('WORKSHOP')) {
+      const wsUnits = allUnits.filter(u => !isHostileUnitRow(u) && hasWorkshopTechRow(u));
+      if (wsUnits.length === 0) return null;
+      return {
+        key: 'WORKSHOP',
+        icon: '🔧',
+        label: 'WORKSHOP TECH UNITS',
+        note: 'All allied units equipped with Workshop Tech loadouts.',
+        accent: '#c084fc',
+        units: wsUnits
+      };
+    }
+    return null;
+  }
+
+  function buildUnitBriefUrl(unitName) {
+    const loc = String(window.location.href || '');
+    const targetPage = loc.includes('/masters/') ? './unit-briefs-master.html' : './unit-briefs.html';
+    return `${targetPage}?unit=${encodeURIComponent(cleanVal(unitName))}`;
+  }
+
+  function handoffUnitBriefLink(unitName) {
+    try { localStorage.setItem(UNIT_HANDOFF_KEY, cleanVal(unitName)); } catch (e) {}
+  }
+
+  function toggleBranchUnitsDrawer(btn, ev) {
+    if (ev) ev.stopPropagation();
+    const subgroup = btn && btn.closest('.branch-subgroup');
+    const panel = subgroup && subgroup.querySelector('.branch-units-drawer-panel');
+    if (!panel) return;
+    const isNowOpen = panel.classList.toggle('is-open');
+    btn.classList.toggle('is-open', isNowOpen);
+  }
+
+  function getSubRoleAssociatedUnitsSpec(sKey, arr) {
+    if (sKey === 'INFANTRY') {
+      const spec = getAssociatedUnitsSpecForFacility('ACADEMY');
+      return spec ? { ...spec, pillText: 'UNITS' } : null;
+    }
+    if (sKey === 'VEHICLE') {
+      const spec = getAssociatedUnitsSpecForFacility('TECH CENTER');
+      return spec ? { ...spec, pillText: 'UNITS' } : null;
+    }
+    if (sKey === 'AIRCRAFT') {
+      const spec = getAssociatedUnitsSpecForFacility('AIRFIELD');
+      return spec ? { ...spec, pillText: 'UNITS' } : null;
+    }
+    if (sKey === 'MERCENARY') {
+      const spec = getAssociatedUnitsSpecForFacility('MERCENARY CAMP');
+      return spec ? { ...spec, pillText: 'UNITS' } : null;
+    }
+    if (sKey === 'WORKSHOP') {
+      const spec = getAssociatedUnitsSpecForFacility('WORKSHOP');
+      return spec ? { ...spec, pillText: 'UNITS' } : null;
+    }
+    if (Array.isArray(arr)) {
+      if (arr.some(r => cleanVal(r.BUILDING_NAME).toUpperCase().includes('AGENCY'))) {
+        const spec = getAssociatedUnitsSpecForFacility('AGENCY');
+        return spec ? { ...spec, pillText: 'CONTRACTORS' } : null;
+      }
+    }
+    return null;
+  }
+
+  function renderBranchUnitsHeaderControls(sKey, arr) {
+    const spec = getSubRoleAssociatedUnitsSpec(sKey, arr);
+    if (!spec || !spec.units || spec.units.length === 0) return { btnHtml: '', panelHtml: '' };
+    const chipsHtml = spec.units.map(u => {
+      const uName = cleanVal(u.UNIT_NAME);
+      const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
+      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Unit Brief" onclick="event.stopPropagation(); handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
+    }).join('');
+    const btnHtml = `<button type="button" class="branch-units-hdr-btn" style="--fac-unit-accent: ${spec.accent};" onclick="toggleBranchUnitsDrawer(this, event)" title="Show clickable ${escapeAttr(spec.label)} links">${escapeHtml(spec.pillText)} (${spec.units.length}) <span class="buh-chev">▾</span></button>`;
+    const panelHtml = `<div class="branch-units-drawer-panel" style="--fac-unit-accent: ${spec.accent};" onclick="event.stopPropagation();"><div class="facility-units-chip-grid">${chipsHtml}</div></div>`;
+    return { btnHtml, panelHtml };
+  }
+
+  function renderAssociatedUnitsBriefSection(bName) {
+    const sec = document.getElementById('associated-units-section');
+    const hdr = document.getElementById('d-assoc-units-header');
+    const sub = document.getElementById('d-assoc-units-sub');
+    const box = document.getElementById('d-assoc-units-box');
+    const note = document.getElementById('d-assoc-units-note');
+    const grid = document.getElementById('d-assoc-units-grid');
+    if (!sec || !grid) return;
+
+    const spec = getAssociatedUnitsSpecForFacility(bName);
+    if (!spec || !spec.units || spec.units.length === 0) {
+      sec.style.display = 'none';
+      grid.innerHTML = '';
+      return;
+    }
+
+    if (hdr) hdr.textContent = `${spec.icon} ASSOCIATED ${spec.label} (${spec.units.length})`;
+    if (sub) {
+      sub.textContent = 'CLICK ANY UNIT TO OPEN BRIEF ↗';
+      sub.style.color = spec.accent;
+    }
+    if (box) box.style.setProperty('--fac-unit-accent', spec.accent);
+    if (note) note.textContent = spec.note || '';
+    grid.innerHTML = spec.units.map(u => {
+      const uName = cleanVal(u.UNIT_NAME);
+      const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
+      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Unit Brief" onclick="handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
+    }).join('');
+    sec.style.display = 'block';
   }
 
   function formatCompactIridium(rawIrid) {
@@ -1490,6 +1932,7 @@
         }
         const headers = matrix[0].map(h => String(h || '').trim().toUpperCase());
         const fetched = [];
+        const fetchedUnits = [];
         for (let r = 1; r < matrix.length; r++) {
           const rec = { SHEET_ROW_INDEX: r + 1 };
           headers.forEach((k, cIdx) => {
@@ -1498,9 +1941,12 @@
           rec.BUILDING_NAME = rec.BUILDING_NAME || rec.UNIT_NAME || rec.UNIT_TITLE || rec.TITLE || rec.NAME || '';
           if (isValidBuildingRecord(rec)) {
             fetched.push(rec);
+          } else if (cleanVal(rec.UNIT_NAME)) {
+            fetchedUnits.push(rec);
           }
         }
         globalMatrixCache = fetched;
+        globalUnitsCache = fetchedUnits;
         applyFilter(isInitialLoad);
       },
       function(err) {
@@ -1725,7 +2171,7 @@
     }
 
     const catBuckets = new Map();
-    const subRoleKeys = ['HQ', 'SPEC_OPS', 'MERCENARY', 'INFANTRY', 'VEHICLE', 'AIRCRAFT', 'FORTIFICATION', 'ENGINEERING', 'LOGISTICS'];
+    const subRoleKeys = ['HQ', 'SPEC_OPS', 'MERCENARY', 'INFANTRY', 'VEHICLE', 'AIRCRAFT', 'FORTIFICATION', 'CONSTRUCTION', 'WORKSHOP', 'LOGISTICS'];
 
     buildingsList.forEach(rec => {
       const cInfo = resolveBuildingCategoryInfo(rec);
@@ -1843,14 +2289,17 @@
         const soloTilesHtml = solos.map(rec => buildFacilityTileHtml(rec)).join('');
 
         const grpSizeCls = arr.length <= 6 ? 'is-compact-group' : 'is-large-group';
+        const branchUnitsUi = renderBranchUnitsHeaderControls(sKey, arr);
 
         subGroupsHtml += `
           <div class="branch-subgroup ${grpSizeCls}" data-grp-cols="${arr.length}" style="--branch-color: ${sMeta.color}; --grp-cols: ${arr.length};">
             <div class="branch-subheader">
               <span class="branch-pill-tag" style="--branch-color: ${sMeta.color};">${sMeta.icon} ${escapeAttr(sMeta.label)} (${arr.length})</span>
+              ${branchUnitsUi.btnHtml}
               ${pairs.length > 0 && arr.length > 2 ? `<span class="branch-pair-count-tag">⇄ ${pairs.length} LINKED ${pairs.length === 1 ? 'PAIR' : 'PAIRS'}</span>` : ''}
               <span class="branch-divider-line"></span>
             </div>
+            ${branchUnitsUi.panelHtml}
             <div class="branch-unit-grid">
               ${pairedPodsHtml}${soloTilesHtml}
             </div>
@@ -2164,6 +2613,8 @@
         openLinkedFacility(lnkName);
       };
     }
+
+    renderAssociatedUnitsBriefSection(bldName);
 
     const s1 = getVal('SHOW_SHEET1') === '' ? true : isTrue('SHOW_SHEET1');
     const s2 = getVal('SHOW_SHEET2') === '' ? true : isTrue('SHOW_SHEET2');
