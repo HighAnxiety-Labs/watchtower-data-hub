@@ -446,12 +446,16 @@
   .bento-links-grid.tab-unit-grid.is-vault-grid .bento-sub-stack-item:first-child::before {
     top: -32px;
   }
+  .bento-links-grid.tab-unit-grid.is-vault-grid .bento-sub-stack-item:last-child::before {
+    bottom: 50%;
+  }
   .bento-links-grid.tab-unit-grid.is-vault-grid .bento-sub-stack-item::after {
     left: -10px;
     width: 10px;
   }
   .bento-links-grid.tab-unit-grid.is-vault-bridged-grid {
-    --vault-card-w: clamp(220px, 22vw, 270px);
+    --vault-card-w: clamp(200px, 20vw, 250px);
+    --vault-shift: calc(var(--vault-card-w) * 0.25);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -463,21 +467,53 @@
     flex: 0 0 var(--vault-card-w);
     height: auto;
   }
-  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group {
-    width: calc(var(--vault-card-w) * 2 + 24px);
-    flex: 0 0 calc(var(--vault-card-w) * 2 + 24px);
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack {
+    width: calc(var(--vault-card-w) + var(--vault-shift));
+    flex: 0 0 calc(var(--vault-card-w) + var(--vault-shift));
     height: auto;
   }
-  .bento-group-stack.is-vault-2col-group > .bento-module-card {
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group {
+    width: calc(var(--vault-card-w) * 2.5);
+    flex: 0 0 calc(var(--vault-card-w) * 2.5);
+    height: auto;
+  }
+  .bento-group-stack.is-vault-2col-group > .bento-module-card,
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack > .bento-module-card {
     width: var(--vault-card-w);
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack {
+    padding-top: 44px;
+    gap: 18px;
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item {
+    margin-left: var(--vault-shift);
+    width: var(--vault-card-w);
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item::before {
+    left: calc(var(--vault-shift) * -0.5);
+    top: -18px;
+    bottom: -18px;
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item:first-child::before {
+    top: -44px;
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item:last-child::before {
+    bottom: 50%;
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item::after {
+    left: calc(var(--vault-shift) * -0.5);
+    width: calc(var(--vault-shift) * 0.5);
   }
   .vault-bridged-sub-stage {
     position: relative;
     width: 100%;
     padding-top: 44px;
+    padding-left: var(--vault-shift);
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(2, var(--vault-card-w));
-    gap: 24px;
+    column-gap: var(--vault-shift);
+    row-gap: 18px;
     align-items: start;
     overflow: visible;
   }
@@ -726,10 +762,11 @@
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack { width: calc((100% - 16px) / 3); flex: 0 0 calc((100% - 16px) / 3); }
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: calc(((100% - 16px) / 3) * 2 + 8px); flex: 0 0 calc(((100% - 16px) / 3) * 2 + 8px); }
     .bento-links-grid.tab-unit-grid.is-vault-grid,
-    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { --vault-card-w: clamp(200px, 28vw, 250px); column-gap: 20px; }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { --vault-card-w: clamp(180px, 24vw, 225px); --vault-shift: calc(var(--vault-card-w) * 0.25); column-gap: 20px; }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: var(--vault-card-w); flex: 0 0 var(--vault-card-w); }
-    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(var(--vault-card-w) * 2 + 20px); flex: 0 0 calc(var(--vault-card-w) * 2 + 20px); }
-    .vault-bridged-sub-stage { gap: 20px; }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack { width: calc(var(--vault-card-w) + var(--vault-shift)); flex: 0 0 calc(var(--vault-card-w) + var(--vault-shift)); }
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(var(--vault-card-w) * 2.5); flex: 0 0 calc(var(--vault-card-w) * 2.5); }
+    .vault-bridged-sub-stage { column-gap: var(--vault-shift); }
   }
   @media (max-width: 680px) {
     .bento-links-grid.tab-unit-grid,
@@ -738,12 +775,19 @@
     .bento-links-grid.tab-unit-grid .bento-group-stack { grid-column: span 1; }
     .bento-links-grid.tab-unit-grid .bento-group-stack.wide-sub-group { grid-column: 1 / -1; }
     .bento-sub-bay { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .bento-sub-stack { padding-top: 28px; gap: 16px; }
-    .bento-sub-stack-item { margin-left: 16px; width: calc(100% - 16px); }
-    .bento-sub-stack-item::before { left: -9px; top: -16px; bottom: -16px; }
-    .bento-sub-stack-item:first-child::before { top: -28px; }
+    .bento-sub-stack,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack { padding-top: 28px; gap: 16px; }
+    .bento-sub-stack-item,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item { margin-left: 16px; width: calc(100% - 16px); }
+    .bento-sub-stack-item::before,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item::before { left: -9px; top: -16px; bottom: -16px; }
+    .bento-sub-stack-item:first-child::before,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item:first-child::before { top: -28px; }
+    .bento-sub-stack-item:last-child::before,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item:last-child::before { bottom: 50%; }
     .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
-    .bento-sub-stack-item::after { left: -9px; width: 9px; }
+    .bento-sub-stack-item::after,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid .bento-sub-stack-item::after { left: -9px; width: 9px; }
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid,
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap,
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap-md { column-gap: 8px; }
@@ -751,9 +795,11 @@
     .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: 100%; flex: 0 0 100%; }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-direction: column; gap: 24px; }
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack,
     .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100%; flex: 1 1 auto; }
-    .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 100%; }
-    .vault-bridged-sub-stage { flex-direction: column; padding-top: 28px; gap: 16px; }
+    .bento-group-stack.is-vault-2col-group > .bento-module-card,
+    .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack > .bento-module-card { width: 100%; }
+    .vault-bridged-sub-stage { display: flex; flex-direction: column; padding-top: 28px; padding-left: 0; gap: 16px; }
     .vault-sub-col.is-col-1,
     .vault-sub-col.is-col-2 { margin-left: 16px; width: calc(100% - 16px); flex: 1 1 auto; gap: 16px; margin-top: 0; }
   }
@@ -781,6 +827,7 @@
   html[data-wtr-view="mobile"] .bento-sub-stack-item { margin-left: 16px !important; width: calc(100% - 16px) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::before { left: -9px !important; top: -16px !important; bottom: -16px !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item:first-child::before { top: -28px !important; }
+  html[data-wtr-view="mobile"] .bento-sub-stack-item:last-child::before { bottom: 50% !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item.is-spine-stop-first::before { background: linear-gradient(180deg, var(--spine-energy, #4ade80) 0%, var(--spine-energy, #4ade80) calc(50% + 6px), var(--conduit-accent, #785dc8) calc(50% + 6px), var(--conduit-accent, #785dc8) 100%) !important; }
   html[data-wtr-view="mobile"] .bento-sub-stack-item::after { left: -9px !important; width: 9px !important; }
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack,
@@ -789,9 +836,11 @@
   html[data-wtr-view="mobile"] .bento-module-card.has-top-cat-cap-col2 { border-top-left-radius: 5px !important; border-top-right-radius: 5px !important; }
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex !important; flex-direction: column !important; gap: 24px !important; }
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack,
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack,
   html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: 100% !important; flex: 1 1 auto !important; }
-  html[data-wtr-view="mobile"] .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 100% !important; }
-  html[data-wtr-view="mobile"] .vault-bridged-sub-stage { flex-direction: column !important; padding-top: 28px !important; gap: 16px !important; }
+  html[data-wtr-view="mobile"] .bento-group-stack.is-vault-2col-group > .bento-module-card,
+  html[data-wtr-view="mobile"] .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.has-sub-stack > .bento-module-card { width: 100% !important; }
+  html[data-wtr-view="mobile"] .vault-bridged-sub-stage { display: flex !important; flex-direction: column !important; padding-top: 28px !important; padding-left: 0 !important; gap: 16px !important; }
   html[data-wtr-view="mobile"] .vault-sub-col.is-col-1,
   html[data-wtr-view="mobile"] .vault-sub-col.is-col-2 { margin-left: 16px !important; width: calc(100% - 16px) !important; flex: 1 1 auto !important; gap: 16px !important; margin-top: 0 !important; }
 
