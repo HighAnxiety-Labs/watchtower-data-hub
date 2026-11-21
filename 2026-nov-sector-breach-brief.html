@@ -1927,36 +1927,86 @@
       }
     }
 
-    /* 7-Day Event-Start Video Recon Counters (Nov 20 – Nov 27, 2026 | "War Commander" + "Sector Breach") */
+    /* 7-Day Event-Start Video Recon Counters (Nov 20 – Nov 27, 2026 | "War Commander" + "Sector Breach")
+       Layer 1: Instant 0ms render from directory-manifest.js + localStorage cache
+       Layer 2: Live YouTube Atom RSS refresh via rss2json (30-min cache + click-to-refresh) */
     const SB_WIN_START = new Date("2026-11-20T00:00:00-08:00").getTime();
     const SB_WIN_END   = new Date("2026-11-27T23:59:59-08:00").getTime();
-    const SB_CREATOR_CHANNELS = {
-      project_d88:    { cid: "UCuQ4A4t9yS2n4lR3Y3vY5xw", aliases: ["project_d88", "projectd88"] },
-      furiousbull2:   { cid: "UCfuriousbull2", aliases: ["furiousbull2", "furiousbull"] },
-      stormygamingyt: { cid: "UCSTORMYGAMINGYT", aliases: ["stormygamingyt", "stormygaming"] },
-      dot_sl1zo:      { cid: "UCDOT-sl1zo", aliases: ["dotsl1zo", "dot-sl1zo", "sl1zo"] },
-      wcjbsamar:      { cid: "UCWCJBsamar", aliases: ["wcjbsamar", "jbsamar"] }
-    };
+    const SB_YT_CACHE_KEY = "wtr_yt_creator_feed_cache_v2";
+    const SB_YT_TTL_MS = 30 * 60 * 1000;
+    const SB_CREATOR_CHANNELS = [
+      { id: "project_d88",    group: "top",   owner: "Project_d88",      handle: "Project_d88",      channelId: "UCgLApDnJO92pQYt81v_T6oA", aliases: ["project_d88", "projectd88"] },
+      { id: "furiousbull2",   group: "watch", owner: "furious bull2",    handle: "furiousbull2",     channelId: "UCtzS9uHklZVwvyewJDmG8ww", aliases: ["furiousbull2", "furiousbull"] },
+      { id: "stormygamingyt", group: "watch", owner: "STORMY GAMING YT", handle: "STORMYGAMINGYT99", channelId: "UC5Nm3nZIMF0mp_BtXofnnIQ", aliases: ["stormygamingyt", "stormygamingyt99", "stormygaming"] },
+      { id: "dotsl1zo",       group: "watch", owner: "DOT",              handle: "DOT-sl1zo",        channelId: "UCD3iqiGHAA70Goo9mF8obJw", aliases: ["dotsl1zo", "dot-sl1zo", "sl1zo"] },
+      { id: "wcjbsamar",      group: "watch", owner: "WC JBsamar",       handle: "WCJBsamar",        channelId: "UCpBT5Xj1KLledXt_x7rzATA", aliases: ["wcjbsamar", "jbsamar"] }
+    ];
 
     function normKey(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
-    function matchEventVideos(pool, creatorKeys) {
-      const aliasList = [];
-      creatorKeys.forEach(k => {
-        if (SB_CREATOR_CHANNELS[k]) aliasList.push(...SB_CREATOR_CHANNELS[k].aliases.map(normKey));
-      });
+    function loadSbFeedCache() {
+      try { return JSON.parse(localStorage.getItem(SB_YT_CACHE_KEY) || "{}") || {}; } catch (e) { return {}; }
+    }
+    function saveSbFeedCache(obj) {
+      try { localStorage.setItem(SB_YT_CACHE_KEY, JSON.stringify(obj)); } catch (e) {}
+    }
+
+    async function fetchSbCreatorRss(ch, forceRefresh) {
+      const cache = loadSbFeedCache();
+      const entry = cache[ch.channelId];
+      if (!forceRefresh && entry && Array.isArray(entry.items) && (Date.now() - (entry.fetchedAt || 0)) < SB_YT_TTL_MS) {
+        return entry.items;
+      }
+      const rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + ch.channelId;
+      const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+      try {
+        const ctrl = new AbortController();
+        const tmr = setTimeout(() => ctrl.abort(), 6500);
+        const res = await fetch(apiUrl, { signal: ctrl.signal });
+        clearTimeout(tmr);
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (!data || data.status !== "ok" || !Array.isArray(data.items)) return null;
+        const items = data.items.map(it => {
+          const idM = String(it.link || it.guid || "").match(/(?:v=|video:)([a-zA-Z0-9_-]{11})/);
+          const pubMs = Date.parse(String(it.pubDate || "").replace(" ", "T") + "Z") || Date.parse(it.pubDate || "");
+          return {
+            id: idM ? idM[1] : (it.guid || it.link || ""),
+            creatorId: ch.id,
+            handle: ch.handle,
+            owner: ch.owner,
+            channelId: ch.channelId,
+            title: String(it.title || "").trim(),
+            descSnippet: String(it.description || "").replace(/<[^>]+>/g, " ").slice(0, 260),
+            publishedAt: it.pubDate || "",
+            publishedMs: pubMs || 0
+          };
+        }).filter(it => it.id);
+        cache[ch.channelId] = { fetchedAt: Date.now(), items };
+        saveSbFeedCache(cache);
+        return items;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function matchEventVideos(pool, groupName) {
+      const chans = SB_CREATOR_CHANNELS.filter(c => c.group === groupName);
+      const idSet = new Set(chans.map(c => c.id));
+      const cidSet = new Set(chans.map(c => c.channelId));
+      const aliasList = chans.flatMap(c => c.aliases.map(normKey));
       const seen = new Set();
       const out = [];
       (pool || []).forEach(v => {
         if (!v || !v.id || seen.has(v.id)) return;
-        const pubMs = v.pubMs || Date.parse(v.pubDate || v.published || "");
+        const pubMs = Number(v.publishedMs || v.pubMs) || Date.parse(v.publishedAt || v.pubDate || v.published || "");
         if (!pubMs || isNaN(pubMs) || pubMs < SB_WIN_START || pubMs > SB_WIN_END) return;
-        const text = `${v.title || ""} ${v.description || ""} ${v.owner || v.channel || ""}`.toLowerCase();
-        const hasWc = text.includes("war commander") || /\bwc\b/.test(text);
+        const text = `${v.title || ""} ${v.descSnippet || v.description || ""} ${v.owner || v.channel || ""}`.toLowerCase();
         const hasEvent = text.includes("sector breach") || text.includes("sectorbreach");
-        if (!hasWc || !hasEvent) return;
-        const ownerNorm = normKey(`${v.owner || ""} ${v.channel || ""} ${v.handle || ""} ${v.author || ""}`);
-        if (aliasList.length && !aliasList.some(a => ownerNorm.includes(a))) return;
+        if (!hasEvent) return;
+        const ownerNorm = normKey(`${v.creatorId || ""} ${v.owner || ""} ${v.channel || ""} ${v.handle || ""} ${v.author || ""}`);
+        const matchesCreator = idSet.has(v.creatorId) || cidSet.has(v.channelId) || aliasList.some(a => ownerNorm.includes(a));
+        if (!matchesCreator) return;
         seen.add(v.id);
         out.push({
           id: v.id,
@@ -1982,14 +2032,32 @@
       }
     }
 
-    window.refreshSectorBreachVideoCounts = function(isManual) {
-      const manifestPool = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
+    window.refreshSectorBreachVideoCounts = async function(forceRefresh) {
+      const poolById = new Map();
+      const manifestItems = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
         ? window.WTR_DIRECTORY_MANIFEST.creatorVideos
         : [];
-      const topList = matchEventVideos(manifestPool, ["project_d88"]);
-      const watchList = matchEventVideos(manifestPool, ["furiousbull2", "stormygamingyt", "dot_sl1zo", "wcjbsamar"]);
-      applyCounterBadge("vid1MatchCount", topList);
-      applyCounterBadge("vid2MatchCount", watchList);
+      manifestItems.forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+      const localCache = loadSbFeedCache();
+      Object.values(localCache).forEach(entry => {
+        (entry?.items || []).forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+      });
+
+      const renderFromPool = () => {
+        const all = Array.from(poolById.values());
+        applyCounterBadge("vid1MatchCount", matchEventVideos(all, "top"));
+        applyCounterBadge("vid2MatchCount", matchEventVideos(all, "watch"));
+      };
+      renderFromPool();
+
+      for (let i = 0; i < SB_CREATOR_CHANNELS.length; i++) {
+        if (i > 0) await new Promise(r => setTimeout(r, 320));
+        const liveItems = await fetchSbCreatorRss(SB_CREATOR_CHANNELS[i], Boolean(forceRefresh));
+        if (Array.isArray(liveItems)) {
+          liveItems.forEach(it => { if (it && it.id) poolById.set(it.id, it); });
+        }
+      }
+      renderFromPool();
     };
 
     renderStoreTable();

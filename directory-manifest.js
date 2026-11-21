@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-20T23:57:24-08:00",
-    "generatedMs":  1795247840273,
+    "generatedAt":  "2026-11-21T00:17:38-08:00",
+    "generatedMs":  1795249055036,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -80,8 +80,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-21T07:50:14Z",
-                              "modifiedMs":  1795247414331
+                              "modifiedAt":  "2026-11-21T08:17:19Z",
+                              "modifiedMs":  1795249039699
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
