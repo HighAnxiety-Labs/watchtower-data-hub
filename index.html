@@ -8822,6 +8822,11 @@
       slug = m2[2];
     }
 
+    let readable = slug
+      .replace(/=/g, ": ")
+      .replace(/-/g, " ")
+      .replace(/\boperation\s+/i, "OPERATION: ")
+      .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
       .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
       .toUpperCase();
     if (clean.toLowerCase() === "2026-nov-shadow-ops-brief.html") {
