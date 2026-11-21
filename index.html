@@ -416,18 +416,23 @@
   .bento-sub-stack .bento-sub-card,
   .vault-bridged-sub-stage .bento-sub-card { width: 100%; background: linear-gradient(180deg, #101925 0%, #080d14 100%); border-left: 2px solid var(--item-accent, var(--stage-accent, var(--lead-accent))); }
 
-  /* [-WTR-] VAULT 2-Column Bridged Sub-Tabs (2A Upper Trunk Bridge off Col 1 Primary Sub-Line, Level Columns) */
-  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px calc((100% - 40px) / 6); }
-  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: calc((100% - 40px) / 6); flex: 0 0 calc((100% - 40px) / 6); height: auto; }
-  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: calc(((100% - 40px) / 6) * 2.5); flex: 0 0 calc(((100% - 40px) / 6) * 2.5); height: auto; }
-  .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 40%; }
+  /* [-WTR-] VAULT Balanced Wide Columns (Prevents Skinny Tall Columns) */
+  .bento-links-grid.tab-unit-grid.is-vault-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+    column-gap: 28px;
+    justify-content: center;
+  }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px 36px; }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack { width: clamp(250px, 28%, 340px); flex: 0 0 clamp(250px, 28%, 340px); height: auto; }
+  .bento-links-grid.tab-unit-grid.is-vault-bridged-grid > .bento-group-stack.is-vault-2col-group { width: clamp(520px, 60%, 720px); flex: 0 0 clamp(520px, 60%, 720px); height: auto; }
+  .bento-group-stack.is-vault-2col-group > .bento-module-card { width: 46%; min-width: 240px; }
   .vault-bridged-sub-stage { position: relative; width: 100%; padding-top: 60px; display: flex; align-items: flex-start; overflow: visible; }
   .vault-bridged-sub-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
-  .vault-sub-col { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+  .vault-sub-col { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
   .vault-sub-col:hover,
   .vault-sub-col:focus-within { z-index: 92; }
-  .vault-sub-col.is-col-1 { margin-left: 10%; width: 40%; flex: 0 0 40%; }
-  .vault-sub-col.is-col-2 { margin-left: 10%; width: 40%; flex: 0 0 40%; margin-top: 0; }
+  .vault-sub-col.is-col-1 { margin-left: 4%; width: 45%; flex: 0 0 45%; }
+  .vault-sub-col.is-col-2 { margin-left: 6%; width: 45%; flex: 0 0 45%; margin-top: 0; }
   .vault-sub-col-item { position: relative; width: 100%; }
   .vault-sub-col-item:hover,
   .vault-sub-col-item:focus-within { z-index: 95; }
@@ -4382,7 +4387,7 @@
     const gridEl = document.getElementById("bentoLinksGrid");
     if (!drawerWrap || !gridEl || !activeCommandKey || activeCommandKey === "FILTER") return;
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-opintel-cat-grid");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-vault-grid", "is-opintel-cat-grid");
     gridEl.style.removeProperty("--slot-count");
     gridEl.style.removeProperty("--slot-count-md");
     normalizeAndReindexSectionCards(activeCommandKey);
@@ -4555,6 +4560,9 @@
     const allowTabGap = hasAnySubs || activeCommandKey === "baseOps" || activeCommandKey === "adminBug";
 
     gridEl.classList.add("tab-unit-grid");
+    if (isVaultTab) {
+      gridEl.classList.add("is-vault-grid");
+    }
     if (hasVaultBridgedCols) {
       gridEl.classList.add("is-vault-bridged-grid");
     }
@@ -8814,11 +8822,31 @@
       slug = m2[2];
     }
 
-    let readable = slug
-      .replace(/=/g, ": ")
-      .replace(/-/g, " ")
-      .replace(/\boperation\s+/i, "OPERATION: ")
-      .replace(/\bnightmare\s+/i, "NIGHTMARE: ")
+      .replace(/\bshadow\s+ops\s*:?\s*/i, "SHADOW OPS: ")
+      .toUpperCase();
+    if (clean.toLowerCase() === "2026-nov-shadow-ops-brief.html") {
+      readable = "SHADOW OPS: DRIFTING DRAGON";
+    }
+
+    const datePrefix = monthNum > 0 ? `${monthShort} ${year}` : `${year}`;
+    const prefix = getWtrPublishedPrefix();
+    const relUrl = `${prefix}${folderSubpath}${encodeURIComponent(clean)}`;
+
+    return {
+      fileName: clean,
+      category,
+      year,
+      monthNum,
+      sortScore: (year * 100) + monthNum,
+      title: `${datePrefix} • ${readable}`,
+      shortTitle: readable,
+      url: relUrl
+    };
+  }
+
+  // Upgrade openDirectExternalUrl so relative .html paths open directly without prepending https://
+  openDirectExternalUrl = function(rawUrl) {
+    let targetUrl = String(rawUrl || "").trim();
     const norm = targetUrl.replace(/\/+$/, "").toLowerCase();
     const isGenericOrEmpty = !targetUrl || targetUrl === "#" || norm.endsWith("/home") || norm.endsWith("/operational-briefs");
 
