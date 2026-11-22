@@ -1328,6 +1328,10 @@
       </div>
 
       <div class="radar-search-group">
+        <select id="radarTechModeSelect" class="wtr-select" style="width: 178px; padding: 5px 8px; font-size: 13px; border-color: rgba(0,230,118,0.55); color: #86efac;" aria-label="Workshop Tech Evaluation Mode" onchange="renderRadarGrid()" title="Compare Native-only vs Optimal Workshop Tech (including Unique bonuses &amp; Native vs Workshop weapon swaps)">
+          <option value="OPTIMAL" selected>🔧 Native + Best Tech</option>
+          <option value="NATIVE">⚙️ Native Tech Only</option>
+        </select>
         <select id="oppDivFilter" class="wtr-select" style="width: 152px; padding: 5px 8px; font-size: 13.5px;" aria-label="Filter Enemy Division" onchange="renderRadarGrid()">
           <option value="ALL">All Enemy Types</option>
           <option value="INFANTRY">Enemy Infantry</option>
@@ -2195,7 +2199,7 @@
         if (/\bBUILDINGS?\b|\bTURRETS?\b|\bSTRUCTURES?\b|\bBASE\b/.test(cUpper) && !/\bVEHICLES?\b|\bINFANTRY\b|\bAIR(?:CRAFT)?\b|\bUNITS?\b/.test(cUpper)) {
           return;
         }
-        if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) return;
+        if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore, opponent)) return;
 
         const pierceVal = extractDrPiercePct(cTrim);
         if (pierceVal > 0) mod.drPiercePct += pierceVal;
@@ -2398,6 +2402,10 @@
       return `Workshop #${slotIdx}`;
     };
 
+    const oppClassFlags = getUnitClassFlags(opponent);
+    const nativeDmg = normalizeDamage(unit.STAT_DAMAGE_TYPE);
+    const nativeArmorMult = computeArmorMult(nativeDmg.core, oppArmor);
+
     const unitWorkshops = [];
     for (let i = 1; i <= 9; i++) {
       const title = cleanVal(unit[`WORKSHOP_${i}_TITLE`]) || cleanVal(unit[`TECH_${i}_TITLE`]);
@@ -2409,11 +2417,55 @@
       let score = 10;
       const reasons = [];
 
+      // Parse exact workshop modifiers & weapon-type swaps against this specific opponent
+      const tempItem = { key: `WS_${i}`, kind: 'UNIT_WS', title: title || `Workshop Slot ${i}`, tag, desc };
+      const wsMod = extractWorkshopModifiers(tempItem, opponent);
+      const weaponSwap = detectWorkshopWeaponSwap(title, desc);
+      let isWeaponDowngrade = false;
+
+      if (weaponSwap && weaponSwap.core !== 'STANDARD' && weaponSwap.core !== nativeDmg.core) {
+        const swapMult = computeArmorMult(weaponSwap.core, oppArmor) * (1 + (wsMod.dmgPct || 0) / 100);
+        const nativeEff = nativeArmorMult;
+        if (swapMult < nativeEff * 0.96) {
+          isWeaponDowngrade = true;
+          score -= 55;
+          reasons.push(`⚠️ KEEP NATIVE ${nativeDmg.core} (${nativeEff.toFixed(2)}× vs ${oppArmor}) — ${weaponSwap.core} weapon swap is weaker (${swapMult.toFixed(2)}×)`);
+        } else if (swapMult > nativeEff * 1.05) {
+          score += 48;
+          reasons.push(`✅ WEAPON UPGRADE: ${weaponSwap.core} (${swapMult.toFixed(2)}×) beats Native ${nativeDmg.core} (${nativeEff.toFixed(2)}×) vs ${oppArmor} Armor`);
+        }
+      }
+
+      if (oppClassFlags.isUnique && /\bUNIQUES?\b/.test(hay) && wsMod.dmgPct > 0) {
+        score += 60 + Math.min(40, Math.round(wsMod.dmgPct * 0.4));
+        reasons.push(`🎯 +${wsMod.dmgPct}% Bonus Damage vs UNIQUE (${opponent.UNIT_NAME})`);
+      }
+      if (oppClassFlags.isHero && /\bHERO(?:ES)?\b/.test(hay) && wsMod.dmgPct > 0) {
+        score += 50;
+        reasons.push(`🎯 +${wsMod.dmgPct}% Bonus Damage vs HERO`);
+      }
+      if (oppClassFlags.isWarlord && /\bWARLORDS?\b/.test(hay) && wsMod.dmgPct > 0) {
+        score += 50;
+        reasons.push(`🎯 +${wsMod.dmgPct}% Bonus Damage vs WARLORD`);
+      }
+      if (oppClassFlags.isLegendary && /\bLEGENDAR(?:Y|IES)\b/.test(hay) && wsMod.dmgPct > 0) {
+        score += 50;
+        reasons.push(`🎯 +${wsMod.dmgPct}% Bonus Damage vs LEGENDARY`);
+      }
+      if (oppClassFlags.isMercenary && /\bMERCENAR(?:Y|IES)\b|\bMERCS?\b/.test(hay) && wsMod.dmgPct > 0) {
+        score += 50;
+        reasons.push(`🎯 +${wsMod.dmgPct}% Bonus Damage vs MERCENARY`);
+      }
+      if (wsMod.dmgPct >= 40 && !isWeaponDowngrade && reasons.length === 0) {
+        score += 36;
+        reasons.push(`🔥 High +${wsMod.dmgPct}% DPS boost vs ${opponent.UNIT_NAME}`);
+      }
+
       if (oppCountersMyArmor && (hay.includes('REDUCTION') || hay.includes('SHIELD') || hay.includes('ARMOR') || hay.includes('RESIST') || hay.includes('HEALTH') || hay.includes('HP'))) {
         score += 40;
         reasons.push(`Mitigates ${opponent.UNIT_NAME}'s 2.0x ${oppDmg.core} counter`);
       }
-      if (hay.includes(oppDmg.core)) {
+      if (hay.includes(oppDmg.core) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b|\bREDUCTION\b|\bRESIST\b/.test(hay)) {
         score += 35;
         reasons.push(`Directly counters ${oppDmg.core} damage`);
       }
@@ -2438,21 +2490,21 @@
         score += 22;
         reasons.push('Effective vs Armored Vehicles');
       }
-      if (oppDiv === 'INFANTRY' && (hay.includes('INFANTRY') || hay.includes('SPLASH') || hay.includes('AREA'))) {
+      if (oppDiv === 'INFANTRY' && (hay.includes('INFANTRY') || hay.includes('SPLASH') || hay.includes('AREA')) && !isWeaponDowngrade) {
         score += 22;
         reasons.push('High lethality vs Infantry squads');
       }
-      if (score === 10 && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('FIRE RATE'))) {
+      if (score === 10 && !isWeaponDowngrade && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('FIRE RATE'))) {
         score += 18;
         reasons.push('Boosts head-to-head DPS');
       }
 
-      unitWorkshops.push({ key: `WS_${i}`, kind: 'UNIT_WS', title: title || `Workshop Slot ${i}`, tag, desc, score, isDedicatedAirWs: isDedAirWs, reasons });
+      unitWorkshops.push({ key: `WS_${i}`, kind: 'UNIT_WS', title: title || `Workshop Slot ${i}`, tag, desc, score, isDedicatedAirWs: isDedAirWs, weaponSwap, isWeaponDowngrade, reasons });
     }
 
     const maxWsScore = unitWorkshops.reduce((m, w) => Math.max(m, w.score), 0);
     unitWorkshops.forEach(w => {
-      w.recommended = (w.score >= 28 && w.score >= maxWsScore - 8) || (maxWsScore < 28 && w.score === maxWsScore && unitWorkshops.length > 0);
+      w.recommended = !w.isWeaponDowngrade && w.score > 10 && ((w.score >= 28 && w.score >= maxWsScore - 8) || (maxWsScore < 28 && w.score === maxWsScore && unitWorkshops.length > 0));
     });
 
     const factionWorkshops = [];
@@ -2477,7 +2529,50 @@
     return { unitWorkshops, factionWorkshops };
   }
 
-  function clauseMatchesOpponent(clauseUpper, oppDiv, oppArmor, oppDmgCore) {
+  function getUnitClassFlags(rec) {
+    const classif = cleanVal(rec?.CLASSIFICATION).toUpperCase();
+    const gen = cleanVal(rec?.STAT_GENERATION).toUpperCase();
+    const fac = cleanVal(rec?.STAT_FACTION).toUpperCase();
+    const uType = cleanVal(rec?.STAT_TYPE).toUpperCase();
+    const combined = `${classif} ${gen} ${fac} ${uType}`;
+    return {
+      isUnique: /\bUNIQUES?\b/.test(combined),
+      isHero: /\bHERO(?:ES)?\b/.test(combined),
+      isWarlord: /\bWARLORDS?\b/.test(combined),
+      isLegendary: /\bLEGENDAR(?:Y|IES)\b/.test(combined),
+      isMercenary: /\bMERCENAR(?:Y|IES)\b|\bCHAMPION\b/.test(combined),
+      isSoldier: /\bSOLDIERS?\b/.test(combined)
+    };
+  }
+
+  function detectWorkshopWeaponSwap(title, desc) {
+    const raw = `${title || ''} ${desc || ''}`;
+    const upper = raw.toUpperCase();
+    // Only detect offensive weapon swaps, NOT defensive "from Area Damage" / "when hit by Sustain Damage"
+    const swapIntent = /\b(DEALS?|CHANGES?|CONVERTS?|REPLACES?|EQUIPS?|SWITCHES?|ADDS?|FIRES?|GAINS?|WEAPON|CANNON|MORTAR|LAUNCHER|LASER|RAILGUN|MISSILE|GATLING|FLAMETHROWER|HOWITZER|BOMB)\b/.test(upper);
+    if (!swapIntent) return null;
+    const isDefOnly = /\b(?:TAKEN\s+FROM|DAMAGE\s+FROM|HIT\s+BY|RESIST(?:ANCE)?\s+TO)\s+(?:AREA|BURST|SUSTAIN|ENERGY)\b/.test(upper) &&
+                      !/\b(?:DEALS?|CHANGES?\s+TO|CONVERTS?\s+TO|REPLACES?\s+WITH)\s+(?:AREA|BURST|SUSTAIN|ENERGY)\b/.test(upper);
+    if (isDefOnly) return null;
+
+    let core = 'STANDARD';
+    if (/\bAREA\s*(?:DAMAGE|CANNON|SHELLS?|ORDNANCE|ATTACK|WEAPON|SPLASH)\b|\bDEALS?\s+AREA\b/.test(upper)) core = 'AREA';
+    else if (/\bBURST\s*(?:DAMAGE|CANNON|SHELLS?|ORDNANCE|ATTACK|WEAPON)\b|\bDEALS?\s+BURST\b/.test(upper)) core = 'BURST';
+    else if (/\bSUSTAIN\s*(?:DAMAGE|CANNON|LASER|BEAM|ATTACK|WEAPON)\b|\bDEALS?\s+SUSTAIN\b/.test(upper)) core = 'SUSTAIN';
+    else if (/\bPENETRAT(?:ING|E)\s*(?:DAMAGE|ROUND|SHELL)\b/.test(upper)) core = 'PENETRATING';
+
+    const isEnergy = /\bENERGY\s*(?:DAMAGE|WEAPON|CANNON|BEAM|LASER)\b/.test(upper);
+    if (core === 'STANDARD' && !isEnergy) return null;
+    return { core, isEnergy, label: `${core}${isEnergy ? ' (Energy)' : ''}` };
+  }
+
+  function clauseMatchesOpponent(clauseUpper, oppDiv, oppArmor, oppDmgCore, opponent = null) {
+    // Exclude Building / Turret / Wall-only PvE bonuses in unit-vs-unit duels
+    if (/\bBUILDINGS?\b|\bTURRETS?\b|\bSTRUCTURES?\b|\bWALLS?\b/.test(clauseUpper) &&
+        !/\bVEHICLES?\b|\bINFANTRY\b|\bAIR(?:CRAFT)?\b|\bUNITS?\b|\bUNIQUES?\b|\bHERO(?:ES)?\b|\bWARLORDS?\b/.test(clauseUpper)) {
+      return false;
+    }
+
     const mentionsVeh = /\bVEHICLES?\b/.test(clauseUpper);
     const mentionsInf = /\bINFANTRY\b/.test(clauseUpper);
     const mentionsAir = /\bAIR(?:CRAFT)?\b/.test(clauseUpper);
@@ -2487,6 +2582,26 @@
                     (mentionsAir && oppDiv === 'AIR');
       if (!divOk) return false;
     }
+
+    if (opponent) {
+      const cf = getUnitClassFlags(opponent);
+      const mUnique = /\bUNIQUES?\b/.test(clauseUpper);
+      const mHero = /\bHERO(?:ES)?\b/.test(clauseUpper);
+      const mWarlord = /\bWARLORDS?\b/.test(clauseUpper);
+      const mLeg = /\bLEGENDAR(?:Y|IES)\b/.test(clauseUpper);
+      const mMerc = /\bMERCENAR(?:Y|IES)\b|\bMERCS?\b/.test(clauseUpper);
+      const mSold = /\bSOLDIERS?\b/.test(clauseUpper);
+      if (mUnique || mHero || mWarlord || mLeg || mMerc || mSold) {
+        const clsOk = (mUnique && cf.isUnique) ||
+                      (mHero && cf.isHero) ||
+                      (mWarlord && cf.isWarlord) ||
+                      (mLeg && cf.isLegendary) ||
+                      (mMerc && cf.isMercenary) ||
+                      (mSold && cf.isSoldier);
+        if (!clsOk) return false;
+      }
+    }
+
     const mentionsLight = /\bLIGHT\s+ARMOR\b/.test(clauseUpper);
     const mentionsMed = /\bMEDIUM\s+ARMOR\b/.test(clauseUpper);
     const mentionsHeavy = /\bHEAVY\s+ARMOR\b/.test(clauseUpper);
@@ -2536,7 +2651,7 @@
       const pierceVal = extractDrPiercePct(cTrim);
       if (pierceVal > 0) {
         foundExplicitStat = true;
-        if (clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) {
+        if (clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore, opponent)) {
           mod.drPiercePct += pierceVal;
         }
       }
@@ -2544,7 +2659,7 @@
       const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
       if (pctMatches.length) foundExplicitStat = true;
 
-      if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore)) return;
+      if (!clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore, opponent)) return;
 
       pctMatches.forEach(m => {
         const sign = m[1] || '';
@@ -2592,12 +2707,16 @@
 
     let hasEquippedDedicatedAirWs = false;
     const equippedDedicatedAirTitles = [];
+    let activeWeaponSwap = null;
     if (equippedSet) {
       allWs.forEach(item => {
         if (equippedSet.has(item.key)) {
           if (item.isDedicatedAirWs) {
             hasEquippedDedicatedAirWs = true;
             equippedDedicatedAirTitles.push(item.title);
+          }
+          if (item.weaponSwap) {
+            activeWeaponSwap = item.weaponSwap;
           }
           const m = extractWorkshopModifiers(item, opponent);
           totals.dmgPct += m.dmgPct;
@@ -2622,7 +2741,14 @@
     totals.speedPct += tMod.speedPct;
     totals.drPct = Math.min(65, totals.drPct);
 
-    const dmgInfo = normalizeDamage(unit.STAT_DAMAGE_TYPE);
+    const nativeDmgInfo = normalizeDamage(unit.STAT_DAMAGE_TYPE);
+    const dmgInfo = activeWeaponSwap
+      ? {
+          core: activeWeaponSwap.core !== 'STANDARD' ? activeWeaponSwap.core : nativeDmgInfo.core,
+          isEnergy: Boolean(activeWeaponSwap.isEnergy || nativeDmgInfo.isEnergy),
+          label: `${activeWeaponSwap.core !== 'STANDARD' ? activeWeaponSwap.core : nativeDmgInfo.core}${(activeWeaponSwap.isEnergy || nativeDmgInfo.isEnergy) ? ' (Energy)' : ''} [WS]`
+        }
+      : nativeDmgInfo;
     const energyPiercePct = dmgInfo.isEnergy ? 25 : 0;
     const bonusDrPiercePct = Math.round(totals.drPiercePct);
     const drPiercePct = energyPiercePct + bonusDrPiercePct;
@@ -2724,14 +2850,28 @@
     const evaluated = [];
     let cntRed = 0, cntGreen = 0, cntAmber = 0;
 
+    const techModeEl = document.getElementById('radarTechModeSelect');
+    const radarTechMode = techModeEl ? techModeEl.value : 'OPTIMAL';
+
     allCombatUnits.forEach(opp => {
       if (opp.UNIT_NAME === me.UNIT_NAME) return;
       if (oppDiv !== 'ALL' && getDivisionBucket(opp) !== oppDiv) return;
       if (oppGen !== 'ALL' && getGenerationBucket(opp) !== oppGen) return;
       if (q && !(`${opp.UNIT_NAME} ${opp.STAT_FACTION || ''} ${opp.STAT_TYPE || ''} ${opp.STAT_GENERATION || ''}`.toLowerCase().includes(q))) return;
 
-      let profA = buildProfile(me, opp, myTier, null, oppTier);
-      let profB = buildProfile(opp, me, oppTier, null, myTier);
+      let myEqSet = null;
+      let oppEqSet = null;
+      if (radarTechMode === 'OPTIMAL') {
+        const yEv = evaluateWorkshopsAgainstOpponent(me, opp, myTier, oppTier);
+        const oEv = evaluateWorkshopsAgainstOpponent(opp, me, oppTier, myTier);
+        const yBest = [...yEv.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1), ...yEv.factionWorkshops.filter(w => w.recommended).slice(0, 1)];
+        const oBest = [...oEv.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1), ...oEv.factionWorkshops.filter(w => w.recommended).slice(0, 1)];
+        if (yBest.length > 0) myEqSet = new Set(yBest.map(w => w.key));
+        if (oBest.length > 0) oppEqSet = new Set(oBest.map(w => w.key));
+      }
+
+      let profA = buildProfile(me, opp, myTier, myEqSet, oppTier);
+      let profB = buildProfile(opp, me, oppTier, oppEqSet, myTier);
       let duel = simulateDuel(profA, profB);
 
       // If YOUR unit is HIGH ALTITUDE and opponent can convert to Dedicated Air via Workshop, evaluate equipped threat!
@@ -2739,7 +2879,7 @@
       if (profA.domain === 'HIGH_ALTITUDE' && !duel.bCanHitA) {
         const oppAaWs = findDedicatedAirWorkshops(opp);
         if (oppAaWs.length > 0) {
-          const eqSet = new Set(oppAaWs.map(w => w.key));
+          const eqSet = new Set([...(oppEqSet || []), ...oppAaWs.map(w => w.key)]);
           const profBEq = buildProfile(opp, me, oppTier, eqSet, myTier);
           const duelEq = simulateDuel(profA, profBEq);
           if (duelEq.bCanHitA) {
@@ -2935,15 +3075,15 @@
     const youTier = document.getElementById('modalYouLvl').value;
     const oppTier = document.getElementById('modalOppLvl').value;
 
-    // Default auto-equip top recommended counter workshops
+    // Default auto-equip top recommended counter workshops (sorted by score, excluding weapon downgrades)
     const yEval = evaluateWorkshopsAgainstOpponent(youU, oppU, youTier, oppTier);
     const oEval = evaluateWorkshopsAgainstOpponent(oppU, youU, oppTier, youTier);
     modalEquipped.you = new Set([
-      ...yEval.unitWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key),
+      ...yEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1).map(w => w.key),
       ...yEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
     ]);
     modalEquipped.opp = new Set([
-      ...oEval.unitWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key),
+      ...oEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1).map(w => w.key),
       ...oEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
     ]);
 

@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T22:20:01-08:00",
-    "generatedMs":  1795328396780,
+    "generatedAt":  "2026-11-22T12:15:19-08:00",
+    "generatedMs":  1795378515424,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -212,8 +212,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "unit-matchup.html",
                               "path":  "./unit-matchup.html",
                               "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-20T23:26:38Z",
-                              "modifiedMs":  1795217198594
+                              "modifiedAt":  "2026-11-22T19:46:40Z",
+                              "modifiedMs":  1795376800061
                           },
                           {
                               "file":  "vault-event-history.html",
@@ -611,6 +611,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1790361886000
                           },
                           {
+                              "id":  "RJLxDQXVvTg",
+                              "creatorId":  "furiousbull2",
+                              "handle":  "furiousbull2",
+                              "owner":  "furious bull2",
+                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
+                              "title":  "War Commander Legendary Escort Level 15  Conqueror Bases 1-2-3/Say Bye To Rhino\u0027s .",
+                              "descSnippet":  "War Commander Legendary Escort Level 15  Conqueror Bases 1-2-3/Say Bye To Rhino\u0027s .\nI got Escort To level 15 Tested Them  In Conqueror Bases they are good to use in this event .\nThank you for watching",
+                              "publishedAt":  "2026-11-22T12:14:40Z",
+                              "publishedMs":  1795349680000
+                          },
+                          {
                               "id":  "W3HTrIuE6uQ",
                               "creatorId":  "furiousbull2",
                               "handle":  "furiousbull2",
@@ -765,15 +776,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793910578000
                           },
                           {
-                              "id":  "NdnU2l4sKwI",
-                              "creatorId":  "furiousbull2",
-                              "handle":  "furiousbull2",
-                              "owner":  "furious bull2",
-                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
-                              "title":  "War Commander DIXON Level 10  Try Tech Upgrades / Kixeye Tactics ,",
-                              "descSnippet":  "War Commander DIXON Level 10  Try Tech Upgrades / Kixeye Tactics ,\nThings Change for Hero Techs As we Need To Upgrade them just another Way That  kixeye Can Make more money .\nThank you for watching",
-                              "publishedAt":  "2026-11-01T21:19:16Z",
-                              "publishedMs":  1793567956000
+                              "id":  "VIl--xIv0sI",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "GTA 6 DON GONE MISSION 💔 Jason\u0027s LAST GOODBYE to Donnie | Burning Donnie\u0027s Car (4K Gameplay)",
+                              "descSnippet":  "💔 **A FINAL GOODBYE TO DONNIE!**\n\nOne of the emotional moments in Grand Theft Auto 6!\n\nIn this GTA 6 gameplay video, Jason visits Donnie\u0027s trailer to collect his personal belongings and take care of unfinished business. After gathering Don",
+                              "publishedAt":  "2026-11-22T13:09:31Z",
+                              "publishedMs":  1795352971000
                           },
                           {
                               "id":  "Arv0964mu78",
@@ -928,17 +939,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "🔥 **LEGENDARY JUGGERNAUT IS A BEAST! 💥 | WAR COMMANDER BASE DEFENCE**\n\nThe LEGENDARY JUGGERNAUT is back, and it\u0027s ready to dominate the battlefield! ⚔️🔥\n\nRemember when the Rhino was one of the most feared units in War Commander? Those da",
                               "publishedAt":  "2026-10-21T01:07:50Z",
                               "publishedMs":  1792544870000
-                          },
-                          {
-                              "id":  "qyNuG_8IFk0",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "GTA 5 ONLINE!",
-                              "descSnippet":  "LETS PLAY GTA 5",
-                              "publishedAt":  "2026-10-20T15:43:22Z",
-                              "publishedMs":  1792511002000
                           },
                           {
                               "id":  "j4QoUxrz0_A",
