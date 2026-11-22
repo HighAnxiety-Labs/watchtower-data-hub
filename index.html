@@ -588,6 +588,41 @@
   .vr-hub-foot-total { color: #fde047; font-weight: 900; }
   @media (max-width: 1150px) { .vr-hub-4col-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 680px) { .vr-hub-4col-grid { grid-template-columns: 1fr; } }
+
+  /* Recently Viewed Quick-Bar + Viewport Focus Mode */
+  .wtr-recent-bar {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px; padding: 5px 10px; border-radius: 5px;
+    background: rgba(8, 14, 22, 0.85); border: 1px solid rgba(56, 189, 248, 0.25);
+    font-family: monospace; font-size: 10.5px;
+  }
+  .wtr-recent-lbl { color: #94a3b8; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase; margin-right: 2px; }
+  .wtr-recent-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 999px; cursor: pointer;
+    background: rgba(16, 26, 38, 0.94); border: 1px solid var(--rec-accent, rgba(56, 189, 248, 0.5));
+    color: #e2e8f0; font-family: monospace; font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+    transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+  }
+  .wtr-recent-pill:hover { background: var(--rec-accent, #0ea5e9); color: #05080c; border-color: #ffffff; }
+  .wtr-recent-clear {
+    margin-left: auto; background: transparent; border: none; color: #64748b;
+    font-family: monospace; font-size: 10px; font-weight: 800; cursor: pointer; padding: 2px 5px;
+  }
+  .wtr-recent-clear:hover { color: #f87171; }
+  .wtr-kbd-hint {
+    margin-left: 6px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: monospace; font-size: 9.5px; color: #64748b;
+  }
+  .wtr-focus-btn { border-color: rgba(56, 189, 248, 0.65) !important; color: #7dd3fc !important; }
+  .wtr-focus-btn.is-active { background: #0ea5e9 !important; color: #04101a !important; border-color: #e0f2fe !important; font-weight: 900 !important; }
+  body.wtr-viewport-focus .header-banner,
+  body.wtr-viewport-focus .dashboard-container,
+  body.wtr-viewport-focus .briefs-nav-section,
+  body.wtr-viewport-focus #homeDefaultDashboard { display: none !important; }
+  body.wtr-viewport-focus #inlineModuleViewport.active-viewport { margin-top: 0 !important; border-radius: 4px; }
+  body.wtr-viewport-focus #inlineViewportIframe { height: calc(100vh - 58px) !important; min-height: calc(100vh - 58px) !important; }
   .cat-col-cards-list.is-2col-cat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 8px; align-items: stretch; width: 100%; }
   .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry { display: flex; flex-direction: column; min-width: 0; }
   .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry:not(.has-sub-children) > .bento-module-card { flex: 1; }
@@ -1383,6 +1418,8 @@
       </button>
     </div>
 
+    <div class="wtr-recent-bar" id="wtrRecentBar" style="display:none;"></div>
+
     <!-- CENTERED 1/2-WIDTH COMMAND DRAWER + DYNAMIC SVG CONDUIT LINE FROM MASTER TAB -->
     <div class="command-drawer-wrap" id="commandDrawerWrap" style="--stage-accent: #b33636;">
       <svg id="tabConduitSvg" class="tab-conduit-svg" preserveAspectRatio="none" viewBox="0 0 1298 54" style="display: none;">
@@ -1402,6 +1439,7 @@
         <span id="viewportModuleTitle" style="color: rgb(179, 54, 54);">WHAT'S BROKEN IN WC</span>
       </div>
       <div class="viewport-actions-right">
+        <button type="button" class="action-btn wtr-focus-btn" id="viewportFocusBtn" onclick="toggleViewportFocusMode()" title="Hide Hub banner &amp; clocks for full-height viewport (Esc to exit)">⤢ FOCUS</button>
         <button type="button" class="wtr-sbtn wtr-sbtn-share" id="popoutShareBtn" onclick="shareActiveViewportPage()" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
         <button type="button" class="action-btn" id="viewportBackupPopoutBtn" onclick="openDirectExternalUrl(this.dataset.url)" style="display: inline-flex;" data-url="./whats-broken.html">↗ Pop-Out Full Page</button>
         <button type="button" class="viewport-close-x-btn" onclick="closeInlineModuleViewport()">✕ CLOSE VIEWPORT</button>
@@ -3533,10 +3571,117 @@
     }
 
     viewport.classList.add("active-viewport");
+    if (iframeSrcUrl || backupUrl) {
+      recordRecentViewportModule(title, accentColor, iframeSrcUrl || backupUrl);
+    }
     viewport.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  /* ==================== FOCUS MODE, RECENTLY VIEWED & KEYBOARD SHORTCUTS (/ & Esc) ==================== */
+  const WTR_RECENT_STORAGE_KEY = "wtr_recent_modules_v1";
+
+  function toggleViewportFocusMode(forceState) {
+    const next = typeof forceState === "boolean" ? forceState : !document.body.classList.contains("wtr-viewport-focus");
+    document.body.classList.toggle("wtr-viewport-focus", next);
+    const btn = document.getElementById("viewportFocusBtn");
+    if (btn) {
+      btn.classList.toggle("is-active", next);
+      btn.textContent = next ? "⤣ EXIT FOCUS" : "⤢ FOCUS";
+    }
+  }
+  window.toggleViewportFocusMode = toggleViewportFocusMode;
+
+  function loadRecentViewportModules() {
+    try {
+      const raw = localStorage.getItem(WTR_RECENT_STORAGE_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.slice(0, 4) : [];
+    } catch (e) { return []; }
+  }
+
+  function recordRecentViewportModule(title, accent, url) {
+    const cleanTitle = String(title || "").trim();
+    const cleanUrl = String(url || "").trim();
+    if (!cleanTitle || !cleanUrl || cleanUrl.startsWith("about:")) return;
+    let list = loadRecentViewportModules().filter(x => x && x.url !== cleanUrl && x.title !== cleanTitle);
+    list.unshift({ title: cleanTitle, accent: accent || "#0ea5e9", url: cleanUrl });
+    list = list.slice(0, 4);
+    try { localStorage.setItem(WTR_RECENT_STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+    renderRecentModulesBar();
+  }
+
+  function clearRecentModulesBar() {
+    try { localStorage.removeItem(WTR_RECENT_STORAGE_KEY); } catch (e) {}
+    renderRecentModulesBar();
+  }
+  window.clearRecentModulesBar = clearRecentModulesBar;
+
+  function renderRecentModulesBar() {
+    const bar = document.getElementById("wtrRecentBar");
+    if (!bar) return;
+    const list = loadRecentViewportModules();
+    if (list.length === 0) {
+      bar.style.display = "none";
+      bar.innerHTML = "";
+      return;
+    }
+    const pillsHtml = list.map((item, i) => `
+      <button type="button" class="wtr-recent-pill" style="--rec-accent:${escapeHtml(item.accent || '#0ea5e9')};" onclick="openRecentModuleByIdx(${i})" title="Re-open ${escapeHtml(item.title)}">${escapeHtml(item.title)}</button>
+    `).join("");
+    bar.innerHTML = `<span class="wtr-recent-lbl">⏱️ RECENT:</span>${pillsHtml}<span class="wtr-kbd-hint" title="Press / to search • Esc to close">/ SEARCH • ESC CLOSE</span><button type="button" class="wtr-recent-clear" onclick="clearRecentModulesBar()" title="Clear recent history">✕ CLEAR</button>`;
+    bar.style.display = "flex";
+  }
+
+  function openRecentModuleByIdx(idx) {
+    const list = loadRecentViewportModules();
+    const item = list[idx];
+    if (!item) return;
+    openInlineModuleViewport(item.title, item.accent || "#0ea5e9", "", item.url, item.url);
+  }
+  window.openRecentModuleByIdx = openRecentModuleByIdx;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderRecentModulesBar();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
+    const isTyping = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable);
+    if (e.key === "/" && !isTyping && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const searchInp = document.getElementById("wtrOmniSearchInput");
+      if (searchInp) {
+        e.preventDefault();
+        searchInp.focus();
+        searchInp.select();
+      }
+      return;
+    }
+    if (e.key === "Escape") {
+      const searchInp = document.getElementById("wtrOmniSearchInput");
+      if (document.activeElement === searchInp) {
+        searchInp.blur();
+        const dd = document.getElementById("wtrOmniSearchResultsDropdown");
+        if (dd) dd.style.display = "none";
+        return;
+      }
+      if (document.body.classList.contains("wtr-viewport-focus")) {
+        toggleViewportFocusMode(false);
+        return;
+      }
+      const vp = document.getElementById("inlineModuleViewport");
+      if (vp && vp.classList.contains("active-viewport")) {
+        closeInlineModuleViewport();
+        return;
+      }
+      const dw = document.getElementById("commandDrawerWrap");
+      if (dw && dw.classList.contains("open")) {
+        closeCommandDrawer();
+      }
+    }
+  });
+
   function closeInlineModuleViewport(restorePreviousList = true) {
+    toggleViewportFocusMode(false);
     const viewport = document.getElementById("inlineModuleViewport");
     const iframe = document.getElementById("inlineViewportIframe");
     const homeDash = document.getElementById("homeDefaultDashboard");
@@ -11313,7 +11458,8 @@
           keywords: (v.title + " " + creatorLbl + " " + (v.descSnippet || "") + " video youtube recon guide").toLowerCase(),
           boost: 8,
           run: function() {
-            openHubUrlInViewport("VIDEO RECON // CREATOR INTEL", "#ec4899", `${pfx}video-recon.html`);
+            const btn = document.getElementById("btnUtil6");
+            if (typeof selectCommandTab === "function") selectCommandTab("videoRecon", btn);
           }
         });
       });

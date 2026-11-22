@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T18:25:33-08:00",
-    "generatedMs":  1795314329277,
+    "generatedAt":  "2026-11-21T19:54:25-08:00",
+    "generatedMs":  1795319661767,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -27,7 +27,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                         "unit-briefs.html",
                         "unit-matchup.html",
                         "vault-event-history.html",
-                        "video-recon.html",
                         "whats-broken.html"
                     ],
     "vaultFiles":  [
@@ -164,8 +163,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-22T02:25:01Z",
-                              "modifiedMs":  1795314301961
+                              "modifiedAt":  "2026-11-22T03:50:43Z",
+                              "modifiedMs":  1795319443985
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -222,13 +221,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
                               "modifiedAt":  "2026-11-19T16:39:13Z",
                               "modifiedMs":  1795106353986
-                          },
-                          {
-                              "file":  "video-recon.html",
-                              "path":  "./video-recon.html",
-                              "title":  "[-WTR-] Video Recon Desk — WatchToweR Video Intelligence",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353977
                           },
                           {
                               "file":  "whats-broken.html",
@@ -768,6 +760,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1793567956000
                           },
                           {
+                              "id":  "Arv0964mu78",
+                              "creatorId":  "stormygamingyt",
+                              "handle":  "STORMYGAMINGYT99",
+                              "owner":  "STORMY GAMING YT",
+                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
+                              "title":  "GTA 6 LUXURY LIFESTYLE! 🛥️ JASON \u0026 LUCIA EXPLORE YACHTS, VIP CLUBS \u0026 VICE CITY NIGHTLIFE!",
+                              "descSnippet":  "Welcome to the luxurious side of GTA 6! 🌴🛥️\n\nToday, Jason and Lucia experience the glamorous lifestyle of Vice City, surrounded by luxury yachts, exclusive VIP parties, spectacular nightlife and the world of high-profile people.\n\nFrom exp",
+                              "publishedAt":  "2026-11-22T03:50:13Z",
+                              "publishedMs":  1795319413000
+                          },
+                          {
                               "id":  "E78iiwNatKU",
                               "creatorId":  "stormygamingyt",
                               "handle":  "STORMYGAMINGYT99",
@@ -920,17 +923,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "LETS PLAY GTA 5",
                               "publishedAt":  "2026-10-20T15:43:22Z",
                               "publishedMs":  1792511002000
-                          },
-                          {
-                              "id":  "myx4IaPMyh8",
-                              "creatorId":  "stormygamingyt",
-                              "handle":  "STORMYGAMINGYT99",
-                              "owner":  "STORMY GAMING YT",
-                              "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "WAR COMMANDER | SECTOR BREACH 10/16/2026 CONQUEROR SET FAST \u0026 FREE REPAIR (RUBI ON) | KT TEAM",
-                              "descSnippet":  "UNITS USED-\nL. RHINO - LVL 20\nWARLORD ROLLER - LVL 20",
-                              "publishedAt":  "2026-10-17T00:12:02Z",
-                              "publishedMs":  1792195922000
                           },
                           {
                               "id":  "j4QoUxrz0_A",

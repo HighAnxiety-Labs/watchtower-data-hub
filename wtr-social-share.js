@@ -42,6 +42,29 @@
       .wtr-sbtn-share:hover { background: #00e676; border-color: #b9f6ca; color: #03140a; }
       body.wtr-in-viewport .wtr-sbtn-share,
       body.wtr-in-viewport .wtr-auto-share-dock { display: none !important; }
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .class-bar-top,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .hero-banner,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .gallery-hero-banner,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .hero-header,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .vault-header,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) header.event-header,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .brief-card > .header {
+        display: none !important;
+      }
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) {
+        padding-top: 8px !important;
+      }
+      .wtr-vp-hdr-toggle {
+        position: fixed; top: 6px; right: 12px; z-index: 9400;
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 3px 8px; border-radius: 999px;
+        font-family: monospace; font-size: 9.5px; font-weight: 900; letter-spacing: 0.5px;
+        text-transform: uppercase; cursor: pointer;
+        background: rgba(8, 14, 22, 0.88); color: #7dd3fc;
+        border: 1px solid rgba(56, 189, 248, 0.45);
+        opacity: 0.78; transition: opacity 0.14s ease, background 0.14s ease, color 0.14s ease;
+      }
+      .wtr-vp-hdr-toggle:hover { opacity: 1; background: #0ea5e9; color: #04101a; border-color: #bae6fd; }
       body:not(.sb-tabs-unlocked) .locked-top-hud { position: sticky; top: 0; z-index: 25; }
       body.sb-tabs-unlocked .locked-top-hud { position: relative !important; top: auto !important; }
       .sb-rail-actions { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; padding-bottom: 5px; }
@@ -699,9 +722,29 @@
     return false;
   }
 
+  function mountViewportHeaderToggleIfNeeded() {
+    if (!document.body || document.getElementById("wtrVpHdrToggleBtn")) return;
+    const hdrSel = ".class-bar-top, .hero-banner, .gallery-hero-banner, .hero-header, .vault-header, header.event-header, .brief-card > .header";
+    if (!document.querySelector(hdrSel)) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "wtrVpHdrToggleBtn";
+    btn.className = "wtr-vp-hdr-toggle";
+    btn.title = "Toggle full page header (auto-collapsed inside Hub viewport; always shown on Pop-Out)";
+    btn.textContent = "▾ SHOW HEADER";
+    btn.addEventListener("click", () => {
+      const exp = document.body.classList.toggle("wtr-hdr-expanded");
+      btn.textContent = exp ? "▴ HIDE HEADER" : "▾ SHOW HEADER";
+    });
+    document.body.appendChild(btn);
+  }
+
   function autoMountShareButtonIfRequested() {
     if (isInsideActiveModuleViewport()) {
-      if (document.body) document.body.classList.add("wtr-in-viewport");
+      if (document.body) {
+        document.body.classList.add("wtr-in-viewport");
+        mountViewportHeaderToggleIfNeeded();
+      }
       return;
     }
     const scripts = document.querySelectorAll('script[src*="wtr-social-share.js"]');
