@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T20:01:12-08:00",
-    "generatedMs":  1795320068644,
+    "generatedAt":  "2026-11-21T21:28:33-08:00",
+    "generatedMs":  1795325309606,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -58,8 +58,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-calendar.html",
                               "path":  "./2026-calendar.html",
                               "title":  "War Commander 2026 Calendar Command Deck",
-                              "modifiedAt":  "2026-11-19T17:53:49Z",
-                              "modifiedMs":  1795110829900
+                              "modifiedAt":  "2026-11-22T05:12:33Z",
+                              "modifiedMs":  1795324353431
                           },
                           {
                               "file":  "2026-dec-operation-brief.html",
@@ -163,8 +163,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-22T04:00:52Z",
-                              "modifiedMs":  1795320052684
+                              "modifiedAt":  "2026-11-22T04:56:08Z",
+                              "modifiedMs":  1795323368271
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -191,8 +191,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "report-war-crimes.html",
                               "path":  "./report-war-crimes.html",
                               "title":  "WatchToweR Data Hub — Report War Crimes",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353984
+                              "modifiedAt":  "2026-11-22T04:56:09Z",
+                              "modifiedMs":  1795323369386
                           },
                           {
                               "file":  "sector-status-sheet.html",

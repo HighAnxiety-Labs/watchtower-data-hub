@@ -48,7 +48,8 @@
       body.wtr-in-viewport:not(.wtr-hdr-expanded) .hero-header,
       body.wtr-in-viewport:not(.wtr-hdr-expanded) .vault-header,
       body.wtr-in-viewport:not(.wtr-hdr-expanded) header.event-header,
-      body.wtr-in-viewport:not(.wtr-hdr-expanded) .brief-card > .header {
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .brief-card > .header,
+      body.wtr-in-viewport:not(.wtr-hdr-expanded) .terminal-frame > .header {
         display: none !important;
       }
       body.wtr-in-viewport:not(.wtr-hdr-expanded) {
@@ -724,7 +725,7 @@
 
   function mountViewportHeaderToggleIfNeeded() {
     if (!document.body || document.getElementById("wtrVpHdrToggleBtn")) return;
-    const hdrSel = ".class-bar-top, .hero-banner, .gallery-hero-banner, .hero-header, .vault-header, header.event-header, .brief-card > .header";
+    const hdrSel = ".class-bar-top, .hero-banner, .gallery-hero-banner, .hero-header, .vault-header, header.event-header, .brief-card > .header, .terminal-frame > .header";
     if (!document.querySelector(hdrSel)) return;
     const btn = document.createElement("button");
     btn.type = "button";

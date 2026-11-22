@@ -548,7 +548,7 @@
   .vr-hub-act-btn:hover { background: #facc15; color: #05080c; }
   .vr-hub-act-btn.is-desk { border-color: rgba(56, 189, 248, 0.65); background: rgba(14, 165, 233, 0.15); color: #7dd3fc; }
   .vr-hub-act-btn.is-desk:hover { background: #0ea5e9; color: #05080c; }
-  .vr-hub-4col-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: start; width: 100%; }
+  .vr-hub-4col-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: start; width: 100%; }
   .vr-hub-col { display: flex; flex-direction: column; min-width: 0; }
   .vr-hub-col .bento-cat-col-cap { justify-content: space-between; padding: 5px 9px; white-space: normal; line-height: 1.2; }
   .vr-hub-cap-left { display: inline-flex; align-items: center; gap: 5px; min-width: 0; text-align: left; }
@@ -1401,10 +1401,10 @@
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil6" data-sec="videoRecon" data-color="#0ea5e9" title="FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS • COMBAT ANALYSIS &amp; LOGS" onclick="selectCommandTab('videoRecon', this)" style="border-color: #0ea5e9; color: #0ea5e9; background-color: rgba(14, 165, 233, 0.16); --btn-accent: #0ea5e9; --glow-color: #0ea5e9;">
+      <button type="button" class="brief-btn" id="btnUtil6" data-sec="videoRecon" data-color="#0ea5e9" title="FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS" onclick="selectCommandTab('videoRecon', this)" style="border-color: #0ea5e9; color: #0ea5e9; background-color: rgba(14, 165, 233, 0.16); --btn-accent: #0ea5e9; --glow-color: #0ea5e9;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil6" style="background-color: #0ea5e9;"></span><span id="txtUtil6">VIDEO RECON</span></span>
-          <span class="brief-btn-mod-count" id="modCount-videoRecon">4 GROUPS</span>
+          <span class="brief-btn-mod-count" id="modCount-videoRecon">3 GROUPS</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -3258,7 +3258,7 @@
         } else if (secKey === "adminBug" || secKey === "wtrArchives") {
           dynamicTip = activeMainCards.map(c => String(c.title || "").trim()).filter(Boolean).join(" • ");
         } else if (secKey === "videoRecon") {
-          dynamicTip = "FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS • COMBAT ANALYSIS & LOGS";
+          dynamicTip = "FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS";
         }
         if (dynamicTip) btnEl.title = dynamicTip;
 
@@ -3282,9 +3282,9 @@
       if (countEl) {
         if (secKey === "videoRecon") {
           if (unreadCnt > 0) {
-            countEl.innerHTML = `<span>4 GROUPS</span>${renderDivisionIntelPipsHtml(bd)}`;
+            countEl.innerHTML = `<span>3 GROUPS</span>${renderDivisionIntelPipsHtml(bd)}`;
           } else {
-            countEl.textContent = "4 GROUPS";
+            countEl.textContent = "3 GROUPS";
           }
         } else if (unreadCnt > 0) {
           const shortLbl = `${activeMainCount} ${activeMainCount === 1 ? 'MOD' : 'MODS'}`;
@@ -5072,28 +5072,6 @@
               <div class="vr-hub-btn-stack">
                 <a href="https://imglink.cc/" class="vr-hub-link-btn" style="--vr-accent:#10b981;" target="_blank" rel="noopener">
                   <span class="vr-hub-btn-lbl">Share via IMGLINK.CC</span><span>↗</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- COL 4: COMBAT ANALYSIS & LOGS -->
-        <div class="vr-hub-col">
-          <div class="bento-cat-col-cap" style="--cat-col-accent:#38bdf8; --cat-col-bg:rgba(56,189,248,0.16); --cat-col-border:rgba(56,189,248,0.55);">
-            <span class="vr-hub-cap-left"><span>🛡️</span><span>COMBAT ANALYSIS &amp; LOGS</span></span>
-          </div>
-          <div class="vr-hub-cards-stack">
-            <div class="vr-hub-card" style="--vr-accent:#38bdf8;">
-              <span class="vr-hub-tag">WAR CRIMES INTEL</span>
-              <div class="vr-hub-title">Cheat &amp; Exploit Recordings</div>
-              <div class="vr-hub-desc">Video proof submissions detailing self-attack protection, bot scripting, and abnormal combat anomalies.</div>
-              <div class="vr-hub-btn-stack">
-                <button type="button" class="vr-hub-link-btn" style="--vr-accent:#38bdf8;" onclick="openHubUrlInViewport('REPORT WAR CRIMES', '#b33636', './report-war-crimes.html')">
-                  <span class="vr-hub-btn-lbl">🛡️ Open Report War Crimes Brief</span><span>🖥️</span>
-                </button>
-                <a href="https://sites.google.com/view/watchtower-data-hub/report-war-crimes/report-player/intergrity-reports" class="vr-hub-link-btn" style="--vr-accent:#38bdf8;" target="_blank" rel="noopener">
-                  <span class="vr-hub-btn-lbl">↗ Legacy Integrity Reports</span><span>↗</span>
                 </a>
               </div>
             </div>

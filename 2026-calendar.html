@@ -774,6 +774,95 @@
     cursor: not-allowed;
   }
 
+  /* Compact Mini Header Bar (Shown Only When Full Header Is Collapsed Inside Hub Viewport) */
+  .cal-mini-vp-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding: 7px 112px 7px 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(16, 28, 40, 0.96) 0%, rgba(9, 15, 22, 0.96) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.38);
+    border-left: 3px solid #0ea5e9;
+  }
+  body.wtr-in-viewport:not(.wtr-hdr-expanded) .cal-mini-vp-bar {
+    display: flex;
+  }
+  .cal-mini-nav-cluster {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cal-mini-step-btn {
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.55);
+    background: rgba(14, 165, 233, 0.14);
+    color: #7dd3fc;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background 0.14s ease, color 0.14s ease;
+  }
+  .cal-mini-step-btn:hover:not(:disabled) {
+    background: #0ea5e9;
+    color: #04101a;
+  }
+  .cal-mini-step-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .cal-mini-month-lbl {
+    font-family: 'Orbitron', 'Arial Black', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #fde047;
+    min-width: 155px;
+    text-align: center;
+  }
+  .cal-mini-briefs-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .cal-mini-brief-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(7, 12, 18, 0.92);
+    border: 1px solid var(--pill-hex, #38bdf8);
+    color: #f8fafc;
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.14s ease, color 0.14s ease, transform 0.12s ease;
+  }
+  .cal-mini-brief-pill:hover {
+    background: var(--pill-hex, #38bdf8);
+    color: #05080c;
+    transform: translateY(-1px);
+  }
+  .event-tag.is-brief-linked {
+    cursor: pointer;
+  }
+  .event-tag.is-brief-linked:hover {
+    filter: brightness(1.22);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  }
+
   /* Zero Top/Bottom Padding on Unified Box so ONLY the Calendar Image Touches Top & Bottom of Frame! */
   .center-command-hub-box {
     display: grid;
@@ -1629,6 +1718,16 @@
       
     </div>
 
+  </div>
+
+  <!-- COMPACT MINI HEADER (ONLY VISIBLE WHEN FULL HEADER IS COLLAPSED INSIDE HUB VIEWPORT) -->
+  <div class="cal-mini-vp-bar" id="calMiniViewportBar">
+    <div class="cal-mini-nav-cluster">
+      <button type="button" class="cal-mini-step-btn" id="calMiniPrevBtn" onclick="stepCalendarMonth(-1, false)" title="Previous Month">◀ PREV</button>
+      <span class="cal-mini-month-lbl" id="calMiniMonthLabel">NOVEMBER 2026</span>
+      <button type="button" class="cal-mini-step-btn" id="calMiniNextBtn" onclick="stepCalendarMonth(1, false)" title="Next Month">NEXT ▶</button>
+    </div>
+    <div class="cal-mini-briefs-row" id="calMiniBriefsRow"></div>
   </div>
 
   <!-- Full-Width Fixed-Shape 7-Column Calendar Grid -->
@@ -8749,7 +8848,7 @@
       ? `left: calc(${offsetCols} * (100% + 8px));`
       : `left: 0;`;
 
-    const classes = [
+    let classes = [
       "event-tag",
       meta.tagClass,
       connectLeft ? "beam-connect-left" : "",
@@ -8758,13 +8857,63 @@
       evObj.isStoreTail ? "beam-store-tail" : ""
     ].filter(Boolean).join(" ");
 
+    const legendMatch = (calState.legendItems || []).find(it => it && it.key === evObj.type && it.briefUrl);
+    const hasBriefLink = Boolean(legendMatch && String(legendMatch.briefUrl || "").trim());
+    if (hasBriefLink) classes = classes + " is-brief-linked";
+
     const customBeamVars = `--beam-rgb:${meta.rgb}; --beam-hex:${meta.hex};`;
 
     const innerSpanHtml = hasLabel
       ? `<span class="beam-span-text ${alignClass}" style="${spanWidthStyle} ${spanLeftStyle}">${escapeHtml(labelText)}</span>`
       : "";
 
-    return `<span class="${classes}" style="${customBeamVars}" data-event-type="${escapeHtml(evObj.type)}" title="${escapeHtml(cleanEventBaseName(evObj))}">${innerSpanHtml}</span>`;
+    const baseTitle = cleanEventBaseName(evObj);
+    const tipText = hasBriefLink ? `${baseTitle} — Click to open WTR Event Brief ↗` : baseTitle;
+    const clickAttr = hasBriefLink
+      ? ` onclick="event.stopPropagation(); openCalendarBriefUrl('${escapeHtml(String(legendMatch.briefUrl).trim()).replace(/'/g, "\\'")}', '${escapeHtml(String(legendMatch.label || baseTitle)).replace(/'/g, "\\'")}', '${escapeHtml(legendMatch.hex || meta.hex)}');"`
+      : "";
+
+    return `<span class="${classes}" style="${customBeamVars}" data-event-type="${escapeHtml(evObj.type)}" title="${escapeHtml(tipText)}"${clickAttr}>${innerSpanHtml}</span>`;
+  }
+
+  function openCalendarBriefUrl(rawUrl, title, accentHex) {
+    const u = String(rawUrl || "").trim();
+    if (!u) return;
+    const isInternalHtml = /\.html(?:[?#]|$)/i.test(u) && !/^https?:\/\/(?!highanxiety-labs\.github\.io)/i.test(u);
+    try {
+      if (isInternalHtml && window.parent && window.parent !== window && typeof window.parent.openHubUrlInViewport === "function") {
+        window.parent.openHubUrlInViewport(String(title || "EVENT BRIEF").toUpperCase(), accentHex || "#c45a22", u);
+        return;
+      }
+    } catch (e) {}
+    window.open(u, "_blank", "noopener,noreferrer");
+  }
+  window.openCalendarBriefUrl = openCalendarBriefUrl;
+
+  function syncMiniCalendarViewportBar(year, month) {
+    const lbl = document.getElementById("calMiniMonthLabel");
+    const prevBtn = document.getElementById("calMiniPrevBtn");
+    const nextBtn = document.getElementById("calMiniNextBtn");
+    const briefsRow = document.getElementById("calMiniBriefsRow");
+    const fullMonthName = (typeof MONTH_NAMES !== "undefined" && MONTH_NAMES[month]) ? MONTH_NAMES[month] : (MONTH_ABBR[month] || "");
+    if (lbl) lbl.textContent = `${String(fullMonthName).toUpperCase()} ${year}`;
+    const mainPrev = document.getElementById("btnStepPrevMonth");
+    const mainNext = document.getElementById("btnStepNextMonth");
+    if (prevBtn && mainPrev) prevBtn.disabled = Boolean(mainPrev.disabled);
+    if (nextBtn && mainNext) nextBtn.disabled = Boolean(mainNext.disabled);
+    if (briefsRow) {
+      const linkedItems = (calState.legendItems || []).filter(it => it && it.enabled && String(it.briefUrl || "").trim());
+      if (linkedItems.length === 0) {
+        briefsRow.innerHTML = "";
+      } else {
+        briefsRow.innerHTML = linkedItems.map(it => {
+          const safeUrl = escapeHtml(String(it.briefUrl).trim()).replace(/'/g, "\\'");
+          const safeLbl = escapeHtml(String(it.label || it.key)).replace(/'/g, "\\'");
+          const hex = escapeHtml(it.hex || "#38bdf8");
+          return `<button type="button" class="cal-mini-brief-pill" style="--pill-hex:${hex};" onclick="openCalendarBriefUrl('${safeUrl}', '${safeLbl}', '${hex}')" title="Open WTR Event Brief: ${escapeHtml(it.label || it.key)}">${escapeHtml(it.label || it.key)} ↗</button>`;
+        }).join("");
+      }
+    }
   }
 
   function renderCalendarGridDom() {
@@ -8773,6 +8922,7 @@
 
     const year = parseInt(calState.calYear, 10) || 2026;
     const month = parseInt(calState.calMonth, 10) || 11;
+    syncMiniCalendarViewportBar(year, month);
 
     const firstDayDow = new Date(year, month - 1, 1).getDay();
     const daysInMonth = new Date(year, month, 0).getDate();
@@ -9121,6 +9271,7 @@
 
     const year = parseInt(calState.calYear, 10) || 2026;
     const month = parseInt(calState.calMonth, 10) || 11;
+    syncMiniCalendarViewportBar(year, month);
     const firstDayDow = new Date(year, month - 1, 1).getDay();
     const daysInMonth = new Date(year, month, 0).getDate();
     const totalUsed = firstDayDow + daysInMonth;
