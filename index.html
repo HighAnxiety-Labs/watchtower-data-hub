@@ -535,6 +535,59 @@
   .bento-links-grid.tab-unit-grid.is-opintel-cat-grid.has-tab-gap { column-gap: calc((100% - 40px) / 6 + 16px); }
   .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack { width: calc((100% - 40px) / 6); flex: 0 0 calc((100% - 40px) / 6); height: auto; }
   .bento-links-grid.tab-unit-grid.is-opintel-cat-grid > .bento-group-stack.cat-col-stack.is-2col-cat { width: calc(((100% - 40px) / 6) * 2 + 8px); flex: 0 0 calc(((100% - 40px) / 6) * 2 + 8px); height: auto; }
+  .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry.is-full-span-vault-entry { grid-column: 1 / -1; }
+
+  /* Tab 6 (VIDEO RECON): 4-Column Combat-Guide-Style Category-Cap Drawer + Live Video Counts & Refresh Tools */
+  .bento-links-grid.is-video-recon-grid { width: 100%; max-width: none; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 0 0 8px 0; }
+  .vr-hub-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-radius: 6px; background: linear-gradient(90deg, rgba(14, 165, 233, 0.14) 0%, rgba(10, 16, 24, 0.94) 60%); border: 1px solid rgba(14, 165, 233, 0.42); border-left: 3px solid #0ea5e9; }
+  .vr-hub-tb-left { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-family: monospace; font-size: 11px; font-weight: 800; color: #e2e8f0; }
+  .vr-hub-tb-pill { padding: 2px 8px; border-radius: 999px; background: rgba(5, 10, 16, 0.85); border: 1px solid rgba(250, 204, 21, 0.45); color: #fde047; font-size: 10.5px; }
+  .vr-hub-tb-status { color: #94a3b8; font-size: 10.5px; }
+  .vr-hub-tb-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+  .vr-hub-act-btn { padding: 5px 10px; border-radius: 4px; font-family: monospace; font-size: 10.5px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(250, 204, 21, 0.65); background: rgba(250, 204, 21, 0.14); color: #fde047; transition: background 0.14s ease, color 0.14s ease; }
+  .vr-hub-act-btn:hover { background: #facc15; color: #05080c; }
+  .vr-hub-act-btn.is-desk { border-color: rgba(56, 189, 248, 0.65); background: rgba(14, 165, 233, 0.15); color: #7dd3fc; }
+  .vr-hub-act-btn.is-desk:hover { background: #0ea5e9; color: #05080c; }
+  .vr-hub-4col-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: start; width: 100%; }
+  .vr-hub-col { display: flex; flex-direction: column; min-width: 0; }
+  .vr-hub-col .bento-cat-col-cap { justify-content: space-between; padding: 5px 9px; white-space: normal; line-height: 1.2; }
+  .vr-hub-cap-left { display: inline-flex; align-items: center; gap: 5px; min-width: 0; text-align: left; }
+  .vr-hub-cap-sync { font-size: 9.5px; padding: 2px 6px; border-radius: 999px; border: 1px solid currentColor; background: rgba(5, 9, 14, 0.72); color: inherit; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  .vr-hub-cap-sync:hover { background: rgba(255, 255, 255, 0.18); color: #ffffff; }
+  .vr-hub-cards-stack { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .vr-hub-card { background: linear-gradient(180deg, #111b27 0%, #090f17 100%); border: 1px solid var(--border-metal); border-top: 2px solid var(--vr-accent, #0ea5e9); border-radius: 5px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .vr-hub-card:first-child { border-top-left-radius: 0; border-top-right-radius: 0; }
+  .vr-hub-tag { display: inline-block; align-self: flex-start; font-family: monospace; font-size: 9.5px; font-weight: 900; letter-spacing: 0.55px; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; color: var(--vr-accent, #0ea5e9); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--vr-accent, #0ea5e9); }
+  .vr-hub-title { font-size: 13px; font-weight: 900; color: #f8fafc; line-height: 1.25; }
+  .vr-hub-desc { font-size: 11.5px; color: #94a3b8; line-height: 1.38; }
+  .vr-hub-btn-stack { display: flex; flex-direction: column; gap: 6px; }
+  .vr-hub-link-btn { display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 6px 8px; border-radius: 4px; background: rgba(7, 12, 18, 0.92); border: 1px solid rgba(255, 255, 255, 0.13); border-left: 2.5px solid var(--vr-accent, #0ea5e9); color: #e2e8f0; text-decoration: none; font-family: 'Segoe UI', sans-serif; font-size: 11.5px; font-weight: 800; cursor: pointer; text-align: left; width: 100%; transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease; }
+  .vr-hub-link-btn:hover { border-color: var(--vr-accent, #0ea5e9); background: rgba(20, 32, 46, 0.96); color: #ffffff; }
+  .vr-hub-link-btn.vr-has-new-video {
+    background: linear-gradient(90deg, rgba(74, 222, 128, 0.26) 0%, rgba(14, 165, 233, 0.16) 100%);
+    border-color: rgba(74, 222, 128, 0.85);
+    border-left: 3px solid #4ade80;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.28);
+    color: #ffffff;
+  }
+  .vr-hub-card.vr-card-has-new {
+    background: linear-gradient(180deg, rgba(74, 222, 128, 0.18) 0%, #091119 100%);
+    border-color: rgba(74, 222, 128, 0.72);
+    box-shadow: 0 0 14px rgba(74, 222, 128, 0.2);
+  }
+  .vr-new-vid-pip {
+    font-family: monospace; font-size: 9px; font-weight: 900; color: #041008;
+    background: #4ade80; border-radius: 999px; padding: 1px 5px; letter-spacing: 0.4px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .vr-hub-btn-lbl { display: inline-flex; align-items: center; gap: 6px; min-width: 0; line-height: 1.2; word-break: break-word; }
+  .vr-hub-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.25); }
+  .vr-hub-count { font-family: monospace; font-size: 10.5px; font-weight: 900; color: #fde047; background: rgba(250, 204, 21, 0.12); border: 1px solid rgba(250, 204, 21, 0.42); padding: 1px 6px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+  .vr-hub-count.updated-up { color: #041008; background: #4ade80; border-color: #bbf7d0; }
+  .vr-hub-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-top: 6px; border-top: 1px dashed rgba(255, 255, 255, 0.12); font-family: monospace; font-size: 10px; color: #94a3b8; }
+  .vr-hub-foot-total { color: #fde047; font-weight: 900; }
+  @media (max-width: 1150px) { .vr-hub-4col-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .vr-hub-4col-grid { grid-template-columns: 1fr; } }
   .cat-col-cards-list.is-2col-cat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 8px; align-items: stretch; width: 100%; }
   .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry { display: flex; flex-direction: column; min-width: 0; }
   .cat-col-cards-list.is-2col-cat-list > .cat-col-card-entry:not(.has-sub-children) > .bento-module-card { flex: 1; }
@@ -1271,60 +1324,60 @@
       </div>
     </div>
 
-    <!-- 6-Tab Horizontal Command Bar (Hybrid Set) -->
+    <!-- 7-Tab Horizontal Command Bar (A-Z Order) -->
     <div class="brief-buttons-grid" id="briefButtonsGrid">
-      <button type="button" class="brief-btn" id="btnUtil1" data-sec="baseOps" data-color="#2b8cbe" onclick="selectCommandTab('baseOps', this)" style="border-color: #2b8cbe; color: #2b8cbe; background-color: rgba(43, 140, 190, 0.16); --btn-accent: #2b8cbe; --glow-color: #2b8cbe;">
+      <button type="button" class="brief-btn" id="btnUtil1" data-sec="tacticalBriefs" data-color="#c29829" title="Units, Matchup &amp; Contractors" onclick="selectCommandTab('tacticalBriefs', this)" style="border-color: #c29829; color: #c29829; background-color: rgba(194, 152, 41, 0.16); --btn-accent: #c29829; --glow-color: #c29829;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil1" style="background-color: #2b8cbe;"></span><span id="txtUtil1">BASE &amp; BUILDINGS</span></span>
-          <span class="brief-btn-mod-count" id="modCount-baseOps">2 MODULES</span>
-        </span>
-        <span class="brief-btn-chevron">▼</span>
-      </button>
-
-      <button type="button" class="brief-btn" id="btnUtil2" data-sec="tacticalBriefs" data-color="#c29829" onclick="selectCommandTab('tacticalBriefs', this)" style="border-color: #c29829; color: #c29829; background-color: rgba(194, 152, 41, 0.16); --btn-accent: #c29829; --glow-color: #c29829;">
-        <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil2" style="background-color: #c29829;"></span><span id="txtUtil2">UNITS &amp; ASSETS</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil1" style="background-color: #c29829;"></span><span id="txtUtil1">ARMORY</span></span>
           <span class="brief-btn-mod-count" id="modCount-tacticalBriefs">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil3" data-sec="opIntel" data-color="#3d9e65" onclick="selectCommandTab('opIntel', this)" style="border-color: #3d9e65; color: #3d9e65; background-color: rgba(61, 158, 101, 0.16); --btn-accent: #3d9e65; --glow-color: #3d9e65;">
+      <button type="button" class="brief-btn" id="btnUtil2" data-sec="baseOps" data-color="#2b8cbe" title="Building Briefs &amp; Upgrade Paths" onclick="selectCommandTab('baseOps', this)" style="border-color: #2b8cbe; color: #2b8cbe; background-color: rgba(43, 140, 190, 0.16); --btn-accent: #2b8cbe; --glow-color: #2b8cbe;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil3" style="background-color: #3d9e65;"></span><span id="txtUtil3">COMBAT GUIDES</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil2" style="background-color: #2b8cbe;"></span><span id="txtUtil2">BUILDINGS</span></span>
+          <span class="brief-btn-mod-count" id="modCount-baseOps">2 MODULES</span>
+        </span>
+        <span class="brief-btn-chevron">▼</span>
+      </button>
+
+      <button type="button" class="brief-btn" id="btnUtil3" data-sec="opIntel" data-color="#3d9e65" title="BASICS • TOOLS" onclick="selectCommandTab('opIntel', this)" style="border-color: #3d9e65; color: #3d9e65; background-color: rgba(61, 158, 101, 0.16); --btn-accent: #3d9e65; --glow-color: #3d9e65;">
+        <span class="brief-btn-center-stack">
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil3" style="background-color: #3d9e65;"></span><span id="txtUtil3">COMBAT</span></span>
           <span class="brief-btn-mod-count" id="modCount-opIntel">6 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil4" data-sec="videoRecon" data-color="#0ea5e9" onclick="selectCommandTab('videoRecon', this)" style="border-color: #0ea5e9; color: #0ea5e9; background-color: rgba(14, 165, 233, 0.16); --btn-accent: #0ea5e9; --glow-color: #0ea5e9;">
+      <button type="button" class="brief-btn" id="btnUtil4" data-sec="opBriefs" data-color="#c45a22" title="2026 EVENT CALENDAR • MULTI-EVENT XP CALCULATOR" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #0ea5e9;"></span><span id="txtUtil4">VIDEO RECON</span></span>
-          <span class="brief-btn-mod-count" id="modCount-videoRecon">1 MODULE</span>
-        </span>
-        <span class="brief-btn-chevron">▼</span>
-      </button>
-
-      <button type="button" class="brief-btn" id="btnUtil5" data-sec="opBriefs" data-color="#c45a22" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
-        <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil5" style="background-color: #c45a22;"></span><span id="txtUtil5">EVENT BRIEFS</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #c45a22;"></span><span id="txtUtil4">EVENT BRIEFS</span></span>
           <span class="brief-btn-mod-count" id="modCount-opBriefs">8 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil6" data-sec="wtrArchives" data-color="#785dc8" onclick="selectCommandTab('wtrArchives', this)" style="border-color: #785dc8; color: #785dc8; background-color: rgba(120, 93, 200, 0.16); --btn-accent: #785dc8; --glow-color: #785dc8;">
+      <button type="button" class="brief-btn" id="btnUtil5" data-sec="adminBug" data-color="#b33636" title="WHAT'S BROKEN IN WC • REPORT WAR CRIMES • GET INVOLVED!" onclick="selectCommandTab('adminBug', this)" style="border-color: #b33636; color: #b33636; background-color: rgba(179, 54, 54, 0.16); --btn-accent: #b33636; --glow-color: #b33636;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil6" style="background-color: #785dc8;"></span><span id="txtUtil6">[-WTR-] VAULT</span></span>
-          <span class="brief-btn-mod-count" id="modCount-wtrArchives">3 MODULES</span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil5" style="background-color: #b33636;"></span><span id="txtUtil5">PLAYER INFO</span></span>
+          <span class="brief-btn-mod-count" id="modCount-adminBug">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil7" data-sec="adminBug" data-color="#b33636" onclick="selectCommandTab('adminBug', this)" style="border-color: #b33636; color: #b33636; background-color: rgba(179, 54, 54, 0.16); --btn-accent: #b33636; --glow-color: #b33636;">
+      <button type="button" class="brief-btn" id="btnUtil6" data-sec="videoRecon" data-color="#0ea5e9" title="FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS • COMBAT ANALYSIS &amp; LOGS" onclick="selectCommandTab('videoRecon', this)" style="border-color: #0ea5e9; color: #0ea5e9; background-color: rgba(14, 165, 233, 0.16); --btn-accent: #0ea5e9; --glow-color: #0ea5e9;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil7" style="background-color: #b33636;"></span><span id="txtUtil7">BUGS &amp; FEEDBACK</span></span>
-          <span class="brief-btn-mod-count" id="modCount-adminBug">3 MODULES</span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil6" style="background-color: #0ea5e9;"></span><span id="txtUtil6">VIDEO RECON</span></span>
+          <span class="brief-btn-mod-count" id="modCount-videoRecon">4 GROUPS</span>
+        </span>
+        <span class="brief-btn-chevron">▼</span>
+      </button>
+
+      <button type="button" class="brief-btn" id="btnUtil7" data-sec="wtrArchives" data-color="#785dc8" title="UPGRADE/SALES HISTORY • EVENT HISTORY" onclick="selectCommandTab('wtrArchives', this)" style="border-color: #785dc8; color: #785dc8; background-color: rgba(120, 93, 200, 0.16); --btn-accent: #785dc8; --glow-color: #785dc8;">
+        <span class="brief-btn-center-stack">
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil7" style="background-color: #785dc8;"></span><span id="txtUtil7">VAULT</span></span>
+          <span class="brief-btn-mod-count" id="modCount-wtrArchives">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
@@ -1582,26 +1635,26 @@
   let activeCommandKey = null;
 
   const STORAGE_KEY = "wtr_master_command_grid_v20_5_hybrid";
-  const MENU_SECTION_KEYS = ["baseOps", "tacticalBriefs", "opIntel", "videoRecon", "opBriefs", "wtrArchives", "adminBug"];
+  const MENU_SECTION_KEYS = ["tacticalBriefs", "baseOps", "opIntel", "opBriefs", "adminBug", "videoRecon", "wtrArchives"];
 
   const SECTION_DISPLAY_NAMES = {
-    baseOps: "1. BASE & BUILDINGS",
-    tacticalBriefs: "2. UNITS & ASSETS",
-    opIntel: "3. COMBAT GUIDES",
-    videoRecon: "4. VIDEO RECON",
-    opBriefs: "5. EVENT BRIEFS",
-    wtrArchives: "6. [-WTR-] VAULT",
-    adminBug: "7. BUGS & FEEDBACK"
+    tacticalBriefs: "1. ARMORY",
+    baseOps: "2. BUILDINGS",
+    opIntel: "3. COMBAT",
+    opBriefs: "4. EVENT BRIEFS",
+    adminBug: "5. PLAYER INFO",
+    videoRecon: "6. VIDEO RECON",
+    wtrArchives: "7. VAULT"
   };
 
   let sectionColors = {
-    "baseOps": "#2b8cbe",
     "tacticalBriefs": "#c29829",
+    "baseOps": "#2b8cbe",
     "opIntel": "#3d9e65",
-    "videoRecon": "#0ea5e9",
     "opBriefs": "#c45a22",
-    "wtrArchives": "#785dc8",
-    "adminBug": "#b33636"
+    "adminBug": "#b33636",
+    "videoRecon": "#0ea5e9",
+    "wtrArchives": "#785dc8"
   };
 
   let sectionTimestamps = {
@@ -2091,13 +2144,13 @@
 
     // 1. Update the 6 Division Tab Titles & Colors to the Hybrid Set
     const hybridTabs = [
-      { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
-      { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
-      { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
-      { idx: 4, key: "videoRecon",     title: "VIDEO RECON",      color: "#0ea5e9" },
-      { idx: 5, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
-      { idx: 6, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
-      { idx: 7, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
+      { idx: 1, key: "tacticalBriefs", title: "ARMORY",                color: "#c29829" },
+      { idx: 2, key: "baseOps",        title: "BUILDINGS",             color: "#2b8cbe" },
+      { idx: 3, key: "opIntel",        title: "COMBAT",                color: "#3d9e65" },
+      { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",          color: "#c45a22" },
+      { idx: 5, key: "adminBug",       title: "PLAYER INFO",           color: "#b33636" },
+      { idx: 6, key: "videoRecon",     title: "VIDEO RECON",           color: "#0ea5e9" },
+      { idx: 7, key: "wtrArchives",    title: "VAULT",                 color: "#785dc8" }
     ];
 
     hybridTabs.forEach(t => {
@@ -2958,6 +3011,37 @@
     return { total, newCnt, updCnt, mode };
   }
 
+  function getUnreadVideoReconSignals() {
+    const manifestVids = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos)
+      ? window.WTR_DIRECTORY_MANIFEST.creatorVideos
+      : [];
+    const seenMap = typeof getSeenIntelMap === "function" ? getSeenIntelMap() : {};
+    const now = Date.now();
+    const freshWindowMs = 72 * 60 * 60 * 1000;
+    const out = [];
+    const seenIds = new Set();
+    manifestVids.forEach(v => {
+      if (!v || !v.id) return;
+      const pubMs = Number(v.publishedMs) || Date.parse(v.publishedAt || "");
+      if (!pubMs || (now - pubMs) > freshWindowMs) return;
+      const sigId = `vr_vid:${v.id}`;
+      if (seenIds.has(sigId) || seenMap[sigId]) return;
+      seenIds.add(sigId);
+      out.push({ id: sigId, tag: "✨ NEW VIDEO", channelId: v.channelId || "", creatorId: v.creatorId || "", title: v.title || "" });
+    });
+    return out;
+  }
+
+  function markCreatorVideosSeen(channelId) {
+    if (!channelId) return;
+    const sigs = getUnreadVideoReconSignals().filter(s => s.channelId === channelId);
+    if (sigs.length > 0 && typeof markIntelSignalsSeen === "function") {
+      markIntelSignalsSeen(sigs, true);
+      if (activeCommandKey === "videoRecon") renderCommandDrawer();
+    }
+  }
+  window.markCreatorVideosSeen = markCreatorVideosSeen;
+
   function getDivisionUnreadBreakdown(secKey) {
     const cards = workspaceCardsState[secKey]?.cards || [];
     const lists = [];
@@ -2967,6 +3051,10 @@
         if (sigs.length > 0) lists.push(sigs);
       }
     });
+    if (secKey === "videoRecon") {
+      const vrSigs = getUnreadVideoReconSignals();
+      vrSigs.forEach(s => lists.push([s]));
+    }
     return summarizeUnreadSignalLists(lists);
   }
 
@@ -3111,6 +3199,31 @@
       const tabHex = getSectionHexColor(secKey);
 
       if (btnEl) {
+        const activeMainCards = cards.filter(c => c && c.enabled !== false && !c.isSubPage);
+        let dynamicTip = "";
+        if (secKey === "tacticalBriefs") {
+          dynamicTip = "Units, Matchup & Contractors";
+        } else if (secKey === "baseOps") {
+          dynamicTip = "Building Briefs & Upgrade Paths";
+        } else if (secKey === "opIntel") {
+          const capSet = new Set();
+          activeMainCards.forEach(c => {
+            const spec = typeof getCategorySpec === "function" ? getCategorySpec(c.symbol || "NEW") : null;
+            const capName = (spec && spec.name) ? spec.name : (c.symbol || "GUIDE");
+            capSet.add(String(capName).trim().toUpperCase());
+          });
+          dynamicTip = Array.from(capSet).sort((a, b) => a.localeCompare(b)).join(" • ");
+        } else if (secKey === "opBriefs") {
+          const pinnedTop = activeMainCards.filter(c => c.isPinnedCalendar || c.isPinnedCalculator);
+          const firstRow = pinnedTop.length > 0 ? pinnedTop : activeMainCards.slice(0, 2);
+          dynamicTip = firstRow.map(c => String(c.title || "").trim()).filter(Boolean).join(" • ");
+        } else if (secKey === "adminBug" || secKey === "wtrArchives") {
+          dynamicTip = activeMainCards.map(c => String(c.title || "").trim()).filter(Boolean).join(" • ");
+        } else if (secKey === "videoRecon") {
+          dynamicTip = "FEATURED CREATORS • EVENT WALKTHROUGHS • PLAYER TOOLS • COMBAT ANALYSIS & LOGS";
+        }
+        if (dynamicTip) btnEl.title = dynamicTip;
+
         if (unreadCnt > 0) {
           btnEl.classList.add("has-intel-trail");
           btnEl.style.setProperty("--trail-btn-top", hexToRgba(tabHex, 0.30));
@@ -3129,7 +3242,13 @@
       }
 
       if (countEl) {
-        if (unreadCnt > 0) {
+        if (secKey === "videoRecon") {
+          if (unreadCnt > 0) {
+            countEl.innerHTML = `<span>4 GROUPS</span>${renderDivisionIntelPipsHtml(bd)}`;
+          } else {
+            countEl.textContent = "4 GROUPS";
+          }
+        } else if (unreadCnt > 0) {
           const shortLbl = `${activeMainCount} ${activeMainCount === 1 ? 'MOD' : 'MODS'}`;
           countEl.innerHTML = `<span>${shortLbl}</span>${renderDivisionIntelPipsHtml(bd)}`;
         } else {
@@ -3534,18 +3653,6 @@
     requestAnimationFrame(() => {
       updateTabToCenterConduitLine();
     });
-
-    if (sectionKey === "videoRecon") {
-      const vrCards = (workspaceCardsState.videoRecon && Array.isArray(workspaceCardsState.videoRecon.cards))
-        ? workspaceCardsState.videoRecon.cards.filter(c => c && c.enabled !== false)
-        : [];
-      if (vrCards.length === 1) {
-        const onlyIdx = workspaceCardsState.videoRecon.cards.indexOf(vrCards[0]);
-        if (onlyIdx !== -1) {
-          triggerModuleAction("videoRecon", onlyIdx);
-        }
-      }
-    }
   }
 
   function closeCommandDrawer() {
@@ -4524,12 +4631,339 @@
     });
   }
 
+  /* ==================== TAB 6 (VIDEO RECON): 4-COLUMN DRAWER + LIVE WC VIDEO COUNTS & REFRESH ==================== */
+  const HUB_VR_STORAGE_KEY = 'wtr_creator_wc_video_counts_v1';
+  const HUB_VR_BASELINE_MS = Date.parse('2026-11-10T18:15:00Z');
+  const HUB_VR_CREATORS = [
+    { id: 'project_d88', name: 'Project_d88', url: 'https://www.youtube.com/@Project_d88', avatar: 'https://yt3.googleusercontent.com/fgzJEtRiIbbTSshHXdQkfTgLfwjilFHIDbXlZNeCNo5G7dzHKE0ySbEmXmM8HFUqCdpIE77urN0=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/project_d88.jpg', channelId: 'UCgLApDnJO92pQYt81v_T6oA', uploadsList: 'UUgLApDnJO92pQYt81v_T6oA', defaultWcCount: 281, baselineTotalUploads: 292, mode: 'PLAYLIST_OFFSET', nonWcOffset: 11, tier: 'top' },
+    { id: 'stormy', name: 'STORMY GAMING YT', url: 'https://www.youtube.com/@STORMYGAMINGYT99', avatar: 'https://yt3.googleusercontent.com/RoqvAJPkL6QqCEoa1IY9AHCjjkkEgSvyGSTs2_5NxvYhHhrNDVUbxlCZCX_9cFw2GYsTTNRaHQ=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/stormy.jpg', channelId: 'UC5Nm3nZIMF0mp_BtXofnnIQ', uploadsList: 'UU5Nm3nZIMF0mp_BtXofnnIQ', defaultWcCount: 200, baselineTotalUploads: 373, mode: 'MIXED_WC_FILTER', tier: 'demo' },
+    { id: 'furiousbull2', name: 'furious bull2', url: 'https://www.youtube.com/@furiousbull2', avatar: 'https://yt3.googleusercontent.com/0sOl3BYZk4oq89H4LEHWdIqmWEjSU5_-F-SIWaPOO53FZeBWHebPPA-KvoM4Y4VpTrhUovWQrw=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/furiousbull2.jpg', channelId: 'UCtzS9uHklZVwvyewJDmG8ww', uploadsList: 'UUtzS9uHklZVwvyewJDmG8ww', defaultWcCount: 420, baselineTotalUploads: 1716, mode: 'MIXED_WC_FILTER', tier: 'demo' },
+    { id: 'wcjbsamar', name: 'WC JBsamar', url: 'https://www.youtube.com/@WCJBsamar', avatar: 'https://yt3.googleusercontent.com/ytc/AIdro_nZTE3Ve17-gLPDQSw8RKaiMGCnURuT_simbNJ-VFPXTw=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/wcjbsamar.jpg', channelId: 'UCpBT5Xj1KLledXt_x7rzATA', uploadsList: 'UUpBT5Xj1KLledXt_x7rzATA', defaultWcCount: 1430, baselineTotalUploads: 1430, mode: 'PURE_WC_CHANNEL', tier: 'demo' },
+    { id: 'mp184', name: 'MP184 BURN-BASE', url: 'https://www.youtube.com/@MP184BURNBASE', avatar: 'https://yt3.googleusercontent.com/ytc/AIdro_nlKySMmu5VK6k50AccUKMxXw6R0Mw6-WwkxPZgWCNvsA=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/mp184.jpg', channelId: 'UCg3Ac0z5vikIlNgPqJ6F1rQ', uploadsList: 'UUg3Ac0z5vikIlNgPqJ6F1rQ', defaultWcCount: 410, baselineTotalUploads: 836, mode: 'MIXED_WC_FILTER', tier: 'demo' },
+    { id: 'dot', name: 'DOT', url: 'https://www.youtube.com/@dot-sl1zo', avatar: 'https://yt3.googleusercontent.com/aC4ih_t1uhOcIT0xQrVRR-HcsK5zbSan-EjVtVyAOfk2tl4xDx4LCiD4ipcW9tez7rZtayeR=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/dot.jpg', channelId: 'UCD3iqiGHAA70Goo9mF8obJw', uploadsList: 'UUD3iqiGHAA70Goo9mF8obJw', defaultWcCount: 192, baselineTotalUploads: 192, mode: 'PURE_WC_CHANNEL', tier: 'demo' },
+    { id: 'siddy3386', name: 'Siddy3386', url: 'https://youtube.com/shorts/h196NrTkXnY?si=iF4WogwB4P8sXCt7', avatar: 'https://yt3.googleusercontent.com/D3fx2fVE8PO7KlyhXrIK3dkXsVgKjGLnd8Ni_JUtwtVcLoQuxSm0t9dy-WxVMfjBPXoWixk_Tg=s176-c-k-c0x00ffffff-no-rj', backup: './assets/images/CREATORS/siddy3386.jpg', displayCountText: '6k', defaultWcCount: 6000, mode: 'STATIC_SINGLE_VIDEO', tier: 'demo' }
+  ];
+  const HUB_VR_HELPFUL = [
+    { id: 'free_repairs', name: 'A Guide to help get Free Repairs', url: 'https://www.youtube.com/watch?v=Cpv5Ts7HTgA&t=1s', defaultCount: 1 },
+    { id: 'l_rhinos', name: 'How to use L Rhinos', url: 'https://www.youtube.com/watch?v=2apvfU-_jv0&t=1s', defaultCount: 1 },
+    { id: 'kill_banshees', name: 'How to Kill Banshees', url: 'https://www.youtube.com/watch?v=1Fky0uGhMA8&t=1s', defaultCount: 1 }
+  ];
+  const HUB_VR_HOWTO = [
+    { id: 'shadow_ops', name: 'Shadow Ops', url: 'https://www.youtube.com/results?search_query=Shadow+Ops+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&sp=CAISAhAB', defaultWcCount: 71 },
+    { id: 'iridium', name: 'IRIDIUM', url: 'https://www.youtube.com/results?search_query=IRIDIUM+2026+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&sp=CAISAhAB', defaultWcCount: 86 },
+    { id: 'supply_depots', name: 'Supply Depots', url: 'https://www.youtube.com/results?search_query=SUPPLY+DEPOTS+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&sp=CAISAhAB', defaultWcCount: 2 },
+    { id: 'adv_materials', name: 'Advanced Materials', url: 'https://www.youtube.com/results?search_query=AdvancedMaterials+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar+OR+Project_d88%29&sp=CAISAhAB', defaultWcCount: 240 }
+  ];
+  const HUB_VR_WC_RE = /\b(war\s*commander|warcommander|\bwc\b|kixeye|holdout|skirmish|sector\s*breach|shadow\s*ops|warpath|nightmare|incursion|iridium|thorium|rubi|platoon|supply\s*depot|rogue|fob|cc\s*2[012]|command\s*center|blue\s*baron|phantom\s*expedition|blue\s*genesis|split\s*prophecy|harvest\s*protocol|redline|aftershock|epicenter|tremors|argus|anansi|dixon|juggernaut|banshee|rhino|achilles|kabuto|stormwail|simo|frostpiercer|atlas|sentinel|equinox|corpus|free\s*repair|conqueror|braine|jonny\s*bones|caster|pollux)\b/i;
+  const HUB_VR_NON_WC_RE = /(#gta|gta\s*6|gta\s*v|champions\s*league|barcelona|man\s*city|chelsea|premier\s*league|fifa|pubg|free\s*fire|mobile\s*legends|roblox|minecraft|fortnite|valorant|#fallout|\bfallout\b|call\s*of\s*duty|warzone|delta\s*force)/i;
+
+  function loadHubVrCountVault() {
+    let parsed = {};
+    try {
+      const raw = localStorage.getItem(HUB_VR_STORAGE_KEY);
+      if (raw) parsed = JSON.parse(raw) || {};
+    } catch (e) {}
+    if (!parsed.counts || typeof parsed.counts !== 'object') parsed.counts = {};
+    if (!parsed.howtoCounts || typeof parsed.howtoCounts !== 'object') parsed.howtoCounts = {};
+    if (!parsed.seenPostBaselineIds || typeof parsed.seenPostBaselineIds !== 'object') parsed.seenPostBaselineIds = {};
+    HUB_VR_CREATORS.forEach(c => {
+      if (c.mode === 'STATIC_SINGLE_VIDEO') { parsed.counts[c.id] = c.defaultWcCount; return; }
+      parsed.counts[c.id] = Math.max(c.defaultWcCount, Number(parsed.counts[c.id]) || 0);
+      if (!Array.isArray(parsed.seenPostBaselineIds[c.id])) parsed.seenPostBaselineIds[c.id] = [];
+    });
+    HUB_VR_HOWTO.forEach(h => {
+      parsed.howtoCounts[h.id] = Math.max(h.defaultWcCount, Number(parsed.howtoCounts[h.id]) || 0);
+    });
+    return parsed;
+  }
+
+  function saveHubVrCountVault(vault) {
+    try { localStorage.setItem(HUB_VR_STORAGE_KEY, JSON.stringify(vault)); } catch (e) {}
+  }
+
+  function renderHubVrCounts(vault, updatedIds = []) {
+    let creatorGrand = 0;
+    HUB_VR_CREATORS.forEach(c => {
+      const cnt = c.mode === 'STATIC_SINGLE_VIDEO' ? c.defaultWcCount : Math.max(c.defaultWcCount, Number(vault.counts[c.id]) || 0);
+      creatorGrand += cnt;
+      const el = document.getElementById('hub-vr-cnt-' + c.id);
+      if (el) {
+        el.textContent = c.displayCountText || cnt.toLocaleString('en-US');
+        if (updatedIds.includes(c.id)) el.classList.add('updated-up');
+      }
+    });
+    let howtoGrand = 0;
+    HUB_VR_HOWTO.forEach(h => {
+      const cnt = Math.max(h.defaultWcCount, Number((vault.howtoCounts || {})[h.id]) || 0);
+      howtoGrand += cnt;
+      const el = document.getElementById('hub-vr-howto-' + h.id);
+      if (el) {
+        el.textContent = cnt.toLocaleString('en-US');
+        if (updatedIds.includes('howto:' + h.id)) el.classList.add('updated-up');
+      }
+    });
+    const helpfulGrand = HUB_VR_HELPFUL.reduce((s, g) => s + g.defaultCount, 0);
+    const cTot = document.getElementById('hubVrCreatorsTotal');
+    const hTot = document.getElementById('hubVrHowtoTotal');
+    const tbPill = document.getElementById('hubVrToolbarTotals');
+    if (cTot) cTot.textContent = `${creatorGrand.toLocaleString('en-US')} Total`;
+    if (hTot) hTot.textContent = `${howtoGrand.toLocaleString('en-US')} Total`;
+    if (tbPill) tbPill.textContent = `🎬 ${creatorGrand.toLocaleString('en-US')} Creator Vids • ${(helpfulGrand + howtoGrand).toLocaleString('en-US')} Walkthroughs`;
+    if (vault.lastCheckedAt) {
+      const dt = new Date(vault.lastCheckedAt);
+      if (!isNaN(dt.getTime())) {
+        const shortDt = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const s1 = document.getElementById('hubVrCreatorStatus');
+        const s2 = document.getElementById('hubVrHowtoStatus');
+        const s3 = document.getElementById('hubVrToolbarStatus');
+        if (s1) s1.textContent = `Default Synced ${shortDt}`;
+        if (s2) s2.textContent = `Topics Synced ${shortDt}`;
+        if (s3) s3.textContent = `Synced ${shortDt}`;
+      }
+    }
+  }
+
+  let isRefreshingHubVrCounts = false;
+  async function refreshHubVideoReconCounts(manualTrigger = false) {
+    if (isRefreshingHubVrCounts) return;
+    isRefreshingHubVrCounts = true;
+    const btn = document.getElementById('hubVrRefreshBtn');
+    const s3 = document.getElementById('hubVrToolbarStatus');
+    if (btn) btn.textContent = '⏳ SCANNING CHANNELS...';
+    if (s3) s3.textContent = 'Scanning YouTube RSS feeds...';
+
+    const vault = loadHubVrCountVault();
+    const updatedIds = [];
+    const manifestList = Array.isArray(window.WTR_DIRECTORY_MANIFEST?.creatorVideos) ? window.WTR_DIRECTORY_MANIFEST.creatorVideos : [];
+
+    await Promise.all(HUB_VR_CREATORS.map(async (creator) => {
+      if (creator.mode === 'STATIC_SINGLE_VIDEO' || !creator.channelId) return;
+      try {
+        const currentDefault = Math.max(creator.defaultWcCount, Number(vault.counts[creator.id]) || 0);
+        const seenSet = new Set(vault.seenPostBaselineIds[creator.id] || []);
+        const ingest = (vidId, title, desc, pubMs) => {
+          if (!vidId || !pubMs || pubMs <= HUB_VR_BASELINE_MS) return;
+          const hay = `${title} ${desc}`;
+          const isWc = creator.mode === 'PURE_WC_CHANNEL' ? !HUB_VR_NON_WC_RE.test(hay) : (HUB_VR_WC_RE.test(hay) && !HUB_VR_NON_WC_RE.test(hay));
+          if (isWc) seenSet.add(vidId);
+        };
+        manifestList.filter(v => v && v.channelId === creator.channelId).forEach(v => ingest(v.id, v.title || '', v.descSnippet || '', Number(v.publishedMs) || Date.parse(v.publishedAt || '')));
+        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${creator.channelId}`;
+        try {
+          const rjResp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl));
+          if (rjResp.ok) {
+            const rj = await rjResp.json();
+            if (rj && rj.status === 'ok' && Array.isArray(rj.items)) {
+              rj.items.forEach(it => {
+                const gM = String(it.guid || '').match(/video:([a-zA-Z0-9_-]{11})/);
+                const lM = String(it.link || '').match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+                const vidId = (gM && gM[1]) || (lM && lM[1]) || '';
+                const rawP = String(it.pubDate || '').trim();
+                const isoP = rawP && !rawP.endsWith('Z') ? rawP.replace(' ', 'T') + 'Z' : rawP;
+                ingest(vidId, it.title || '', it.description || '', Date.parse(isoP));
+              });
+            }
+          }
+        } catch (e) {}
+        vault.seenPostBaselineIds[creator.id] = Array.from(seenSet);
+        const candidate = Math.max(currentDefault, creator.defaultWcCount + seenSet.size);
+        if (candidate > currentDefault) {
+          vault.counts[creator.id] = candidate;
+          updatedIds.push(creator.id);
+        }
+      } catch (e) {}
+    }));
+
+    vault.lastCheckedAt = new Date().toISOString();
+    saveHubVrCountVault(vault);
+    renderHubVrCounts(vault, updatedIds);
+    if (updatedIds.length > 0 && typeof updateMenuButtonModuleCounts === "function") {
+      updateMenuButtonModuleCounts();
+    }
+    if (btn) btn.textContent = updatedIds.length > 0 ? `✅ +${updatedIds.length} UPDATED` : '🔄 SYNC WC VIDEO COUNTS';
+    if (manualTrigger && btn) {
+      setTimeout(() => { if (btn) btn.textContent = '🔄 SYNC WC VIDEO COUNTS'; }, 3000);
+    }
+    isRefreshingHubVrCounts = false;
+  }
+  window.refreshHubVideoReconCounts = refreshHubVideoReconCounts;
+
+  function renderVideoRecon4ColDrawer() {
+    const vault = loadHubVrCountVault();
+    const unreadVrSigs = getUnreadVideoReconSignals();
+    const unreadByChannel = {};
+    unreadVrSigs.forEach(s => {
+      if (s.channelId) unreadByChannel[s.channelId] = (unreadByChannel[s.channelId] || 0) + 1;
+    });
+    const renderCreatorRow = (c) => {
+      const cnt = c.mode === 'STATIC_SINGLE_VIDEO' ? c.defaultWcCount : Math.max(c.defaultWcCount, Number(vault.counts[c.id]) || 0);
+      const disp = c.displayCountText || cnt.toLocaleString('en-US');
+      const newCnt = c.channelId ? (unreadByChannel[c.channelId] || 0) : 0;
+      const newCls = newCnt > 0 ? ' vr-has-new-video' : '';
+      const newPip = newCnt > 0 ? `<span class="vr-new-vid-pip">⚡ ${newCnt} NEW</span>` : '';
+      const seenClick = c.channelId ? ` onclick="markCreatorVideosSeen('${c.channelId}')"` : '';
+      return `
+        <a href="${c.url}" class="vr-hub-link-btn${newCls}" style="--vr-accent:#ef4444;" target="_blank" rel="noopener"${seenClick}>
+          <span class="vr-hub-btn-lbl">
+            <img class="vr-hub-avatar" src="${c.avatar}" data-backup="${c.backup}" alt="${escapeHtml(c.name)}" onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.style.display='none';}">
+            <span>${escapeHtml(c.name)}</span>
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:4px;flex-shrink:0;">${newPip}<span class="vr-hub-count" id="hub-vr-cnt-${c.id}">${disp}</span></span>
+        </a>
+      `;
+    };
+    const topCreatorsList = HUB_VR_CREATORS.filter(c => c.tier === 'top');
+    const demoCreatorsList = HUB_VR_CREATORS.filter(c => c.tier === 'demo');
+    const topHasNew = topCreatorsList.some(c => c.channelId && unreadByChannel[c.channelId] > 0);
+    const demoHasNew = demoCreatorsList.some(c => c.channelId && unreadByChannel[c.channelId] > 0);
+    const creatorsTotalNew = unreadVrSigs.length;
+    const creatorsCapBd = { total: creatorsTotalNew, newCnt: creatorsTotalNew, updCnt: 0, mode: creatorsTotalNew > 0 ? 'new' : '' };
+    const topCreatorsHtml = topCreatorsList.map(renderCreatorRow).join('');
+    const demoCreatorsHtml = demoCreatorsList.map(renderCreatorRow).join('');
+    const helpfulHtml = HUB_VR_HELPFUL.map(g => `
+      <a href="${g.url}" class="vr-hub-link-btn" style="--vr-accent:#f59e0b;" target="_blank" rel="noopener">
+        <span class="vr-hub-btn-lbl">▶ ${escapeHtml(g.name)}</span>
+        <span class="vr-hub-count">${g.defaultCount}</span>
+      </a>
+    `).join('');
+    const howtoHtml = HUB_VR_HOWTO.map(h => {
+      const cnt = Math.max(h.defaultWcCount, Number((vault.howtoCounts || {})[h.id]) || 0);
+      return `
+        <a href="${h.url}" class="vr-hub-link-btn" style="--vr-accent:#f59e0b;" target="_blank" rel="noopener">
+          <span class="vr-hub-btn-lbl">▶ ${escapeHtml(h.name)}</span>
+          <span class="vr-hub-count" id="hub-vr-howto-${h.id}">${cnt.toLocaleString('en-US')}</span>
+        </a>
+      `;
+    }).join('');
+
+    return `
+      <div class="vr-hub-toolbar">
+        <div class="vr-hub-tb-left">
+          <span class="vr-hub-tb-pill" id="hubVrToolbarTotals">🎬 8,933 Creator Vids • 402 Walkthroughs</span>
+          <span class="vr-hub-tb-status" id="hubVrToolbarStatus">WC Totals Verified</span>
+        </div>
+        <div class="vr-hub-tb-actions">
+          <button type="button" class="vr-hub-act-btn" id="hubVrRefreshBtn" onclick="refreshHubVideoReconCounts(true)" title="Re-scan War Commander creator feeds and update high-water-mark counts">🔄 SYNC WC VIDEO COUNTS</button>
+        </div>
+      </div>
+
+      <div class="vr-hub-4col-grid">
+        <!-- COL 1: FEATURED CREATORS -->
+        <div class="vr-hub-col">
+          <div class="bento-cat-col-cap${creatorsTotalNew > 0 ? ' has-intel-below' : ''}" style="--cat-col-accent:#ef4444; --cat-col-bg:rgba(239,68,68,0.16); --cat-col-border:rgba(239,68,68,0.55);">
+            <span class="vr-hub-cap-left"><span>▶</span><span>FEATURED CREATORS</span>${renderCapIntelPipsHtml(creatorsCapBd)}</span>
+            <button type="button" class="vr-hub-cap-sync" onclick="refreshHubVideoReconCounts(true)" title="Re-scan Creator WC Video Counts">🎬 WC VIDS ↻</button>
+          </div>
+          <div class="vr-hub-cards-stack">
+            <div class="vr-hub-card${topHasNew ? ' vr-card-has-new' : ''}" style="--vr-accent:#ef4444;">
+              <span class="vr-hub-tag">TOP TIER CONTENT CREATOR</span>
+              <div class="vr-hub-title">Highly Detailed Tactical Runs</div>
+              <div class="vr-hub-desc">Actionable, direct content complete with step-by-step guides for unit compositions, workshop setups, and attack tactics.</div>
+              <div class="vr-hub-btn-stack">${topCreatorsHtml}</div>
+            </div>
+            <div class="vr-hub-card${demoHasNew ? ' vr-card-has-new' : ''}" style="--vr-accent:#ef4444;">
+              <span class="vr-hub-tag">WATCH ME "KICK ASS"</span>
+              <div class="vr-hub-title">Demo Runs &amp; Highlights</div>
+              <div class="vr-hub-desc">Quick Release tactical gameplay and general playthrough recordings set to background music from community creators.</div>
+              <div class="vr-hub-btn-stack">${demoCreatorsHtml}</div>
+              <div class="vr-hub-foot">
+                <span id="hubVrCreatorStatus">WC Totals Verified</span>
+                <span class="vr-hub-foot-total" id="hubVrCreatorsTotal">8,933 Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COL 2: EVENT WALKTHROUGHS -->
+        <div class="vr-hub-col">
+          <div class="bento-cat-col-cap" style="--cat-col-accent:#f59e0b; --cat-col-bg:rgba(245,158,11,0.16); --cat-col-border:rgba(245,158,11,0.55);">
+            <span class="vr-hub-cap-left"><span>🎯</span><span>EVENT WALKTHROUGHS</span></span>
+            <button type="button" class="vr-hub-cap-sync" onclick="refreshHubVideoReconCounts(true)" title="Re-scan Walkthrough WC Video Counts">🎬 WC VIDS ↻</button>
+          </div>
+          <div class="vr-hub-cards-stack">
+            <div class="vr-hub-card" style="--vr-accent:#f59e0b;">
+              <span class="vr-hub-tag">PLAYER STRATEGY HELP</span>
+              <div class="vr-hub-title">Player Helpful Videos</div>
+              <div class="vr-hub-desc">Step-by-step for new or returning players: target prioritization, lower-repairs, and non-event farming.</div>
+              <div class="vr-hub-btn-stack">${helpfulHtml}</div>
+              <div class="vr-hub-foot">
+                <span>Pinned Strategy Guides</span>
+                <span class="vr-hub-foot-total">3 Total</span>
+              </div>
+            </div>
+            <div class="vr-hub-card" style="--vr-accent:#f59e0b;">
+              <span class="vr-hub-tag">HOW-TO</span>
+              <div class="vr-hub-title">Player Resource Tactics</div>
+              <div class="vr-hub-desc">Master combat against Events: Monthly Operation, Holdout, Shadow Ops, Sector Breach, and Skirmish searches.</div>
+              <div class="vr-hub-btn-stack">${howtoHtml}</div>
+              <div class="vr-hub-foot">
+                <span id="hubVrHowtoStatus">WC Topic Totals Verified</span>
+                <span class="vr-hub-foot-total" id="hubVrHowtoTotal">399 Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COL 3: PLAYER TOOLS -->
+        <div class="vr-hub-col">
+          <div class="bento-cat-col-cap" style="--cat-col-accent:#10b981; --cat-col-bg:rgba(16,185,129,0.16); --cat-col-border:rgba(16,185,129,0.55);">
+            <span class="vr-hub-cap-left"><span>🛠️</span><span>PLAYER TOOLS</span></span>
+          </div>
+          <div class="vr-hub-cards-stack">
+            <div class="vr-hub-card" style="--vr-accent:#10b981;">
+              <span class="vr-hub-tag">CAPTURE UTILITY</span>
+              <div class="vr-hub-title">ScreenPal Video Recorder</div>
+              <div class="vr-hub-desc">Record battle runs or capture suspected exploits directly on desktop using ScreenPal for clean verification clips.</div>
+              <div class="vr-hub-btn-stack">
+                <a href="https://screenpal.com/" class="vr-hub-link-btn" style="--vr-accent:#10b981;" target="_blank" rel="noopener">
+                  <span class="vr-hub-btn-lbl">Open ScreenPal</span><span>↗</span>
+                </a>
+              </div>
+            </div>
+            <div class="vr-hub-card" style="--vr-accent:#10b981;">
+              <span class="vr-hub-tag">EXTERNAL UPLOADER</span>
+              <div class="vr-hub-title">imglink.cc Video &amp; Image Hub</div>
+              <div class="vr-hub-desc">Host incident captures, base layout blueprints, and attack replays with universal UK/global visibility. Send URLs via <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaBYTms8uwej9aOV3iH3_ndUfivX6qDWNedU1gm8hsYcko1g/viewform" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:700;">Get Involved ↗</a></div>
+              <div class="vr-hub-btn-stack">
+                <a href="https://imglink.cc/" class="vr-hub-link-btn" style="--vr-accent:#10b981;" target="_blank" rel="noopener">
+                  <span class="vr-hub-btn-lbl">Share via IMGLINK.CC</span><span>↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COL 4: COMBAT ANALYSIS & LOGS -->
+        <div class="vr-hub-col">
+          <div class="bento-cat-col-cap" style="--cat-col-accent:#38bdf8; --cat-col-bg:rgba(56,189,248,0.16); --cat-col-border:rgba(56,189,248,0.55);">
+            <span class="vr-hub-cap-left"><span>🛡️</span><span>COMBAT ANALYSIS &amp; LOGS</span></span>
+          </div>
+          <div class="vr-hub-cards-stack">
+            <div class="vr-hub-card" style="--vr-accent:#38bdf8;">
+              <span class="vr-hub-tag">WAR CRIMES INTEL</span>
+              <div class="vr-hub-title">Cheat &amp; Exploit Recordings</div>
+              <div class="vr-hub-desc">Video proof submissions detailing self-attack protection, bot scripting, and abnormal combat anomalies.</div>
+              <div class="vr-hub-btn-stack">
+                <button type="button" class="vr-hub-link-btn" style="--vr-accent:#38bdf8;" onclick="openHubUrlInViewport('REPORT WAR CRIMES', '#b33636', './report-war-crimes.html')">
+                  <span class="vr-hub-btn-lbl">🛡️ Open Report War Crimes Brief</span><span>🖥️</span>
+                </button>
+                <a href="https://sites.google.com/view/watchtower-data-hub/report-war-crimes/report-player/intergrity-reports" class="vr-hub-link-btn" style="--vr-accent:#38bdf8;" target="_blank" rel="noopener">
+                  <span class="vr-hub-btn-lbl">↗ Legacy Integrity Reports</span><span>↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function renderCommandDrawer() {
     const drawerWrap = document.getElementById("commandDrawerWrap");
     const gridEl = document.getElementById("bentoLinksGrid");
     if (!drawerWrap || !gridEl || !activeCommandKey || activeCommandKey === "FILTER") return;
 
-    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-vault-grid", "is-opintel-cat-grid");
+    gridEl.classList.remove("opbriefs-lineup-grid", "tab-unit-grid", "filter-mode-grid", "has-tab-gap", "has-tab-gap-md", "has-any-stack", "is-vault-bridged-grid", "is-vault-grid", "is-opintel-cat-grid", "is-video-recon-grid");
     gridEl.style.removeProperty("--slot-count");
     gridEl.style.removeProperty("--slot-count-md");
     normalizeAndReindexSectionCards(activeCommandKey);
@@ -4541,6 +4975,15 @@
 
     drawerWrap.style.setProperty("--stage-accent", parentColor);
     document.documentElement.style.setProperty("--lead-accent", parentColor);
+
+    if (activeCommandKey === "videoRecon") {
+      gridEl.classList.add("is-video-recon-grid");
+      gridEl.innerHTML = renderVideoRecon4ColDrawer();
+      renderHubVrCounts(loadHubVrCountVault());
+      updateTabToCenterConduitLine();
+      requestAnimationFrame(updateTabToCenterConduitLine);
+      return;
+    }
 
     if (activeCommandKey === "opBriefs" && typeof sortOpBriefsCardsBySoonest === "function") {
       sortOpBriefsCardsBySoonest();
@@ -4744,12 +5187,13 @@
           const cIsTarget = cUnread.length > 0;
           const cTrailCls = cIsTarget ? "is-intel-target" : "";
           const cTrailStyle = cIsTarget ? buildCardTrailStyleVars(cCatColor, "target") : "";
-          const topCapCls = idxInCat === 0 ? "has-top-cat-cap" : (bucket.use2Col && idxInCat === 1 ? "has-top-cat-cap-col2" : "");
+          const isDoubleWideLead = bucket.use2Col && idxInCat === 0;
+          const topCapCls = idxInCat === 0 ? "has-top-cat-cap" : "";
           const vaultOverlayHtml = renderVaultQuickOverlayHtml(c, activeCommandKey, c.origIdx);
           const overlayHostCls = vaultOverlayHtml ? "vault-hover-host" : "";
 
           vaultHtml += `
-            <div class="cat-col-card-entry">
+            <div class="cat-col-card-entry${isDoubleWideLead ? ' is-full-span-vault-entry' : ''}">
               <div class="bento-module-card ${topCapCls} ${overlayHostCls} ${cTrailCls}" style="--item-accent: ${cCatColor}; ${cTrailStyle}">
                 <div class="bento-card-row-wrap">
                   <button type="button" class="bento-v-btn" title="${cHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(c.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${c.origIdx})">
@@ -7607,7 +8051,11 @@
       const dotEl = document.getElementById(`dotUtil${i}`);
 
       let titleVal = titleEl ? titleEl.value : (txtEl ? txtEl.textContent : "");
-      if (i === 2 && titleVal.trim().toUpperCase() === "UNITS & ARMORY") { titleVal = "UNITS & ASSETS"; if (titleEl) titleEl.value = titleVal; }
+      if (secKey === "tacticalBriefs" && ["UNITS & ARMORY", "UNITS & ASSETS", "ASSETS & UNITS"].includes(titleVal.trim().toUpperCase())) { titleVal = "ARMORY"; if (titleEl) titleEl.value = titleVal; }
+      if (secKey === "baseOps" && titleVal.trim().toUpperCase() === "BASE & BUILDINGS") { titleVal = "BUILDINGS"; if (titleEl) titleEl.value = titleVal; }
+      if (secKey === "opIntel" && titleVal.trim().toUpperCase() === "COMBAT GUIDES") { titleVal = "COMBAT"; if (titleEl) titleEl.value = titleVal; }
+      if (secKey === "adminBug" && ["BUGS & FEEDBACK", "FEEDBACK & BUGS", "FEEDBACK, PLAYER INFO"].includes(titleVal.trim().toUpperCase())) { titleVal = "PLAYER INFO"; if (titleEl) titleEl.value = titleVal; }
+      if (secKey === "wtrArchives" && titleVal.trim().toUpperCase() === "[-WTR-] VAULT") { titleVal = "VAULT"; if (titleEl) titleEl.value = titleVal; }
       const colorVal = (colorEl && colorEl.value) ? colorEl.value : getSectionHexColor(secKey);
 
       sectionColors[secKey] = colorVal;
@@ -7724,6 +8172,7 @@
     for (let i = 1; i <= MENU_SECTION_KEYS.length; i++) {
       const secKey = MENU_SECTION_KEYS[i - 1];
       state.buttons.push({
+        secKey: secKey,
         title: document.getElementById(`cfgUtil${i}Title`)?.value ?? document.getElementById(`txtUtil${i}`)?.textContent ?? "",
         color: getSectionHexColor(secKey)
       });
@@ -7740,13 +8189,13 @@
 
   function forceApplyHybridLabelsNow() {
     const hybridTabs = [
-      { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
-      { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
-      { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
-      { idx: 4, key: "videoRecon",     title: "VIDEO RECON",      color: "#0ea5e9" },
-      { idx: 5, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
-      { idx: 6, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
-      { idx: 7, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
+      { idx: 1, key: "tacticalBriefs", title: "ARMORY",                color: "#c29829" },
+      { idx: 2, key: "baseOps",        title: "BUILDINGS",             color: "#2b8cbe" },
+      { idx: 3, key: "opIntel",        title: "COMBAT",                color: "#3d9e65" },
+      { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",          color: "#c45a22" },
+      { idx: 5, key: "adminBug",       title: "PLAYER INFO",           color: "#b33636" },
+      { idx: 6, key: "videoRecon",     title: "VIDEO RECON",           color: "#0ea5e9" },
+      { idx: 7, key: "wtrArchives",    title: "VAULT",                 color: "#785dc8" }
     ];
 
     hybridTabs.forEach(t => {
@@ -8110,15 +8559,19 @@
       });
     }
 
-    if (Array.isArray(state.buttons)) {
-      const migratedBtns = state.buttons.length === 6
-        ? [state.buttons[0], state.buttons[1], state.buttons[2], { title: "VIDEO RECON", color: "#0ea5e9" }, state.buttons[3], state.buttons[4], state.buttons[5]]
-        : state.buttons;
-      migratedBtns.forEach((b, idx) => {
-        const i = idx + 1, secKey = MENU_SECTION_KEYS[idx];
-        if (!secKey) return;
-        if (b.title !== undefined && document.getElementById(`cfgUtil${i}Title`)) document.getElementById(`cfgUtil${i}Title`).value = b.title;
-        if (b.title !== undefined && document.getElementById(`txtUtil${i}`)) document.getElementById(`txtUtil${i}`).textContent = b.title;
+    if (Array.isArray(state.buttons) && state.buttons.every(b => b && b.secKey)) {
+      state.buttons.forEach((b) => {
+        const idx = MENU_SECTION_KEYS.indexOf(b.secKey);
+        if (idx === -1) return;
+        const i = idx + 1, secKey = b.secKey;
+        let normTitle = b.title;
+        if (secKey === "tacticalBriefs" && ["UNITS & ASSETS", "ASSETS & UNITS"].includes(String(normTitle || "").trim().toUpperCase())) normTitle = "ARMORY";
+        if (secKey === "baseOps" && String(normTitle || "").trim().toUpperCase() === "BASE & BUILDINGS") normTitle = "BUILDINGS";
+        if (secKey === "opIntel" && String(normTitle || "").trim().toUpperCase() === "COMBAT GUIDES") normTitle = "COMBAT";
+        if (secKey === "adminBug" && ["BUGS & FEEDBACK", "FEEDBACK & BUGS", "FEEDBACK, PLAYER INFO"].includes(String(normTitle || "").trim().toUpperCase())) normTitle = "PLAYER INFO";
+        if (secKey === "wtrArchives" && String(normTitle || "").trim().toUpperCase() === "[-WTR-] VAULT") normTitle = "VAULT";
+        if (normTitle !== undefined && document.getElementById(`cfgUtil${i}Title`)) document.getElementById(`cfgUtil${i}Title`).value = normTitle;
+        if (normTitle !== undefined && document.getElementById(`txtUtil${i}`)) document.getElementById(`txtUtil${i}`).textContent = normTitle;
         if (b.color !== undefined) {
           sectionColors[secKey] = b.color;
           if (document.getElementById(`cfgUtil${i}Color`)) document.getElementById(`cfgUtil${i}Color`).value = b.color;

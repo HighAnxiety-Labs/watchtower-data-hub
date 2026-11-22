@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T16:50:54-08:00",
-    "generatedMs":  1795308650591,
+    "generatedAt":  "2026-11-21T18:04:16-08:00",
+    "generatedMs":  1795313052641,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-22T00:02:53Z",
-                              "modifiedMs":  1795305773565
+                              "modifiedAt":  "2026-11-22T01:49:38Z",
+                              "modifiedMs":  1795312178616
                           },
                           {
                               "file":  "keyboard-commands.html",
