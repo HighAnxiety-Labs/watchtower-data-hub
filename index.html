@@ -5167,7 +5167,14 @@
           ? (isBasicsBucket && groups.length >= 2)
           : (groups.length >= 2);
         return { symKey, spec, groups, use2Col };
-      }).sort((a, b) => (a.spec.name || a.symKey).toUpperCase().localeCompare((b.spec.name || b.symKey).toUpperCase()));
+      }).sort((a, b) => {
+        if (activeCommandKey === "tacticalBriefs") {
+          const aIsDb = a.symKey === "DATABASE" ? 0 : 1;
+          const bIsDb = b.symKey === "DATABASE" ? 0 : 1;
+          if (aIsDb !== bIsDb) return aIsDb - bIsDb;
+        }
+        return (a.spec.name || a.symKey).toUpperCase().localeCompare((b.spec.name || b.symKey).toUpperCase());
+      });
 
       const colCount = catBuckets.length;
       const totalCatSlots = catBuckets.reduce((sum, b) => sum + (b.use2Col ? 2 : 1), 0);

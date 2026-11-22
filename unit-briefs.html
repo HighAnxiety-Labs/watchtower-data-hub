@@ -1738,7 +1738,7 @@
         key: `${prefix}_${num}`,
         label: `${prefix} ${num} GENERATION`,
         pillLabel: `${prefix} ${num}`,
-        sortRank: Math.max(1, 50 - num),
+        sortRank: prefix === 'SERIES' ? Math.max(51, 60 - num) : Math.max(1, 50 - num),
         accent: accents[num] || '#00e676'
       };
     }
