@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-21T09:22:23Z",
+    "updatedAt":  "2026-11-22T00:50:50Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -993,6 +993,22 @@
                                               "subLabel":  "Mercenary",
                                               "firstSeenMs":  1795201758383,
                                               "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                          }
+                                          },
+                    "UNIT::RAMIREZ":  {
+                                          "key":  "RAMIREZ",
+                                          "name":  "RAMIREZ",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "Series 4 • WARLORD",
+                                          "firstSeenMs":  1795308650591,
+                                          "firstSeenAt":  "2026-11-22T00:50:50Z"
+                                      },
+                    "UNIT::ONI MK III":  {
+                                             "key":  "ONI MK III",
+                                             "name":  "ONI MK III",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc 1 • LEGENDARY",
+                                             "firstSeenMs":  1795308650591,
+                                             "firstSeenAt":  "2026-11-22T00:50:50Z"
+                                         }
                 }
 }

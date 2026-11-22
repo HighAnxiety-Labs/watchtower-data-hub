@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T01:22:27-08:00",
-    "generatedMs":  1795252943262,
+    "generatedAt":  "2026-11-21T16:50:54-08:00",
+    "generatedMs":  1795308650591,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -164,8 +164,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-21T08:51:24Z",
-                              "modifiedMs":  1795251084443
+                              "modifiedAt":  "2026-11-22T00:02:53Z",
+                              "modifiedMs":  1795305773565
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -297,6 +297,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "ATLAS",
                                           "BANSHEE",
                                           "BARON ANANSI",
+                                          "BEARGUARD",
                                           "BECCA FERGUSON",
                                           "BLOODFANG",
                                           "BROADSIDE",
@@ -321,9 +322,11 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "FORAGER",
                                           "FORTRESS NODE",
                                           "FROSTPIERCER",
+                                          "GENERATOR BASTION",
                                           "GRAND CITADEL",
                                           "GRAND OBSERVER",
                                           "GRAND WITNESS",
+                                          "GUNSLINGER",
                                           "HIVE COMMAND",
                                           "HIVE GUARD",
                                           "HIVE WATCHER",
@@ -353,6 +356,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "ONYX BARON",
                                           "PELE",
                                           "PHILLIP BROWN",
+                                          "QUARTERMASTER",
                                           "RECRUITER",
                                           "RHINO",
                                           "ROCKETEER",
@@ -360,11 +364,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "RUTH BOGARD",
                                           "SIMO",
                                           "SLY HIGGINS",
+                                          "SNOW MAN",
                                           "SOLDIER DRONE",
                                           "SOLOMON HAMAD",
                                           "STORMWAIL",
                                           "SVEN OMAROV",
                                           "TACHYON",
+                                          "TACTICAL BACKUP BASTION",
                                           "TERRY MICHAELS",
                                           "VALIANT MKII",
                                           "VEGA",
@@ -374,21 +380,39 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "WANDERER KABUTO",
                                           "WATCHTOWER COMMAND CENTER (HOME)",
                                           "WITNESS",
+                                          "YULEBREAKER",
                                           "ZAKIA KAZMI"
                                       ],
                             "buildings":  [
                                               "ACADEMY",
                                               "AIRCRAFT HANGER",
                                               "AIRFIELD",
+                                              "ARMORY",
                                               "BARRACKS",
                                               "COMMAND CENTER 22",
                                               "CONSTRUCTION YARD",
+                                              "DEEP REACTOR",
+                                              "DEFENSE LAB",
+                                              "DRAGON\u0027S TEETH",
+                                              "DRONE SILO",
+                                              "FUSION TOWER",
+                                              "HELIPAD DELTA \u0026 TANGO",
+                                              "LOW WIRE ENTANGLEMENT",
                                               "MERCENARY CAMP",
+                                              "METAL FACTORY",
+                                              "METAL STORAGE",
                                               "MINE FACTORY",
+                                              "OIL PUMP",
+                                              "OIL STORAGE",
+                                              "POWER PLANT",
                                               "RADIO TOWER",
+                                              "ROCKET SILO",
                                               "SKYGUARD",
                                               "TACTICAL OPS CENTER",
                                               "TECH CENTER",
+                                              "THORIUM MINE",
+                                              "THORIUM VAULT",
+                                              "VOLT ANCHOR",
                                               "WAR FACTORY",
                                               "WEAPONS LAB",
                                               "WORKSHOP"
@@ -396,196 +420,20 @@ window.WTR_DIRECTORY_MANIFEST = {
                         },
     "recentGalleryAdditions":  [
                                    {
-                                       "key":  "ARMORY",
-                                       "name":  "ARMORY",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "MILITARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "DEFENSE LAB",
-                                       "name":  "DEFENSE LAB",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "DRAGON\u0027S TEETH",
-                                       "name":  "DRAGON\u0027S TEETH",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "DRONE SILO",
-                                       "name":  "DRONE SILO",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "HELIPAD DELTA \u0026 TANGO",
-                                       "name":  "HELIPAD DELTA \u0026 TANGO",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "MILITARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "LOW WIRE ENTANGLEMENT",
-                                       "name":  "LOW WIRE ENTANGLEMENT",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "METAL FACTORY",
-                                       "name":  "METAL FACTORY",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "METAL STORAGE",
-                                       "name":  "METAL STORAGE",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "OIL PUMP",
-                                       "name":  "OIL PUMP",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "OIL STORAGE",
-                                       "name":  "OIL STORAGE",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "POWER PLANT",
-                                       "name":  "POWER PLANT",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "FUSION TOWER",
-                                       "name":  "FUSION TOWER",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "DEEP REACTOR",
-                                       "name":  "DEEP REACTOR",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "VOLT ANCHOR",
-                                       "name":  "VOLT ANCHOR",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "THORIUM MINE",
-                                       "name":  "THORIUM MINE",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "THORIUM VAULT",
-                                       "name":  "THORIUM VAULT",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "RESOURCE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "GENERATOR BASTION",
-                                       "name":  "GENERATOR BASTION",
+                                       "key":  "RAMIREZ",
+                                       "name":  "RAMIREZ",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                       "subLabel":  "Series 4 • WARLORD",
+                                       "firstSeenMs":  1795308650591,
+                                       "firstSeenAt":  "2026-11-22T00:50:50Z"
                                    },
                                    {
-                                       "key":  "TACTICAL BACKUP BASTION",
-                                       "name":  "TACTICAL BACKUP BASTION",
+                                       "key":  "ONI MK III",
+                                       "name":  "ONI MK III",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "ROCKET SILO",
-                                       "name":  "ROCKET SILO",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "QUARTERMASTER",
-                                       "name":  "QUARTERMASTER",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "MERCENARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "GUNSLINGER",
-                                       "name":  "GUNSLINGER",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "MERCENARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "BEARGUARD",
-                                       "name":  "BEARGUARD",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "MERCENARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "SNOW MAN",
-                                       "name":  "SNOW MAN",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "MERCENARY",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
-                                   },
-                                   {
-                                       "key":  "YULEBREAKER",
-                                       "name":  "YULEBREAKER",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Mercenary",
-                                       "firstSeenMs":  1795201758383,
-                                       "firstSeenAt":  "2026-11-20T19:09:18Z"
+                                       "subLabel":  "Arc 1 • LEGENDARY",
+                                       "firstSeenMs":  1795308650591,
+                                       "firstSeenAt":  "2026-11-22T00:50:50Z"
                                    }
                                ],
     "creatorVideos":  [

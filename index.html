@@ -357,8 +357,8 @@
   .category-filter-select:hover, .category-filter-select:focus { background: #0d1520; border-color: #ffffff; color: #ffffff; }
   .category-filter-select option { background: #090e14; color: #f0f6fc; font-weight: 800; }
 
-  .brief-buttons-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 100%; box-sizing: border-box; position: relative; z-index: 3; }
-  @media (max-width: 1150px) { .brief-buttons-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+  .brief-buttons-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 100%; box-sizing: border-box; position: relative; z-index: 3; }
+  @media (max-width: 1150px) { .brief-buttons-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; } }
   @media (max-width: 680px) { .brief-buttons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
   .brief-btn { width: 100%; min-width: 0; max-width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 6px; text-transform: uppercase; padding: 10px 9px; border-radius: 4px; border: 1px solid var(--border-metal); border-top: 2px solid var(--btn-accent, #2b8cbe); background: linear-gradient(180deg, #17222e 0%, #0c1219 100%); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6); cursor: pointer; text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease; position: relative; text-shadow: none !important; overflow: hidden; }
@@ -1292,30 +1292,38 @@
       <button type="button" class="brief-btn" id="btnUtil3" data-sec="opIntel" data-color="#3d9e65" onclick="selectCommandTab('opIntel', this)" style="border-color: #3d9e65; color: #3d9e65; background-color: rgba(61, 158, 101, 0.16); --btn-accent: #3d9e65; --glow-color: #3d9e65;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil3" style="background-color: #3d9e65;"></span><span id="txtUtil3">COMBAT GUIDES</span></span>
-          <span class="brief-btn-mod-count" id="modCount-opIntel">7 MODULES</span>
+          <span class="brief-btn-mod-count" id="modCount-opIntel">6 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil4" data-sec="opBriefs" data-color="#c45a22" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
+      <button type="button" class="brief-btn" id="btnUtil4" data-sec="videoRecon" data-color="#0ea5e9" onclick="selectCommandTab('videoRecon', this)" style="border-color: #0ea5e9; color: #0ea5e9; background-color: rgba(14, 165, 233, 0.16); --btn-accent: #0ea5e9; --glow-color: #0ea5e9;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #c45a22;"></span><span id="txtUtil4">EVENT BRIEFS</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil4" style="background-color: #0ea5e9;"></span><span id="txtUtil4">VIDEO RECON</span></span>
+          <span class="brief-btn-mod-count" id="modCount-videoRecon">1 MODULE</span>
+        </span>
+        <span class="brief-btn-chevron">▼</span>
+      </button>
+
+      <button type="button" class="brief-btn" id="btnUtil5" data-sec="opBriefs" data-color="#c45a22" onclick="selectCommandTab('opBriefs', this)" style="border-color: #c45a22; color: #c45a22; background-color: rgba(196, 90, 34, 0.16); --btn-accent: #c45a22; --glow-color: #c45a22;">
+        <span class="brief-btn-center-stack">
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil5" style="background-color: #c45a22;"></span><span id="txtUtil5">EVENT BRIEFS</span></span>
           <span class="brief-btn-mod-count" id="modCount-opBriefs">8 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil5" data-sec="wtrArchives" data-color="#785dc8" onclick="selectCommandTab('wtrArchives', this)" style="border-color: #785dc8; color: #785dc8; background-color: rgba(120, 93, 200, 0.16); --btn-accent: #785dc8; --glow-color: #785dc8;">
+      <button type="button" class="brief-btn" id="btnUtil6" data-sec="wtrArchives" data-color="#785dc8" onclick="selectCommandTab('wtrArchives', this)" style="border-color: #785dc8; color: #785dc8; background-color: rgba(120, 93, 200, 0.16); --btn-accent: #785dc8; --glow-color: #785dc8;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil5" style="background-color: #785dc8;"></span><span id="txtUtil5">[-WTR-] VAULT</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil6" style="background-color: #785dc8;"></span><span id="txtUtil6">[-WTR-] VAULT</span></span>
           <span class="brief-btn-mod-count" id="modCount-wtrArchives">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
       </button>
 
-      <button type="button" class="brief-btn" id="btnUtil6" data-sec="adminBug" data-color="#b33636" onclick="selectCommandTab('adminBug', this)" style="border-color: #b33636; color: #b33636; background-color: rgba(179, 54, 54, 0.16); --btn-accent: #b33636; --glow-color: #b33636;">
+      <button type="button" class="brief-btn" id="btnUtil7" data-sec="adminBug" data-color="#b33636" onclick="selectCommandTab('adminBug', this)" style="border-color: #b33636; color: #b33636; background-color: rgba(179, 54, 54, 0.16); --btn-accent: #b33636; --glow-color: #b33636;">
         <span class="brief-btn-center-stack">
-          <span class="brief-btn-title-row"><span class="dot" id="dotUtil6" style="background-color: #b33636;"></span><span id="txtUtil6">BUGS &amp; FEEDBACK</span></span>
+          <span class="brief-btn-title-row"><span class="dot" id="dotUtil7" style="background-color: #b33636;"></span><span id="txtUtil7">BUGS &amp; FEEDBACK</span></span>
           <span class="brief-btn-mod-count" id="modCount-adminBug">3 MODULES</span>
         </span>
         <span class="brief-btn-chevron">▼</span>
@@ -1574,21 +1582,23 @@
   let activeCommandKey = null;
 
   const STORAGE_KEY = "wtr_master_command_grid_v20_5_hybrid";
-  const MENU_SECTION_KEYS = ["baseOps", "tacticalBriefs", "opIntel", "opBriefs", "wtrArchives", "adminBug"];
+  const MENU_SECTION_KEYS = ["baseOps", "tacticalBriefs", "opIntel", "videoRecon", "opBriefs", "wtrArchives", "adminBug"];
 
   const SECTION_DISPLAY_NAMES = {
     baseOps: "1. BASE & BUILDINGS",
     tacticalBriefs: "2. UNITS & ASSETS",
     opIntel: "3. COMBAT GUIDES",
-    opBriefs: "4. EVENT BRIEFS",
-    wtrArchives: "5. [-WTR-] VAULT",
-    adminBug: "6. BUGS & FEEDBACK"
+    videoRecon: "4. VIDEO RECON",
+    opBriefs: "5. EVENT BRIEFS",
+    wtrArchives: "6. [-WTR-] VAULT",
+    adminBug: "7. BUGS & FEEDBACK"
   };
 
   let sectionColors = {
     "baseOps": "#2b8cbe",
     "tacticalBriefs": "#c29829",
     "opIntel": "#3d9e65",
+    "videoRecon": "#0ea5e9",
     "opBriefs": "#c45a22",
     "wtrArchives": "#785dc8",
     "adminBug": "#b33636"
@@ -2019,8 +2029,13 @@
         { enabled: true, isSubPage: false, order: 3, symbol: "NEW",        title: "BASE DEFENSE & LAYOUTS", url: "./base-defense-planning.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 4, symbol: "NEW",        title: "FACTION INTEL", url: "./faction-intel.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 5, symbol: "CALCULATOR", title: "DAMAGE TYPE MATRIX", url: "./damage-type.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 6, symbol: "CALCULATOR", title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 7, symbol: "VIDEO",      title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
+        { enabled: true, isSubPage: false, order: 6, symbol: "CALCULATOR", title: "SECTOR STATUS SHEET", url: "./sector-status-sheet.html", embedCode: "", openInIframe: true }
+      ]
+    },
+    videoRecon: {
+      accent: "#0ea5e9", colorHex: "#0ea5e9",
+      cards: [
+        { enabled: true, isSubPage: false, order: 1, symbol: "VIDEO", title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
       ]
     },
     opBriefs: {
@@ -2079,9 +2094,10 @@
       { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
       { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
       { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
-      { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
-      { idx: 5, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
-      { idx: 6, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
+      { idx: 4, key: "videoRecon",     title: "VIDEO RECON",      color: "#0ea5e9" },
+      { idx: 5, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
+      { idx: 6, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
+      { idx: 7, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
     ];
 
     hybridTabs.forEach(t => {
@@ -2307,11 +2323,20 @@
       }
       wCards.forEach((c, idx) => { c.order = idx + 1; });
     }
+    if (!targetWorkspaces.videoRecon || !Array.isArray(targetWorkspaces.videoRecon.cards)) {
+      targetWorkspaces.videoRecon = {
+        accent: "#0ea5e9",
+        colorHex: "#0ea5e9",
+        cards: [
+          { enabled: true, isSubPage: false, order: 1, symbol: "VIDEO", title: "VIDEO RECON DESK", url: "./video-recon.html", embedCode: "", openInIframe: true }
+        ]
+      };
+    }
     if (targetWorkspaces.opIntel && Array.isArray(targetWorkspaces.opIntel.cards)) {
       targetWorkspaces.opIntel.cards = targetWorkspaces.opIntel.cards.filter(c => {
         const t = String(c?.title || "").toUpperCase().trim();
         const u = String(c?.url || "").toLowerCase();
-        return !t.includes("EVENT CALENDAR") && !u.includes("2026-calendar") && t !== "BASE DEFENSE PLANNING";
+        return !t.includes("EVENT CALENDAR") && !u.includes("2026-calendar") && t !== "BASE DEFENSE PLANNING" && !t.includes("VIDEO RECON") && !u.includes("video-recon");
       });
       if (movedBaseDefenseCard && !targetWorkspaces.opIntel.cards.some(c => String(c?.title || "").toUpperCase().includes("BASE DEFENSE & LAYOUTS"))) {
         targetWorkspaces.opIntel.cards.push(movedBaseDefenseCard);
@@ -2337,7 +2362,7 @@
       { secKey: "opIntel",        match: "FACTION",                 urlHint: "faction-intel",         file: "./faction-intel.html",            defaultTitle: "FACTION INTEL",             defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "DAMAGE TYPE",             urlHint: "damage-type",           file: "./damage-type.html",              defaultTitle: "DAMAGE TYPE MATRIX",        defaultSym: "CALCULATOR", ensurePresent: true },
       { secKey: "opIntel",        match: "SECTOR STATUS",           urlHint: "sector-status-sheet",   file: "./sector-status-sheet.html",      defaultTitle: "SECTOR STATUS SHEET",       defaultSym: "CALCULATOR", ensurePresent: true },
-      { secKey: "opIntel",        match: "VIDEO",                   urlHint: "video-recon",           file: "./video-recon.html",              defaultTitle: "VIDEO RECON DESK",          defaultSym: "VIDEO",     ensurePresent: true },
+      { secKey: "videoRecon",     match: "VIDEO",                   urlHint: "video-recon",           file: "./video-recon.html",              defaultTitle: "VIDEO RECON DESK",          defaultSym: "VIDEO",     ensurePresent: true },
       { secKey: "opBriefs",       match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opBriefs",       match: "SKIRMISH",       urlHint: "skirmish",              file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
       { secKey: "opBriefs",       match: "OPERATION:",     urlHint: "operation",             file: "./2026-dec-operation-brief.html", defaultTitle: "DEC 2026 • OPERATION: TBD", defaultSym: "LIVE", renameLegacyTitles: ["NOV 2026 • OPERATION: BLUE BARON BRIEF", "OPERATION: BLUE BARON"] },
@@ -3509,6 +3534,18 @@
     requestAnimationFrame(() => {
       updateTabToCenterConduitLine();
     });
+
+    if (sectionKey === "videoRecon") {
+      const vrCards = (workspaceCardsState.videoRecon && Array.isArray(workspaceCardsState.videoRecon.cards))
+        ? workspaceCardsState.videoRecon.cards.filter(c => c && c.enabled !== false)
+        : [];
+      if (vrCards.length === 1) {
+        const onlyIdx = workspaceCardsState.videoRecon.cards.indexOf(vrCards[0]);
+        if (onlyIdx !== -1) {
+          triggerModuleAction("videoRecon", onlyIdx);
+        }
+      }
+    }
   }
 
   function closeCommandDrawer() {
@@ -4645,6 +4682,99 @@
       });
 
       gridEl.innerHTML = catHtml;
+      updateTabToCenterConduitLine();
+      requestAnimationFrame(updateTabToCenterConduitLine);
+      return;
+    }
+
+    /* Tab 6 ([-WTR-] VAULT / wtrArchives): COMBAT GUIDES Category-Cap Column Layout */
+    if (activeCommandKey === "wtrArchives") {
+      const vaultBuckets = sortedGroups.map(grp => {
+        const p = grp.parent;
+        const spec = getCategorySpec(p.symKey);
+        const capHex = spec.color || parentColor;
+        const flatEntries = [p, ...(grp.children || [])];
+        const use2Col = flatEntries.length >= 4;
+        return {
+          title: p.title || spec.name || "ARCHIVE",
+          icon: spec.icon || "🏛️",
+          capHex,
+          flatEntries,
+          use2Col
+        };
+      });
+
+      const colCount = vaultBuckets.length;
+      const totalCatSlots = vaultBuckets.reduce((sum, b) => sum + (b.use2Col ? 2 : 1), 0);
+      const slotCnt = Math.max(1, Math.min(6, totalCatSlots));
+
+      gridEl.classList.add("tab-unit-grid", "is-opintel-cat-grid", "has-any-stack");
+      if (colCount >= 2 && (totalCatSlots + (colCount - 1)) <= 6) gridEl.classList.add("has-tab-gap");
+      if (colCount >= 2 && (totalCatSlots + (colCount - 1)) <= 3) gridEl.classList.add("has-tab-gap-md");
+      gridEl.style.setProperty("--slot-count", String(slotCnt));
+      gridEl.style.setProperty("--slot-count-md", String(Math.min(3, slotCnt)));
+
+      let globalSeq = 0;
+      let vaultHtml = "";
+      vaultBuckets.forEach(bucket => {
+        const catHex = bucket.capHex;
+        const catBg = hexToRgba(catHex, 0.16);
+        const catBorder = hexToRgba(catHex, 0.55);
+        const capIconHtml = bucket.icon ? `<span class="cat-cap-ico">${bucket.icon}</span>` : "";
+        const capNameTxt = escapeHtml(bucket.title);
+        const bucketSigLists = bucket.flatEntries.map(c => getCardUnreadSignals(c, activeCommandKey)).filter(s => s.length > 0);
+        const bucketBd = summarizeUnreadSignalLists(bucketSigLists);
+        const capHasIntel = bucketBd.total > 0;
+        const capMidStyle = capHasIntel ? buildCardTrailStyleVars(catHex, "mid") : "";
+
+        vaultHtml += `
+          <div class="bento-group-stack cat-col-stack${bucket.use2Col ? ' is-2col-cat' : ''}" data-has-intel="${capHasIntel ? '1' : '0'}" data-intel-mode="${bucketBd.mode || 'new'}" style="--grp-span: ${bucket.use2Col ? 2 : 1};">
+            <div class="bento-cat-col-cap${capHasIntel ? ' has-intel-below' : ''}${bucketBd.mode === 'updated' ? ' is-updated-cap' : ''}" style="--cat-col-accent: ${catHex}; --cat-col-bg: ${catBg}; --cat-col-border: ${catBorder}; ${capMidStyle}">
+              ${capIconHtml}<span>${capNameTxt}</span>${renderCapIntelPipsHtml(bucketBd)}
+            </div>
+            <div class="cat-col-cards-list${bucket.use2Col ? ' is-2col-cat-list' : ''}">
+        `;
+
+        bucket.flatEntries.forEach((c, idxInCat) => {
+          globalSeq++;
+          const cCatColor = getCategorySpec(c.symKey).color || catHex;
+          const numBadge = String(globalSeq).padStart(2, "0");
+          const cHasInline = Boolean((c.embedCode || "").trim() || c.openInIframe);
+          const cUnread = getCardUnreadSignals(c, activeCommandKey);
+          const cIsTarget = cUnread.length > 0;
+          const cTrailCls = cIsTarget ? "is-intel-target" : "";
+          const cTrailStyle = cIsTarget ? buildCardTrailStyleVars(cCatColor, "target") : "";
+          const topCapCls = idxInCat === 0 ? "has-top-cat-cap" : (bucket.use2Col && idxInCat === 1 ? "has-top-cat-cap-col2" : "");
+          const vaultOverlayHtml = renderVaultQuickOverlayHtml(c, activeCommandKey, c.origIdx);
+          const overlayHostCls = vaultOverlayHtml ? "vault-hover-host" : "";
+
+          vaultHtml += `
+            <div class="cat-col-card-entry">
+              <div class="bento-module-card ${topCapCls} ${overlayHostCls} ${cTrailCls}" style="--item-accent: ${cCatColor}; ${cTrailStyle}">
+                <div class="bento-card-row-wrap">
+                  <button type="button" class="bento-v-btn" title="${cHasInline ? 'Open In-Page Viewport' : 'Open Link'}: ${escapeHtml(c.title)}" onclick="triggerModuleAction('${activeCommandKey}', ${c.origIdx})">
+                    <div class="bento-v-top">
+                      <span class="bento-v-rank">${numBadge}</span>
+                      <span class="bento-v-mode"><span class="v-mode-ico">${cHasInline ? '🖥️' : '↗'}</span><span>${cHasInline ? 'VIEWPORT' : 'EXTERNAL'}</span></span>
+                    </div>
+                    <div class="bento-v-body">
+                      <div class="bento-v-title" style="color: ${cCatColor};">${escapeHtml(c.title)}</div>
+                      ${cIsTarget ? renderTargetIntelPillHtml(cUnread[0]) : ""}
+                      ${c.scheduleHint ? `<div class="bento-v-sub">${escapeHtml(c.scheduleHint)}</div>` : ''}
+                    </div>
+                    <div class="bento-v-foot">${renderSymBadgeHtml(c.symKey)}</div>
+                  </button>
+                </div>
+                ${vaultOverlayHtml}
+              </div>
+            </div>
+          `;
+        });
+
+        vaultHtml += `</div></div>`;
+      });
+
+      gridEl.innerHTML = vaultHtml;
       updateTabToCenterConduitLine();
       requestAnimationFrame(updateTabToCenterConduitLine);
       return;
@@ -6428,7 +6558,7 @@
       }
     }
 
-    const searchOrder = ["opBriefs", "wtrArchives", "opIntel", "tacticalBriefs", "baseOps", "adminBug"];
+    const searchOrder = ["opBriefs", "videoRecon", "wtrArchives", "opIntel", "tacticalBriefs", "baseOps", "adminBug"];
     const normUrl = clean.replace(/\/+$/, "").toLowerCase();
     const isGenericRoot = normUrl.endsWith("/operational-briefs") || normUrl.endsWith("/home") || normUrl.endsWith("/data-hub");
 
@@ -7467,7 +7597,7 @@
   }
 
   function updateUtilityBlocks() {
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= MENU_SECTION_KEYS.length; i++) {
       const secKey = MENU_SECTION_KEYS[i - 1];
       const titleEl = document.getElementById(`cfgUtil${i}Title`);
       const colorEl = document.getElementById(`cfgUtil${i}Color`);
@@ -7591,7 +7721,7 @@
         hasPrizeList: document.getElementById(`cfgClock${i}HasPrizes`) ? document.getElementById(`cfgClock${i}HasPrizes`).checked : Boolean(eventSchedules[k]?.hasPrizeList)
       });
     }
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= MENU_SECTION_KEYS.length; i++) {
       const secKey = MENU_SECTION_KEYS[i - 1];
       state.buttons.push({
         title: document.getElementById(`cfgUtil${i}Title`)?.value ?? document.getElementById(`txtUtil${i}`)?.textContent ?? "",
@@ -7613,9 +7743,10 @@
       { idx: 1, key: "baseOps",        title: "BASE & BUILDINGS", color: "#2b8cbe" },
       { idx: 2, key: "tacticalBriefs", title: "UNITS & ASSETS",   color: "#c29829" },
       { idx: 3, key: "opIntel",        title: "COMBAT GUIDES",    color: "#3d9e65" },
-      { idx: 4, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
-      { idx: 5, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
-      { idx: 6, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
+      { idx: 4, key: "videoRecon",     title: "VIDEO RECON",      color: "#0ea5e9" },
+      { idx: 5, key: "opBriefs",       title: "EVENT BRIEFS",     color: "#c45a22" },
+      { idx: 6, key: "wtrArchives",    title: "[-WTR-] VAULT",    color: "#785dc8" },
+      { idx: 7, key: "adminBug",       title: "BUGS & FEEDBACK",  color: "#b33636" }
     ];
 
     hybridTabs.forEach(t => {
@@ -7980,8 +8111,12 @@
     }
 
     if (Array.isArray(state.buttons)) {
-      state.buttons.forEach((b, idx) => {
+      const migratedBtns = state.buttons.length === 6
+        ? [state.buttons[0], state.buttons[1], state.buttons[2], { title: "VIDEO RECON", color: "#0ea5e9" }, state.buttons[3], state.buttons[4], state.buttons[5]]
+        : state.buttons;
+      migratedBtns.forEach((b, idx) => {
         const i = idx + 1, secKey = MENU_SECTION_KEYS[idx];
+        if (!secKey) return;
         if (b.title !== undefined && document.getElementById(`cfgUtil${i}Title`)) document.getElementById(`cfgUtil${i}Title`).value = b.title;
         if (b.title !== undefined && document.getElementById(`txtUtil${i}`)) document.getElementById(`txtUtil${i}`).textContent = b.title;
         if (b.color !== undefined) {
