@@ -2070,7 +2070,7 @@
       accent: "var(--dir-btn2)", colorHex: "#c29829",
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "UNIT BRIEFS | GALLERY", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: true,  order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "AGENCY CONTRACTORS", url: "./agency-contractors.html", embedCode: "", openInIframe: true }
       ]
     },
@@ -2310,7 +2310,7 @@
       if (umIdx === -1) {
         const umCard = {
           enabled: true,
-          isSubPage: true,
+          isSubPage: false,
           order: 2,
           symbol: "CALCULATOR",
           title: "UNIT MATCHUP SIMULATOR",
@@ -2324,7 +2324,7 @@
           tCards.unshift(umCard);
         }
       } else {
-        tCards[umIdx].isSubPage = true;
+        tCards[umIdx].isSubPage = false;
         tCards[umIdx].enabled = true;
         if (ubIdx !== -1 && umIdx !== ubIdx + 1) {
           const [umCard] = tCards.splice(umIdx, 1);
@@ -5007,8 +5007,8 @@
       return;
     }
 
-    /* Tab 3 (COMBAT GUIDES / opIntel): Organize Columns by Category (A–Z) */
-    if (activeCommandKey === "opIntel") {
+    /* Standard Tabs (ARMORY, BUILDINGS, COMBAT, PLAYER INFO): Organize Columns by Category (A–Z) under Connecting Category Caps */
+    if (["tacticalBriefs", "baseOps", "opIntel", "adminBug"].includes(activeCommandKey)) {
       const bucketMap = new Map();
       sortedGroups.forEach(grp => {
         const sKey = grp.parent.symKey;
@@ -5018,7 +5018,9 @@
       const catBuckets = Array.from(bucketMap.entries()).map(([symKey, groups]) => {
         const spec = getCategorySpec(symKey);
         const isBasicsBucket = symKey === "NEW" || (spec.name || "").toUpperCase() === "BASICS";
-        const use2Col = isBasicsBucket && groups.length >= 2;
+        const use2Col = activeCommandKey === "opIntel"
+          ? (isBasicsBucket && groups.length >= 2)
+          : (groups.length >= 2);
         return { symKey, spec, groups, use2Col };
       }).sort((a, b) => (a.spec.name || a.symKey).toUpperCase().localeCompare((b.spec.name || b.symKey).toUpperCase()));
 
