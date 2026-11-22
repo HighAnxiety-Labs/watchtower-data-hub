@@ -1121,7 +1121,7 @@
       text-transform: uppercase;
     }
 
-    /* ==================== IN-PAGE FULL UNIT BRIEF MODAL ==================== */
+    /* ==================== IN-PAGE FULL ASSET BRIEF MODAL ==================== */
     .wtr-overlay-modal {
       position: fixed;
       inset: 0;
@@ -1464,13 +1464,13 @@
   <!-- Floating Quick-Intel Hover Card for 4:5 Unit Portraits -->
   <div class="unit-floating-hover-card" id="wtrUnitHoverCard"></div>
 
-  <!-- In-Page Full Unit Brief Overlay Modal -->
+  <!-- In-Page Full Asset Brief Overlay Modal -->
   <div class="wtr-overlay-modal" id="wtrUnitBriefModal" onclick="if(event.target===this) closeUnitBriefModal()">
     <div class="wtr-overlay-window">
       <div class="wtr-overlay-topbar">
-        <span class="wtr-overlay-title" id="unitModalTitle">🖥️ WATCHTOWER FULL UNIT BRIEF</span>
+        <span class="wtr-overlay-title" id="unitModalTitle">🖥️ WATCHTOWER FULL ASSET BRIEF</span>
         <div class="wtr-overlay-actions">
-          <a id="unitModalGalleryLink" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="wtr-overlay-ext-btn">↗ Open Unit Briefs Gallery</a>
+          <a id="unitModalGalleryLink" href="./asset-briefs.html" target="_blank" rel="noopener noreferrer" class="wtr-overlay-ext-btn">↗ Open Asset Briefs Gallery</a>
           <button type="button" class="wtr-overlay-close-btn" onclick="closeUnitBriefModal()">✕ Close Brief</button>
         </div>
       </div>
@@ -2111,7 +2111,7 @@
           '<div class="ufhc-stat-box"><span class="ufhc-stat-k">Speed</span><span class="ufhc-stat-v">' + escHtml(u.STAT_SPEED || "—") + '</span></div>' +
         '</div>' +
         '<div class="ufhc-talent-note">' + escHtml(u.HOVER_NOTE || u.UNIT_QUOTE || "") + '</div>' +
-        '<div class="ufhc-footer">🖱️ Click Portrait to Open Full Unit Brief</div>';
+        '<div class="ufhc-footer">🖱️ Click Portrait to Open Full Asset Brief</div>';
 
       card.classList.add("show");
       moveUnitHoverOverlay(e);
@@ -2136,7 +2136,7 @@
       if (card) card.classList.remove("show");
     }
 
-    /* ==================== CLICK: IN-PAGE FULL UNIT BRIEF MODAL ==================== */
+    /* ==================== CLICK: IN-PAGE FULL ASSET BRIEF MODAL ==================== */
     function switchModalWarpaint(imgSrc, fallbackSrc) {
       var el = document.getElementById("modalMainUnitImg");
       if (!el) return;
@@ -2156,10 +2156,10 @@
       var handoffName = unitKey === "THE KOMODO" ? "KOMODO" : unitKey;
       try { localStorage.setItem("wtr_target_unit_handoff", handoffName); } catch (err) {}
       if (galLink) {
-        galLink.href = "./unit-briefs.html?unit=" + encodeURIComponent(handoffName) + "#unit=" + encodeURIComponent(handoffName);
+        galLink.href = "./asset-briefs.html?unit=" + encodeURIComponent(handoffName) + "#unit=" + encodeURIComponent(handoffName);
       }
 
-      titleEl.textContent = "🖥️ FULL UNIT BRIEF // " + u.UNIT_NAME;
+      titleEl.textContent = "🖥️ FULL ASSET BRIEF // " + u.UNIT_NAME;
 
       var statPairs = [
         ["Classification", u.CLASSIFICATION],

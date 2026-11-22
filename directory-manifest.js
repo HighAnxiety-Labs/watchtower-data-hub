@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-22T12:15:19-08:00",
-    "generatedMs":  1795378515424,
+    "generatedAt":  "2026-11-22T15:42:37-08:00",
+    "generatedMs":  1795390953772,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -12,6 +12,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                         "2026-nov-skirmish-brief.html",
                         "2026-pvp-season-60-brief.html",
                         "agency-contractors.html",
+                        "asset-briefs.html",
+                        "asset-matchup.html",
                         "base-defense-planning.html",
                         "building-briefs.html",
                         "cc-22-pre-release.html",
@@ -24,8 +26,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                         "platoon-guide.html",
                         "report-war-crimes.html",
                         "sector-status-sheet.html",
-                        "unit-briefs.html",
-                        "unit-matchup.html",
                         "vault-event-history.html",
                         "whats-broken.html"
                     ],
@@ -72,22 +72,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-holdout-brief.html",
                               "path":  "./2026-nov-holdout-brief.html",
                               "title":  "2026-nov-holdout-brief",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316009
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461668
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
                               "path":  "./2026-nov-sector-breach-brief.html",
                               "title":  "NOV 2026 SECTOR BREACH Tactical Brief",
-                              "modifiedAt":  "2026-11-21T08:17:19Z",
-                              "modifiedMs":  1795249039699
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461670
                           },
                           {
                               "file":  "2026-nov-shadow-ops-brief.html",
                               "path":  "./2026-nov-shadow-ops-brief.html",
                               "title":  "SHADOW OPS: DRIFTING DRAGON (Chapter 1–3 Tactical Brief)",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316011
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461677
                           },
                           {
                               "file":  "2026-nov-skirmish-brief.html",
@@ -111,6 +111,20 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "modifiedMs":  1795328316013
                           },
                           {
+                              "file":  "asset-briefs.html",
+                              "path":  "./asset-briefs.html",
+                              "title":  "WatchToweR Hub — Asset Briefs | Gallery",
+                              "modifiedAt":  "2026-11-22T22:11:28Z",
+                              "modifiedMs":  1795385488857
+                          },
+                          {
+                              "file":  "asset-matchup.html",
+                              "path":  "./asset-matchup.html",
+                              "title":  "Unit Threat Radar \u0026 Matchup Simulator",
+                              "modifiedAt":  "2026-11-22T22:11:28Z",
+                              "modifiedMs":  1795385488884
+                          },
+                          {
                               "file":  "base-defense-planning.html",
                               "path":  "./base-defense-planning.html",
                               "title":  "[-WTR-] Base Defense Planning — Zone Control \u0026 Choke Architecture",
@@ -121,8 +135,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316019
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461690
                           },
                           {
                               "file":  "cc-22-pre-release.html",
@@ -142,29 +156,29 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "damage-type.html",
                               "path":  "./damage-type.html",
                               "title":  "Damage Type Matrix \u0026 Armor Rework",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353956
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461692
                           },
                           {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316023
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461696
                           },
                           {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353953
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461697
                           },
                           {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-22T04:56:08Z",
-                              "modifiedMs":  1795323368271
+                              "modifiedAt":  "2026-11-22T22:26:50Z",
+                              "modifiedMs":  1795386410498
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -177,8 +191,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316038
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461726
                           },
                           {
                               "file":  "platoon-guide.html",
@@ -202,32 +216,18 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "modifiedMs":  1795106353975
                           },
                           {
-                              "file":  "unit-briefs.html",
-                              "path":  "./unit-briefs.html",
-                              "title":  "WatchToweR Hub — Unit Briefs | Gallery",
-                              "modifiedAt":  "2026-11-22T03:56:12Z",
-                              "modifiedMs":  1795319772348
-                          },
-                          {
-                              "file":  "unit-matchup.html",
-                              "path":  "./unit-matchup.html",
-                              "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-22T19:46:40Z",
-                              "modifiedMs":  1795376800061
-                          },
-                          {
                               "file":  "vault-event-history.html",
                               "path":  "./vault-event-history.html",
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353986
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461731
                           },
                           {
                               "file":  "whats-broken.html",
                               "path":  "./whats-broken.html",
                               "title":  "What\u0027s Broken in War Commander",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353982
+                              "modifiedAt":  "2026-11-22T21:54:21Z",
+                              "modifiedMs":  1795384461732
                           }
                       ],
     "activeDefects":  [
@@ -442,6 +442,14 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 2 • hero",
                                        "firstSeenMs":  1795328396780,
                                        "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                   },
+                                   {
+                                       "key":  "TUNGSTEN",
+                                       "name":  "TUNGSTEN",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "DEFENSIVE ROCKETS",
+                                       "firstSeenMs":  1795390953772,
+                                       "firstSeenAt":  "2026-11-22T23:42:33Z"
                                    }
                                ],
     "creatorVideos":  [
@@ -792,7 +800,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "handle":  "STORMYGAMINGYT99",
                               "owner":  "STORMY GAMING YT",
                               "channelId":  "UC5Nm3nZIMF0mp_BtXofnnIQ",
-                              "title":  "GTA 6 LUXURY LIFESTYLE! 🛥️ JASON \u0026 LUCIA EXPLORE YACHTS, VIP CLUBS \u0026 VICE CITY NIGHTLIFE!",
+                              "title":  "GTA 6 VICE CITY NIGHTLIFE IS INSANE! 🔥 Jason \u0026 Lucia\u0027s Luxury Yacht, Nightclub \u0026 Jet Ski Adventure",
                               "descSnippet":  "Welcome to the luxurious side of GTA 6! 🌴🛥️\n\nToday, Jason and Lucia experience the glamorous lifestyle of Vice City, surrounded by luxury yachts, exclusive VIP parties, spectacular nightlife and the world of high-profile people.\n\nFrom exp",
                               "publishedAt":  "2026-11-22T03:50:13Z",
                               "publishedMs":  1795319413000

@@ -995,7 +995,7 @@
       color: #ffffff;
     }
 
-    /* BOTTOM UNIT BRIEF REFERENCE CARD (ESCORT IN MASTER_DB) */
+    /* BOTTOM ASSET BRIEF REFERENCE CARD (ESCORT IN MASTER_DB) */
     .unit-ref-banner {
       background: linear-gradient(135deg, #0b1f15 0%, #0d141d 55%, #1c1206 100%);
       border: 1.5px solid var(--wtr-green);
@@ -1670,20 +1670,20 @@
         </div>
       </section>
 
-      <!-- 06: BOTTOM MASTER_DB UNIT BRIEF REFERENCE (ESCORT) -->
+      <!-- 06: BOTTOM MASTER_DB ASSET BRIEF REFERENCE (ESCORT) -->
       <section class="brief-section" id="sec-escort-ref" style="border-color: rgba(0, 230, 118, 0.55);">
         <div class="unit-ref-banner">
           <div class="unit-ref-left">
-            <img class="unit-ref-thumb" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/235d36df-1861-4fa5-9bda-3f4ff5865fd2" alt="ESCORT Unit Brief Reference">
+            <img class="unit-ref-thumb" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/235d36df-1861-4fa5-9bda-3f4ff5865fd2" alt="ESCORT Asset Brief Reference">
             <div>
               <div class="unit-ref-kicker">🛡️ LIVE IN WATCHTOWER MASTER_DB // FULL UNIT REPORT</div>
-              <div class="unit-ref-title">ESCORT — FULL UNIT BRIEF &amp; STAT MATRIX</div>
-              <div class="unit-ref-desc">Inspect the complete <strong>ESCORT</strong> record in Unit Briefs (40-Level benchmarks, Talents, Workshop Tech, and Side-by-Side Unit Compare).</div>
+              <div class="unit-ref-title">ESCORT — FULL ASSET BRIEF &amp; STAT MATRIX</div>
+              <div class="unit-ref-desc">Inspect the complete <strong>ESCORT</strong> record in Asset Briefs (40-Level benchmarks, Talents, Workshop Tech, and Side-by-Side Unit Compare).</div>
             </div>
           </div>
           <div class="unit-ref-actions">
-            <a class="wtr-btn wtr-btn-green" href="./unit-briefs.html?unit=ESCORT" onclick="openMasterUnitBrief(event, 'ESCORT')">🛡️ Open ESCORT Unit Brief ↗</a>
-            <a class="wtr-btn wtr-btn-outline" href="./unit-briefs.html?unit=JUGGERNAUT" onclick="openMasterUnitBrief(event, 'JUGGERNAUT')">⚙️ JUGGERNAUT Brief ↗</a>
+            <a class="wtr-btn wtr-btn-green" href="./asset-briefs.html?unit=ESCORT" onclick="openMasterUnitBrief(event, 'ESCORT')">🛡️ Open ESCORT Asset Brief ↗</a>
+            <a class="wtr-btn wtr-btn-outline" href="./asset-briefs.html?unit=JUGGERNAUT" onclick="openMasterUnitBrief(event, 'JUGGERNAUT')">⚙️ JUGGERNAUT Brief ↗</a>
           </div>
         </div>
       </section>
@@ -1824,11 +1824,11 @@
 
     window.openMasterUnitBrief = function(ev, unitName) {
       try { localStorage.setItem("wtr_target_unit_handoff", unitName); } catch (e) {}
-      const relUrl = "./unit-briefs.html?unit=" + encodeURIComponent(unitName);
+      const relUrl = "./asset-briefs.html?unit=" + encodeURIComponent(unitName);
       try {
         if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === "function") {
           ev.preventDefault();
-          window.parent.openInlineModuleViewport("UNIT BRIEF // " + unitName.toUpperCase(), "#00e676", null, relUrl, relUrl);
+          window.parent.openInlineModuleViewport("ASSET BRIEF // " + unitName.toUpperCase(), "#00e676", null, relUrl, relUrl);
           return;
         }
       } catch (e) {}
@@ -1848,7 +1848,7 @@
     window.copySectorBreachDiscordBrief = function(initialFmt) {
       const briefUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/2026-nov-sector-breach-brief.html";
       const calcUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/event-calculator.html?mode=breach";
-      const escortUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=ESCORT";
+      const escortUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/asset-briefs.html?unit=ESCORT";
       const logoUrl = "https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo-badge.png";
 
       const discord = [
@@ -1856,7 +1856,7 @@
         "• **Schedule:** Starts Fri Nov 20 @ 10 AM PST → Ends Tue Nov 24 @ 10 AM PST *(Store Closes Wed Nov 25 @ 10 AM PST)*",
         `🔗 **Full Brief:** ${briefUrl}`,
         `🧮 **Event Calculator:** <${calcUrl}>`,
-        `🛡️ **ESCORT Unit Brief:** <${escortUrl}>`
+        `🛡️ **ESCORT Asset Brief:** <${escortUrl}>`
       ].join("\n");
 
       const facebook = [
@@ -1864,7 +1864,7 @@
         "📅 Schedule: Fri Nov 20 @ 10 AM PST → Tue Nov 24 @ 10 AM PST (Store Closes Wed Nov 25 @ 10 AM PST)",
         `🔗 Full Brief: ${briefUrl}`,
         `🧮 Event Calculator: ${calcUrl}`,
-        `🛡️ ESCORT Unit Brief: ${escortUrl}`,
+        `🛡️ ESCORT Asset Brief: ${escortUrl}`,
         "#WarCommander #WatchToweR #SectorBreach"
       ].join("\n");
 
@@ -1875,7 +1875,7 @@
         "  [*] [b]Schedule:[/b] Starts Fri Nov 20 @ 10 AM PST → Ends Tue Nov 24 @ 10 AM PST [i](Store Closes Wed Nov 25 @ 10 AM PST)[/i]",
         `  [*] 🔗 [url=${briefUrl}]Open Full NOV 2026 Sector Breach Brief[/url]`,
         `  [*] 🧮 [url=${calcUrl}]Open Sector Breach Event Calculator[/url]`,
-        `  [*] 🛡️ [url=${escortUrl}]Open ESCORT Unit Brief[/url]`,
+        `  [*] 🛡️ [url=${escortUrl}]Open ESCORT Asset Brief[/url]`,
         "[/list]"
       ].join("\n");
 

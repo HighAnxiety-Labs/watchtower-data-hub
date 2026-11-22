@@ -500,7 +500,7 @@
       detail: "**Schedule:** Fri Nov 20 @ 10 AM PST → Tue Nov 24 @ 10 AM PST (Store Closes Wed Nov 25)",
       extraLinks: [
         { icon: "🧮", label: "Event Calculator", url: HUB_BASE + "event-calculator.html?mode=breach" },
-        { icon: "🛡️", label: "ESCORT Unit Brief", url: HUB_BASE + "unit-briefs.html?unit=ESCORT" }
+        { icon: "🛡️", label: "ESCORT Asset Brief", url: HUB_BASE + "asset-briefs.html?unit=ESCORT" }
       ]
     },
     "2026-nov-holdout-brief.html": {
@@ -533,16 +533,16 @@
       icon: "🔒", title: "DEC 2026 MAIN OPERATION BRIEF",
       detail: "**Upcoming Main Event:** Pre-Release Schedule & Holding Brief"
     },
-    "unit-matchup.html": {
-      icon: "🎯", title: "UNIT MATCHUP SIMULATOR & THREAT RADAR",
+    "asset-matchup.html": {
+      icon: "🎯", title: "ASSET MATCHUP SIMULATOR & THREAT RADAR",
       detail: "**Combat Radar:** 2× Counter-Armor, Range Advantage & Best Workshop Advisor"
     },
     "event-calculator.html": {
       icon: "🧮", title: "MULTI-EVENT XP & STORE CALCULATOR",
       detail: "**Alliance Requisition Planner:** Operations, Holdout, Sector Breach & Skirmish"
     },
-    "unit-briefs.html": {
-      icon: "🛡️", title: "WATCHTOWER UNIT BRIEFS DATABASE",
+    "asset-briefs.html": {
+      icon: "🛡️", title: "WATCHTOWER ASSET BRIEFS DATABASE",
       detail: "**Full 40-Lvl Reports:** Stats, Talents, Workshops, Warpaints & Side-by-Side Compare"
     },
     "building-briefs.html": {

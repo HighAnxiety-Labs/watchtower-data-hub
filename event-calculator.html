@@ -1612,7 +1612,7 @@
           <strong id="reportModalTitle" style="font-family:'Arial Black',sans-serif; font-size:18px; color:#fff; text-transform:uppercase;">UNIT NAME</strong>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
-          <a id="reportFullPageBtn" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="calc-btn gold" style="text-decoration:none;">↗ Open Full Unit Briefs Page</a>
+          <a id="reportFullPageBtn" href="./asset-briefs.html" target="_blank" rel="noopener noreferrer" class="calc-btn gold" style="text-decoration:none;">↗ Open Full Asset Briefs Page</a>
           <button type="button" class="calc-btn" style="background:#7f1d1d; border-color:#f87171; color:#fff;" onclick="closeUnitReport()">✕ Close</button>
         </div>
       </div>
@@ -1624,7 +1624,7 @@
     const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
     const SHEET_MASTER_GID = "444355456";
     const WTR_LOGO_FALLBACK = "https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png";
-    const UNIT_BRIEFS_PAGE = "./unit-briefs.html";
+    const UNIT_BRIEFS_PAGE = "./asset-briefs.html";
 
     /* Seed MASTER_DB Records for Instant 0ms Portraits, Warpaints & Offline Support */
     const SEED_MASTER_DB_UNITS = [
@@ -3509,7 +3509,7 @@
       if (!rec) {
         body.innerHTML = `
           <div style="padding:14px; background:rgba(255,255,255,0.03); border:1px solid var(--mode-border); border-radius:4px;">
-            <p style="margin-bottom:10px;">Live <code>MASTER_DB</code> sheet record for <strong>${escapeHtml(uName)}</strong> will populate when connected, or click <strong>Open Full Unit Briefs Page</strong> above.</p>
+            <p style="margin-bottom:10px;">Live <code>MASTER_DB</code> sheet record for <strong>${escapeHtml(uName)}</strong> will populate when connected, or click <strong>Open Full Asset Briefs Page</strong> above.</p>
             ${storeHtml ? `<table class="report-stats-tbl">${storeHtml}</table>` : ""}
           </div>
         `;
@@ -3598,7 +3598,7 @@
           </div>
           <div>
             <div style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--mode-accent); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin-bottom:8px;">TALENTS &amp; UPGRADE TIERS</div>
-            ${talentsHtml || `<div style="color:var(--text-muted); font-size:12.5px;">See full Unit Briefs page for complete progression matrix.</div>`}
+            ${talentsHtml || `<div style="color:var(--text-muted); font-size:12.5px;">See full Asset Briefs page for complete progression matrix.</div>`}
           </div>
         </div>
         ${techHtml ? `

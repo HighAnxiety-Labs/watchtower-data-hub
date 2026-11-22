@@ -2107,8 +2107,8 @@
     tacticalBriefs: {
       accent: "var(--dir-btn2)", colorHex: "#c29829",
       cards: [
-        { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "UNIT BRIEFS | GALLERY", url: "./unit-briefs.html", embedCode: "", openInIframe: true },
-        { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "UNIT MATCHUP SIMULATOR", url: "./unit-matchup.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 1, symbol: "DATABASE",   title: "ASSET BRIEFS | GALLERY", url: "./asset-briefs.html", embedCode: "", openInIframe: true },
+        { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "ASSET MATCHUP SIMULATOR", url: "./asset-matchup.html", embedCode: "", openInIframe: true },
         { enabled: true, isSubPage: false, order: 3, symbol: "CALCULATOR", title: "AGENCY CONTRACTORS", url: "./agency-contractors.html", embedCode: "", openInIframe: true }
       ]
     },
@@ -2220,7 +2220,7 @@
       { match: "BASE DEFENSE",    sym: "NEW" },
       { match: "CC22 UPGRADE",    sym: "BLUEPRINT" },
       { match: "PRE-RELEASE",     sym: "ARCHIVE" },
-      { match: "UNIT BRIEF",      sym: "DATABASE" },
+      { match: "ASSET BRIEF",      sym: "DATABASE" },
       { match: "CONTRACTOR",      sym: "CALCULATOR" },
       { match: "MATCHUP",         sym: "CALCULATOR" },
       { match: "UNIT HISTORY",    sym: "ARCHIVE" },
@@ -2340,10 +2340,11 @@
                !t.includes("KEYBOARD") && !u.includes("keyboard-commands");
       });
       const tCards = targetWorkspaces.tacticalBriefs.cards;
-      const ubIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UNIT BRIEF"));
+      const ubIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("ASSET BRIEF"));
       const umIdx = tCards.findIndex(c =>
         String(c?.title || "").toUpperCase().includes("MATCHUP") ||
-        String(c?.url || "").toLowerCase().includes("unit-matchup")
+        String(c?.url || "").toLowerCase().includes("unit-matchup") ||
+        String(c?.url || "").toLowerCase().includes("asset-matchup")
       );
       if (umIdx === -1) {
         const umCard = {
@@ -2351,8 +2352,8 @@
           isSubPage: false,
           order: 2,
           symbol: "CALCULATOR",
-          title: "UNIT MATCHUP SIMULATOR",
-          url: "./unit-matchup.html",
+          title: "ASSET MATCHUP SIMULATOR",
+          url: "./asset-matchup.html",
           embedCode: "",
           openInIframe: true
         };
@@ -2366,7 +2367,7 @@
         tCards[umIdx].enabled = true;
         if (ubIdx !== -1 && umIdx !== ubIdx + 1) {
           const [umCard] = tCards.splice(umIdx, 1);
-          const newUbIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("UNIT BRIEF"));
+          const newUbIdx = tCards.findIndex(c => String(c?.title || "").toUpperCase().includes("ASSET BRIEF"));
           tCards.splice(newUbIdx + 1, 0, umCard);
         }
       }
@@ -2444,9 +2445,9 @@
     const standaloneMappings = [
       { secKey: "baseOps",        match: "BUILDING BRIEF",          urlHint: "building-brief",        file: "./building-briefs.html",          defaultTitle: "BUILDING BRIEFS | GALLERY", defaultSym: "BLUEPRINT", renameLegacyTitles: ["BUILDING BRIEF DB", "BUILDING BRIEFS DB", "BUILDING BRIEF DATABASE", "BUILDING BRIEFS | GALLARY"] },
       { secKey: "baseOps",        match: "CC22 UPGRADE",            urlHint: "cc22-upgrade",          file: "./cc22-upgrade-path.html",        defaultTitle: "CC22 UPGRADE PATH",         defaultSym: "BLUEPRINT", ensurePresent: true },
-      { secKey: "tacticalBriefs", match: "UNIT BRIEF",              urlHint: "unit-brief",            file: "./unit-briefs.html",              defaultTitle: "UNIT BRIEFS | GALLERY",     defaultSym: "DATABASE",  renameLegacyTitles: ["UNIT BRIEFS ENGINE", "UNIT BRIEF ENGINE", "UNIT BRIEFS DB", "UNIT BRIEF DB", "UNIT BRIEFS | GALLARY"] },
+      { secKey: "tacticalBriefs", match: "ASSET BRIEF",              urlHint: "unit-brief",            file: "./asset-briefs.html",              defaultTitle: "ASSET BRIEFS | GALLERY",     defaultSym: "DATABASE",  renameLegacyTitles: ["UNIT BRIEFS | GALLERY", "UNIT BRIEFS ENGINE", "UNIT BRIEF ENGINE", "UNIT BRIEFS DB", "UNIT BRIEF DB", "UNIT BRIEFS | GALLARY", "ASSET BRIEFS ENGINE", "ASSET BRIEF ENGINE", "ASSET BRIEFS DB", "ASSET BRIEF DB", "ASSET BRIEFS | GALLARY"] },
       { secKey: "tacticalBriefs", match: "CONTRACTOR",              urlHint: "agency-contractors",    file: "./agency-contractors.html",       defaultTitle: "AGENCY CONTRACTORS",        defaultSym: "CALCULATOR", ensurePresent: true },
-      { secKey: "tacticalBriefs", match: "MATCHUP",                 urlHint: "unit-matchup",          file: "./unit-matchup.html",             defaultTitle: "UNIT MATCHUP SIMULATOR",    defaultSym: "CALCULATOR", ensurePresent: true },
+      { secKey: "tacticalBriefs", match: "MATCHUP",                 urlHint: "unit-matchup",          file: "./asset-matchup.html",             defaultTitle: "ASSET MATCHUP SIMULATOR",    defaultSym: "CALCULATOR", ensurePresent: true, renameLegacyTitles: ["UNIT MATCHUP SIMULATOR"] },
       { secKey: "opIntel",        match: "PLATOON",                 urlHint: "platoon-guide",         file: "./platoon-guide.html",            defaultTitle: "PLATOON FORMATIONS GUIDE",  defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "KEYBOARD",                urlHint: "keyboard-commands",     file: "./keyboard-commands.html",        defaultTitle: "KEYBOARD COMMANDS",         defaultSym: "NEW",       ensurePresent: true },
       { secKey: "opIntel",        match: "BASE DEFENSE",            urlHint: "base-defense-planning", file: "./base-defense-planning.html",    defaultTitle: "BASE DEFENSE & LAYOUTS",    defaultSym: "NEW",       ensurePresent: true },
@@ -8366,7 +8367,7 @@
       { match: "BASE DEFENSE",    sym: "NEW" },
       { match: "CC22 UPGRADE",    sym: "BLUEPRINT" },
       { match: "PRE-RELEASE",     sym: "ARCHIVE" },
-      { match: "UNIT BRIEF",      sym: "DATABASE" },
+      { match: "ASSET BRIEF",      sym: "DATABASE" },
       { match: "CONTRACTOR",      sym: "CALCULATOR" },
       { match: "MATCHUP",         sym: "CALCULATOR" },
       { match: "UNIT HISTORY",    sym: "ARCHIVE" },
@@ -9562,8 +9563,8 @@
       "report-war-crimes.html",
       "sector-status-sheet.html",
       "skirmish.html",
-      "unit-briefs.html",
-      "unit-matchup.html",
+      "asset-briefs.html",
+      "asset-matchup.html",
       "vault-event-history.html",
       "video-recon.html",
       "whats-broken.html"
@@ -9615,7 +9616,7 @@
   function parseWtrDirectoryFile(fileName, folderSubpath = "") {
     const clean = String(fileName || "").trim();
     const lower = clean.toLowerCase();
-    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "unit-briefs.html", "unit-matchup.html", "agency-contractors.html", "event-calculator.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
+    const ignored = ["command-center.html", "hub-home.html", "2026-calendar.html", "cc-22-pre-release.html", "cc22-upgrade-path.html", "vault-event-history.html", "building-briefs.html", "asset-briefs.html", "asset-matchup.html", "agency-contractors.html", "event-calculator.html", "platoon-guide.html", "keyboard-commands.html", "whats-broken.html", "report-war-crimes.html", "sector-status-sheet.html", "faction-intel.html", "damage-type.html", "base-defense-planning.html", "video-recon.html", "index.html"];
     if (!lower.endsWith(".html") || ignored.includes(lower)) return null;
 
     let category = null;
@@ -10678,14 +10679,14 @@
           bgTop: isBldg ? "#092321" : "#0a1e2c",
           headline: `NEW IN ${isBldg ? "BUILDING" : "UNIT"} GALLERY: ${nameUp}${subPart}`,
           meta: `Added ${formatRelativeAge(ageMs)} in MASTER_DB • Click to open full ${isBldg ? "Facility" : "Unit"} Brief`,
-          cta: isBldg ? "🏢 BUILDING BRIEF" : "📖 UNIT BRIEF",
+          cta: isBldg ? "🏢 BUILDING BRIEF" : "📖 ASSET BRIEF",
           action: () => {
             if (isBldg) {
               try { localStorage.setItem("wtr_target_building_handoff", entry.name); } catch (e) {}
               openHubTargetUrl(`building-briefs.html?building=${encodeURIComponent(entry.name)}`, `BUILDING BRIEF: ${nameUp}`, "#2dd4bf");
             } else {
               try { localStorage.setItem("wtr_target_unit_handoff", JSON.stringify({ unit: entry.name, ts: Date.now() })); } catch (e) {}
-              openHubTargetUrl(`unit-briefs.html?unit=${encodeURIComponent(entry.name)}`, `UNIT BRIEF: ${nameUp}`, "#38bdf8");
+              openHubTargetUrl(`asset-briefs.html?unit=${encodeURIComponent(entry.name)}`, `ASSET BRIEF: ${nameUp}`, "#38bdf8");
             }
           }
         });
@@ -10817,8 +10818,8 @@
             bgTop: "#0a1e2c",
             headline: "UNIT & BUILDING GALLERIES MONITORED LIVE — NO NEW ADDITIONS IN LAST 24H",
             meta: `Tracking ${state.totalTrackedUnits} Units & ${state.totalTrackedBuildings} Base Facilities in MASTER_DB • Auto-alerts when new rows are added`,
-            cta: "📖 UNIT BRIEFS",
-            action: () => openHubTargetUrl("unit-briefs.html", "UNIT BRIEFS GALLERY", "#38bdf8")
+            cta: "📖 ASSET BRIEFS",
+            action: () => openHubTargetUrl("asset-briefs.html", "ASSET BRIEFS GALLERY", "#38bdf8")
           }];
         } else if (state.filter === "PAGES") {
           nextQueue = [{
@@ -11304,8 +11305,8 @@
       if (typeof workspaceCardsState === "object" && workspaceCardsState && Array.isArray(MENU_SECTION_KEYS)) {
         const keywordExtras = {
           "event-calculator.html": "xp grind store tokens calculator holdout skirmish breach operations cart",
-          "unit-briefs.html": "units heroes warlords soldiers stats levels talents brief report compare",
-          "unit-matchup.html": "matchup counter radar threat simulator head to head",
+          "asset-briefs.html": "units heroes warlords soldiers stats levels talents brief report compare",
+          "asset-matchup.html": "matchup counter radar threat simulator head to head",
           "building-briefs.html": "buildings facilities turret academy hangar tech center thorium",
           "cc22-upgrade-path.html": "cc22 command center 22 upgrade priority roadmap order",
           "agency-contractors.html": "contractors agency diplomacy johnny bones",
@@ -11349,7 +11350,7 @@
         const k = "UNIT::" + clean.toUpperCase();
         if (seenKeys.has(k)) return;
         seenKeys.add(k);
-        const subText = subLbl ? `Unit Brief • ${subLbl}` : "Unit Briefs | 40-Lvl Report";
+        const subText = subLbl ? `Asset Brief • ${subLbl}` : "Asset Briefs | 40-Lvl Report";
         items.push({
           tag: "UNIT",
           tagCls: "tag-unit",
@@ -11359,7 +11360,7 @@
           boost: 18,
           run: function() {
             try { localStorage.setItem("wtr_target_unit_handoff", clean); } catch (e) {}
-            openHubUrlInViewport("UNIT BRIEF // " + clean.toUpperCase(), "#00e676", `${pfx}unit-briefs.html?unit=${encodeURIComponent(clean)}`);
+            openHubUrlInViewport("ASSET BRIEF // " + clean.toUpperCase(), "#00e676", `${pfx}asset-briefs.html?unit=${encodeURIComponent(clean)}`);
           }
         });
       };

@@ -1042,7 +1042,7 @@
       <div id="associated-units-section" class="record-section" style="display: none;">
         <span class="col-header">
           <span id="d-assoc-units-header">Associated Units // Built &amp; Upgraded Here</span>
-          <span id="d-assoc-units-sub" style="font-size: 11.5px; color: #00e676; font-family: monospace;">OPEN UNIT BRIEF ↗</span>
+          <span id="d-assoc-units-sub" style="font-size: 11.5px; color: #00e676; font-family: monospace;">OPEN ASSET BRIEF ↗</span>
         </span>
         <div id="d-assoc-units-box" class="brief-assoc-units-box">
           <div id="d-assoc-units-note" class="brief-assoc-units-note"></div>
@@ -1599,7 +1599,7 @@
 
   function buildUnitBriefUrl(unitName) {
     const loc = String(window.location.href || '');
-    const targetPage = loc.includes('/masters/') ? './unit-briefs-master.html' : './unit-briefs.html';
+    const targetPage = loc.includes('/masters/') ? './asset-briefs-master.html' : './asset-briefs.html';
     return `${targetPage}?unit=${encodeURIComponent(cleanVal(unitName))}`;
   }
 
@@ -1652,7 +1652,7 @@
     const chipsHtml = spec.units.map(u => {
       const uName = cleanVal(u.UNIT_NAME);
       const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
-      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Unit Brief" onclick="event.stopPropagation(); handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
+      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" onclick="event.stopPropagation(); handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
     }).join('');
     const btnHtml = `<button type="button" class="branch-units-hdr-btn" style="--fac-unit-accent: ${spec.accent};" onclick="toggleBranchUnitsDrawer(this, event)" title="Show clickable ${escapeAttr(spec.label)} links">${escapeHtml(spec.pillText)} (${spec.units.length}) <span class="buh-chev">▾</span></button>`;
     const panelHtml = `<div class="branch-units-drawer-panel" style="--fac-unit-accent: ${spec.accent};" onclick="event.stopPropagation();"><div class="facility-units-chip-grid">${chipsHtml}</div></div>`;
@@ -1685,7 +1685,7 @@
     grid.innerHTML = spec.units.map(u => {
       const uName = cleanVal(u.UNIT_NAME);
       const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
-      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Unit Brief" onclick="handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
+      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" onclick="handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
     }).join('');
     sec.style.display = 'block';
   }

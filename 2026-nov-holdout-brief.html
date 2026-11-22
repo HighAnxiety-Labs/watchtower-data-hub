@@ -2624,7 +2624,7 @@
   const MASTER_STORAGE_KEY = "wtr_holdout_master_studio_v10_3_nov2026";
   const PLAYER_CALC_STORAGE_KEY = "wtr_holdout_nov2026_player_v10_3";
   const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
-  const MASTER_DB_BASE_URL = "https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html";
+  const MASTER_DB_BASE_URL = "https://highanxiety-labs.github.io/watchtower-data-hub/asset-briefs.html";
   const SHEET_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
   const SHEET_MASTER_GID = "444355456";
 
@@ -5047,7 +5047,7 @@
       ? `${unitName.toUpperCase()} (${rec.UNIT_NAME})`
       : unitName.toUpperCase();
 
-    titleEl.textContent = `🖥️ MASTER_DB UNIT BRIEF // ${displayHeaderName}`;
+    titleEl.textContent = `🖥️ MASTER_DB ASSET BRIEF // ${displayHeaderName}`;
     extBtn.href = targetHref;
     extBtn.style.display = "inline-flex";
     extBtn.onclick = function() { stampUnitHandoff(canonicalName); };
@@ -5153,7 +5153,7 @@
         <div style="display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; padding:12px;">
           <div class="unit-poster-frame" style="max-width:340px;"><img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(unitName)}"></div>
           <h2 style="font-family:'Arial Black',sans-serif; color:var(--accent-green);">${escapeHtml(unitName)}</h2>
-          <p style="color:var(--text-main); max-width:600px;">Click <strong>"↗ Open Full Page in New Tab"</strong> in the top-right bar to view the full interactive progression table in the WatchToweR Unit Briefs | Gallery.</p>
+          <p style="color:var(--text-main); max-width:600px;">Click <strong>"↗ Open Full Page in New Tab"</strong> in the top-right bar to view the full interactive progression table in the WatchToweR Asset Briefs | Gallery.</p>
         </div>
       `;
     }

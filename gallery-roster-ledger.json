@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-22T20:15:15Z",
+    "updatedAt":  "2026-11-22T23:42:33Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1025,6 +1025,14 @@
                                          "subLabel":  "Arc 2 • hero",
                                          "firstSeenMs":  1795328396780,
                                          "firstSeenAt":  "2026-11-22T06:19:56Z"
-                                     }
+                                     },
+                    "UNIT::TUNGSTEN":  {
+                                           "key":  "TUNGSTEN",
+                                           "name":  "TUNGSTEN",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "DEFENSIVE ROCKETS",
+                                           "firstSeenMs":  1795390953772,
+                                           "firstSeenAt":  "2026-11-22T23:42:33Z"
+                                       }
                 }
 }

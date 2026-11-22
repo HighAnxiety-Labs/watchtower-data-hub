@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER UNIT BRIEF VIEWER // RELEASE: v6.2-FULL-VIEWER (SYNCED FROM UNIT-BRIEFS-MASTER) -->
+<!-- WATCHTOWER ASSET BRIEF VIEWER // RELEASE: v6.2-FULL-VIEWER (SYNCED FROM ASSET-BRIEFS-MASTER) -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -27,10 +27,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>WatchToweR Hub — Unit Briefs | Gallery</title>
+  <title>WatchToweR Hub — Asset Briefs | Gallery</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Unit Briefs | Gallery">
+  <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Asset Briefs | Gallery">
   <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Tactical Briefs, Visual Unit Gallery, Event Calculators & Intelligence.">
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -919,7 +919,7 @@
 <div class="wtr-frame-shell">
   <header class="class-bar class-bar-top">
     <div class="corner-tab corner-left"><span class="status-dot"></span><span>WATCHTOWER // INTEL</span></div>
-    <div class="class-center">UNCLASSIFIED // UNIT BRIEFS &amp; TACTICAL REPORT GALLERY</div>
+    <div class="class-center">UNCLASSIFIED // ASSET BRIEFS &amp; TACTICAL REPORT GALLERY</div>
     <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" id="collapseBtn" onclick="toggleGalleryBriefCollapse()">[—] COLLAPSE BRIEF</button></div>
   </header>
   <div class="gallery-hero-banner">
@@ -929,12 +929,12 @@
       </div>
       <div>
         <div style="font-family:monospace; font-size:11.5px; font-weight:800; letter-spacing:1.6px; color:#ffd700; text-transform:uppercase; margin-bottom:4px;">UNITS &amp; ASSETS // LIVE MASTER_DB SYNC</div>
-        <h1 style="font-family:'Arial Black',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.2px; color:#ffffff; text-transform:uppercase; line-height:1.15;">WAR COMMANDER — <span style="color:#ffd700;">UNIT BRIEFS | GALLERY</span></h1>
+        <h1 style="font-family:'Arial Black',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.2px; color:#ffffff; text-transform:uppercase; line-height:1.15;">WAR COMMANDER — <span style="color:#ffd700;">ASSET BRIEFS | GALLERY</span></h1>
         <p style="font-size:14px; color:#94a3b8; margin-top:5px; max-width:680px;">Click any unit portrait across Generations &amp; Branches to inspect full 40-Level stats, Talents, Linked Hero/Soldier pairs, and Workshop loadouts.</p>
       </div>
     </div>
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-      <a href="./unit-briefs.html" target="_blank" rel="noopener" class="collapse-toggle-btn" id="popoutSelfBtn" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</a>
+      <a href="./asset-briefs.html" target="_blank" rel="noopener" class="collapse-toggle-btn" id="popoutSelfBtn" style="border-color:rgba(0,229,255,0.55); color:#7df9ff;">↗ POP-OUT FULL WINDOW</a>
     </div>
   </div>
 </div>
@@ -958,7 +958,7 @@
     <div class="panel-section" style="flex: 0.9; min-width: 200px;">
       <label class="selector-label" for="unitSelect">Quick Jump:</label>
       <select id="unitSelect" class="selector-select" style="flex: 1; min-width: 140px;" onchange="handleUnitSelectionChange(this.value)">
-        <option value="">Jump to Unit Brief...</option>
+        <option value="">Jump to Asset Brief...</option>
       </select>
     </div>
     <div class="panel-section">
@@ -1009,11 +1009,11 @@
 <!-- FLOATING HOVER BRIEF TOOLTIP -->
 <div id="unitFloatingHoverCard" class="unit-floating-hover-card"></div>
 
-<!-- ==================== IN-PAGE FULL UNIT BRIEF WRAPPER ==================== -->
+<!-- ==================== IN-PAGE FULL ASSET BRIEF WRAPPER ==================== -->
 <div id="inpage-brief-wrapper" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
   <div class="inpage-brief-nav-bar" id="inpageBriefTopBar">
     <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO UNIT GALLERY</button>
-    <span class="brief-breadcrumb" id="inpageBriefBreadcrumb">UNIT BRIEF</span>
+    <span class="brief-breadcrumb" id="inpageBriefBreadcrumb">ASSET BRIEF</span>
     <div class="brief-step-controls">
       <div class="vision-img-boost-group" title="3-Step Vision Image Size Boost">
         <span class="filter-group-lbl">👁️</span>
@@ -1525,7 +1525,7 @@
             UNIT_DIVISION: "TECH CENTER",
             RELEASE_DATE: "AUG 2026",
             UNIT_IMAGE_URL: "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/dd1b0170-7624-4ff7-b459-50c6ba041b5c",
-            WTR_BRIEF_URL: "./unit-briefs.html?unit=BROADSIDE",
+            WTR_BRIEF_URL: "./asset-briefs.html?unit=BROADSIDE",
             UNIT_QUOTE: "A heavy-duty Rangers battle tank engineered under Midway's command, pairing a fortification-crushing burst cannon with a wall-ignoring Viral ballistic missile system built to suppress enemy turrets and level fortified positions.",
             WC_EVENT_NAME: "AUG 2026 SPLIT PROPHECY",
             WC_EVENT_URL: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/986-operation-split-prophecy-august-2026-main-event/",
@@ -2208,7 +2208,7 @@
       const alphaUnits = filteredUnits.slice().sort((a, b) =>
         String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' })
       );
-      unitSelect.innerHTML = '<option value="">Jump to Unit Brief...</option>';
+      unitSelect.innerHTML = '<option value="">Jump to Asset Brief...</option>';
       alphaUnits.forEach(row => {
         const opt = document.createElement('option');
         opt.value = row.UNIT_NAME;
@@ -2495,7 +2495,7 @@
         <div class="ufhc-stat-box"><span class="ufhc-stat-k">${sixthLbl}</span><span class="ufhc-stat-v">${escapeAttr(targetsOrLink)}</span></div>
       </div>
       ${cleanBrief ? `<div class="ufhc-summary">${escapeAttr(cleanBrief)}</div>` : ''}
-      <div class="ufhc-cta">🖱️ Click Portrait to Open Full In-Page Unit Brief</div>
+      <div class="ufhc-cta">🖱️ Click Portrait to Open Full In-Page Asset Brief</div>
     `;
     card.style.display = 'block';
     moveUnitHoverBrief(ev);
@@ -2716,7 +2716,7 @@
     const linkedLabel = cleanVal(data['LINKED_UNIT_NAME']) || cleanVal(data['LINKED_UNIT_LABEL']) || cleanVal(data['HERO']) || cleanVal(data['PAIRED_UNIT']);
     const linkedId = cleanVal(data['LINKED_UNIT_ID']) || linkedLabel;
     const updates = cleanVal(data['UPDATES_TEXT']) || cleanVal(data['POST_RELEASE_UPDATES']);
-    const classification = cleanVal(data['CLASSIFICATION']) || (isContractor ? 'CONTRACTOR' : 'UNIT BRIEF');
+    const classification = cleanVal(data['CLASSIFICATION']) || (isContractor ? 'CONTRACTOR' : 'ASSET BRIEF');
 
     let baseTalentText = cleanVal(data['TALENT']) || cleanVal(data['CONTRACTOR_TALENT']);
 
@@ -3303,7 +3303,7 @@
     if (!wrap || !card) return;
 
     if (!isFullBriefOpen || !activeUnitRecord || !activeUnitRecord.UNIT_NAME) {
-      card.innerHTML = `<div class="mh-empty">Click ⚔️ MATCHUP to launch the Simulator, or open any Unit Brief to preview its counter list.</div>`;
+      card.innerHTML = `<div class="mh-empty">Click ⚔️ MATCHUP to launch the Simulator, or open any Asset Brief to preview its counter list.</div>`;
       wrap.classList.add('open');
       return;
     }
@@ -3373,11 +3373,11 @@
     if (myName) params.set('unitA', myName);
     if (optionalOpponentName) params.set('unitB', optionalOpponentName);
     const qs = params.toString();
-    const targetUrl = `./unit-matchup.html${qs ? '?' + qs : ''}`;
+    const targetUrl = `./asset-matchup.html${qs ? '?' + qs : ''}`;
 
     try {
       if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
-        window.parent.openInlineModuleViewport('UNIT MATCHUP SIMULATOR', '#c29829', null, targetUrl, targetUrl);
+        window.parent.openInlineModuleViewport('ASSET MATCHUP SIMULATOR', '#c29829', null, targetUrl, targetUrl);
         return;
       }
     } catch (e) {}
@@ -3408,7 +3408,7 @@
 </script>
 <footer class="class-bar class-bar-bottom">
   <div class="corner-tab corner-left"><span>[-WTR-] DATA HUB</span></div>
-  <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNIT BRIEFS GALLERY</div>
+  <div class="class-center">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • ASSET BRIEFS GALLERY</div>
   <div class="corner-tab corner-right"><button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ TOP OF BRIEF</button></div>
 </footer>
 
@@ -3809,7 +3809,7 @@
     window.copyActiveUnitDiscordBrief = function(initialFmt) {
       const rec = activeUnitRecord;
       if (!rec || !rec.UNIT_NAME) {
-        showDiscordToast('⚠️ Open a Unit Brief first to copy its Discord card!');
+        showDiscordToast('⚠️ Open a Asset Brief first to copy its Discord card!');
         return;
       }
       const uName = cleanVal(rec.UNIT_NAME);
@@ -3825,7 +3825,7 @@
       const linked = cleanVal(rec.LINKED_UNIT_NAME);
       const t1 = (cleanVal(rec.TALENT_LVL_1) || cleanVal(rec.TALENT) || '').replace(/\s+/g, ' ').trim();
       const shortTalent = t1.length > 220 ? (t1.slice(0, 217) + '...') : t1;
-      const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html?unit=${encodeURIComponent(uName)}`;
+      const shareUrl = `https://highanxiety-labs.github.io/watchtower-data-hub/asset-briefs.html?unit=${encodeURIComponent(uName)}`;
 
       const logoUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png';
       const metaLine = [gen, cls, fac].filter(Boolean).join(' • ');
@@ -3888,7 +3888,7 @@
       const rngB = pickBestStat(recB, `STAT_RANGE_${lvlLbl}`, ['STAT_RANGE_MAX', 'STAT_RANGE']);
       const spdA = cleanVal(recA.STAT_SPEED) || '—';
       const spdB = cleanVal(recB.STAT_SPEED) || '—';
-      const hubUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/unit-briefs.html';
+      const hubUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/asset-briefs.html';
       const logoUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png';
 
       const discord = [

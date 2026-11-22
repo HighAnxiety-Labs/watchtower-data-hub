@@ -31,7 +31,7 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — What's Broken in War Commander">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Known Defect & Bug Registry — Live Status RED Contractor bugs, CC22 facility upgrade defects, hover intel, and Unit Brief links.">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Known Defect & Bug Registry — Live Status RED Contractor bugs, CC22 facility upgrade defects, hover intel, and Asset Brief links.">
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
@@ -1266,7 +1266,7 @@
       overlayBanner: '🔴 STATUS: RED — BROKEN',
       overlayHeadline: 'Last Stand Zombies Attacking Own Base',
       overlayDesc: 'Zombies that come from buildings as Last Stand should defend base against attacker. Instead, they are attacking your own base.',
-      overlayCta: '📖 Click image to open Johnny Bones Unit Brief →',
+      overlayCta: '📖 Click image to open Johnny Bones Asset Brief →',
       redLight: true,
       yellowLight: false,
       greenLight: false
@@ -1388,7 +1388,7 @@
       overlayBanner: '🟢 STATUS: GREEN — FIXED',
       overlayHeadline: 'Now Showing in Contractor List',
       overlayDesc: 'FIXED — Now showing in the Contractor List. (Previously missing from Agency list after Blood Thorium diamond purchase / swap.)',
-      overlayCta: '📖 Click image to open Carol Hagen Unit Brief →',
+      overlayCta: '📖 Click image to open Carol Hagen Asset Brief →',
       redLight: false,
       yellowLight: false,
       greenLight: true
@@ -1520,7 +1520,7 @@
     try {
       localStorage.setItem(UNIT_HANDOFF_KEY, JSON.stringify({ unit: unitName, ts: Date.now() }));
     } catch (e) {}
-    const targetHref = `./unit-briefs.html?division=${encodeURIComponent(division || 'CONTRACTOR')}&unit=${encodeURIComponent(unitName)}`;
+    const targetHref = `./asset-briefs.html?division=${encodeURIComponent(division || 'CONTRACTOR')}&unit=${encodeURIComponent(unitName)}`;
     if (ev && (ev.ctrlKey || ev.metaKey || ev.button === 1)) {
       return; // allow native anchor new-tab behavior
     }
@@ -1598,19 +1598,19 @@
              data-backup="${escapeHtml(backupSrc)}"
              onerror="if(this.dataset.backup){const b=this.dataset.backup;this.dataset.backup='';this.src=b;}else{this.outerHTML='<div class=\\'portrait-monogram\\'>${escapeHtml(initials)}</div>';}">
         ${isGreen ? `<div class="fixed-stamp-wrap"><div class="fixed-stamp">FIXED</div></div>` : ''}
-        <span class="thumb-brief-tag">${isContractor ? 'UNIT BRIEF ↗' : 'BUILDING BRIEF ↗'}</span>
+        <span class="thumb-brief-tag">${isContractor ? 'ASSET BRIEF ↗' : 'BUILDING BRIEF ↗'}</span>
       `;
 
       let thumbBoxHtml = '';
       let footerActionHtml = '';
       if (isContractor) {
-        const briefUrl = `./unit-briefs.html?division=${encodeURIComponent(item.unitBriefDivision || 'CONTRACTOR')}&unit=${encodeURIComponent(item.unitBriefName)}`;
+        const briefUrl = `./asset-briefs.html?division=${encodeURIComponent(item.unitBriefDivision || 'CONTRACTOR')}&unit=${encodeURIComponent(item.unitBriefName)}`;
         const safeUnitAttr = escapeHtml(item.unitBriefName).replace(/'/g, '&#39;');
         const safeDivAttr = escapeHtml(item.unitBriefDivision || 'CONTRACTOR').replace(/'/g, '&#39;');
         thumbBoxHtml = `
           <a class="thumb-frame ${item.containThumb ? 'contain-mode' : ''}"
              href="${escapeHtml(briefUrl)}"
-             data-track="Unit Brief: ${escapeHtml(item.unitBriefName)}"
+             data-track="Asset Brief: ${escapeHtml(item.unitBriefName)}"
              onclick="openContractorUnitBrief('${safeUnitAttr}', '${safeDivAttr}', event)"
              title="${escapeHtml(item.overlayCta)}">
             ${imgHtml}

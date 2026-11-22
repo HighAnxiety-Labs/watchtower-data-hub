@@ -1213,7 +1213,7 @@
         </div>
         <div>
           <h1 style="font-family:'Orbitron',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.4px; color:#ffffff; text-transform:uppercase; margin-bottom:5px;">
-            UNIT MATCHUP SIMULATOR &amp; THREAT RADAR
+            ASSET MATCHUP SIMULATOR &amp; THREAT RADAR
           </h1>
           <p style="font-size:14.5px; color:#9bb4cc; line-height:1.45; max-width:780px;">
             Pick your active unit below to instantly scan every opponent in <strong>MASTER_DB</strong> for <strong>2× Counter-Armor</strong>, range advantages, and optimal Unit &amp; Faction Workshop tech loadouts.
@@ -1241,7 +1241,7 @@
             <button type="button" class="meta-chip" onclick="fetchMasterDb(true)" title="Force fresh sync from Google Sheets MASTER_DB" style="cursor:pointer; color:#7df9ff; border-color:rgba(0,229,255,0.5); background:rgba(0,229,255,0.1);">↻ Sync</button>
             <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="shareMatchupRadar()" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
             <a href="./damage-type.html" onclick="return openDamageMatrixInPage(event)" class="matrix-jump-link">📊 3×3 Damage &amp; Armor Matrix ↗</a>
-            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Unit Brief</a>
+            <a href="./asset-briefs.html" onclick="return openUnitBriefInPage(event, getMySelectedUnit()?.UNIT_NAME)" class="brief-jump-link" id="myUnitBriefLink">📖 Full Asset Brief</a>
           </div>
         </div>
 
@@ -1365,7 +1365,7 @@
       <span>[-WTR-] DATA HUB</span>
     </div>
     <div class="class-center">
-      UNCLASSIFIED // BY PLAYERS FOR PLAYERS • UNIT MATCHUP SIMULATOR
+      UNCLASSIFIED // BY PLAYERS FOR PLAYERS • ASSET MATCHUP SIMULATOR
     </div>
     <div class="corner-tab corner-right">
       <button type="button" class="collapse-toggle-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲ TOP OF BRIEF</button>
@@ -1413,7 +1413,7 @@
               <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
-            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalYouUnit?.UNIT_NAME)" class="brief-jump-link" id="modalYouBriefLink">📖 Unit Brief</a>
+            <a href="./asset-briefs.html" onclick="return openUnitBriefInPage(event, modalYouUnit?.UNIT_NAME)" class="brief-jump-link" id="modalYouBriefLink">📖 Asset Brief</a>
           </div>
           <div class="unit-chip-row" id="modalYouChips"></div>
         </div>
@@ -1446,7 +1446,7 @@
               <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
-            <a href="./unit-briefs.html" onclick="return openUnitBriefInPage(event, modalOppUnit?.UNIT_NAME)" class="brief-jump-link" id="modalOppBriefLink">📖 Unit Brief</a>
+            <a href="./asset-briefs.html" onclick="return openUnitBriefInPage(event, modalOppUnit?.UNIT_NAME)" class="brief-jump-link" id="modalOppBriefLink">📖 Asset Brief</a>
           </div>
           <div class="unit-chip-row" id="modalOppChips"></div>
         </div>
@@ -1941,7 +1941,7 @@
     }
     document.getElementById('myHeroPortrait').innerHTML = render4x5PortraitHtml(me);
     document.getElementById('myHeroNameDisplay').textContent = me.UNIT_NAME;
-    document.getElementById('myUnitBriefLink').href = `./unit-briefs.html?unit=${encodeURIComponent(me.UNIT_NAME)}`;
+    document.getElementById('myUnitBriefLink').href = `./asset-briefs.html?unit=${encodeURIComponent(me.UNIT_NAME)}`;
 
     const genLbl = getGenerationLabel(me);
     const fac = cleanVal(me.STAT_FACTION) || 'Unaligned';
@@ -3144,7 +3144,7 @@
   function renderModalFighterCard(prefix, rec, profile) {
     document.getElementById(`modal${prefix}Portrait`).innerHTML = render4x5PortraitHtml(rec);
     document.getElementById(`modal${prefix}Name`).textContent = rec.UNIT_NAME;
-    document.getElementById(`modal${prefix}BriefLink`).href = `./unit-briefs.html?unit=${encodeURIComponent(rec.UNIT_NAME)}`;
+    document.getElementById(`modal${prefix}BriefLink`).href = `./asset-briefs.html?unit=${encodeURIComponent(rec.UNIT_NAME)}`;
     const dmgInfo = profile ? profile.dmgInfo : normalizeDamage(rec.STAT_DAMAGE_TYPE);
     const bonusPierce = profile ? profile.bonusDrPiercePct : 0;
     document.getElementById(`modal${prefix}Chips`).innerHTML = `
@@ -3363,10 +3363,10 @@
   function openUnitBriefInPage(ev, unitName) {
     if (ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1)) return true;
     if (ev) ev.preventDefault();
-    const targetUrl = unitName ? `./unit-briefs.html?unit=${encodeURIComponent(unitName)}` : './unit-briefs.html';
+    const targetUrl = unitName ? `./asset-briefs.html?unit=${encodeURIComponent(unitName)}` : './asset-briefs.html';
     try {
       if (window.parent && window.parent !== window && typeof window.parent.openInlineModuleViewport === 'function') {
-        window.parent.openInlineModuleViewport('UNIT BRIEFS | GALLERY', '#c29829', null, targetUrl, targetUrl);
+        window.parent.openInlineModuleViewport('ASSET BRIEFS | GALLERY', '#c29829', null, targetUrl, targetUrl);
         return false;
       }
     } catch (e) {}
@@ -3415,10 +3415,10 @@
     const amb = document.getElementById("cntAmber")?.textContent || "0";
     const grn = document.getElementById("cntGreen")?.textContent || "0";
     const meta = me ? [getGenerationLabel(me), cleanVal(me.STAT_FACTION)].filter(Boolean).join(" • ") : "";
-    const file = uName ? `unit-matchup.html?unit=${encodeURIComponent(uName)}` : "unit-matchup.html";
+    const file = uName ? `asset-matchup.html?unit=${encodeURIComponent(uName)}` : "asset-matchup.html";
     window.WTRSocialShare.openPage({
       icon: "🎯",
-      title: uName ? `UNIT MATCHUP RADAR — ${uName} (${lvlTxt})` : "UNIT MATCHUP SIMULATOR & THREAT RADAR",
+      title: uName ? `ASSET MATCHUP RADAR — ${uName} (${lvlTxt})` : "ASSET MATCHUP SIMULATOR & THREAT RADAR",
       detail: `**Threat Radar:** 🔴 ${red} Avoid | 🟡 ${amb} Even | 🟢 ${grn} Easy Kills${meta ? " (" + meta + ")" : ""}`,
       file
     });
@@ -3431,11 +3431,11 @@
     const pctA = document.getElementById("modalYouWinPct")?.textContent || "50%";
     const pctB = document.getElementById("modalOppWinPct")?.textContent || "50%";
     const file = (uA && uB)
-      ? `unit-matchup.html?unitA=${encodeURIComponent(uA)}&unitB=${encodeURIComponent(uB)}`
-      : "unit-matchup.html";
+      ? `asset-matchup.html?unitA=${encodeURIComponent(uA)}&unitB=${encodeURIComponent(uB)}`
+      : "asset-matchup.html";
     window.WTRSocialShare.openPage({
       icon: "⚔️",
-      title: (uA && uB) ? `HEAD-TO-HEAD DUEL — ${uA} vs ${uB}` : "HEAD-TO-HEAD UNIT MATCHUP",
+      title: (uA && uB) ? `HEAD-TO-HEAD DUEL — ${uA} vs ${uB}` : "HEAD-TO-HEAD ASSET MATCHUP",
       detail: `**Win Odds:** ${uA} ${pctA} vs ${uB} ${pctB} | **Workshops:** Auto-recommended counter tech`,
       file
     });
