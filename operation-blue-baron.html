@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER MAIN EVENT DOSSIER PUBLISHED // RELEASE: v10.2-DYNAMIC-BASES (2026-10-31) -->
+<!-- WATCHTOWER MAIN EVENT REPORT PUBLISHED // RELEASE: v10.2-DYNAMIC-BASES (2026-10-31) -->
 <html lang="en"><head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4S885L7Z"></script>
@@ -436,8 +436,8 @@
     border: 1px solid var(--border-dark);
   }
 
-  /* ==================== LOCKED-HUD DOSSIER FRAME ==================== */
-  .dossier-card {
+  /* ==================== LOCKED-HUD REPORT FRAME ==================== */
+  .report-card {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
@@ -450,13 +450,13 @@
     overflow: hidden;
     position: relative;
   }
-  .dossier-card.archive-collapsed {
+  .report-card.archive-collapsed {
     max-height: none;
   }
-  .dossier-card.unconstrained-height {
+  .report-card.unconstrained-height {
     max-height: none;
   }
-  .dossier-card.unconstrained-height .brief-scroll-viewport {
+  .report-card.unconstrained-height .brief-scroll-viewport {
     overflow-y: visible;
     max-height: none;
   }
@@ -555,13 +555,13 @@
     background: #14241b;
     color: #ffffff;
   }
-  .dossier-card.archive-collapsed .corner-top-right,
-  .dossier-card.archive-collapsed .archive-collapse-btn {
+  .report-card.archive-collapsed .corner-top-right,
+  .report-card.archive-collapsed .archive-collapse-btn {
     background: #1a1605;
     color: var(--text-gold);
   }
-  .dossier-card.archive-collapsed .corner-top-right:hover,
-  .dossier-card.archive-collapsed .archive-collapse-btn:hover {
+  .report-card.archive-collapsed .corner-top-right:hover,
+  .report-card.archive-collapsed .archive-collapse-btn:hover {
     background: var(--text-gold);
     color: #000000;
   }
@@ -729,7 +729,7 @@
     gap: 4px;
     flex-wrap: wrap;
   }
-  .dossier-card.archive-collapsed .file-tabs-rail {
+  .report-card.archive-collapsed .file-tabs-rail {
     display: none;
   }
   .file-tab-btn {
@@ -865,16 +865,16 @@
     position: relative;
     z-index: 2;
   }
-  .dossier-card.archive-collapsed .event-header {
+  .report-card.archive-collapsed .event-header {
     padding: 18px 24px;
     border-bottom: none;
     margin-bottom: 0;
   }
-  .dossier-card.archive-collapsed .header-logo-link {
+  .report-card.archive-collapsed .header-logo-link {
     width: 90px;
     height: 90px;
   }
-  .dossier-card.archive-collapsed .side-quick-rail {
+  .report-card.archive-collapsed .side-quick-rail {
     display: none;
   }
   .event-header-text {
@@ -957,12 +957,12 @@
   .brief-collapsible-body {
     display: block;
   }
-  .dossier-card.archive-collapsed .brief-collapsible-body {
+  .report-card.archive-collapsed .brief-collapsible-body {
     display: none;
   }
 
   /* Section Containers & Collapsible Green Header Bars */
-  .dossier-section {
+  .report-section {
     padding: 0 20px 24px 20px;
     clear: both;
   }
@@ -1009,7 +1009,7 @@
     border: 1px solid rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease;
   }
-  .dossier-section.section-minimized .section-content-wrap {
+  .report-section.section-minimized .section-content-wrap {
     display: none !important;
   }
 
@@ -1812,7 +1812,7 @@
     flex-direction: column;
     gap: 6px;
   }
-  .dossier-card.archive-collapsed .side-quick-rail {
+  .report-card.archive-collapsed .side-quick-rail {
     display: none;
   }
   .side-rail-btn {
@@ -2051,9 +2051,9 @@
 <!-- PUBLISHED HTML CLIPBOARD BOX (STRIPPED ON PUBLISH) -->
 
 <!-- ==================== END BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
-<!-- ==================== START BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05 WITH DYNAMIC BASE XP & ON/OFF CONTROLS) ==================== -->
-<div id="dossier-view" style="width: 100%;">
-  <div id="main-export-blue-baron" class="dossier-card" data-store-close="2026-11-12T10:00:00-08:00">
+<!-- ==================== START BLOCK 3: TARGET REPORT CARD (HEADER & SECTIONS 02–05 WITH DYNAMIC BASE XP & ON/OFF CONTROLS) ==================== -->
+<div id="report-view" style="width: 100%;">
+  <div id="main-export-blue-baron" class="report-card" data-store-close="2026-11-12T10:00:00-08:00">
 
     <!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
     <div class="locked-top-hud">
@@ -2069,31 +2069,31 @@
       <!-- Instant File-Folder Tab Locator Bar -->
       <nav class="file-tabs-rail" aria-label="Instant Section Locators">
         <div class="file-tabs-group">
-          <button type="button" class="file-tab-btn" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToReportSection('secTopHeader', this)">
             <span class="tab-idx">01</span><span id="displayTab01Label">TOP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToDossierSection('secVideoRecon', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToReportSection('secVideoRecon', this)" style="display: inline-flex;">
             <span class="tab-idx">02</span><span id="displayTab02Label">VIDEO RECON</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToDossierSection('secSitrep', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToReportSection('secSitrep', this)" style="display: inline-flex;">
             <span class="tab-idx">03</span><span id="displayTab03Label">SITREP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToDossierSection('secFeatured', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToReportSection('secFeatured', this)" style="display: inline-flex;">
             <span class="tab-idx">04</span><span id="displayTab04Label">FEATURED</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToDossierSection('secMissionTracks', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToReportSection('secMissionTracks', this)" style="display: inline-flex;">
             <span class="tab-idx">05</span><span id="displayTab05Label">MISSION TRACKS</span>
           </button>
-          <button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToDossierSection('integratedStoreCalcSection', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToReportSection('integratedStoreCalcSection', this)" style="display: inline-flex;">
             <span class="tab-idx">06</span><span id="displayTab06Label">🧮 STORE &amp; CALC</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToDossierSection('secNewUnits', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToReportSection('secNewUnits', this)" style="display: inline-flex;">
             <span class="tab-idx">07</span><span id="displayTab07Label">NEW UNITS</span>
           </button>
-          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToDossierSection('secUpdatedUnits', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToReportSection('secUpdatedUnits', this)" style="display: inline-flex;">
             <span class="tab-idx">08</span><span id="displayTab08Label">UPDATED UNITS</span>
           </button>
-          <button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToDossierSection('secEnemyForces', this)" style="display: inline-flex;">
+          <button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToReportSection('secEnemyForces', this)" style="display: inline-flex;">
             <span class="tab-idx">09</span><span id="displayTab09Label">ENEMY FORCES</span>
           </button>
         </div>
@@ -2142,7 +2142,7 @@
           <div class="event-header-text">
             <div class="event-sub-tag"><span id="displayHeaderPrefix">[-WTR-] DATA HUB</span> | 
               <a id="displaySourceLink" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1054-operation-blue-baron-november-2026-main-event/" data-preview-title="KIXEYE OFFICIAL RELEASE NOTES" data-preview-sub="External KIXEYE Help Center" data-preview-img="https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> | 
-              <a id="displayCalcJumpLink" href="javascript:void(0)" data-no-overlay="true" onclick="jumpToDossierSection('integratedStoreCalcSection')" style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
+              <a id="displayCalcJumpLink" href="javascript:void(0)" data-no-overlay="true" onclick="jumpToReportSection('integratedStoreCalcSection')" style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a>
             </div>
             <div class="event-title-row">
               <h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">OPERATION: BLUE BARON</h1>
@@ -2175,7 +2175,7 @@
       <div id="briefCollapsibleBody" class="brief-collapsible-body">
 
         <!-- SECTION 02: VIDEO RECON & GUIDES -->
-        <section class="dossier-section" id="secVideoRecon" style="display: block;">
+        <section class="report-section" id="secVideoRecon" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarVideoTitle">VIDEO RECON &amp; GUIDES</span>
             <div class="section-header-right">
@@ -2216,7 +2216,7 @@
         </section>
 
         <!-- SECTION 03: SITUATION REPORT (ADJUSTABLE PICTURE FRAME + DOUBLE-SPACE LINE BREAKS) -->
-        <section class="dossier-section" id="secSitrep" style="display: block;">
+        <section class="report-section" id="secSitrep" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarSitrepTitle">SITUATION REPORT</span>
             <div class="section-header-right">
@@ -2248,7 +2248,7 @@
         </section>
 
         <!-- SECTION 04: FEATURED ITEMS -->
-        <section class="dossier-section" id="secFeatured" style="display: block;">
+        <section class="report-section" id="secFeatured" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarFeaturedTitle">FEATURED ITEMS</span>
             <div class="section-header-right">
@@ -2269,7 +2269,7 @@
         </section>
 
         <!-- SECTION 05: MISSION TRACKS (WITH DYNAMIC BASE ON/OFF & XP PAYOUT CONTROLS) -->
-        <section class="dossier-section" id="secMissionTracks" style="display: block;">
+        <section class="report-section" id="secMissionTracks" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarTracksTitle">MISSION TRACKS &amp; CALCULATOR VARIABLES</span>
             <div class="section-header-right">
@@ -2554,10 +2554,10 @@
             </div>
           </div>
         </section>
-<!-- ==================== END BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05) ==================== -->
-<!-- ==================== START BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
+<!-- ==================== END BLOCK 3: TARGET REPORT CARD (HEADER & SECTIONS 02–05) ==================== -->
+<!-- ==================== START BLOCK 4: TARGET REPORT CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
         <!-- SECTION 06: INTEGRATED EVENT STORE INVENTORY & INTERACTIVE CALCULATOR -->
-        <section class="dossier-section" id="integratedStoreCalcSection" style="display: block;">
+        <section class="report-section" id="integratedStoreCalcSection" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarStoreTitle">EVENT STORE INVENTORY &amp; INTERACTIVE CALCULATOR</span>
             <div class="section-header-right">
@@ -2962,7 +2962,7 @@
         </section>
 
         <!-- SECTION 07: NEW UNITS FOR THIS EVENT -->
-        <section class="dossier-section" id="secNewUnits" style="display: block;">
+        <section class="report-section" id="secNewUnits" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarNewUnitsTitle">NEW UNITS FOR THIS EVENT</span>
             <div class="section-header-right">
@@ -2997,7 +2997,7 @@
         </section>
 
         <!-- SECTION 08: NEWLY UPDATED UNITS -->
-        <section class="dossier-section" id="secUpdatedUnits" style="display: block;">
+        <section class="report-section" id="secUpdatedUnits" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarUpdatedUnitsTitle">NEWLY UPDATED UNITS</span>
             <div class="section-header-right">
@@ -3032,7 +3032,7 @@
         </section>
 
         <!-- SECTION 09: ENEMY FORCES (LINKED TO ONYX MASTER_DB) -->
-        <section class="dossier-section" id="secEnemyForces" style="display: block;">
+        <section class="report-section" id="secEnemyForces" style="display: block;">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarEnemyTitle">ENEMY FORCES</span>
             <div class="section-header-right">
@@ -3251,18 +3251,18 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     <!-- Floating Quick-Return Rail -->
     <div class="side-quick-rail">
-      <button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('integratedStoreCalcSection')" title="Jump to Store &amp; Calculator">🧮 CALC</button>
-      <button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
+      <button type="button" class="side-rail-btn gold" onclick="jumpToReportSection('integratedStoreCalcSection')" title="Jump to Store &amp; Calculator">🧮 CALC</button>
+      <button type="button" class="side-rail-btn" onclick="jumpToReportSection('secTopHeader')" title="Return to Top">▲ TOP</button>
     </div>
 
   </div>
 </div>
-<!-- ==================== END BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09) ==================== -->
+<!-- ==================== END BLOCK 4: TARGET REPORT CARD (SECTIONS 06–09) ==================== -->
 <!-- ==================== START BLOCK 5: JAVASCRIPT INLINE STUDIO & CALCULATOR ENGINE (v10.2-DYNAMIC-BASES) ==================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-  const WTR_DOSSIER_RELEASE = "v10.2-DYNAMIC-BASES (2026-10-31)";
+  const WTR_REPORT_RELEASE = "v10.2-DYNAMIC-BASES (2026-10-31)";
   const MASTER_STORAGE_KEY = "wtr_main_event_master_studio_v10_3_inc2";
   const PLAYER_CALC_STORAGE_KEY = "wtr_blue_baron_nov2026_player_v10_2_dyn";
   const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
@@ -3786,7 +3786,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     } else {
       el.classList.toggle("open", Boolean(shouldOpen));
     }
-    const parentSec = el.closest(".dossier-section");
+    const parentSec = el.closest(".report-section");
     if (parentSec && parentSec.classList.contains("section-minimized") && el.classList.contains("open")) {
       parentSec.classList.remove("section-minimized");
       const arrow = parentSec.querySelector(".section-min-arrow");
@@ -5992,7 +5992,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   }
 
   /* ==================== LOCKED-HUD FILE-TAB NAVIGATION ==================== */
-  function jumpToDossierSection(sectionId, tabBtnEl) {
+  function jumpToReportSection(sectionId, tabBtnEl) {
     const card = getBriefCardEl();
     if (card && card.classList.contains("archive-collapsed")) {
       setBriefCollapseState(false, false);
@@ -6068,7 +6068,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   });
 
   function toggleSectionMinimize(headerBarEl) {
-    const sec = headerBarEl.closest(".dossier-section");
+    const sec = headerBarEl.closest(".report-section");
     if (!sec) return;
     const isMin = sec.classList.toggle("section-minimized");
     const arrow = headerBarEl.querySelector(".section-min-arrow");
@@ -6107,7 +6107,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     if (pod) pod.classList.remove("show");
   }
 
-  function openUnitDossierOverlay(unitName, externalUrl) {
+  function openUnitReportOverlay(unitName, externalUrl) {
     hideHoverThumbnail();
     const modal = document.getElementById("wtrInPageOverlayModal");
     const titleEl = document.getElementById("overlayModalTitle");
@@ -6215,7 +6215,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   }
 
   function bindUniversalLinkPreviews() {
-    document.querySelectorAll("#dossier-view a").forEach(a => {
+    document.querySelectorAll("#report-view a").forEach(a => {
       if (
         a.id === "overlayExternalBtn" ||
         a.classList.contains("video-btn") ||
@@ -6248,7 +6248,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
         const href = a.getAttribute("href");
         if (unitName) {
           stampUnitHandoff(unitName);
-          openUnitDossierOverlay(unitName, href);
+          openUnitReportOverlay(unitName, href);
         } else {
           const title = a.getAttribute("data-preview-title") || (a.textContent || "Link").trim();
           const sub = a.getAttribute("data-preview-sub") || "External WatchToweR Resource";
@@ -6404,7 +6404,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
   /* ==================== ARCHIVE MODE & AUTO-COLLAPSE WHEN STORE CLOSES ==================== */
   function getBriefCardEl() {
     return document.getElementById("main-export-blue-baron") ||
-           document.querySelector(".dossier-card, .report-card");
+           document.querySelector(".report-card, .report-card");
   }
 
   function setBriefCollapseState(shouldCollapse, isAutoArchived) {
@@ -6554,7 +6554,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     vaultScript.textContent = encodeVaultBase64(masterState);
     cloneDoc.querySelector("head").appendChild(vaultScript);
 
-    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER MAIN EVENT DOSSIER MASTER // RELEASE: ${WTR_DOSSIER_RELEASE} -->\n` + cloneDoc.outerHTML;
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER MAIN EVENT REPORT MASTER // RELEASE: ${WTR_REPORT_RELEASE} -->\n` + cloneDoc.outerHTML;
     htmlOut = htmlOut.replace(
       /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
       () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
@@ -6698,7 +6698,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
 
     cloneDoc.querySelectorAll(".inline-section-editor, .sec-edit-pill").forEach(el => el.remove());
 
-    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER MAIN EVENT DOSSIER PUBLISHED // RELEASE: ${WTR_DOSSIER_RELEASE} -->\n` + cloneDoc.outerHTML;
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER MAIN EVENT REPORT PUBLISHED // RELEASE: ${WTR_REPORT_RELEASE} -->\n` + cloneDoc.outerHTML;
     htmlOut = htmlOut.replace(
       /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
       () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
@@ -6720,7 +6720,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
     copyTextareaToClipboard();
 
     if (mode === "copy") {
-      if (statusLabel) statusLabel.textContent = `✅ PUBLISHED ${WTR_DOSSIER_RELEASE} & COPIED TO CLIPBOARD`;
+      if (statusLabel) statusLabel.textContent = `✅ PUBLISHED ${WTR_REPORT_RELEASE} & COPIED TO CLIPBOARD`;
       showToast("📋 Published HTML Copied!");
     } else {
       const blob = new Blob([cleanHtml], { type: "text/html;charset=utf-8" });
@@ -6732,7 +6732,7 @@ Turrets are equipped with Anti Air (Energy Blast)" data-preview-img="https://d2d
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      if (statusLabel) statusLabel.textContent = `🚀 PUBLISHED ${WTR_DOSSIER_RELEASE} & DOWNLOADED: ${pubFilename}`;
+      if (statusLabel) statusLabel.textContent = `🚀 PUBLISHED ${WTR_REPORT_RELEASE} & DOWNLOADED: ${pubFilename}`;
       showToast(`🚀 Downloaded ${pubFilename}`);
     }
   }

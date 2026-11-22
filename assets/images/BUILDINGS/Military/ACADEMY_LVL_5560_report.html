@@ -259,8 +259,8 @@
   .editor-footer-bar {
     background: #090e0b; border-top: 1px solid #1f3b2b; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
   }
-  /* ==================== DOSSIER CARD STYLES ==================== */
-  .dossier-card {
+  /* ==================== REPORT CARD STYLES ==================== */
+  .report-card {
     width: 100%;
     max-width: 1140px;
     margin: 0 auto;
@@ -326,7 +326,7 @@
   .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.35); }
   .broken-badge { background: rgba(244, 63, 94, 0.2); border: 1px solid #f43f5e; color: #fda4af; font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 3px; text-transform: uppercase; }
   /* Shared Sections */
-  .dossier-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  .report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
   /* DATA SHEET 1: Directive */
   .wc-directive-box {
     width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6); padding: 15px 18px; border-radius: 2px;
@@ -398,11 +398,11 @@
     .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
   }</style>
 <div style="width: 100%; max-width: 1140px;">
-  <div id="exportable-dossier-card" class="dossier-card">
-    <div id="d-classification" class="classification-bar">BASE OPERATIONS // AVIATION LOGISTICS — AIRCRAFT HANGER (CC22 WAVE)</div>
+  <div id="exportable-report-card" class="report-card">
+    <div id="d-classification" class="classification-bar">BASE OPERATIONS // MILITARY INFRASTRUCTURE — ACADEMY (CC22 WAVE)</div>
     <div class="header-content">
-      <h1 id="d-title" class="unit-title">AIRCRAFT HANGER</h1>
-      <p id="d-quote" class="unit-quote" style="display: block;">"Provides supplemental storage, aircraft maintenance bays, and +4,000 Air Hanger capacity per CC22 upgrade level."</p>
+      <h1 id="d-title" class="unit-title">ACADEMY</h1>
+      <p id="d-quote" class="unit-quote" style="display: block;">"Upgrade to gain access to superior advancements in Infantry technology and Last Stand Defender capacity."</p>
     </div>
 <!-- Meta Strip with Dynamic Data Sheet Quick-Jump Links & Linked Facility -->
     <div id="unit-meta-bar" class="unit-meta-bar" style="display: flex;">
@@ -425,21 +425,21 @@
       <div id="linked-unit-container" class="meta-item meta-right" style="display: flex;">
         <span class="meta-label">LINKED FACILITY:</span> 
         <a id="linkedFacilityBtn" class="meta-btn btn-gold"></a> 
-        <span id="d-linked-name">AIRFIELD (LVL 60)</span> 
+        <span id="d-linked-name">BARRACKS (LVL 55)</span> 
         <span class="popout-icon">↗</span>
       </div>
     </div>
 <!-- Operational Updates / Known Issues Strip -->
     <div id="updates-bar-wrap" class="unit-updates-bar" style="display: flex;">
       <span id="d-updates-label" class="updates-label">Operational Telemetry:</span> 
-      <span id="d-updates" class="updates-content">Each upgrade level from 46 to 50 grants an immediate +4,000 capacity increase to the Air Hanger (+20,000 total capacity across 5 levels).</span>
+      <span id="d-updates" class="updates-content">🚨 BROKEN ALERT: Academy Levels 56–60 are listed to increase Last Stand Defenders Capacity from 1,250 to 1,450, but currently no Last Stand increase is given in-game!</span>
     </div>
 <!-- 3-Column Briefing Grid -->
     <div class="briefing-grid"><!-- Col 1: Visual (4:5 Auto-Fit Image) -->
       <div class="unit-display">
-        <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;">CC22 TIER: LVL 45 → 50</span>
+        <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;">CC22 TIER: LVL 55 → 60</span>
         <div id="main-img-frame" class="unit-img-frame">
-          <img id="d-main-img" class="unit-img" src="https://share1.cloudhq-mkt3.net/672e01ddf448a6.jpeg" alt="AIRCRAFT HANGER (LVL 45–50) Render">
+          <img id="d-main-img" class="unit-img" src="https://share1.cloudhq-mkt3.net/cd4b1a07c0612b.jpeg" alt="ACADEMY (LVL 55–60) Render">
         </div>
       </div>
 <!-- Col 2: Facility Specifications Table -->
@@ -449,11 +449,11 @@
           <tbody id="d-stats-tbody">
             <tr>
               <td class="stats-label">Facility Category</td>
-              <td class="stats-value ">Military / Aviation Storage</td>
+              <td class="stats-value ">Military / Infantry R&amp;D</td>
             </tr>
             <tr>
               <td class="stats-label">CC22 Level Range</td>
-              <td class="stats-value val-green">Level 45 → Level 50 (5 Lvls)</td>
+              <td class="stats-value val-green">Level 55 → Level 60 (5 Lvls)</td>
             </tr>
             <tr>
               <td class="stats-label">Total Iridium Cost</td>
@@ -476,8 +476,8 @@
               <td class="stats-value val-green">802 Gold</td>
             </tr>
             <tr>
-              <td class="stats-label">Capacity Gain</td>
-              <td class="stats-value ">+4,000 per Level (+20k Total)</td>
+              <td class="stats-label">Operational Status</td>
+              <td class="stats-value val-alert">🚨 BROKEN (No Last Stand Cap Given)</td>
             </tr>
           </tbody>
         </table>
@@ -487,25 +487,31 @@
         <span class="col-header">Core Functions &amp; Unlocks</span>
         <div id="d-talents-list">
           <div class="talent-block">
-            <div class="talent-tier">AVIATION FLEET EXPANSION (+20,000 CAP)</div>
-            <div class="talent-desc">Adds +4,000 Air Hanger capacity at Levels 46, 47, 48, 49, and 50 to house high-cap Arc 2 aircraft squadrons.</div>
+            <div class="talent-tier">🚨 KNOWN BUG — LAST STAND DEFENDER CAP</div>
+            <div class="talent-desc">
+              <span class="broken-badge">BROKEN</span> Upgrading Academy from Level 55 to 60 currently fails to apply the listed Last Stand Defender capacity increase.
+            </div>
+          </div>
+          <div class="talent-block">
+            <div class="talent-tier">LISTED PROGRESSION (LVL 56–60)</div>
+            <div class="talent-desc">Lvl 56: 1,250 Cap | Lvl 57: 1,300 Cap | Lvl 58: 1,350 Cap | Lvl 59: 1,400 Cap | Lvl 60: 1,450 Cap.</div>
           </div>
         </div>
       </div>
     </div>
 <!-- ==================== DATA SHEET 1: UPGRADE DIRECTIVE ==================== -->
-    <div id="directive-section" class="dossier-section" style="display: block;">
+    <div id="directive-section" class="report-section" style="display: block;">
       <span class="col-header">
-        <span id="d-sheet1-header">Data Sheet 1 // AIRCRAFT HANGER (LVL 45–50) Upgrade Directive</span> 
-        <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: AIR_HANGER-OPS</span>
+        <span id="d-sheet1-header">Data Sheet 1 // Academy Upgrade Directive</span> 
+        <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: CC22-ACADEMY</span>
       </span>
       <div class="wc-directive-box">
         <div class="wc-header">
           <div class="wc-title">
-            <span id="d-directive-title">AIRCRAFT HANGER (LVL 45–50)</span> 
+            <span id="d-directive-title">ACADEMY (LVL 55–60)</span> 
             <span class="wc-badge">UPGRADE DIRECTIVE</span>
           </div>
-          <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;">DATABASE REF: AIR_HANGER-OPS</div>
+          <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;">DATABASE REF: CC22-ACADEMY</div>
         </div>
         <div style="overflow-x: auto;">
           <table class="wc-table">
@@ -523,11 +529,11 @@
             </thead>
             <tbody id="d-directive-tbody">
               <tr class="section-divider">
-                <td colspan="8">CC22 Aircraft Hanger Upgrade Progression (Levels 45 → 50)</td>
+                <td colspan="8">CC22 Academy Upgrade Progression (Levels 55 → 60)</td>
               </tr>
               <tr class="">
-                <td class="level-cell">45→46</td>
-                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="level-cell">55→56</td>
+                <td>🚨 Last Stand Defenders Capacity: 1,250 (Currently Broken)</td>
                 <td class="iridium-cost">25,000</td>
                 <td class="gold-cost">97</td>
                 <td class="gold-cost">110</td>
@@ -536,8 +542,8 @@
                 <td class="cc-req">CC 22</td>
               </tr>
               <tr class="">
-                <td class="level-cell">46→47</td>
-                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="level-cell">56→57</td>
+                <td>🚨 Increases capacity: 1,300 (Currently Broken)</td>
                 <td class="iridium-cost">30,000</td>
                 <td class="gold-cost">114</td>
                 <td class="gold-cost">129</td>
@@ -546,8 +552,8 @@
                 <td class="cc-req">CC 22</td>
               </tr>
               <tr class="">
-                <td class="level-cell">47→48</td>
-                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="level-cell">57→58</td>
+                <td>🚨 Increases capacity: 1,350 (Currently Broken)</td>
                 <td class="iridium-cost">40,000</td>
                 <td class="gold-cost">147</td>
                 <td class="gold-cost">167</td>
@@ -556,8 +562,8 @@
                 <td class="cc-req">CC 22</td>
               </tr>
               <tr class="">
-                <td class="level-cell">48→49</td>
-                <td>Increase of 4k to Air Hanger capacity</td>
+                <td class="level-cell">58→59</td>
+                <td>🚨 Increases capacity: 1,400 (Currently Broken)</td>
                 <td class="iridium-cost">50,000</td>
                 <td class="gold-cost">177</td>
                 <td class="gold-cost">202</td>
@@ -566,8 +572,8 @@
                 <td class="cc-req">CC 22</td>
               </tr>
               <tr class="highlight-row">
-                <td class="level-cell">49→50</td>
-                <td>Increase of 4k to Air Hanger capacity (+20k Total)</td>
+                <td class="level-cell">59→60</td>
+                <td>🚨 Increases capacity: 1,450 (Currently Broken)</td>
                 <td class="iridium-cost">60,000</td>
                 <td class="gold-cost">206</td>
                 <td class="gold-cost">236</td>
@@ -591,7 +597,7 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 2: CC22 UPGRADE PLANNING MATRIX ==================== -->
-    <div id="upgrades-section" class="dossier-section" style="display: none;">
+    <div id="upgrades-section" class="report-section" style="display: none;">
       <span id="upgrades-section-header" class="col-header">
         <span id="d-sheet2-header">Data Sheet 2 // CC22 Master Upgrade Planning Matrix (All Facilities)</span> 
         <span id="d-sheet2-sub" style="font-size: 12px; color: #ffd700; font-family: monospace;">TOTAL: 244d 12h | 2,445,000 IRIDIUM | 9,346 GOLD</span>
@@ -612,7 +618,7 @@
             </tr>
           </thead>
           <tbody id="upgrades-table-body">
-            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Report">
               <td class="lvl-cell">↗ Command Center 22</td>
               <td>21 → 22</td>
               <td>1</td>
@@ -623,7 +629,7 @@
               <td class="sale-cost">6% (399)</td>
               <td class="notes-cell">Unlocks new wave of CC22 building upgrades across base</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Report">
               <td class="lvl-cell">↗ ACADEMY (LVL 55–60)</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -634,8 +640,8 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load AIRCRAFT HANGER (LVL 45–50) into top Dossier">
-              <td class="lvl-cell">↗ AIRCRAFT HANGER (LVL 45–50)</td>
+            <tr style="cursor: pointer;" title="Click to load Aircraft Hanger into top Report">
+              <td class="lvl-cell">↗ Aircraft Hanger</td>
               <td>45 → 50</td>
               <td>5</td>
               <td>20d 12h</td>
@@ -645,7 +651,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Increases Air Hanger capacity by +4,000 per level (+20,000 total)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Airfield into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Airfield into top Report">
               <td class="lvl-cell">↗ Airfield</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -656,7 +662,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Air in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Barracks into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Barracks into top Report">
               <td class="lvl-cell">↗ Barracks</td>
               <td>50 → 55</td>
               <td>5</td>
@@ -667,7 +673,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L55 unlocks Arc 2 Infantry in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Report">
               <td class="lvl-cell">↗ Construction Yard</td>
               <td>5 → 10</td>
               <td>5</td>
@@ -678,7 +684,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Increases Basic Constructs to 6 and Reinforced Constructs to 4</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Report">
               <td class="lvl-cell">↗ Mercenary Camp</td>
               <td>25 → 30</td>
               <td>5</td>
@@ -689,7 +695,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">War Prod: L26 Bearguard, L27 Snow Man, L28 Quartermaster, L29 Gunslinger, L30 Faster Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Report">
               <td class="lvl-cell">↗ Mine Factory</td>
               <td>5 → 10</td>
               <td>5</td>
@@ -700,7 +706,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Active Minefield Capacity increases: L6 (8), L7 (9), L8 (10), L9 (11), L10 (12)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Report">
               <td class="lvl-cell">↗ Radio Tower</td>
               <td>10 → 14</td>
               <td>4</td>
@@ -711,7 +717,7 @@
               <td class="sale-cost">5% (580)</td>
               <td class="notes-cell">Increases deployable Advanced Scouts: L11 (11), L12 (12), L13 (13), L14 (14)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Skyguard into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Skyguard into top Report">
               <td class="lvl-cell">↗ Skyguard</td>
               <td>15 → 20</td>
               <td>5</td>
@@ -722,7 +728,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Air Defender capacity scales: L16 (2650), L17 (2700), L18 (2750), L19 (2800), L20 (2850)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Report">
               <td class="lvl-cell">↗ Tactical Ops Center</td>
               <td>20 → 25</td>
               <td>5</td>
@@ -733,7 +739,7 @@
               <td class="sale-cost">5% (831)</td>
               <td class="notes-cell">Overrides attacker bonuses for Arc 3 PVP units: 31% to 35% Damage Dealt &amp; Taken</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tech Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tech Center into top Report">
               <td class="lvl-cell">↗ Tech Center</td>
               <td>45 → 50</td>
               <td>5</td>
@@ -744,7 +750,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 Vehicle Defender cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load War Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load War Factory into top Report">
               <td class="lvl-cell">↗ War Factory</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -755,7 +761,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Vehicles in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Report">
               <td class="lvl-cell">↗ Weapons Lab</td>
               <td>12 → 13</td>
               <td>1</td>
@@ -766,7 +772,7 @@
               <td class="sale-cost">8% (186)</td>
               <td class="notes-cell">Unlocks Bastion levels: Damage (Tesla Tower, Orbital Hammer), Support, Utility (Generator)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Workshop into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Workshop into top Report">
               <td class="lvl-cell">↗ Workshop</td>
               <td>21 → 25</td>
               <td>4</td>
@@ -793,7 +799,7 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 3: UPGRADE PATH & PRE-RELEASE TELEMETRY ==================== -->
-    <div id="doctrine-section" class="dossier-section" style="display: none;">
+    <div id="doctrine-section" class="report-section" style="display: none;">
       <span id="doctrine-main-title" class="col-header">
         <span id="d-sheet3-header">Data Sheet 3 // CC22 Strategic Upgrade Path &amp; Pre-Release Telemetry</span> 
         <span id="d-sheet3-sub" style="font-size: 12px; color: #38bdf8; font-family: monospace;">3-PHASE PRIORITY ROADMAP</span>
@@ -906,7 +912,7 @@
       </div>
     </div>
 <!-- ==================== CONNECTED SUB-FACILITIES SECTION ==================== -->
-    <div id="tech-section" class="dossier-section" style="display: none;">
+    <div id="tech-section" class="report-section" style="display: none;">
       <span id="d-tech-header" class="col-header">Connected CC22 Sub-Facilities &amp; Critical Notes</span>
       <div id="workshop-container" class="workshop-grid four-items">
         <div class="workshop-item">
@@ -939,6 +945,6 @@
         </div>
       </div>
     </div>
-    <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS // AVIATION LOGISTICS — AIRCRAFT HANGER (CC22 WAVE)</div>
+    <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS // MILITARY INFRASTRUCTURE — ACADEMY (CC22 WAVE)</div>
   </div>
 </div>

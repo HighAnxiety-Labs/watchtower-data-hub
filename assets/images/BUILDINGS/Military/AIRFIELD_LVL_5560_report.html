@@ -259,8 +259,8 @@
   .editor-footer-bar {
     background: #090e0b; border-top: 1px solid #1f3b2b; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
   }
-  /* ==================== DOSSIER CARD STYLES ==================== */
-  .dossier-card {
+  /* ==================== REPORT CARD STYLES ==================== */
+  .report-card {
     width: 100%;
     max-width: 1140px;
     margin: 0 auto;
@@ -326,7 +326,7 @@
   .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.35); }
   .broken-badge { background: rgba(244, 63, 94, 0.2); border: 1px solid #f43f5e; color: #fda4af; font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 3px; text-transform: uppercase; }
   /* Shared Sections */
-  .dossier-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  .report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
   /* DATA SHEET 1: Directive */
   .wc-directive-box {
     width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6); padding: 15px 18px; border-radius: 2px;
@@ -398,7 +398,7 @@
     .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
   }</style>
 <div style="width: 100%; max-width: 1140px;">
-  <div id="exportable-dossier-card" class="dossier-card">
+  <div id="exportable-report-card" class="report-card">
     <div id="d-classification" class="classification-bar">BASE OPERATIONS // AVIATION PRODUCTION — AIRFIELD (CC22 WAVE)</div>
     <div class="header-content">
       <h1 id="d-title" class="unit-title">AIRFIELD</h1>
@@ -496,7 +496,7 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 1: UPGRADE DIRECTIVE ==================== -->
-    <div id="directive-section" class="dossier-section" style="display: block;">
+    <div id="directive-section" class="report-section" style="display: block;">
       <span class="col-header">
         <span id="d-sheet1-header">Data Sheet 1 // AIRFIELD (LVL 55–60) Upgrade Directive</span> 
         <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: AIRFIELD-OPS</span>
@@ -593,7 +593,7 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 2: CC22 UPGRADE PLANNING MATRIX ==================== -->
-    <div id="upgrades-section" class="dossier-section" style="display: block;">
+    <div id="upgrades-section" class="report-section" style="display: block;">
       <span id="upgrades-section-header" class="col-header">
         <span id="d-sheet2-header">Data Sheet 2 // CC22 Master Upgrade Planning Matrix (All Facilities)</span> 
         <span id="d-sheet2-sub" style="font-size: 12px; color: #ffd700; font-family: monospace;">TOTAL: 244d 12h | 2,445,000 IRIDIUM | 9,346 GOLD</span>
@@ -614,7 +614,7 @@
             </tr>
           </thead>
           <tbody id="upgrades-table-body">
-            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Report">
               <td class="lvl-cell">↗ Command Center 22</td>
               <td>21 → 22</td>
               <td>1</td>
@@ -625,7 +625,7 @@
               <td class="sale-cost">6% (399)</td>
               <td class="notes-cell">Unlocks new wave of CC22 building upgrades across base</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Report">
               <td class="lvl-cell">↗ ACADEMY (LVL 55–60)</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -636,7 +636,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load AIRCRAFT HANGER (LVL 45–50) into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load AIRCRAFT HANGER (LVL 45–50) into top Report">
               <td class="lvl-cell">↗ AIRCRAFT HANGER (LVL 45–50)</td>
               <td>45 → 50</td>
               <td>5</td>
@@ -647,7 +647,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Increases Air Hanger capacity by +4,000 per level (+20,000 total)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Airfield into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Airfield into top Report">
               <td class="lvl-cell">↗ Airfield</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -658,7 +658,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Air in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Barracks into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Barracks into top Report">
               <td class="lvl-cell">↗ Barracks</td>
               <td>50 → 55</td>
               <td>5</td>
@@ -669,7 +669,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L55 unlocks Arc 2 Infantry in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Report">
               <td class="lvl-cell">↗ Construction Yard</td>
               <td>5 → 10</td>
               <td>5</td>
@@ -680,7 +680,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Increases Basic Constructs to 6 and Reinforced Constructs to 4</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Report">
               <td class="lvl-cell">↗ Mercenary Camp</td>
               <td>25 → 30</td>
               <td>5</td>
@@ -691,7 +691,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">War Prod: L26 Bearguard, L27 Snow Man, L28 Quartermaster, L29 Gunslinger, L30 Faster Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Report">
               <td class="lvl-cell">↗ Mine Factory</td>
               <td>5 → 10</td>
               <td>5</td>
@@ -702,7 +702,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Active Minefield Capacity increases: L6 (8), L7 (9), L8 (10), L9 (11), L10 (12)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Report">
               <td class="lvl-cell">↗ Radio Tower</td>
               <td>10 → 14</td>
               <td>4</td>
@@ -713,7 +713,7 @@
               <td class="sale-cost">5% (580)</td>
               <td class="notes-cell">Increases deployable Advanced Scouts: L11 (11), L12 (12), L13 (13), L14 (14)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Skyguard into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Skyguard into top Report">
               <td class="lvl-cell">↗ Skyguard</td>
               <td>15 → 20</td>
               <td>5</td>
@@ -724,7 +724,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Air Defender capacity scales: L16 (2650), L17 (2700), L18 (2750), L19 (2800), L20 (2850)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Report">
               <td class="lvl-cell">↗ Tactical Ops Center</td>
               <td>20 → 25</td>
               <td>5</td>
@@ -735,7 +735,7 @@
               <td class="sale-cost">5% (831)</td>
               <td class="notes-cell">Overrides attacker bonuses for Arc 3 PVP units: 31% to 35% Damage Dealt &amp; Taken</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tech Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tech Center into top Report">
               <td class="lvl-cell">↗ Tech Center</td>
               <td>45 → 50</td>
               <td>5</td>
@@ -746,7 +746,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 Vehicle Defender cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load War Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load War Factory into top Report">
               <td class="lvl-cell">↗ War Factory</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -757,7 +757,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Vehicles in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Report">
               <td class="lvl-cell">↗ Weapons Lab</td>
               <td>12 → 13</td>
               <td>1</td>
@@ -768,7 +768,7 @@
               <td class="sale-cost">8% (186)</td>
               <td class="notes-cell">Unlocks Bastion levels: Damage (Tesla Tower, Orbital Hammer), Support, Utility (Generator)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Workshop into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Workshop into top Report">
               <td class="lvl-cell">↗ Workshop</td>
               <td>21 → 25</td>
               <td>4</td>
@@ -795,7 +795,7 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 3: UPGRADE PATH & PRE-RELEASE TELEMETRY ==================== -->
-    <div id="doctrine-section" class="dossier-section" style="display: block;">
+    <div id="doctrine-section" class="report-section" style="display: block;">
       <span id="doctrine-main-title" class="col-header">
         <span id="d-sheet3-header">Data Sheet 3 // CC22 Strategic Upgrade Path &amp; Pre-Release Telemetry</span> 
         <span id="d-sheet3-sub" style="font-size: 12px; color: #38bdf8; font-family: monospace;">3-PHASE PRIORITY ROADMAP</span>
@@ -908,7 +908,7 @@
       </div>
     </div>
 <!-- ==================== CONNECTED SUB-FACILITIES SECTION ==================== -->
-    <div id="tech-section" class="dossier-section" style="display: block;">
+    <div id="tech-section" class="report-section" style="display: block;">
       <span id="d-tech-header" class="col-header">Connected CC22 Sub-Facilities &amp; Critical Notes</span>
       <div id="workshop-container" class="workshop-grid four-items">
         <div class="workshop-item">

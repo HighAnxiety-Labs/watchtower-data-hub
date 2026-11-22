@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER HOLDOUT DOSSIER PUBLISHED // RELEASE: v10.3-HOLDOUT-STUDIO (2026-11-11) -->
+<!-- WATCHTOWER HOLDOUT REPORT PUBLISHED // RELEASE: v10.3-HOLDOUT-STUDIO (2026-11-11) -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -411,8 +411,8 @@
     border: 1px solid var(--border-dark);
   }
 
-  /* ==================== LOCKED-HUD DOSSIER FRAME (NOV 2026 HOLDOUT 4-CORNER DESIGN) ==================== */
-  .dossier-card {
+  /* ==================== LOCKED-HUD REPORT FRAME (NOV 2026 HOLDOUT 4-CORNER DESIGN) ==================== */
+  .report-card {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
@@ -425,13 +425,13 @@
     overflow: hidden;
     position: relative;
   }
-  .dossier-card.archive-collapsed {
+  .report-card.archive-collapsed {
     max-height: none;
   }
-  .dossier-card.unconstrained-height {
+  .report-card.unconstrained-height {
     max-height: none;
   }
-  .dossier-card.unconstrained-height .brief-scroll-viewport {
+  .report-card.unconstrained-height .brief-scroll-viewport {
     overflow-y: visible;
     max-height: none;
   }
@@ -530,13 +530,13 @@
     background: #14281d;
     color: #ffffff;
   }
-  .dossier-card.archive-collapsed .corner-top-right,
-  .dossier-card.archive-collapsed .archive-collapse-btn {
+  .report-card.archive-collapsed .corner-top-right,
+  .report-card.archive-collapsed .archive-collapse-btn {
     background: #1a1605;
     color: var(--text-gold);
   }
-  .dossier-card.archive-collapsed .corner-top-right:hover,
-  .dossier-card.archive-collapsed .archive-collapse-btn:hover {
+  .report-card.archive-collapsed .corner-top-right:hover,
+  .report-card.archive-collapsed .archive-collapse-btn:hover {
     background: var(--text-gold);
     color: #000000;
   }
@@ -702,7 +702,7 @@
     gap: 4px;
     flex-wrap: wrap;
   }
-  .dossier-card.archive-collapsed .file-tabs-rail {
+  .report-card.archive-collapsed .file-tabs-rail {
     display: none;
   }
   .file-tab-btn {
@@ -841,12 +841,12 @@
     position: relative;
     z-index: 2;
   }
-  .dossier-card.archive-collapsed .event-header {
+  .report-card.archive-collapsed .event-header {
     padding: 12px 22px;
     border-bottom: none;
     margin-bottom: 0;
   }
-  .dossier-card.archive-collapsed .header-logo-link {
+  .report-card.archive-collapsed .header-logo-link {
     width: 62px;
     height: 62px;
   }
@@ -932,12 +932,12 @@
   .brief-collapsible-body {
     display: block;
   }
-  .dossier-card.archive-collapsed .brief-collapsible-body {
+  .report-card.archive-collapsed .brief-collapsible-body {
     display: none;
   }
 
   /* Section Containers & Collapsible Cyan-Teal Header Bars */
-  .dossier-section {
+  .report-section {
     padding: 0 20px 24px 20px;
     clear: both;
   }
@@ -987,7 +987,7 @@
     transition: transform 0.2s ease;
     text-shadow: none;
   }
-  .dossier-section.section-minimized .section-content-wrap {
+  .report-section.section-minimized .section-content-wrap {
     display: none !important;
   }
 
@@ -1753,7 +1753,7 @@
     flex-direction: column;
     gap: 6px;
   }
-  .dossier-card.archive-collapsed .side-quick-rail {
+  .report-card.archive-collapsed .side-quick-rail {
     display: none;
   }
   .side-rail-btn {
@@ -2020,9 +2020,9 @@
 
 <!-- PUBLISHED HTML CLIPBOARD BOX (STRIPPED ON PUBLISH) -->
 <!-- ==================== END BLOCK 2: OVERLAYS & MASTER STUDIO TOP BAR ==================== -->
-<!-- ==================== START BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05 WITH HOLDOUT BASE & CRATE YIELD MATRIX) ==================== -->
-<div id="dossier-view" style="width: 100%;">
-  <div id="main-export-holdout" class="dossier-card" data-store-close="2026-11-18T10:00:00-08:00">
+<!-- ==================== START BLOCK 3: TARGET REPORT CARD (HEADER & SECTIONS 02–05 WITH HOLDOUT BASE & CRATE YIELD MATRIX) ==================== -->
+<div id="report-view" style="width: 100%;">
+  <div id="main-export-holdout" class="report-card" data-store-close="2026-11-18T10:00:00-08:00">
 
     <!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
     <div class="locked-top-hud">
@@ -2038,31 +2038,31 @@
       <!-- Instant File-Folder Tab Locator Bar -->
       <nav class="file-tabs-rail" aria-label="Instant Section Locators">
         <div class="file-tabs-group">
-          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
+          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToReportSection('secTopHeader', this)">
             <span class="tab-idx">01</span><span id="displayTab01Label">TOP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToDossierSection('secVideoRecon', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnVideo" data-target="secVideoRecon" onclick="jumpToReportSection('secVideoRecon', this)">
             <span class="tab-idx">02</span><span id="displayTab02Label">VIDEO RECON</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToDossierSection('secSitrep', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnSitrep" data-target="secSitrep" onclick="jumpToReportSection('secSitrep', this)">
             <span class="tab-idx">03</span><span id="displayTab03Label">SITREP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToDossierSection('secFeatured', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnFeatured" data-target="secFeatured" onclick="jumpToReportSection('secFeatured', this)">
             <span class="tab-idx">04</span><span id="displayTab04Label">FEATURED</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToDossierSection('secMissionTracks', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnTracks" data-target="secMissionTracks" onclick="jumpToReportSection('secMissionTracks', this)">
             <span class="tab-idx">05</span><span id="displayTab05Label">BASE &amp; CRATES</span>
           </button>
-          <button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToDossierSection('integratedStoreCalcSection', this)">
+          <button type="button" class="file-tab-btn calc-tab" id="tabBtnStore" data-target="integratedStoreCalcSection" onclick="jumpToReportSection('integratedStoreCalcSection', this)">
             <span class="tab-idx">06</span><span id="displayTab06Label">🧮 STORE &amp; CALC</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToDossierSection('secNewUnits', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnNewUnits" data-target="secNewUnits" onclick="jumpToReportSection('secNewUnits', this)">
             <span class="tab-idx">07</span><span id="displayTab07Label">FEATURED UNITS</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToDossierSection('secUpdatedUnits', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnUpdatedUnits" data-target="secUpdatedUnits" onclick="jumpToReportSection('secUpdatedUnits', this)">
             <span class="tab-idx">08</span><span id="displayTab08Label">WARPAINT RECON</span>
           </button>
-          <button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToDossierSection('secEnemyForces', this)">
+          <button type="button" class="file-tab-btn enemy-tab" id="tabBtnEnemyForces" data-target="secEnemyForces" onclick="jumpToReportSection('secEnemyForces', this)">
             <span class="tab-idx">09</span><span id="displayTab09Label">CHALLENGES</span>
           </button>
         </div>
@@ -2102,7 +2102,7 @@
               <a id="displayCalcJumpLink"
                  href="javascript:void(0)"
                  data-no-overlay="true"
-                 onclick="jumpToDossierSection('integratedStoreCalcSection')"
+                 onclick="jumpToReportSection('integratedStoreCalcSection')"
                  style="color: var(--text-gold); text-decoration: none;">Interactive Store Calculator ↓</a> | 
               <a href="javascript:void(0)"
                  data-no-overlay="true"
@@ -2137,7 +2137,7 @@
       <div id="briefCollapsibleBody" class="brief-collapsible-body">
 
         <!-- SECTION 02: VIDEO RECON & GUIDES -->
-        <section class="dossier-section" id="secVideoRecon">
+        <section class="report-section" id="secVideoRecon">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarVideoTitle">VIDEO RECON &amp; GUIDES</span>
             <div class="section-header-right">
@@ -2186,7 +2186,7 @@
         </section>
 
         <!-- SECTION 03: SITUATION REPORT (ADJUSTABLE PICTURE FRAME + DOUBLE-SPACE LINE BREAKS) -->
-        <section class="dossier-section" id="secSitrep">
+        <section class="report-section" id="secSitrep">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarSitrepTitle">SITUATION REPORT &amp; COMBAT REGULATIONS</span>
             <div class="section-header-right">
@@ -2214,7 +2214,7 @@
         </section>
 
         <!-- SECTION 04: FEATURED ITEMS -->
-        <section class="dossier-section" id="secFeatured">
+        <section class="report-section" id="secFeatured">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarFeaturedTitle">FEATURED ITEMS</span>
             <div class="section-header-right">
@@ -2233,7 +2233,7 @@
         </section>
 
         <!-- SECTION 05: HOLDOUT BASE PROGRESSION & CRATE YIELD CALCULATOR VARIABLES -->
-        <section class="dossier-section" id="secMissionTracks">
+        <section class="report-section" id="secMissionTracks">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarTracksTitle">BASE PROGRESSION &amp; XP CRATE YIELD MATRIX</span>
             <div class="section-header-right">
@@ -2431,10 +2431,10 @@
             </div>
           </div>
         </section>
-<!-- ==================== END BLOCK 3: TARGET DOSSIER CARD (HEADER & SECTIONS 02–05) ==================== -->
-<!-- ==================== START BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
+<!-- ==================== END BLOCK 3: TARGET REPORT CARD (HEADER & SECTIONS 02–05) ==================== -->
+<!-- ==================== START BLOCK 4: TARGET REPORT CARD (SECTIONS 06–09 WITH INLINE EDITORS) ==================== -->
         <!-- SECTION 06: INTEGRATED HOLDOUT STORE INVENTORY & INTERACTIVE CALCULATOR -->
-        <section class="dossier-section" id="integratedStoreCalcSection">
+        <section class="report-section" id="integratedStoreCalcSection">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarStoreTitle">HOLDOUT STORE INVENTORY &amp; INTERACTIVE CALCULATOR</span>
             <div class="section-header-right">
@@ -2530,7 +2530,7 @@
         </section>
 
         <!-- SECTION 07: FEATURED UNITS IN THIS HOLDOUT -->
-        <section class="dossier-section" id="secNewUnits">
+        <section class="report-section" id="secNewUnits">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarNewUnitsTitle">FEATURED UNITS IN THIS HOLDOUT</span>
             <div class="section-header-right">
@@ -2547,7 +2547,7 @@
         </section>
 
         <!-- SECTION 08: WARPAINT VISUAL RECON GALLERY -->
-        <section class="dossier-section" id="secUpdatedUnits">
+        <section class="report-section" id="secUpdatedUnits">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarUpdatedUnitsTitle">WARPAINT VISUAL RECON</span>
             <div class="section-header-right">
@@ -2564,7 +2564,7 @@
         </section>
 
         <!-- SECTION 09: TACTICAL CHALLENGES, CRATES & BACKUP REINFORCEMENTS (REPLACES ENEMY FORCES) -->
-        <section class="dossier-section" id="secEnemyForces">
+        <section class="report-section" id="secEnemyForces">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span id="displayBarEnemyTitle">TACTICAL CHALLENGES &amp; FIELD CRATES RECON</span>
             <div class="section-header-right">
@@ -2609,18 +2609,18 @@
 
     <!-- Floating Quick-Return Rail -->
     <div class="side-quick-rail">
-      <button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('integratedStoreCalcSection')" title="Jump to Store & Calculator">🧮 CALC</button>
-      <button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
+      <button type="button" class="side-rail-btn gold" onclick="jumpToReportSection('integratedStoreCalcSection')" title="Jump to Store & Calculator">🧮 CALC</button>
+      <button type="button" class="side-rail-btn" onclick="jumpToReportSection('secTopHeader')" title="Return to Top">▲ TOP</button>
     </div>
 
   </div>
 </div>
-<!-- ==================== END BLOCK 4: TARGET DOSSIER CARD (SECTIONS 06–09) ==================== -->
+<!-- ==================== END BLOCK 4: TARGET REPORT CARD (SECTIONS 06–09) ==================== -->
 <!-- ==================== START BLOCK 5: JAVASCRIPT INLINE STUDIO & HOLDOUT CALCULATOR ENGINE (v10.3-HOLDOUT-STUDIO) ==================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-  const WTR_DOSSIER_RELEASE = "v10.3-HOLDOUT-STUDIO (2026-11-11)";
+  const WTR_REPORT_RELEASE = "v10.3-HOLDOUT-STUDIO (2026-11-11)";
   const MASTER_STORAGE_KEY = "wtr_holdout_master_studio_v10_3_nov2026";
   const PLAYER_CALC_STORAGE_KEY = "wtr_holdout_nov2026_player_v10_3";
   const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
@@ -3222,7 +3222,7 @@
     } else {
       el.classList.toggle("open", Boolean(shouldOpen));
     }
-    const parentSec = el.closest(".dossier-section");
+    const parentSec = el.closest(".report-section");
     if (parentSec && parentSec.classList.contains("section-minimized") && el.classList.contains("open")) {
       parentSec.classList.remove("section-minimized");
       const arrow = parentSec.querySelector(".section-min-arrow");
@@ -4907,7 +4907,7 @@
   }
 
   /* ==================== LOCKED-HUD FILE-TAB NAVIGATION ==================== */
-  function jumpToDossierSection(sectionId, tabBtnEl) {
+  function jumpToReportSection(sectionId, tabBtnEl) {
     const card = getBriefCardEl();
     if (card && card.classList.contains("archive-collapsed")) {
       setBriefCollapseState(false, false);
@@ -4981,7 +4981,7 @@
   });
 
   function toggleSectionMinimize(headerBarEl) {
-    const sec = headerBarEl.closest(".dossier-section");
+    const sec = headerBarEl.closest(".report-section");
     if (!sec) return;
     const isMin = sec.classList.toggle("section-minimized");
     const arrow = headerBarEl.querySelector(".section-min-arrow");
@@ -5029,7 +5029,7 @@
     if (pod) pod.classList.remove("show", "wide-preview");
   }
 
-  function openUnitDossierOverlay(unitName, externalUrl, customImgOverride) {
+  function openUnitReportOverlay(unitName, externalUrl, customImgOverride) {
     hideHoverThumbnail();
     const modal = document.getElementById("wtrInPageOverlayModal");
     const titleEl = document.getElementById("overlayModalTitle");
@@ -5197,7 +5197,7 @@
   }
 
   function bindUniversalLinkPreviews() {
-    document.querySelectorAll("#dossier-view a").forEach(a => {
+    document.querySelectorAll("#report-view a").forEach(a => {
       if (
         a.id === "overlayExternalBtn" ||
         a.classList.contains("video-btn") ||
@@ -5232,7 +5232,7 @@
         const customImg = a.getAttribute("data-preview-img") || "";
         if (unitName) {
           stampUnitHandoff(unitName);
-          openUnitDossierOverlay(unitName, href, customImg);
+          openUnitReportOverlay(unitName, href, customImg);
         } else {
           const title = a.getAttribute("data-preview-title") || (a.textContent || "Link").trim();
           const sub = a.getAttribute("data-preview-sub") || "WatchToweR Tactical Recon";
@@ -5367,7 +5367,7 @@
   /* ==================== ARCHIVE MODE & AUTO-COLLAPSE WHEN STORE CLOSES ==================== */
   function getBriefCardEl() {
     return document.getElementById("main-export-holdout") ||
-           document.querySelector(".dossier-card, .report-card");
+           document.querySelector(".report-card, .report-card");
   }
 
   function setBriefCollapseState(shouldCollapse, isAutoArchived) {
@@ -5510,7 +5510,7 @@
     vaultScript.textContent = encodeVaultBase64(masterState);
     cloneDoc.querySelector("head").appendChild(vaultScript);
 
-    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER HOLDOUT DOSSIER MASTER // RELEASE: ${WTR_DOSSIER_RELEASE} -->\n` + cloneDoc.outerHTML;
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER HOLDOUT REPORT MASTER // RELEASE: ${WTR_REPORT_RELEASE} -->\n` + cloneDoc.outerHTML;
     htmlOut = htmlOut.replace(
       /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
       () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
@@ -5635,7 +5635,7 @@
 
     cloneDoc.querySelectorAll(".inline-section-editor, .sec-edit-pill").forEach(el => el.remove());
 
-    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER HOLDOUT DOSSIER PUBLISHED // RELEASE: ${WTR_DOSSIER_RELEASE} -->\n` + cloneDoc.outerHTML;
+    let htmlOut = `<!DOCTYPE html>\n<!-- WATCHTOWER HOLDOUT REPORT PUBLISHED // RELEASE: ${WTR_REPORT_RELEASE} -->\n` + cloneDoc.outerHTML;
     htmlOut = htmlOut.replace(
       /const defaultMasterState = \{[\s\S]*?\};\s*let masterState/,
       () => `const defaultMasterState = ${safeSerializeForScript(masterState)};\n  let masterState`
@@ -5657,7 +5657,7 @@
     copyTextareaToClipboard();
 
     if (mode === "copy") {
-      if (statusLabel) statusLabel.textContent = `✅ PUBLISHED ${WTR_DOSSIER_RELEASE} & COPIED TO CLIPBOARD`;
+      if (statusLabel) statusLabel.textContent = `✅ PUBLISHED ${WTR_REPORT_RELEASE} & COPIED TO CLIPBOARD`;
       showToast("📋 Published HTML Copied!");
     } else {
       const blob = new Blob([cleanHtml], { type: "text/html;charset=utf-8" });
@@ -5669,7 +5669,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      if (statusLabel) statusLabel.textContent = `🚀 PUBLISHED ${WTR_DOSSIER_RELEASE} & DOWNLOADED: ${pubFilename}`;
+      if (statusLabel) statusLabel.textContent = `🚀 PUBLISHED ${WTR_REPORT_RELEASE} & DOWNLOADED: ${pubFilename}`;
       showToast(`🚀 Downloaded ${pubFilename}`);
     }
   }

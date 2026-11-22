@@ -1389,7 +1389,7 @@
       white-space: nowrap;
     }
 
-    /* ==================== POPOUT MODALS (DOSSIER + CAPTURE PREVIEW) ==================== */
+    /* ==================== POPOUT MODALS (REPORT + CAPTURE PREVIEW) ==================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1404,7 +1404,7 @@
     }
     .modal-backdrop.open { display: flex; }
 
-    .dossier-modal {
+    .report-modal {
       width: 100%;
       max-width: 820px;
       background: linear-gradient(180deg, #091320 0%, #050b13 100%);
@@ -1862,9 +1862,9 @@
 <!-- FLOATING HOVER BRIEF -->
 <div class="floating-hover-card" id="floatingHoverCard"></div>
 
-<!-- CONTRACTOR POPOUT DOSSIER MODAL -->
-<div class="modal-backdrop" id="dossierModalBackdrop" onclick="if(event.target===this) closeDossierModal()">
-  <div class="dossier-modal" id="dossierModalContent"></div>
+<!-- CONTRACTOR POPOUT REPORT MODAL -->
+<div class="modal-backdrop" id="reportModalBackdrop" onclick="if(event.target===this) closeReportModal()">
+  <div class="report-modal" id="reportModalContent"></div>
 </div>
 
 <!-- A-SIZE SCREEN CAPTURE PREVIEW MODAL -->
@@ -2097,7 +2097,7 @@
   let allContractors = [];
   let activeDivisionFilter = 'ALL';
   let activeTierFilter = 'ALL';
-  let currentDossierContractor = null;
+  let currentReportContractor = null;
   let lastCapturedCanvas = null;
 
   /* Worksheet State: { selections: { DIPLOMACY: ['Ariki Toa', ...], ... }, baseName: '', focus: '', notes: '' } */
@@ -2291,8 +2291,8 @@
     }
     saveState();
     refreshAllViews();
-    if (currentDossierContractor && currentDossierContractor.UNIT_NAME === c.UNIT_NAME) {
-      renderDossierModalBody(c);
+    if (currentReportContractor && currentReportContractor.UNIT_NAME === c.UNIT_NAME) {
+      renderReportModalBody(c);
     }
   }
 
@@ -2306,7 +2306,7 @@
     worksheetState.selections[c.factionKey] = arr.filter(Boolean).slice(0, 2);
     saveState();
     refreshAllViews();
-    renderDossierModalBody(c);
+    renderReportModalBody(c);
     showToast(`⇄ Placed ${c.UNIT_NAME} into ${c.factionKey} Slot #${slotIdx + 1}`);
   }
 
@@ -2520,7 +2520,7 @@
               const safeNameAttr = escapeHtml(c.UNIT_NAME).replace(/'/g, '&#39;');
               return `
                 <div class="${tileCls}"
-                     onclick="openDossierModal('${safeNameAttr}')"
+                     onclick="openReportModal('${safeNameAttr}')"
                      onmouseenter="showFloatingHover(event, '${safeNameAttr}')"
                      onmousemove="moveFloatingHover(event)"
                      onmouseleave="hideFloatingHover()">
@@ -2676,18 +2676,18 @@
     document.getElementById('floatingHoverCard').style.display = 'none';
   }
 
-  /* ==================== POPOUT DOSSIER MODAL ==================== */
-  function openDossierModal(unitName) {
+  /* ==================== POPOUT REPORT MODAL ==================== */
+  function openReportModal(unitName) {
     hideFloatingHover();
     const c = allContractors.find(x => x.UNIT_NAME === unitName);
     if (!c) return;
-    currentDossierContractor = c;
-    renderDossierModalBody(c);
-    document.getElementById('dossierModalBackdrop').classList.add('open');
+    currentReportContractor = c;
+    renderReportModalBody(c);
+    document.getElementById('reportModalBackdrop').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  function renderDossierModalBody(c) {
+  function renderReportModalBody(c) {
     const selArr = getFactionSelectedNames(c.factionKey);
     const isSel = selArr.includes(c.UNIT_NAME);
     const facFull = selArr.length >= 2 && !isSel;
@@ -2710,10 +2710,10 @@
       `;
     }
 
-    document.getElementById('dossierModalContent').innerHTML = `
+    document.getElementById('reportModalContent').innerHTML = `
       <div class="dm-hdr">
         <span class="dm-hdr-tag">AGENCY PERSONNEL REPORT // ${escapeHtml(c.factionKey)} DIVISION</span>
-        <button type="button" class="dm-close" onclick="closeDossierModal()">✕ ESC</button>
+        <button type="button" class="dm-close" onclick="closeReportModal()">✕ ESC</button>
       </div>
       <div class="dm-body">
         <div class="dm-portrait-col">
@@ -2765,22 +2765,22 @@
 
           <div class="dm-actions">
             ${actionButtonsHtml}
-            <button type="button" class="act-btn" onclick="closeDossierModal(); scrollToWorksheet();">📋 View Planning Sheet</button>
+            <button type="button" class="act-btn" onclick="closeReportModal(); scrollToWorksheet();">📋 View Planning Sheet</button>
           </div>
         </div>
       </div>
     `;
   }
 
-  function closeDossierModal() {
-    document.getElementById('dossierModalBackdrop').classList.remove('open');
+  function closeReportModal() {
+    document.getElementById('reportModalBackdrop').classList.remove('open');
     document.body.style.overflow = '';
-    currentDossierContractor = null;
+    currentReportContractor = null;
   }
 
   document.addEventListener('keydown', ev => {
     if (ev.key === 'Escape') {
-      closeDossierModal();
+      closeReportModal();
       closeCaptureModal();
     }
   });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER LIVE TACTICAL DOSSIER // SHADOW OPS: DRIFTING DRAGON (CHAPTERS 1–3) -->
+<!-- WATCHTOWER LIVE TACTICAL REPORT // SHADOW OPS: DRIFTING DRAGON (CHAPTERS 1–3) -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -51,7 +51,7 @@
       align-items: center;
     }
 
-    .dossier-card {
+    .report-card {
       width: 100%;
       max-width: 1448px;
       margin: 0 auto;
@@ -63,7 +63,7 @@
       position: relative;
     }
 
-    .dossier-card.brief-collapsed .so-collapsible-section {
+    .report-card.brief-collapsed .so-collapsible-section {
       display: none !important;
     }
 
@@ -1478,7 +1478,7 @@
     </div>
   </div>
 
-  <div class="dossier-card" id="mainShadowOpsDossier">
+  <div class="report-card" id="mainShadowOpsReport">
     <!-- ==================== TOP HUD BAR ==================== -->
     <div class="locked-top-hud">
       <div class="classification-bar scanline-shimmer">
@@ -2358,7 +2358,7 @@
     })();
 
     function toggleBriefArchiveMode() {
-      var card = document.getElementById("mainShadowOpsDossier");
+      var card = document.getElementById("mainShadowOpsReport");
       var icon = document.getElementById("archiveToggleIcon");
       var txt  = document.getElementById("archiveToggleText");
       if (!card) return;

@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-21T21:28:33-08:00",
-    "generatedMs":  1795325309606,
+    "generatedAt":  "2026-11-21T22:20:01-08:00",
+    "generatedMs":  1795328396780,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -72,8 +72,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-holdout-brief.html",
                               "path":  "./2026-nov-holdout-brief.html",
                               "title":  "2026-nov-holdout-brief",
-                              "modifiedAt":  "2026-11-19T15:44:09Z",
-                              "modifiedMs":  1795103049519
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316009
                           },
                           {
                               "file":  "2026-nov-sector-breach-brief.html",
@@ -86,8 +86,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-nov-shadow-ops-brief.html",
                               "path":  "./2026-nov-shadow-ops-brief.html",
                               "title":  "SHADOW OPS: DRIFTING DRAGON (Chapter 1–3 Tactical Brief)",
-                              "modifiedAt":  "2026-11-19T18:14:28Z",
-                              "modifiedMs":  1795112068161
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316011
                           },
                           {
                               "file":  "2026-nov-skirmish-brief.html",
@@ -100,15 +100,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "2026-pvp-season-60-brief.html",
                               "path":  "./2026-pvp-season-60-brief.html",
                               "title":  "PVP SEASON 60 Operational Brief (NOV 12 – DEC 30, 2026)",
-                              "modifiedAt":  "2026-11-19T18:14:29Z",
-                              "modifiedMs":  1795112069719
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316012
                           },
                           {
                               "file":  "agency-contractors.html",
                               "path":  "./agency-contractors.html",
                               "title":  "Agency Contractors \u0026 Base Loadout Planner",
-                              "modifiedAt":  "2026-11-19T16:39:13Z",
-                              "modifiedMs":  1795106353950
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316013
                           },
                           {
                               "file":  "base-defense-planning.html",
@@ -121,8 +121,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-21T09:22:03Z",
-                              "modifiedMs":  1795252923852
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316019
                           },
                           {
                               "file":  "cc-22-pre-release.html",
@@ -149,8 +149,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-19T18:34:17Z",
-                              "modifiedMs":  1795113257769
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316023
                           },
                           {
                               "file":  "faction-intel.html",
@@ -177,8 +177,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "operation-blue-baron.html",
                               "path":  "./operation-blue-baron.html",
                               "title":  "operation-blue-baron",
-                              "modifiedAt":  "2026-11-19T18:14:30Z",
-                              "modifiedMs":  1795112070332
+                              "modifiedAt":  "2026-11-22T06:18:36Z",
+                              "modifiedMs":  1795328316038
                           },
                           {
                               "file":  "platoon-guide.html",
@@ -426,6 +426,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 1 • LEGENDARY",
                                        "firstSeenMs":  1795308650591,
                                        "firstSeenAt":  "2026-11-22T00:50:50Z"
+                                   },
+                                   {
+                                       "key":  "CHRONOPHAGE",
+                                       "name":  "CHRONOPHAGE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • SOLDIER",
+                                       "firstSeenMs":  1795328396780,
+                                       "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                   },
+                                   {
+                                       "key":  "MINEUT",
+                                       "name":  "MINEUT",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • hero",
+                                       "firstSeenMs":  1795328396780,
+                                       "firstSeenAt":  "2026-11-22T06:19:56Z"
                                    }
                                ],
     "creatorVideos":  [

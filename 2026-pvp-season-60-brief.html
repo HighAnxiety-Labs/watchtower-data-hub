@@ -64,7 +64,7 @@
   }
 
   /* ==================== LOCKED-HUD BRIEF FRAME ==================== */
-  .dossier-card {
+  .report-card {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
@@ -77,13 +77,13 @@
     overflow: hidden;
     position: relative;
   }
-  .dossier-card.archive-collapsed {
+  .report-card.archive-collapsed {
     max-height: none;
   }
-  .dossier-card.unconstrained-height {
+  .report-card.unconstrained-height {
     max-height: none;
   }
-  .dossier-card.unconstrained-height .brief-scroll-viewport {
+  .report-card.unconstrained-height .brief-scroll-viewport {
     overflow-y: visible;
     max-height: none;
   }
@@ -178,11 +178,11 @@
     background: #14241b;
     color: #ffffff;
   }
-  .dossier-card.archive-collapsed .corner-top-right {
+  .report-card.archive-collapsed .corner-top-right {
     background: #1a1605;
     color: var(--text-gold);
   }
-  .dossier-card.archive-collapsed .corner-top-right:hover {
+  .report-card.archive-collapsed .corner-top-right:hover {
     background: var(--text-gold);
     color: #000000;
   }
@@ -350,7 +350,7 @@
     gap: 4px;
     flex-wrap: wrap;
   }
-  .dossier-card.archive-collapsed .file-tabs-rail {
+  .report-card.archive-collapsed .file-tabs-rail {
     display: none;
   }
   .file-tab-btn {
@@ -494,12 +494,12 @@
     position: relative;
     z-index: 2;
   }
-  .dossier-card.archive-collapsed .event-header {
+  .report-card.archive-collapsed .event-header {
     padding: 18px 24px;
     border-bottom: none;
     margin-bottom: 0;
   }
-  .dossier-card.archive-collapsed .side-quick-rail {
+  .report-card.archive-collapsed .side-quick-rail {
     display: none;
   }
   .event-header-text {
@@ -582,12 +582,12 @@
   .brief-collapsible-body {
     display: block;
   }
-  .dossier-card.archive-collapsed .brief-collapsible-body {
+  .report-card.archive-collapsed .brief-collapsible-body {
     display: none;
   }
 
   /* ==================== SECTION CONTAINERS & COLLAPSIBLE BARS ==================== */
-  .dossier-section {
+  .report-section {
     padding: 0 20px 24px 20px;
     clear: both;
   }
@@ -634,7 +634,7 @@
     border: 1px solid rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease;
   }
-  .dossier-section.section-minimized .section-content-wrap {
+  .report-section.section-minimized .section-content-wrap {
     display: none !important;
   }
 
@@ -882,8 +882,8 @@
 </head>
 <body>
 
-<div id="dossier-view" style="width: 100%;">
-  <div id="main-export-pvp-season-60" class="dossier-card" data-event-start="2026-11-12T11:00:00-08:00" data-event-end="2026-12-30T10:00:00-08:00">
+<div id="report-view" style="width: 100%;">
+  <div id="main-export-pvp-season-60" class="report-card" data-event-start="2026-11-12T11:00:00-08:00" data-event-end="2026-12-30T10:00:00-08:00">
 
     <!-- ==================== LOCKED TOP HUD (NEVER SCROLLS OFF SCREEN) ==================== -->
     <div class="locked-top-hud">
@@ -899,19 +899,19 @@
       <!-- Instant File-Folder Tab Locator Bar -->
       <nav class="file-tabs-rail" aria-label="Instant Section Locators">
         <div class="file-tabs-group">
-          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToDossierSection('secTopHeader', this)">
+          <button type="button" class="file-tab-btn active-file-tab" id="tabBtnTop" data-target="secTopHeader" onclick="jumpToReportSection('secTopHeader', this)">
             <span class="tab-idx">01</span><span>TOP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnOverview" data-target="secSeasonOverview" onclick="jumpToDossierSection('secSeasonOverview', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnOverview" data-target="secSeasonOverview" onclick="jumpToReportSection('secSeasonOverview', this)">
             <span class="tab-idx">02</span><span>OVERVIEW &amp; DRIP</span>
           </button>
-          <button type="button" class="file-tab-btn" id="tabBtnAlliancePvp" data-target="secAlliancePvp" onclick="jumpToDossierSection('secAlliancePvp', this)">
+          <button type="button" class="file-tab-btn" id="tabBtnAlliancePvp" data-target="secAlliancePvp" onclick="jumpToReportSection('secAlliancePvp', this)">
             <span class="tab-idx">03</span><span>ALLIANCE PVP</span>
           </button>
-          <button type="button" class="file-tab-btn gold-tab" id="tabBtnAlliancePayouts" data-target="secAlliancePayouts" onclick="jumpToDossierSection('secAlliancePayouts', this)">
+          <button type="button" class="file-tab-btn gold-tab" id="tabBtnAlliancePayouts" data-target="secAlliancePayouts" onclick="jumpToReportSection('secAlliancePayouts', this)">
             <span class="tab-idx">04</span><span>🏆 ALLIANCE PAYOUTS</span>
           </button>
-          <button type="button" class="file-tab-btn thorium-tab" id="tabBtnPlayerPayouts" data-target="secPlayerPayouts" onclick="jumpToDossierSection('secPlayerPayouts', this)">
+          <button type="button" class="file-tab-btn thorium-tab" id="tabBtnPlayerPayouts" data-target="secPlayerPayouts" onclick="jumpToReportSection('secPlayerPayouts', this)">
             <span class="tab-idx">05</span><span>💎 PLAYER PAYOUTS</span>
           </button>
         </div>
@@ -937,7 +937,7 @@
           <div class="event-header-text">
             <div class="event-sub-tag"><span>[-WTR-] DATA HUB</span> | 
               <a href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1062-pvp-season-60/" target="_blank" rel="noopener noreferrer" style="color: var(--text-cyan); text-decoration: none;">Data Source ↗</a> | 
-              <a href="javascript:void(0)" onclick="jumpToDossierSection('secPlayerPayouts')" style="color: var(--text-gold); text-decoration: none;">Medals &amp; Blood Thorium Payouts ↓</a>
+              <a href="javascript:void(0)" onclick="jumpToReportSection('secPlayerPayouts')" style="color: var(--text-gold); text-decoration: none;">Medals &amp; Blood Thorium Payouts ↓</a>
             </div>
             <div class="event-title-row">
               <h1 class="event-main-title" id="displayMainTitle" onclick="toggleBriefArchiveMode()" title="Click to Collapse / Expand Brief">PVP SEASON 60</h1>
@@ -966,7 +966,7 @@
       <div id="briefCollapsibleBody" class="brief-collapsible-body">
 
         <!-- SECTION 02: SEASON OVERVIEW, DEFENSIVE OFFERS & INFAMY DRIP -->
-        <section class="dossier-section" id="secSeasonOverview">
+        <section class="report-section" id="secSeasonOverview">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span>SEASON 60 OVERVIEW &amp; INFAMY MECHANICS</span>
             <div class="section-header-right">
@@ -1002,7 +1002,7 @@
         </section>
 
         <!-- SECTION 03: ALLIANCE PVP CLASSES & TOP-3 LEADERBOARD RULE -->
-        <section class="dossier-section" id="secAlliancePvp">
+        <section class="report-section" id="secAlliancePvp">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span>ALLIANCE PVP CLASSES &amp; LEADERBOARD RULES</span>
             <div class="section-header-right">
@@ -1038,7 +1038,7 @@
         </section>
 
         <!-- SECTION 04: ALLIANCE PAYOUTS -->
-        <section class="dossier-section" id="secAlliancePayouts">
+        <section class="report-section" id="secAlliancePayouts">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span>ALLIANCE LEADERBOARD PAYOUTS</span>
             <div class="section-header-right">
@@ -1095,7 +1095,7 @@
         </section>
 
         <!-- SECTION 05: INDIVIDUAL PLAYER PAYOUTS -->
-        <section class="dossier-section" id="secPlayerPayouts">
+        <section class="report-section" id="secPlayerPayouts">
           <div class="section-header-bar" onclick="toggleSectionMinimize(this)" title="Click to Minimize / Expand Section">
             <span>INDIVIDUAL PLAYER PAYOUTS (MEDALS &amp; BLOOD THORIUM)</span>
             <div class="section-header-right">
@@ -1227,8 +1227,8 @@
 
     <!-- Floating Quick-Return Rail -->
     <div class="side-quick-rail">
-      <button type="button" class="side-rail-btn gold" onclick="jumpToDossierSection('secPlayerPayouts')" title="Jump to Player Payouts">💎 PAYOUTS</button>
-      <button type="button" class="side-rail-btn" onclick="jumpToDossierSection('secTopHeader')" title="Return to Top">▲ TOP</button>
+      <button type="button" class="side-rail-btn gold" onclick="jumpToReportSection('secPlayerPayouts')" title="Jump to Player Payouts">💎 PAYOUTS</button>
+      <button type="button" class="side-rail-btn" onclick="jumpToReportSection('secTopHeader')" title="Return to Top">▲ TOP</button>
     </div>
 
   </div>
@@ -1257,14 +1257,14 @@
 
   function toggleSectionMinimize(barEl) {
     if (!barEl) return;
-    const sec = barEl.closest(".dossier-section");
+    const sec = barEl.closest(".report-section");
     if (!sec) return;
     const isMin = sec.classList.toggle("section-minimized");
     const arrow = barEl.querySelector(".section-min-arrow");
     if (arrow) arrow.textContent = isMin ? "▶" : "▼";
   }
 
-  function jumpToDossierSection(sectionId, tabBtn) {
+  function jumpToReportSection(sectionId, tabBtn) {
     const card = document.getElementById("main-export-pvp-season-60");
     if (card && card.classList.contains("archive-collapsed")) {
       toggleBriefArchiveMode();

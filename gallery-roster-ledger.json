@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-22T05:28:29Z",
+    "updatedAt":  "2026-11-22T06:19:56Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1009,6 +1009,22 @@
                                              "subLabel":  "Arc 1 • LEGENDARY",
                                              "firstSeenMs":  1795308650591,
                                              "firstSeenAt":  "2026-11-22T00:50:50Z"
-                                         }
+                                         },
+                    "UNIT::CHRONOPHAGE":  {
+                                              "key":  "CHRONOPHAGE",
+                                              "name":  "CHRONOPHAGE",
+                                              "gallery":  "UNIT",
+                                              "subLabel":  "Arc 2 • SOLDIER",
+                                              "firstSeenMs":  1795328396780,
+                                              "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                          },
+                    "UNIT::MINEUT":  {
+                                         "key":  "MINEUT",
+                                         "name":  "MINEUT",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc 2 • hero",
+                                         "firstSeenMs":  1795328396780,
+                                         "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                     }
                 }
 }

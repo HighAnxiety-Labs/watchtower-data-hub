@@ -190,8 +190,8 @@
     }
     #studioConfigDrawer.open { display: flex; }
 
-    /* ==================== MAIN DOSSIER SHELL & 4-CORNER BARS ==================== */
-    .calc-dossier-card {
+    /* ==================== MAIN REPORT SHELL & 4-CORNER BARS ==================== */
+    .calc-report-card {
       max-width: 1380px;
       margin: 0 auto;
       background: var(--bg-panel);
@@ -290,7 +290,7 @@
     }
 
     /* ==================== HEADER BANNER ==================== */
-    .dossier-header {
+    .report-header {
       position: relative;
       background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, var(--bg-header) 100%);
       border-bottom: 2px solid var(--mode-border);
@@ -1164,7 +1164,7 @@
       font-family: monospace;
     }
 
-    /* ==================== HOVER PREVIEW POD & IN-PAGE DOSSIER OVERLAY ==================== */
+    /* ==================== HOVER PREVIEW POD & IN-PAGE REPORT OVERLAY ==================== */
     .wtr-hover-pod {
       position: fixed;
       z-index: 100050;
@@ -1261,12 +1261,12 @@
       flex-direction: column;
       gap: 16px;
     }
-    .dossier-3col {
+    .report-3col {
       display: grid;
       grid-template-columns: 230px 1fr 1.15fr;
       gap: 18px;
     }
-    .dossier-portrait-frame {
+    .report-portrait-frame {
       width: 100%;
       aspect-ratio: 4 / 5;
       background: #040706;
@@ -1274,27 +1274,27 @@
       border-radius: 4px;
       overflow: hidden;
     }
-    .dossier-portrait-frame img {
+    .report-portrait-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .dossier-stats-tbl {
+    .report-stats-tbl {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    .dossier-stats-tbl td {
+    .report-stats-tbl td {
       padding: 5px 8px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .dossier-stats-tbl td.k {
+    .report-stats-tbl td.k {
       color: var(--text-muted);
       font-weight: 700;
       width: 44%;
     }
-    .dossier-stats-tbl td.v {
+    .report-stats-tbl td.v {
       color: #ffffff;
       font-weight: 800;
       font-family: monospace;
@@ -1311,7 +1311,7 @@
       .hud-cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .dossier-3col {
+      .report-3col {
         grid-template-columns: 1fr;
       }
     }
@@ -1349,15 +1349,15 @@
     @media print {
       body { background: #fff; color: #000; padding: 0; }
       #studioTopControlBar, #studioConfigDrawer, .mode-selector-strip .source-sync-bar { display: none !important; }
-      .calc-dossier-card { box-shadow: none; border: 1px solid #000; }
+      .calc-report-card { box-shadow: none; border: 1px solid #000; }
       .left-tracks-column { position: static; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==================== MAIN CALCULATOR DOSSIER CARD ==================== -->
-  <div class="calc-dossier-card" id="mainCalcDossier">
+  <!-- ==================== MAIN CALCULATOR REPORT CARD ==================== -->
+  <div class="calc-report-card" id="mainCalcReport">
 
     <!-- TOP 4-CORNER UNCLASSIFIED BAR -->
     <div class="classification-bar">
@@ -1367,7 +1367,7 @@
     </div>
 
     <!-- HEADER BANNER -->
-    <header class="dossier-header">
+    <header class="report-header">
       <div class="header-left">
         <a class="header-logo-link" href="./index.html" title="Return to WatchToweR Data Hub">
           <img src="./assets/images/wtr-logo.png" alt="[-WTR-] Emblem">
@@ -1603,20 +1603,20 @@
     <div class="hover-pod-hint">CLICK TO OPEN FULL UNIT REPORT</div>
   </div>
 
-  <!-- IN-PAGE MASTER_DB UNIT DOSSIER MODAL -->
-  <div class="wtr-modal-backdrop" id="unitDossierModal" onclick="if(event.target===this) closeUnitDossier()">
+  <!-- IN-PAGE MASTER_DB UNIT REPORT MODAL -->
+  <div class="wtr-modal-backdrop" id="unitReportModal" onclick="if(event.target===this) closeUnitReport()">
     <div class="wtr-modal-window">
       <div class="wtr-modal-topbar">
         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
           <span style="font-family:monospace; font-size:12px; font-weight:900; color:var(--mode-accent);">🗄️ LIVE MASTER_DB REPORT //</span>
-          <strong id="dossierModalTitle" style="font-family:'Arial Black',sans-serif; font-size:18px; color:#fff; text-transform:uppercase;">UNIT NAME</strong>
+          <strong id="reportModalTitle" style="font-family:'Arial Black',sans-serif; font-size:18px; color:#fff; text-transform:uppercase;">UNIT NAME</strong>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
-          <a id="dossierFullPageBtn" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="calc-btn gold" style="text-decoration:none;">↗ Open Full Unit Briefs Page</a>
-          <button type="button" class="calc-btn" style="background:#7f1d1d; border-color:#f87171; color:#fff;" onclick="closeUnitDossier()">✕ Close</button>
+          <a id="reportFullPageBtn" href="./unit-briefs.html" target="_blank" rel="noopener noreferrer" class="calc-btn gold" style="text-decoration:none;">↗ Open Full Unit Briefs Page</a>
+          <button type="button" class="calc-btn" style="background:#7f1d1d; border-color:#f87171; color:#fff;" onclick="closeUnitReport()">✕ Close</button>
         </div>
       </div>
-      <div class="wtr-modal-body" id="dossierModalBody"></div>
+      <div class="wtr-modal-body" id="reportModalBody"></div>
     </div>
   </div>
 
@@ -3135,11 +3135,11 @@
           ? `<img src="${escapeHtml(vis.thumbUrl)}" class="store-unit-thumb" alt="${escapeHtml(vis.unitKey)}"
                onmouseenter="showHoverPod(event, '${escapeHtml(vis.unitKey || catItem.name)}', '${escapeHtml(vis.subMeta)}', '${escapeHtml(vis.thumbUrl)}')"
                onmousemove="moveHoverPod(event)" onmouseleave="hideHoverPod()"
-               onclick="openUnitDossierByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')">`
+               onclick="openUnitReportByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')">`
           : `<div class="store-unit-thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--mode-accent);">📦</div>`;
 
         const clickHandler = vis.unitKey
-          ? `onclick="openUnitDossierByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')" onmouseenter="showHoverPod(event, '${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.subMeta)}', '${escapeHtml(vis.thumbUrl)}')" onmousemove="moveHoverPod(event)" onmouseleave="hideHoverPod()"`
+          ? `onclick="openUnitReportByKey('${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.matchedWarpaint)}')" onmouseenter="showHoverPod(event, '${escapeHtml(vis.unitKey)}', '${escapeHtml(vis.subMeta)}', '${escapeHtml(vis.thumbUrl)}')" onmousemove="moveHoverPod(event)" onmouseleave="hideHoverPod()"`
           : `onclick="toggleStoreRowCheck(${idx})"`;
 
         return `
@@ -3459,7 +3459,7 @@
       }
     }
 
-    /* ==================== HOVER PREVIEW POD & IN-PAGE MASTER_DB DOSSIER ==================== */
+    /* ==================== HOVER PREVIEW POD & IN-PAGE MASTER_DB REPORT ==================== */
     function showHoverPod(e, title, meta, imgUrl) {
       const pod = document.getElementById("wtrHoverPod");
       if (!pod) return;
@@ -3488,13 +3488,13 @@
       if (pod) pod.classList.remove("show");
     }
 
-    function openUnitDossierByKey(unitKey, highlightWarpaint) {
+    function openUnitReportByKey(unitKey, highlightWarpaint) {
       hideHoverPod();
       const rec = findUnitInMasterDb(unitKey);
-      const modal = document.getElementById("unitDossierModal");
-      const body = document.getElementById("dossierModalBody");
-      const titleEl = document.getElementById("dossierModalTitle");
-      const fullBtn = document.getElementById("dossierFullPageBtn");
+      const modal = document.getElementById("unitReportModal");
+      const body = document.getElementById("reportModalBody");
+      const titleEl = document.getElementById("reportModalTitle");
+      const fullBtn = document.getElementById("reportFullPageBtn");
       if (!modal || !body) return;
 
       const uName = (rec && rec.UNIT_NAME) ? rec.UNIT_NAME : unitKey;
@@ -3510,7 +3510,7 @@
         body.innerHTML = `
           <div style="padding:14px; background:rgba(255,255,255,0.03); border:1px solid var(--mode-border); border-radius:4px;">
             <p style="margin-bottom:10px;">Live <code>MASTER_DB</code> sheet record for <strong>${escapeHtml(uName)}</strong> will populate when connected, or click <strong>Open Full Unit Briefs Page</strong> above.</p>
-            ${storeHtml ? `<table class="dossier-stats-tbl">${storeHtml}</table>` : ""}
+            ${storeHtml ? `<table class="report-stats-tbl">${storeHtml}</table>` : ""}
           </div>
         `;
         modal.classList.add("open");
@@ -3574,26 +3574,26 @@
 
       const wpButtonsHtml = warpaints.length ? `
         <div style="display:flex; gap:5px; flex-wrap:wrap; margin-top:8px; justify-content:center;">
-          <button type="button" class="calc-btn" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('dossierMainImg').src='${escapeHtml(baseImg)}'">Base</button>
-          ${warpaints.map(w => `<button type="button" class="calc-btn gold" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('dossierMainImg').src='${escapeHtml(w.img)}'">🎨 ${escapeHtml(w.name)}</button>`).join("")}
+          <button type="button" class="calc-btn" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('reportMainImg').src='${escapeHtml(baseImg)}'">Base</button>
+          ${warpaints.map(w => `<button type="button" class="calc-btn gold" style="font-size:10px; padding:3px 7px;" onclick="document.getElementById('reportMainImg').src='${escapeHtml(w.img)}'">🎨 ${escapeHtml(w.name)}</button>`).join("")}
         </div>
       ` : "";
 
       body.innerHTML = `
         ${g("UNIT_QUOTE") ? `<div style="font-style:italic; color:#cbd5e1; border-left:3px solid var(--mode-accent); padding-left:12px; font-size:13.5px;">“${escapeHtml(g("UNIT_QUOTE"))}”</div>` : ""}
-        <div class="dossier-3col">
+        <div class="report-3col">
           <div>
-            <div class="dossier-portrait-frame">
-              <img id="dossierMainImg" src="${escapeHtml(activeImg)}" alt="${escapeHtml(uName)}">
+            <div class="report-portrait-frame">
+              <img id="reportMainImg" src="${escapeHtml(activeImg)}" alt="${escapeHtml(uName)}">
             </div>
             ${wpButtonsHtml}
           </div>
           <div>
             <div style="font-family:'Arial Black',sans-serif; font-size:13px; color:var(--mode-accent); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin-bottom:8px;">UNIT SPECIFICATIONS</div>
-            <table class="dossier-stats-tbl">${specRows}</table>
+            <table class="report-stats-tbl">${specRows}</table>
             ${storeHtml ? `
               <div style="font-family:'Arial Black',sans-serif; font-size:12.5px; color:var(--text-gold); border-bottom:1px solid var(--mode-border); padding-bottom:4px; margin:12px 0 6px 0;">CURRENT EVENT STORE ITEMS</div>
-              <table class="dossier-stats-tbl">${storeHtml}</table>
+              <table class="report-stats-tbl">${storeHtml}</table>
             ` : ""}
           </div>
           <div>
@@ -3611,13 +3611,13 @@
       modal.classList.add("open");
     }
 
-    function closeUnitDossier() {
-      const modal = document.getElementById("unitDossierModal");
+    function closeUnitReport() {
+      const modal = document.getElementById("unitReportModal");
       if (modal) modal.classList.remove("open");
     }
 
     document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeUnitDossier();
+      if (e.key === "Escape") closeUnitReport();
     });
 
     /* ==================== LIVE BOTTOM COUNTDOWN CLOCK ==================== */

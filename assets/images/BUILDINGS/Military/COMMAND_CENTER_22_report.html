@@ -1,12 +1,4 @@
-<style>html, body {
-    height: auto;
-    min-height: 100%;
-    background-color: #0b0f0d;
-    margin: 0;
-    padding: 16px;
-    color: #e0e6ed;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
+<style>html, body { background-color: #0b0f0d; margin: 0; padding: 16px; }
   /* Reset & Base Variables */
   * {
     box-sizing: border-box;
@@ -136,7 +128,7 @@
   .wtr-modal-backdrop.open { display: flex; }
   .wtr-modal-box {
     width: 100%;
-    max-width: 680px;
+    max-width: 620px;
     background: #0d1411;
     border: 2px solid #38bdf8;
     border-radius: 5px;
@@ -267,8 +259,8 @@
   .editor-footer-bar {
     background: #090e0b; border-top: 1px solid #1f3b2b; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
   }
-  /* ==================== DOSSIER CARD STYLES ==================== */
-  .dossier-card {
+  /* ==================== REPORT CARD STYLES ==================== */
+  .report-card {
     width: 100%;
     max-width: 1140px;
     margin: 0 auto;
@@ -334,7 +326,7 @@
   .gold-heroic { color: #ffd700 !important; font-weight: 800 !important; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.35); }
   .broken-badge { background: rgba(244, 63, 94, 0.2); border: 1px solid #f43f5e; color: #fda4af; font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 3px; text-transform: uppercase; }
   /* Shared Sections */
-  .dossier-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
+  .report-section { background: #090e0b; padding: 20px; border-top: 1px solid #1a3324; }
   /* DATA SHEET 1: Directive */
   .wc-directive-box {
     width: 100%; background: #12171d; border: 1px solid #30363d; border-top: 4px solid #f2a900; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6); padding: 15px 18px; border-radius: 2px;
@@ -360,7 +352,7 @@
   .upgrades-table-wrapper { width: 100%; max-height: 480px; overflow-y: auto; overflow-x: auto; margin-top: 8px; border: 1px solid #1f3b2b; border-radius: 4px; }
   .upgrades-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: center; background: #0b1118; }
   .upgrades-table th {
-    position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 9px 10px; border-bottom: 2px solid #30363d; z-index: 2; white-space: nowrap;
+    position: sticky; top: 0; background: #0f1813; color: #00e676; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 9px 10px; border-bottom: 2px solid #1f3b2b; z-index: 2; white-space: nowrap;
   }
   .upgrades-table td { padding: 8px 10px; border-bottom: 1px solid #132419; color: #e0e6ed; font-family: monospace; font-size: 13px; }
   .upgrades-table td.lvl-cell { color: #ffd700; font-weight: 800; background: rgba(0, 0, 0, 0.35); border-right: 1px solid #132419; text-align: left; white-space: nowrap; }
@@ -406,11 +398,11 @@
     .workshop-grid.four-items { grid-template-columns: repeat(4, 1fr); }
   }</style>
 <div style="width: 100%; max-width: 1140px;">
-  <div id="exportable-dossier-card" class="dossier-card">
-    <div id="d-classification" class="classification-bar">BASE OPERATIONS // FORTIFICATION ENGINEERING — CONSTRUCTION YARD</div>
+  <div id="exportable-report-card" class="report-card">
+    <div id="d-classification" class="classification-bar">BASE OPERATIONS // COMMAND CENTER CORE — DATABASE REF: CC22-OPS</div>
     <div class="header-content">
-      <h1 id="d-title" class="unit-title">CONSTRUCTION YARD</h1>
-      <p id="d-quote" class="unit-quote" style="display: block;">"Builds Basic Constructs and Reinforced defensive barriers to control enemy pathing and fortify base approaches."</p>
+      <h1 id="d-title" class="unit-title">COMMAND CENTER 22</h1>
+      <p id="d-quote" class="unit-quote" style="display: block;">"The absolute heart of a commander's base operations. Upgrading to Level 22 expands your base perimeter, unlocks higher-tier building hierarchies across 14 facilities, and anchors the Iridium-tier fortress grid."</p>
     </div>
 <!-- Meta Strip with Dynamic Data Sheet Quick-Jump Links & Linked Facility -->
     <div id="unit-meta-bar" class="unit-meta-bar" style="display: flex;">
@@ -420,11 +412,11 @@
           <span id="jump-sheet1-text">1. Upgrade Directive</span> 
           <span class="popout-icon">↓</span>
         </a> 
-        <a href="#upgrades-section" id="jump-sheet2" class="meta-btn btn-cyan" onclick="scrollToSection('upgrades-section'); return false;" style="display: none;">
+        <a href="#upgrades-section" id="jump-sheet2" class="meta-btn btn-cyan" onclick="scrollToSection('upgrades-section'); return false;" style="display: inline-flex;">
           <span id="jump-sheet2-text">2. CC22 Planning Matrix</span> 
           <span class="popout-icon">↓</span>
         </a> 
-        <a href="#doctrine-section" id="jump-sheet3" class="meta-btn" onclick="scrollToSection('doctrine-section'); return false;" style="display: none;">
+        <a href="#doctrine-section" id="jump-sheet3" class="meta-btn" onclick="scrollToSection('doctrine-section'); return false;" style="display: inline-flex;">
           <span id="jump-sheet3-text">3. Upgrade Path &amp; Notes</span> 
           <span class="popout-icon">↓</span>
         </a>
@@ -433,21 +425,21 @@
       <div id="linked-unit-container" class="meta-item meta-right" style="display: flex;">
         <span class="meta-label">LINKED FACILITY:</span> 
         <a id="linkedFacilityBtn" class="meta-btn btn-gold"></a> 
-        <span id="d-linked-name">MINE FACTORY (LVL 10)</span> 
+        <span id="d-linked-name">WEAPONS LAB (LVL 13)</span> 
         <span class="popout-icon">↗</span>
       </div>
     </div>
 <!-- Operational Updates / Known Issues Strip -->
     <div id="updates-bar-wrap" class="unit-updates-bar" style="display: flex;">
       <span id="d-updates-label" class="updates-label">Operational Telemetry:</span> 
-      <span id="d-updates" class="updates-content">Upgrading Construction Yard from Level 5 to 10 increases deployable Basic Constructs to 6 and Reinforced Constructs to 4.</span>
+      <span id="d-updates" class="updates-content">Active Protocol: Command Center 22 unlocks 58 total upgrade levels across 15 base structures (2,445,000 Total Iridium / 244d 12h). 🚨 Alert: Academy &amp; Tech Center Last Stand Defender increases are currently flagged as BROKEN.</span>
     </div>
 <!-- 3-Column Briefing Grid -->
     <div class="briefing-grid"><!-- Col 1: Visual (4:5 Auto-Fit Image) -->
       <div class="unit-display">
-        <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;">CC22 TIER: LVL 5 → 10</span>
+        <span id="d-tier-badge" class="col-header" style="width: 100%; justify-content: center;">MAX TIER: LEVEL 22</span>
         <div id="main-img-frame" class="unit-img-frame">
-          <img id="d-main-img" class="unit-img" src="https://share1.cloudhq-mkt3.net/1b128cf8f03b48.jpeg" alt="CONSTRUCTION YARD Render">
+          <img id="d-main-img" class="unit-img" src="https://share1.cloudhq-mkt3.net/a7d1403a59e71a.jpeg" alt="COMMAND CENTER 22 Render">
         </div>
       </div>
 <!-- Col 2: Facility Specifications Table -->
@@ -457,31 +449,59 @@
           <tbody id="d-stats-tbody">
             <tr>
               <td class="stats-label">Facility Category</td>
-              <td class="stats-value ">Defense / Base Engineering</td>
+              <td class="stats-value ">Command Center / HQ Core</td>
             </tr>
             <tr>
-              <td class="stats-label">CC22 Level Range</td>
-              <td class="stats-value val-green">Level 5 → Level 10 (5 Lvls)</td>
+              <td class="stats-label">Database Reference</td>
+              <td class="stats-value ">CC22-OPS</td>
             </tr>
             <tr>
-              <td class="stats-label">Total Iridium Cost</td>
-              <td class="stats-value val-iridium">165,000 Iridium</td>
+              <td class="stats-label">Active Target Tier</td>
+              <td class="stats-value val-green">Level 21 → Level 22</td>
             </tr>
             <tr>
-              <td class="stats-label">Total Duration</td>
-              <td class="stats-value ">16 Days 12 Hours</td>
+              <td class="stats-label">Prerequisite</td>
+              <td class="stats-value ">Command Center Level 21</td>
             </tr>
             <tr>
-              <td class="stats-label">Total Gold (w/ Iridium)</td>
-              <td class="stats-value val-gold">615 Gold</td>
+              <td class="stats-label">Upgrade Cost (Iridium)</td>
+              <td class="stats-value val-iridium">80,000 Iridium</td>
             </tr>
             <tr>
-              <td class="stats-label">Total Instant Gold</td>
-              <td class="stats-value val-gold">698 Gold</td>
+              <td class="stats-label">Gold (w/ Iridium)</td>
+              <td class="stats-value val-gold">384 Gold</td>
             </tr>
             <tr>
-              <td class="stats-label">Total Sale Gold (5% Off)</td>
-              <td class="stats-value val-green">663 Gold</td>
+              <td class="stats-label">Gold Instant Buyout</td>
+              <td class="stats-value val-gold">424 Gold</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Sale Offer (6% Off)</td>
+              <td class="stats-value val-green">399 Gold</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Upgrade Duration</td>
+              <td class="stats-value ">8 Days (8d 0h)</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Facilities Unlocked</td>
+              <td class="stats-value ">14 Base Structures (58 Ranks)</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Full CC22 Wave Iridium</td>
+              <td class="stats-value val-iridium">2,445,000 Iridium</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Full CC22 Wave Duration</td>
+              <td class="stats-value ">244 Days 12 Hours</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Full Wave Gold (w/ Irid)</td>
+              <td class="stats-value val-gold">9,346 Gold (Sale: 9,458)</td>
+            </tr>
+            <tr>
+              <td class="stats-label">Full Wave Instant Gold</td>
+              <td class="stats-value val-gold">10,575 Gold</td>
             </tr>
           </tbody>
         </table>
@@ -491,25 +511,56 @@
         <span class="col-header">Core Functions &amp; Unlocks</span>
         <div id="d-talents-list">
           <div class="talent-block">
-            <div class="talent-tier">CONSTRUCT EXPANSION (6 BASIC / 4 REINFORCED)</div>
-            <div class="talent-desc">Expands base fortification capacity to 6 Basic Constructs and 4 Reinforced Constructs across Levels 6–10.</div>
+            <div class="talent-tier">LEVEL 22 DIRECTIVE — MASTER BASE UNLOCK</div>
+            <div class="talent-desc">Unlocks the entire Command Center 22 wave of building upgrades across Military, Defense, and Support structures.</div>
+          </div>
+          <div class="talent-block">
+            <div class="talent-tier">WAR PRODUCTION — ARC 2 ROSTER UNLOCKS</div>
+            <div class="talent-desc">Enables 
+              <span class="gold-heroic">Airfield L60</span> (Arc 2 Air), 
+              <span class="gold-heroic">War Factory L60</span> (Arc 2 Vehicles), 
+              <span class="gold-heroic">Barracks L55</span> (Arc 2 Infantry), and 
+              <span class="gold-heroic">Mercenary Camp L26–30</span> (Bearguard, Snow Man, Quartermaster, Gunslinger).
+            </div>
+          </div>
+          <div class="talent-block">
+            <div class="talent-tier">BASTIONS &amp; HEAVY PLATFORMS</div>
+            <div class="talent-desc">Unlocks 
+              <span class="gold-heroic">Weapons Lab L13</span> (new Bastion levels for Tesla Tower, Orbital Hammer, Tactical Backup, Recovery &amp; Generator) and 
+              <span class="gold-heroic">Workshop L22–25</span> (increased Heavy Platform limits).
+            </div>
+          </div>
+          <div class="talent-block">
+            <div class="talent-tier">COUNTER-PVP &amp; PERIMETER SCALING</div>
+            <div class="talent-desc">Scales 
+              <span class="gold-heroic">Tactical Ops Center L21–25</span> (31% to 35% Arc 3 PVP damage dealt/taken override), 
+              <span class="gold-heroic">Skyguard L16–20</span> (2,850 Air Defender cap), 
+              <span class="gold-heroic">Mine Factory L6–10</span> (12 Minefields), and 
+              <span class="gold-heroic">Radio Tower L11–14</span> (14 Scouts).
+            </div>
+          </div>
+          <div class="talent-block">
+            <div class="talent-tier">🚨 KNOWN DEFECTS (ACADEMY &amp; TECH CENTER)</div>
+            <div class="talent-desc">
+              <span class="broken-badge">BROKEN</span> Academy (L56–60) and Tech Center (L46–50) are scheduled for 1,250–1,450 Last Stand Defender capacity, but currently grant NO Last Stand increase.
+            </div>
           </div>
         </div>
       </div>
     </div>
 <!-- ==================== DATA SHEET 1: UPGRADE DIRECTIVE ==================== -->
-    <div id="directive-section" class="dossier-section" style="display: block;">
+    <div id="directive-section" class="report-section" style="display: block;">
       <span class="col-header">
-        <span id="d-sheet1-header">Data Sheet 1 // CONSTRUCTION YARD (LVL 5–10) Upgrade Directive</span> 
-        <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: CONSTRUCTION_YARD-OPS</span>
+        <span id="d-sheet1-header">Data Sheet 1 // Command Center Upgrade Directive</span> 
+        <span id="d-sheet1-ref-top" style="font-size: 12px; color: #f2a900; font-family: monospace;">DATABASE REF: CC22-OPS</span>
       </span>
       <div class="wc-directive-box">
         <div class="wc-header">
           <div class="wc-title">
-            <span id="d-directive-title">CONSTRUCTION YARD</span> 
+            <span id="d-directive-title">COMMAND CENTER 22</span> 
             <span class="wc-badge">UPGRADE DIRECTIVE</span>
           </div>
-          <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;">DATABASE REF: CONSTRUCTION_YARD-OPS</div>
+          <div id="d-directive-ref" style="font-size: 12px; color: #8b949e;">DATABASE REF: CC22-OPS</div>
         </div>
         <div style="overflow-x: auto;">
           <table class="wc-table">
@@ -527,67 +578,43 @@
             </thead>
             <tbody id="d-directive-tbody">
               <tr class="section-divider">
-                <td colspan="8">CC22 Construction Yard Progression (Levels 5 → 10)</td>
-              </tr>
-              <tr class="">
-                <td class="level-cell">5→6</td>
-                <td>Increase to 6 Basic Constructs and 4 Reinforced</td>
-                <td class="iridium-cost">20,000</td>
-                <td class="gold-cost">80</td>
-                <td class="gold-cost">90</td>
-                <td class="sale-cost">86 (5%)</td>
-                <td>2d 0h</td>
-                <td class="cc-req">CC 22</td>
-              </tr>
-              <tr class="">
-                <td class="level-cell">6→7</td>
-                <td>Construct durability &amp; tier scaling</td>
-                <td class="iridium-cost">25,000</td>
-                <td class="gold-cost">97</td>
-                <td class="gold-cost">110</td>
-                <td class="sale-cost">105 (5%)</td>
-                <td>2d 12h</td>
-                <td class="cc-req">CC 22</td>
-              </tr>
-              <tr class="">
-                <td class="level-cell">7→8</td>
-                <td>Construct durability &amp; tier scaling</td>
-                <td class="iridium-cost">30,000</td>
-                <td class="gold-cost">114</td>
-                <td class="gold-cost">129</td>
-                <td class="sale-cost">123 (5%)</td>
-                <td>3d 0h</td>
-                <td class="cc-req">CC 22</td>
-              </tr>
-              <tr class="">
-                <td class="level-cell">8→9</td>
-                <td>Construct durability &amp; tier scaling</td>
-                <td class="iridium-cost">40,000</td>
-                <td class="gold-cost">147</td>
-                <td class="gold-cost">167</td>
-                <td class="sale-cost">159 (5%)</td>
-                <td>4d 0h</td>
-                <td class="cc-req">CC 22</td>
+                <td colspan="8">Active Protocol: Command Center 22 Briefing</td>
               </tr>
               <tr class="highlight-row">
-                <td class="level-cell">9→10</td>
-                <td>Max CC22 Construct tier unlocked</td>
-                <td class="iridium-cost">50,000</td>
-                <td class="gold-cost">177</td>
-                <td class="gold-cost">202</td>
-                <td class="sale-cost">192 (5%)</td>
-                <td>5d 0h</td>
-                <td class="cc-req">CC 22</td>
+                <td class="level-cell">22</td>
+                <td>Unlocks new wave of CC22 building upgrades across base</td>
+                <td class="iridium-cost">80,000</td>
+                <td class="gold-cost">384</td>
+                <td class="gold-cost">424</td>
+                <td class="sale-cost">399 (6%)</td>
+                <td>8 Days</td>
+                <td class="cc-req">Level 21</td>
               </tr>
-              <tr class="highlight-row">
-                <td class="level-cell">TOTAL</td>
-                <td>5 Upgrade Levels Total</td>
-                <td class="iridium-cost">165,000</td>
-                <td class="gold-cost">615</td>
-                <td class="gold-cost">698</td>
-                <td class="sale-cost">663</td>
-                <td>16d 12h</td>
-                <td class="cc-req">CC 22</td>
+              <tr class="section-divider">
+                <td colspan="8">Operational Specifications (Level 21)</td>
+              </tr>
+              <tr class="empty-row">
+                <td class="level-cell">21</td>
+                <td>Unlocks upgrades of other Buildings across base</td>
+                <td class="iridium-cost">80,000</td>
+                <td class="gold-cost">—</td>
+                <td class="gold-cost">—</td>
+                <td class="sale-cost">—</td>
+                <td>8 Days</td>
+                <td class="cc-req">Level 20</td>
+              </tr>
+              <tr class="section-divider">
+                <td colspan="8">Legacy Specifications (Levels 1 – 20)</td>
+              </tr>
+              <tr class="empty-row">
+                <td class="level-cell">1–20</td>
+                <td>Prior tier Command Center progression archived (Metal / Oil / Thorium era).</td>
+                <td class="iridium-cost">—</td>
+                <td class="gold-cost">—</td>
+                <td class="gold-cost">—</td>
+                <td class="sale-cost">—</td>
+                <td>—</td>
+                <td class="cc-req">N/A</td>
               </tr>
             </tbody>
           </table>
@@ -595,9 +622,9 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 2: CC22 UPGRADE PLANNING MATRIX ==================== -->
-    <div id="upgrades-section" class="dossier-section" style="display: none;">
+    <div id="upgrades-section" class="report-section" style="display: block;">
       <span id="upgrades-section-header" class="col-header">
-        <span id="d-sheet2-header">Data Sheet 2 // CC22 Master Upgrade Planning Matrix (All Facilities)</span> 
+        <span id="d-sheet2-header">Data Sheet 2 // CC22 Master Upgrade Planning Matrix (All 15 Facilities)</span> 
         <span id="d-sheet2-sub" style="font-size: 12px; color: #ffd700; font-family: monospace;">TOTAL: 244d 12h | 2,445,000 IRIDIUM | 9,346 GOLD</span>
       </span>
       <div class="upgrades-table-wrapper">
@@ -616,7 +643,7 @@
             </tr>
           </thead>
           <tbody id="upgrades-table-body">
-            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Command Center 22 into top Report">
               <td class="lvl-cell">↗ Command Center 22</td>
               <td>21 → 22</td>
               <td>1</td>
@@ -627,8 +654,8 @@
               <td class="sale-cost">6% (399)</td>
               <td class="notes-cell">Unlocks new wave of CC22 building upgrades across base</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load ACADEMY (LVL 55–60) into top Dossier">
-              <td class="lvl-cell">↗ ACADEMY (LVL 55–60)</td>
+            <tr style="cursor: pointer;" title="Click to load Academy into top Report">
+              <td class="lvl-cell">↗ Academy</td>
               <td>55 → 60</td>
               <td>5</td>
               <td>20d 12h</td>
@@ -638,8 +665,8 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load AIRCRAFT HANGER (LVL 45–50) into top Dossier">
-              <td class="lvl-cell">↗ AIRCRAFT HANGER (LVL 45–50)</td>
+            <tr style="cursor: pointer;" title="Click to load Aircraft Hanger into top Report">
+              <td class="lvl-cell">↗ Aircraft Hanger</td>
               <td>45 → 50</td>
               <td>5</td>
               <td>20d 12h</td>
@@ -649,7 +676,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Increases Air Hanger capacity by +4,000 per level (+20,000 total)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Airfield into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Airfield into top Report">
               <td class="lvl-cell">↗ Airfield</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -660,7 +687,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Air in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Barracks into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Barracks into top Report">
               <td class="lvl-cell">↗ Barracks</td>
               <td>50 → 55</td>
               <td>5</td>
@@ -671,8 +698,8 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L55 unlocks Arc 2 Infantry in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load CONSTRUCTION YARD into top Dossier">
-              <td class="lvl-cell">↗ CONSTRUCTION YARD</td>
+            <tr style="cursor: pointer;" title="Click to load Construction Yard into top Report">
+              <td class="lvl-cell">↗ Construction Yard</td>
               <td>5 → 10</td>
               <td>5</td>
               <td>16d 12h</td>
@@ -682,7 +709,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Increases Basic Constructs to 6 and Reinforced Constructs to 4</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mercenary Camp into top Report">
               <td class="lvl-cell">↗ Mercenary Camp</td>
               <td>25 → 30</td>
               <td>5</td>
@@ -693,7 +720,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">War Prod: L26 Bearguard, L27 Snow Man, L28 Quartermaster, L29 Gunslinger, L30 Faster Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Mine Factory into top Report">
               <td class="lvl-cell">↗ Mine Factory</td>
               <td>5 → 10</td>
               <td>5</td>
@@ -704,7 +731,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Active Minefield Capacity increases: L6 (8), L7 (9), L8 (10), L9 (11), L10 (12)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Radio Tower into top Report">
               <td class="lvl-cell">↗ Radio Tower</td>
               <td>10 → 14</td>
               <td>4</td>
@@ -715,7 +742,7 @@
               <td class="sale-cost">5% (580)</td>
               <td class="notes-cell">Increases deployable Advanced Scouts: L11 (11), L12 (12), L13 (13), L14 (14)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Skyguard into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Skyguard into top Report">
               <td class="lvl-cell">↗ Skyguard</td>
               <td>15 → 20</td>
               <td>5</td>
@@ -726,7 +753,7 @@
               <td class="sale-cost">5% (663)</td>
               <td class="notes-cell">Air Defender capacity scales: L16 (2650), L17 (2700), L18 (2750), L19 (2800), L20 (2850)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tactical Ops Center into top Report">
               <td class="lvl-cell">↗ Tactical Ops Center</td>
               <td>20 → 25</td>
               <td>5</td>
@@ -737,7 +764,7 @@
               <td class="sale-cost">5% (831)</td>
               <td class="notes-cell">Overrides attacker bonuses for Arc 3 PVP units: 31% to 35% Damage Dealt &amp; Taken</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Tech Center into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Tech Center into top Report">
               <td class="lvl-cell">↗ Tech Center</td>
               <td>45 → 50</td>
               <td>5</td>
@@ -748,7 +775,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">🚨 BROKEN: No Last Stand increase given! (Listed: 1,250 → 1,450 Vehicle Defender cap)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load War Factory into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load War Factory into top Report">
               <td class="lvl-cell">↗ War Factory</td>
               <td>55 → 60</td>
               <td>5</td>
@@ -759,7 +786,7 @@
               <td class="sale-cost">5% (802)</td>
               <td class="notes-cell">Repair Speed 66%→70% (Arc 1) &amp; 61%→65% (Arc 2); L60 unlocks Arc 2 Vehicles in War Prod</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Weapons Lab into top Report">
               <td class="lvl-cell">↗ Weapons Lab</td>
               <td>12 → 13</td>
               <td>1</td>
@@ -770,7 +797,7 @@
               <td class="sale-cost">8% (186)</td>
               <td class="notes-cell">Unlocks Bastion levels: Damage (Tesla Tower, Orbital Hammer), Support, Utility (Generator)</td>
             </tr>
-            <tr style="cursor: pointer;" title="Click to load Workshop into top Dossier">
+            <tr style="cursor: pointer;" title="Click to load Workshop into top Report">
               <td class="lvl-cell">↗ Workshop</td>
               <td>21 → 25</td>
               <td>4</td>
@@ -797,16 +824,16 @@
       </div>
     </div>
 <!-- ==================== DATA SHEET 3: UPGRADE PATH & PRE-RELEASE TELEMETRY ==================== -->
-    <div id="doctrine-section" class="dossier-section" style="display: none;">
+    <div id="doctrine-section" class="report-section" style="display: block;">
       <span id="doctrine-main-title" class="col-header">
         <span id="d-sheet3-header">Data Sheet 3 // CC22 Strategic Upgrade Path &amp; Pre-Release Telemetry</span> 
         <span id="d-sheet3-sub" style="font-size: 12px; color: #38bdf8; font-family: monospace;">3-PHASE PRIORITY ROADMAP</span>
       </span>
-      <div id="doctrine-prereq-wrap" class="doctrine-notice" style="display: none;">
+      <div id="doctrine-prereq-wrap" class="doctrine-notice" style="display: block;">
         <strong>PREREQUISITE GATE:</strong> 
         <span id="doctrine-prereq-text">Command Center Level 21 (80,000 Iridium / 8 Days) is required before initiating the Command Center 22 upgrade. Starting any CC22 building upgrade with Iridium reduces its Gold buyout cost.</span>
       </div>
-      <div id="doctrine-costs-wrap" class="doctrine-notice" style="display: none;">
+      <div id="doctrine-costs-wrap" class="doctrine-notice" style="display: block;">
         <strong>WAVE SUMMARY:</strong> 
         <span id="doctrine-costs-text">15 Facilities (58 Total Upgrade Ranks) — 2,445,000 Total Iridium | 244 Days 12 Hours Total Build Time | 9,346 Reduced Gold (w/ Iridium) | 10,575 Instant Gold | 9,458 Sale Gold</span>
       </div>
@@ -910,7 +937,7 @@
       </div>
     </div>
 <!-- ==================== CONNECTED SUB-FACILITIES SECTION ==================== -->
-    <div id="tech-section" class="dossier-section" style="display: none;">
+    <div id="tech-section" class="report-section" style="display: block;">
       <span id="d-tech-header" class="col-header">Connected CC22 Sub-Facilities &amp; Critical Notes</span>
       <div id="workshop-container" class="workshop-grid four-items">
         <div class="workshop-item">
@@ -943,6 +970,6 @@
         </div>
       </div>
     </div>
-    <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS // FORTIFICATION ENGINEERING — CONSTRUCTION YARD</div>
+    <div id="d-footer-classification" class="classification-bar">BASE OPERATIONS // COMMAND CENTER CORE — DATABASE REF: CC22-OPS</div>
   </div>
 </div>
