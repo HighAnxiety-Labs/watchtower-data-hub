@@ -1444,7 +1444,7 @@
     liveFactionRosters = buckets;
     masterDbLoaded = true;
     const pill = document.getElementById("masterDbSyncPill");
-    if (pill) pill.textContent = `🗄️ MASTER_DB: ${totalUnits} Units Synced`;
+    if (pill) pill.textContent = `🗄️ MASTER_DB: ${totalUnits} Assets Synced`;
     const flTotal = (buckets.FACTIONLESS.length + buckets.LEGENDARY.length + buckets.MERCENARIES.length + buckets.CONTRACTORS.length);
     const flBadge = document.getElementById("pillCnt-FACTIONLESS");
     if (flBadge) flBadge.textContent = String(flTotal);
@@ -1810,7 +1810,7 @@
 
           <div class="faction-card-footer">
             <div class="fac-units-list">
-              <span class="fac-units-lbl">FACTION UNITS (MASTER_DB)<span class="fac-count-pill">${liveUnits.length}</span>:</span>
+              <span class="fac-units-lbl">FACTION ASSETS (MASTER_DB)<span class="fac-count-pill">${liveUnits.length}</span>:</span>
               ${unitChips}
             </div>
             <button type="button" class="fac-notes-btn ${hasNotes ? 'has-notes' : ''} ${isOpen ? 'is-open' : ''}" id="notesBtn-${fac.id}" onclick="toggleFactionNotepad('${fac.id}')">

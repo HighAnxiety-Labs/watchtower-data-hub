@@ -1313,7 +1313,7 @@
             <div class="alert-tag-badge" id="alertTagBadge"><span>🟢 LIVE EVENT</span></div>
             <div class="alert-rotator-body" id="alertRotatorBody" onclick="window.wtrTriggerActiveAlertAction && window.wtrTriggerActiveAlertAction()" title="Click to open active intelligence module">
               <div class="alert-text" id="systemAlertText">SCANNING LIVE WATCHTOWER TELEMETRY...</div>
-              <div class="alert-sub-meta" id="systemAlertMeta">Syncing Live Event Clocks • Unit &amp; Building Galleries • 24h Revisions • Defect Registry</div>
+              <div class="alert-sub-meta" id="systemAlertMeta">Syncing Live Event Clocks • Asset &amp; Building Galleries • 24h Revisions • Defect Registry</div>
             </div>
             <div class="alert-rotator-controls" id="alertRotatorControls">
               <button type="button" class="alert-cta-pill" id="alertActionBtn" onclick="window.wtrTriggerActiveAlertAction && window.wtrTriggerActiveAlertAction()">🖥️ OPEN BRIEF</button>
@@ -1361,7 +1361,7 @@
 
     <!-- 7-Tab Horizontal Command Bar (A-Z Order) -->
     <div class="brief-buttons-grid" id="briefButtonsGrid">
-      <button type="button" class="brief-btn" id="btnUtil1" data-sec="tacticalBriefs" data-color="#c29829" title="Units, Matchup &amp; Contractors" onclick="selectCommandTab('tacticalBriefs', this)" style="border-color: #c29829; color: #c29829; background-color: rgba(194, 152, 41, 0.16); --btn-accent: #c29829; --glow-color: #c29829;">
+      <button type="button" class="brief-btn" id="btnUtil1" data-sec="tacticalBriefs" data-color="#c29829" title="Assets, Matchup &amp; Contractors" onclick="selectCommandTab('tacticalBriefs', this)" style="border-color: #c29829; color: #c29829; background-color: rgba(194, 152, 41, 0.16); --btn-accent: #c29829; --glow-color: #c29829;">
         <span class="brief-btn-center-stack">
           <span class="brief-btn-title-row"><span class="dot" id="dotUtil1" style="background-color: #c29829;"></span><span id="txtUtil1">ARMORY</span></span>
           <span class="brief-btn-mod-count" id="modCount-tacticalBriefs">3 MODULES</span>
@@ -3241,7 +3241,7 @@
         const activeMainCards = cards.filter(c => c && c.enabled !== false && !c.isSubPage);
         let dynamicTip = "";
         if (secKey === "tacticalBriefs") {
-          dynamicTip = "Units, Matchup & Contractors";
+          dynamicTip = "Assets, Matchup & Contractors";
         } else if (secKey === "baseOps") {
           dynamicTip = "Building Briefs & Upgrade Paths";
         } else if (secKey === "opIntel") {

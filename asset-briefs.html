@@ -928,7 +928,7 @@
         <img src="./assets/images/wtr-logo.png" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';" alt="WatchToweR Radar Emblem">
       </div>
       <div>
-        <div style="font-family:monospace; font-size:11.5px; font-weight:800; letter-spacing:1.6px; color:#ffd700; text-transform:uppercase; margin-bottom:4px;">UNITS &amp; ASSETS // LIVE MASTER_DB SYNC</div>
+        <div style="font-family:monospace; font-size:11.5px; font-weight:800; letter-spacing:1.6px; color:#ffd700; text-transform:uppercase; margin-bottom:4px;">ARMORY // LIVE MASTER_DB SYNC</div>
         <h1 style="font-family:'Arial Black',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.2px; color:#ffffff; text-transform:uppercase; line-height:1.15;">WAR COMMANDER — <span style="color:#ffd700;">ASSET BRIEFS | GALLERY</span></h1>
         <p style="font-size:14px; color:#94a3b8; margin-top:5px; max-width:680px;">Click any unit portrait across Generations &amp; Branches to inspect full 40-Level stats, Talents, Linked Hero/Soldier pairs, and Workshop loadouts.</p>
       </div>
@@ -943,7 +943,7 @@
   <div class="control-panel">
     <div class="panel-section">
       <select id="divisionSelect" name="divisionSelect" aria-label="Filter by Unit Division" title="Filter by Unit Division" class="selector-select" style="display: none;" onchange="applyFilter()">
-        <option value="ALL">ALL UNITS</option>
+        <option value="ALL">ALL ASSETS</option>
         <option value="ACADEMY">ACADEMY / INFANTRY</option>
         <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR / AIRCRAFT</option>
         <option value="TECH CENTER">TECH CENTER / VEHICLE</option>
@@ -1002,7 +1002,7 @@
 <!-- ==================== IMAGE-BASED GENERATION -> INFANTRY ~ VEHICLE ~ AIRCRAFT GALLERY ==================== -->
 <div id="unit-gallery-view" class="unit-gallery-shell">
   <div style="width: 100%; padding: 36px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #81c784; font-weight: 700; letter-spacing: 0.8px;">
-    ⚡ Syncing WatchToweR Unit Portrait Database from MASTER_DB...
+    ⚡ Syncing WatchToweR Asset Portrait Database from MASTER_DB...
   </div>
 </div>
 
@@ -1012,7 +1012,7 @@
 <!-- ==================== IN-PAGE FULL ASSET BRIEF WRAPPER ==================== -->
 <div id="inpage-brief-wrapper" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
   <div class="inpage-brief-nav-bar" id="inpageBriefTopBar">
-    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO UNIT GALLERY</button>
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO ASSET GALLERY</button>
     <span class="brief-breadcrumb" id="inpageBriefBreadcrumb">ASSET BRIEF</span>
     <div class="brief-step-controls">
       <div class="vision-img-boost-group" title="3-Step Vision Image Size Boost">
@@ -1048,7 +1048,7 @@
       </div>
       <div id="meta-divider-bar" class="meta-divider">&nbsp;</div>
       <div id="linked-unit-container" class="meta-item meta-right">
-        <span class="meta-label">LINKED UNIT:</span>
+        <span class="meta-label">LINKED ASSET:</span>
         <button id="linkedUnitBtn" class="meta-btn btn-gold" type="button">
           <span>{{LINKED_UNIT_NAME}}</span>
           <span class="popout-icon">↗</span>
@@ -1202,7 +1202,7 @@
   </div>
 
   <div class="inpage-brief-nav-bar bottom-bar">
-    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO UNIT GALLERY</button>
+    <button type="button" class="back-to-gallery-btn" onclick="closeFullBriefReturnToGallery()">◂ BACK TO ASSET GALLERY</button>
     <span class="brief-breadcrumb" id="inpageBriefBottomBreadcrumb">RETURN TO PREVIOUS GALLERY VIEW</span>
     <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
   </div>
@@ -3427,7 +3427,7 @@
       <div style="display:flex; align-items:center; gap:10px;">
         <span style="font-size:18px;">⚖️</span>
         <div>
-          <div style="font-family:'Arial Black',sans-serif; font-size:15px; letter-spacing:1px; color:#00e676; text-transform:uppercase;">Allied Unit Side-by-Side Level Comparator</div>
+          <div style="font-family:'Arial Black',sans-serif; font-size:15px; letter-spacing:1px; color:#00e676; text-transform:uppercase;">Allied Asset Side-by-Side Level Comparator</div>
           <div style="font-family:monospace; font-size:11px; color:#94a3b8;">Compare HP, DPS, Range, Speed, Armor/Weapon &amp; Talents across Lvl 1 → MAX</div>
         </div>
       </div>

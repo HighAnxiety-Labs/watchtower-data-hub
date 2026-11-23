@@ -1595,15 +1595,15 @@
 
   <!-- HOVER THUMBNAIL POD -->
   <div class="wtr-hover-pod" id="wtrHoverPod">
-    <div class="hover-pod-title" id="hoverPodTitle">UNIT PREVIEW</div>
+    <div class="hover-pod-title" id="hoverPodTitle">ASSET PREVIEW</div>
     <div class="hover-pod-img-wrap">
       <img id="hoverPodImg" src="./assets/images/wtr-logo.png" alt="Preview">
     </div>
-    <div class="hover-pod-meta" id="hoverPodMeta">MASTER_DB UNIT</div>
-    <div class="hover-pod-hint">CLICK TO OPEN FULL UNIT REPORT</div>
+    <div class="hover-pod-meta" id="hoverPodMeta">MASTER_DB ASSET</div>
+    <div class="hover-pod-hint">CLICK TO OPEN FULL ASSET REPORT</div>
   </div>
 
-  <!-- IN-PAGE MASTER_DB UNIT REPORT MODAL -->
+  <!-- IN-PAGE MASTER_DB ASSET REPORT MODAL -->
   <div class="wtr-modal-backdrop" id="unitReportModal" onclick="if(event.target===this) closeUnitReport()">
     <div class="wtr-modal-window">
       <div class="wtr-modal-topbar">
@@ -3050,7 +3050,7 @@
       if (!skipSave) saveCurrentModeToLocal();
     }
 
-    /* ==================== STORE TABLE & MASTER_DB UNIT QUICK PILLS ==================== */
+    /* ==================== STORE TABLE & MASTER_DB ASSET QUICK PILLS ==================== */
     function renderUnitQuickPills() {
       const bar = document.getElementById("unitQuickPillsBar");
       if (!bar) return;
@@ -3463,7 +3463,7 @@
     function showHoverPod(e, title, meta, imgUrl) {
       const pod = document.getElementById("wtrHoverPod");
       if (!pod) return;
-      document.getElementById("hoverPodTitle").textContent = title || "UNIT PREVIEW";
+      document.getElementById("hoverPodTitle").textContent = title || "ASSET PREVIEW";
       document.getElementById("hoverPodMeta").textContent = meta || "MASTER_DB INTEL";
       document.getElementById("hoverPodImg").src = imgUrl || WTR_LOGO_FALLBACK;
       pod.classList.add("show");

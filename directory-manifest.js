@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-22T16:39:47-08:00",
-    "generatedMs":  1795394383640,
+    "generatedAt":  "2026-11-22T16:57:30-08:00",
+    "generatedMs":  1795395446443,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -106,23 +106,23 @@ window.WTR_DIRECTORY_MANIFEST = {
                           {
                               "file":  "agency-contractors.html",
                               "path":  "./agency-contractors.html",
-                              "title":  "Agency Contractors \u0026 Base Loadout Planner",
-                              "modifiedAt":  "2026-11-22T06:18:36Z",
-                              "modifiedMs":  1795328316013
+                              "title":  "Rgency Contractors \u0026 Base Loadout Planner",
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312911
                           },
                           {
                               "file":  "asset-briefs.html",
                               "path":  "./asset-briefs.html",
                               "title":  "WatchToweR Hub — Asset Briefs | Gallery",
-                              "modifiedAt":  "2026-11-22T22:11:28Z",
-                              "modifiedMs":  1795385488857
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312854
                           },
                           {
                               "file":  "asset-matchup.html",
                               "path":  "./asset-matchup.html",
-                              "title":  "Unit Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-22T22:11:28Z",
-                              "modifiedMs":  1795385488884
+                              "title":  "Asset Threat Radar \u0026 Matchup Simulator",
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312866
                           },
                           {
                               "file":  "base-defense-planning.html",
@@ -135,8 +135,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-22T21:54:21Z",
-                              "modifiedMs":  1795384461690
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312878
                           },
                           {
                               "file":  "cc-22-pre-release.html",
@@ -163,22 +163,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-22T21:54:21Z",
-                              "modifiedMs":  1795384461696
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312897
                           },
                           {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-23T00:39:24Z",
-                              "modifiedMs":  1795394364297
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312894
                           },
                           {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-22T22:26:50Z",
-                              "modifiedMs":  1795386410498
+                              "modifiedAt":  "2026-11-23T00:55:12Z",
+                              "modifiedMs":  1795395312925
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -344,11 +344,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "NORA MALIK",
                                           "OBSERVER",
                                           "OMICRON",
+                                          "ONI MK III",
                                           "ONYMITE",
                                           "ONYX BARON",
                                           "PELE",
                                           "PHILLIP BROWN",
                                           "QUARTERMASTER",
+                                          "RAMIREZ",
                                           "RECRUITER",
                                           "RHINO",
                                           "ROCKETEER",
@@ -411,22 +413,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-                                   {
-                                       "key":  "RAMIREZ",
-                                       "name":  "RAMIREZ",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Series 4 • WARLORD",
-                                       "firstSeenMs":  1795308650591,
-                                       "firstSeenAt":  "2026-11-22T00:50:50Z"
-                                   },
-                                   {
-                                       "key":  "ONI MK III",
-                                       "name":  "ONI MK III",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 1 • LEGENDARY",
-                                       "firstSeenMs":  1795308650591,
-                                       "firstSeenAt":  "2026-11-22T00:50:50Z"
-                                   },
                                    {
                                        "key":  "CHRONOPHAGE",
                                        "name":  "CHRONOPHAGE",

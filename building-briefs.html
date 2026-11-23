@@ -1041,7 +1041,7 @@
 
       <div id="associated-units-section" class="record-section" style="display: none;">
         <span class="col-header">
-          <span id="d-assoc-units-header">Associated Units // Built &amp; Upgraded Here</span>
+          <span id="d-assoc-units-header">Associated Assets // Built &amp; Upgraded Here</span>
           <span id="d-assoc-units-sub" style="font-size: 11.5px; color: #00e676; font-family: monospace;">OPEN ASSET BRIEF ↗</span>
         </span>
         <div id="d-assoc-units-box" class="brief-assoc-units-box">
@@ -1520,7 +1520,7 @@
       return {
         key: 'INFANTRY',
         icon: '🪖',
-        label: 'INFANTRY UNITS',
+        label: 'INFANTRY ASSETS',
         note: 'All Infantry units built at Barracks & upgraded at Academy (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#00e676',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'INFANTRY')
@@ -1530,7 +1530,7 @@
       return {
         key: 'VEHICLE',
         icon: '🛡️',
-        label: 'VEHICLE UNITS',
+        label: 'VEHICLE ASSETS',
         note: 'All Vehicle units built at War Factory & upgraded at Tech Center (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#ffd700',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'VEHICLE')
@@ -1540,7 +1540,7 @@
       return {
         key: 'AIRCRAFT',
         icon: '✈️',
-        label: 'AIRCRAFT UNITS',
+        label: 'AIRCRAFT ASSETS',
         note: 'All Aircraft units built at Airfield & stored/upgraded at Aircraft Hangar (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#38bdf8',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'AIRCRAFT')
@@ -1550,7 +1550,7 @@
       return {
         key: 'MERCENARY',
         icon: '🏴',
-        label: 'MERCENARY UNITS',
+        label: 'MERCENARY ASSETS',
         note: 'All Mercenary & Champion units deployed via Mercenary Camp.',
         accent: '#f59e0b',
         units: allUnits.filter(u => isMercenaryUnitRow(u))
@@ -1560,7 +1560,7 @@
       return {
         key: 'CONTRACTOR',
         icon: '🕶️',
-        label: 'CONTRACTOR UNITS',
+        label: 'CONTRACTOR ASSETS',
         note: 'All Agency Contractor units.',
         accent: '#c084fc',
         units: allUnits.filter(u => isContractorUnitRow(u))
@@ -1576,7 +1576,7 @@
       return {
         key: 'HELIPAD',
         icon: '🚁',
-        label: 'ROTORCRAFT / HELIPAD UNITS',
+        label: 'ROTORCRAFT / HELIPAD ASSETS',
         note: 'Helicopter & Rotorcraft units associated with Helipad operations.',
         accent: '#38bdf8',
         units: heliUnits
@@ -1588,7 +1588,7 @@
       return {
         key: 'WORKSHOP',
         icon: '🔧',
-        label: 'WORKSHOP TECH UNITS',
+        label: 'WORKSHOP TECH ASSETS',
         note: 'All allied units equipped with Workshop Tech loadouts.',
         accent: '#c084fc',
         units: wsUnits
@@ -1619,23 +1619,23 @@
   function getSubRoleAssociatedUnitsSpec(sKey, arr) {
     if (sKey === 'INFANTRY') {
       const spec = getAssociatedUnitsSpecForFacility('ACADEMY');
-      return spec ? { ...spec, pillText: 'UNITS' } : null;
+      return spec ? { ...spec, pillText: 'ASSETS' } : null;
     }
     if (sKey === 'VEHICLE') {
       const spec = getAssociatedUnitsSpecForFacility('TECH CENTER');
-      return spec ? { ...spec, pillText: 'UNITS' } : null;
+      return spec ? { ...spec, pillText: 'ASSETS' } : null;
     }
     if (sKey === 'AIRCRAFT') {
       const spec = getAssociatedUnitsSpecForFacility('AIRFIELD');
-      return spec ? { ...spec, pillText: 'UNITS' } : null;
+      return spec ? { ...spec, pillText: 'ASSETS' } : null;
     }
     if (sKey === 'MERCENARY') {
       const spec = getAssociatedUnitsSpecForFacility('MERCENARY CAMP');
-      return spec ? { ...spec, pillText: 'UNITS' } : null;
+      return spec ? { ...spec, pillText: 'ASSETS' } : null;
     }
     if (sKey === 'WORKSHOP') {
       const spec = getAssociatedUnitsSpecForFacility('WORKSHOP');
-      return spec ? { ...spec, pillText: 'UNITS' } : null;
+      return spec ? { ...spec, pillText: 'ASSETS' } : null;
     }
     if (Array.isArray(arr)) {
       if (arr.some(r => cleanVal(r.BUILDING_NAME).toUpperCase().includes('AGENCY'))) {
@@ -1677,7 +1677,7 @@
 
     if (hdr) hdr.textContent = `${spec.icon} ASSOCIATED ${spec.label} (${spec.units.length})`;
     if (sub) {
-      sub.textContent = 'CLICK ANY UNIT TO OPEN BRIEF ↗';
+      sub.textContent = 'CLICK ANY ASSET TO OPEN BRIEF ↗';
       sub.style.color = spec.accent;
     }
     if (box) box.style.setProperty('--fac-unit-accent', spec.accent);
