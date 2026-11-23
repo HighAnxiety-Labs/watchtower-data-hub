@@ -288,6 +288,142 @@
     background: rgba(5, 10, 14, 0.94);
   }
   .branch-units-drawer-panel.is-open { display: block; }
+  .tile-assets-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(5, 10, 14, 0.96);
+    padding: 5px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .tile-assets-toggle {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+    color: var(--fac-unit-accent, #fb923c);
+    background: rgba(12, 20, 28, 0.92);
+    border: 1px solid var(--fac-unit-accent, #fb923c);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .tile-assets-toggle:hover,
+  .tile-assets-toggle.is-open {
+    background: var(--fac-unit-accent, #fb923c);
+    color: #041008;
+  }
+  .tile-assets-toggle .tat-chev { display: inline-block; transition: transform 0.18s ease; }
+  .tile-assets-toggle.is-open .tat-chev { transform: rotate(180deg); }
+  .tile-assets-drawer {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 2px;
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .tile-assets-drawer.is-open { display: flex; }
+  .tile-assets-bar.is-pair-assets-bar {
+    margin-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 5px;
+    padding: 6px;
+  }
+  .tile-assets-bar.is-pair-assets-bar .tile-assets-drawer.is-open {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .asset-thumb-hover-card {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    display: none;
+    width: 172px;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #070d14;
+    border: 1.5px solid var(--ath-accent, #00e676);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 0, 0, 0.55);
+  }
+  .asset-thumb-hover-card.is-visible { display: block; }
+  .asset-thumb-hover-card .ath-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #0a121b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .asset-thumb-hover-card .ath-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .asset-thumb-hover-card .ath-fallback {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 26px;
+    color: var(--ath-accent, #00e676);
+    letter-spacing: 1px;
+  }
+  .asset-thumb-hover-card .ath-caption {
+    padding: 6px 8px 7px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(6, 12, 18, 0.98);
+    text-align: center;
+  }
+  .asset-thumb-hover-card .ath-name {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .asset-thumb-hover-card .ath-meta {
+    margin-top: 2px;
+    font-family: monospace;
+    font-size: 9.5px;
+    color: var(--ath-accent, #00e676);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .tile-asset-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    background: rgba(15, 23, 34, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 2.5px solid var(--fac-unit-accent, #fb923c);
+    color: #e2e8f0;
+    text-decoration: none;
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
+  }
+  .tile-asset-link:hover {
+    border-color: var(--fac-unit-accent, #fb923c);
+    color: var(--fac-unit-accent, #fb923c);
+    background: rgba(20, 32, 46, 0.98);
+  }
   .branch-pill-tag {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 3px 10px; border-radius: 4px; font-size: 11.5px; font-weight: 900;
@@ -953,6 +1089,7 @@
 
 <!-- FLOATING HOVER BRIEF TOOLTIP -->
 <div id="buildingFloatingHoverCard" class="unit-floating-hover-card"></div>
+<div id="assetThumbFloatingCard" class="asset-thumb-hover-card"></div>
 
 <!-- ==================== IN-PAGE FULL BUILDING BRIEF WRAPPER ==================== -->
 <div id="inpage-brief-wrapper" style="display: none; width: 100%; max-width: 1360px; margin: 0 auto;">
@@ -1193,11 +1330,10 @@
   ];
 
   const CATEGORY_META = {
-    COMMAND:  { key: 'COMMAND',  label: 'COMMAND HEADQUARTERS',             pillLabel: 'COMMAND',       sortRank: 10, accent: '#ffd700' },
-    SUPPORT:  { key: 'SUPPORT',  label: 'RECON, TACTICAL & MERCENARY OPS',  pillLabel: 'SUPPORT & OPS', sortRank: 15, accent: '#c084fc' },
-    MILITARY: { key: 'MILITARY', label: 'MILITARY R&D & PRODUCTION',        pillLabel: 'MILITARY',      sortRank: 20, accent: '#00e676' },
-    DEFENSE:  { key: 'DEFENSE',  label: 'BASE DEFENSE & ENGINEERING',       pillLabel: 'DEFENSE & ENG', sortRank: 30, accent: '#38bdf8' },
-    RESOURCE: { key: 'RESOURCE', label: 'RESOURCE & POWER LOGISTICS',       pillLabel: 'RESOURCE',      sortRank: 40, accent: '#f59e0b' }
+    COMMAND:  { key: 'COMMAND',  label: 'COMMAND CENTER', pillLabel: 'COMMAND CENTER', sortRank: 10, accent: '#ffd700' },
+    RESOURCE: { key: 'RESOURCE', label: 'RESOURCES',      pillLabel: 'RESOURCES',      sortRank: 20, accent: '#f59e0b' },
+    MILITARY: { key: 'MILITARY', label: 'MILITARY',       pillLabel: 'MILITARY',       sortRank: 30, accent: '#00e676' },
+    DEFENSE:  { key: 'DEFENSE',  label: 'DEFENSE',        pillLabel: 'DEFENSE',        sortRank: 40, accent: '#38bdf8' }
   };
 
   const SUBROLE_META = {
@@ -1334,13 +1470,11 @@
 
     if (subRole === 'HQ' || bName.includes('COMMAND CENTER')) return CATEGORY_META.COMMAND;
     if (subRole === 'LOGISTICS' || cat.includes('RESOURCE') || classif.includes('RESOURCE')) return CATEGORY_META.RESOURCE;
-    if (subRole === 'SPEC_OPS' || subRole === 'MERCENARY') return CATEGORY_META.SUPPORT;
     if (subRole === 'FORTIFICATION' || subRole === 'CONSTRUCTION' || subRole === 'WORKSHOP') return CATEGORY_META.DEFENSE;
-    if (subRole === 'INFANTRY' || subRole === 'VEHICLE' || subRole === 'AIRCRAFT') return CATEGORY_META.MILITARY;
+    if (subRole === 'INFANTRY' || subRole === 'VEHICLE' || subRole === 'AIRCRAFT' || subRole === 'SPEC_OPS' || subRole === 'MERCENARY') return CATEGORY_META.MILITARY;
 
     if (cat.includes('COMMAND')) return CATEGORY_META.COMMAND;
     if (cat.includes('DEFENSE')) return CATEGORY_META.DEFENSE;
-    if (cat.includes('SUPPORT')) return CATEGORY_META.SUPPORT;
     return CATEGORY_META.MILITARY;
   }
 
@@ -1521,7 +1655,8 @@
         key: 'INFANTRY',
         icon: '🪖',
         label: 'INFANTRY ASSETS',
-        note: 'All Infantry units built at Barracks & upgraded at Academy (excludes Mercenaries, Contractors & Hostiles).',
+        pillLabel: 'ASSETS',
+        note: 'All Infantry assets built at Barracks & upgraded at Academy (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#00e676',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'INFANTRY')
       };
@@ -1531,7 +1666,8 @@
         key: 'VEHICLE',
         icon: '🛡️',
         label: 'VEHICLE ASSETS',
-        note: 'All Vehicle units built at War Factory & upgraded at Tech Center (excludes Mercenaries, Contractors & Hostiles).',
+        pillLabel: 'ASSETS',
+        note: 'All Vehicle assets built at War Factory & upgraded at Tech Center (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#ffd700',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'VEHICLE')
       };
@@ -1541,7 +1677,8 @@
         key: 'AIRCRAFT',
         icon: '✈️',
         label: 'AIRCRAFT ASSETS',
-        note: 'All Aircraft units built at Airfield & stored/upgraded at Aircraft Hangar (excludes Mercenaries, Contractors & Hostiles).',
+        pillLabel: 'ASSETS',
+        note: 'All Aircraft assets built at Airfield & stored/upgraded at Aircraft Hangar (excludes Mercenaries, Contractors & Hostiles).',
         accent: '#38bdf8',
         units: allUnits.filter(u => !isHostileUnitRow(u) && !isMercenaryUnitRow(u) && !isContractorUnitRow(u) && resolveUnitBranchForBuilding(u) === 'AIRCRAFT')
       };
@@ -1551,7 +1688,8 @@
         key: 'MERCENARY',
         icon: '🏴',
         label: 'MERCENARY ASSETS',
-        note: 'All Mercenary & Champion units deployed via Mercenary Camp.',
+        pillLabel: "MERC'S",
+        note: 'All Mercenary & Champion assets deployed via Mercenary Camp.',
         accent: '#f59e0b',
         units: allUnits.filter(u => isMercenaryUnitRow(u))
       };
@@ -1561,7 +1699,8 @@
         key: 'CONTRACTOR',
         icon: '🕶️',
         label: 'CONTRACTOR ASSETS',
-        note: 'All Agency Contractor units.',
+        pillLabel: 'CONTRACTORS',
+        note: 'All Agency Contractor assets.',
         accent: '#c084fc',
         units: allUnits.filter(u => isContractorUnitRow(u))
       };
@@ -1577,7 +1716,8 @@
         key: 'HELIPAD',
         icon: '🚁',
         label: 'ROTORCRAFT / HELIPAD ASSETS',
-        note: 'Helicopter & Rotorcraft units associated with Helipad operations.',
+        pillLabel: 'ASSETS',
+        note: 'Helicopter & Rotorcraft assets associated with Helipad operations.',
         accent: '#38bdf8',
         units: heliUnits
       };
@@ -1589,9 +1729,85 @@
         key: 'WORKSHOP',
         icon: '🔧',
         label: 'WORKSHOP TECH ASSETS',
-        note: 'All allied units equipped with Workshop Tech loadouts.',
+        pillLabel: 'ASSETS',
+        note: 'All allied assets equipped with Workshop Tech loadouts.',
         accent: '#c084fc',
         units: wsUnits
+      };
+    }
+
+    // Dynamic per-building match:
+    // 1. Any asset in MASTER_DB directly assigned to this building via STAT_BUILDING, STAT_FACTION, LINKED_UNIT_NAME, or LINKED_NAME
+    // 2. Any child Bastion / sub-structure in MASTER_DB linked to this parent building via LINKED_NAME (excluding symmetric resource pairs like Metal Factory <-> Metal Storage)
+    const directMatches = [];
+    const seenDirect = new Set();
+
+    const parentRec = Array.isArray(globalMatrixCache)
+      ? globalMatrixCache.find(r => cleanVal(r?.BUILDING_NAME).toUpperCase() === bName)
+      : null;
+    const parentOwnLink = cleanVal(parentRec?.LINKED_NAME).toUpperCase();
+
+    for (const u of allUnits) {
+      if (isHostileUnitRow(u)) continue;
+      const uName = cleanVal(u.UNIT_NAME);
+      if (!uName || uName.toUpperCase() === bName) continue;
+      const sb = cleanVal(u.STAT_BUILDING).toUpperCase();
+      const sf = cleanVal(u.STAT_FACTION).toUpperCase();
+      const lu = cleanVal(u.LINKED_UNIT_NAME).toUpperCase();
+      const ln = cleanVal(u.LINKED_NAME).toUpperCase();
+      const matched = sb === bName || sf === bName || lu === bName || ln === bName ||
+        (bName.length >= 5 && (sb.includes(bName) || lu.includes(bName) || ln.includes(bName)));
+      if (matched) {
+        const k = uName.toUpperCase();
+        if (!seenDirect.has(k)) {
+          seenDirect.add(k);
+          const isBastionRow = Boolean(cleanVal(u.BUILDING_NAME)) && k.includes('BASTION');
+          directMatches.push(isBastionRow ? { ...u, UNIT_NAME: uName, _isBuildingLink: true } : u);
+        }
+      }
+    }
+
+    if (Array.isArray(globalMatrixCache)) {
+      for (const bRec of globalMatrixCache) {
+        if (!bRec || !isValidBuildingRecord(bRec)) continue;
+        const childName = cleanVal(bRec.BUILDING_NAME);
+        if (!childName || childName.toUpperCase() === bName) continue;
+        const childUp = childName.toUpperCase();
+        const parentLink = cleanVal(bRec.LINKED_NAME).toUpperCase();
+        // Skip symmetric peer building pairs (e.g. Metal Factory <-> Metal Storage, Oil Pump <-> Oil Storage)
+        if (parentOwnLink && (parentOwnLink === childUp || childUp.includes(parentOwnLink))) continue;
+        const isOneWayChild = parentLink && (parentLink === bName || (bName.length >= 5 && parentLink.includes(bName)));
+        if (isOneWayChild && (childUp.includes('BASTION') || bName.includes('WEAPONS LAB'))) {
+          if (!seenDirect.has(childUp)) {
+            seenDirect.add(childUp);
+            directMatches.push({ UNIT_NAME: childName, _isBuildingLink: true });
+          }
+        }
+      }
+    }
+
+    if (directMatches.length > 0) {
+      directMatches.sort((a, b) => cleanVal(a.UNIT_NAME).localeCompare(cleanVal(b.UNIT_NAME), undefined, { sensitivity: 'base' }));
+      const allBastions = directMatches.every(x => cleanVal(x.UNIT_NAME).toUpperCase().includes('BASTION'));
+      let icon = '🏗️';
+      let accent = '#fb923c';
+      let label = `${bName} ASSETS`;
+      let pillLabel = 'ASSETS';
+      if (bName.includes('ROCKET')) { icon = '🚀'; accent = '#fb923c'; label = 'DEFENSIVE ROCKETS'; pillLabel = 'ROCKETS'; }
+      else if (bName.includes('DRONE')) { icon = '🛸'; accent = '#38bdf8'; label = 'DRONE ASSETS'; pillLabel = 'DRONES'; }
+      else if (bName.includes('MINE FACTORY')) { icon = '💣'; accent = '#facc15'; label = 'MINE ASSETS'; pillLabel = 'MINES'; }
+      else if (bName.includes('WEAPONS LAB') || allBastions) { icon = '🛡️'; accent = '#a855f7'; label = 'BASTION ASSETS'; pillLabel = 'BASTIONS'; }
+      else if (bName.includes('CONSTRUCTION YARD')) { icon = '🧱'; accent = '#fb923c'; label = 'CONSTRUCTION YARD ASSETS'; pillLabel = 'ASSETS'; }
+      else if (bName.includes('SKYGUARD')) { icon = '📡'; accent = '#60a5fa'; label = 'ANTI-AIR ASSETS'; pillLabel = 'ASSETS'; }
+      return {
+        key: 'BLDG_' + bName.replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, ''),
+        icon,
+        label,
+        pillLabel,
+        isPerBuilding: true,
+        note: `All assets assigned directly to ${cleanVal(bNameRaw)}.`,
+        accent,
+        units: directMatches
       };
     }
     return null;
@@ -1613,6 +1829,15 @@
     const panel = subgroup && subgroup.querySelector('.branch-units-drawer-panel');
     if (!panel) return;
     const isNowOpen = panel.classList.toggle('is-open');
+    btn.classList.toggle('is-open', isNowOpen);
+  }
+
+  function toggleTileAssetsDrawer(btn, ev) {
+    if (ev) ev.stopPropagation();
+    const bar = btn && btn.closest('.tile-assets-bar');
+    const drawer = bar && bar.querySelector('.tile-assets-drawer');
+    if (!drawer) return;
+    const isNowOpen = drawer.classList.toggle('is-open');
     btn.classList.toggle('is-open', isNowOpen);
   }
 
@@ -1647,16 +1872,8 @@
   }
 
   function renderBranchUnitsHeaderControls(sKey, arr) {
-    const spec = getSubRoleAssociatedUnitsSpec(sKey, arr);
-    if (!spec || !spec.units || spec.units.length === 0) return { btnHtml: '', panelHtml: '' };
-    const chipsHtml = spec.units.map(u => {
-      const uName = cleanVal(u.UNIT_NAME);
-      const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
-      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" onclick="event.stopPropagation(); handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
-    }).join('');
-    const btnHtml = `<button type="button" class="branch-units-hdr-btn" style="--fac-unit-accent: ${spec.accent};" onclick="toggleBranchUnitsDrawer(this, event)" title="Show clickable ${escapeAttr(spec.label)} links">${escapeHtml(spec.pillText)} (${spec.units.length}) <span class="buh-chev">▾</span></button>`;
-    const panelHtml = `<div class="branch-units-drawer-panel" style="--fac-unit-accent: ${spec.accent};" onclick="event.stopPropagation();"><div class="facility-units-chip-grid">${chipsHtml}</div></div>`;
-    return { btnHtml, panelHtml };
+    // Standardized: all building-assigned assets now render uniformly below each individual building tile
+    return { btnHtml: '', panelHtml: '' };
   }
 
   function renderAssociatedUnitsBriefSection(bName) {
@@ -1685,7 +1902,12 @@
     grid.innerHTML = spec.units.map(u => {
       const uName = cleanVal(u.UNIT_NAME);
       const safeJs = escapeAttr(uName).replace(/'/g, "\\'");
-      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" onclick="handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
+      const safeAcc = escapeAttr(spec.accent || '#00e676').replace(/'/g, "\\'");
+      const hoverAttrs = `onmouseenter="showAssetThumbHover(event, '${safeJs}', '${safeAcc}', ${u._isBuildingLink ? 'true' : 'false'})" onmousemove="moveAssetThumbHover(event)" onmouseleave="hideAssetThumbHover()"`;
+      if (u._isBuildingLink) {
+        return `<button type="button" class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent}; cursor:pointer;" title="Open ${escapeAttr(uName)} Brief" ${hoverAttrs} onclick="hideAssetThumbHover(); openBuildingBriefByName('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></button>`;
+      }
+      return `<a class="facility-unit-link-chip" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" ${hoverAttrs} onclick="hideAssetThumbHover(); handoffUnitBriefLink('${safeJs}');"><span class="fulc-name">${escapeHtml(uName)}</span><span class="fulc-arrow">↗</span></a>`;
     }).join('');
     sec.style.display = 'block';
   }
@@ -2016,7 +2238,7 @@
     const wrap = document.getElementById('catFilterPills');
     if (!wrap) return;
 
-    const counts = { COMMAND: 0, SUPPORT: 0, MILITARY: 0, DEFENSE: 0, RESOURCE: 0 };
+    const counts = { COMMAND: 0, RESOURCE: 0, MILITARY: 0, DEFENSE: 0 };
     let linkedCnt = 0;
     let bugCnt = 0;
 
@@ -2030,8 +2252,7 @@
     let html = `<span class="filter-group-lbl">Category:</span>`;
     html += `<button type="button" class="gal-pill ${activeCatFilter === 'ALL' ? 'active' : ''}" onclick="setCategoryFilter('ALL')">ALL FACILITIES <span class="gal-pill-cnt">${allBuildings.length}</span></button>`;
 
-    ['COMMAND', 'SUPPORT', 'MILITARY', 'DEFENSE', 'RESOURCE'].forEach(k => {
-      if ((k === 'RESOURCE' || k === 'SUPPORT') && counts[k] === 0) return;
+    ['COMMAND', 'RESOURCE', 'MILITARY', 'DEFENSE'].forEach(k => {
       const meta = CATEGORY_META[k];
       const isAct = activeCatFilter === k;
       html += `<button type="button" class="gal-pill ${isAct ? 'active' : ''}" onclick="setCategoryFilter('${k}')">${escapeAttr(meta.pillLabel)} <span class="gal-pill-cnt">${counts[k]}</span></button>`;
@@ -2209,7 +2430,27 @@
         const sMeta = SUBROLE_META[sKey];
         const { pairs, solos } = groupSubRoleBuildingsIntoPairsAndSolos(arr);
 
-        const buildFacilityTileHtml = (rec) => {
+        const renderTileAssetsBarHtml = (spec, ownerLabel, isPairPod) => {
+          if (!spec || !spec.units || spec.units.length === 0) return '';
+          const safeAcc = escapeAttr(spec.accent || '#fb923c').replace(/'/g, "\\'");
+          const itemsHtml = spec.units.map(u => {
+            const uName = cleanVal(u.UNIT_NAME);
+            const safeUJs = escapeAttr(uName).replace(/'/g, "\\'");
+            const hoverAttrs = `onmouseenter="event.stopPropagation(); showAssetThumbHover(event, '${safeUJs}', '${safeAcc}', ${u._isBuildingLink ? 'true' : 'false'})" onmousemove="event.stopPropagation(); moveAssetThumbHover(event)" onmouseleave="hideAssetThumbHover()"`;
+            if (u._isBuildingLink) {
+              return `<button type="button" class="tile-asset-link" style="--fac-unit-accent: ${spec.accent};" title="Open ${escapeAttr(uName)} Brief" ${hoverAttrs} onclick="event.stopPropagation(); hideAssetThumbHover(); openBuildingBriefByName('${safeUJs}');"><span>${escapeHtml(uName)}</span><span>↗</span></button>`;
+            }
+            return `<a class="tile-asset-link" style="--fac-unit-accent: ${spec.accent};" href="${escapeAttr(buildUnitBriefUrl(uName))}" target="_blank" rel="noopener" title="Open ${escapeAttr(uName)} Asset Brief" ${hoverAttrs} onclick="event.stopPropagation(); hideAssetThumbHover(); handoffUnitBriefLink('${safeUJs}');"><span>${escapeHtml(uName)}</span><span>↗</span></a>`;
+          }).join('');
+          return `
+            <div class="tile-assets-bar ${isPairPod ? 'is-pair-assets-bar' : ''}" style="--fac-unit-accent: ${spec.accent};" onmouseenter="event.stopPropagation(); hideBuildingHoverBrief();" onclick="event.stopPropagation();">
+              <button type="button" class="tile-assets-toggle" onclick="toggleTileAssetsDrawer(this, event)" title="Show ${escapeAttr(spec.label)} assigned to ${escapeAttr(ownerLabel)}">${spec.icon} ${escapeHtml(spec.pillLabel || 'ASSETS')} (${spec.units.length}) <span class="tat-chev">▾</span></button>
+              <div class="tile-assets-drawer">${itemsHtml}</div>
+            </div>
+          `;
+        };
+
+        const buildFacilityTileHtml = (rec, isInsidePair) => {
           galleryOrderedBuildings.push(rec);
           const bName = cleanVal(rec.BUILDING_NAME);
           const bNorm = normBuildingKey(bName);
@@ -2247,6 +2488,10 @@
                  <span class="ugt-monogram-sub">${escapeAttr(cInfo.pillLabel)}</span>
                </div>`;
 
+          const tileAssetsHtml = !isInsidePair
+            ? renderTileAssetsBarHtml(getAssociatedUnitsSpecForFacility(bName), bName, false)
+            : '';
+
           return `
             <div class="unit-gallery-tile ${hasBug ? 'has-bug-flag' : ''} ${isRecent ? 'recently-viewed' : ''}"
                  data-building-key="${escapeAttr(bNorm)}"
@@ -2264,13 +2509,31 @@
                 <div class="ugt-name">${escapeAttr(bName)}</div>
                 <div class="ugt-meta-sub">${metaHtml}</div>
               </div>
+              ${tileAssetsHtml}
             </div>
           `;
         };
 
-        const pairedPodsHtml = pairs.map(p => `
+        const pairedPodsHtml = pairs.map(p => {
+          const leadName = cleanVal(p.lead.BUILDING_NAME);
+          const mateName = cleanVal(p.mate.BUILDING_NAME);
+          const specLead = getAssociatedUnitsSpecForFacility(leadName);
+          const specMate = getAssociatedUnitsSpecForFacility(mateName);
+          let pairSpec = specLead || specMate || null;
+          if (specLead && specMate && specLead.key !== specMate.key) {
+            const seenP = new Set();
+            const mergedUnits = [];
+            [...(specLead.units || []), ...(specMate.units || [])].forEach(u => {
+              const k = cleanVal(u.UNIT_NAME).toUpperCase();
+              if (k && !seenP.has(k)) { seenP.add(k); mergedUnits.push(u); }
+            });
+            mergedUnits.sort((a, b) => cleanVal(a.UNIT_NAME).localeCompare(cleanVal(b.UNIT_NAME), undefined, { sensitivity: 'base' }));
+            pairSpec = { ...specLead, units: mergedUnits };
+          }
+          const pairAssetsHtml = renderTileAssetsBarHtml(pairSpec, `${leadName} & ${mateName}`, true);
+          return `
           <div class="unit-linked-pair-pod ${p.pairVariant}">
-            <div class="unit-pair-link-bar" title="${escapeAttr(cleanVal(p.lead.BUILDING_NAME))} ⇄ ${escapeAttr(cleanVal(p.mate.BUILDING_NAME))}">
+            <div class="unit-pair-link-bar" title="${escapeAttr(leadName)} ⇄ ${escapeAttr(mateName)}">
               <span class="uplb-role lead">${p.leadLabel}</span>
               <span class="uplb-bridge">
                 <span class="uplb-rail"></span>
@@ -2280,13 +2543,15 @@
               <span class="uplb-role mate">${p.mateLabel}</span>
             </div>
             <div class="unit-pair-cards-row">
-              ${buildFacilityTileHtml(p.lead)}
-              ${buildFacilityTileHtml(p.mate)}
+              ${buildFacilityTileHtml(p.lead, true)}
+              ${buildFacilityTileHtml(p.mate, true)}
             </div>
+            ${pairAssetsHtml}
           </div>
-        `).join('');
+        `;
+        }).join('');
 
-        const soloTilesHtml = solos.map(rec => buildFacilityTileHtml(rec)).join('');
+        const soloTilesHtml = solos.map(rec => buildFacilityTileHtml(rec, false)).join('');
 
         const grpSizeCls = arr.length <= 6 ? 'is-compact-group' : 'is-large-group';
         const branchUnitsUi = renderBranchUnitsHeaderControls(sKey, arr);
@@ -2330,6 +2595,63 @@
     });
 
     galleryEl.innerHTML = html;
+  }
+
+  /* ==================== FLOATING THUMBNAIL HOVER OVER ASSIGNED ASSET ==================== */
+  function showAssetThumbHover(ev, assetName, accent, isBuildingLink) {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+    hideBuildingHoverBrief();
+    const card = document.getElementById('assetThumbFloatingCard');
+    if (!card) return;
+    const targetUp = cleanVal(assetName).toUpperCase();
+    let rec = null;
+    if (Array.isArray(globalUnitsCache)) {
+      rec = globalUnitsCache.find(r => cleanVal(r?.UNIT_NAME).toUpperCase() === targetUp);
+    }
+    if (!rec && Array.isArray(globalMatrixCache)) {
+      rec = globalMatrixCache.find(r => cleanVal(r?.BUILDING_NAME).toUpperCase() === targetUp);
+    }
+    const rawImg = cleanVal(rec?.UNIT_IMAGE_URL) || cleanVal(rec?.IMAGE_URL) || cleanVal(rec?.UNIT_IMG_URL);
+    const imgUrl = rawImg ? formatImageUrl(rawImg) : (isBuildingLink ? getLocalBuildingFallbackUrl(assetName) : '');
+    const metaRaw = [cleanVal(rec?.STAT_GENERATION), (cleanVal(rec?.CLASSIFICATION) || (isBuildingLink ? 'BASTION' : '')).split('//')[0].trim()].filter(Boolean).join(' • ');
+    const initials = getBuildingInitials(assetName);
+    card.style.setProperty('--ath-accent', accent || '#00e676');
+    card.innerHTML = `
+      <div class="ath-frame">
+        ${imgUrl
+          ? `<img src="${escapeAttr(imgUrl)}" alt="${escapeAttr(assetName)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="ath-fallback" style="display:none;">${escapeHtml(initials)}</div>`
+          : `<div class="ath-fallback">${escapeHtml(initials)}</div>`}
+      </div>
+      <div class="ath-caption">
+        <div class="ath-name">${escapeHtml(assetName)}</div>
+        ${metaRaw ? `<div class="ath-meta">${escapeHtml(metaRaw)}</div>` : ''}
+      </div>
+    `;
+    card.classList.add('is-visible');
+    moveAssetThumbHover(ev);
+  }
+
+  function moveAssetThumbHover(ev) {
+    const card = document.getElementById('assetThumbFloatingCard');
+    if (!card || !card.classList.contains('is-visible') || !ev) return;
+    const pad = 16;
+    const vw = window.innerWidth || 1280;
+    const vh = window.innerHeight || 800;
+    const w = card.offsetWidth || 172;
+    const h = card.offsetHeight || 255;
+    let x = ev.clientX + pad;
+    let y = ev.clientY - Math.round(h * 0.35);
+    if (x + w + 10 > vw) x = ev.clientX - w - pad;
+    if (x < 8) x = 8;
+    if (y + h + 10 > vh) y = vh - h - 10;
+    if (y < 8) y = 8;
+    card.style.left = x + 'px';
+    card.style.top = y + 'px';
+  }
+
+  function hideAssetThumbHover() {
+    const card = document.getElementById('assetThumbFloatingCard');
+    if (card) card.classList.remove('is-visible');
   }
 
   /* ==================== FLOATING HOVER BRIEF OVER FACILITY PORTRAIT ==================== */

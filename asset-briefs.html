@@ -1719,15 +1719,37 @@
     return classif.includes('LEGENDARY') || faction.includes('LEGENDARY') || upGen.includes('LEGENDARY');
   }
 
+  function getAssociatedGroupBuilding(rec) {
+    if (!rec) return '';
+    const standardFactories = new Set([
+      'ACADEMY', 'TECH CENTER', 'AIRCRAFT HANGAR', 'AIRCRAFT HANGER',
+      'BARRACKS', 'WAR FACTORY', 'AIRFIELD', 'MERCENARY CAMP', 'AGENCY', 'ONYX'
+    ]);
+    const cleanBld = cleanVal(rec.STAT_BUILDING);
+    if (cleanBld && !standardFactories.has(cleanBld.toUpperCase())) {
+      return cleanBld;
+    }
+    const bldRx = /\b(SILO|FACTORY|LAB|CAMP|AGENCY|TOWER|SKYGUARD|YARD|BASTION|HELIPAD|WORKSHOP|ARMORY|BUNKER|VAULT|TURRET|STORAGE)\b/i;
+    const fac = cleanVal(rec.STAT_FACTION);
+    if (fac && bldRx.test(fac) && !standardFactories.has(fac.toUpperCase())) {
+      return fac;
+    }
+    const lnk = cleanVal(rec.LINKED_UNIT_NAME);
+    if (lnk && bldRx.test(lnk) && !standardFactories.has(lnk.toUpperCase())) {
+      return lnk;
+    }
+    return '';
+  }
+
   function resolveUnitGenerationInfo(rec) {
     if (isContractorRecord(rec)) {
-      return { key: 'CONTRACTOR', label: 'AGENCY CONTRACTORS', pillLabel: 'CONTRACTORS', sortRank: 90, accent: '#c084fc' };
+      return { key: 'CONTRACTOR', label: 'AGENCY // CONTRACTORS', pillLabel: 'AGENCY', sortRank: 90, accent: '#c084fc', isBuildingGroup: true, subGroupLabel: 'CONTRACTORS', subGroupIcon: '🤝' };
     }
     if (isOnyxRecord(rec)) {
       return { key: 'HOSTILE', label: 'HOSTILE FORCES (ONYX & KANE)', pillLabel: 'HOSTILES', sortRank: 80, accent: '#ff5252' };
     }
     if (isMercenaryUnitRecord(rec)) {
-      return { key: 'MERCENARY', label: 'MERCENARY & CHAMPION', pillLabel: 'MERCENARY', sortRank: 70, accent: '#f59e0b' };
+      return { key: 'MERCENARY', label: 'MERCENARY // MERCENARY CAMP', pillLabel: 'MERCENARY', sortRank: 70, accent: '#f59e0b', isBuildingGroup: true, subGroupLabel: "MERC'S", subGroupIcon: '🎖️' };
     }
 
     const rawGen = cleanVal(rec.STAT_GENERATION);
@@ -1744,6 +1766,28 @@
         pillLabel: `${prefix} ${num}`,
         sortRank: prefix === 'SERIES' ? Math.max(51, 60 - num) : Math.max(1, 50 - num),
         accent: accents[num] || '#00e676'
+      };
+    }
+
+    const assocBld = getAssociatedGroupBuilding(rec);
+    if (assocBld) {
+      const bldUp = assocBld.toUpperCase();
+      let bldIcon = '🏗️';
+      let bldAccent = '#fb923c';
+      let bldSub = (cleanVal(rec.CLASSIFICATION) || 'ASSOCIATED ASSETS').split('//')[0].trim().toUpperCase();
+      if (bldUp.includes('ROCKET')) { bldIcon = '🚀'; bldAccent = '#fb923c'; bldSub = 'DEFENSIVE ROCKETS'; }
+      else if (bldUp.includes('DRONE')) { bldIcon = '🛸'; bldAccent = '#38bdf8'; bldSub = 'DRONES'; }
+      else if (bldUp.includes('MINE')) { bldIcon = '💣'; bldAccent = '#facc15'; bldSub = 'MINES'; }
+      else if (bldUp.includes('SKYGUARD')) { bldIcon = '📡'; bldAccent = '#60a5fa'; bldSub = 'ANTI-AIR ASSETS'; }
+      return {
+        key: 'BLDG_' + bldUp.replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, ''),
+        label: bldUp,
+        pillLabel: bldUp,
+        sortRank: 68,
+        accent: bldAccent,
+        isBuildingGroup: true,
+        subGroupLabel: bldSub,
+        subGroupIcon: bldIcon
       };
     }
 
@@ -1941,6 +1985,18 @@
   }
 
   function isPureBuildingRecord(rec) {
+    if (!rec) return false;
+    const cat = cleanVal(rec.CATEGORY).toUpperCase();
+    const classif = cleanVal(rec.CLASSIFICATION).toUpperCase();
+    const hasExplicitBuildingTag = Boolean(
+      cleanVal(rec.BUILDING_NAME) ||
+      (cat && ['COMMAND', 'MILITARY', 'DEFENSE', 'RESOURCE', 'SUPPORT'].includes(cat)) ||
+      cleanVal(rec.SHEET1_BTN_LBL) ||
+      classif.includes('BASE OPERATIONS') ||
+      classif.includes('FACILITY')
+    );
+    if (hasExplicitBuildingTag) return true;
+
     const hasUnitCombatData = Boolean(
       rec.STAT_FACTION ||
       rec.STAT_WEAPON_TYPE ||
@@ -1955,16 +2011,13 @@
     );
     if (hasUnitCombatData) return false;
 
-    const classif = (rec.CLASSIFICATION || '').toUpperCase();
     const hasBuildingData = Boolean(
       rec.DIR_1_DESC ||
       rec.DIR_1_IRID ||
       rec.MAT_LVLS ||
       rec.MAT_IRID ||
       rec.SPEC_1_LBL ||
-      rec.FUNC_1_TITLE ||
-      classif.includes('BASE OPERATIONS') ||
-      classif.includes('FACILITY')
+      rec.FUNC_1_TITLE
     );
     return hasBuildingData;
   }
@@ -2061,6 +2114,7 @@
     if (!wrap) return;
 
     const arcMap = new Map();
+    const bldgGroupMap = new Map();
     let combatTotal = 0;
 
     allValidUnits.forEach(rec => {
@@ -2071,19 +2125,26 @@
           arcMap.set(g.key, { ...g, count: 0 });
         }
         arcMap.get(g.key).count++;
+      } else if (g.key.startsWith('BLDG_')) {
+        if (!bldgGroupMap.has(g.key)) {
+          bldgGroupMap.set(g.key, { ...g, count: 0 });
+        }
+        bldgGroupMap.get(g.key).count++;
       }
     });
 
     const sortedArcs = Array.from(arcMap.values()).sort((a, b) => a.sortRank - b.sortRank || a.label.localeCompare(b.label));
+    const sortedBldgGroups = Array.from(bldgGroupMap.values()).sort((a, b) => a.label.localeCompare(b.label));
 
     const tierFilterDefs = [
       { key: 'HEROES', label: 'HEROES', alwaysShow: true, title: 'Heroes & Linked Soldiers' },
       { key: 'WARLORDS', label: 'WARLORDS', alwaysShow: true, title: 'Warlords & Linked Soldiers' },
       { key: 'LEGENDARY', label: 'LEGENDARY', alwaysShow: true, title: 'Legendary Assets & Pairs' },
       { key: 'UNIQUE', label: 'UNIQUE', alwaysShow: true, title: 'Unique Assets' },
-      { key: 'MERCENARY', label: 'MERCENARY', alwaysShow: false, title: 'Mercenary & Champion Assets' },
+      ...sortedBldgGroups.map(bg => ({ key: bg.key, label: bg.pillLabel, alwaysShow: false, title: `${bg.label} — Associated Assets` })),
+      { key: 'MERCENARY', label: 'MERCENARY', alwaysShow: false, title: "Mercenary Camp — Merc's" },
       { key: 'HOSTILE', label: 'HOSTILES', alwaysShow: false, title: 'Hostile Forces (Onyx & Kane)' },
-      { key: 'CONTRACTOR', label: 'CONTRACTORS', alwaysShow: false, title: 'Agency Contractors' }
+      { key: 'CONTRACTOR', label: 'AGENCY', alwaysShow: false, title: 'Agency — Contractors' }
     ];
 
     let html = `<span class="filter-group-lbl">Generation:</span>`;
@@ -2298,7 +2359,8 @@
         });
         if (arr.length > 0) {
           totalInGen += arr.length;
-          summaryParts.push(`${BRANCH_META[bKey].label}: ${arr.length}`);
+          const sumLbl = (gInfo.isBuildingGroup && bKey === 'SPECIAL' && gInfo.subGroupLabel) ? gInfo.subGroupLabel : BRANCH_META[bKey].label;
+          summaryParts.push(`${sumLbl}: ${arr.length}`);
         }
       });
 
@@ -2308,7 +2370,10 @@
       branchOrderKeys.forEach(bKey => {
         const arr = genGroup.branches[bKey];
         if (!arr || arr.length === 0) return;
-        const bMeta = BRANCH_META[bKey];
+        const baseMeta = BRANCH_META[bKey];
+        const bMeta = (gInfo.isBuildingGroup && bKey === 'SPECIAL' && gInfo.subGroupLabel)
+          ? { ...baseMeta, label: gInfo.subGroupLabel, icon: gInfo.subGroupIcon || '🏗️', color: gInfo.accent || baseMeta.color }
+          : baseMeta;
         const { pairs, solos } = groupBranchUnitsIntoPairsAndSolos(arr);
 
         const buildUnitTileHtml = (rec, isInsidePair) => {

@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-22T18:39:03-08:00",
-    "generatedMs":  1795401540113,
+    "generatedAt":  "2026-11-22T21:36:05-08:00",
+    "generatedMs":  1795412161790,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -114,8 +114,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "asset-briefs.html",
                               "path":  "./asset-briefs.html",
                               "title":  "WatchToweR Hub — Asset Briefs | Gallery",
-                              "modifiedAt":  "2026-11-23T02:38:25Z",
-                              "modifiedMs":  1795401505118
+                              "modifiedAt":  "2026-11-23T03:23:41Z",
+                              "modifiedMs":  1795404221607
                           },
                           {
                               "file":  "asset-matchup.html",
@@ -135,8 +135,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "building-briefs.html",
                               "path":  "./building-briefs.html",
                               "title":  "WatchToweR Hub — Building Briefs | Gallery",
-                              "modifiedAt":  "2026-11-23T00:55:12Z",
-                              "modifiedMs":  1795395312878
+                              "modifiedAt":  "2026-11-23T05:31:27Z",
+                              "modifiedMs":  1795411887387
                           },
                           {
                               "file":  "cc-22-pre-release.html",
@@ -444,6 +444,46 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "Arc 2 • hero",
                                        "firstSeenMs":  1795394383640,
                                        "firstSeenAt":  "2026-11-23T00:39:43Z"
+                                   },
+                                   {
+                                       "key":  "GENERATOR",
+                                       "name":  "GENERATOR",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Bastion",
+                                       "firstSeenMs":  1795412161790,
+                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
+                                   },
+                                   {
+                                       "key":  "TACTICAL BACKUP",
+                                       "name":  "TACTICAL BACKUP",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Bastions",
+                                       "firstSeenMs":  1795412161790,
+                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
+                                   },
+                                   {
+                                       "key":  "ACID RAIN",
+                                       "name":  "ACID RAIN",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Defensive Rocket",
+                                       "firstSeenMs":  1795412161790,
+                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
+                                   },
+                                   {
+                                       "key":  "CHRONOS",
+                                       "name":  "CHRONOS",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "DEFENSIVE ROCKET",
+                                       "firstSeenMs":  1795412161790,
+                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
+                                   },
+                                   {
+                                       "key":  "AGENCY",
+                                       "name":  "AGENCY",
+                                       "gallery":  "BUILDING",
+                                       "subLabel":  "DEFENSE",
+                                       "firstSeenMs":  1795412161790,
+                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
                                    }
                                ],
     "creatorVideos":  [
