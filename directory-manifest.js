@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-22T15:42:37-08:00",
-    "generatedMs":  1795390953772,
+    "generatedAt":  "2026-11-22T16:39:47-08:00",
+    "generatedMs":  1795394383640,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -170,8 +170,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "faction-intel.html",
                               "path":  "./faction-intel.html",
                               "title":  "Faction Intel (Equinox • Rangers • Corpus • Sentinels)",
-                              "modifiedAt":  "2026-11-22T21:54:21Z",
-                              "modifiedMs":  1795384461697
+                              "modifiedAt":  "2026-11-23T00:39:24Z",
+                              "modifiedMs":  1795394364297
                           },
                           {
                               "file":  "index.html",
@@ -450,6 +450,14 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "DEFENSIVE ROCKETS",
                                        "firstSeenMs":  1795390953772,
                                        "firstSeenAt":  "2026-11-22T23:42:33Z"
+                                   },
+                                   {
+                                       "key":  "MINUET",
+                                       "name":  "MINUET",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • hero",
+                                       "firstSeenMs":  1795394383640,
+                                       "firstSeenAt":  "2026-11-23T00:39:43Z"
                                    }
                                ],
     "creatorVideos":  [

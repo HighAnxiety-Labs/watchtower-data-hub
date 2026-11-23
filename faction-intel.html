@@ -388,7 +388,7 @@
      ========================================================================== */
   .faction-filter-bar {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 10px;
     margin-bottom: 16px;
   }
@@ -721,10 +721,103 @@
     padding: 9px 18px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
   }
+  .faction-card-shell.is-factionless-card { grid-column: 1 / -1; }
+  .fl-4col-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 6px;
+    align-items: start;
+  }
+  .fl-col-box {
+    background: rgba(7, 12, 18, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 2.5px solid var(--col-color, #94a3b8);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .fl-col-hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 7px 10px;
+    background: var(--col-bg, rgba(148, 163, 184, 0.14));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--col-color, #e2e8f0);
+  }
+  .fl-col-cnt {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(5, 9, 14, 0.82);
+    border: 1px solid var(--col-color, #94a3b8);
+    font-size: 10px;
+  }
+  .fl-col-body {
+    padding: 9px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  @media (max-width: 1050px) { .fl-4col-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .fl-4col-grid { grid-template-columns: 1fr; } }
+  .fac-unit-chip .fuc-arrow { color: var(--fac-color, #94a3b8); font-size: 10px; opacity: 0.85; margin-left: 3px; }
+  .fac-count-pill {
+    display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 999px;
+    background: rgba(5, 10, 16, 0.88); border: 1px solid var(--fac-color, #94a3b8);
+    color: var(--fac-color, #94a3b8); font-family: monospace; font-size: 10.5px; font-weight: 900; margin-left: 6px;
+  }
+  /* Linked Hero ⇄ Soldier Pair Pill Pod */
+  .fac-unit-pair-pod {
+    display: inline-flex; align-items: center; gap: 0;
+    padding: 2px; border-radius: 6px;
+    background: rgba(250, 204, 21, 0.08);
+    border: 1px solid rgba(250, 204, 21, 0.45);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+  .fac-unit-pair-pod .fac-unit-chip { border-color: transparent; background: rgba(10, 18, 28, 0.9); }
+  .fac-unit-pair-pod .fac-unit-chip.is-pair-lead { border-left: 2.5px solid #facc15; }
+  .fac-pair-link-ico {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0 5px; font-family: monospace; font-size: 11px; font-weight: 900;
+    color: #facc15; user-select: none;
+  }
+  /* Floating Unit Portrait Hover Overlay */
+  .fac-unit-hover-card {
+    position: fixed; z-index: 9800; pointer-events: none; display: none;
+    width: 196px; border-radius: 7px; overflow: hidden;
+    background: linear-gradient(180deg, #0f1924 0%, #060b11 100%);
+    border: 1.5px solid var(--hov-color, #38bdf8);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.92), 0 0 18px rgba(56, 189, 248, 0.22);
+  }
+  .fac-unit-hover-img-wrap {
+    width: 100%; aspect-ratio: 4 / 5; background: #04080c;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .fac-unit-hover-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fac-unit-hover-monogram {
+    font-family: 'Orbitron', 'Arial Black', sans-serif; font-size: 28px; font-weight: 900;
+    color: var(--hov-color, #38bdf8); letter-spacing: 2px; opacity: 0.75;
+  }
+  .fac-unit-hover-meta {
+    padding: 8px 10px 9px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; flex-direction: column; gap: 3px; text-align: center;
+  }
+  .fac-unit-hover-name { font-size: 13px; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; }
+  .fac-unit-hover-sub { font-family: monospace; font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+  .fac-unit-hover-pair { font-family: monospace; font-size: 9.5px; font-weight: 900; color: #fde047; margin-top: 1px; }
 
   .fac-units-list {
     display: flex;
@@ -1012,6 +1105,14 @@
           </div>
           <span class="fac-pill-badge">MG</span>
         </div>
+
+        <div class="fac-pill" style="--pill-color: #94a3b8;" data-fac="FACTIONLESS" onclick="setFactionFilter('FACTIONLESS')">
+          <div class="fac-pill-left">
+            <span class="fac-pill-name">FACTIONLESS</span>
+            <span class="fac-pill-sub">UNALIGNED ROSTER</span>
+          </div>
+          <span class="fac-pill-badge" id="pillCnt-FACTIONLESS">—</span>
+        </div>
       </div>
 
       <!-- TOOLBAR: SEARCH, LAYOUT TOGGLE & UNIT DB SHORTCUT -->
@@ -1022,6 +1123,7 @@
         </div>
 
         <div class="toolbar-actions">
+          <span class="tool-btn" id="masterDbSyncPill" onclick="fetchFactionMasterDb(true)" title="Click to re-sync unit rosters from live MASTER_DB" style="border-color:rgba(0,230,118,0.55); color:#86efac;">🗄️ MASTER_DB: Syncing...</span>
           <button type="button" class="tool-btn active" id="btnLayoutStack" onclick="setLayoutMode('stack')">☰ 1-COL BRIEFING</button>
           <button type="button" class="tool-btn" id="btnLayoutGrid" onclick="setLayoutMode('grid')">⊞ 2×2 TACTICAL GRID</button>
           <button type="button" class="tool-btn" onclick="toggleAllNotepads()">📝 TOGGLE ALL NOTEPADS</button>
@@ -1053,6 +1155,16 @@
 
 </div>
 
+<!-- ==================== FLOATING UNIT PORTRAIT HOVER OVERLAY ==================== -->
+<div class="fac-unit-hover-card" id="facUnitHoverOverlay">
+  <div class="fac-unit-hover-img-wrap" id="facUnitHoverImgWrap"></div>
+  <div class="fac-unit-hover-meta">
+    <div class="fac-unit-hover-name" id="facUnitHoverName"></div>
+    <div class="fac-unit-hover-sub" id="facUnitHoverSub"></div>
+    <div class="fac-unit-hover-pair" id="facUnitHoverPair" style="display:none;"></div>
+  </div>
+</div>
+
 <!-- ==================== FULL-SCREEN ARTWORK LIGHTBOX ==================== -->
 <div class="lightbox-backdrop" id="artLightbox" onclick="closeArtLightbox(event)">
   <div class="lightbox-card" onclick="event.stopPropagation()">
@@ -1068,6 +1180,329 @@
 
 <script>
   const FACTION_NOTES_STORAGE_KEY = "wtr_faction_intel_notes_v1";
+  const UNIT_HANDOFF_KEY = "wtr_target_unit_handoff";
+  const MASTER_DB_DOC_ID = "1ail2vRREC7hxW_k8RwzJH0I60PLaZf0ddxjQkQkqAfc";
+  const MASTER_DB_GID = "444355456";
+
+  let liveFactionRosters = {
+    EQUINOX: [],
+    RANGERS: [],
+    CORPUS: [],
+    SENTINELS: [],
+    FACTIONLESS: [],
+    LEGENDARY: [],
+    MERCENARIES: [],
+    CONTRACTORS: []
+  };
+  let liveUnitInfoByNorm = {};
+  let masterDbLoaded = false;
+
+  function normUnitKey(str) {
+    return String(str || "").toUpperCase().replace(/\+/g, "&").replace(/&AMP;/g, "&").replace(/\s+/g, " ").trim();
+  }
+
+  function formatUnitImgUrl(raw) {
+    let clean = cleanCell(raw);
+    if (!clean) return "";
+    if (clean.startsWith("'")) clean = clean.slice(1).trim();
+    const formulaMatch = clean.match(/^=IMAGE\(\s*["']([^"']+)["']/i);
+    if (formulaMatch && formulaMatch[1]) clean = formulaMatch[1].trim();
+    const driveMatch = clean.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=[a-z]+&)?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1] && !clean.startsWith("data:")) {
+      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+    }
+    if (/^(?:https?:|data:|blob:)/i.test(clean)) return clean;
+    const stripped = clean.replace(/\\/g, "/").replace(/^(?:\.\.\/|\.\/)+/, "").replace(/^(?:published\/)?(?:watchtower-data-hub\/)?(?:assets\/)?(?:images\/)?/i, "");
+    return "./assets/images/" + stripped;
+  }
+
+  function unitRoleWeight(rec) {
+    const c = cleanCell(rec?.CLASSIFICATION).toUpperCase();
+    if (c.includes("HERO")) return 1;
+    if (c.includes("WARLORD")) return 2;
+    if (c.includes("SOLDIER")) return 3;
+    if (c.includes("LEGENDARY")) return 4;
+    return 5;
+  }
+
+  function showFacUnitHover(ev, unitName, accentColor) {
+    const card = document.getElementById("facUnitHoverOverlay");
+    const imgWrap = document.getElementById("facUnitHoverImgWrap");
+    const nameEl = document.getElementById("facUnitHoverName");
+    const subEl = document.getElementById("facUnitHoverSub");
+    const pairEl = document.getElementById("facUnitHoverPair");
+    if (!card || !imgWrap) return;
+    const info = liveUnitInfoByNorm[normUnitKey(unitName)];
+    card.style.setProperty("--hov-color", accentColor || "#38bdf8");
+    const initials = String(unitName || "U").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+    if (info && info.imgUrl) {
+      imgWrap.innerHTML = `<img src="${escapeHtml(info.imgUrl)}" alt="${escapeHtml(unitName)}" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="fac-unit-hover-monogram" style="display:none;">${escapeHtml(initials)}</span>`;
+    } else {
+      imgWrap.innerHTML = `<span class="fac-unit-hover-monogram">${escapeHtml(initials)}</span>`;
+    }
+    if (nameEl) nameEl.textContent = unitName;
+    if (subEl) subEl.textContent = info ? [info.gen, info.type || info.classif].filter(Boolean).join(" • ") || "ASSET BRIEF" : "ASSET BRIEF";
+    if (pairEl) {
+      if (info && info.partnerName) {
+        pairEl.textContent = `⇄ LINKED: ${info.partnerName}`;
+        pairEl.style.display = "block";
+      } else {
+        pairEl.style.display = "none";
+      }
+    }
+    card.style.display = "block";
+    moveFacUnitHover(ev);
+  }
+  window.showFacUnitHover = showFacUnitHover;
+
+  function moveFacUnitHover(ev) {
+    const card = document.getElementById("facUnitHoverOverlay");
+    if (!card || card.style.display !== "block") return;
+    const pad = 14;
+    const rect = card.getBoundingClientRect();
+    let left = ev.clientX + 16;
+    let top = ev.clientY - rect.height * 0.4;
+    if (left + rect.width + pad > window.innerWidth) left = Math.max(pad, ev.clientX - rect.width - 16);
+    if (top < pad) top = pad;
+    if (top + rect.height + pad > window.innerHeight) top = Math.max(pad, window.innerHeight - rect.height - pad);
+    card.style.left = left + "px";
+    card.style.top = top + "px";
+  }
+  window.moveFacUnitHover = moveFacUnitHover;
+
+  function hideFacUnitHover() {
+    const card = document.getElementById("facUnitHoverOverlay");
+    if (card) card.style.display = "none";
+  }
+  window.hideFacUnitHover = hideFacUnitHover;
+
+  function cleanCell(v) {
+    if (v === undefined || v === null) return "";
+    const s = String(v).trim();
+    return (s === "-" || s === "—" || s === "N/A" || s.startsWith("{{")) ? "" : s;
+  }
+
+  function isPureBuildingRow(rec) {
+    if (!rec) return false;
+    const uName = cleanCell(rec.UNIT_NAME).toUpperCase();
+    const uType = cleanCell(rec.STAT_TYPE).toUpperCase();
+    const classif = cleanCell(rec.CLASSIFICATION).toUpperCase();
+    const cat = cleanCell(rec.CATEGORY).toUpperCase();
+    if (/\b(?:BASTION|TURRET|TOWER|SILO|BUNKER|MINE\s*FACTORY|WALL|BUILDING|DEFENSE\s*STRUCTURE)\b/.test(`${uName} ${uType} ${classif}`)) {
+      return true;
+    }
+    const hasUnitCombatData = Boolean(
+      rec.STAT_FACTION || rec.STAT_WEAPON_TYPE || rec.STAT_ARMOR_TYPE ||
+      rec.STAT_DPS_RANGE || rec.STAT_HP_RANGE || rec.TALENT_LVL_1 ||
+      rec.WORKSHOP_1_TITLE || rec.FACTION_WS_1_FACTION
+    );
+    if (hasUnitCombatData) return false;
+    return Boolean(
+      rec.DIR_1_LVL || rec.MAT_LVLS || rec.SPEC_1_LBL || rec.FUNC_1_TITLE ||
+      classif.includes("BASE OPERATIONS") || classif.includes("FACILITY") ||
+      ["COMMAND", "MILITARY", "DEFENSE", "SUPPORT", "RESOURCE"].includes(cat)
+    );
+  }
+
+  function isHostileUnitRow(rec) {
+    const combined = `${rec.STAT_FACTION || ""} ${rec.CLASSIFICATION || ""} ${rec.UNIT_DIVISION || ""} ${rec.STAT_BUILDING || ""} ${rec.STAT_GENERATION || ""}`.toUpperCase();
+    return combined.includes("ONYX") || combined.includes("ZOMBIE") || combined.includes("HOSTILE") || combined.includes("ENEMY") || combined.includes("KANE");
+  }
+
+  function isContractorUnitRow(rec) {
+    const bld = cleanCell(rec.STAT_BUILDING).toUpperCase();
+    const classif = cleanCell(rec.CLASSIFICATION).toUpperCase();
+    const gen = cleanCell(rec.STAT_GENERATION).toUpperCase();
+    const fac = cleanCell(rec.STAT_FACTION).toUpperCase();
+    const uType = cleanCell(rec.STAT_TYPE).toUpperCase();
+    return classif.includes("CONTRACTOR") || gen.includes("CONTRACTOR") || fac.includes("DIPLOMAC") || bld.includes("AGENCY") || uType.includes("CONTRACTOR");
+  }
+
+  function isMercenaryUnitRow(rec) {
+    const bld = cleanCell(rec.STAT_BUILDING).toUpperCase();
+    const classif = cleanCell(rec.CLASSIFICATION).toUpperCase();
+    const gen = cleanCell(rec.STAT_GENERATION).toUpperCase();
+    const fac = cleanCell(rec.STAT_FACTION).toUpperCase();
+    return classif.includes("MERCENARY") || gen.includes("MERCENARY") || gen.includes("CHAMPION") || fac.includes("MERCENARY") || bld.includes("MERCENARY");
+  }
+
+  function isLegendaryUnitRow(rec) {
+    const classif = cleanCell(rec.CLASSIFICATION).toUpperCase();
+    const gen = cleanCell(rec.STAT_GENERATION).toUpperCase();
+    const fac = cleanCell(rec.STAT_FACTION).toUpperCase();
+    return classif.includes("LEGENDARY") || gen.includes("LEGENDARY") || fac.includes("LEGENDARY");
+  }
+
+  function resolveUnitFactionBucket(rec) {
+    if (isContractorUnitRow(rec)) return "CONTRACTORS";
+    if (isMercenaryUnitRow(rec)) return "MERCENARIES";
+    const fac = cleanCell(rec.STAT_FACTION).toUpperCase();
+    if (fac.includes("EQUINOX")) return "EQUINOX";
+    if (fac.includes("RANGER")) return "RANGERS";
+    if (fac.includes("CORPUS")) return "CORPUS";
+    if (fac.includes("SENTINEL")) return "SENTINELS";
+    if (isLegendaryUnitRow(rec)) return "LEGENDARY";
+    return "FACTIONLESS";
+  }
+
+  function handoffAssetBriefLink(unitName) {
+    try { localStorage.setItem(UNIT_HANDOFF_KEY, cleanCell(unitName)); } catch (e) {}
+  }
+  window.handoffAssetBriefLink = handoffAssetBriefLink;
+
+  function openAssetBriefFromFaction(unitName, ev) {
+    handoffAssetBriefLink(unitName);
+    const url = `./asset-briefs.html?unit=${encodeURIComponent(cleanCell(unitName))}`;
+    try {
+      if (window.parent && window.parent !== window && typeof window.parent.openHubUrlInViewport === "function") {
+        if (ev) ev.preventDefault();
+        window.parent.openHubUrlInViewport(`ASSET BRIEF // ${cleanCell(unitName).toUpperCase()}`, "#c29829", url);
+        return false;
+      }
+    } catch (e) {}
+    return true;
+  }
+  window.openAssetBriefFromFaction = openAssetBriefFromFaction;
+
+  function parseCsvMatrix(text) {
+    const rows = [];
+    let row = [];
+    let cur = "";
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (inQuotes) {
+        if (ch === '"' && text[i + 1] === '"') { cur += '"'; i++; }
+        else if (ch === '"') { inQuotes = false; }
+        else { cur += ch; }
+      } else {
+        if (ch === '"') { inQuotes = true; }
+        else if (ch === ',') { row.push(cur); cur = ""; }
+        else if (ch === '\r') { /* ignore */ }
+        else if (ch === '\n') { row.push(cur); rows.push(row); row = []; cur = ""; }
+        else { cur += ch; }
+      }
+    }
+    if (cur.length > 0 || row.length > 0) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+
+  function processMasterDbMatrix(matrix) {
+    if (!Array.isArray(matrix) || matrix.length <= 1) return;
+    const headers = matrix[0].map(h => String(h || "").trim().toUpperCase());
+    const buckets = { EQUINOX: [], RANGERS: [], CORPUS: [], SENTINELS: [], FACTIONLESS: [], LEGENDARY: [], MERCENARIES: [], CONTRACTORS: [] };
+    const infoMap = {};
+    const seen = new Set();
+    let totalUnits = 0;
+
+    for (let r = 1; r < matrix.length; r++) {
+      const rec = {};
+      headers.forEach((k, idx) => {
+        if (k) rec[k] = matrix[r][idx] !== undefined ? String(matrix[r][idx]).trim() : "";
+      });
+      if (isPureBuildingRow(rec) || isHostileUnitRow(rec)) continue;
+      const uName = cleanCell(rec.UNIT_NAME);
+      if (!uName) continue;
+      const norm = normUnitKey(uName);
+      if (seen.has(norm)) continue;
+      seen.add(norm);
+      const bKey = resolveUnitFactionBucket(rec);
+      const rawLinked = cleanCell(rec.LINKED_UNIT_NAME) || cleanCell(rec.LINKED_UNIT_ID) || cleanCell(rec.HERO) || cleanCell(rec.PAIRED_UNIT);
+      infoMap[norm] = {
+        name: uName,
+        norm,
+        bucket: bKey,
+        linkedTargetNorm: normUnitKey(rawLinked),
+        partnerName: rawLinked || "",
+        roleWeight: unitRoleWeight(rec),
+        imgUrl: formatUnitImgUrl(rec.UNIT_IMAGE_URL || rec.IMAGE_URL),
+        gen: cleanCell(rec.STAT_GENERATION),
+        type: cleanCell(rec.STAT_TYPE),
+        classif: cleanCell(rec.CLASSIFICATION)
+      };
+      buckets[bKey].push(uName);
+      totalUnits++;
+    }
+
+    // Resolve reciprocal partner names across infoMap
+    Object.values(infoMap).forEach(u => {
+      if (u.linkedTargetNorm && infoMap[u.linkedTargetNorm]) {
+        const mate = infoMap[u.linkedTargetNorm];
+        u.partnerName = mate.name;
+        if (!mate.linkedTargetNorm) {
+          mate.linkedTargetNorm = u.norm;
+          mate.partnerName = u.name;
+        }
+      }
+    });
+
+    Object.keys(buckets).forEach(k => {
+      buckets[k].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+    });
+
+    liveUnitInfoByNorm = infoMap;
+    liveFactionRosters = buckets;
+    masterDbLoaded = true;
+    const pill = document.getElementById("masterDbSyncPill");
+    if (pill) pill.textContent = `🗄️ MASTER_DB: ${totalUnits} Units Synced`;
+    const flTotal = (buckets.FACTIONLESS.length + buckets.LEGENDARY.length + buckets.MERCENARIES.length + buckets.CONTRACTORS.length);
+    const flBadge = document.getElementById("pillCnt-FACTIONLESS");
+    if (flBadge) flBadge.textContent = String(flTotal);
+    renderFactions();
+  }
+
+  function fetchFactionMasterDb(manual = false) {
+    const pill = document.getElementById("masterDbSyncPill");
+    if (pill) pill.textContent = manual ? "⏳ Re-Syncing MASTER_DB..." : "🗄️ MASTER_DB: Syncing...";
+    const cbName = "wtrFacGvizCb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+    let done = false;
+
+    const finishCsvFallback = () => {
+      if (done) return;
+      fetch(`https://docs.google.com/spreadsheets/d/${MASTER_DB_DOC_ID}/export?format=csv&gid=${MASTER_DB_GID}&_t=${Date.now()}`, { cache: "no-store" })
+        .then(r => r.ok ? r.text() : Promise.reject(new Error("CSV failed")))
+        .then(txt => {
+          if (done) return;
+          done = true;
+          processMasterDbMatrix(parseCsvMatrix(txt));
+        })
+        .catch(() => {
+          if (pill && !masterDbLoaded) pill.textContent = "⚠️ MASTER_DB Offline";
+        });
+    };
+
+    window[cbName] = function(resp) {
+      try {
+        if (done) return;
+        done = true;
+        const table = resp && resp.table;
+        if (!table || !Array.isArray(table.cols) || !Array.isArray(table.rows)) {
+          done = false;
+          finishCsvFallback();
+          return;
+        }
+        const headers = table.cols.map(c => (c && (c.label || c.id)) ? String(c.label || c.id).trim() : "");
+        const matrix = [headers];
+        table.rows.forEach(r => {
+          const cells = (r && Array.isArray(r.c)) ? r.c.map(cell => (cell && cell.v !== null && cell.v !== undefined) ? String(cell.v) : "") : [];
+          matrix.push(cells);
+        });
+        processMasterDbMatrix(matrix);
+      } finally {
+        try { delete window[cbName]; } catch (e) {}
+      }
+    };
+
+    const s = document.createElement("script");
+    s.src = `https://docs.google.com/spreadsheets/d/${MASTER_DB_DOC_ID}/gviz/tq?gid=${MASTER_DB_GID}&tqx=out:json;responseHandler:${cbName}&_t=${Date.now()}`;
+    s.onerror = () => {
+      try { delete window[cbName]; } catch (e) {}
+      finishCsvFallback();
+    };
+    document.head.appendChild(s);
+    setTimeout(() => { if (!done) finishCsvFallback(); }, 6500);
+  }
+  window.fetchFactionMasterDb = fetchFactionMasterDb;
 
   const FACTIONS_DATA = [
     {
@@ -1249,6 +1684,7 @@
     const filtered = FACTIONS_DATA.filter(fac => {
       if (activeFactionFilter !== "ALL" && fac.id !== activeFactionFilter) return false;
       if (!query) return true;
+      const liveUnits = liveFactionRosters[fac.id] || [];
       const haystack = [
         fac.name,
         fac.code,
@@ -1257,12 +1693,26 @@
         fac.workshopTech,
         ...fac.paragraphs,
         ...fac.linkedUnits,
+        ...liveUnits,
         factionNotes[fac.id] || ""
       ].join(" ").toLowerCase();
       return haystack.includes(query);
     });
 
-    if (filtered.length === 0) {
+    const FL_COLS = [
+      { id: "FACTIONLESS", title: "UNIQUE",      color: "#38bdf8", bg: "rgba(56, 189, 248, 0.14)",  tags: "unique factionless unaligned" },
+      { id: "LEGENDARY",   title: "LEGENDARY",   color: "#ffd700", bg: "rgba(255, 215, 0, 0.14)",   tags: "legendary elite" },
+      { id: "MERCENARIES", title: "MERC'S",      color: "#f59e0b", bg: "rgba(245, 158, 11, 0.14)",  tags: "merc mercs mercenary mercenaries champion" },
+      { id: "CONTRACTORS", title: "CONTRACTORS", color: "#c084fc", bg: "rgba(192, 132, 252, 0.14)", tags: "contractor contractors agency diplomacy" }
+    ];
+    const allFlUnits = FL_COLS.flatMap(c => liveFactionRosters[c.id] || []);
+    const showFactionless = (activeFactionFilter === "ALL" || activeFactionFilter === "FACTIONLESS") && (
+      !query ||
+      "factionless unaligned unique legendary merc mercs mercenary contractors".includes(query) ||
+      allFlUnits.some(u => u.toLowerCase().includes(query))
+    );
+
+    if (filtered.length === 0 && !showFactionless) {
       container.innerHTML = `
         <div style="background:#0b131d; border:1px solid #1f3349; border-radius:6px; padding:32px; text-align:center; color:#8fa6bc; font-size:16px;">
           No faction records match your current filter. <button type="button" class="tool-btn" style="margin-left:10px;" onclick="document.getElementById('factionSearchInput').value=''; setFactionFilter('ALL');">Reset Filters</button>
@@ -1271,13 +1721,56 @@
       return;
     }
 
-    container.innerHTML = filtered.map(fac => {
+    const renderUnitChip = (uName, accentColor, extraCls = "") => {
+      const safeJs = escapeHtml(uName).replace(/'/g, "\\'");
+      const safeCol = escapeHtml(accentColor || "#38bdf8").replace(/'/g, "\\'");
+      return `<a href="./asset-briefs.html?unit=${encodeURIComponent(uName)}" class="fac-unit-chip${extraCls ? ' ' + extraCls : ''}" onclick="return openAssetBriefFromFaction('${safeJs}', event)" onmouseenter="showFacUnitHover(event, '${safeJs}', '${safeCol}')" onmousemove="moveFacUnitHover(event)" onmouseleave="hideFacUnitHover()" title="Open ${escapeHtml(uName)} in Asset Briefs | Gallery"><span>${escapeHtml(uName)}</span><span class="fuc-arrow">↗</span></a>`;
+    };
+
+    const renderUnitListWithPairs = (unitNames, accentColor) => {
+      const inList = new Set(unitNames.map(normUnitKey));
+      const used = new Set();
+      const entries = [];
+
+      unitNames.forEach(uName => {
+        const k = normUnitKey(uName);
+        if (used.has(k)) return;
+        const info = liveUnitInfoByNorm[k];
+        const partnerKey = info && info.linkedTargetNorm;
+        if (partnerKey && partnerKey !== k && inList.has(partnerKey) && !used.has(partnerKey)) {
+          const mate = liveUnitInfoByNorm[partnerKey];
+          used.add(k);
+          used.add(partnerKey);
+          const pairArr = [info, mate].sort((a, b) => (a.roleWeight - b.roleWeight) || a.name.localeCompare(b.name));
+          entries.push({
+            sortKey: pairArr[0].name,
+            isPair: true,
+            html: `<span class="fac-unit-pair-pod" title="Linked Pair: ${escapeHtml(pairArr[0].name)} ⇄ ${escapeHtml(pairArr[1].name)}">${renderUnitChip(pairArr[0].name, accentColor, 'is-pair-lead')}<span class="fac-pair-link-ico">⇄</span>${renderUnitChip(pairArr[1].name, accentColor, 'is-pair-mate')}</span>`
+          });
+        } else {
+          used.add(k);
+          entries.push({
+            sortKey: uName,
+            isPair: false,
+            html: renderUnitChip(uName, accentColor)
+          });
+        }
+      });
+
+      entries.sort((a, b) => (a.isPair === b.isPair ? a.sortKey.localeCompare(b.sortKey, undefined, { sensitivity: "base" }) : (a.isPair ? -1 : 1)));
+      return entries.map(e => e.html).join("");
+    };
+
+    let cardsHtml = filtered.map(fac => {
       const noteVal = factionNotes[fac.id] || "";
       const hasNotes = Boolean(noteVal.trim());
       const isOpen = Boolean(openNotepads[fac.id]);
-      const unitChips = fac.linkedUnits.map(u =>
-        `<a href="./asset-briefs.html" class="fac-unit-chip" title="View in Asset Briefs | Gallery">${escapeHtml(u)}</a>`
-      ).join("");
+      const liveUnits = liveFactionRosters[fac.id] || [];
+      const unitChips = liveUnits.length > 0
+        ? renderUnitListWithPairs(liveUnits, fac.color)
+        : (masterDbLoaded
+            ? `<span style="color:#64748b; font-family:monospace; font-size:11px;">No units currently assigned in MASTER_DB</span>`
+            : fac.linkedUnits.map(u => `<a href="./asset-briefs.html" class="fac-unit-chip" title="Syncing MASTER_DB...">${escapeHtml(u)}</a>`).join(""));
 
       return `
         <article class="faction-card-shell" style="--fac-color: ${fac.color}; --fac-bg: ${fac.bg}; --fac-glow: ${fac.glow};">
@@ -1317,7 +1810,7 @@
 
           <div class="faction-card-footer">
             <div class="fac-units-list">
-              <span class="fac-units-lbl">LINKED FACTION UNITS &amp; TECH:</span>
+              <span class="fac-units-lbl">FACTION UNITS (MASTER_DB)<span class="fac-count-pill">${liveUnits.length}</span>:</span>
               ${unitChips}
             </div>
             <button type="button" class="fac-notes-btn ${hasNotes ? 'has-notes' : ''} ${isOpen ? 'is-open' : ''}" id="notesBtn-${fac.id}" onclick="toggleFactionNotepad('${fac.id}')">
@@ -1335,6 +1828,57 @@
         </article>
       `;
     }).join("");
+
+    if (showFactionless) {
+      const flNoteVal = factionNotes.FACTIONLESS || "";
+      const flHasNotes = Boolean(flNoteVal.trim());
+      const flIsOpen = Boolean(openNotepads.FACTIONLESS);
+      const colsHtml = FL_COLS.map(col => {
+        const list = liveFactionRosters[col.id] || [];
+        const bodyHtml = list.length > 0
+          ? renderUnitListWithPairs(list, col.color)
+          : `<span style="color:#64748b; font-family:monospace; font-size:11px;">${masterDbLoaded ? 'None in MASTER_DB' : '⏳ Syncing...'}</span>`;
+        return `
+          <div class="fl-col-box" style="--col-color:${col.color}; --col-bg:${col.bg}; --fac-color:${col.color}; --fac-bg:${col.bg};">
+            <div class="fl-col-hdr">
+              <span>${escapeHtml(col.title)}</span>
+              <span class="fl-col-cnt">${list.length}</span>
+            </div>
+            <div class="fl-col-body">${bodyHtml}</div>
+          </div>
+        `;
+      }).join("");
+
+      cardsHtml += `
+        <article class="faction-card-shell is-factionless-card" style="--fac-color: #94a3b8; --fac-bg: rgba(148, 163, 184, 0.14); --fac-glow: rgba(148, 163, 184, 0.2);">
+          <div class="faction-card-main" style="grid-template-columns: 1fr;">
+            <div class="faction-info">
+              <div class="faction-title-row" style="margin-bottom: 10px;">
+                <h2 class="faction-title">FACTIONLESS</h2>
+                <span class="faction-code-tag">UNALIGNED ROSTER // UNIQUE • LEGENDARY • MERC'S • CONTRACTORS (${allFlUnits.length})</span>
+              </div>
+              <p class="faction-desc" style="margin-bottom: 12px;">Non-faction roster synced live from <strong>MASTER_DB</strong>, sorted into 4 columns. Hover any name tab for its 4:5 portrait overlay or click to open its full Asset Brief.</p>
+              <div class="fl-4col-grid">${colsHtml}</div>
+            </div>
+          </div>
+          <div class="faction-card-footer">
+            <span class="fac-units-lbl">LIVE MASTER_DB UNALIGNED ROSTER<span class="fac-count-pill">${allFlUnits.length}</span></span>
+            <button type="button" class="fac-notes-btn ${flHasNotes ? 'has-notes' : ''} ${flIsOpen ? 'is-open' : ''}" id="notesBtn-FACTIONLESS" onclick="toggleFactionNotepad('FACTIONLESS')">
+              📝 ${flIsOpen ? 'CLOSE' : 'OPEN'} FACTIONLESS NOTEPAD ${flHasNotes ? '●' : ''}
+            </button>
+          </div>
+          <div class="fac-notepad-drawer ${flIsOpen ? 'open' : ''}" id="notepadDrawer-FACTIONLESS">
+            <div class="fac-notepad-head">
+              <span>⚡ FACTIONLESS // Tactical Field Notes</span>
+              <span style="color:#7f94a8;">Auto-Saved Locally</span>
+            </div>
+            <textarea class="fac-notepad-textarea" placeholder="Log notes for Factionless roster..." oninput="saveFactionNote('FACTIONLESS', this.value)">${escapeHtml(flNoteVal)}</textarea>
+          </div>
+        </article>
+      `;
+    }
+
+    container.innerHTML = cardsHtml;
   }
 
   document.addEventListener("keydown", e => {
@@ -1359,6 +1903,7 @@
     }
     loadFactionNotes();
     renderFactions();
+    fetchFactionMasterDb(false);
   });
 </script>
 </body>
