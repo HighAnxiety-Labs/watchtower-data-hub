@@ -1345,7 +1345,7 @@
         <span id="displayMenuCaption" style="display:none;">⚡ TACTICAL OPERATIONS // SELECT ANY DIVISION TAB OR FILTER BY CATEGORY</span>
         <div class="wtr-omni-search-wrap">
           <span class="wtr-omni-ico">🔍</span>
-          <input type="text" id="wtrGlobalQuickSearchInput" class="wtr-omni-input" autocomplete="off" spellcheck="false" placeholder="Instant Jump: unit, building, event, contractor, or guide..." aria-label="WatchToweR Global Quick Search">
+          <input type="text" id="wtrGlobalQuickSearchInput" class="wtr-omni-input" autocomplete="off" spellcheck="false" placeholder="Instant Jump: asset, building, event, contractor, or guide..." aria-label="WatchToweR Global Quick Search">
           <button type="button" id="wtrOmniSearchClearBtn" class="wtr-omni-clear" title="Clear Search">✕</button>
           <kbd class="wtr-omni-kbd" title="Press Ctrl+K anywhere to jump">Ctrl+K</kbd>
         </div>
@@ -1716,7 +1716,7 @@
     "LIVE":       { icon: "🎯", name: "EVENT GUIDE",    color: "#e04865" },
     "UPCOMING":   { icon: "📣", name: "FEEDBACK",       color: "#a87be0" },
     "BUG":        { icon: "🛠️", name: "KNOWN BUG",      color: "#d9534f" },
-    "DATABASE":   { icon: "⚔️", name: "UNIT STATS",     color: "#3898cf" },
+    "DATABASE":   { icon: "⚔️", name: "ASSET STATS",    color: "#3898cf" },
     "UPDATED":    { icon: "🔄", name: "UPDATED",        color: "#d9b438" },
     "VIDEO":      { icon: "🎥", name: "VIDEO GUIDE",    color: "#d97d3b" }
   };
@@ -8357,7 +8357,7 @@
       "LIVE":       { icon: "🎯", name: "EVENT GUIDE",    color: "#e04865" },
       "UPCOMING":   { icon: "📣", name: "FEEDBACK",       color: "#a87be0" },
       "BUG":        { icon: "🛠️", name: "KNOWN BUG",      color: "#d9534f" },
-      "DATABASE":   { icon: "⚔️", name: "UNIT STATS",     color: "#3898cf" },
+      "DATABASE":   { icon: "⚔️", name: "ASSET STATS",    color: "#3898cf" },
       "UPDATED":    { icon: "🔄", name: "UPDATED",        color: "#d9b438" },
       "VIDEO":      { icon: "🎥", name: "VIDEO GUIDE",    color: "#d97d3b" }
     };
@@ -10673,12 +10673,12 @@
           cat: "GALLERY",
           urgent: true,
           sortTime: -(Number(entry.firstSeenMs) || now),
-          badge: isBldg ? "🏗️ NEW BUILDING" : "🆕 NEW UNIT",
+          badge: isBldg ? "🏗️ NEW BUILDING" : "🆕 NEW ASSET",
           accent: isBldg ? "#2dd4bf" : "#38bdf8",
           rgb: isBldg ? "45, 212, 191" : "56, 189, 248",
           bgTop: isBldg ? "#092321" : "#0a1e2c",
-          headline: `NEW IN ${isBldg ? "BUILDING" : "UNIT"} GALLERY: ${nameUp}${subPart}`,
-          meta: `Added ${formatRelativeAge(ageMs)} in MASTER_DB • Click to open full ${isBldg ? "Facility" : "Unit"} Brief`,
+          headline: `NEW IN ${isBldg ? "BUILDING" : "ASSET"} GALLERY: ${nameUp}${subPart}`,
+          meta: `Added ${formatRelativeAge(ageMs)} in MASTER_DB • Click to open full ${isBldg ? "Facility" : "Asset"} Brief`,
           cta: isBldg ? "🏢 BUILDING BRIEF" : "📖 ASSET BRIEF",
           action: () => {
             if (isBldg) {
@@ -10816,8 +10816,8 @@
             accent: "#38bdf8",
             rgb: "56, 189, 248",
             bgTop: "#0a1e2c",
-            headline: "UNIT & BUILDING GALLERIES MONITORED LIVE — NO NEW ADDITIONS IN LAST 24H",
-            meta: `Tracking ${state.totalTrackedUnits} Units & ${state.totalTrackedBuildings} Base Facilities in MASTER_DB • Auto-alerts when new rows are added`,
+            headline: "ASSET & BUILDING GALLERIES MONITORED LIVE — NO NEW ADDITIONS IN LAST 24H",
+            meta: `Tracking ${state.totalTrackedUnits} Assets & ${state.totalTrackedBuildings} Base Facilities in MASTER_DB • Auto-alerts when new rows are added`,
             cta: "📖 ASSET BRIEFS",
             action: () => openHubTargetUrl("asset-briefs.html", "ASSET BRIEFS GALLERY", "#38bdf8")
           }];
@@ -11352,11 +11352,11 @@
         seenKeys.add(k);
         const subText = subLbl ? `Asset Brief • ${subLbl}` : "Asset Briefs | 40-Lvl Report";
         items.push({
-          tag: "UNIT",
+          tag: "ASSET",
           tagCls: "tag-unit",
           title: clean,
           sub: subText,
-          keywords: (clean + " unit units brief stats talent compare " + (subLbl || "") + " " + (extraKw || "")).toLowerCase(),
+          keywords: (clean + " asset assets unit units brief stats talent compare " + (subLbl || "") + " " + (extraKw || "")).toLowerCase(),
           boost: 18,
           run: function() {
             try { localStorage.setItem("wtr_target_unit_handoff", clean); } catch (e) {}
@@ -11485,7 +11485,7 @@
 
       const normCompact = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
       const tokens = q.split(/\s+/).filter(Boolean);
-      const qCore = q.replace(/^(?:unit|units|building|buildings|facility|video|videos|bug|vault)\s+/i, "").trim() || q;
+      const qCore = q.replace(/^(?:asset|assets|unit|units|building|buildings|facility|video|videos|bug|vault)\s+/i, "").trim() || q;
       const qCoreCompact = normCompact(qCore);
       const qCompact = normCompact(q);
       const all = buildOmniSearchIndex();
@@ -11517,7 +11517,7 @@
       activeIdx = 0;
 
       if (activeResults.length === 0) {
-        dropdown.innerHTML = `<div style="padding:14px 12px; font-family:monospace; font-size:12px; color:#94a3b8; text-align:center;">No matches for "<strong style="color:#fff;">${esc(query)}</strong>" — try a unit name, building, event, or guide.</div>`;
+        dropdown.innerHTML = `<div style="padding:14px 12px; font-family:monospace; font-size:12px; color:#94a3b8; text-align:center;">No matches for "<strong style="color:#fff;">${esc(query)}</strong>" — try an asset name, building, event, or guide.</div>`;
         dropdown.classList.add("open");
         return;
       }
