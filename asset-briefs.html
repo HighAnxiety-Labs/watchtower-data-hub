@@ -31,7 +31,7 @@
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" id="metaOgTitle" content="WatchToweR Hub — Asset Briefs | Gallery">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Tactical Briefs, Visual Unit Gallery, Event Calculators & Intelligence.">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Data Hub — Tactical Briefs, Visual Asset Gallery, Event Calculators & Intelligence.">
   <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
@@ -930,7 +930,7 @@
       <div>
         <div style="font-family:monospace; font-size:11.5px; font-weight:800; letter-spacing:1.6px; color:#ffd700; text-transform:uppercase; margin-bottom:4px;">ARMORY // LIVE MASTER_DB SYNC</div>
         <h1 style="font-family:'Arial Black',sans-serif; font-size:clamp(20px,2.5vw,28px); font-weight:900; letter-spacing:1.2px; color:#ffffff; text-transform:uppercase; line-height:1.15;">WAR COMMANDER — <span style="color:#ffd700;">ASSET BRIEFS | GALLERY</span></h1>
-        <p style="font-size:14px; color:#94a3b8; margin-top:5px; max-width:680px;">Click any unit portrait across Generations &amp; Branches to inspect full 40-Level stats, Talents, Linked Hero/Soldier pairs, and Workshop loadouts.</p>
+        <p style="font-size:14px; color:#94a3b8; margin-top:5px; max-width:680px;">Click any asset portrait across Generations &amp; Branches to inspect full 40-Level stats, Talents, Linked Hero/Soldier pairs, and Workshop loadouts.</p>
       </div>
     </div>
     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
@@ -942,7 +942,7 @@
 <div class="control-panel-wrapper">
   <div class="control-panel">
     <div class="panel-section">
-      <select id="divisionSelect" name="divisionSelect" aria-label="Filter by Unit Division" title="Filter by Unit Division" class="selector-select" style="display: none;" onchange="applyFilter()">
+      <select id="divisionSelect" name="divisionSelect" aria-label="Filter by Asset Division" title="Filter by Asset Division" class="selector-select" style="display: none;" onchange="applyFilter()">
         <option value="ALL">ALL ASSETS</option>
         <option value="ACADEMY">ACADEMY / INFANTRY</option>
         <option value="AIRCRAFT HANGAR">AIRCRAFT HANGAR / AIRCRAFT</option>
@@ -953,7 +953,7 @@
       </select>
     </div>
     <div class="panel-section" style="flex: 1.2; min-width: 220px;">
-      <input type="search" id="unitSearchInput" name="unitSearchInput" aria-label="Search units, factions, weapons, or talents" title="Search units, factions, weapons, or talents" class="unit-search-input" placeholder="🔍 Search unit, faction, weapon, or talent..." oninput="handleGallerySearchInput(this.value)">
+      <input type="search" id="unitSearchInput" name="unitSearchInput" aria-label="Search assets, factions, weapons, or talents" title="Search assets, factions, weapons, or talents" class="unit-search-input" placeholder="🔍 Search asset, faction, weapon, or talent..." oninput="handleGallerySearchInput(this.value)">
     </div>
     <div class="panel-section" style="flex: 0.9; min-width: 200px;">
       <label class="selector-label" for="unitSelect">Quick Jump:</label>
@@ -963,7 +963,7 @@
     </div>
     <div class="panel-section">
       <span id="loadStatus" class="selector-status">Syncing MASTER_DB...</span>
-      <button type="button" class="matchup-top-btn" style="border-color:rgba(0,230,118,0.65); color:#00e676; background:rgba(0,230,118,0.12);" onclick="openUnitCompareModal()" title="Open Side-by-Side Allied Unit Level Comparison">
+      <button type="button" class="matchup-top-btn" style="border-color:rgba(0,230,118,0.65); color:#00e676; background:rgba(0,230,118,0.12);" onclick="openUnitCompareModal()" title="Open Side-by-Side Allied Asset Level Comparison">
         ⚖️ COMPARE <span id="topCompareBadgeCnt"></span>
       </button>
       <div class="matchup-hover-wrap" id="matchupHoverWrap"
@@ -1021,9 +1021,9 @@
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="lg" aria-pressed="false" onclick="setGalleryImageBoost('lg')">IMG+</button>
         <button type="button" class="gal-pill img-size-pill" data-wtr-img-btn="xl" aria-pressed="false" onclick="setGalleryImageBoost('xl')">IMG++</button>
       </div>
-      <button type="button" class="brief-step-btn" style="border-color: rgba(0, 230, 118, 0.65); color: #00e676; background: rgba(0, 230, 118, 0.12);" onclick="pinActiveUnitAndOpenCompare()" title="Compare this unit side-by-side across Lvl 1–MAX">⚖️ COMPARE</button>
+      <button type="button" class="brief-step-btn" style="border-color: rgba(0, 230, 118, 0.65); color: #00e676; background: rgba(0, 230, 118, 0.12);" onclick="pinActiveUnitAndOpenCompare()" title="Compare this asset side-by-side across Lvl 1–MAX">⚖️ COMPARE</button>
       <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="copyActiveUnitDiscordBrief('discord')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
-      <button type="button" class="brief-step-btn" style="border-color: rgba(255, 215, 0, 0.55); color: #ffd700; background: rgba(255, 215, 0, 0.12);" onclick="openMatchupInPageView()" title="Open this unit directly in the Head-to-Head Matchup &amp; Threat Radar">⚔️ MATCHUP RADAR</button>
+      <button type="button" class="brief-step-btn" style="border-color: rgba(255, 215, 0, 0.55); color: #ffd700; background: rgba(255, 215, 0, 0.12);" onclick="openMatchupInPageView()" title="Open this asset directly in the Head-to-Head Matchup &amp; Threat Radar">⚔️ MATCHUP RADAR</button>
       <button type="button" class="brief-step-btn" id="btnPrevUnitBrief" onclick="stepAdjacentUnit(-1)">◀ PREV</button>
       <button type="button" class="brief-step-btn" id="btnNextUnitBrief" onclick="stepAdjacentUnit(1)">NEXT ▶</button>
       <button type="button" class="brief-close-x-btn" onclick="closeFullBriefReturnToGallery()">✕ CLOSE BRIEF</button>
@@ -1064,7 +1064,7 @@
       <div class="unit-display">
         <span class="col-header" style="width: 100%;">{{RELEASE_DATE}}</span>
         <div id="main-img-frame" class="unit-img-frame">
-          <img id="main-unit-img" class="unit-img" src="{{UNIT_IMAGE_URL}}" alt="{{UNIT_NAME}} Unit Render">
+          <img id="main-unit-img" class="unit-img" src="{{UNIT_IMAGE_URL}}" alt="{{UNIT_NAME}} Asset Render">
         </div>
       </div>
       <!-- Col 2: Stats Table (All 23 Default Stats + Dynamic Custom Stats) -->
@@ -1073,12 +1073,13 @@
         <table id="unit-stats-table" class="stats-table">
           <tbody id="unit-stats-tbody">
             <tr><td class="stats-label" style="text-align: right;">Generation</td><td class="stats-value" style="text-align: left;">{{STAT_GENERATION}}</td></tr>
-            <tr><td class="stats-label" style="text-align: right;">Faction</td><td class="stats-value" style="text-align: left;">{{STAT_FACTION}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Faction / Building</td><td class="stats-value" style="text-align: left;">{{STAT_FACTION}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Type</td><td class="stats-value" style="text-align: left;">{{STAT_TYPE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Armor Type</td><td class="stats-value" style="text-align: left;">{{STAT_ARMOR_TYPE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Weapon Type</td><td class="stats-value" style="text-align: left;">{{STAT_WEAPON_TYPE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Targets</td><td class="stats-value" style="text-align: left;">{{STAT_TARGETS}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Damage Type</td><td class="stats-value" style="text-align: left;">{{STAT_DAMAGE_TYPE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Damage Profile</td><td class="stats-value" style="text-align: left;">{{STAT_DAMAGE_PROFILE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Size</td><td class="stats-value" style="text-align: left;">{{STAT_SIZE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Building Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Level Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING_REQ}}</td></tr>
@@ -1114,6 +1115,7 @@
             <tr><td class="stats-label" style="text-align: right;">Range (Level 40)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_40}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Range (Max Level)</td><td class="stats-value" style="text-align: left;">{{STAT_RANGE_MAX}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Splash Radius</td><td class="stats-value" style="text-align: left;">{{STAT_SPLASH}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Rate of Fire</td><td class="stats-value" style="text-align: left;">{{STAT_RATE_OF_FIRE}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -1179,7 +1181,7 @@
     </div>
     <!-- Infusion Tech Section -->
     <div id="infusion-section" class="report-section" style="display: none;">
-      <span id="infusion-main-header" class="col-header">UNIT INFUSION MATRIX</span>
+      <span id="infusion-main-header" class="col-header">ASSET INFUSION MATRIX</span>
       <div id="infusion-notice-wrap" class="doctrine-notice" style="border-left-color: #c084fc; color: #f3e8ff;">
         <strong>INFUSION OVERVIEW:</strong>
         <span id="infusion-notice-text">{{INFUSION_OVERVIEW}}</span>
@@ -1220,12 +1222,13 @@
 
   const DEFAULT_STAT_SCHEMA = [
     { key: 'STAT_GENERATION',   defaultLabel: 'Generation' },
-    { key: 'STAT_FACTION',      defaultLabel: 'Faction' },
+    { key: 'STAT_FACTION',      defaultLabel: 'Faction / Building' },
     { key: 'STAT_TYPE',         defaultLabel: 'Type' },
     { key: 'STAT_ARMOR_TYPE',   defaultLabel: 'Armor Type' },
     { key: 'STAT_WEAPON_TYPE',  defaultLabel: 'Weapon Type' },
     { key: 'STAT_TARGETS',      defaultLabel: 'Targets' },
     { key: 'STAT_DAMAGE_TYPE',  defaultLabel: 'Damage Type' },
+    { key: 'STAT_DAMAGE_PROFILE', defaultLabel: 'Damage Profile' },
     { key: 'STAT_SIZE',         defaultLabel: 'Size' },
     { key: 'STAT_BUILDING',     defaultLabel: 'Building Required' },
     { key: 'STAT_BUILDING_REQ', defaultLabel: 'Level Required' },
@@ -1260,7 +1263,8 @@
     { key: 'STAT_RANGE_31',     defaultLabel: 'Range (Level 31)' },
     { key: 'STAT_RANGE_40',     defaultLabel: 'Range (Level 40)' },
     { key: 'STAT_RANGE_MAX',    defaultLabel: 'Range (Max Level)' },
-    { key: 'STAT_SPLASH',       defaultLabel: 'Splash Radius' }
+    { key: 'STAT_SPLASH',       defaultLabel: 'Splash Radius' },
+    { key: 'STAT_RATE_OF_FIRE', defaultLabel: 'Rate of Fire' }
   ];
 
   const TEMPLATE_CONFIG = {
@@ -1269,7 +1273,7 @@
     workshopHeader: "Workshop Tech",
     factionWsHeader: "Faction Workshop",
     upgradesHeader: "Upgrade Progression Matrix",
-    infusionHeader: "UNIT INFUSION MATRIX",
+    infusionHeader: "ASSET INFUSION MATRIX",
     statLabels: {},
     customStats: []
   };
@@ -1290,7 +1294,7 @@
   let lastViewedUnitKey = '';
   let openedUnitKeyOnEntry = '';
   let isFullBriefOpen = false;
-  let activeUnitTitle = 'Unit';
+  let activeUnitTitle = 'Asset';
   let activeUnitRecord = null;
 
   function showStatusMsg(msg, isError = false) {
@@ -1863,7 +1867,7 @@
         const leadCls = cleanVal(duo[0].CLASSIFICATION).toUpperCase();
         let pairVariant = 'pair-generic';
         let leadLabel = 'LINKED';
-        let mateLabel = 'UNIT';
+        let mateLabel = 'ASSET';
         let sortGroup = 3;
 
         if (leadCls.includes('WARLORD')) {
@@ -2075,9 +2079,9 @@
     const tierFilterDefs = [
       { key: 'HEROES', label: 'HEROES', alwaysShow: true, title: 'Heroes & Linked Soldiers' },
       { key: 'WARLORDS', label: 'WARLORDS', alwaysShow: true, title: 'Warlords & Linked Soldiers' },
-      { key: 'LEGENDARY', label: 'LEGENDARY', alwaysShow: true, title: 'Legendary Units & Pairs' },
-      { key: 'UNIQUE', label: 'UNIQUE', alwaysShow: true, title: 'Unique Units' },
-      { key: 'MERCENARY', label: 'MERCENARY', alwaysShow: false, title: 'Mercenary & Champion Units' },
+      { key: 'LEGENDARY', label: 'LEGENDARY', alwaysShow: true, title: 'Legendary Assets & Pairs' },
+      { key: 'UNIQUE', label: 'UNIQUE', alwaysShow: true, title: 'Unique Assets' },
+      { key: 'MERCENARY', label: 'MERCENARY', alwaysShow: false, title: 'Mercenary & Champion Assets' },
       { key: 'HOSTILE', label: 'HOSTILES', alwaysShow: false, title: 'Hostile Forces (Onyx & Kane)' },
       { key: 'CONTRACTOR', label: 'CONTRACTORS', alwaysShow: false, title: 'Agency Contractors' }
     ];
@@ -2151,7 +2155,7 @@
       const b = btn.getAttribute('data-branch') || '';
       if (labels[b]) {
         btn.innerHTML = `${labels[b]} <span class="gal-pill-cnt">${counts[b] || 0}</span>`;
-        btn.title = `${labels[b].replace(/^[^\w]+/, '')} (${counts[b] || 0} Allied Units — Hostiles Excluded)`;
+        btn.title = `${labels[b].replace(/^[^\w]+/, '')} (${counts[b] || 0} Allied Assets — Hostiles Excluded)`;
       }
       btn.classList.toggle('active', b === activeBranchFilter);
     });
@@ -2218,7 +2222,7 @@
     }
 
     const count = filteredUnits.length;
-    showStatusMsg(`Ready (${count} ${count === 1 ? 'Unit' : 'Units'})`);
+    showStatusMsg(`Ready (${count} ${count === 1 ? 'Asset' : 'Assets'})`);
 
     if (isInitialLoad) {
       const requestedRaw = consumeRequestedUnitHandoff();
@@ -2251,7 +2255,7 @@
     if (!unitsList || unitsList.length === 0) {
       galleryEl.innerHTML = `
         <div style="width: 100%; padding: 34px 20px; text-align: center; background: #0d1210; border: 1px solid #1f3b2b; border-radius: 6px; color: #90a4ae;">
-          No units matched your current Generation / Branch / Search filter.
+          No assets matched your current Generation / Branch / Search filter.
           <div style="margin-top: 10px;">
             <button type="button" class="gal-pill active" onclick="activeGenFilter='ALL'; activeBranchFilter='ALL'; gallerySearchQuery=''; document.getElementById('unitSearchInput').value=''; syncBranchFilterButtons(); applyFilter(false);">Reset All Filters</button>
           </div>
@@ -2408,7 +2412,7 @@
               ${showSummaryLine ? `<span class="gen-branch-summary">${escapeAttr(summaryParts.join('  ~  '))}</span>` : ''}
             </div>
             <div class="gen-hdr-right">
-              <span class="gen-count-pill">${totalInGen} ${totalInGen === 1 ? 'UNIT' : 'UNITS'}</span>
+              <span class="gen-count-pill">${totalInGen} ${totalInGen === 1 ? 'ASSET' : 'ASSETS'}</span>
               <span class="gen-chevron">▼</span>
             </div>
           </div>
@@ -2704,7 +2708,7 @@
     }
 
     const unitName = cleanVal(data['UNIT_NAME']);
-    activeUnitTitle = unitName || 'Unit';
+    activeUnitTitle = unitName || 'Asset';
     activeUnitRecord = data;
     const activeFilterVal = (document.getElementById('divisionSelect')?.value || currentDivision || '').toUpperCase();
     const isContractor = activeFilterVal.includes('CONTRACTOR') || isContractorRecord(data);
@@ -2736,6 +2740,7 @@
       'STAT_WEAPON_TYPE': cleanVal(data['STAT_WEAPON_TYPE']),
       'STAT_TARGETS': cleanVal(data['STAT_TARGETS']),
       'STAT_DAMAGE_TYPE': cleanVal(data['STAT_DAMAGE_TYPE']),
+      'STAT_DAMAGE_PROFILE': cleanVal(data['STAT_DAMAGE_PROFILE']),
       'STAT_SIZE': cleanVal(data['STAT_SIZE']),
       'STAT_BUILDING': cleanVal(data['STAT_BUILDING']),
       'STAT_BUILDING_REQ': cleanVal(data['STAT_BUILDING_REQ']) || cleanVal(data['STAT_BUILDING_MAX']),
@@ -2771,6 +2776,7 @@
       'STAT_RANGE_40': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_40'])),
       'STAT_RANGE_MAX': formatBenchmarkStatString(cleanVal(data['STAT_RANGE_MAX'])),
       'STAT_SPLASH': cleanVal(data['STAT_SPLASH']),
+      'STAT_RATE_OF_FIRE': cleanVal(data['STAT_RATE_OF_FIRE']),
       'FACTION_WS_HEADER': cleanVal(data['FACTION_WS_HEADER']) || TEMPLATE_CONFIG.factionWsHeader || 'Faction Workshop',
       'DOCTRINE_TITLE': cleanVal(data['DOCTRINE_TITLE']) || 'EVOLUTION DOCTRINE // MILITARY TECH',
       'DOCTRINE_PREREQ': cleanVal(data['DOCTRINE_PREREQ']),
@@ -3314,7 +3320,7 @@
           <span class="mh-title">${escapeAttr(activeUnitRecord.UNIT_NAME)}</span>
           <span class="mh-hint">Click to Open Matchup ↗</span>
         </div>
-        <div class="mh-empty">Contractor / Support record — click MATCHUP to compare combat units.</div>
+        <div class="mh-empty">Contractor / Support record — click MATCHUP to compare combat assets.</div>
       `;
       wrap.classList.add('open');
       return;
@@ -3417,7 +3423,7 @@
   <div class="wtr-cmp-slots" id="wtrCompareTraySlots"></div>
   <div style="display:flex; align-items:center; gap:7px;">
     <button type="button" class="wtr-cmp-launch-btn" onclick="openUnitCompareModal()">⚖️ Compare Side-by-Side ▸</button>
-    <button type="button" class="wtr-cmp-clear-btn" onclick="clearUnitComparePins()" title="Clear Pinned Units">✕</button>
+    <button type="button" class="wtr-cmp-clear-btn" onclick="clearUnitComparePins()" title="Clear Pinned Assets">✕</button>
   </div>
 </div>
 
@@ -3541,7 +3547,7 @@
         <span style="color:#00e676; font-weight:900; font-size:12px;">VS</span>
         ${s2
           ? `<span class="wtr-cmp-chip" style="border-color:rgba(56,189,248,0.65); background:rgba(56,189,248,0.15);">2. ${escapeAttr(s2)} <button type="button" onclick="removeUnitComparePin('${safe2}')" title="Remove">✕</button></span>`
-          : `<span class="wtr-cmp-chip empty">+ Pin 2nd unit (or pick inside modal)</span>`
+          : `<span class="wtr-cmp-chip empty">+ Pin 2nd asset (or pick inside modal)</span>`
         }
       `;
       tray.classList.add('open');
@@ -3668,7 +3674,7 @@
 
       const roster = getAllComparableUnitsSorted();
       if (roster.length === 0) {
-        bodyEl.innerHTML = `<div style="padding:24px; text-align:center; color:#94a3b8;">Still syncing MASTER_DB units — try again in a moment.</div>`;
+        bodyEl.innerHTML = `<div style="padding:24px; text-align:center; color:#94a3b8;">Still syncing MASTER_DB assets — try again in a moment.</div>`;
         return;
       }
 
@@ -3701,9 +3707,10 @@
 
       let statRowsHtml = '';
       statRowsHtml += renderCompareRow('Generation', cleanVal(recA.STAT_GENERATION), cleanVal(recB.STAT_GENERATION), false);
-      statRowsHtml += renderCompareRow('Class / Faction', [cleanVal(recA.CLASSIFICATION), cleanVal(recA.STAT_FACTION)].filter(Boolean).join(' • '), [cleanVal(recB.CLASSIFICATION), cleanVal(recB.STAT_FACTION)].filter(Boolean).join(' • '), false);
+      statRowsHtml += renderCompareRow('Class / Faction / Building', [cleanVal(recA.CLASSIFICATION), cleanVal(recA.STAT_FACTION)].filter(Boolean).join(' • '), [cleanVal(recB.CLASSIFICATION), cleanVal(recB.STAT_FACTION)].filter(Boolean).join(' • '), false);
       statRowsHtml += renderCompareRow('Type & Armor', [cleanVal(recA.STAT_TYPE), cleanVal(recA.STAT_ARMOR_TYPE)].filter(Boolean).join(' / '), [cleanVal(recB.STAT_TYPE), cleanVal(recB.STAT_ARMOR_TYPE)].filter(Boolean).join(' / '), false);
       statRowsHtml += renderCompareRow('Weapon & Damage', [cleanVal(recA.STAT_WEAPON_TYPE), cleanVal(recA.STAT_DAMAGE_TYPE)].filter(Boolean).join(' • '), [cleanVal(recB.STAT_WEAPON_TYPE), cleanVal(recB.STAT_DAMAGE_TYPE)].filter(Boolean).join(' • '), false);
+      if (cleanVal(recA.STAT_DAMAGE_PROFILE) || cleanVal(recB.STAT_DAMAGE_PROFILE)) statRowsHtml += renderCompareRow('Damage Profile', cleanVal(recA.STAT_DAMAGE_PROFILE), cleanVal(recB.STAT_DAMAGE_PROFILE), false);
       statRowsHtml += renderCompareRow('Targets', cleanVal(recA.STAT_TARGETS), cleanVal(recB.STAT_TARGETS), false);
       statRowsHtml += renderCompareRow('Building Req', [cleanVal(recA.STAT_BUILDING), cleanVal(recA.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recA.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), [cleanVal(recB.STAT_BUILDING), cleanVal(recB.STAT_BUILDING_REQ) ? 'Lvl ' + cleanVal(recB.STAT_BUILDING_REQ) : ''].filter(Boolean).join(' • '), false);
 
@@ -3742,6 +3749,7 @@
 
       statRowsHtml += renderCompareRow('Max Speed', cleanVal(recA.STAT_SPEED), cleanVal(recB.STAT_SPEED), true);
       statRowsHtml += renderCompareRow('Splash Radius', cleanVal(recA.STAT_SPLASH), cleanVal(recB.STAT_SPLASH), true);
+      if (cleanVal(recA.STAT_RATE_OF_FIRE) || cleanVal(recB.STAT_RATE_OF_FIRE)) statRowsHtml += renderCompareRow('Rate of Fire', cleanVal(recA.STAT_RATE_OF_FIRE), cleanVal(recB.STAT_RATE_OF_FIRE), false);
       statRowsHtml += renderCompareRow('Linked Partner', cleanVal(recA.LINKED_UNIT_NAME), cleanVal(recB.LINKED_UNIT_NAME), false);
 
       // Talent milestones
@@ -3767,20 +3775,20 @@
           <div class="wtr-cmp-unit-card unit-a">
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgA)}" alt="${escapeAttr(recA.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
-              <div style="font-family:monospace; font-size:10.5px; color:#00e676; font-weight:900; margin-bottom:4px;">UNIT A</div>
-              <select id="wtrCmpSelectSlot0" name="wtrCmpSelectSlot0" aria-label="Select Unit A to Compare" title="Select Unit A to Compare" class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
+              <div style="font-family:monospace; font-size:10.5px; color:#00e676; font-weight:900; margin-bottom:4px;">ASSET A</div>
+              <select id="wtrCmpSelectSlot0" name="wtrCmpSelectSlot0" aria-label="Select Asset A to Compare" title="Select Asset A to Compare" class="wtr-cmp-select" onchange="setCompareModalSlot(0, this.value)">${buildOpts(recA.UNIT_NAME)}</select>
               <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px; white-space:normal; overflow-wrap:break-word;">${escapeAttr([cleanVal(recA.STAT_GENERATION), cleanVal(recA.CLASSIFICATION), cleanVal(recA.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
           </div>
           <div class="wtr-cmp-spine-box">
             <strong style="color:#ffd700; font-family:'Arial Black',sans-serif; font-size:14px; letter-spacing:1px; margin-bottom:3px;">⚖️ VS</strong>
-            <span>Swap Unit A or B anytime</span>
+            <span>Swap Asset A or B anytime</span>
           </div>
           <div class="wtr-cmp-unit-card unit-b">
             <img class="wtr-cmp-thumb" src="${escapeAttr(imgB)}" alt="${escapeAttr(recB.UNIT_NAME)}" onerror="this.src='./assets/images/wtr-logo.png'">
             <div style="flex:1; min-width:0;">
-              <div style="font-family:monospace; font-size:10.5px; color:#38bdf8; font-weight:900; margin-bottom:4px;">UNIT B</div>
-              <select id="wtrCmpSelectSlot1" name="wtrCmpSelectSlot1" aria-label="Select Unit B to Compare" title="Select Unit B to Compare" class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
+              <div style="font-family:monospace; font-size:10.5px; color:#38bdf8; font-weight:900; margin-bottom:4px;">ASSET B</div>
+              <select id="wtrCmpSelectSlot1" name="wtrCmpSelectSlot1" aria-label="Select Asset B to Compare" title="Select Asset B to Compare" class="wtr-cmp-select" style="border-color:#26506b;" onchange="setCompareModalSlot(1, this.value)">${buildOpts(recB.UNIT_NAME)}</select>
               <div style="font-family:monospace; font-size:11px; color:#94a3b8; margin-top:5px; white-space:normal; overflow-wrap:break-word;">${escapeAttr([cleanVal(recB.STAT_GENERATION), cleanVal(recB.CLASSIFICATION), cleanVal(recB.RELEASE_DATE)].filter(Boolean).join(' • '))}</div>
             </div>
           </div>
@@ -3831,7 +3839,7 @@
       const metaLine = [gen, cls, fac].filter(Boolean).join(' • ');
 
       const discord = [
-        `🛡️ **[-WTR-] UNIT INTEL — ${uName}** *(${metaLine})*`,
+        `🛡️ **[-WTR-] ASSET INTEL — ${uName}** *(${metaLine})*`,
         `• **Max HP / DPS:** \`${maxHp}\` HP  |  \`${maxDps}\` DPS`,
         `• **Combat Spec:** Range \`${rng}\` • Speed \`${spd}\`${dmg ? ' • ' + dmg : ''}`,
         ...(bld ? [`• **Unlock / Linked:** ${bld}${linked ? '  |  ⇄ Linked: **' + linked + '**' : ''}`] : []),
@@ -3840,7 +3848,7 @@
       ].join('\n');
 
       const facebook = [
-        `🛡️ [-WTR-] UNIT INTEL — ${uName}${metaLine ? ' (' + metaLine + ')' : ''}`,
+        `🛡️ [-WTR-] ASSET INTEL — ${uName}${metaLine ? ' (' + metaLine + ')' : ''}`,
         `❤️ Max HP: ${maxHp}  |  🔥 Max DPS: ${maxDps}`,
         `🎯 Range: ${rng} | Speed: ${spd}${dmg ? ' | ' + dmg : ''}`,
         ...(bld ? [`🏗️ Unlock: ${bld}${linked ? ' | Linked: ' + linked : ''}`] : []),
@@ -3851,7 +3859,7 @@
 
       const steam = [
         `[img]${logoUrl}[/img]`,
-        `[b]🛡️ [-WTR-] UNIT INTEL — ${uName}[/b]${metaLine ? ' [i](' + metaLine + ')[/i]' : ''}`,
+        `[b]🛡️ [-WTR-] ASSET INTEL — ${uName}[/b]${metaLine ? ' [i](' + metaLine + ')[/i]' : ''}`,
         '[list]',
         `  [*] [b]Max HP / DPS:[/b] ${maxHp} HP | ${maxDps} DPS`,
         `  [*] [b]Combat Spec:[/b] Range ${rng} • Speed ${spd}${dmg ? ' • ' + dmg : ''}`,
@@ -3863,7 +3871,7 @@
 
       if (window.WTRSocialShare && typeof window.WTRSocialShare.open === 'function') {
         window.WTRSocialShare.open({
-          title: `UNIT INTEL — ${uName}`,
+          title: `ASSET INTEL — ${uName}`,
           subtitle: 'Discord Markdown • Facebook Plain Text • Steam BBCode',
           initialFormat: initialFmt || 'discord',
           discord, facebook, steam
@@ -3892,7 +3900,7 @@
       const logoUrl = 'https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png';
 
       const discord = [
-        `⚖️ **[-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
+        `⚖️ **[-WTR-] ASSET HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}**`,
         `• **HP:** ${recA.UNIT_NAME} \`${hpA}\`  vs  ${recB.UNIT_NAME} \`${hpB}\``,
         `• **DPS:** ${recA.UNIT_NAME} \`${dpsA}\`  vs  ${recB.UNIT_NAME} \`${dpsB}\``,
         `• **Range / Speed:** \`${rngA} / ${spdA}\`  vs  \`${rngB} / ${spdB}\``,
@@ -3900,7 +3908,7 @@
       ].join('\n');
 
       const facebook = [
-        `⚖️ [-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}`,
+        `⚖️ [-WTR-] ASSET HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}`,
         `❤️ HP: ${recA.UNIT_NAME} ${hpA} vs ${recB.UNIT_NAME} ${hpB}`,
         `🔥 DPS: ${recA.UNIT_NAME} ${dpsA} vs ${recB.UNIT_NAME} ${dpsB}`,
         `🎯 Range / Speed: ${rngA} / ${spdA} vs ${rngB} / ${spdB}`,
@@ -3910,13 +3918,13 @@
 
       const steam = [
         `[img]${logoUrl}[/img]`,
-        `[b]⚖️ [-WTR-] UNIT HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}[/b]`,
+        `[b]⚖️ [-WTR-] ASSET HEAD-TO-HEAD (${lvlTxt}) — ${recA.UNIT_NAME} vs ${recB.UNIT_NAME}[/b]`,
         '[list]',
         `  [*] [b]HP:[/b] ${recA.UNIT_NAME} ${hpA} vs ${recB.UNIT_NAME} ${hpB}`,
         `  [*] [b]DPS:[/b] ${recA.UNIT_NAME} ${dpsA} vs ${recB.UNIT_NAME} ${dpsB}`,
         `  [*] [b]Range / Speed:[/b] ${rngA} / ${spdA} vs ${rngB} / ${spdB}`,
         '[/list]',
-        `🔗 [url=${hubUrl}]Compare Units Live on [-WTR-] Data Hub[/url]`
+        `🔗 [url=${hubUrl}]Compare Assets Live on [-WTR-] Data Hub[/url]`
       ].join('\n');
 
       if (window.WTRSocialShare && typeof window.WTRSocialShare.open === 'function') {
