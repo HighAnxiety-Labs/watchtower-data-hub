@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-22T21:36:05-08:00",
-    "generatedMs":  1795412161790,
+    "generatedAt":  "2026-11-24T09:13:02-08:00",
+    "generatedMs":  1795540377877,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -284,6 +284,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                             "units":  [
                                           "ABIGAIL DIAZ",
                                           "ACHILLES",
+                                          "ACID RAIN",
                                           "ARGUS",
                                           "ARIKI TOA",
                                           "ATLAS",
@@ -299,6 +300,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "CAROL HAGEN",
                                           "CASTOR \u0026 POLLUX",
                                           "CATAPULT",
+                                          "CHRONOPHAGE",
+                                          "CHRONOS",
                                           "CONDUIT",
                                           "DAWN SLATER",
                                           "DIXON",
@@ -314,6 +317,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "FORAGER",
                                           "FORTRESS NODE",
                                           "FROSTPIERCER",
+                                          "GENERATOR",
                                           "GENERATOR BASTION",
                                           "GRAND CITADEL",
                                           "GRAND OBSERVER",
@@ -337,6 +341,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "MEDJAI",
                                           "MICHAEL ST. JAMES",
                                           "MIDWAY",
+                                          "MINEUT",
+                                          "MINUET",
                                           "MR. BARCLAY",
                                           "MR. BRAINES",
                                           "MYRMIDON",
@@ -364,8 +370,10 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "STORMWAIL",
                                           "SVEN OMAROV",
                                           "TACHYON",
+                                          "TACTICAL BACKUP",
                                           "TACTICAL BACKUP BASTION",
                                           "TERRY MICHAELS",
+                                          "TUNGSTEN",
                                           "VALIANT MKII",
                                           "VEGA",
                                           "VESPID",
@@ -379,6 +387,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                       ],
                             "buildings":  [
                                               "ACADEMY",
+                                              "AGENCY",
                                               "AIRCRAFT HANGER",
                                               "AIRFIELD",
                                               "ARMORY",
@@ -414,76 +423,36 @@ window.WTR_DIRECTORY_MANIFEST = {
                         },
     "recentGalleryAdditions":  [
                                    {
-                                       "key":  "CHRONOPHAGE",
-                                       "name":  "CHRONOPHAGE",
+                                       "key":  "LASER TANK X",
+                                       "name":  "LASER TANK X",
                                        "gallery":  "UNIT",
                                        "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795328396780,
-                                       "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                       "firstSeenMs":  1795540377877,
+                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
                                    },
                                    {
-                                       "key":  "MINEUT",
-                                       "name":  "MINEUT",
+                                       "key":  "RIZE",
+                                       "name":  "RIZE",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • hero",
-                                       "firstSeenMs":  1795328396780,
-                                       "firstSeenAt":  "2026-11-22T06:19:56Z"
+                                       "subLabel":  "Arc 2 • WARLORD",
+                                       "firstSeenMs":  1795540377877,
+                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
                                    },
                                    {
-                                       "key":  "TUNGSTEN",
-                                       "name":  "TUNGSTEN",
+                                       "key":  "HOLOSIGHT",
+                                       "name":  "HOLOSIGHT",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "DEFENSIVE ROCKETS",
-                                       "firstSeenMs":  1795390953772,
-                                       "firstSeenAt":  "2026-11-22T23:42:33Z"
+                                       "subLabel":  "Arc 2 • WARLORD",
+                                       "firstSeenMs":  1795540377877,
+                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
                                    },
                                    {
-                                       "key":  "MINUET",
-                                       "name":  "MINUET",
+                                       "key":  "TORTOISE",
+                                       "name":  "TORTOISE",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • hero",
-                                       "firstSeenMs":  1795394383640,
-                                       "firstSeenAt":  "2026-11-23T00:39:43Z"
-                                   },
-                                   {
-                                       "key":  "GENERATOR",
-                                       "name":  "GENERATOR",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Bastion",
-                                       "firstSeenMs":  1795412161790,
-                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
-                                   },
-                                   {
-                                       "key":  "TACTICAL BACKUP",
-                                       "name":  "TACTICAL BACKUP",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Bastions",
-                                       "firstSeenMs":  1795412161790,
-                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
-                                   },
-                                   {
-                                       "key":  "ACID RAIN",
-                                       "name":  "ACID RAIN",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Defensive Rocket",
-                                       "firstSeenMs":  1795412161790,
-                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
-                                   },
-                                   {
-                                       "key":  "CHRONOS",
-                                       "name":  "CHRONOS",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "DEFENSIVE ROCKET",
-                                       "firstSeenMs":  1795412161790,
-                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
-                                   },
-                                   {
-                                       "key":  "AGENCY",
-                                       "name":  "AGENCY",
-                                       "gallery":  "BUILDING",
-                                       "subLabel":  "DEFENSE",
-                                       "firstSeenMs":  1795412161790,
-                                       "firstSeenAt":  "2026-11-23T05:36:01Z"
+                                       "subLabel":  "Arc 2 • SOLDIER",
+                                       "firstSeenMs":  1795540377877,
+                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
                                    }
                                ],
     "creatorVideos":  [

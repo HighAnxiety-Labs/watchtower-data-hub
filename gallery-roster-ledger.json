@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-23T05:36:01Z",
+    "updatedAt":  "2026-11-24T17:12:57Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1081,6 +1081,38 @@
                                              "subLabel":  "DEFENSE",
                                              "firstSeenMs":  1795412161790,
                                              "firstSeenAt":  "2026-11-23T05:36:01Z"
-                                         }
+                                         },
+                    "UNIT::LASER TANK X":  {
+                                               "key":  "LASER TANK X",
+                                               "name":  "LASER TANK X",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "Arc 2 • SOLDIER",
+                                               "firstSeenMs":  1795540377877,
+                                               "firstSeenAt":  "2026-11-24T17:12:57Z"
+                                           },
+                    "UNIT::RIZE":  {
+                                       "key":  "RIZE",
+                                       "name":  "RIZE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 2 • WARLORD",
+                                       "firstSeenMs":  1795540377877,
+                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
+                                   },
+                    "UNIT::HOLOSIGHT":  {
+                                            "key":  "HOLOSIGHT",
+                                            "name":  "HOLOSIGHT",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 2 • WARLORD",
+                                            "firstSeenMs":  1795540377877,
+                                            "firstSeenAt":  "2026-11-24T17:12:57Z"
+                                        },
+                    "UNIT::TORTOISE":  {
+                                           "key":  "TORTOISE",
+                                           "name":  "TORTOISE",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "Arc 2 • SOLDIER",
+                                           "firstSeenMs":  1795540377877,
+                                           "firstSeenAt":  "2026-11-24T17:12:57Z"
+                                       }
                 }
 }
