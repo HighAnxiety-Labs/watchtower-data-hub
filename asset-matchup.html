@@ -1957,7 +1957,7 @@
       <span class="meta-chip gen">${escapeHtml(genLbl)}</span>
       <span class="meta-chip gold">${escapeHtml(fac)}</span>
       <span class="meta-chip">${escapeHtml(uType)}</span>
-      ${isHighAltitudeUnit(me) ? `<span class="meta-chip" style="border-color:rgba(192,132,252,0.75); color:#e9d5ff; background:rgba(168,85,247,0.16);">☁️ High Altitude (Dedicated Air Only)</span>` : ''}
+      ${isHighAltitudeUnit(me) ? `<span class="meta-chip" style="border-color:rgba(192,132,252,0.75); color:#e9d5ff; background:rgba(168,85,247,0.16);">☁️ High Alt Aircraft (Dedicated Anti-Air Only)</span>` : ''}
       ${isLowAltitudeUnit(me) ? `<span class="meta-chip" style="border-color:rgba(56,189,248,0.65); color:#7dd3fc; background:rgba(56,189,248,0.12);">✈️ Low Altitude (Air Target)</span>` : ''}
       <span class="meta-chip">🛡️ Armor: ${escapeHtml(armor)}</span>
       <span class="meta-chip">💥 Weapon: ${escapeHtml(dmg)}</span>
@@ -2276,36 +2276,45 @@
 
   function isHighAltitudeUnit(rec) {
     if (!rec) return false;
-    const hay = `${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.TALENT || ''} ${rec.TALENT_LVL_1 || ''}`;
-    if (!/\bhigh[\s-]*altitude\b/i.test(hay)) return false;
-    // Exclude negated phrasing like "Does NOT hit high altitude" or "cannot target high altitude"
-    const stripped = hay.replace(/\b(?:does\s+not|doesn't|cannot|can't|unable\s+to|not)\s+(?:hit|target|attack|engage|shoot)\s+high[\s-]*altitude\b/gi, '');
-    return /\bhigh[\s-]*altitude\b/i.test(stripped);
+    const typeClass = `${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''}`;
+    if (/\bhigh[\s-]*alt(?:itude)?\b/i.test(typeClass)) return true;
+    // Only check talent text for aircraft/air units, and strip targeting/negated phrases (e.g. "can hit Air and High Alt")
+    if (getDivisionBucket(rec) !== 'AIR') return false;
+    const talentHay = `${rec.TALENT || ''} ${rec.TALENT_LVL_1 || ''}`;
+    if (!/\bhigh[\s-]*alt(?:itude)?\b/i.test(talentHay)) return false;
+    const stripped = talentHay.replace(/\b(?:can|cannot|can't|does\s+not|doesn't|unable\s+to|not|able\s+to)?\s*(?:hit|hits|target|targets|attack|attacks|engage|engages|shoot|shoots|damage|damages)\s+(?:air\s+(?:and|\+|&)\s+)?high[\s-]*alt(?:itude)?\b/gi, '');
+    return /\bhigh[\s-]*alt(?:itude)?\b/i.test(stripped);
   }
 
   function isLowAltitudeUnit(rec) {
     if (!rec) return false;
     const hay = `${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.TALENT || ''} ${rec.TALENT_LVL_1 || ''}`;
-    return /\blow[\s-]*altitude\b/i.test(hay);
+    return /\blow[\s-]*alt(?:itude)?\b/i.test(hay);
+  }
+
+  function isDedicatedAntiAirUnit(rec) {
+    if (!rec) return false;
+    const t = String(rec.STAT_TARGETS || '').trim().toUpperCase();
+    const roleHay = `${rec.STAT_TYPE || ''} ${rec.CLASSIFICATION || ''} ${rec.STAT_WEAPON_TYPE || ''}`.toUpperCase();
+    if (/\b(?:ANTI[\s-]*AIR|DEDICATED[\s-]*(?:AA|AIR|ANTI[\s-]*AIR))\b/.test(roleHay)) return true;
+    if (!t) return false;
+    if (/\b(?:AIR\s*ONLY|DEDICATED\s*(?:AA|AIR|ANTI[\s-]*AIR)|ANTI[\s-]*AIR|HIGH[\s-]*ALT(?:ITUDE)?)\b/.test(t)) return true;
+    const hasAir = /\bAIR\b/.test(t);
+    const hasGround = /\b(?:GROUND|LAND|BOTH|ALL|ANYTHING|EVERYTHING|SURFACE|BUILDING)\b/.test(t);
+    return hasAir && !hasGround;
   }
 
   function isDedicatedAirUnit(rec) {
-    if (!rec) return false;
-    const t = String(rec.STAT_TARGETS || '').trim().toUpperCase();
-    if (!t) return false;
-    if (/\b(?:AIR\s*ONLY|DEDICATED\s*AIR|HIGH[\s-]*ALTITUDE)\b/.test(t)) return true;
-    const hasAir = /\bAIR\b/.test(t);
-    const hasGround = /\b(?:GROUND|LAND|BOTH|ALL|SURFACE|BUILDING)\b/.test(t);
-    return hasAir && !hasGround;
+    return isDedicatedAntiAirUnit(rec);
   }
 
   function isDedicatedAirWorkshopText(title, desc) {
     const txt = `${title || ''} ${desc || ''}`;
     if (!txt.trim()) return false;
-    if (/\b(?:does\s+not|doesn't|cannot|can't)\s+(?:hit|target)\s+high[\s-]*altitude\b/i.test(txt)) return false;
-    if (/\b(?:dedicated[\s-]*air|air[\s-]*only|only\s+targets?\s+air|targets?\s+only\s+air)\b/i.test(txt)) return true;
+    if (/\b(?:does\s+not|doesn't|cannot|can't)\s+(?:hit|target)\s+high[\s-]*alt(?:itude)?\b/i.test(txt)) return false;
+    if (/\b(?:dedicated[\s-]*(?:air|anti[\s-]*air|aa)|air[\s-]*only|only\s+targets?\s+air|targets?\s+only\s+air)\b/i.test(txt)) return true;
     if (/\b(?:replaces?|converts?|switches?)\b[^.\n]{0,80}\b(?:aa\b|anti[\s-]*air|air[\s-]*to[\s-]*air)\b/i.test(txt)) return true;
-    if (/\b(?:targets?|hits?|engages?|shoots?|unlocks?)\s+high[\s-]*altitude\b/i.test(txt)) return true;
+    if (/\b(?:targets?|hits?|engages?|shoots?|unlocks?)\s+(?:air\s+(?:and|\+|&)\s+)?high[\s-]*alt(?:itude)?\b/i.test(txt)) return true;
     return false;
   }
 
@@ -2329,7 +2338,7 @@
   }
 
   function getDomainLabel(rec) {
-    if (isHighAltitudeUnit(rec)) return 'HIGH ALTITUDE';
+    if (isHighAltitudeUnit(rec)) return 'HIGH ALT AIRCRAFT';
     if (isLowAltitudeUnit(rec) && getDivisionBucket(rec) !== 'AIR') return 'LOW ALTITUDE (AIR)';
     return getDomain(rec);
   }
@@ -2340,7 +2349,7 @@
     const numTier = tier === 'MAX' ? 999 : (parseInt(tier, 10) || 1);
 
     if (defenderDomain === 'HIGH_ALTITUDE') {
-      return isDedicatedAirUnit(attackerRec) || Boolean(equippedDedicatedAir);
+      return isDedicatedAntiAirUnit(attackerRec) || Boolean(equippedDedicatedAir);
     }
 
     if (defenderDomain === 'AIR') {
@@ -2349,11 +2358,11 @@
       if (airGateMatch) {
         return numTier >= parseInt(airGateMatch[1], 10);
       }
-      if (!t || t.includes('BOTH') || t.includes('ALL') || t.includes('AIR')) return true;
+      if (!t || /\b(?:BOTH|ALL|ANYTHING|EVERYTHING|AIR|ANTI[\s-]*AIR|HIGH[\s-]*ALT(?:ITUDE)?)\b/.test(t)) return true;
       return false;
     }
-    if (!t || t.includes('BOTH') || t.includes('ALL') || t.includes('GROUND') || t.includes('LAND')) return true;
-    return !isDedicatedAirUnit(attackerRec);
+    if (!t || /\b(?:BOTH|ALL|ANYTHING|EVERYTHING|GROUND|LAND)\b/.test(t)) return true;
+    return !isDedicatedAntiAirUnit(attackerRec);
   }
 
   function computeArmorMult(dmgCore, targetArmor) {
@@ -2480,7 +2489,7 @@
       const isDedAirWs = isDedicatedAirWorkshopText(title, desc);
       if (oppDomain === 'HIGH_ALTITUDE' && isDedAirWs) {
         score += 95;
-        reasons.push('Converts to Dedicated Air — unlocks targeting HIGH ALTITUDE');
+        reasons.push('Converts to Dedicated Anti-Air — unlocks targeting HIGH ALT AIRCRAFT');
       }
       if ((oppDomain === 'AIR' || oppDomain === 'HIGH_ALTITUDE') && hay.includes('AIR')) {
         score += 32;
@@ -2960,7 +2969,7 @@
     const { A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult } = duel;
 
     if (duel.oppThreatIfEquipped && duel.oppThreatIfEquipped.length) {
-      strong.push(`⚠️ THREAT IF EQUIPPED: [${duel.oppThreatIfEquipped.join(', ')}] converts ${B.unit.UNIT_NAME} to Dedicated Air (hits HIGH ALTITUDE)!`);
+      strong.push(`⚠️ THREAT IF EQUIPPED: [${duel.oppThreatIfEquipped.join(', ')}] converts ${B.unit.UNIT_NAME} to Dedicated Anti-Air (hits HIGH ALT AIRCRAFT)!`);
     }
     if (!aCanHitB && !bCanHitA) {
       strong.push(`NWA (No Weapon Available) — ${A.unit.UNIT_NAME} cannot hit ${B.domainLabel || B.domain}.`);
@@ -3150,7 +3159,7 @@
     document.getElementById(`modal${prefix}Chips`).innerHTML = `
       <span class="meta-chip gen">${escapeHtml(getGenerationLabel(rec))}</span>
       <span class="meta-chip gold">${escapeHtml(cleanVal(rec.STAT_FACTION) || 'Unaligned')}</span>
-      ${isHighAltitudeUnit(rec) ? `<span class="meta-chip" style="border-color:rgba(192,132,252,0.75); color:#e9d5ff; background:rgba(168,85,247,0.16);">☁️ High Altitude (Dedicated Air Only)</span>` : ''}
+      ${isHighAltitudeUnit(rec) ? `<span class="meta-chip" style="border-color:rgba(192,132,252,0.75); color:#e9d5ff; background:rgba(168,85,247,0.16);">☁️ High Alt Aircraft (Dedicated Anti-Air Only)</span>` : ''}
       ${isLowAltitudeUnit(rec) ? `<span class="meta-chip" style="border-color:rgba(56,189,248,0.65); color:#7dd3fc; background:rgba(56,189,248,0.12);">✈️ Low Altitude (Air Target)</span>` : ''}
       <span class="meta-chip">🛡️ ${escapeHtml(cleanVal(rec.STAT_ARMOR_TYPE) || 'Std')}</span>
       <span class="meta-chip">💥 ${escapeHtml(cleanVal(rec.STAT_DAMAGE_TYPE) || 'Std')}</span>
