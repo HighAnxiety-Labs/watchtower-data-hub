@@ -1315,6 +1315,62 @@
       padding: 9px 12px; border-radius: 6px; background: rgba(168, 85, 247, 0.10); border: 1px solid rgba(168, 85, 247, 0.45);
       font-size: 12px; color: #e9d5ff;
     }
+    .qty-stepper-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #0a1420;
+      border: 1px solid #243c54;
+    }
+    .qty-stepper-wrap.is-locked {
+      opacity: 0.72;
+      border-color: rgba(168, 85, 247, 0.45);
+      background: rgba(168, 85, 247, 0.10);
+    }
+    .qty-stepper-lbl {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      padding: 0 3px;
+    }
+    .qty-step-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 3px;
+      border: 1px solid #2c4660;
+      background: #122030;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qty-step-btn:hover:not(:disabled) { border-color: #00e676; color: #00e676; background: #162a3d; }
+    .qty-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qty-step-input {
+      width: 38px;
+      height: 22px;
+      text-align: center;
+      background: #070d14;
+      border: 1px solid #1e3348;
+      border-radius: 3px;
+      color: #ffffff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      -moz-appearance: textfield;
+    }
+    .qty-step-input::-webkit-outer-spin-button,
+    .qty-step-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .squad-scale-row { cursor: pointer; }
+    .squad-scale-row:hover { border-color: #38bdf8; }
     @media (max-width: 820px) {
       .squad-kpi-strip { grid-template-columns: repeat(2, 1fr); }
       .squad-scale-row { grid-template-columns: 56px 1fr; }
@@ -1569,6 +1625,12 @@
               <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
+            <div class="qty-stepper-wrap" id="modalYouQtyWrap" title="Adjust number of Your Assets in this matchup (Soldiers can stack up to Quantity Buildable; Heroes/Warlords/Uniques are 1×)">
+              <span class="qty-stepper-lbl">QTY</span>
+              <button type="button" class="qty-step-btn" id="modalYouQtyMinus" onclick="stepModalQty('you', -1)">−</button>
+              <input type="number" id="modalYouQtyInput" class="qty-step-input" min="1" max="28" value="1" aria-label="Your Asset Quantity" onchange="setModalQty('you', this.value)">
+              <button type="button" class="qty-step-btn" id="modalYouQtyPlus" onclick="stepModalQty('you', 1)">+</button>
+            </div>
             <a href="./asset-briefs.html" onclick="return openUnitBriefInPage(event, modalYouUnit?.UNIT_NAME)" class="brief-jump-link" id="modalYouBriefLink">📖 Asset Brief</a>
           </div>
           <div class="unit-chip-row" id="modalYouChips"></div>
@@ -1602,6 +1664,12 @@
               <option value="40">Lvl 40</option>
               <option value="MAX" selected>MAX Lvl</option>
             </select>
+            <div class="qty-stepper-wrap" id="modalOppQtyWrap" title="Adjust number of Opponent Assets in this matchup (Soldiers can stack up to Quantity Buildable; Heroes/Warlords/Uniques are 1×)">
+              <span class="qty-stepper-lbl">QTY</span>
+              <button type="button" class="qty-step-btn" id="modalOppQtyMinus" onclick="stepModalQty('opp', -1)">−</button>
+              <input type="number" id="modalOppQtyInput" class="qty-step-input" min="1" max="28" value="1" aria-label="Opponent Asset Quantity" onchange="setModalQty('opp', this.value)">
+              <button type="button" class="qty-step-btn" id="modalOppQtyPlus" onclick="stepModalQty('opp', 1)">+</button>
+            </div>
             <a href="./asset-briefs.html" onclick="return openUnitBriefInPage(event, modalOppUnit?.UNIT_NAME)" class="brief-jump-link" id="modalOppBriefLink">📖 Asset Brief</a>
           </div>
           <div class="unit-chip-row" id="modalOppChips"></div>
@@ -3051,6 +3119,7 @@
     const baseSpeed = parseTierScaledStat(unit.STAT_SPEED, tier, 30);
     const splash = parseNumeric(unit.STAT_SPLASH) || 0;
     const unitSize = parseNumeric(unit.STAT_SIZE) || 0;
+    const qtyBuildable = parseNumeric(unit.STAT_QTY_BUILDABLE) || 0;
 
     return {
       unit, tier, wsEval,
@@ -3064,6 +3133,7 @@
       speed: Math.round(baseSpeed * (1 + totals.speedPct / 100)),
       splash,
       unitSize,
+      qtyBuildable,
       drPct: totals.drPct,
       flatDr: Math.round(totals.flatDr),
       evadePct: finalEvadePct,
@@ -3156,72 +3226,131 @@
   }
 
   function isSingleLimitAsset(rec) {
+    if (!rec) return false;
+    const qty = parseNumeric(rec.STAT_QTY_BUILDABLE) || 0;
+    if (qty === 1) return true;
+    if (qty > 1) return false;
     const cf = getUnitClassFlags(rec);
-    return Boolean(cf.isUnique || cf.isHero || cf.isWarlord || cf.isLegendary);
+    // Soldiers (including Legendary Soldiers like Escort, Banshee, Viper) are stackable; Heroes, Warlords & Uniques are 1x
+    if (cf.isHero || cf.isWarlord) return true;
+    if (cf.isUnique && !cf.isSoldier) return true;
+    return false;
   }
 
-  function simulateSquadVsSingle(squadCount, attProfile, defProfile, attEffDps, defEffDps, attFreeSec, defFreeSec) {
-    if (attEffDps <= 0) {
-      return { won: false, timeSec: Infinity, survivors: 0, lost: squadCount, defRemPct: 100 };
+  let modalQty = { you: 1, opp: 1 };
+
+  function getMaxQtyForUnit(rec) {
+    if (!rec || isSingleLimitAsset(rec)) return 1;
+    const qb = parseNumeric(rec.STAT_QTY_BUILDABLE) || 0;
+    return qb > 1 ? Math.min(40, qb) : 28;
+  }
+
+  function syncModalQtyControls() {
+    [['you', 'You', modalYouUnit], ['opp', 'Opp', modalOppUnit]].forEach(([side, prefix, rec]) => {
+      const maxQ = getMaxQtyForUnit(rec);
+      const locked = maxQ <= 1;
+      modalQty[side] = Math.max(1, Math.min(maxQ, parseInt(modalQty[side], 10) || 1));
+      const wrap = document.getElementById(`modal${prefix}QtyWrap`);
+      const inp = document.getElementById(`modal${prefix}QtyInput`);
+      const btnM = document.getElementById(`modal${prefix}QtyMinus`);
+      const btnP = document.getElementById(`modal${prefix}QtyPlus`);
+      if (wrap) wrap.classList.toggle('is-locked', locked);
+      if (inp) {
+        inp.max = String(maxQ);
+        inp.value = String(modalQty[side]);
+        inp.disabled = locked;
+      }
+      if (btnM) btnM.disabled = locked || modalQty[side] <= 1;
+      if (btnP) btnP.disabled = locked || modalQty[side] >= maxQ;
+    });
+  }
+
+  function stepModalQty(side, delta) {
+    const rec = side === 'you' ? modalYouUnit : modalOppUnit;
+    const maxQ = getMaxQtyForUnit(rec);
+    modalQty[side] = Math.max(1, Math.min(maxQ, (parseInt(modalQty[side], 10) || 1) + delta));
+    syncModalQtyControls();
+    recalculateModalMatchup();
+  }
+
+  function setModalQty(side, rawVal) {
+    const rec = side === 'you' ? modalYouUnit : modalOppUnit;
+    const maxQ = getMaxQtyForUnit(rec);
+    modalQty[side] = Math.max(1, Math.min(maxQ, parseInt(rawVal, 10) || 1));
+    syncModalQtyControls();
+    recalculateModalMatchup();
+  }
+
+  function simulateSquadVsSquad(attCount, defCount, attProfile, defProfile, attEffDps, defEffDps, attFreeSec, defFreeSec) {
+    if (attEffDps <= 0 && defEffDps <= 0) {
+      return { won: false, draw: true, timeSec: Infinity, attSurvivors: attCount, attLost: 0, defSurvivors: defCount, defLost: 0, defRemPct: 100, attRemPct: 100 };
     }
     const dt = 0.2;
     const maxSec = 180;
     let t = 0;
 
-    let defHp = defProfile.hp;
-    let defAuTriggered = false;
-    let defAuRem = 0;
-
-    const squad = [];
-    for (let i = 0; i < squadCount; i++) {
-      squad.push({ hp: attProfile.hp, auTriggered: false, auRem: 0 });
-    }
+    const attSquad = [];
+    for (let i = 0; i < attCount; i++) attSquad.push({ hp: attProfile.hp, auTriggered: false, auRem: 0 });
+    const defSquad = [];
+    for (let i = 0; i < defCount; i++) defSquad.push({ hp: defProfile.hp, auTriggered: false, auRem: 0 });
 
     while (t < maxSec) {
       t += dt;
-      const alive = squad.filter(u => u.hp > 0);
-      if (alive.length === 0 || defHp <= 0) break;
+      const aliveAtt = attSquad.filter(u => u.hp > 0);
+      const aliveDef = defSquad.filter(u => u.hp > 0);
+      if (aliveAtt.length === 0 || aliveDef.length === 0) break;
 
-      // Attacker squad fires (if past defender's free-strike window)
-      if (t >= defFreeSec) {
+      if (attEffDps > 0 && t >= defFreeSec) {
+        const frontDef = aliveDef[0];
         let defMult = 1.0;
-        if (defAuRem > 0) {
+        if (frontDef.auRem > 0) {
           defMult = 1 - (defProfile.armorUpDrPct || 0) / 100;
-          defAuRem = Math.max(0, defAuRem - dt);
+          frontDef.auRem = Math.max(0, frontDef.auRem - dt);
         }
-        defHp -= (alive.length * attEffDps * defMult) * dt;
-        if (!defAuTriggered && (defProfile.armorUpDrPct || 0) > 0 && defHp > 0 && defHp <= defProfile.hp * (defProfile.armorUpThreshold || 0.75)) {
-          defAuTriggered = true;
-          defAuRem = defProfile.armorUpDurSec || 5;
+        frontDef.hp -= (aliveAtt.length * attEffDps * defMult) * dt;
+        if (!frontDef.auTriggered && (defProfile.armorUpDrPct || 0) > 0 && frontDef.hp > 0 && frontDef.hp <= defProfile.hp * (defProfile.armorUpThreshold || 0.75)) {
+          frontDef.auTriggered = true;
+          frontDef.auRem = defProfile.armorUpDurSec || 5;
         }
       }
-      if (defHp <= 0) break;
 
-      // Defender fires at front-most surviving squad unit (if past attacker's free-strike window)
       if (defEffDps > 0 && t >= attFreeSec) {
-        const front = alive[0];
+        const frontAtt = aliveAtt[0];
         let attMult = 1.0;
-        if (front.auRem > 0) {
+        if (frontAtt.auRem > 0) {
           attMult = 1 - (attProfile.armorUpDrPct || 0) / 100;
-          front.auRem = Math.max(0, front.auRem - dt);
+          frontAtt.auRem = Math.max(0, frontAtt.auRem - dt);
         }
-        front.hp -= (defEffDps * attMult) * dt;
-        if (!front.auTriggered && (attProfile.armorUpDrPct || 0) > 0 && front.hp > 0 && front.hp <= attProfile.hp * (attProfile.armorUpThreshold || 0.75)) {
-          front.auTriggered = true;
-          front.auRem = attProfile.armorUpDurSec || 5;
+        frontAtt.hp -= (aliveDef.length * defEffDps * attMult) * dt;
+        if (!frontAtt.auTriggered && (attProfile.armorUpDrPct || 0) > 0 && frontAtt.hp > 0 && frontAtt.hp <= attProfile.hp * (attProfile.armorUpThreshold || 0.75)) {
+          frontAtt.auTriggered = true;
+          frontAtt.auRem = attProfile.armorUpDurSec || 5;
         }
       }
     }
 
-    const survivors = squad.filter(u => u.hp > 0).length;
-    const won = defHp <= 0 && survivors > 0;
+    const attSurvivors = attSquad.filter(u => u.hp > 0).length;
+    const defSurvivors = defSquad.filter(u => u.hp > 0).length;
+    const attRemHp = attSquad.reduce((s, u) => s + Math.max(0, u.hp), 0);
+    const defRemHp = defSquad.reduce((s, u) => s + Math.max(0, u.hp), 0);
+    const won = defSurvivors === 0 && attSurvivors > 0;
     return {
       won,
+      draw: defSurvivors === 0 && attSurvivors === 0,
       timeSec: Number(t.toFixed(1)),
-      survivors,
-      lost: squadCount - survivors,
-      defRemPct: Math.max(0, Math.round((defHp / Math.max(1, defProfile.hp)) * 100))
+      survivors: attSurvivors,
+      lost: attCount - attSurvivors,
+      attSurvivors,
+      attLost: attCount - attSurvivors,
+      defSurvivors,
+      defLost: defCount - defSurvivors,
+      attRemPct: Math.max(0, Math.round((attRemHp / Math.max(1, attCount * attProfile.hp)) * 100)),
+      defRemPct: Math.max(0, Math.round((defRemHp / Math.max(1, defCount * defProfile.hp)) * 100))
     };
+  }
+
+  function simulateSquadVsSingle(squadCount, attProfile, defProfile, attEffDps, defEffDps, attFreeSec, defFreeSec, oppCount = 1) {
+    return simulateSquadVsSquad(squadCount, oppCount, attProfile, defProfile, attEffDps, defEffDps, attFreeSec, defFreeSec);
   }
 
   function renderModalSquadEstimator(d) {
@@ -3271,20 +3400,22 @@
       return;
     }
 
-    // Case 3: Stackable non-unique asset -> run attrition simulation across squad counts
+    // Case 3: Stackable non-unique asset -> run attrition simulation across squad counts vs selected Opponent Qty
+    const oppQty = Math.max(1, parseInt(modalQty.opp, 10) || 1);
+    const maxSimN = A.qtyBuildable > 1 ? Math.min(30, A.qtyBuildable) : 28;
     const sims = [];
     let minWin = null;
     let zeroLoss = null;
-    for (let n = 1; n <= 12; n++) {
-      const r = simulateSquadVsSingle(n, A, B, aEffDps, bEffDps, aFreeSec, bFreeSec);
+    for (let n = 1; n <= maxSimN; n++) {
+      const r = simulateSquadVsSingle(n, A, B, aEffDps, bEffDps, aFreeSec, bFreeSec, oppQty);
       sims.push({ n, ...r });
       if (r.won && !minWin) minWin = { n, ...r };
       if (r.won && r.lost === 0 && !zeroLoss) zeroLoss = { n, ...r };
     }
 
-    const startN = 1;
-    const endN = minWin ? Math.min(12, Math.max(6, minWin.n + 4)) : 6;
-    const visibleRows = sims.filter(s => s.n >= startN && s.n <= endN);
+    const startN = (minWin && minWin.n > 4) ? Math.max(1, minWin.n - 1) : 1;
+    const endN = minWin ? Math.min(maxSimN, Math.max(startN + 5, minWin.n + 4)) : Math.min(maxSimN, 6);
+    const visibleRows = sims.filter(s => s.n === 1 || (s.n >= startN && s.n <= endN));
     const maxWinSec = visibleRows.filter(r => r.won).reduce((m, r) => Math.max(m, r.timeSec), 1);
 
     const capStr = n => A.unitSize > 0 ? `${(n * A.unitSize).toLocaleString()} cap` : '';
@@ -3297,6 +3428,7 @@
     const rowsHtml = visibleRows.map(r => {
       const isMin = minWin && r.n === minWin.n;
       const isSweet = zeroLoss && r.n === zeroLoss.n && (!minWin || zeroLoss.n > minWin.n || (minWin.n === 1 && r.n === 1));
+      const isSelected = r.n === (parseInt(modalQty.you, 10) || 1);
       const rowCls = !r.won ? 'is-loss' : (isSweet ? 'is-sweet' : (isMin ? 'is-min' : ''));
       const pctW = r.won ? Math.max(16, Math.round((r.timeSec / maxWinSec) * 96)) : 100;
       const barCls = !r.won ? 'loss' : (pctW >= 78 ? 'slow' : (pctW >= 50 ? 'med' : (pctW >= 34 ? 'fast' : 'rapid')));
@@ -3311,7 +3443,7 @@
         : (capStr(r.n) || 'Insufficient force');
 
       return `
-        <div class="squad-scale-row ${rowCls}">
+        <div class="squad-scale-row ${rowCls}" style="${isSelected ? 'outline:1.5px solid #38bdf8;' : ''}" title="Click to set Your Asset QTY to ${r.n}×" onclick="setModalQty('you', ${r.n})">
           <span class="squad-qty-pill">${r.n}×</span>
           <div class="squad-bar-track"><div class="squad-bar-fill ${barCls}" style="width:${pctW}%;">${barTxt}</div></div>
           <div class="squad-row-meta">${tagHtml}<span>${escapeHtml(metaRight)}</span></div>
@@ -3320,26 +3452,31 @@
     }).join('');
 
     const hasSplash = (B.splash > 0) || (B.dmgInfo && B.dmgInfo.core === 'AREA');
+    const qtyLabel = A.qtyBuildable > 0 ? `${A.qtyBuildable.toLocaleString()} Buildable` : (A.unitSize > 0 ? `${A.unitSize.toLocaleString()} Cap` : 'Stackable');
+    const qtySub = A.qtyBuildable > 0
+      ? (A.unitSize > 0 ? `${A.unitSize.toLocaleString()} cap each` : 'Max Quantity Buildable')
+      : 'Soldier / Stackable Asset';
+
     el.innerHTML = `
       <div class="section-hdr" style="margin-bottom:0;">
-        <h2>⚔️ Squad Force &amp; Time-to-Defeat Scale — ${escapeHtml(A.unit.UNIT_NAME)} vs 1× ${escapeHtml(B.unit.UNIT_NAME)}</h2>
-        <span>${defNotes.length ? 'Includes Enemy: ' + escapeHtml(defNotes.join(' • ')) : 'Live Step-by-Step Attrition'}</span>
+        <h2>⚔️ Squad Force &amp; Time-to-Defeat Scale — ${escapeHtml(A.unit.UNIT_NAME)} vs ${oppQty}× ${escapeHtml(B.unit.UNIT_NAME)}</h2>
+        <span>${defNotes.length ? 'Includes Enemy: ' + escapeHtml(defNotes.join(' • ')) : 'Click Any Row to Set Squad QTY'}</span>
       </div>
       <div class="squad-kpi-strip">
         <div class="squad-kpi-box hi-gold">
           <div class="squad-kpi-lbl">Min Needed to Defeat</div>
-          <div class="squad-kpi-val">${minWin ? `${minWin.n}× ${escapeHtml(A.unit.UNIT_NAME)}` : '> 12× Needed'}</div>
+          <div class="squad-kpi-val">${minWin ? `${minWin.n}× ${escapeHtml(A.unit.UNIT_NAME)}` : `> ${maxSimN}× Needed`}</div>
           <div class="squad-kpi-sub">${minWin ? `${minWin.timeSec.toFixed(1)}s • ${minWin.lost} lost${capStr(minWin.n) ? ' • ' + capStr(minWin.n) : ''}` : 'Overwhelming enemy advantage'}</div>
         </div>
         <div class="squad-kpi-box hi-green">
           <div class="squad-kpi-lbl">★ Zero-Loss Sweet Spot</div>
           <div class="squad-kpi-val">${zeroLoss ? `${zeroLoss.n}× ${escapeHtml(A.unit.UNIT_NAME)}` : 'Takes Losses'}</div>
-          <div class="squad-kpi-sub">${zeroLoss ? `${zeroLoss.timeSec.toFixed(1)}s • 0 lost${capStr(zeroLoss.n) ? ' • ' + capStr(zeroLoss.n) : ''}` : 'Even 12× suffers attrition'}</div>
+          <div class="squad-kpi-sub">${zeroLoss ? `${zeroLoss.timeSec.toFixed(1)}s • 0 lost${capStr(zeroLoss.n) ? ' • ' + capStr(zeroLoss.n) : ''}` : `Even ${maxSimN}× suffers attrition`}</div>
         </div>
         <div class="squad-kpi-box">
-          <div class="squad-kpi-lbl">Single-Unit Size</div>
-          <div class="squad-kpi-val">${A.unitSize > 0 ? `${A.unitSize.toLocaleString()} Cap` : 'Stackable'}</div>
-          <div class="squad-kpi-sub">Non-Unique Combat Asset</div>
+          <div class="squad-kpi-lbl">${A.qtyBuildable > 0 ? 'Quantity Buildable' : 'Single-Unit Size'}</div>
+          <div class="squad-kpi-val">${qtyLabel}</div>
+          <div class="squad-kpi-sub">${qtySub}</div>
         </div>
         <div class="squad-kpi-box">
           <div class="squad-kpi-lbl">1v1 Baseline</div>
@@ -3602,7 +3739,9 @@
     if (!preserveModalLevels) {
       document.getElementById('modalYouLvl').value = document.getElementById('myLevelSelect').value;
       document.getElementById('modalOppLvl').value = document.getElementById('oppGridLevelSelect').value;
+      modalQty = { you: 1, opp: 1 };
     }
+    syncModalQtyControls();
     const youTier = document.getElementById('modalYouLvl').value;
     const oppTier = document.getElementById('modalOppLvl').value;
 
@@ -3649,6 +3788,10 @@
     const tL = yL.value;
     yL.value = oL.value;
     oL.value = tL;
+
+    const tmpQ = modalQty.you;
+    modalQty.you = modalQty.opp;
+    modalQty.opp = tmpQ;
 
     launchModalWithUnits(modalYouUnit, modalOppUnit, true);
   }
@@ -3728,28 +3871,58 @@
     document.getElementById('modalYouWsCount').textContent = `${A.equippedCount} Workshop${A.equippedCount === 1 ? '' : 's'} Equipped`;
     document.getElementById('modalOppWsCount').textContent = `${B.equippedCount} Workshop${B.equippedCount === 1 ? '' : 's'} Equipped`;
 
+    syncModalQtyControls();
+    const youQty = Math.max(1, parseInt(modalQty.you, 10) || 1);
+    const oppQty = Math.max(1, parseInt(modalQty.opp, 10) || 1);
+    const isMultiSquad = youQty > 1 || oppQty > 1;
+    const youLbl = youQty > 1 ? `${youQty}× ${modalYouUnit.UNIT_NAME}` : modalYouUnit.UNIT_NAME;
+    const oppLbl = oppQty > 1 ? `${oppQty}× ${modalOppUnit.UNIT_NAME}` : modalOppUnit.UNIT_NAME;
+
+    let displayYouWinPct = d.youWinPct;
+    let displayOppWinPct = d.oppWinPct;
+    let squadSim = null;
+    if (isMultiSquad && d.aCanHitB && d.bCanHitA) {
+      squadSim = simulateSquadVsSquad(youQty, oppQty, A, B, d.aEffDps, d.bEffDps, d.aFreeSec, d.bFreeSec);
+      if (squadSim.won) {
+        displayYouWinPct = Math.min(97, Math.max(58, Math.round(55 + squadSim.attRemPct * 0.42)));
+      } else if (squadSim.draw) {
+        displayYouWinPct = 50;
+      } else {
+        displayYouWinPct = Math.max(3, Math.min(42, Math.round(45 - squadSim.defRemPct * 0.42)));
+      }
+      displayOppWinPct = 100 - displayYouWinPct;
+    }
+
     let headline = '';
     if (!d.aCanHitB && !d.bCanHitA) {
-      headline = `⚪ NWA (NO WEAPON AVAILABLE) — NEITHER UNIT CAN ENGAGE`;
+      headline = `⚪ NWA (NO WEAPON AVAILABLE) — NEITHER ASSET CAN ENGAGE`;
     } else if (!d.aCanHitB && d.bCanHitA) {
       headline = `🔴 AVOID CONTACT — NWA (NO WEAPON AVAILABLE vs ${B.domainLabel || B.domain})`;
     } else if (d.aCanHitB && !d.bCanHitA) {
-      headline = `🟢 FREE KILL — ${modalOppUnit.UNIT_NAME} HAS NWA (NO WEAPON AVAILABLE vs ${A.domainLabel || A.domain})`;
-    } else if (d.youWinPct >= 55) {
+      headline = `🟢 FREE KILL — ${oppLbl} HAS NWA (NO WEAPON AVAILABLE vs ${A.domainLabel || A.domain})`;
+    } else if (squadSim) {
+      if (squadSim.won) {
+        headline = `🟢 ${youLbl} WINS (${displayYouWinPct}% • ${squadSim.attSurvivors}/${youQty} SURVIVE • ${squadSim.timeSec.toFixed(1)}s)`;
+      } else if (squadSim.draw) {
+        headline = `🟡 MUTUAL DESTRUCTION — ${youLbl} vs ${oppLbl} (${squadSim.timeSec.toFixed(1)}s)`;
+      } else {
+        headline = `🔴 ${oppLbl} WINS (${displayOppWinPct}% • ${squadSim.defSurvivors}/${oppQty} SURVIVE • ${squadSim.timeSec.toFixed(1)}s)`;
+      }
+    } else if (displayYouWinPct >= 55) {
       const remHp = Math.max(4, Math.round((1 - (d.aTtk / d.bTtk)) * 100));
-      headline = `🟢 EASY KILL: ${modalYouUnit.UNIT_NAME} WINS (${d.youWinPct}% • ~${remHp}% HP LEFT)`;
-    } else if (d.youWinPct < 45) {
+      headline = `🟢 EASY KILL: ${youLbl} WINS (${displayYouWinPct}% • ~${remHp}% HP LEFT)`;
+    } else if (displayYouWinPct < 45) {
       const remHp = Math.max(4, Math.round((1 - (d.bTtk / d.aTtk)) * 100));
-      headline = `🔴 THREAT ALERT: ${modalOppUnit.UNIT_NAME} WINS (${d.oppWinPct}% • ~${remHp}% HP LEFT)`;
+      headline = `🔴 THREAT ALERT: ${oppLbl} WINS (${displayOppWinPct}% • ~${remHp}% HP LEFT)`;
     } else {
       headline = `🟡 EVEN 50/50 DUEL — WORKSHOPS & MICRO DECIDE`;
     }
 
-    document.getElementById('modalYouWinPct').textContent = `${d.youWinPct}%`;
-    document.getElementById('modalOppWinPct').textContent = `${d.oppWinPct}%`;
+    document.getElementById('modalYouWinPct').textContent = `${displayYouWinPct}%`;
+    document.getElementById('modalOppWinPct').textContent = `${displayOppWinPct}%`;
     document.getElementById('modalVerdictHeadline').textContent = headline;
-    document.getElementById('modalTugYou').style.width = `${d.youWinPct}%`;
-    document.getElementById('modalTugOpp').style.width = `${d.oppWinPct}%`;
+    document.getElementById('modalTugYou').style.width = `${displayYouWinPct}%`;
+    document.getElementById('modalTugOpp').style.width = `${displayOppWinPct}%`;
 
     document.getElementById('modalMetricsGrid').innerHTML = `
       <div class="v-metric">
@@ -3785,10 +3958,18 @@
       return `${p.drPiercePct}%`;
     };
 
+    const totHpA = A.hp * youQty;
+    const totHpB = B.hp * oppQty;
+    const totRawDpsA = A.rawDps * youQty;
+    const totRawDpsB = B.rawDps * oppQty;
+    const totEffDpsA = d.aEffDps * youQty;
+    const totEffDpsB = d.bEffDps * oppQty;
+    const fmtQtyVal = (val, qty) => qty > 1 ? `${val.toLocaleString()} <span style="font-size:0.78em;opacity:0.78;">(${qty}×)</span>` : val.toLocaleString();
+
     const statRows = [
-      { lbl: 'Hitpoints (HP)', a: A.hp, b: B.hp, fmt: v => v.toLocaleString() },
-      { lbl: 'Base / Buffed DPS', a: A.rawDps, b: B.rawDps, fmt: v => v.toLocaleString() },
-      { lbl: 'Effective Counter DPS', a: d.aEffDps, b: d.bEffDps, fmtA: () => d.aCanHitB ? d.aEffDps.toLocaleString() : 'NWA', fmtB: () => d.bCanHitA ? d.bEffDps.toLocaleString() : 'NWA' },
+      { lbl: isMultiSquad ? 'Combined Squad HP' : 'Hitpoints (HP)', a: totHpA, b: totHpB, fmtA: () => fmtQtyVal(totHpA, youQty), fmtB: () => fmtQtyVal(totHpB, oppQty) },
+      { lbl: isMultiSquad ? 'Combined Buffed DPS' : 'Base / Buffed DPS', a: totRawDpsA, b: totRawDpsB, fmtA: () => fmtQtyVal(totRawDpsA, youQty), fmtB: () => fmtQtyVal(totRawDpsB, oppQty) },
+      { lbl: isMultiSquad ? 'Combined Counter DPS' : 'Effective Counter DPS', a: totEffDpsA, b: totEffDpsB, fmtA: () => d.aCanHitB ? fmtQtyVal(totEffDpsA, youQty) : 'NWA', fmtB: () => d.bCanHitA ? fmtQtyVal(totEffDpsB, oppQty) : 'NWA' },
       { lbl: 'Weapon Range', a: A.range, b: B.range, fmtA: () => fmtRangeSide(A), fmtB: () => fmtRangeSide(B) },
       { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
       { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },

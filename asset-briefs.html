@@ -1081,6 +1081,7 @@
             <tr><td class="stats-label" style="text-align: right;">Damage Type</td><td class="stats-value" style="text-align: left;">{{STAT_DAMAGE_TYPE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Damage Profile</td><td class="stats-value" style="text-align: left;">{{STAT_DAMAGE_PROFILE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Size</td><td class="stats-value" style="text-align: left;">{{STAT_SIZE}}</td></tr>
+            <tr><td class="stats-label" style="text-align: right;">Quantity Buildable</td><td class="stats-value" style="text-align: left;">{{STAT_QTY_BUILDABLE}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Building Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">Level Required</td><td class="stats-value" style="text-align: left;">{{STAT_BUILDING_REQ}}</td></tr>
             <tr><td class="stats-label" style="text-align: right;">HP (Progression Range)</td><td class="stats-value" style="text-align: left;">{{STAT_HP_RANGE}}</td></tr>
@@ -1230,6 +1231,7 @@
     { key: 'STAT_DAMAGE_TYPE',  defaultLabel: 'Damage Type' },
     { key: 'STAT_DAMAGE_PROFILE', defaultLabel: 'Damage Profile' },
     { key: 'STAT_SIZE',         defaultLabel: 'Size' },
+    { key: 'STAT_QTY_BUILDABLE',defaultLabel: 'Quantity Buildable' },
     { key: 'STAT_BUILDING',     defaultLabel: 'Building Required' },
     { key: 'STAT_BUILDING_REQ', defaultLabel: 'Level Required' },
     { key: 'STAT_HP_RANGE',     defaultLabel: 'HP (Progression Range)' },
@@ -2807,6 +2809,7 @@
       'STAT_DAMAGE_TYPE': cleanVal(data['STAT_DAMAGE_TYPE']),
       'STAT_DAMAGE_PROFILE': cleanVal(data['STAT_DAMAGE_PROFILE']),
       'STAT_SIZE': cleanVal(data['STAT_SIZE']),
+      'STAT_QTY_BUILDABLE': cleanVal(data['STAT_QTY_BUILDABLE']),
       'STAT_BUILDING': cleanVal(data['STAT_BUILDING']),
       'STAT_BUILDING_REQ': cleanVal(data['STAT_BUILDING_REQ']) || cleanVal(data['STAT_BUILDING_MAX']),
       'STAT_HP_RANGE': formatBenchmarkStatString(cleanVal(data['STAT_HP_RANGE']) || cleanVal(data['STAT_HP'])),
