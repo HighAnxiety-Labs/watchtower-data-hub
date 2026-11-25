@@ -1132,37 +1132,100 @@
       display: flex;
       justify-content: space-between;
     }
-    .ws-cards-list { display: flex; flex-direction: column; gap: 7px; }
-    .ws-card {
-      background: #0b1420;
-      border: 1px solid #1d3148;
-      border-radius: 5px;
-      padding: 9px 11px;
-      cursor: pointer;
-      transition: all 0.18s ease;
+    .ws-cards-list { display: flex; flex-direction: column; gap: 9px; }
+    .ws-slot-group {
+      background: #080f18;
+      border: 1px solid #1b2f45;
+      border-radius: 6px;
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
-    .ws-card:hover { border-color: #3b5c80; }
-    .ws-card.recommended {
-      border-color: var(--gold-border);
-      background: linear-gradient(90deg, rgba(255, 215, 0, 0.12) 0%, rgba(11, 20, 32, 0.95) 100%);
+    .ws-slot-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #162638;
     }
-    .ws-card.equipped { outline: 1.5px solid var(--green-main); }
-    .ws-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 3px; }
-    .ws-card-name { font-weight: 800; font-size: 14px; color: #ffffff; text-transform: uppercase; }
-    .ws-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
-    .ws-pill {
+    .ws-slot-name {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.65px;
+      text-transform: uppercase;
+    }
+    .ws-slot-limit {
       font-family: 'Share Tech Mono', monospace;
       font-size: 9.5px;
       font-weight: 700;
-      padding: 2px 6px;
+      color: #94a3b8;
+      background: rgba(148, 163, 184, 0.10);
+      padding: 1px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .ws-slot-options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 7px;
+    }
+    .ws-card {
+      background: #0c1622;
+      border: 1.5px solid #1f3348;
+      border-radius: 5px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ws-card:hover { border-color: #38bdf8; background: #101d2d; }
+    .ws-card.is-dim { opacity: 0.62; }
+    .ws-card.is-dim:hover { opacity: 1; }
+    .ws-card.is-warn { border-color: rgba(248, 113, 113, 0.48); opacity: 0.78; }
+    .ws-card.is-warn:hover { opacity: 1; border-color: rgba(248, 113, 113, 0.85); }
+    .ws-card.recommended {
+      border-color: var(--gold-border);
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.13) 0%, rgba(11, 20, 32, 0.96) 100%);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.18);
+      opacity: 1;
+    }
+    .ws-card.equipped {
+      border-color: var(--green-main);
+      box-shadow: 0 0 13px rgba(0, 230, 118, 0.24);
+      opacity: 1;
+    }
+    .ws-card.recommended.equipped {
+      border-color: var(--green-main);
+      background: linear-gradient(180deg, rgba(0, 230, 118, 0.16) 0%, rgba(255, 215, 0, 0.08) 100%);
+      box-shadow: 0 0 15px rgba(0, 230, 118, 0.30);
+    }
+    .ws-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
+    .ws-card-name { font-weight: 800; font-size: 12.5px; color: #ffffff; text-transform: uppercase; line-height: 1.25; }
+    .ws-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+    .ws-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 5px;
       border-radius: 3px;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .ws-pill.best { background: rgba(255, 215, 0, 0.2); color: var(--gold-main); border: 1px solid var(--gold-border); }
     .ws-pill.equip { background: var(--green-dim); color: var(--green-main); border: 1px solid var(--green-border); }
     .ws-pill.slot { background: #101e2e; color: #9bb4cc; border: 1px solid #243b55; }
-    .ws-card-desc { font-size: 12.8px; color: #c5d6e6; line-height: 1.35; }
-    .ws-why { margin-top: 5px; font-family: 'Share Tech Mono', monospace; font-size: 10.5px; color: #fde047; }
+    .ws-pill.warn { background: rgba(248, 113, 113, 0.16); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.45); }
+    .ws-pill.off  { background: rgba(148, 163, 184, 0.10); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.25); }
+    .ws-card-desc { font-size: 11.5px; color: #c5d6e6; line-height: 1.32; }
+    .ws-why { margin-top: 2px; font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #fde047; }
+    .ws-why.muted { color: #64748b; }
+    .ws-why.warn { color: #fca5a5; }
     .ws-empty { font-size: 12.5px; color: var(--text-muted); font-style: italic; padding: 7px; border: 1px dashed #1f3349; border-radius: 4px; }
 
     @media (max-width: 1080px) {
@@ -2470,15 +2533,18 @@
         reasons.push(`🔥 High +${wsMod.dmgPct}% DPS boost vs ${opponent.UNIT_NAME}`);
       }
 
-      if (oppCountersMyArmor && (hay.includes('REDUCTION') || hay.includes('SHIELD') || hay.includes('ARMOR') || hay.includes('RESIST') || hay.includes('HEALTH') || hay.includes('HP'))) {
+      const wsDescUpper = String(desc || hay).toUpperCase();
+      const wsAppliesToOpp = clauseMatchesOpponent(wsDescUpper, oppDiv, oppArmor, oppDmg.core, opponent);
+
+      if (oppCountersMyArmor && wsAppliesToOpp && (wsMod.drPct > 0 || wsMod.hpPct > 0)) {
         score += 40;
         reasons.push(`Mitigates ${opponent.UNIT_NAME}'s 2.0x ${oppDmg.core} counter`);
       }
-      if (hay.includes(oppDmg.core) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b|\bREDUCTION\b|\bRESIST\b/.test(hay)) {
+      if (wsAppliesToOpp && wsMod.drPct > 0 && hay.includes(oppDmg.core) && /\bFROM\b|\bTAKEN\b|\bAGAINST\b|\bREDUCTION\b|\bRESIST\b/.test(hay)) {
         score += 35;
         reasons.push(`Directly counters ${oppDmg.core} damage`);
       }
-      if (hay.includes(oppArmor) && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('PIERC'))) {
+      if (wsAppliesToOpp && hay.includes(oppArmor) && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('PIERC'))) {
         score += 35;
         reasons.push(`Bonus offense vs ${oppArmor} Armor`);
       }
@@ -2491,30 +2557,56 @@
         score += 95;
         reasons.push('Converts to Dedicated Anti-Air — unlocks targeting HIGH ALT AIRCRAFT');
       }
-      if ((oppDomain === 'AIR' || oppDomain === 'HIGH_ALTITUDE') && hay.includes('AIR')) {
+      if ((oppDomain === 'AIR' || oppDomain === 'HIGH_ALTITUDE') && wsAppliesToOpp && hay.includes('AIR')) {
         score += 32;
         reasons.push('Tailored for Air targets');
       }
-      if (oppDiv === 'VEHICLE' && (hay.includes('VEHICLE') || hay.includes('ARMOR'))) {
+      if (oppDiv === 'VEHICLE' && wsAppliesToOpp && /\bVEHICLES?\b/.test(hay)) {
         score += 22;
         reasons.push('Effective vs Armored Vehicles');
       }
-      if (oppDiv === 'INFANTRY' && (hay.includes('INFANTRY') || hay.includes('SPLASH') || hay.includes('AREA')) && !isWeaponDowngrade) {
+      if (oppDiv === 'INFANTRY' && wsAppliesToOpp && (hay.includes('INFANTRY') || hay.includes('SPLASH') || hay.includes('AREA')) && !isWeaponDowngrade) {
         score += 22;
         reasons.push('High lethality vs Infantry squads');
       }
-      if (score === 10 && !isWeaponDowngrade && (hay.includes('DAMAGE') || hay.includes('DPS') || hay.includes('FIRE RATE'))) {
+      if (score === 10 && wsAppliesToOpp && !isWeaponDowngrade && wsMod.dmgPct > 0) {
         score += 18;
         reasons.push('Boosts head-to-head DPS');
       }
 
-      unitWorkshops.push({ key: `WS_${i}`, kind: 'UNIT_WS', title: title || `Workshop Slot ${i}`, tag, desc, score, isDedicatedAirWs: isDedAirWs, weaponSwap, isWeaponDowngrade, reasons });
+      const slotName = tag || `Workshop #${i}`;
+      const slotKey = slotName.toUpperCase().replace(/\s+/g, ' ').trim();
+      const isInactive = !wsAppliesToOpp && !isWeaponDowngrade && !isDedAirWs;
+
+      unitWorkshops.push({
+        key: `WS_${i}`,
+        kind: 'UNIT_WS',
+        slotName,
+        slotKey,
+        title: title || `Workshop Slot ${i}`,
+        tag: slotName,
+        desc,
+        score,
+        appliesToOpp: wsAppliesToOpp,
+        isInactive,
+        isDedicatedAirWs: isDedAirWs,
+        weaponSwap,
+        isWeaponDowngrade,
+        reasons
+      });
     }
 
-    const maxWsScore = unitWorkshops.reduce((m, w) => Math.max(m, w.score), 0);
+    // Pick at most ONE recommended Workshop per Slot Name (highest-scoring valid non-downgrade option in that slot)
+    const bestBySlot = new Map();
     unitWorkshops.forEach(w => {
-      w.recommended = !w.isWeaponDowngrade && w.score > 10 && ((w.score >= 28 && w.score >= maxWsScore - 8) || (maxWsScore < 28 && w.score === maxWsScore && unitWorkshops.length > 0));
+      w.recommended = false;
+      if (w.isWeaponDowngrade || w.isInactive || w.score <= 10) return;
+      const cur = bestBySlot.get(w.slotKey);
+      if (!cur || w.score > cur.score) {
+        bestBySlot.set(w.slotKey, w);
+      }
     });
+    bestBySlot.forEach(w => { w.recommended = true; });
 
     const factionWorkshops = [];
     for (let i = 1; i <= 4; i++) {
@@ -2697,6 +2789,7 @@
 
     if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.drPiercePct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
       const upper = txt.toUpperCase();
+      if (!clauseMatchesOpponent(upper, oppDiv, oppArmor, oppDmgCore, opponent)) return mod;
       if (upper.includes('DOUBLE DAMAGE')) {
         foundExplicitStat = true;
         mod.dmgPct = 50;
@@ -3084,15 +3177,15 @@
     const youTier = document.getElementById('modalYouLvl').value;
     const oppTier = document.getElementById('modalOppLvl').value;
 
-    // Default auto-equip top recommended counter workshops (sorted by score, excluding weapon downgrades)
+    // Default auto-equip the ★ recommended counter workshop from EACH slot (max 1 per slot name) + matching Faction Workshop
     const yEval = evaluateWorkshopsAgainstOpponent(youU, oppU, youTier, oppTier);
     const oEval = evaluateWorkshopsAgainstOpponent(oppU, youU, oppTier, youTier);
     modalEquipped.you = new Set([
-      ...yEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1).map(w => w.key),
+      ...yEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).map(w => w.key),
       ...yEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
     ]);
     modalEquipped.opp = new Set([
-      ...oEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).sort((a, b) => b.score - a.score).slice(0, 1).map(w => w.key),
+      ...oEval.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).map(w => w.key),
       ...oEval.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
     ]);
 
@@ -3138,15 +3231,37 @@
     const otherTier = document.getElementById(side === 'you' ? 'modalOppLvl' : 'modalYouLvl').value;
     const ev = evaluateWorkshopsAgainstOpponent(myU, otherU, myTier, otherTier);
     modalEquipped[side] = new Set([
-      ...ev.unitWorkshops.filter(w => w.recommended).map(w => w.key),
-      ...ev.factionWorkshops.filter(w => w.recommended).map(w => w.key)
+      ...ev.unitWorkshops.filter(w => w.recommended && !w.isWeaponDowngrade).map(w => w.key),
+      ...ev.factionWorkshops.filter(w => w.recommended).slice(0, 1).map(w => w.key)
     ]);
     recalculateModalMatchup();
   }
 
-  function toggleModalWorkshop(side, key) {
-    if (modalEquipped[side].has(key)) modalEquipped[side].delete(key);
-    else modalEquipped[side].add(key);
+  function toggleModalWorkshop(side, key, slotKey) {
+    if (modalEquipped[side].has(key)) {
+      modalEquipped[side].delete(key);
+    } else {
+      // Enforce max 1 equipped per Slot Name (or max 1 Faction Workshop)
+      const myU = side === 'you' ? modalYouUnit : modalOppUnit;
+      const otherU = side === 'you' ? modalOppUnit : modalYouUnit;
+      const myTier = document.getElementById(side === 'you' ? 'modalYouLvl' : 'modalOppLvl')?.value || 'MAX';
+      const otherTier = document.getElementById(side === 'you' ? 'modalOppLvl' : 'modalYouLvl')?.value || 'MAX';
+      if (key.startsWith('FWS_')) {
+        Array.from(modalEquipped[side]).forEach(k => { if (k.startsWith('FWS_')) modalEquipped[side].delete(k); });
+      } else if (myU && otherU) {
+        const ev = evaluateWorkshopsAgainstOpponent(myU, otherU, myTier, otherTier);
+        const clicked = ev.unitWorkshops.find(w => w.key === key);
+        const targetSlot = slotKey || (clicked && clicked.slotKey);
+        if (targetSlot) {
+          ev.unitWorkshops.forEach(w => {
+            if (w.slotKey === targetSlot && w.key !== key) {
+              modalEquipped[side].delete(w.key);
+            }
+          });
+        }
+      }
+      modalEquipped[side].add(key);
+    }
     recalculateModalMatchup();
   }
 
@@ -3325,32 +3440,81 @@
     document.getElementById(`modal${domPrefix}WsHdr`).textContent = `${myName} vs ${oppName}`;
     const renderCard = item => {
       const isEq = modalEquipped[sideKey].has(item.key);
+      const safeSlot = escapeHtml(item.slotKey || '').replace(/'/g, "\\'");
+      const extraCls = item.isWeaponDowngrade
+        ? 'is-warn'
+        : (item.isInactive ? 'is-dim' : (!item.recommended && !isEq ? 'is-dim' : ''));
+
+      let statusPill = `<span class="ws-pill off">OPTIONAL</span>`;
+      if (item.recommended) statusPill = `<span class="ws-pill best">★ RECOMMENDED</span>`;
+      else if (item.isWeaponDowngrade) statusPill = `<span class="ws-pill warn">⚠️ KEEP NATIVE</span>`;
+      else if (item.isInactive) statusPill = `<span class="ws-pill off">NO EFFECT</span>`;
+
+      let noteHtml = '';
+      if (item.reasons && item.reasons.length) {
+        const noteCls = item.isWeaponDowngrade ? 'warn' : '';
+        noteHtml = `<div class="ws-why ${noteCls}">↳ ${escapeHtml(item.reasons.join(' • '))}</div>`;
+      } else if (item.isInactive) {
+        noteHtml = `<div class="ws-why muted">✕ Inactive vs ${escapeHtml(oppName)}</div>`;
+      }
+
       return `
-        <div class="ws-card ${item.recommended ? 'recommended' : ''} ${isEq ? 'equipped' : ''}" onclick="toggleModalWorkshop('${sideKey}', '${item.key}')">
+        <div class="ws-card ${item.recommended ? 'recommended' : ''} ${isEq ? 'equipped' : ''} ${extraCls}" onclick="toggleModalWorkshop('${sideKey}', '${item.key}', '${safeSlot}')">
           <div class="ws-card-head">
             <div class="ws-card-name">${escapeHtml(item.title)}</div>
             <div class="ws-badges">
-              ${item.recommended ? `<span class="ws-pill best">★ BEST VS ${escapeHtml(oppName)}</span>` : `<span class="ws-pill slot">${escapeHtml(item.tag)}</span>`}
+              ${statusPill}
               ${isEq ? `<span class="ws-pill equip">✓ EQUIPPED</span>` : ''}
             </div>
           </div>
           <div class="ws-card-desc">${escapeHtml(item.desc)}</div>
-          ${item.reasons.length ? `<div class="ws-why">↳ Why: ${escapeHtml(item.reasons.join(' • '))}</div>` : ''}
+          ${noteHtml}
         </div>
       `;
     };
 
-    const uHtml = wsEval.unitWorkshops.length
-      ? `<div class="ws-cards-list">${wsEval.unitWorkshops.map(renderCard).join('')}</div>`
-      : `<div class="ws-empty">No Unit Workshop slots listed in MASTER_DB for ${escapeHtml(myName)}.</div>`;
+    // Group all Unit Workshops by Slot Name (max 1 active per slot)
+    let uHtml = '';
+    if (wsEval.unitWorkshops.length) {
+      const slotGroups = new Map();
+      wsEval.unitWorkshops.forEach(item => {
+        const sKey = item.slotKey || item.tag || item.key;
+        if (!slotGroups.has(sKey)) {
+          slotGroups.set(sKey, { name: item.slotName || item.tag || 'Workshop Slot', items: [] });
+        }
+        slotGroups.get(sKey).items.push(item);
+      });
+      uHtml = `<div class="ws-cards-list">${Array.from(slotGroups.values()).map(grp => `
+        <div class="ws-slot-group">
+          <div class="ws-slot-hdr">
+            <span class="ws-slot-name">🔧 ${escapeHtml(grp.name)}</span>
+            <span class="ws-slot-limit">PICK 1</span>
+          </div>
+          <div class="ws-slot-options-grid">
+            ${grp.items.map(renderCard).join('')}
+          </div>
+        </div>
+      `).join('')}</div>`;
+    } else {
+      uHtml = `<div class="ws-empty">No Asset Workshop slots listed in MASTER_DB for ${escapeHtml(myName)}.</div>`;
+    }
+
     const fHtml = wsEval.factionWorkshops.length
-      ? `<div class="ws-cards-list">${wsEval.factionWorkshops.map(renderCard).join('')}</div>`
+      ? `<div class="ws-slot-group">
+           <div class="ws-slot-hdr">
+             <span class="ws-slot-name">🏛️ FACTION WORKSHOP COUNTER</span>
+             <span class="ws-slot-limit">PICK 1</span>
+           </div>
+           <div class="ws-slot-options-grid">
+             ${wsEval.factionWorkshops.map(renderCard).join('')}
+           </div>
+         </div>`
       : `<div class="ws-empty">No Faction Workshop slots listed in MASTER_DB for ${escapeHtml(myName)}.</div>`;
 
     document.getElementById(`modal${domPrefix}WsList`).innerHTML = `
-      <div class="ws-sub-label"><span>⚙️ Unit Workshop Tech</span><span>Click to Toggle</span></div>
+      <div class="ws-sub-label"><span>⚙️ Asset Workshop Slots (All Visible)</span><span>Max 1 Per Slot</span></div>
       ${uHtml}
-      <div class="ws-sub-label"><span>🏛️ Faction Workshop Counter</span><span>Matches Opponent Faction</span></div>
+      <div class="ws-sub-label"><span>🏛️ Faction Workshop</span><span>Matches Opponent Faction</span></div>
       ${fHtml}
     `;
   }
