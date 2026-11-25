@@ -1228,6 +1228,99 @@
     .ws-why.warn { color: #fca5a5; }
     .ws-empty { font-size: 12.5px; color: var(--text-muted); font-style: italic; padding: 7px; border: 1px dashed #1f3349; border-radius: 4px; }
 
+    /* ==================== SQUAD FORCE & TIME-TO-DEFEAT SCALE ==================== */
+    .squad-est-panel {
+      background: #0a121b;
+      border: 1px solid #1e3348;
+      border-radius: 8px;
+      padding: 13px 15px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .squad-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+    }
+    .squad-kpi-box {
+      background: #0d1620;
+      border: 1px solid #1e3144;
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .squad-kpi-box.hi-gold { border-color: rgba(255, 215, 0, 0.55); background: rgba(255, 215, 0, 0.07); }
+    .squad-kpi-box.hi-green { border-color: rgba(0, 230, 118, 0.55); background: rgba(0, 230, 118, 0.08); }
+    .squad-kpi-lbl { font-family: 'Share Tech Mono', monospace; font-size: 9.5px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.45px; }
+    .squad-kpi-val { font-size: 16px; font-weight: 900; color: #ffffff; margin-top: 2px; }
+    .squad-kpi-box.hi-gold .squad-kpi-val { color: #fde047; }
+    .squad-kpi-box.hi-green .squad-kpi-val { color: #4ade80; }
+    .squad-kpi-sub { font-family: 'Share Tech Mono', monospace; font-size: 9.5px; color: #cbd5e1; margin-top: 2px; }
+    .squad-scale-list { display: flex; flex-direction: column; gap: 6px; }
+    .squad-scale-hdr {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.45px;
+    }
+    .squad-scale-row {
+      display: grid;
+      grid-template-columns: 62px 1fr 225px;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 9px;
+      border-radius: 5px;
+      background: #0d151e;
+      border: 1px solid #1b2c3d;
+    }
+    .squad-scale-row.is-min { border-color: rgba(255, 215, 0, 0.58); background: rgba(255, 215, 0, 0.07); }
+    .squad-scale-row.is-sweet { border-color: rgba(0, 230, 118, 0.62); background: rgba(0, 230, 118, 0.08); }
+    .squad-scale-row.is-loss { border-color: rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.05); opacity: 0.88; }
+    .squad-qty-pill {
+      font-family: 'Share Tech Mono', monospace; font-size: 12.5px; font-weight: 900; text-align: center;
+      padding: 3px 6px; border-radius: 4px; background: #142231; color: #e2e8f0; border: 1px solid #284057;
+    }
+    .is-min .squad-qty-pill { background: rgba(255, 215, 0, 0.18); color: #fde047; border-color: rgba(255, 215, 0, 0.6); }
+    .is-sweet .squad-qty-pill { background: rgba(0, 230, 118, 0.18); color: #4ade80; border-color: rgba(0, 230, 118, 0.6); }
+    .is-loss .squad-qty-pill { background: rgba(248, 113, 113, 0.16); color: #fca5a5; border-color: rgba(248, 113, 113, 0.45); }
+    .squad-bar-track {
+      height: 20px; background: #070c12; border: 1px solid #182736; border-radius: 4px; overflow: hidden; display: flex; align-items: center;
+    }
+    .squad-bar-fill {
+      height: 100%; border-radius: 3px; display: flex; align-items: center; padding: 0 8px;
+      font-family: 'Share Tech Mono', monospace; font-size: 10.5px; font-weight: 900; color: #041008; white-space: nowrap;
+    }
+    .squad-bar-fill.loss {
+      background: repeating-linear-gradient(45deg, rgba(239, 68, 68, 0.32), rgba(239, 68, 68, 0.32) 8px, rgba(185, 28, 28, 0.22) 8px, rgba(185, 28, 28, 0.22) 16px);
+      color: #fecaca; width: 100%;
+    }
+    .squad-bar-fill.slow  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .squad-bar-fill.med   { background: linear-gradient(90deg, #84cc16, #a3e635); }
+    .squad-bar-fill.fast  { background: linear-gradient(90deg, #10b981, #34d399); }
+    .squad-bar-fill.rapid { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+    .squad-row-meta {
+      display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+      font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #cbd5e1; white-space: nowrap;
+    }
+    .squad-tag { padding: 2px 5px; border-radius: 3px; font-weight: 800; font-size: 9px; text-transform: uppercase; }
+    .squad-tag.loss  { background: rgba(248, 113, 113, 0.16); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
+    .squad-tag.min   { background: rgba(255, 215, 0, 0.16); color: #fde047; border: 1px solid rgba(255, 215, 0, 0.5); }
+    .squad-tag.sweet { background: rgba(0, 230, 118, 0.18); color: #4ade80; border: 1px solid rgba(0, 230, 118, 0.55); }
+    .squad-tag.ok    { background: rgba(56, 189, 248, 0.14); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .squad-splash-warn {
+      padding: 7px 10px; border-radius: 5px; background: rgba(245, 158, 11, 0.10); border: 1px solid rgba(245, 158, 11, 0.40);
+      font-family: 'Share Tech Mono', monospace; font-size: 10.5px; color: #fde68a;
+    }
+    .squad-unique-bar {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      padding: 9px 12px; border-radius: 6px; background: rgba(168, 85, 247, 0.10); border: 1px solid rgba(168, 85, 247, 0.45);
+      font-size: 12px; color: #e9d5ff;
+    }
+    @media (max-width: 820px) {
+      .squad-kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .squad-scale-row { grid-template-columns: 56px 1fr; }
+      .squad-row-meta { grid-column: 1 / -1; justify-content: flex-start; }
+    }
+
     @media (max-width: 1080px) {
       .deck-controls-row { grid-template-columns: 1fr 1fr; }
       .deck-controls-row .unit-picker-col { grid-column: 1 / -1; }
@@ -1558,6 +1651,9 @@
         </div>
       </div>
     </section>
+
+    <!-- SQUAD FORCE & TIME-TO-DEFEAT SCALE ESTIMATOR -->
+    <section id="modalSquadEstimator" class="squad-est-panel"></section>
 
     <!-- ACTIVE TALENTS (UNLOCKED <= SELECTED LEVEL, HIDDEN WHEN BLANK) -->
     <section class="sub-panel talents-panel-wrap" id="modalTalentsSection" style="display:none;">
@@ -2237,11 +2333,59 @@
     m1.forEach(m => { total += parseFloat(m[1]) || 0; });
     const m2 = [...String(clauseText).matchAll(/\+?(\d+(?:\.\d+)?)\s*%\s*(?:flat\s*)?(?:damage\s*reduction|dr)\s*(?:pierc|ignor|bypass)[a-z]*/gi)];
     m2.forEach(m => { total += parseFloat(m[1]) || 0; });
+    if (total === 0 && /\b(?:pierces?|ignores?|bypass(?:es)?)\s+(?:a\s+target'?s\s+|all\s+|enemy\s+)?flat\s+damage\s+reduction\b/i.test(clauseText)) {
+      total = 100;
+    }
     return total;
   }
 
+  function extractFlatDrAmount(clauseText) {
+    if (!clauseText) return 0;
+    if (/\b(?:pierc|ignor|bypass)[a-z]*\b/i.test(clauseText)) return 0;
+    let total = 0;
+    const matches = [...String(clauseText).matchAll(/\+?(\d+(?:,\d{3})*)\s*(?:additional\s*)?flat\s+damage\s+reduction\b/gi)];
+    matches.forEach(m => {
+      total += parseFloat(String(m[1]).replace(/,/g, '')) || 0;
+    });
+    return total;
+  }
+
+  function extractEvadePct(clauseText) {
+    if (!clauseText) return 0;
+    const s = String(clauseText);
+    if (/\bno\s+longer\s+(?:dodges?|evades?)\b/i.test(s)) return 0;
+    // e.g. "20% chance to evade 50% Damage" -> effective 10%
+    const partial = s.match(/(\d+(?:\.\d+)?)\s*%\s*chance\s+to\s+(?:evade|dodge)\s+(\d+(?:\.\d+)?)\s*%\s*(?:incoming\s*)?damage/i);
+    if (partial) {
+      return Math.round(((parseFloat(partial[1]) || 0) * (parseFloat(partial[2]) || 0)) / 100);
+    }
+    // e.g. "evade 25% of all incoming projectiles", "evade projectiles ... increases to 50%", "15% chance to evade projectiles", "30% chance to evade all incoming damage"
+    const m1 = s.match(/(?:evade|dodge)[a-z\s]{0,36}?(?:increases?\s+to\s+)?(\d+(?:\.\d+)?)\s*%/i);
+    const m2 = s.match(/(\d+(?:\.\d+)?)\s*%\s*chance\s+to\s+(?:evade|dodge)/i);
+    const v = Math.max(m1 ? (parseFloat(m1[1]) || 0) : 0, m2 ? (parseFloat(m2[1]) || 0) : 0);
+    return Math.min(75, Math.round(v));
+  }
+
+  function extractArmorUpSpec(rawText) {
+    if (!rawText || !/\barmor\s*up\b/i.test(rawText)) return null;
+    const segMatch = String(rawText).match(/armor\s*up!?([\s\S]{0,180})/i);
+    const seg = segMatch ? segMatch[1] : '';
+    const drM = seg.match(/(\d+(?:\.\d+)?)\s*%\s*(?:reduced|less)\s*damage/i);
+    const durM = seg.match(/for\s*(\d+(?:\.\d+)?)\s*seconds?/i);
+    const thrM = seg.match(/reaches?\s*(\d+(?:\.\d+)?)\s*%\s*(?:health|hp)/i);
+    return {
+      drPct: drM ? Math.min(80, parseFloat(drM[1]) || 50) : 50,
+      durSec: durM ? Math.min(15, parseFloat(durM[1]) || 5) : 5,
+      threshold: thrM ? Math.min(0.95, Math.max(0.2, (parseFloat(thrM[1]) || 75) / 100)) : 0.75
+    };
+  }
+
   function extractTalentModifiers(talents, opponent) {
-    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0, unlocksAir: false };
+    const mod = {
+      dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, flatDr: 0,
+      evadePct: 0, armorUpDrPct: 0, armorUpDurSec: 0, armorUpThreshold: 0.75,
+      rangeFlat: 0, rangePct: 0, speedPct: 0, unlocksAir: false
+    };
     if (!talents || !talents.length) return mod;
 
     const oppDiv = getDivisionBucket(opponent);
@@ -2253,6 +2397,16 @@
       if (/\b(?:target|targets|attack|attacks|hit|hits)\s+air\b/i.test(rawDesc) || /\banti-air\b/i.test(rawDesc)) {
         mod.unlocksAir = true;
       }
+
+      const auSpec = extractArmorUpSpec(rawDesc);
+      if (auSpec) {
+        if (auSpec.drPct > mod.armorUpDrPct) {
+          mod.armorUpDrPct = auSpec.drPct;
+          mod.armorUpDurSec = auSpec.durSec;
+          mod.armorUpThreshold = auSpec.threshold;
+        }
+      }
+
       const clauses = rawDesc.split(/[.;\n]+/);
       clauses.forEach(clause => {
         const cTrim = clause.trim();
@@ -2267,13 +2421,23 @@
         const pierceVal = extractDrPiercePct(cTrim);
         if (pierceVal > 0) mod.drPiercePct += pierceVal;
 
+        const fDr = extractFlatDrAmount(cTrim);
+        if (fDr > 0) mod.flatDr += fDr;
+
+        const evPct = extractEvadePct(cTrim);
+        if (evPct > mod.evadePct) mod.evadePct = evPct;
+
+        // Don't double-count temporary Armor Up! DR as permanent DR
+        const isArmorUpClause = /\bARMOR\s*UP\b|FOR\s+\d+\s*SECONDS?\s+AFTER\s+THE\s+FIRST\s+TIME|REACHES?\s+\d+%\s*(?:HEALTH|HP)/.test(cUpper);
+        if (isArmorUpClause) return;
+
         const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
         pctMatches.forEach(m => {
           const sign = m[1] || '';
           const val = parseFloat(m[2]) || 0;
           const lbl = m[3].toUpperCase();
-          if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS') || lbl.includes('SPLASH RADIUS') || lbl.includes('SLOWER')) return;
-          if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
+          if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS') || lbl.includes('SPLASH RADIUS') || lbl.includes('SLOWER') || lbl.includes('EVADE') || lbl.includes('DODGE')) return;
+          if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || lbl.includes('LESS DAMAGE') || (sign === '-' && lbl.includes('DAMAGE'))) {
             mod.drPct += val;
           } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
             mod.dmgPct += val;
@@ -2725,7 +2889,7 @@
   }
 
   function extractWorkshopModifiers(wsItem, opponent) {
-    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+    const mod = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, flatDr: 0, evadePct: 0, disableEvade: false, rangeFlat: 0, rangePct: 0, speedPct: 0 };
     const txt = `${wsItem.title} ${wsItem.desc}`;
     if (wsItem.kind === 'FACTION_WS') {
       const oppFac = cleanVal(opponent.STAT_FACTION).toUpperCase();
@@ -2743,6 +2907,10 @@
     const oppDmgCore = normalizeDamage(opponent.STAT_DAMAGE_TYPE).core;
     let foundExplicitStat = false;
 
+    if (/\bno\s+longer\s+(?:dodges?|evades?)\b/i.test(txt)) {
+      mod.disableEvade = true;
+    }
+
     const clauses = String(wsItem.desc || txt).split(/[.;\n]+/);
     clauses.forEach(clause => {
       const cTrim = clause.trim();
@@ -2757,6 +2925,22 @@
         }
       }
 
+      const fDr = extractFlatDrAmount(cTrim);
+      if (fDr > 0) {
+        foundExplicitStat = true;
+        if (clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore, opponent)) {
+          mod.flatDr += fDr;
+        }
+      }
+
+      const evPct = extractEvadePct(cTrim);
+      if (evPct > 0) {
+        foundExplicitStat = true;
+        if (clauseMatchesOpponent(cUpper, oppDiv, oppArmor, oppDmgCore, opponent)) {
+          if (evPct > mod.evadePct) mod.evadePct = evPct;
+        }
+      }
+
       const pctMatches = [...cTrim.matchAll(/([+-]?)\s*(\d+(?:\.\d+)?)\s*%\s*([a-zA-Z\s-]{3,28})/g)];
       if (pctMatches.length) foundExplicitStat = true;
 
@@ -2766,8 +2950,8 @@
         const sign = m[1] || '';
         const val = parseFloat(m[2]) || 0;
         const lbl = m[3].toUpperCase();
-        if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS')) return;
-        if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || (sign === '-' && lbl.includes('DAMAGE'))) {
+        if (lbl.includes('IGNORES') || lbl.includes('PIERC') || lbl.includes('BYPASS') || lbl.includes('EVADE') || lbl.includes('DODGE')) return;
+        if (lbl.includes('REDUCTION') || lbl.includes('RESIST') || lbl.includes('TAKEN') || lbl.includes('LESS DAMAGE') || (sign === '-' && lbl.includes('DAMAGE'))) {
           mod.drPct += val;
         } else if (lbl.includes('DAMAGE') || lbl.includes('DPS') || lbl.includes('FIRE RATE')) {
           mod.dmgPct += val;
@@ -2787,12 +2971,12 @@
       }
     });
 
-    if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.drPiercePct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
+    if (!foundExplicitStat && mod.dmgPct === 0 && mod.hpPct === 0 && mod.drPct === 0 && mod.drPiercePct === 0 && mod.flatDr === 0 && mod.evadePct === 0 && mod.rangeFlat === 0 && mod.rangePct === 0) {
       const upper = txt.toUpperCase();
       if (!clauseMatchesOpponent(upper, oppDiv, oppArmor, oppDmgCore, opponent)) return mod;
       if (upper.includes('DOUBLE DAMAGE')) {
         foundExplicitStat = true;
-        mod.dmgPct = 50;
+        mod.dmgPct = 100;
       } else if (upper.includes('SHIELD') || upper.includes('ARMOR') || upper.includes('DEFEN')) {
         mod.drPct = 10;
       } else {
@@ -2805,7 +2989,7 @@
   function buildProfile(unit, opponent, tier, equippedSet, oppTier = tier) {
     const wsEval = evaluateWorkshopsAgainstOpponent(unit, opponent, tier, oppTier);
     const allWs = [...wsEval.unitWorkshops, ...wsEval.factionWorkshops];
-    const totals = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, rangeFlat: 0, rangePct: 0, speedPct: 0 };
+    const totals = { dmgPct: 0, hpPct: 0, drPct: 0, drPiercePct: 0, flatDr: 0, evadePct: 0, disableEvade: false, rangeFlat: 0, rangePct: 0, speedPct: 0 };
 
     let hasEquippedDedicatedAirWs = false;
     const equippedDedicatedAirTitles = [];
@@ -2825,6 +3009,9 @@
           totals.hpPct += m.hpPct;
           totals.drPct += m.drPct;
           totals.drPiercePct += m.drPiercePct;
+          totals.flatDr += (m.flatDr || 0);
+          if ((m.evadePct || 0) > totals.evadePct) totals.evadePct = m.evadePct;
+          if (m.disableEvade) totals.disableEvade = true;
           totals.rangeFlat += m.rangeFlat;
           totals.rangePct += m.rangePct;
           totals.speedPct += m.speedPct;
@@ -2838,10 +3025,13 @@
     totals.hpPct += tMod.hpPct;
     totals.drPct += tMod.drPct;
     totals.drPiercePct += tMod.drPiercePct;
+    totals.flatDr += (tMod.flatDr || 0);
+    if ((tMod.evadePct || 0) > totals.evadePct) totals.evadePct = tMod.evadePct;
     totals.rangeFlat += tMod.rangeFlat;
     totals.rangePct += tMod.rangePct;
     totals.speedPct += tMod.speedPct;
     totals.drPct = Math.min(65, totals.drPct);
+    const finalEvadePct = totals.disableEvade ? 0 : Math.min(75, totals.evadePct);
 
     const nativeDmgInfo = normalizeDamage(unit.STAT_DAMAGE_TYPE);
     const dmgInfo = activeWeaponSwap
@@ -2860,6 +3050,7 @@
     const baseRange = parseTierRangeForUnit(unit, tier, 350);
     const baseSpeed = parseTierScaledStat(unit.STAT_SPEED, tier, 30);
     const splash = parseNumeric(unit.STAT_SPLASH) || 0;
+    const unitSize = parseNumeric(unit.STAT_SIZE) || 0;
 
     return {
       unit, tier, wsEval,
@@ -2872,7 +3063,13 @@
       range: Math.round(baseRange * (1 + totals.rangePct / 100) + totals.rangeFlat),
       speed: Math.round(baseSpeed * (1 + totals.speedPct / 100)),
       splash,
+      unitSize,
       drPct: totals.drPct,
+      flatDr: Math.round(totals.flatDr),
+      evadePct: finalEvadePct,
+      armorUpDrPct: tMod.armorUpDrPct || 0,
+      armorUpDurSec: tMod.armorUpDurSec || 0,
+      armorUpThreshold: tMod.armorUpThreshold || 0.75,
       energyPiercePct,
       bonusDrPiercePct,
       drPiercePct,
@@ -2883,6 +3080,27 @@
       hasEquippedDedicatedAirWs,
       equippedDedicatedAirTitles
     };
+  }
+
+  function computeSingleTtkWithArmorUp(defProfile, effDps, freeSec) {
+    if (effDps <= 0) return Infinity;
+    const maxHp = Math.max(1, defProfile.hp);
+    const auDr = defProfile.armorUpDrPct || 0;
+    const auDur = defProfile.armorUpDurSec || 0;
+    const auThr = defProfile.armorUpThreshold || 0.75;
+    if (auDr <= 0 || auDur <= 0) {
+      return freeSec + Math.max(0, maxHp - effDps * freeSec) / effDps;
+    }
+    const triggerDmg = maxHp * (1 - auThr);
+    const tToTrigger = triggerDmg / effDps;
+    const auDps = Math.max(1, effDps * (1 - auDr / 100));
+    const remHpAtTrigger = maxHp - triggerDmg;
+    const dmgDuringAu = auDps * auDur;
+    if (dmgDuringAu >= remHpAtTrigger) {
+      return tToTrigger + remHpAtTrigger / auDps;
+    }
+    const remAfterAu = remHpAtTrigger - dmgDuringAu;
+    return tToTrigger + auDur + remAfterAu / effDps;
   }
 
   function simulateDuel(A, B) {
@@ -2897,17 +3115,23 @@
     const bEffectiveDr = Math.max(0, B.drPct - A.drPiercePct);
     const aEffectiveDr = Math.max(0, A.drPct - B.drPiercePct);
 
-    const aEffDps = aCanHitB ? Math.round(A.rawDps * aArmorMult * (1 - bEffectiveDr / 100)) : 0;
-    const bEffDps = bCanHitA ? Math.round(B.rawDps * bArmorMult * (1 - aEffectiveDr / 100)) : 0;
+    const bEffFlatDr = Math.round((B.flatDr || 0) * (1 - Math.min(100, A.drPiercePct) / 100));
+    const aEffFlatDr = Math.round((A.flatDr || 0) * (1 - Math.min(100, B.drPiercePct) / 100));
+
+    const aRawAfterPct = A.rawDps * aArmorMult * (1 - bEffectiveDr / 100);
+    const bRawAfterPct = B.rawDps * bArmorMult * (1 - aEffectiveDr / 100);
+
+    const aAfterFlat = Math.max(aRawAfterPct * 0.05, aRawAfterPct - bEffFlatDr);
+    const bAfterFlat = Math.max(bRawAfterPct * 0.05, bRawAfterPct - aEffFlatDr);
+
+    const aEffDps = aCanHitB ? Math.round(aAfterFlat * (1 - (B.evadePct || 0) / 100)) : 0;
+    const bEffDps = bCanHitA ? Math.round(bAfterFlat * (1 - (A.evadePct || 0) / 100)) : 0;
 
     const aFreeSec = (aCanHitB && A.range > B.range) ? Math.min(6, (A.range - B.range) / Math.max(12, B.speed * 2.4)) : 0;
     const bFreeSec = (bCanHitA && B.range > A.range) ? Math.min(6, (B.range - A.range) / Math.max(12, A.speed * 2.4)) : 0;
 
-    const bHpAfterApproach = Math.max(0, B.hp - aEffDps * aFreeSec);
-    const aHpAfterApproach = Math.max(0, A.hp - bEffDps * bFreeSec);
-
-    const aTtk = aEffDps > 0 ? (aFreeSec + bHpAfterApproach / aEffDps) : Infinity;
-    const bTtk = bEffDps > 0 ? (bFreeSec + aHpAfterApproach / bEffDps) : Infinity;
+    const aTtk = computeSingleTtkWithArmorUp(B, aEffDps, aFreeSec);
+    const bTtk = computeSingleTtkWithArmorUp(A, bEffDps, bFreeSec);
 
     let youWinPct = 50;
     if (!aCanHitB && bCanHitA) youWinPct = 2;
@@ -2925,9 +3149,214 @@
     else if (youWinPct >= 55) bucket = 'GREEN';
 
     return {
-      A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult, aMat, bMat, bEffectiveDr, aEffectiveDr, aEffDps, bEffDps,
+      A, B, aCanHitB, bCanHitA, aArmorMult, bArmorMult, aMat, bMat,
+      bEffectiveDr, aEffectiveDr, bEffFlatDr, aEffFlatDr, aEffDps, bEffDps,
       aFreeSec, bFreeSec, aTtk, bTtk, youWinPct, oppWinPct: 100 - youWinPct, bucket
     };
+  }
+
+  function isSingleLimitAsset(rec) {
+    const cf = getUnitClassFlags(rec);
+    return Boolean(cf.isUnique || cf.isHero || cf.isWarlord || cf.isLegendary);
+  }
+
+  function simulateSquadVsSingle(squadCount, attProfile, defProfile, attEffDps, defEffDps, attFreeSec, defFreeSec) {
+    if (attEffDps <= 0) {
+      return { won: false, timeSec: Infinity, survivors: 0, lost: squadCount, defRemPct: 100 };
+    }
+    const dt = 0.2;
+    const maxSec = 180;
+    let t = 0;
+
+    let defHp = defProfile.hp;
+    let defAuTriggered = false;
+    let defAuRem = 0;
+
+    const squad = [];
+    for (let i = 0; i < squadCount; i++) {
+      squad.push({ hp: attProfile.hp, auTriggered: false, auRem: 0 });
+    }
+
+    while (t < maxSec) {
+      t += dt;
+      const alive = squad.filter(u => u.hp > 0);
+      if (alive.length === 0 || defHp <= 0) break;
+
+      // Attacker squad fires (if past defender's free-strike window)
+      if (t >= defFreeSec) {
+        let defMult = 1.0;
+        if (defAuRem > 0) {
+          defMult = 1 - (defProfile.armorUpDrPct || 0) / 100;
+          defAuRem = Math.max(0, defAuRem - dt);
+        }
+        defHp -= (alive.length * attEffDps * defMult) * dt;
+        if (!defAuTriggered && (defProfile.armorUpDrPct || 0) > 0 && defHp > 0 && defHp <= defProfile.hp * (defProfile.armorUpThreshold || 0.75)) {
+          defAuTriggered = true;
+          defAuRem = defProfile.armorUpDurSec || 5;
+        }
+      }
+      if (defHp <= 0) break;
+
+      // Defender fires at front-most surviving squad unit (if past attacker's free-strike window)
+      if (defEffDps > 0 && t >= attFreeSec) {
+        const front = alive[0];
+        let attMult = 1.0;
+        if (front.auRem > 0) {
+          attMult = 1 - (attProfile.armorUpDrPct || 0) / 100;
+          front.auRem = Math.max(0, front.auRem - dt);
+        }
+        front.hp -= (defEffDps * attMult) * dt;
+        if (!front.auTriggered && (attProfile.armorUpDrPct || 0) > 0 && front.hp > 0 && front.hp <= attProfile.hp * (attProfile.armorUpThreshold || 0.75)) {
+          front.auTriggered = true;
+          front.auRem = attProfile.armorUpDurSec || 5;
+        }
+      }
+    }
+
+    const survivors = squad.filter(u => u.hp > 0).length;
+    const won = defHp <= 0 && survivors > 0;
+    return {
+      won,
+      timeSec: Number(t.toFixed(1)),
+      survivors,
+      lost: squadCount - survivors,
+      defRemPct: Math.max(0, Math.round((defHp / Math.max(1, defProfile.hp)) * 100))
+    };
+  }
+
+  function renderModalSquadEstimator(d) {
+    const el = document.getElementById('modalSquadEstimator');
+    if (!el || !d) return;
+    const { A, B, aCanHitB, bCanHitA, aEffDps, bEffDps, aFreeSec, bFreeSec } = d;
+    const youSingleOnly = isSingleLimitAsset(A.unit);
+    const oppSingleOnly = isSingleLimitAsset(B.unit);
+
+    // Case 1: Your asset is Unique / Hero / Warlord / Legendary -> 1x limit + Reverse Threat Check if opponent is stackable
+    if (youSingleOnly) {
+      let reverseHtml = '';
+      if (!oppSingleOnly && bCanHitA && bEffDps > 0) {
+        let oppMin = null;
+        for (let n = 1; n <= 12; n++) {
+          const res = simulateSquadVsSingle(n, B, A, bEffDps, aEffDps, bFreeSec, aFreeSec);
+          if (res.won) { oppMin = { n, res }; break; }
+        }
+        reverseHtml = oppMin
+          ? `<div style="font-family:'Share Tech Mono',monospace; color:#fde047; font-weight:800;">🛡️ Reverse Threat Check: Opponent needs <strong>${oppMin.n}× ${escapeHtml(B.unit.UNIT_NAME)}</strong> (${oppMin.res.timeSec.toFixed(1)}s) to defeat your 1× ${escapeHtml(A.unit.UNIT_NAME)}.</div>`
+          : `<div style="font-family:'Share Tech Mono',monospace; color:#4ade80; font-weight:800;">🛡️ Reverse Threat Check: Even 12× ${escapeHtml(B.unit.UNIT_NAME)} cannot defeat your 1× ${escapeHtml(A.unit.UNIT_NAME)}.</div>`;
+      }
+      el.innerHTML = `
+        <div class="section-hdr" style="margin-bottom:0;">
+          <h2>👑 Squad Force Limit (Unique / Hero Asset)</h2>
+          <span>1× Per Platoon Rule</span>
+        </div>
+        <div class="squad-unique-bar">
+          <div><strong>👑 ${escapeHtml(A.unit.UNIT_NAME)}</strong> (${escapeHtml(cleanVal(A.unit.CLASSIFICATION) || 'UNIQUE')}) is limited to <strong>1× per platoon</strong> — squad stacking is disabled.</div>
+          ${reverseHtml}
+        </div>
+      `;
+      return;
+    }
+
+    // Case 2: Your asset cannot hit opponent at all (NWA)
+    if (!aCanHitB || aEffDps <= 0) {
+      el.innerHTML = `
+        <div class="section-hdr" style="margin-bottom:0;">
+          <h2>⚔️ Squad Force &amp; Time-to-Defeat Scale — ${escapeHtml(A.unit.UNIT_NAME)}</h2>
+          <span>Cannot Target ${escapeHtml(B.domainLabel || B.domain)}</span>
+        </div>
+        <div class="squad-unique-bar" style="border-color:rgba(248,113,113,0.5); background:rgba(248,113,113,0.10); color:#fecaca;">
+          <div>⛔ <strong>NWA (No Weapon Available):</strong> Stacking more ${escapeHtml(A.unit.UNIT_NAME)} cannot defeat ${escapeHtml(B.unit.UNIT_NAME)} (${escapeHtml(B.domainLabel || B.domain)}) without a Dedicated Anti-Air counter.</div>
+        </div>
+      `;
+      return;
+    }
+
+    // Case 3: Stackable non-unique asset -> run attrition simulation across squad counts
+    const sims = [];
+    let minWin = null;
+    let zeroLoss = null;
+    for (let n = 1; n <= 12; n++) {
+      const r = simulateSquadVsSingle(n, A, B, aEffDps, bEffDps, aFreeSec, bFreeSec);
+      sims.push({ n, ...r });
+      if (r.won && !minWin) minWin = { n, ...r };
+      if (r.won && r.lost === 0 && !zeroLoss) zeroLoss = { n, ...r };
+    }
+
+    const startN = 1;
+    const endN = minWin ? Math.min(12, Math.max(6, minWin.n + 4)) : 6;
+    const visibleRows = sims.filter(s => s.n >= startN && s.n <= endN);
+    const maxWinSec = visibleRows.filter(r => r.won).reduce((m, r) => Math.max(m, r.timeSec), 1);
+
+    const capStr = n => A.unitSize > 0 ? `${(n * A.unitSize).toLocaleString()} cap` : '';
+    const s1 = sims[0];
+    const defNotes = [];
+    if (B.armorUpDrPct > 0) defNotes.push(`Armor Up! (${B.armorUpDrPct}% DR for ${B.armorUpDurSec}s)`);
+    if (B.flatDr > 0) defNotes.push(`+${B.flatDr} Flat DR`);
+    if (B.evadePct > 0) defNotes.push(`${B.evadePct}% Evasion`);
+
+    const rowsHtml = visibleRows.map(r => {
+      const isMin = minWin && r.n === minWin.n;
+      const isSweet = zeroLoss && r.n === zeroLoss.n && (!minWin || zeroLoss.n > minWin.n || (minWin.n === 1 && r.n === 1));
+      const rowCls = !r.won ? 'is-loss' : (isSweet ? 'is-sweet' : (isMin ? 'is-min' : ''));
+      const pctW = r.won ? Math.max(16, Math.round((r.timeSec / maxWinSec) * 96)) : 100;
+      const barCls = !r.won ? 'loss' : (pctW >= 78 ? 'slow' : (pctW >= 50 ? 'med' : (pctW >= 34 ? 'fast' : 'rapid')));
+      const barTxt = r.won
+        ? `${r.timeSec.toFixed(1)}s to defeat`
+        : `❌ DEFEATED in ${r.timeSec.toFixed(1)}s — Enemy survives w/ ${r.defRemPct}% HP`;
+      const tagHtml = !r.won
+        ? `<span class="squad-tag loss">LOSS</span>`
+        : (isSweet ? `<span class="squad-tag sweet">★ ZERO LOSSES</span>` : (isMin ? `<span class="squad-tag min">MIN TO WIN</span>` : `<span class="squad-tag ok">${r.lost === 0 ? '0 LOST' : r.lost + ' LOST'}</span>`));
+      const metaRight = r.won
+        ? `${r.survivors}/${r.n} survive${capStr(r.n) ? ' • ' + capStr(r.n) : ''}`
+        : (capStr(r.n) || 'Insufficient force');
+
+      return `
+        <div class="squad-scale-row ${rowCls}">
+          <span class="squad-qty-pill">${r.n}×</span>
+          <div class="squad-bar-track"><div class="squad-bar-fill ${barCls}" style="width:${pctW}%;">${barTxt}</div></div>
+          <div class="squad-row-meta">${tagHtml}<span>${escapeHtml(metaRight)}</span></div>
+        </div>
+      `;
+    }).join('');
+
+    const hasSplash = (B.splash > 0) || (B.dmgInfo && B.dmgInfo.core === 'AREA');
+    el.innerHTML = `
+      <div class="section-hdr" style="margin-bottom:0;">
+        <h2>⚔️ Squad Force &amp; Time-to-Defeat Scale — ${escapeHtml(A.unit.UNIT_NAME)} vs 1× ${escapeHtml(B.unit.UNIT_NAME)}</h2>
+        <span>${defNotes.length ? 'Includes Enemy: ' + escapeHtml(defNotes.join(' • ')) : 'Live Step-by-Step Attrition'}</span>
+      </div>
+      <div class="squad-kpi-strip">
+        <div class="squad-kpi-box hi-gold">
+          <div class="squad-kpi-lbl">Min Needed to Defeat</div>
+          <div class="squad-kpi-val">${minWin ? `${minWin.n}× ${escapeHtml(A.unit.UNIT_NAME)}` : '> 12× Needed'}</div>
+          <div class="squad-kpi-sub">${minWin ? `${minWin.timeSec.toFixed(1)}s • ${minWin.lost} lost${capStr(minWin.n) ? ' • ' + capStr(minWin.n) : ''}` : 'Overwhelming enemy advantage'}</div>
+        </div>
+        <div class="squad-kpi-box hi-green">
+          <div class="squad-kpi-lbl">★ Zero-Loss Sweet Spot</div>
+          <div class="squad-kpi-val">${zeroLoss ? `${zeroLoss.n}× ${escapeHtml(A.unit.UNIT_NAME)}` : 'Takes Losses'}</div>
+          <div class="squad-kpi-sub">${zeroLoss ? `${zeroLoss.timeSec.toFixed(1)}s • 0 lost${capStr(zeroLoss.n) ? ' • ' + capStr(zeroLoss.n) : ''}` : 'Even 12× suffers attrition'}</div>
+        </div>
+        <div class="squad-kpi-box">
+          <div class="squad-kpi-lbl">Single-Unit Size</div>
+          <div class="squad-kpi-val">${A.unitSize > 0 ? `${A.unitSize.toLocaleString()} Cap` : 'Stackable'}</div>
+          <div class="squad-kpi-sub">Non-Unique Combat Asset</div>
+        </div>
+        <div class="squad-kpi-box">
+          <div class="squad-kpi-lbl">1v1 Baseline</div>
+          <div class="squad-kpi-val" style="color:${s1.won ? '#4ade80' : '#fca5a5'};">${s1.won ? `WINS (${s1.timeSec.toFixed(1)}s)` : 'DEFEATED'}</div>
+          <div class="squad-kpi-sub">${s1.won ? '1× already defeats enemy' : `Enemy survives w/ ${s1.defRemPct}% HP`}</div>
+        </div>
+      </div>
+      <div class="squad-scale-list">
+        <div class="squad-scale-hdr">
+          <span>Squad Size</span>
+          <span>Time to Defeat Scale (Longer Bar = More Time Required)</span>
+          <span>Outcome &amp; Capacity</span>
+        </div>
+        ${rowsHtml}
+      </div>
+      ${hasSplash ? `<div class="squad-splash-warn">⚠️ <strong>Splash / Area Advisory:</strong> ${escapeHtml(B.unit.UNIT_NAME)} deals Area${B.splash > 0 ? ` (${B.splash} Splash)` : ''} damage — spread your ${escapeHtml(A.unit.UNIT_NAME)} squad in an arc so multiple units don't take simultaneous AoE hits.</div>` : ''}
+    `;
   }
 
   /* ==================== THUMBNAIL RADAR RENDERER ==================== */
@@ -3363,6 +3792,9 @@
       { lbl: 'Weapon Range', a: A.range, b: B.range, fmtA: () => fmtRangeSide(A), fmtB: () => fmtRangeSide(B) },
       { lbl: 'Max Speed', a: A.speed, b: B.speed, fmt: v => v.toLocaleString() },
       { lbl: 'Damage Reduction', a: A.drPct, b: B.drPct, fmt: v => v + '%' },
+      ...(A.flatDr > 0 || B.flatDr > 0 ? [{ lbl: 'Flat Damage Reduction', a: A.flatDr, b: B.flatDr, fmtA: () => A.flatDr > 0 ? `+${A.flatDr} (${d.aEffFlatDr} eff)` : '0', fmtB: () => B.flatDr > 0 ? `+${B.flatDr} (${d.bEffFlatDr} eff)` : '0' }] : []),
+      ...(A.armorUpDrPct > 0 || B.armorUpDrPct > 0 ? [{ lbl: 'Armor Up! Shield', a: A.armorUpDrPct, b: B.armorUpDrPct, fmtA: () => A.armorUpDrPct > 0 ? `${A.armorUpDrPct}% (${A.armorUpDurSec}s)` : 'None', fmtB: () => B.armorUpDrPct > 0 ? `${B.armorUpDrPct}% (${B.armorUpDurSec}s)` : 'None' }] : []),
+      ...(A.evadePct > 0 || B.evadePct > 0 ? [{ lbl: 'Projectile Evasion', a: A.evadePct, b: B.evadePct, fmt: v => v > 0 ? v + '%' : '0%' }] : []),
       { lbl: 'Flat DR Piercing', a: A.drPiercePct, b: B.drPiercePct, fmtA: () => fmtPierceSide(A), fmtB: () => fmtPierceSide(B) },
       { lbl: 'Splash Radius', a: A.splash, b: B.splash, fmt: v => v > 0 ? v : 'Single' }
     ];
@@ -3376,6 +3808,7 @@
 
     renderModalProsCons('You', A, B, d.aCanHitB, d.bCanHitA, d.aMat, d.bMat, d.bEffectiveDr, d.aFreeSec);
     renderModalProsCons('Opp', B, A, d.bCanHitA, d.aCanHitB, d.bMat, d.aMat, d.aEffectiveDr, d.bFreeSec);
+    renderModalSquadEstimator(d);
     renderModalTalents(A, B);
     renderModalWorkshops('you', 'You', modalYouUnit.UNIT_NAME, modalOppUnit.UNIT_NAME, A.wsEval);
     renderModalWorkshops('opp', 'Opp', modalOppUnit.UNIT_NAME, modalYouUnit.UNIT_NAME, B.wsEval);
