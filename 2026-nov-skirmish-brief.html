@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- WATCHTOWER PRE-RELEASE HOLDING BRIEF // NOV 2026 SKIRMISH -->
+<!-- WATCHTOWER OFFICIAL EVENT BRIEF // NOV 2026 SKIRMISH (MAMA BURNES) — FAQ #1079 -->
 <html lang="en">
 <head>
   <!-- [-WTR-] Google Analytics 4 & Telemetry (G-XJ4S885L7Z / Property 397291260) -->
@@ -12,14 +12,14 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>[-WTR-] Data Hub — NOV 2026 SKIRMISH (Pre-Release Brief)</title>
+  <title>[-WTR-] Data Hub — NOV 2026 SKIRMISH (Mama Burnes Brief)</title>
   <!-- Open Graph / Discord / Social Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — NOV 2026 SKIRMISH Brief">
-  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Event Brief — November 2026 Skirmish Schedule, Recruit/Officer Tracks &amp; Store Requisition Intelligence.">
-  <meta property="og:image" id="metaOgImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
+  <meta property="og:title" id="metaOgTitle" content="[-WTR-] Data Hub — NOV 2026 SKIRMISH Brief (Mama Burnes)">
+  <meta property="og:description" id="metaOgDesc" content="[-WTR-] WatchToweR Event Brief — November 2026 Skirmish featuring Arc 3 Rangers Hero MAMA BURNES, Recruit/Officer Tracks, Workshop Tech &amp; Prize Store.">
+  <meta property="og:image" id="metaOgImage" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f8b5b5ea-0470-480a-9b38-3cd43b87ad5e">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" id="metaTwitterImage" content="https://highanxiety-labs.github.io/watchtower-data-hub/assets/images/wtr-logo.png">
+  <meta name="twitter:image" id="metaTwitterImage" content="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f8b5b5ea-0470-480a-9b38-3cd43b87ad5e">
   <script src="./wtr-view-mode.js?v=2.4"></script>
   <style>
     :root {
@@ -29,19 +29,21 @@
       --theme-glow: rgba(12, 140, 98, 0.28);
       --border-dark: #103326;
       --tab-top-border: #174d39;
-      --corner-block-width: 280px;
+      --corner-block-width: 265px;
       --bg-dark: #070a0e;
       --bg-panel: #10151c;
+      --bg-card: #0c1218;
       --bg-header: #0c1117;
       --text-main: #dbe2ea;
       --text-muted: #8b9bb0;
-      --text-gold: #d4af37;
-      --text-cyan: #2ea3d6;
-      --text-orange: #d96b16;
-      --text-red: #d9534f;
+      --text-gold: #f5c542;
+      --text-cyan: #38bdf8;
+      --text-orange: #fb923c;
+      --text-red: #f87171;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg-dark);
@@ -57,11 +59,11 @@
 
     .brief-card {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
       background: var(--bg-panel);
       border: 1px solid var(--border-dark);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.72), 0 0 18px var(--theme-glow);
       display: flex;
       flex-direction: column;
       position: relative;
@@ -69,20 +71,18 @@
     }
 
     .locked-top-hud {
-      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
       width: 100%;
       background: #080c0a;
-      z-index: 10;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
     }
+    .locked-top-hud.is-unlocked { position: static; box-shadow: none; }
 
     .bar-solid-label {
       color: #ffffff;
-      text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0px  2px 5px rgba(0, 0, 0, 0.85);
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 2px 5px rgba(0, 0, 0, 0.85);
     }
 
     .classification-bar {
@@ -116,25 +116,17 @@
       gap: 7px;
       font-family: "Arial Black", sans-serif;
       font-size: 12px;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.1px;
       white-space: nowrap;
       z-index: 2;
     }
-
     .corner-top-left {
       left: 0;
       justify-content: flex-start;
       padding: 0 22px 0 16px;
       clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
-      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
     }
-
-    .corner-top-left::before {
-      content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
-    }
-
+    .corner-top-left::before { content: "■"; color: var(--accent-green); font-size: 11px; }
     .corner-top-right {
       right: 0;
       justify-content: flex-end;
@@ -147,241 +139,662 @@
       letter-spacing: 0.7px;
       text-transform: uppercase;
       color: var(--accent-green);
+      text-decoration: none;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%);
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
     }
-
-    .corner-top-right.is-prerelease-locked {
-      color: var(--text-gold);
-      cursor: not-allowed;
-    }
-
-    .corner-bottom-left {
-      left: 0;
-      justify-content: flex-start;
-      padding: 0 22px 0 16px;
-      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
-      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.55);
-    }
-
-    .corner-bottom-left::before {
-      content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
-    }
-
-    .corner-bottom-left .clock-lbl {
-      color: var(--text-gold);
-      font-size: 11.5px;
-      letter-spacing: 1px;
-    }
-
-    .corner-bottom-left .dyn-clock-readout {
-      font-family: monospace;
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--accent-green);
-      letter-spacing: 1px;
-      text-transform: none;
-    }
-
-    .corner-bottom-right {
-      right: 0;
-      justify-content: flex-end;
-      padding: 0 16px 0 22px;
-      font-family: monospace;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 1.2px;
-      color: var(--text-gold);
-      clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.55);
-    }
-
-    .corner-bottom-right::before {
-      content: "■";
-      color: var(--accent-green);
-      font-size: 11px;
-    }
+    .corner-top-right:hover { color: #ffffff; }
 
     .file-tabs-rail {
-      background: #080c0a;
-      padding: 8px 14px 0 14px;
-      border-bottom: 2px solid var(--primary-color);
       display: flex;
-      align-items: flex-end;
       justify-content: space-between;
-      gap: 4px;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: #0a1015;
+      border-bottom: 1px solid var(--tab-top-border);
       flex-wrap: wrap;
     }
-
     .file-tabs-group {
       display: flex;
-      align-items: flex-end;
-      gap: 4px;
       flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
     }
-
     .file-tab-btn {
-      position: relative;
-      background: linear-gradient(180deg, #151e26 0%, #0b1015 100%);
-      color: var(--text-muted);
-      border: none;
-      padding: 6px 10px 5px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background: #0e171f;
+      border: 1px solid #1d3640;
+      color: #cbd5e1;
+      text-decoration: none;
       font-family: monospace;
-      font-size: 10.5px;
-      font-weight: 900;
+      font-size: 11px;
+      font-weight: 800;
       letter-spacing: 0.4px;
       text-transform: uppercase;
       cursor: pointer;
-      clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 100%, 0 100%);
-      border-top: 2px solid var(--tab-top-border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      min-width: 38px;
-      white-space: nowrap;
+      transition: all 0.15s ease;
     }
-
-    .file-tab-btn .tab-idx {
-      color: var(--accent-green);
-      font-size: 10.5px;
-      font-weight: 900;
-    }
-
-    .file-tab-btn .tab-lbl {
-      color: #cbd5e1;
-    }
-
-    .file-tab-btn .tab-lbl:empty {
-      display: none;
-    }
-
+    .file-tab-btn:hover,
     .file-tab-btn.active-file-tab {
-      background: var(--primary-color);
+      border-color: var(--accent-green);
+      background: rgba(12, 140, 98, 0.22);
       color: #ffffff;
-      border-top-color: #cbd5e1;
     }
-
-    .file-tab-btn.active-file-tab .tab-idx,
-    .file-tab-btn.active-file-tab .tab-lbl {
+    .file-tab-btn .tab-idx { color: var(--accent-green); font-weight: 900; }
+    .file-tab-btn.calc-tab {
+      border-color: rgba(245, 197, 66, 0.55);
+      color: #fde047;
+      background: rgba(245, 197, 66, 0.10);
+    }
+    .file-tab-btn.calc-tab:hover {
+      background: rgba(245, 197, 66, 0.22);
       color: #ffffff;
-      text-shadow: 0 1px 2px #000;
     }
-
-    .file-tab-btn.calc-tab { border-top-color: var(--text-gold); }
-    .file-tab-btn.calc-tab .tab-lbl { color: var(--text-gold); }
-    .file-tab-btn.enemy-tab { border-top-color: var(--text-red); }
-    .file-tab-btn.enemy-tab .tab-lbl { color: #fca5a5; }
-    .file-tab-btn.tabs-locked { opacity: 0.55; cursor: not-allowed; }
-
-    .event-header {
-      padding: 18px 24px;
-      background: var(--bg-header);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .header-left-wrap {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex: 1 1 420px;
-      min-width: 280px;
-    }
-
-    .header-logo-link {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, var(--border-dark) 0%, #0b1118 50%, var(--primary-color) 100%);
-      box-shadow: 0 0 16px var(--theme-glow), inset 0 0 8px rgba(0, 0, 0, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      text-decoration: none;
-      position: relative;
-    }
-
-    .header-logo-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      border: 2px solid #000;
-      position: relative;
-      z-index: 2;
-    }
-
-    .event-header-text { flex: 1; min-width: 0; }
-
-    .event-sub-tag {
-      font-size: clamp(11px, 1.25vw, 13px);
-      letter-spacing: 1.3px;
-      color: var(--accent-green);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      font-weight: 800;
+    .sb-rail-actions {
       display: flex;
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
     }
-
-    .data-source-link {
-      color: var(--text-cyan);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--text-cyan);
-      font-weight: 900;
+    .sb-lock-btn {
+      padding: 5px 9px;
+      border-radius: 4px;
+      background: #0f1a22;
+      border: 1px solid #24404d;
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-transform: uppercase;
     }
+    .sb-lock-btn:hover { border-color: var(--accent-green); color: #ffffff; }
 
+    .event-header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #0b1614 0%, #0d151d 60%, #141920 100%);
+      border-bottom: 2px solid var(--border-dark);
+      flex-wrap: wrap;
+    }
+    .header-left-wrap { display: flex; align-items: center; gap: 14px; }
+    .header-logo-link {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #070b0f;
+      border: 2px solid var(--accent-green);
+      flex-shrink: 0;
+    }
+    .header-logo-img { width: 46px; height: 46px; object-fit: contain; }
+    .event-sub-tag {
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--accent-green);
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+    }
+    .data-source-link { color: var(--text-cyan); text-decoration: none; }
+    .data-source-link:hover { text-decoration: underline; }
     .event-main-title {
       font-family: "Arial Black", sans-serif;
-      font-size: clamp(24px, 3.8vw, 35px);
-      color: var(--accent-green);
+      font-size: 28px;
+      color: #ffffff;
       letter-spacing: 1.5px;
-      text-transform: uppercase;
       line-height: 1.1;
-      margin: 0;
+      text-transform: uppercase;
+      margin-top: 2px;
     }
-
+    .event-sub-hero {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-gold);
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      margin-top: 3px;
+    }
     .event-meta-box {
-      flex: 0 0 auto;
-      background: #080d0b;
-      border: 1px solid var(--border-dark);
-      border-left: 3px solid var(--primary-color);
-      border-radius: 4px;
+      background: rgba(7, 12, 16, 0.92);
+      border: 1px solid #1e3d35;
+      border-left: 3px solid var(--accent-green);
+      border-radius: 6px;
       padding: 10px 14px;
       display: flex;
       flex-direction: column;
       gap: 4px;
-      min-width: 285px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.75);
-      position: relative;
-      z-index: 2;
+      font-family: monospace;
+      font-size: 12px;
     }
+    .meta-line { display: flex; gap: 8px; justify-content: space-between; }
 
-    .meta-line {
+    /* Body Sections */
+    .brief-body {
+      padding: 18px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .brief-section {
+      background: var(--bg-card);
+      border: 1px solid #1a2d36;
+      border-radius: 8px;
+      overflow: hidden;
+      scroll-margin-top: 96px;
+    }
+    .sec-hdr {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      font-family: monospace;
-      font-size: 12.5px;
-      color: var(--text-main);
+      padding: 10px 15px;
+      background: linear-gradient(90deg, rgba(12, 140, 98, 0.24) 0%, #0d151d 100%);
+      border-bottom: 1px solid #1c3932;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sec-hdr h2 {
+      font-family: "Arial Black", sans-serif;
+      font-size: 14px;
+      color: #ffffff;
+      letter-spacing: 1px;
       text-transform: uppercase;
+    }
+    .sec-tag {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-green);
+      text-transform: uppercase;
+    }
+    .sec-content { padding: 15px; display: flex; flex-direction: column; gap: 14px; }
+
+    /* Hero Spotlight & Lore — 3-Column Compact Overview */
+    .overview-grid-3 {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .overview-col {
+      background: #0b131b;
+      border: 1px solid #1b323d;
+      border-radius: 6px;
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .overview-col.banner-col {
+      padding: 0;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+    .hero-banner-img {
+      width: 100%;
+      height: 100%;
+      min-height: 210px;
+      max-height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+    .banner-foot {
+      padding: 8px 11px;
+      background: #081116;
+      border-top: 1px solid #1a3530;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-gold);
+      font-weight: 800;
+      text-align: center;
       letter-spacing: 0.4px;
-      white-space: nowrap;
+    }
+    .overview-col-hdr {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--accent-green);
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #193038;
+    }
+    .lore-quote {
+      border-left: 3px solid var(--text-gold);
+      padding: 2px 0 2px 11px;
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.52;
+    }
+    .feature-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .feature-pill {
+      padding: 6px 9px;
+      border-radius: 4px;
+      background: #0f1923;
+      border: 1px solid #1f3644;
+      font-size: 11.8px;
+      font-weight: 700;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+    .feature-pill.hi {
+      border-color: rgba(245, 197, 66, 0.55);
+      background: rgba(245, 197, 66, 0.08);
+      color: #fde68a;
+    }
+    .feature-sub-group {
+      margin-left: 12px;
+      padding-left: 9px;
+      border-left: 2px solid rgba(245, 197, 66, 0.42);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .feature-sub-group .feature-pill {
+      padding: 5px 8px;
+      font-size: 11.4px;
     }
 
+    /* Stats + Portrait Grid */
+    .unit-spotlight-grid {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .unit-portrait-card {
+      background: #080d12;
+      border: 1.5px solid var(--accent-green);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .unit-portrait-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      background: #060a0e;
+    }
+    .unit-portrait-cap {
+      padding: 9px 10px;
+      background: #0b141a;
+      border-top: 1px solid #1b3630;
+    }
+    .unit-portrait-cap strong {
+      display: block;
+      font-family: "Arial Black", sans-serif;
+      font-size: 15px;
+      color: #ffffff;
+      letter-spacing: 0.8px;
+    }
+    .unit-portrait-cap span {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-gold);
+      font-weight: 800;
+    }
+
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .stats-table th, .stats-table td {
+      padding: 7px 11px;
+      border-bottom: 1px solid #182834;
+    }
+    .stats-table th {
+      text-align: right;
+      width: 44%;
+      color: var(--text-muted);
+      font-family: monospace;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .stats-table td {
+      text-align: left;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .stats-table tr:nth-child(even) td { background: rgba(255, 255, 255, 0.015); }
+
+    /* Talents Grid */
+    .talents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 10px;
+    }
+    .talent-card {
+      background: #0d161f;
+      border: 1px solid #1e3542;
+      border-left: 3px solid var(--accent-green);
+      border-radius: 6px;
+      padding: 11px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .talent-lvl {
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: var(--text-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .talent-aura {
+      font-size: 12.5px;
+      color: #86efac;
+      font-weight: 700;
+    }
+    .talent-text { font-size: 13px; color: #dbe2ea; line-height: 1.45; }
+
+    /* 3-Column Workshop Tech */
+    .tech-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .tech-card {
+      background: #0d151e;
+      border: 1px solid #203946;
+      border-top: 3px solid var(--text-gold);
+      border-radius: 7px;
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tech-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tech-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid #2c4a5a;
+      background: #070b0f;
+      flex-shrink: 0;
+    }
+    .tech-title {
+      font-family: "Arial Black", sans-serif;
+      font-size: 13px;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .tech-meta {
+      font-family: monospace;
+      font-size: 10.5px;
+      color: var(--text-cyan);
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .tech-effects {
+      font-size: 12.8px;
+      color: #e2e8f0;
+      line-height: 1.45;
+      padding-top: 6px;
+      border-top: 1px solid #1a2d3a;
+    }
+
+    /* Tracks & Eligible Roster */
+    .tracks-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .track-box {
+      background: #0d161f;
+      border: 1px solid #1f3844;
+      border-radius: 7px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .track-box.officer { border-color: rgba(245, 197, 66, 0.55); }
+    .track-box h3 {
+      font-family: "Arial Black", sans-serif;
+      font-size: 14px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .track-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.025);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12.5px;
+    }
+    .track-row.total {
+      background: rgba(12, 140, 98, 0.22);
+      border: 1px solid rgba(46, 184, 138, 0.45);
+      color: #4ade80;
+      font-weight: 900;
+    }
+    .track-box.officer .track-row.total {
+      background: rgba(245, 197, 66, 0.15);
+      border-color: rgba(245, 197, 66, 0.5);
+      color: #fde047;
+    }
+    .roster-callout {
+      padding: 10px 13px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-size: 13px;
+      color: #e0f2fe;
+    }
+
+    /* Prize Store Table */
+    .store-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .store-table thead th {
+      background: #0d1c19;
+      color: var(--accent-green);
+      font-family: monospace;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      padding: 9px 12px;
+      text-align: left;
+      border-bottom: 2px solid #1b4338;
+    }
+    .store-table thead th.num, .store-table tbody td.num { text-align: right; font-family: monospace; }
+    .store-table tbody td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #182a34;
+      color: #e2e8f0;
+    }
+    .store-table tbody tr:hover td { background: rgba(12, 140, 98, 0.08); }
+    .store-item-name { font-weight: 800; color: #ffffff; }
+    .store-cost { color: var(--text-gold); font-weight: 900; }
+    .store-warning {
+      padding: 10px 13px;
+      border-radius: 6px;
+      background: rgba(251, 146, 60, 0.12);
+      border: 1px solid rgba(251, 146, 60, 0.45);
+      color: #fed7aa;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .calc-cta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 6px;
+    }
+    .calc-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #0c8c62, #10b981);
+      color: #041008;
+      font-family: "Arial Black", sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+    }
+    .calc-cta-btn:hover { filter: brightness(1.1); }
+
+    /* Video Recon Cards */
+    .video-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .video-card {
+      background: rgba(12, 19, 27, 0.92);
+      border: 1px solid rgba(16, 185, 129, 0.32);
+      padding: 15px 16px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .video-card h3 {
+      font-family: "Arial Black", sans-serif;
+      font-size: 14.5px;
+      color: var(--accent-green);
+      margin: 0 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .yt-match-count {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 900;
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 1px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .yt-match-count.has-videos {
+      color: var(--text-gold);
+      background: rgba(245, 197, 66, 0.14);
+      border-color: var(--text-gold);
+      box-shadow: 0 0 10px rgba(245, 197, 66, 0.25);
+    }
+    .yt-match-count:hover { border-color: var(--accent-green); color: #ffffff; }
+    .window-pill {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--text-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .video-card p { font-size: 13px; color: #cbd5e1; margin: 0; line-height: 1.48; }
+    .video-btn {
+      display: inline-block;
+      background: #ff0000;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 12.5px;
+      padding: 8px 15px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.28);
+      transition: background-color 0.15s ease;
+    }
+    .video-btn:hover { background: #cc0000; }
+    .video-note { color: #94a3b8; font-size: 11.5px; margin-top: 8px; line-height: 1.4; }
+
+    /* Official KIXEYE Section Banner Headers */
+    .kix-banner-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2px 0;
+    }
+    .kix-banner-hdr {
+      max-height: 76px;
+      width: auto;
+      max-width: 100%;
+      display: block;
+      border-radius: 5px;
+      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45));
+    }
+    .mission-desc-box {
+      background: #0b131b;
+      border: 1px solid #1c3a45;
+      border-left: 3px solid var(--text-cyan);
+      border-radius: 6px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      color: #e2e8f0;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+    .mission-desc-box strong { color: #ffffff; }
+    .tech-slot-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Bottom Clock Bar */
     .bottom-clock-bar-m1 {
       position: relative;
       background: var(--primary-bar-bg);
@@ -398,137 +811,73 @@
       border-top: 2px solid rgba(0, 0, 0, 0.35);
       overflow: hidden;
     }
-
-    @keyframes radarSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .corner-bottom-left {
+      left: 0;
+      justify-content: flex-start;
+      padding: 0 22px 0 16px;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+    }
+    .corner-bottom-left::before { content: "■"; color: var(--accent-green); font-size: 11px; }
+    .corner-bottom-left .clock-lbl { color: var(--text-gold); font-size: 11.5px; }
+    .corner-bottom-left .dyn-clock-readout { font-family: monospace; color: #ffffff; font-size: 12px; }
+    .corner-bottom-right {
+      right: 0;
+      justify-content: flex-end;
+      padding: 0 16px 0 22px;
+      font-family: monospace;
+      font-size: 11.5px;
+      font-weight: 900;
+      color: #4ade80;
+      clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
     }
 
-    @keyframes beaconPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.88); }
-    }
-
-    @keyframes barScanSweep {
-      0% { left: -35%; }
-      100% { left: 115%; }
-    }
-
-    .logo-radar-ring::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent 0deg, transparent 260deg, var(--accent-green) 360deg);
-      animation: radarSpin 4s linear infinite;
-      z-index: 1;
-      opacity: 0.75;
-    }
-
-    .live-beacon-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--text-gold);
-      box-shadow: 0 0 8px var(--text-gold);
-      display: inline-block;
-      animation: beaconPulse 1.8s ease-in-out infinite;
-    }
-
-    .scanline-shimmer::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 28%;
-      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.16) 50%, transparent 100%);
-      transform: skewX(-25deg);
-      animation: barScanSweep 5.5s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .header-classified-watermark {
-      position: absolute;
-      right: 310px;
-      top: 50%;
-      transform: translateY(-50%) rotate(-8deg);
-      font-family: "Arial Black", sans-serif;
-      font-size: 36px;
-      letter-spacing: 5px;
-      color: rgba(255, 255, 255, 0.025);
-      border: 3px solid rgba(255, 255, 255, 0.03);
-      padding: 2px 14px;
-      border-radius: 4px;
-      pointer-events: none;
-      user-select: none;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 960px) {
-      .header-classified-watermark { display: none; }
-      .classification-bar,
-      .bottom-clock-bar-m1 {
-        padding: 6px 8px;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-      .corner-block-4 {
-        position: static;
-        width: auto;
-        padding: 4px 14px;
-      }
+    @media (max-width: 900px) {
+      .overview-grid-3, .unit-spotlight-grid, .tech-grid-3, .tracks-grid-2 { grid-template-columns: 1fr; }
+      .classification-bar, .bottom-clock-bar-m1 { padding: 6px 8px; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+      .corner-block-4 { position: static; width: auto; padding: 4px 12px; clip-path: none; }
     }
   </style>
   <script src="./wtr-social-share.js?v=1.2" data-wtr-auto-share="true"></script>
 </head>
 <body>
   <div class="brief-card">
-    <div class="locked-top-hud">
-      <div class="classification-bar scanline-shimmer">
+    <div class="locked-top-hud" id="lockedTopHud">
+      <div class="classification-bar">
         <span class="corner-block-4 corner-top-left">NOV 2026</span>
-        <span class="bar-solid-label">CLASSIFIED // SKIRMISH</span>
-        <button type="button" class="corner-block-4 corner-top-right is-prerelease-locked">
-          🔒 COLLAPSE BRIEF (LOCKED)
-        </button>
+        <span class="bar-solid-label">OFFICIAL BRIEF // SKIRMISH — MAMA BURNES</span>
+        <a class="corner-block-4 corner-top-right" href="./event-calculator.html?mode=skirmish">🧮 OPEN CALCULATOR ↗</a>
       </div>
 
       <nav class="file-tabs-rail">
-          <div class="file-tabs-group">
-            <button type="button" class="file-tab-btn active-file-tab"><span class="tab-idx">01</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">02</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">03</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">04</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">05</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn calc-tab tabs-locked"><span class="tab-idx">06</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">07</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn tabs-locked"><span class="tab-idx">08</span><span class="tab-lbl"></span></button>
-            <button type="button" class="file-tab-btn enemy-tab tabs-locked"><span class="tab-idx">09</span><span class="tab-lbl"></span></button>
-          </div>
-          <div class="sb-rail-actions">
-            <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="window.WTRSocialShare && window.WTRSocialShare.openPage('2026-nov-skirmish-brief.html')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
-            <button type="button" class="sb-lock-btn" id="btnToggleTabLock" onclick="toggleEventBriefTabLock('wtr_skirmish_tabs_unlocked')" title="Lock/Unlock the top tab rail while scrolling">🔒 LOCKED</button>
-          </div>
+        <div class="file-tabs-group">
+          <a href="#sec-overview" class="file-tab-btn active-file-tab"><span class="tab-idx">01</span>Overview</a>
+          <a href="#sec-video" class="file-tab-btn"><span class="tab-idx">02</span>Video Recon</a>
+          <a href="#sec-stats" class="file-tab-btn"><span class="tab-idx">03</span>Mama Burnes</a>
+          <a href="#sec-talents" class="file-tab-btn"><span class="tab-idx">04</span>Talents</a>
+          <a href="#sec-tech" class="file-tab-btn"><span class="tab-idx">05</span>Workshop Tech</a>
+          <a href="#sec-tracks" class="file-tab-btn"><span class="tab-idx">06</span>Mission &amp; Tracks</a>
+          <a href="#sec-store" class="file-tab-btn calc-tab"><span class="tab-idx">07</span>Prize Store</a>
+        </div>
+        <div class="sb-rail-actions">
+          <button type="button" class="wtr-sbtn wtr-sbtn-share" onclick="window.WTRSocialShare && window.WTRSocialShare.openPage('2026-nov-skirmish-brief.html')" title="Share this page (Discord, Facebook, Steam &amp; Direct Link)">🔗 SHARE THIS PAGE</button>
+          <button type="button" class="sb-lock-btn" id="btnToggleTabLock" onclick="toggleBriefTabLock()" title="Lock/Unlock the top tab rail while scrolling">🔒 LOCKED</button>
+        </div>
       </nav>
     </div>
 
     <header class="event-header">
-      <div class="header-classified-watermark">CLASSIFIED</div>
       <div class="header-left-wrap">
-        <a class="header-logo-link logo-radar-ring" href="https://highanxiety-labs.github.io/watchtower-data-hub/" target="_top" title="Return to [-WTR-] Command Center">
+        <a class="header-logo-link" href="https://highanxiety-labs.github.io/watchtower-data-hub/" target="_top" title="Return to [-WTR-] Command Center">
           <img class="header-logo-img" src="./assets/images/wtr-logo.png" alt="[-WTR-] Emblem">
         </a>
-        <div class="event-header-text">
+        <div>
           <div class="event-sub-tag">
             <span>[-WTR-] DATA HUB</span>
             <span style="opacity:0.45;">|</span>
-            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/" target="_blank" rel="noopener">Data Source ↗</a>
+            <a class="data-source-link" href="https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1079-skirmish-december-2026/" target="_blank" rel="noopener">Official KIXEYE FAQ #1079 ↗</a>
           </div>
-          <div class="event-title-row">
-            <h1 class="event-main-title">SKIRMISH</h1>
-          </div>
+          <h1 class="event-main-title">NOV 2026 SKIRMISH</h1>
+          <div class="event-sub-hero">🔥 FEATURING NEW ARC 3 RANGERS HERO — MAMA BURNES</div>
         </div>
       </div>
 
@@ -539,39 +888,512 @@
       </div>
     </header>
 
-    <div class="bottom-clock-bar-m1 scanline-shimmer">
+    <main class="brief-body">
+      <!-- 01: OVERVIEW & LORE (3-COLUMN LAYOUT) -->
+      <section class="brief-section" id="sec-overview">
+        <div class="sec-hdr">
+          <h2>01 // Operation Overview &amp; Hero Lore</h2>
+          <span class="sec-tag">Rangers Arc 3 Hero Launch</span>
+        </div>
+        <div class="sec-content">
+          <div class="overview-grid-3">
+            <!-- Col 1: Official Skirmish Banner -->
+            <div class="overview-col banner-col">
+              <img class="hero-banner-img" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/f8b5b5ea-0470-480a-9b38-3cd43b87ad5e" alt="Mama Burnes Skirmish Banner">
+              <div class="banner-foot">🔥 NOV 27 → DEC 1 • 24H USE IT OR LOSE IT</div>
+            </div>
+
+            <!-- Col 2: Mama Burnes Lore -->
+            <div class="overview-col">
+              <div class="overview-col-hdr">📜 Hero Background</div>
+              <div class="lore-quote">
+                Born into the lawless frostlands, <strong>Mama Burnes</strong> survived by transforming a ragtag group of abandoned orphans into the territory’s most feared, tight-knit militia. When the Rangers absorbed her syndicate into their military machine, she didn't step down — she simply brought her "family" along, bringing order to the chaotic front lines with an iron fist and a warm hearth. Today, she still treats the warzone like her personal neighborhood, fiercely protecting those who swear fealty to her while quietly adding the dog tags of the fallen to her armor as a reminder that loyalty goes both ways.
+              </div>
+            </div>
+
+            <!-- Col 3: Featuring Highlights -->
+            <div class="overview-col">
+              <div class="overview-col-hdr">⚡ Event Highlights</div>
+              <div class="feature-grid">
+                <div class="feature-pill hi">🔥 New Rangers Hero — MAMA BURNES (Arc 3)</div>
+                <div class="feature-sub-group">
+                  <div class="feature-pill">🪙 Upgrade Tokens (10)</div>
+                  <div class="feature-pill">⏱️ 24 Hr Build Logistics (4)</div>
+                  <div class="feature-pill">🛡️ Tech: Embershield Protocol (Spark)</div>
+                  <div class="feature-pill">💥 Tech: Wildfire Sweep (Singe)</div>
+                  <div class="feature-pill">🎵 Tech: Pyresong Harmonics (Scorch)</div>
+                </div>
+                <div class="feature-pill">🔄 Dyad Upgrade Token &amp; Dyad Maxbuildable</div>
+                <div class="feature-pill hi">📊 NEW: Recruit Base XP Changes (2-Base Track)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02: VIDEO RECON & GUIDES -->
+      <section class="brief-section" id="sec-video">
+        <div class="sec-hdr">
+          <h2>02 // Video Recon &amp; Guides</h2>
+          <span class="sec-tag">7-Day Event Window: Nov 27 → Dec 4, 2026</span>
+        </div>
+        <div class="sec-content">
+          <div class="video-hub-grid">
+            <div class="video-card">
+              <div>
+                <h3>Top Tier Guides <span id="vid1MatchCount" class="yt-match-count" onclick="refreshSkirmishVideoCounts(true)" title="Checking 7-Day Event Window (Nov 27–Dec 4, 2026)...">(...)</span></h3>
+                <span class="window-pill">📅 Window: Nov 27 – Dec 4, 2026 • "War Commander" + "Skirmish"</span>
+                <p>Actionable, zero-fluff breakdowns covering Nov 2026 Skirmish Recruit &amp; Officer base hits vs ONYX, Mama Burnes unit showcases, and low-repair farming routes.</p>
+              </div>
+              <div>
+                <a href="https://www.youtube.com/results?search_query=%22War+Commander%22+%22Skirmish%22+%22Project_d88%22+after%3A2026-11-26+before%3A2026-12-05"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="video-btn">▶ Top Tier YouTube Videos</a>
+                <div class="video-note"><strong>7-Day Event Window:</strong> Scoped to <code>"War Commander" "Skirmish"</code> within 7 days of event start (Nov 27–Dec 4, 2026). Click the counter badge to refresh live.</div>
+              </div>
+            </div>
+            <div class="video-card">
+              <div>
+                <h3>Watch Me Play <span id="vid2MatchCount" class="yt-match-count" onclick="refreshSkirmishVideoCounts(true)" title="Checking 7-Day Event Window (Nov 27–Dec 4, 2026)...">(...)</span></h3>
+                <span class="window-pill">📅 Window: Nov 27 – Dec 4, 2026 • "War Commander" + "Skirmish"</span>
+                <p>Casual gameplay runs and live Skirmish Recruit &amp; Officer set playthrough recordings from community creators.</p>
+              </div>
+              <div>
+                <a href="https://www.youtube.com/results?search_query=%22War+Commander%22+%22Skirmish%22+%28furiousbull2+OR+STORMYGAMINGYT+OR+DOT-sl1zo+OR+WCJBsamar%29+after%3A2026-11-26+before%3A2026-12-05"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="video-btn">▶ Watch Me Play Videos</a>
+                <div class="video-note"><strong>Event Creators (7 Days from Start):</strong> Scoped to <code>"War Commander" "Skirmish"</code> uploaded Nov 27–Dec 4, 2026.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03: MAMA BURNES STATS -->
+      <section class="brief-section" id="sec-stats">
+        <div class="sec-hdr">
+          <h2>03 // Rangers Hero — Mama Burnes Combat Stats</h2>
+          <span class="sec-tag">Arc 3 • Rangers • Heavy Infantry</span>
+        </div>
+        <div class="sec-content">
+          <div class="unit-spotlight-grid">
+            <div class="unit-portrait-card">
+              <img src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9794987a-9251-40f1-9ed4-6abc6d357cb1" alt="Mama Burnes Render">
+              <div class="unit-portrait-cap">
+                <strong>MAMA BURNES</strong>
+                <span>ARC 3 • RANGERS HERO</span>
+              </div>
+            </div>
+            <table class="stats-table">
+              <tbody>
+                <tr><th>Generation</th><td>Arc 3</td></tr>
+                <tr><th>Faction</th><td>Rangers</td></tr>
+                <tr><th>Type</th><td>Infantry</td></tr>
+                <tr><th>Armor Type</th><td>Heavy</td></tr>
+                <tr><th>Weapon</th><td>Flamethrower</td></tr>
+                <tr><th>Targets</th><td>Ground / Air</td></tr>
+                <tr><th>Damage Type</th><td>Area</td></tr>
+                <tr><th>Size (Capacity)</th><td>350</td></tr>
+                <tr><th>Building / Level Max</th><td>Academy / 50</td></tr>
+                <tr><th>HP (Level 1 → Max Lvl)</th><td>483,600 → 780,000</td></tr>
+                <tr><th>DPS (Level 1 → Max Lvl)</th><td>5,211 → 8,432</td></tr>
+                <tr><th>Max Speed</th><td>3</td></tr>
+                <tr><th>Max Range</th><td>550 (600 @ Level 5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04: TALENTS -->
+      <section class="brief-section" id="sec-talents">
+        <div class="sec-hdr">
+          <h2>04 // Mama Burnes Heroic &amp; Combat Talents</h2>
+          <span class="sec-tag">Levels 1 – 20 Progression</span>
+        </div>
+        <div class="sec-content">
+          <div class="talents-grid">
+            <div class="talent-card">
+              <div class="talent-lvl">Level 1 — Basic Heroic</div>
+              <div class="talent-aura">+10% Damage Dealt and -10% Damage Taken aura to all friendly Coalhearts.</div>
+              <div class="talent-text">
+                <strong>Frontline Unit:</strong> Continues advancing towards target until 500 Range away; can shoot while advancing within firing range.<br>
+                <strong>+50% Damage</strong> while targeting units with Light armor.<br>
+                <strong>Heart’s Accelerant:</strong> Mama Burnes and all Coalhearts spawn fire AoEs underneath them.
+              </div>
+            </div>
+            <div class="talent-card">
+              <div class="talent-lvl">Level 5 — Rising Heroic</div>
+              <div class="talent-aura">+15% Damage Dealt and -15% Damage Taken aura to all friendly Coalhearts.</div>
+              <div class="talent-text"><strong>+50 Range</strong> (extends Max Range from 550 to 600).</div>
+            </div>
+            <div class="talent-card">
+              <div class="talent-lvl">Level 10 — Heroic</div>
+              <div class="talent-aura">+20% Damage Dealt and -20% Damage Taken aura to all friendly Coalhearts.</div>
+              <div class="talent-text">
+                <strong>AD-3 Grenade:</strong> Throws a grenade that detonates into a small patch of temporary Low Wire Entanglement, slowing enemies with the same slow effect as Low Wire Entanglement.<br>
+                <strong>Secret Ingredient:</strong> Fires a second stream of volatile particulate while targeting enemies that are on fire, causing random explosions around them.
+              </div>
+            </div>
+            <div class="talent-card">
+              <div class="talent-lvl">Level 15 — Super Heroic</div>
+              <div class="talent-aura">+25% Damage Dealt and -25% Damage Taken aura to all friendly Coalhearts.</div>
+              <div class="talent-text"><strong>Mama Burnes’ attacks now pierce ALL Flat Damage Reduction.</strong> Hero becomes Renowned.</div>
+            </div>
+            <div class="talent-card">
+              <div class="talent-lvl">Level 20 — Supreme Heroic</div>
+              <div class="talent-aura">+30% Damage Dealt and -30% Damage Taken aura to all friendly Coalhearts.</div>
+              <div class="talent-text"><strong>Blue Flame:</strong> Gains stacks of Blue Flame when firing. Once stack threshold is reached, gains Blue Flame projectiles dealing <strong>+25% Damage</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05: MAMA BURNES TECH -->
+      <section class="brief-section" id="sec-tech">
+        <div class="sec-hdr">
+          <h2>05 // Mama Burnes Workshop Tech (3 Slots)</h2>
+          <span class="sec-tag">All 5 Levels • 100,000 XP Each</span>
+        </div>
+        <div class="sec-content">
+          <div class="tech-grid-3">
+            <div class="tech-card">
+              <div class="tech-top">
+                <div class="tech-slot-badge" aria-hidden="true">🛡️</div>
+                <div>
+                  <div class="tech-title">Embershield Protocol</div>
+                  <div class="tech-meta">SLOT: SPARK • DEFENSE • 5 LVLS</div>
+                </div>
+              </div>
+              <div class="tech-effects">
+                • <strong>-20 / 25 / 30 / 35 / 40%</strong> Damage Taken from Vehicles and Infantry.<br>
+                • <strong>+100 / 200 / 300 / 400 / 500</strong> Flat Damage Reduction.
+              </div>
+            </div>
+
+            <div class="tech-card">
+              <div class="tech-top">
+                <div class="tech-slot-badge" aria-hidden="true">💥</div>
+                <div>
+                  <div class="tech-title">Wildfire Sweep</div>
+                  <div class="tech-meta">SLOT: SINGE • OFFENSE • 5 LVLS</div>
+                </div>
+              </div>
+              <div class="tech-effects">
+                • <strong>+30 / 40 / 50 / 60 / 70%</strong> Damage to Vehicles and Infantry.<br>
+                • <strong>+100 / 200 / 300 / 400 / 500</strong> Flat Damage Reduction.
+              </div>
+            </div>
+
+            <div class="tech-card">
+              <div class="tech-top">
+                <div class="tech-slot-badge" aria-hidden="true">🎵</div>
+                <div>
+                  <div class="tech-title">Pyresong Harmonics</div>
+                  <div class="tech-meta">SLOT: SCORCH • HYBRID • 5 LVLS</div>
+                </div>
+              </div>
+              <div class="tech-effects">
+                • <strong>+15 / 30 / 45 / 60 / 75</strong> Range.<br>
+                • <strong>-1 / 2 / 3 / 4 / 5%</strong> Damage Taken per Coalheart or Mama Burnes with this tech equipped.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06: MISSION DESCRIPTION & SKIRMISH TRACKS -->
+      <section class="brief-section" id="sec-tracks">
+        <div class="sec-hdr">
+          <h2>06 // Mission Description &amp; Event Structure (vs ONYX)</h2>
+          <span class="sec-tag">Updated 2-Base Recruit XP</span>
+        </div>
+        <div class="sec-content">
+          <div class="kix-banner-wrap">
+            <img class="kix-banner-hdr" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/4ee0b305-8014-43b2-abf2-63d462aff2e7.png" alt="Mission Description">
+          </div>
+          <div class="mission-desc-box">
+            <p>Earn the next Arc III <strong>Rangers</strong> Hero, <strong>MAMA BURNES</strong>, in this month’s Skirmish, and use it to dominate in the upcoming monthly Event.</p>
+            <p>Use <strong>Voidhammer</strong>, <strong>Broadside</strong>, <strong>Myrmidon</strong>, <strong>Wanderer Kabuto</strong> and <strong>Dyad</strong> units and their <strong>Heroes</strong>, against <strong>ONYX</strong>, to play through the Recruit set or the Officer set to earn skirmish XP. Sets can be completed in any order and pay out a bonus XP Cache. The Officer set will test your might but will pay out more XP than the Recruit set. Choose the set that best fits your power level. You can hit the targets multiple times, and wins will count towards future set completions, so you won’t be penalized for hitting a target again!</p>
+          </div>
+
+          <div class="kix-banner-wrap" style="margin-top: 4px;">
+            <img class="kix-banner-hdr" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9e39e993-c91a-4b70-a117-0bfebd87fab3.png" alt="Event Structure">
+          </div>
+          <div class="tracks-grid-2">
+            <div class="track-box">
+              <h3><span>🎖️ Recruit Set</span><span style="color:#4ade80; font-size:12px;">NEW 2-BASE FORMAT</span></h3>
+              <div class="track-row"><span>Recruit Base I</span><strong>3,000 XP</strong></div>
+              <div class="track-row"><span>Recruit Base II</span><strong>5,000 XP</strong></div>
+              <div class="track-row"><span>Recruit Completion Bonus</span><strong>8,000 XP</strong></div>
+              <div class="track-row total"><span>TOTAL PER RECRUIT SET</span><span>16,000 XP</span></div>
+            </div>
+            <div class="track-box officer">
+              <h3><span>⭐ Officer Set</span><span style="color:#fde047; font-size:12px;">HIGH PAYOUT</span></h3>
+              <div class="track-row"><span>Officer Base I</span><strong>8,000 XP</strong></div>
+              <div class="track-row"><span>Officer Base II</span><strong>16,000 XP</strong></div>
+              <div class="track-row"><span>Officer Completion Bonus</span><strong>28,000 XP</strong></div>
+              <div class="track-row total"><span>TOTAL PER OFFICER SET</span><span>52,000 XP</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07: PRIZE STORE -->
+      <section class="brief-section" id="sec-store">
+        <div class="sec-hdr">
+          <h2>07 // Official Skirmish Prize Store</h2>
+          <span class="sec-tag">Synced with Event Calculator</span>
+        </div>
+        <div class="sec-content">
+          <div class="kix-banner-wrap">
+            <img class="kix-banner-hdr" src="https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/a2f57028-2190-47b6-be91-643507d51df0.png" alt="Event Store">
+          </div>
+          <table class="store-table">
+            <thead>
+              <tr>
+                <th>New Items</th>
+                <th class="num">Redemption Limit</th>
+                <th class="num">XP Cost</th>
+                <th class="num">Max Total XP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="store-item-name">Mama Burnes Unlock Parts</td>
+                <td class="num">80</td>
+                <td class="num store-cost">4,000 / Part</td>
+                <td class="num">320,000 XP</td>
+              </tr>
+              <tr>
+                <td class="store-item-name">Mama Burnes Upgrade Token</td>
+                <td class="num">10</td>
+                <td class="num store-cost">40,000 / Each</td>
+                <td class="num">400,000 XP</td>
+              </tr>
+              <tr>
+                <td class="store-item-name">Mama Burnes 24 Hr Build Logistic</td>
+                <td class="num">4</td>
+                <td class="num store-cost">32,000 / Each</td>
+                <td class="num">128,000 XP</td>
+              </tr>
+              <tr>
+                <td class="store-item-name">Mama Burnes Tech: Embershield Protocol</td>
+                <td class="num">1</td>
+                <td class="num store-cost">100,000</td>
+                <td class="num">100,000 XP</td>
+              </tr>
+              <tr>
+                <td class="store-item-name">Mama Burnes Tech: Wildfire Sweep</td>
+                <td class="num">1</td>
+                <td class="num store-cost">100,000</td>
+                <td class="num">100,000 XP</td>
+              </tr>
+              <tr>
+                <td class="store-item-name">Mama Burnes Tech: Pyresong Harmonics</td>
+                <td class="num">1</td>
+                <td class="num store-cost">100,000</td>
+                <td class="num">100,000 XP</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="store-warning">
+            ⏰ <strong>Use It or Lose It (24 Hours Only):</strong> Redeem all Skirmish XP prizes before <strong>10:00 AM PST on Wednesday, December 2nd, 2026</strong>. Full store buyout = <strong>1,148,000 XP</strong> (~23 Officer Sets).
+          </div>
+
+          <div class="calc-cta-row">
+            <span style="font-family:monospace; font-size:12px; color:#94a3b8;">Need to plan your exact Recruit / Officer runs for Mama Burnes + Tech?</span>
+            <a class="calc-cta-btn" href="./event-calculator.html?mode=skirmish">🧮 Open Skirmish in Event Calculator ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="bottom-clock-bar-m1">
       <span class="corner-block-4 corner-bottom-left">
-        <span class="clock-lbl">T-MINUS:</span>
+        <span class="clock-lbl" id="clockModeLbl">T-MINUS:</span>
         <span class="dyn-clock-readout" id="liveEventCountdown">0d 0h 00m 0s</span>
       </span>
-      <span class="bar-solid-label">RELEASE NOTES PENDING // UNLOCKS PRIOR TO LAUNCH</span>
-      <span class="corner-block-4 corner-bottom-right">
-        <span class="live-beacon-dot"></span>
-        <span>STATUS: SEALED</span>
+      <span class="bar-solid-label">UNCLASSIFIED // BY PLAYERS FOR PLAYERS • NOV 2026 SKIRMISH</span>
+      <span class="corner-block-4 corner-bottom-right" id="statusPillRight">
+        <span>STATUS: READY</span>
       </span>
     </div>
   </div>
 
   <script>
+  function toggleBriefTabLock() {
+    var hud = document.getElementById('lockedTopHud');
+    var btn = document.getElementById('btnToggleTabLock');
+    if (!hud || !btn) return;
+    var unlocked = hud.classList.toggle('is-unlocked');
+    btn.textContent = unlocked ? '🔓 UNLOCKED' : '🔒 LOCKED';
+  }
+
   (function() {
-    var isKnown = true;
     var startMs = new Date("2026-11-27T10:00:00-08:00").getTime();
+    var endMs = new Date("2026-12-01T10:00:00-08:00").getTime();
+    var storeMs = new Date("2026-12-02T10:00:00-08:00").getTime();
     var clockEl = document.getElementById("liveEventCountdown");
-    function tick() {
-      if (!isKnown || isNaN(startMs)) {
-        clockEl.textContent = "0d 0h 00m 0s";
-        return;
-      }
-      var diff = Math.max(0, startMs - Date.now());
+    var lblEl = document.getElementById("clockModeLbl");
+    var stEl = document.getElementById("statusPillRight");
+
+    function fmt(ms) {
+      var diff = Math.max(0, ms);
       var d = Math.floor(diff / 86400000);
       var h = Math.floor((diff % 86400000) / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
-      var mPad = m < 10 ? "0" + m : "" + m;
-      clockEl.textContent = d + "d " + h + "h " + mPad + "m " + s + "s";
+      return d + "d " + h + "h " + (m < 10 ? "0" + m : m) + "m " + (s < 10 ? "0" + s : s) + "s";
+    }
+
+    function tick() {
+      var now = Date.now();
+      if (now < startMs) {
+        if (lblEl) lblEl.textContent = "T-MINUS:";
+        if (stEl) stEl.textContent = "STATUS: LAUNCHING SOON";
+        clockEl.textContent = fmt(startMs - now);
+      } else if (now < endMs) {
+        if (lblEl) lblEl.textContent = "ENDS IN:";
+        if (stEl) stEl.textContent = "🟢 STATUS: LIVE";
+        clockEl.textContent = fmt(endMs - now);
+      } else if (now < storeMs) {
+        if (lblEl) lblEl.textContent = "STORE CLOSES:";
+        if (stEl) stEl.textContent = "🟡 USE IT OR LOSE IT";
+        clockEl.textContent = fmt(storeMs - now);
+      } else {
+        if (lblEl) lblEl.textContent = "STATUS:";
+        if (stEl) stEl.textContent = "ENDED";
+        clockEl.textContent = "EVENT CLOSED";
+      }
     }
     tick();
     setInterval(tick, 1000);
+
+    /* Live YouTube Recon Counter (7-Day Event Window: Nov 27 – Dec 4, 2026) */
+    var SK_WIN_START = new Date("2026-11-26T00:00:00-08:00").getTime();
+    var SK_WIN_END   = new Date("2026-12-05T23:59:59-08:00").getTime();
+    var SK_YT_CACHE_KEY = "wtr_yt_creator_feed_cache_v2";
+    var SK_YT_TTL_MS = 30 * 60 * 1000;
+    var SK_CREATOR_CHANNELS = [
+      { id: "project_d88",    group: "top",   owner: "Project_d88",      handle: "Project_d88",      channelId: "UCgLApDnJO92pQYt81v_T6oA", aliases: ["project_d88", "projectd88"] },
+      { id: "furiousbull2",   group: "watch", owner: "furious bull2",    handle: "furiousbull2",     channelId: "UCtzS9uHklZVwvyewJDmG8ww", aliases: ["furiousbull2", "furiousbull"] },
+      { id: "stormygamingyt", group: "watch", owner: "STORMY GAMING YT", handle: "STORMYGAMINGYT99", channelId: "UC5Nm3nZIMF0mp_BtXofnnIQ", aliases: ["stormygamingyt", "stormygamingyt99", "stormygaming"] },
+      { id: "dotsl1zo",       group: "watch", owner: "DOT",              handle: "DOT-sl1zo",        channelId: "UCD3iqiGHAA70Goo9mF8obJw", aliases: ["dotsl1zo", "dot-sl1zo", "sl1zo"] },
+      { id: "wcjbsamar",      group: "watch", owner: "WC JBsamar",       handle: "WCJBsamar",        channelId: "UCpBT5Xj1KLledXt_x7rzATA", aliases: ["wcjbsamar", "jbsamar"] }
+    ];
+
+    function normKey(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+    function loadSkFeedCache() { try { return JSON.parse(localStorage.getItem(SK_YT_CACHE_KEY) || "{}") || {}; } catch (e) { return {}; } }
+    function saveSkFeedCache(obj) { try { localStorage.setItem(SK_YT_CACHE_KEY, JSON.stringify(obj)); } catch (e) {} }
+
+    async function fetchSkCreatorRss(ch, forceRefresh) {
+      var cache = loadSkFeedCache();
+      var entry = cache[ch.channelId];
+      if (!forceRefresh && entry && Array.isArray(entry.items) && (Date.now() - (entry.fetchedAt || 0)) < SK_YT_TTL_MS) {
+        return entry.items;
+      }
+      var rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + ch.channelId;
+      var apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+      try {
+        var ctrl = new AbortController();
+        var tmr = setTimeout(function() { ctrl.abort(); }, 6500);
+        var res = await fetch(apiUrl, { signal: ctrl.signal });
+        clearTimeout(tmr);
+        if (!res.ok) return null;
+        var data = await res.json();
+        if (!data || data.status !== "ok" || !Array.isArray(data.items)) return null;
+        var items = data.items.map(function(it) {
+          var idM = String(it.link || it.guid || "").match(/(?:v=|video:)([a-zA-Z0-9_-]{11})/);
+          var pubMs = Date.parse(String(it.pubDate || "").replace(" ", "T") + "Z") || Date.parse(it.pubDate || "");
+          return {
+            id: idM ? idM[1] : (it.guid || it.link || ""),
+            creatorId: ch.id,
+            handle: ch.handle,
+            owner: ch.owner,
+            channelId: ch.channelId,
+            title: String(it.title || "").trim(),
+            descSnippet: String(it.description || "").replace(/<[^>]+>/g, " ").slice(0, 260),
+            publishedAt: it.pubDate || "",
+            publishedMs: pubMs || 0
+          };
+        }).filter(function(it) { return it.id; });
+        cache[ch.channelId] = { fetchedAt: Date.now(), items: items };
+        saveSkFeedCache(cache);
+        return items;
+      } catch (e) { return null; }
+    }
+
+    function matchSkirmishVideos(pool, groupName) {
+      var chans = SK_CREATOR_CHANNELS.filter(function(c) { return c.group === groupName; });
+      var idSet = new Set(chans.map(function(c) { return c.id; }));
+      var cidSet = new Set(chans.map(function(c) { return c.channelId; }));
+      var aliasList = chans.reduce(function(acc, c) { return acc.concat(c.aliases.map(normKey)); }, []);
+      var seen = new Set();
+      var out = [];
+      (pool || []).forEach(function(v) {
+        if (!v || !v.id || seen.has(v.id)) return;
+        var pubMs = Number(v.publishedMs || v.pubMs) || Date.parse(v.publishedAt || v.pubDate || v.published || "");
+        if (!pubMs || isNaN(pubMs) || pubMs < SK_WIN_START || pubMs > SK_WIN_END) return;
+        var text = (String(v.title || "") + " " + String(v.descSnippet || v.description || "") + " " + String(v.owner || v.channel || "")).toLowerCase();
+        var hasEvent = text.includes("skirmish") || text.includes("mama burnes");
+        if (!hasEvent) return;
+        var ownerNorm = normKey(String(v.creatorId || "") + " " + String(v.owner || "") + " " + String(v.channel || "") + " " + String(v.handle || "") + " " + String(v.author || ""));
+        var matchesCreator = idSet.has(v.creatorId) || cidSet.has(v.channelId) || aliasList.some(function(a) { return ownerNorm.includes(a); });
+        if (!matchesCreator) return;
+        seen.add(v.id);
+        out.push({
+          id: v.id,
+          title: v.title || "Skirmish Video",
+          owner: v.owner || v.channel || v.author || "Creator",
+          pubStr: new Date(pubMs).toLocaleDateString([], { month: "short", day: "numeric" })
+        });
+      });
+      return out;
+    }
+
+    function applyCounterBadge(id, list) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var n = list.length;
+      el.textContent = "(" + n + ")";
+      el.classList.toggle("has-videos", n > 0);
+      if (n > 0) {
+        var lines = list.map(function(v, i) { return (i + 1) + ". " + v.title + " — " + v.owner + " (" + v.pubStr + ")"; });
+        el.title = n + " War Commander: Skirmish video" + (n === 1 ? "" : "s") + " in 7-Day Window (Nov 27–Dec 4, 2026) — Click to Refresh:\n" + lines.join("\n");
+      } else {
+        el.title = "0 War Commander: Skirmish videos found in 7-Day Window (Nov 27–Dec 4, 2026) — Click to Refresh";
+      }
+    }
+
+    window.refreshSkirmishVideoCounts = async function(forceRefresh) {
+      var poolById = new Map();
+      var manifestItems = (window.WTR_DIRECTORY_MANIFEST && Array.isArray(window.WTR_DIRECTORY_MANIFEST.creatorVideos))
+        ? window.WTR_DIRECTORY_MANIFEST.creatorVideos : [];
+      manifestItems.forEach(function(it) { if (it && it.id) poolById.set(it.id, it); });
+      var localCache = loadSkFeedCache();
+      Object.values(localCache).forEach(function(entry) {
+        ((entry && entry.items) || []).forEach(function(it) { if (it && it.id) poolById.set(it.id, it); });
+      });
+      var renderFromPool = function() {
+        var all = Array.from(poolById.values());
+        applyCounterBadge("vid1MatchCount", matchSkirmishVideos(all, "top"));
+        applyCounterBadge("vid2MatchCount", matchSkirmishVideos(all, "watch"));
+      };
+      renderFromPool();
+      for (var i = 0; i < SK_CREATOR_CHANNELS.length; i++) {
+        if (i > 0) await new Promise(function(r) { setTimeout(r, 320); });
+        var liveItems = await fetchSkCreatorRss(SK_CREATOR_CHANNELS[i], Boolean(forceRefresh));
+        if (Array.isArray(liveItems)) {
+          liveItems.forEach(function(it) { if (it && it.id) poolById.set(it.id, it); });
+        }
+      }
+      renderFromPool();
+    };
+    window.refreshSkirmishVideoCounts(false);
   })();
   </script>
 </body>

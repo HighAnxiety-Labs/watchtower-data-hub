@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-24T22:08:09-08:00",
-    "generatedMs":  1795586884491,
+    "generatedAt":  "2026-11-25T19:31:55-08:00",
+    "generatedMs":  1795663910460,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -92,9 +92,9 @@ window.WTR_DIRECTORY_MANIFEST = {
                           {
                               "file":  "2026-nov-skirmish-brief.html",
                               "path":  "./2026-nov-skirmish-brief.html",
-                              "title":  "NOV 2026 SKIRMISH (Pre-Release Brief)",
-                              "modifiedAt":  "2026-11-21T07:49:34Z",
-                              "modifiedMs":  1795247374535
+                              "title":  "NOV 2026 SKIRMISH (Mama Burnes Brief)",
+                              "modifiedAt":  "2026-11-26T03:26:55Z",
+                              "modifiedMs":  1795663615010
                           },
                           {
                               "file":  "2026-pvp-season-60-brief.html",
@@ -163,8 +163,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "event-calculator.html",
                               "path":  "./event-calculator.html",
                               "title":  "Multi-Event XP \u0026 Store Requisition Calculator",
-                              "modifiedAt":  "2026-11-23T00:55:12Z",
-                              "modifiedMs":  1795395312897
+                              "modifiedAt":  "2026-11-26T03:31:23Z",
+                              "modifiedMs":  1795663883636
                           },
                           {
                               "file":  "faction-intel.html",
@@ -326,6 +326,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "HIVE COMMAND",
                                           "HIVE GUARD",
                                           "HIVE WATCHER",
+                                          "HOLOSIGHT",
                                           "IGNACIO DIAZ",
                                           "IRONSIDE",
                                           "JANELLE BROWN",
@@ -334,6 +335,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "KAI CHEN",
                                           "LANDLOCHE",
                                           "LANDLOCKE",
+                                          "LASER TANK X",
                                           "LEGENDARY ESCORT",
                                           "LUCIA VEGA",
                                           "MARSHAL",
@@ -359,6 +361,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "RAMIREZ",
                                           "RECRUITER",
                                           "RHINO",
+                                          "RIZE",
                                           "ROCKETEER",
                                           "ROLLER",
                                           "RUTH BOGARD",
@@ -373,6 +376,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "TACTICAL BACKUP",
                                           "TACTICAL BACKUP BASTION",
                                           "TERRY MICHAELS",
+                                          "TORTOISE",
                                           "TUNGSTEN",
                                           "VALIANT MKII",
                                           "VEGA",
@@ -423,36 +427,12 @@ window.WTR_DIRECTORY_MANIFEST = {
                         },
     "recentGalleryAdditions":  [
                                    {
-                                       "key":  "LASER TANK X",
-                                       "name":  "LASER TANK X",
+                                       "key":  "MAMA BURNS",
+                                       "name":  "MAMA BURNS",
                                        "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795540377877,
-                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
-                                   },
-                                   {
-                                       "key":  "RIZE",
-                                       "name":  "RIZE",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • WARLORD",
-                                       "firstSeenMs":  1795540377877,
-                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
-                                   },
-                                   {
-                                       "key":  "HOLOSIGHT",
-                                       "name":  "HOLOSIGHT",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • WARLORD",
-                                       "firstSeenMs":  1795540377877,
-                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
-                                   },
-                                   {
-                                       "key":  "TORTOISE",
-                                       "name":  "TORTOISE",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 2 • SOLDIER",
-                                       "firstSeenMs":  1795540377877,
-                                       "firstSeenAt":  "2026-11-24T17:12:57Z"
+                                       "subLabel":  "Arc 3 • HERO",
+                                       "firstSeenMs":  1795663910460,
+                                       "firstSeenAt":  "2026-11-26T03:31:50Z"
                                    }
                                ],
     "creatorVideos":  [

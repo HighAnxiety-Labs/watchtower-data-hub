@@ -1705,6 +1705,19 @@
         "STAT_BUILDING": "Academy", "TALENT_LVL_1": "Protective Escort legendary infantry with Dumbfire Rockets, Bodyguard Armor, and Enhanced Jetpack techs."
       },
       {
+        "UNIT_NAME": "MAMA BURNES", "CLASSIFICATION": "HERO", "RELEASE_DATE": "Nov 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9794987a-9251-40f1-9ed4-6abc6d357cb1",
+        "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Rangers", "STAT_TYPE": "Infantry", "STAT_ARMOR_TYPE": "Heavy",
+        "STAT_WEAPON_TYPE": "Flamethrower", "STAT_TARGETS": "Ground / Air", "STAT_DAMAGE_TYPE": "Area",
+        "STAT_SIZE": "350", "STAT_BUILDING": "Academy", "STAT_BUILDING_REQ": "50",
+        "STAT_HP_RANGE_1": "483,600", "STAT_HP_RANGE_MAX": "780,000",
+        "STAT_DPS_RANGE_1": "5,211", "STAT_DPS_RANGE_MAX": "8,432",
+        "STAT_SPEED": "3", "STAT_RANGE": "550 (600 @ Lvl 5)",
+        "TALENT_LVL_1": "Basic Heroic (+10% Dmg / -10% Dmg Taken aura to Coalhearts). Frontline Unit (advances to 500 Range, fires while moving). +50% Damage vs Light armor. Heart's Accelerant spawns fire AoEs.",
+        "TALENT_LVL_15": "Super Heroic (+25%/-25% aura). Attacks pierce ALL Flat Damage Reduction. Hero becomes Renowned.",
+        "TALENT_LVL_20": "Supreme Heroic (+30%/-30% aura). Builds Blue Flame stacks for +25% Damage projectiles."
+      },
+      {
         "UNIT_NAME": "WARLORD STORMWAIL", "CLASSIFICATION": "UNIQUE", "RELEASE_DATE": "2026",
         "UNIT_IMAGE_URL": WTR_LOGO_FALLBACK,
         "STAT_FACTION": "Vortex", "STAT_TYPE": "Unique", "STAT_BUILDING": "War Factory / Hangar"
@@ -1814,14 +1827,21 @@
         schedStore: "WED DEC 2, 2026 @ 10:00 AM PST",
         eventDays: 4,
         briefUrl: "./2026-nov-skirmish-brief.html",
-        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
-        syncSourceLabel: "Awaiting Official Brief Posting",
-        isPreReleaseFallback: true,
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1079-skirmish-december-2026/",
+        syncSourceLabel: "NOV 2026 Official Brief (FAQ #1079)",
+        isPreReleaseFallback: false,
         tracksCfg: {
-          recB1Xp: 1000, recB2Xp: 2000, recB3Xp: 5000, recBonusXp: 8000,
+          recB1Xp: 3000, recB2Xp: 5000, recB3Xp: 0, recBonusXp: 8000,
           offB1Xp: 8000, offB2Xp: 16000, offBonusXp: 28000
         },
-        storeCatalog: []
+        storeCatalog: [
+          { name: "Mama Burnes Unlock Parts", maxLimit: 80, cost: 4000, costLabel: "4,000 / Part", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Upgrade Token", maxLimit: 10, cost: 40000, costLabel: "40,000 / Each", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes 24 Hr Build Logistic", maxLimit: 4, cost: 32000, costLabel: "32,000 / Each", unit: "MAMA BURNES", defaultChecked: false },
+          { name: "Mama Burnes Tech: Embershield Protocol", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Tech: Wildfire Sweep", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Tech: Pyresong Harmonics", maxLimit: 1, cost: 100000, costLabel: "100,000", unit: "MAMA BURNES", defaultChecked: true }
+        ]
       }
     };
 
@@ -2762,27 +2782,32 @@
           <div class="track-opt-head">
             <label class="track-opt-label">
               <input type="radio" name="skTrackMode" value="RECRUIT" ${st.activeTrack==='RECRUIT'?'checked':''} onchange="updateModeField('activeTrack','RECRUIT')">
-              <span>🛡️ Recruit Track (3-Base Set)</span>
+              <span>🛡️ Recruit Track (${(EVENT_PROFILES.skirmish.tracksCfg.recB3Xp > 0) ? '3-Base Set' : '2-Base Set'})</span>
             </label>
             <span class="track-opt-xp-pill" id="skPillRecXp">16,000 XP</span>
           </div>
           <table class="mini-base-table">
             <tbody>
-              <tr><td style="width:28px;"><input type="checkbox" ${st.recB1?'checked':''} onchange="updateModeField('recB1', this.checked)"></td><td>Recruit Base I</td><td class="num" id="skValRecB1">1,000</td></tr>
-              <tr><td><input type="checkbox" ${st.recB2?'checked':''} onchange="updateModeField('recB2', this.checked)"></td><td>Recruit Base II</td><td class="num" id="skValRecB2">2,000</td></tr>
-              <tr><td><input type="checkbox" ${st.recB3?'checked':''} onchange="updateModeField('recB3', this.checked)"></td><td>Recruit Base III</td><td class="num" id="skValRecB3">5,000</td></tr>
+              <tr><td style="width:28px;"><input type="checkbox" ${st.recB1?'checked':''} onchange="updateModeField('recB1', this.checked)"></td><td>Recruit Base I</td><td class="num" id="skValRecB1">3,000</td></tr>
+              <tr><td><input type="checkbox" ${st.recB2?'checked':''} onchange="updateModeField('recB2', this.checked)"></td><td>Recruit Base II</td><td class="num" id="skValRecB2">5,000</td></tr>
+              ${(EVENT_PROFILES.skirmish.tracksCfg.recB3Xp > 0) ? `<tr><td><input type="checkbox" ${st.recB3?'checked':''} onchange="updateModeField('recB3', this.checked)"></td><td>Recruit Base III</td><td class="num" id="skValRecB3">5,000</td></tr>` : ''}
               <tr class="bonus-row" id="skRowRecBonus"><td><input type="checkbox" id="skChkRecBonus" checked disabled></td><td><strong>Recruit Set Bonus</strong></td><td class="num" id="skValRecBonus">8,000</td></tr>
             </tbody>
           </table>
         </div>
 
         <div>
-          <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Optional Event XP Multiplier</div>
+          <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">⚡ Active Event XP Multiplier <span style="color:#fca5a5; font-weight:700;">(1.0x Base Only in Skirmish)</span></div>
           <div class="boost-pills-grid">
-            ${[1.0, 1.2, 1.5, 2.0].map(m => `
-              <div class="boost-pill-card ${Math.abs(st.multiplier - m) < 0.01 ? 'active' : ''}" onclick="updateModeField('multiplier', ${m}); renderLeftModeTracksPanel();">
-                <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>${Math.abs(st.multiplier - m) < 0.01 ? '✓' : ''}</span></div>
-                <div class="boost-pill-sub">${m === 1.0 ? 'Standard 1.0x' : 'Boost Active'}</div>
+            ${[1.0, 1.2, 1.5, 2.0].map(m => m === 1.0 ? `
+              <div class="boost-pill-card active" onclick="updateModeField('multiplier', 1.0); renderLeftModeTracksPanel();">
+                <div class="boost-pill-top"><span>1.0x XP</span><span>✓</span></div>
+                <div class="boost-pill-sub">Standard Payout</div>
+              </div>
+            ` : `
+              <div class="boost-pill-card is-disabled-redout" aria-disabled="true" title="XP Boost Multipliers are disabled in Skirmish (1.0x Base XP only)">
+                <div class="boost-pill-top"><span>${m.toFixed(1)}x XP</span><span>🚫</span></div>
+                <div class="boost-pill-sub">Disabled — No Boost</div>
               </div>
             `).join("")}
           </div>
@@ -2932,20 +2957,22 @@
       }
 
       // Skirmish
-      const mult = st.multiplier || 1.0;
+      const mult = 1.0;
+      st.multiplier = 1.0;
       const offOk = st.offB1 && st.offB2;
       const offXp = Math.round(((st.offB1 ? cfg.offB1Xp : 0) + (st.offB2 ? cfg.offB2Xp : 0) + (offOk ? cfg.offBonusXp : 0)) * mult);
 
-      const recOk = st.recB1 && st.recB2 && st.recB3;
-      const recXp = Math.round(((st.recB1 ? cfg.recB1Xp : 0) + (st.recB2 ? cfg.recB2Xp : 0) + (st.recB3 ? cfg.recB3Xp : 0) + (recOk ? cfg.recBonusXp : 0)) * mult);
+      const hasRecB3 = (cfg.recB3Xp || 0) > 0;
+      const recOk = st.recB1 && st.recB2 && (!hasRecB3 || st.recB3);
+      const recXp = Math.round(((st.recB1 ? cfg.recB1Xp : 0) + (st.recB2 ? cfg.recB2Xp : 0) + (hasRecB3 && st.recB3 ? cfg.recB3Xp : 0) + (recOk ? cfg.recBonusXp : 0)) * mult);
 
       setTxt("skValOffB1", Math.round(cfg.offB1Xp * mult).toLocaleString());
       setTxt("skValOffB2", Math.round(cfg.offB2Xp * mult).toLocaleString());
       setTxt("skValOffBonus", offOk ? Math.round(cfg.offBonusXp * mult).toLocaleString() : "0 (Need I & II)");
       setTxt("skValRecB1", Math.round(cfg.recB1Xp * mult).toLocaleString());
       setTxt("skValRecB2", Math.round(cfg.recB2Xp * mult).toLocaleString());
-      setTxt("skValRecB3", Math.round(cfg.recB3Xp * mult).toLocaleString());
-      setTxt("skValRecBonus", recOk ? Math.round(cfg.recBonusXp * mult).toLocaleString() : "0 (Need All 3)");
+      if (hasRecB3) setTxt("skValRecB3", Math.round(cfg.recB3Xp * mult).toLocaleString());
+      setTxt("skValRecBonus", recOk ? Math.round(cfg.recBonusXp * mult).toLocaleString() : (hasRecB3 ? "0 (Need All 3)" : "0 (Need I & II)"));
       setTxt("skPillOffXp", `${offXp.toLocaleString()} XP`);
       setTxt("skPillRecXp", `${recXp.toLocaleString()} XP`);
 

@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-25T06:08:04Z",
+    "updatedAt":  "2026-11-26T03:31:50Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1113,6 +1113,14 @@
                                            "subLabel":  "Arc 2 • SOLDIER",
                                            "firstSeenMs":  1795540377877,
                                            "firstSeenAt":  "2026-11-24T17:12:57Z"
-                                       }
+                                       },
+                    "UNIT::MAMA BURNS":  {
+                                             "key":  "MAMA BURNS",
+                                             "name":  "MAMA BURNS",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "Arc 3 • HERO",
+                                             "firstSeenMs":  1795663910460,
+                                             "firstSeenAt":  "2026-11-26T03:31:50Z"
+                                         }
                 }
 }
