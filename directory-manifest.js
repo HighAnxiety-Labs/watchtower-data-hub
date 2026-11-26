@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-26T08:46:42-08:00",
-    "generatedMs":  1795711597841,
+    "generatedAt":  "2026-11-26T11:41:09-08:00",
+    "generatedMs":  1795722064163,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -114,8 +114,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "asset-briefs.html",
                               "path":  "./asset-briefs.html",
                               "title":  "WatchToweR Hub — Asset Briefs | Gallery",
-                              "modifiedAt":  "2026-11-26T16:46:08Z",
-                              "modifiedMs":  1795711568306
+                              "modifiedAt":  "2026-11-26T19:40:31Z",
+                              "modifiedMs":  1795722031460
                           },
                           {
                               "file":  "asset-matchup.html",
@@ -489,6 +489,22 @@ window.WTR_DIRECTORY_MANIFEST = {
                                        "subLabel":  "ENEMIES • WINTERFORCE",
                                        "firstSeenMs":  1795678782445,
                                        "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                   },
+                                   {
+                                       "key":  "YAMATO",
+                                       "name":  "YAMATO",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Arc 1 • WARLORD",
+                                       "firstSeenMs":  1795722064163,
+                                       "firstSeenAt":  "2026-11-26T19:41:04Z"
+                                   },
+                                   {
+                                       "key":  "HUMVEE",
+                                       "name":  "HUMVEE",
+                                       "gallery":  "UNIT",
+                                       "subLabel":  "Series 4 • SOLDIER",
+                                       "firstSeenMs":  1795722064163,
+                                       "firstSeenAt":  "2026-11-26T19:41:04Z"
                                    }
                                ],
     "creatorVideos":  [

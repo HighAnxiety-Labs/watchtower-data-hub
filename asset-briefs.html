@@ -2830,7 +2830,7 @@
       const tag = gTag ? `${gTag} • ${info.label}` : info.label;
       const opt = document.createElement('option');
       opt.value = u.UNIT_NAME;
-      opt.textContent = `${isSub ? '    ↳ ' : info.prefix}${u.UNIT_NAME}  [${tag}]`;
+      opt.textContent = `${isSub ? '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0↳ ' : info.prefix}${u.UNIT_NAME}  [${tag}]`;
       return opt;
     };
     const appendGroup = (label, opts) => {

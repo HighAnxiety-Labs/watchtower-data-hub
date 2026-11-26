@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-26T16:46:37Z",
+    "updatedAt":  "2026-11-26T19:41:04Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1177,6 +1177,22 @@
                                           "subLabel":  "ENEMIES • WINTERFORCE",
                                           "firstSeenMs":  1795678782445,
                                           "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                      }
+                                      },
+                    "UNIT::YAMATO":  {
+                                         "key":  "YAMATO",
+                                         "name":  "YAMATO",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Arc 1 • WARLORD",
+                                         "firstSeenMs":  1795722064163,
+                                         "firstSeenAt":  "2026-11-26T19:41:04Z"
+                                     },
+                    "UNIT::HUMVEE":  {
+                                         "key":  "HUMVEE",
+                                         "name":  "HUMVEE",
+                                         "gallery":  "UNIT",
+                                         "subLabel":  "Series 4 • SOLDIER",
+                                         "firstSeenMs":  1795722064163,
+                                         "firstSeenAt":  "2026-11-26T19:41:04Z"
+                                     }
                 }
 }
