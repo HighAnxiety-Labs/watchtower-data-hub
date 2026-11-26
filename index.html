@@ -1465,7 +1465,7 @@
         <div class="wtr-intel-card card-today" id="wtrIntelCardToday">
           <div class="wtr-ic-top">
             <span class="wtr-ic-kicker" style="color:#d8b4fe;">🟣 TODAY'S LOOT &amp; OPS</span>
-            <span class="wtr-ic-pill" id="wtrDailyResetClock" title="Countdown to 10:00 AM PT Daily Server Reset">RESETS IN --h --m</span>
+            <span class="wtr-ic-pill" id="wtrDailyResetClock" title="Countdown to Midnight KIXEYE Time (12:00 AM PT) Iridium / Medal-Adv 24h Reset">RESETS IN --h --m</span>
           </div>
           <div class="wtr-ic-main" id="wtrTodayMainLine">Today's Resource: Iridium</div>
           <div class="wtr-ic-sub">
@@ -1556,9 +1556,9 @@
             </div>
             <div class="timer-card skirmish card-inherited" id="carouselCardSkirmish" style="display: flex; --dir-target-key: var(--dir-btn3); order: 0; opacity: 1;">
               <button type="button" class="timer-art-square" id="clockBtnSkirmish" data-url="./2026-nov-skirmish-brief.html" data-clock-title="Skirmish II" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Skirmish Brief" style="--glow-color: var(--c-skirmish);">
-                <img src="./assets/images/wtr-logo.png" alt="Skirmish II" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+                <img src="https://lh3.googleusercontent.com/d/1yhVRITTNNIEjYGEco3tIn_8_wehWm_SJ" alt="Skirmish II" class="fit-contain" onerror="this.onerror=null;this.src='./assets/images/wtr-logo.png';this.className='fit-logo';">
                 <span class="timer-art-corner-cue">↗</span>
-                <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
+                <span class="timer-art-hover-pill">EVENT BRIEF ↗</span>
               </button>
               <div class="timer-card-right">
                 <div class="timer-card-header"><span class="timer-card-title" id="clockTitleSkirmish" style="color: #4caf50;">Skirmish II</span><span class="timer-status-badge" id="badge-skirmish">Upcoming</span></div>
@@ -1589,19 +1589,19 @@
               </div>
             </div>
             <div class="timer-card nightmare card-inherited" id="carouselCardNightmare" style="display: flex; --dir-target-key: var(--dir-btn5); order: 0; opacity: 1;">
-              <button type="button" class="timer-art-square" id="clockBtnNightmare" data-url="./2026-dec-operation-brief.html" data-clock-title="Dec Main Event" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Dec Main Event Brief" style="--glow-color: var(--c-nightmare);">
-                <img src="./assets/images/wtr-logo.png" alt="Dec Main Event" class="fit-logo" onerror="this.onerror=null;this.src='https://share1.cloudhq-mkt3.net/68d9b0761a1ffb.png';this.className='fit-logo';">
+              <button type="button" class="timer-art-square" id="clockBtnNightmare" data-url="./2026-dec-operation-brief.html" data-clock-title="Operation: Cold Front" onclick="openPopout(this.dataset.url, this.dataset.clockTitle)" title="Click artwork to open Operation: Cold Front Brief" style="--glow-color: var(--c-nightmare);">
+                <img src="https://lh3.googleusercontent.com/d/1RF-VdnptcQ783e-I3DqKhqaYvp_015m8" alt="Operation: Cold Front" class="fit-contain" onerror="this.onerror=null;this.src='./assets/images/wtr-logo.png';this.className='fit-logo';">
                 <span class="timer-art-corner-cue">↗</span>
                 <span class="timer-art-hover-pill">PRE-RELEASE BRIEF ↗</span>
               </button>
               <div class="timer-card-right">
-                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e53935;">Dec Main Event</span><span class="timer-status-badge" id="badge-nightmare">Upcoming</span></div>
+                <div class="timer-card-header"><span class="timer-card-title" id="clockTitleNightmare" style="color: #e53935;">Operation: Cold Front</span><span class="timer-status-badge" id="badge-nightmare">Upcoming</span></div>
                 <div class="timer-clock-block">
                   <div class="timer-clock-display" id="clock-nightmare">--d --h --m --s</div>
                   <div class="timer-subtext" id="sub-nightmare">Launches Dec 3, 10:00 AM PT</div>
                 </div>
                 <div class="timer-actions-row">
-                  <button type="button" class="timer-calc-btn is-faded" id="clockCalcBtnNightmare" data-calc-mode="operations" data-calc-label="Dec Main Event" data-has-prizes="false" onclick="handleClockCalcClick(this, event)" title="No prize list available yet for Dec Main Event — unlocks when active brief publishes"><span class="timer-calc-ico">🧮</span><span>AVAILABLE W/ ACTIVE BRIEF</span></button>
+                  <button type="button" class="timer-calc-btn" id="clockCalcBtnNightmare" data-calc-mode="operations" data-calc-label="Operation: Cold Front" data-has-prizes="true" onclick="handleClockCalcClick(this, event)" title="Open Operation: Cold Front XP &amp; Store Calculator"><span class="timer-calc-ico">🧮</span><span>XP CALCULATOR ↗</span></button>
                 </div>
               </div>
             </div>
@@ -2090,9 +2090,9 @@
       { "label": "Drifting Dragon: Ch.1 / P3", "start": 1795802400000, "end": 1796234400000 }
     ] },
     "warpath":   { "start": 1792774800000, "end": 1793120400000, "store": 1793206800000, "noStore": false, "color": "var(--c-warpath)",   "bg": "rgba(157, 107, 214, 0.18)", "customSubtext": "", "artUrl": "", "hasPrizeList": false },
-    "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "skirmish":  { "start": 1795802400000, "end": 1796148000000, "store": 1796234400000, "noStore": false, "color": "var(--c-skirmish)",  "bg": "rgba(61, 158, 101, 0.18)",  "customSubtext": "", "artUrl": "https://lh3.googleusercontent.com/d/1yhVRITTNNIEjYGEco3tIn_8_wehWm_SJ", "hasPrizeList": true },
     "holdout":   { "start": 1794592800000, "end": 1794938400000, "store": 1795024800000, "noStore": false, "color": "var(--c-holdout)",   "bg": "rgba(40, 181, 204, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-holdout-nov-2026.jpg", "hasPrizeList": true },
-    "nightmare": { "start": 1796320800000, "end": 1796839200000, "store": 1796925600000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "", "artUrl": "", "hasPrizeList": false },
+    "nightmare": { "start": 1796320800000, "end": 1796839200000, "store": 1796925600000, "noStore": false, "color": "var(--c-nightmare)", "bg": "rgba(217, 56, 84, 0.16)",   "customSubtext": "", "artUrl": "https://lh3.googleusercontent.com/d/1RF-VdnptcQ783e-I3DqKhqaYvp_015m8", "hasPrizeList": true },
     "future":    { "start": 1794502800000, "end": 1798653600000, "store": 1798653600000, "noStore": true,  "color": "var(--c-future)",    "bg": "rgba(255, 42, 133, 0.16)",  "customSubtext": "", "artUrl": "./assets/images/clock-pvp-season-60.png", "hasPrizeList": true }
   };
 
@@ -2134,7 +2134,7 @@
       cards: [
         { enabled: true, isSubPage: false, order: 1, symbol: "CALCULATOR", title: "2026 EVENT CALENDAR", url: "./2026-calendar.html", embedCode: "", openInIframe: true, isPinnedCalendar: true },
         { enabled: true, isSubPage: false, order: 2, symbol: "CALCULATOR", title: "MULTI-EVENT XP CALCULATOR", url: "./event-calculator.html", embedCode: "", openInIframe: true, isPinnedCalculator: true },
-        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "DEC 2026 • OPERATION: TBD", url: "./2026-dec-operation-brief.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
+        { enabled: true, isSubPage: false, order: 3, symbol: "LIVE", title: "DEC 2026 • OPERATION: COLD FRONT", url: "./2026-dec-operation-brief.html", embedCode: "", openInIframe: true, eventCategory: "OPERATIONS" },
         { enabled: true, isSubPage: false, order: 4, symbol: "LIVE", title: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", url: "./2026-pvp-season-60-brief.html", embedCode: "", openInIframe: true, eventCategory: "PVP_SEASON" },
         { enabled: true, isSubPage: false, order: 5, symbol: "LIVE", title: "NOV 2026 • HOLDOUT BRIEF", url: "./2026-nov-holdout-brief.html", embedCode: "", openInIframe: true, eventCategory: "HOLDOUT" },
         { enabled: true, isSubPage: false, order: 6, symbol: "LIVE", title: "NOV 2026 • SHADOW OPS: DRIFTING DRAGON", url: "./2026-nov-shadow-ops-brief.html", embedCode: "", openInIframe: true, eventCategory: "SHADOW_OPS" },
@@ -2457,7 +2457,7 @@
       { secKey: "videoRecon",     match: "VIDEO",                   urlHint: "video-recon",           file: "./video-recon.html",              defaultTitle: "VIDEO RECON DESK",          defaultSym: "VIDEO",     ensurePresent: true },
       { secKey: "opBriefs",       match: "CALENDAR",       urlHint: "2026-calendar",         file: "./2026-calendar.html",           defaultTitle: "2026 EVENT CALENDAR",    defaultSym: "CALCULATOR", ensureFirst: true },
       { secKey: "opBriefs",       match: "SKIRMISH",       urlHint: "skirmish",              file: "./2026-nov-skirmish-brief.html", defaultTitle: "NOV 2026 • SKIRMISH BRIEF", defaultSym: "LIVE" },
-      { secKey: "opBriefs",       match: "OPERATION:",     urlHint: "operation",             file: "./2026-dec-operation-brief.html", defaultTitle: "DEC 2026 • OPERATION: TBD", defaultSym: "LIVE", renameLegacyTitles: ["NOV 2026 • OPERATION: BLUE BARON BRIEF", "OPERATION: BLUE BARON"] },
+      { secKey: "opBriefs",       match: "OPERATION:",     urlHint: "operation",             file: "./2026-dec-operation-brief.html", defaultTitle: "DEC 2026 • OPERATION: COLD FRONT", defaultSym: "LIVE", renameLegacyTitles: ["NOV 2026 • OPERATION: BLUE BARON BRIEF", "OPERATION: BLUE BARON", "DEC 2026 • OPERATION: TBD"] },
       { secKey: "opBriefs",       match: "PVP SEASON",     urlHint: "pvp-season",            file: "./2026-pvp-season-60-brief.html",defaultTitle: "NOV–DEC 2026 • PVP SEASON 60 BRIEF", defaultSym: "LIVE" },
       { secKey: "wtrArchives",    match: "PRE-RELEASE",    urlHint: "cc-22-pre-release",     file: "./cc-22-pre-release.html",       defaultTitle: "CC22 PRE-RELEASE NOTES", defaultSym: "ARCHIVE" },
       { secKey: "adminBug",       match: "BROKEN",         urlHint: "whats-broken",          file: "./whats-broken.html",            defaultTitle: "WHAT'S BROKEN IN WC",    defaultSym: "BUG" },
@@ -3997,7 +3997,37 @@
     opBriefsStageResizeObserver.observe(stage);
   }
 
-  function formatOpBriefStackedTitleHtml(rawName) {
+  function resolveManifestBriefTitle(briefUrl, fallbackTitle) {
+  const fb = String(fallbackTitle || "").trim();
+  const cleanFile = String(briefUrl || "").split("?")[0].split("#")[0].replace(/^\.\//, "").toLowerCase();
+  if (!cleanFile) return fb;
+  const revs = (window.WTR_DIRECTORY_MANIFEST && Array.isArray(window.WTR_DIRECTORY_MANIFEST.pageRevisions))
+    ? window.WTR_DIRECTORY_MANIFEST.pageRevisions : [];
+  const hit = revs.find(r => String(r.file || "").toLowerCase() === cleanFile);
+  if (!hit || !hit.title) return fb;
+
+  let mTitle = String(hit.title || "").trim()
+    .replace(/^\s*\[?-?WTR-?\]?\s*(?:DATA\s*HUB\s*[—–\-:]+\s*)?/i, "")
+    .replace(/\s+Inline\s+Studio\s*$/i, "")
+    .replace(/\s*[—–\-]\s*Mama\s+Burnes.*$/i, "")
+    .trim();
+  if (!mTitle || /\b(TBD|PRE-?RELEASE|HOLDING|AWAITING)\b/i.test(mTitle)) return fb;
+
+  let fbCycle = "";
+  if (fb.includes("•")) fbCycle = fb.split("•")[0].trim();
+  const opMatch = mTitle.match(/\b(OPERATION\s*:\s*[^—–|]+)$/i);
+  if (opMatch) {
+    const opName = opMatch[1].trim().toUpperCase();
+    return fbCycle ? `${fbCycle} • ${opName}` : opName;
+  }
+  if (/\bTBD\b/i.test(fb)) {
+    const cleaned = mTitle.replace(/^(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:[–\-](?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?\s+\d{4}\s*[•\-—–:]?\s*/i, "").trim().toUpperCase();
+    return (fbCycle && cleaned) ? `${fbCycle} • ${cleaned}` : mTitle.toUpperCase();
+  }
+  return fb;
+}
+
+function formatOpBriefStackedTitleHtml(rawName) {
     const tokens = String(rawName || "").trim().split(/\s+/).filter(Boolean);
     if (tokens.length <= 1) return escapeHtml(rawName);
     const merged = [];
@@ -4279,7 +4309,7 @@
         ? buildCardTrailStyleVars(evAccent, "target")
         : (pIsMid ? buildCardTrailStyleVars(evAccent, "mid") : "");
 
-      const rawTitle = String(p.title || "");
+      const rawTitle = (typeof resolveManifestBriefTitle === "function" ? resolveManifestBriefTitle(p.url, p.title) : String(p.title || ""));
       let cycleTag = "";
       let displayName = rawTitle;
       if (rawTitle.includes("•")) {
@@ -8628,12 +8658,15 @@
             storeMs: 1796234400000,
             noStore: false,
             link: "./2026-nov-skirmish-brief.html",
-            artUrl: c.artUrl || "",
-            hasPrizeList: false
+            artUrl: c.artUrl || "https://lh3.googleusercontent.com/d/1yhVRITTNNIEjYGEco3tIn_8_wehWm_SJ",
+            hasPrizeList: true
           });
         } else if (meta.key === "nightmare" && rawCheckEndMs > 0 && rawCheckEndMs < 1794600000000) {
+          const liveOpTitle = (typeof resolveManifestBriefTitle === "function"
+            ? resolveManifestBriefTitle("./2026-dec-operation-brief.html", "DEC 2026 • OPERATION: COLD FRONT").replace(/^[^•]+•\s*/, "")
+            : "OPERATION: COLD FRONT");
           c = Object.assign({}, c, {
-            title: "Dec Main Event",
+            title: liveOpTitle || "Operation: Cold Front",
             start: "2026-12-03T10:00",
             end: "2026-12-09T10:00",
             store: "2026-12-10T10:00",
@@ -8642,8 +8675,8 @@
             storeMs: 1796925600000,
             noStore: false,
             link: "./2026-dec-operation-brief.html",
-            artUrl: c.artUrl || "",
-            hasPrizeList: false
+            artUrl: (c.artUrl && !c.artUrl.includes('76a86bd0-a0ed-4bc0-92d0-e5642d732095')) ? c.artUrl : "https://lh3.googleusercontent.com/d/1RF-VdnptcQ783e-I3DqKhqaYvp_015m8",
+            hasPrizeList: true
           });
         }
 
@@ -8676,6 +8709,8 @@
           if (CLOCK_LEGEND_TITLE_COLORS[meta.key]) titleEl.style.color = CLOCK_LEGEND_TITLE_COLORS[meta.key];
         }
         if (cardEl && c.enabled !== undefined) cardEl.style.display = c.enabled ? "flex" : "none";
+        if (meta.key === 'nightmare' && (!c.artUrl || c.artUrl.includes('76a86bd0-a0ed-4bc0-92d0-e5642d732095'))) c.artUrl = 'https://lh3.googleusercontent.com/d/1RF-VdnptcQ783e-I3DqKhqaYvp_015m8';
+        if (meta.key === 'skirmish' && !c.artUrl) c.artUrl = 'https://lh3.googleusercontent.com/d/1yhVRITTNNIEjYGEco3tIn_8_wehWm_SJ';
         if (c.artUrl !== undefined) {
           eventSchedules[meta.key].artUrl = c.artUrl;
           const cfgArtEl = document.getElementById(`cfgClock${i}Art`);
@@ -9975,8 +10010,10 @@
           const upT = String(c.title || "").toUpperCase();
           if (upT.includes("BLUE BARON") || upT.startsWith("NOV 2026")) {
             const pfx = typeof getWtrPublishedPrefix === "function" ? getWtrPublishedPrefix() : "./";
-            c.title = "DEC 2026 • OPERATION: TBD";
             c.url = `${pfx}2026-dec-operation-brief.html`;
+            c.title = typeof resolveManifestBriefTitle === "function"
+              ? resolveManifestBriefTitle(c.url, "DEC 2026 • OPERATION: COLD FRONT")
+              : "DEC 2026 • OPERATION: COLD FRONT";
           }
         }
         otherCards.push(c);
@@ -10022,7 +10059,9 @@
     rawActiveParsed.forEach(ev => {
       const lowerFile = ev.fileName.toLowerCase();
       if (lowerFile === "2026-dec-operation-brief.html") {
-        ev.title = "DEC 2026 • OPERATION: TBD";
+        ev.title = typeof resolveManifestBriefTitle === "function"
+          ? resolveManifestBriefTitle("./2026-dec-operation-brief.html", "DEC 2026 • OPERATION: COLD FRONT")
+          : "DEC 2026 • OPERATION: COLD FRONT";
         ev.sortScore = 202612;
       } else if (lowerFile === "operation-blue-baron.html") {
         ev.title = "NOV 2026 • OPERATION: BLUE BARON BRIEF";
@@ -11654,12 +11693,11 @@
       }
     }
 
-    function getSecondsUntilNextPtTenAm(nowMs) {
+    function getSecondsUntilNextKixeyeMidnight(nowMs) {
       const pt = getPtParts(nowMs);
       const curSecOfDay = (pt.hour * 3600) + (pt.minute * 60) + pt.second;
-      const targetSec = 10 * 3600; // 10:00:00 AM PT
-      if (curSecOfDay < targetSec) return targetSec - curSecOfDay;
-      return (86400 - curSecOfDay) + targetSec;
+      const rem = 86400 - curSecOfDay;
+      return rem > 0 ? rem : 86400;
     }
 
     function fmtShortCountdown(totalSec) {
@@ -11700,15 +11738,15 @@
 
     function updateLiveIntelTrioCards() {
       const nowMs = Date.now();
-      const todayLocal = new Date(nowMs);
-      const tmrwLocal = new Date(nowMs + 86400000);
+      const ptToday = getPtParts(nowMs);
+      const ptTmrw = getPtParts(nowMs + 86400000);
 
-      // Card 1: Today's Loot & Daily 10:00 AM PT Reset
-      const secToReset = getSecondsUntilNextPtTenAm(nowMs);
+      // Card 1: Today's Iridium / Medal-Adv 24h Rotation (Midnight KIXEYE Time / 12:00 AM PT)
+      const secToReset = getSecondsUntilNextKixeyeMidnight(nowMs);
       const resetPill = document.getElementById("wtrDailyResetClock");
       if (resetPill) resetPill.textContent = "RESET " + fmtShortCountdown(secToReset);
 
-      const todayInfo = lookupVaultDayInfo(todayLocal.getFullYear(), todayLocal.getMonth() + 1, todayLocal.getDate());
+      const todayInfo = lookupVaultDayInfo(ptToday.year, ptToday.month, ptToday.day);
       const todayMain = document.getElementById("wtrTodayMainLine");
       const todaySub = document.getElementById("wtrTodaySubLine");
       if (todayMain) {
@@ -11718,16 +11756,17 @@
       if (todaySub) {
         todaySub.textContent = todayInfo.basesTxt
           ? `🎯 Assigned Bases: ${todayInfo.basesTxt}`
-          : `10:00 AM PT Map Cycle • Live Calendar Synced`;
+          : `Midnight KIXEYE Time (12:00 AM PT) 24h Cycle`;
       }
 
-      // Card 2: Tomorrow @ 10:00 AM PT
-      const tmrwInfo = lookupVaultDayInfo(tmrwLocal.getFullYear(), tmrwLocal.getMonth() + 1, tmrwLocal.getDate());
+      // Card 2: Tomorrow @ Midnight KIXEYE Time (12:00 AM PT)
+      const tmrwInfo = lookupVaultDayInfo(ptTmrw.year, ptTmrw.month, ptTmrw.day);
       const tmrwTag = document.getElementById("wtrTomorrowDateTag");
       const tmrwMain = document.getElementById("wtrTomorrowMainLine");
       const tmrwSub = document.getElementById("wtrTomorrowSubLine");
       if (tmrwTag) {
-        tmrwTag.textContent = tmrwLocal.toLocaleDateString("en-US", { month: "short", day: "numeric" }).toUpperCase();
+        const monNames = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+        tmrwTag.textContent = `${monNames[(ptTmrw.month - 1) % 12]} ${ptTmrw.day}`;
       }
       if (tmrwMain) {
         const nextHeadline = tmrwInfo.activeNames.length ? tmrwInfo.activeNames.join(" • ") : "Sector Patrol";
@@ -11739,7 +11778,7 @@
         } else if (tmrwInfo.basesTxt) {
           tmrwSub.textContent = `🎯 Bases: ${tmrwInfo.basesTxt}`;
         } else {
-          tmrwSub.textContent = `Switches automatically at 10:00 AM PT`;
+          tmrwSub.textContent = `Switches at Midnight KIXEYE Time (12:00 AM PT)`;
         }
       }
 
@@ -11756,7 +11795,7 @@
           { key: "holdout",   name: "Holdout",               calcMode: "holdout",    briefUrl: "./2026-nov-holdout-brief.html" },
           { key: "breach",    name: "Sector Breach",         calcMode: "breach",     briefUrl: "./2026-nov-sector-breach-brief.html" },
           { key: "skirmish",  name: "Skirmish",              calcMode: "skirmish",   briefUrl: "./2026-nov-skirmish-brief.html" },
-          { key: "nightmare", name: "Main Event Operation",  calcMode: "operations", briefUrl: "./operation-blue-baron.html" },
+          { key: "nightmare", name: "Operation: Cold Front", calcMode: "operations", briefUrl: "./2026-dec-operation-brief.html" },
           { key: "warpath",   name: "Warpath",               calcMode: "",           briefUrl: "./vault/2026-oct-warpath.html" }
         ];
 

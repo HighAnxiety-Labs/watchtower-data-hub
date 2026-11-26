@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-26T11:41:09-08:00",
-    "generatedMs":  1795722064163,
+    "generatedAt":  "2026-11-26T13:52:11-08:00",
+    "generatedMs":  1795729923163,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -177,8 +177,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-23T01:11:01Z",
-                              "modifiedMs":  1795396261018
+                              "modifiedAt":  "2026-11-26T21:48:45Z",
+                              "modifiedMs":  1795729725255
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -674,6 +674,17 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "publishedMs":  1790361886000
                           },
                           {
+                              "id":  "5oVUmeTYLNM",
+                              "creatorId":  "furiousbull2",
+                              "handle":  "furiousbull2",
+                              "owner":  "furious bull2",
+                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
+                              "title":  "War Commander Skirmish November 2026 Event Briefing .",
+                              "descSnippet":  "War Commander Skirmish November 2026 Event Briefing .\nNew Rangers Hero - MAMA BURNES\nGood Luck Thank you for watching",
+                              "publishedAt":  "2026-11-26T21:48:10Z",
+                              "publishedMs":  1795729690000
+                          },
+                          {
                               "id":  "RJLxDQXVvTg",
                               "creatorId":  "furiousbull2",
                               "handle":  "furiousbull2",
@@ -826,17 +837,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "descSnippet":  "War Commander BLUE BARON Incursion Base /Multi-Attacks 5 Bases Free Repair .\nDoing 5 base at The same time Good luck \nThank you for watching",
                               "publishedAt":  "2026-11-05T22:52:42Z",
                               "publishedMs":  1793919162000
-                          },
-                          {
-                              "id":  "YVR_HKZB-tU",
-                              "creatorId":  "furiousbull2",
-                              "handle":  "furiousbull2",
-                              "owner":  "furious bull2",
-                              "channelId":  "UCtzS9uHklZVwvyewJDmG8ww",
-                              "title":  "War Commander OPERATION: BLUE BARON Proving Grounds Base 1-2-3 Free Repair .",
-                              "descSnippet":  "War Commander OPERATION: BLUE BARON Proving Grounds Base 1-2-3 Free Repair .\nEasy Way Commander / Good luck \nThank you for watching",
-                              "publishedAt":  "2026-11-05T20:29:38Z",
-                              "publishedMs":  1793910578000
                           },
                           {
                               "id":  "VIl--xIv0sI",
