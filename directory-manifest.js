@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-25T23:39:47-08:00",
-    "generatedMs":  1795678782445,
+    "generatedAt":  "2026-11-26T08:46:42-08:00",
+    "generatedMs":  1795711597841,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -114,15 +114,15 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "asset-briefs.html",
                               "path":  "./asset-briefs.html",
                               "title":  "WatchToweR Hub — Asset Briefs | Gallery",
-                              "modifiedAt":  "2026-11-25T05:29:41Z",
-                              "modifiedMs":  1795584581273
+                              "modifiedAt":  "2026-11-26T16:46:08Z",
+                              "modifiedMs":  1795711568306
                           },
                           {
                               "file":  "asset-matchup.html",
                               "path":  "./asset-matchup.html",
                               "title":  "Asset Threat Radar \u0026 Matchup Simulator",
-                              "modifiedAt":  "2026-11-25T05:48:39Z",
-                              "modifiedMs":  1795585719278
+                              "modifiedAt":  "2026-11-26T16:35:44Z",
+                              "modifiedMs":  1795710944551
                           },
                           {
                               "file":  "base-defense-planning.html",

@@ -2272,16 +2272,7 @@
     renderUnitGallery(filteredUnits);
 
     if (unitSelect) {
-      const alphaUnits = filteredUnits.slice().sort((a, b) =>
-        String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' })
-      );
-      unitSelect.innerHTML = '<option value="">Jump to Asset Brief...</option>';
-      alphaUnits.forEach(row => {
-        const opt = document.createElement('option');
-        opt.value = row.UNIT_NAME;
-        opt.textContent = row.UNIT_NAME;
-        unitSelect.appendChild(opt);
-      });
+      populateSortedQuickJumpSelect(unitSelect, filteredUnits);
     }
 
     const count = filteredUnits.length;
@@ -2714,6 +2705,158 @@
       closeFullBriefReturnToGallery();
     }
   });
+
+  function populateSortedQuickJumpSelect(selEl, units) {
+    if (!selEl) return;
+    const prevVal = selEl.value;
+    selEl.innerHTML = '<option value="">Jump to Asset Brief...</option>';
+    if (!Array.isArray(units) || units.length === 0) return;
+
+    const normKey = (s) => String(s || '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim();
+    const getGenRank = (u) => {
+      const g = `${u?.STAT_GENERATION || ''} ${u?.GENERATION || ''}`.toUpperCase();
+      if (/\bARC\s*(?:3|III)\b/.test(g)) return 3;
+      if (/\bARC\s*(?:2|II)\b/.test(g)) return 2;
+      if (/\bARC\s*(?:1|I)\b/.test(g)) return 1;
+      return 0;
+    };
+    const getGenShort = (r) => (r === 3 ? 'Arc 3' : r === 2 ? 'Arc 2' : r === 1 ? 'Arc 1' : '');
+    const getRelTs = (u) => {
+      const raw = String(u?.RELEASE_DATE || u?.STAT_RELEASE_DATE || '').trim();
+      if (!raw || raw === '-' || raw === '—' || raw === 'N/A') return -Infinity;
+      const monYr = raw.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*[\s,.-]+(\d{4})$/i);
+      if (monYr) {
+        const mMap = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+        const mIdx = mMap[monYr[1].slice(0, 3).toLowerCase()];
+        const yr = parseInt(monYr[2], 10);
+        if (mIdx !== undefined && yr) return Date.UTC(yr, mIdx, 1);
+      }
+      const yrOnly = raw.match(/^(\d{4})$/);
+      if (yrOnly) return Date.UTC(parseInt(yrOnly[1], 10), 0, 1);
+      const parsed = Date.parse(raw);
+      return Number.isFinite(parsed) ? parsed : -Infinity;
+    };
+    const cmpUnits = (a, b) => {
+      const gDiff = getGenRank(b) - getGenRank(a);
+      if (gDiff !== 0) return gDiff;
+      const dA = getRelTs(a), dB = getRelTs(b);
+      if (dA !== dB) {
+        if (dA === -Infinity) return 1;
+        if (dB === -Infinity) return -1;
+        return dB - dA;
+      }
+      return String(a.UNIT_NAME || '').trim().localeCompare(String(b.UNIT_NAME || '').trim(), undefined, { numeric: true, sensitivity: 'base' });
+    };
+    const getRole = (u) => {
+      const cls = String(u?.CLASSIFICATION || u?.STAT_CLASSIFICATION || '').toUpperCase();
+      const name = String(u?.UNIT_NAME || '').toUpperCase();
+      const type = String(u?.STAT_TYPE || '').toUpperCase();
+      const bldg = String(u?.STAT_BUILDING || '').toUpperCase();
+      const fac = String(u?.STAT_FACTION || '').toUpperCase();
+      const gen = String(u?.STAT_GENERATION || '').toUpperCase();
+      const fullHay = `${cls} ${name} ${type} ${bldg} ${fac} ${gen}`;
+      if (/\bZOMBIES?\b|\bENEM(?:Y|IES)\b|\bHOSTILES?\b|KANE'?S\s*FORCE|\bWINTER\s*FORCE\b|\bWINTERFORCE\b|\bONYX\b/.test(fullHay)) {
+        return { role: 'HOSTILE', label: 'HOSTILE', prefix: '☠️ ' };
+      }
+      const hay = `${cls} ${name} ${type}`;
+      if (/\bWARLORDS?\b/.test(hay)) return { role: 'WARLORD', label: 'WARLORD', prefix: '👑 ' };
+      if (/\bHERO(?:ES)?\b/.test(hay)) return { role: 'HERO', label: 'HERO', prefix: '★ ' };
+      if (/\bMERCENAR/.test(hay) || /\bMERCENAR/.test(fac)) return { role: 'MERCENARY', label: 'MERCENARY', prefix: '' };
+      if (/\bROCKET\s*SILO\b/.test(bldg) || /\bROCKET\s*SILO\b/.test(fac) || /\b(ROCKET|MISSILE|STRIKE|DRONE|MINE|TURRET)\b/.test(cls) || /\bROCKET\b/.test(name)) {
+        return { role: 'OTHER', label: 'ORDNANCE', prefix: '' };
+      }
+      if (/\bLEGENDARY\b/.test(hay) && /\bSOLDIERS?\b/.test(hay)) return { role: 'SOLDIER', label: 'LEGENDARY SOLDIER', prefix: '' };
+      if (/\bUNIQUES?\b/.test(hay)) return { role: 'UNIQUE', label: /\bLEGENDARY\b/.test(hay) ? 'LEGENDARY UNIQUE' : 'UNIQUE', prefix: '' };
+      if (/\bLEGENDARY\b/.test(hay)) return { role: 'SOLDIER', label: 'LEGENDARY', prefix: '' };
+      if (/\bSOLDIERS?\b/.test(cls) || /\bUNIT\b/.test(cls) || /\b(INFANTRY|VEHICLE|AIRCRAFT|AIR|TANK|HELI)\b/.test(type)) {
+        return { role: 'SOLDIER', label: 'SOLDIER', prefix: '' };
+      }
+      return { role: 'OTHER', label: cls || 'SPECIAL', prefix: '' };
+    };
+    const findLinkedSoldiers = (cmd, solList) => {
+      const cmdName = normKey(cmd.UNIT_NAME);
+      const cmdLinked = normKey(cmd.LINKED_UNIT_NAME || cmd.LINKED_UNIT_ID || cmd.LINKED_ASSET || '');
+      const linked = solList.filter(s => {
+        const sName = normKey(s.UNIT_NAME);
+        if (!sName || sName === cmdName) return false;
+        const sLinked = normKey(s.LINKED_UNIT_NAME || s.LINKED_UNIT_ID || s.LINKED_ASSET || '');
+        return (cmdLinked && cmdLinked === sName) || (sLinked && sLinked === cmdName);
+      });
+      if (linked.length > 0 || cmdLinked) return linked;
+      const cmdFac = String(cmd.STAT_FACTION || '').trim().toUpperCase();
+      const aura = [cmd.TALENT_LVL_1, cmd.TALENT_LVL_5, cmd.TALENT_LVL_10, cmd.TALENT_LVL_15, cmd.TALENT_LVL_20, cmd.SPECIAL_ABILITY].filter(Boolean).join(' ');
+      if (!cmdFac || !aura) return [];
+      return solList.filter(s => {
+        const sName = normKey(s.UNIT_NAME);
+        if (!sName || sName.length < 3 || sName === cmdName) return false;
+        const sLinked = normKey(s.LINKED_UNIT_NAME || s.LINKED_UNIT_ID || s.LINKED_ASSET || '');
+        if (sLinked && sLinked !== cmdName) return false;
+        const sFac = String(s.STAT_FACTION || '').trim().toUpperCase();
+        if (!sFac || sFac !== cmdFac) return false;
+        const esc = sName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return new RegExp(`(?:friendly|allied|aura[^.]{0,45}|buffs?[^.]{0,30}|nearby|all)\\s+${esc}(?:s|es)?\\b|\\b${esc}(?:s|es)?\\s+(?:units?|soldiers?|allies)\\b`, 'i').test(aura);
+      });
+    };
+
+    const sorted = units.slice().sort(cmpUnits);
+    const heroes = [], warlords = [], soldiers = [], uniques = [], mercs = [], others = [], hostiles = [];
+    sorted.forEach(u => {
+      const r = getRole(u).role;
+      if (r === 'HOSTILE') hostiles.push(u);
+      else if (r === 'HERO') heroes.push(u);
+      else if (r === 'WARLORD') warlords.push(u);
+      else if (r === 'UNIQUE') uniques.push(u);
+      else if (r === 'MERCENARY') mercs.push(u);
+      else if (r === 'OTHER') others.push(u);
+      else soldiers.push(u);
+    });
+
+    const claimed = new Set();
+    const heroGroups = heroes.map(h => {
+      const subs = findLinkedSoldiers(h, soldiers);
+      subs.forEach(s => claimed.add(s.UNIT_NAME));
+      return { parent: h, subs };
+    });
+    const warlordGroups = warlords.map(w => {
+      const subs = findLinkedSoldiers(w, soldiers);
+      subs.forEach(s => claimed.add(s.UNIT_NAME));
+      return { parent: w, subs };
+    });
+    const standaloneSoldiers = soldiers.filter(s => !claimed.has(s.UNIT_NAME));
+
+    const makeOpt = (u, isSub) => {
+      const info = getRole(u);
+      const gTag = getGenShort(getGenRank(u));
+      const tag = gTag ? `${gTag} • ${info.label}` : info.label;
+      const opt = document.createElement('option');
+      opt.value = u.UNIT_NAME;
+      opt.textContent = `${isSub ? '    ↳ ' : info.prefix}${u.UNIT_NAME}  [${tag}]`;
+      return opt;
+    };
+    const appendGroup = (label, opts) => {
+      if (!opts.length) return;
+      const og = document.createElement('optgroup');
+      og.label = label;
+      opts.forEach(o => og.appendChild(o));
+      selEl.appendChild(og);
+    };
+
+    const hOpts = [];
+    heroGroups.forEach(g => { hOpts.push(makeOpt(g.parent, false)); g.subs.forEach(s => hOpts.push(makeOpt(s, true))); });
+    appendGroup('★ HEROES w/ SOLDIERS', hOpts);
+
+    const wOpts = [];
+    warlordGroups.forEach(g => { wOpts.push(makeOpt(g.parent, false)); g.subs.forEach(s => wOpts.push(makeOpt(s, true))); });
+    appendGroup('👑 WARLORDS w/ SOLDIERS', wOpts);
+
+    appendGroup('⚔️ STANDALONE SOLDIERS', standaloneSoldiers.map(s => makeOpt(s, false)));
+    appendGroup('🛡️ STANDALONE UNIQUES', uniques.map(u => makeOpt(u, false)));
+    appendGroup('🎯 MERCENARIES', mercs.map(m => makeOpt(m, false)));
+    appendGroup('🚀 ORDNANCE / SPECIAL', others.map(o => makeOpt(o, false)));
+    appendGroup("☠️ HOSTILES (ZOMBIE • ENEMIES • KANE'S FORCE • WINTER FORCE)", hostiles.map(h => makeOpt(h, false)));
+
+    if (prevVal && Array.from(selEl.options).some(o => o.value === prevVal)) selEl.value = prevVal;
+  }
 
   function handleUnitSelectionChange(val) {
     if (!val) {

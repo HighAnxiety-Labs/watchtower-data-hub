@@ -1397,6 +1397,148 @@
       .thumb-radar-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
       .hover-brief-card { display: none !important; }
     }
+    /* Custom Hero & Warlord -> Soldier Sub Asset Picker */
+    .wtr-asset-picker { position: relative; width: 100%; }
+    .wtr-picker-btn {
+      width: 100%;
+      background: #070d14;
+      border: 1.5px solid #28556e;
+      border-radius: 6px;
+      padding: 8px 11px;
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 12.8px;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+      min-height: 38px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .wtr-picker-btn:hover, .wtr-asset-picker.open .wtr-picker-btn {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
+    }
+    .wtr-picker-btn-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .wtr-picker-btn-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wtr-picker-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      right: 0;
+      min-width: 310px;
+      background: #080f16;
+      border: 1.5px solid #28556e;
+      border-radius: 7px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.82);
+      z-index: 1200;
+      overflow: hidden;
+    }
+    .wtr-asset-picker.open .wtr-picker-menu { display: block; }
+    .wtr-picker-search-wrap {
+      padding: 7px 8px;
+      background: #060b10;
+      border-bottom: 1px solid #1b3647;
+    }
+    .wtr-picker-search {
+      width: 100%;
+      background: #0b141d;
+      border: 1px solid #24485c;
+      border-radius: 4px;
+      padding: 6px 9px;
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 12px;
+      outline: none;
+    }
+    .wtr-picker-search:focus { border-color: #38bdf8; }
+    .wtr-picker-list {
+      max-height: 380px;
+      overflow-y: auto;
+    }
+    .wtr-picker-grp {
+      background: #0f1c26;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      padding: 5px 10px;
+      border-top: 1px solid #1a3342;
+      border-bottom: 1px solid #1a3342;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .wtr-picker-grp.gold { color: #f5c542; background: #141a14; }
+    .wtr-picker-grp.red  { color: #fca5a5; background: #1c1215; }
+    .wtr-picker-grp.purp { color: #d8b4fe; background: #161221; }
+    .wtr-picker-row {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 6px 11px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      color: #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .wtr-picker-row:hover { background: rgba(56, 189, 248, 0.12); color: #ffffff; }
+    .wtr-picker-row.is-hero { border-left: 3px solid #f5c542; }
+    .wtr-picker-row.is-warlord { border-left: 3px solid #f87171; }
+    .wtr-picker-row.is-unique { border-left: 3px solid #a855f7; }
+    .wtr-picker-row.is-sub {
+      padding-left: 28px;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 3px solid rgba(56, 189, 248, 0.5);
+    }
+    .wtr-picker-row.is-sub:hover { background: rgba(56, 189, 248, 0.16); color: #ffffff; }
+    .wtr-picker-row.is-active {
+      background: rgba(16, 185, 129, 0.22) !important;
+      color: #ffffff !important;
+      border-left-color: #10b981 !important;
+    }
+    .ap-badge {
+      font-family: monospace;
+      font-size: 9.5px;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.35px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ap-badge-hero    { background: rgba(245, 197, 66, 0.15); color: #fde68a; border: 1px solid rgba(245, 197, 66, 0.45); }
+    .ap-badge-warlord { background: rgba(248, 113, 113, 0.16); color: #fecaca; border: 1px solid rgba(248, 113, 113, 0.45); }
+    .ap-badge-soldier { background: rgba(56, 189, 248, 0.14); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.38); }
+    .ap-badge-leg     { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.45); }
+    .ap-badge-unique  { background: rgba(168, 85, 247, 0.16); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.45); }
+    .ap-badge-merc    { background: rgba(251, 146, 60, 0.16); color: #fed7aa; border: 1px solid rgba(251, 146, 60, 0.45); }
   </style>
 </head>
 <body>
@@ -1466,6 +1608,8 @@
               <option value="VEHICLE">Tech Center / Vehicle</option>
               <option value="AIR">Aircraft Hangar / Aircraft</option>
               <option value="MERCENARY">Mercenary</option>
+              <option value="LEGENDARY">Legendary</option>
+              <option value="UNIQUE">Uniques</option>
             </select>
           </div>
 
@@ -1473,16 +1617,28 @@
             <label class="ctrl-lbl" for="myGenFilter">Generation</label>
             <select id="myGenFilter" class="wtr-select" onchange="populateMyUnitSelect(false)">
               <option value="ALL">All Generations</option>
-              <option value="ARC_1">Arc 1</option>
+              <option value="ARC_3">Arc 3 (Newest)</option>
               <option value="ARC_2">Arc 2</option>
-              <option value="ARC_3">Arc 3</option>
+              <option value="ARC_1">Arc 1</option>
               <option value="LEGACY">Legacy / Pre-Arc</option>
             </select>
           </div>
 
           <div class="ctrl-group unit-picker-col">
-            <label class="ctrl-lbl" for="myUnitSelect">Select Your Asset</label>
-            <select id="myUnitSelect" class="wtr-select" onchange="onMyUnitChanged()"></select>
+            <label class="ctrl-lbl" for="myUnitPickerBtn">Select Your Asset</label>
+            <select id="myUnitSelect" class="wtr-select" onchange="onMyUnitChanged()" style="display:none;" aria-hidden="true"></select>
+            <div class="wtr-asset-picker" id="myUnitCustomPicker">
+              <button type="button" id="myUnitPickerBtn" class="wtr-picker-btn" onclick="toggleCustomAssetPicker(event)" aria-haspopup="listbox" aria-expanded="false">
+                <span class="wtr-picker-btn-left" id="myUnitPickerBtnLabel"><span class="wtr-picker-btn-name">LOADING...</span></span>
+                <span style="font-size:10px; opacity:0.75;">▼</span>
+              </button>
+              <div class="wtr-picker-menu" id="myUnitPickerMenu" role="listbox">
+                <div class="wtr-picker-search-wrap">
+                  <input type="text" id="myUnitPickerSearch" class="wtr-picker-search" placeholder="🔍 Filter Hero, Warlord, Soldier, Unique..." oninput="renderCustomAssetPickerList()" onkeydown="if(event.key==='Escape') closeCustomAssetPicker();">
+                </div>
+                <div class="wtr-picker-list" id="myUnitPickerList"></div>
+              </div>
+            </div>
           </div>
 
           <div class="ctrl-group">
@@ -1550,12 +1706,14 @@
           <option value="VEHICLE">Enemy Vehicles</option>
           <option value="AIR">Enemy Aircraft</option>
           <option value="MERCENARY">Enemy Mercenaries</option>
+          <option value="LEGENDARY">Enemy Legendary</option>
+          <option value="UNIQUE">Enemy Uniques</option>
         </select>
         <select id="oppGenFilter" class="wtr-select" style="width: 145px; padding: 5px 8px; font-size: 13.5px;" aria-label="Filter Enemy Generation" onchange="renderRadarGrid()">
           <option value="ALL">All Enemy Gens</option>
-          <option value="ARC_1">Arc 1 Enemies</option>
+          <option value="ARC_3">Arc 3 Enemies (Newest)</option>
           <option value="ARC_2">Arc 2 Enemies</option>
-          <option value="ARC_3">Arc 3 Enemies</option>
+          <option value="ARC_1">Arc 1 Enemies</option>
           <option value="LEGACY">Legacy / Pre-Arc</option>
         </select>
         <input type="text" id="radarSearchInput" class="wtr-input" style="width: 180px; padding: 5px 9px; font-size: 13.5px;" placeholder="🔍 Filter enemy unit..." oninput="renderRadarGrid()">
@@ -2127,23 +2285,301 @@
     } catch (e) {}
   }
 
+  let currentFilteredPickerUnits = [];
+
+  function getAssetPickerRoleInfo(u) {
+    const cls = String(u?.CLASSIFICATION || u?.STAT_CLASSIFICATION || '').toUpperCase();
+    const name = String(u?.UNIT_NAME || '').toUpperCase();
+    const type = String(u?.STAT_TYPE || '').toUpperCase();
+    const bldg = String(u?.STAT_BUILDING || '').toUpperCase();
+    const fac = String(u?.STAT_FACTION || '').toUpperCase();
+    const gen = String(u?.STAT_GENERATION || '').toUpperCase();
+    const fullHay = `${cls} ${name} ${type} ${bldg} ${fac} ${gen}`;
+    if (/\bZOMBIES?\b|\bENEM(?:Y|IES)\b|\bHOSTILES?\b|KANE'?S\s*FORCE|\bWINTER\s*FORCE\b|\bWINTERFORCE\b|\bONYX\b/.test(fullHay)) {
+      return { role: 'HOSTILE', label: 'HOSTILE', badgeCls: 'ap-badge-warlord', prefix: '☠️ ' };
+    }
+    const hay = `${cls} ${name} ${type}`;
+    if (/\bWARLORDS?\b/.test(hay)) return { role: 'WARLORD', label: 'WARLORD • 1×', badgeCls: 'ap-badge-warlord', prefix: '👑 ' };
+    if (/\bHERO(?:ES)?\b/.test(hay)) return { role: 'HERO', label: 'HERO • 1×', badgeCls: 'ap-badge-hero', prefix: '★ ' };
+    if (/\bMERCENAR/.test(hay) || getDivisionBucket(u) === 'MERCENARY') return { role: 'MERCENARY', label: 'MERCENARY', badgeCls: 'ap-badge-merc', prefix: '' };
+    if (/\bROCKET\s*SILO\b/.test(bldg) || /\bROCKET\s*SILO\b/.test(fac) || /\b(ROCKET|MISSILE|STRIKE|DRONE|MINE|TURRET)\b/.test(cls) || /\bROCKET\b/.test(name)) {
+      return { role: 'OTHER', label: 'ORDNANCE / SPECIAL', badgeCls: 'ap-badge-merc', prefix: '' };
+    }
+    if (/\bLEGENDARY\b/.test(hay) && /\bSOLDIERS?\b/.test(hay)) return { role: 'SOLDIER', label: 'LEGENDARY SOLDIER', badgeCls: 'ap-badge-leg', prefix: '' };
+    if (/\bUNIQUES?\b/.test(hay)) return { role: 'UNIQUE', label: /\bLEGENDARY\b/.test(hay) ? 'LEGENDARY UNIQUE • 1×' : 'UNIQUE • 1×', badgeCls: 'ap-badge-unique', prefix: '' };
+    if (/\bLEGENDARY\b/.test(hay)) return { role: 'SOLDIER', label: 'LEGENDARY', badgeCls: 'ap-badge-leg', prefix: '' };
+    if (/\bSOLDIERS?\b/.test(cls) || /\bUNIT\b/.test(cls)) return { role: 'SOLDIER', label: 'SOLDIER', badgeCls: 'ap-badge-soldier', prefix: '' };
+    if (/\b(INFANTRY|VEHICLE|AIRCRAFT|AIR|TANK|HELI)\b/.test(type)) {
+      return { role: 'SOLDIER', label: 'SOLDIER', badgeCls: 'ap-badge-soldier', prefix: '' };
+    }
+    return { role: 'OTHER', label: cls || 'SPECIAL', badgeCls: 'ap-badge-merc', prefix: '' };
+  }
+
+  function normAssetKey(s) {
+    return String(s || '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim();
+  }
+
+  function findVerifiedAssignedSoldiers(commander, soldiers) {
+    const cmdName = normAssetKey(commander.UNIT_NAME);
+    const cmdLinked = normAssetKey(commander.LINKED_UNIT_NAME || commander.LINKED_UNIT_ID || commander.LINKED_ASSET || '');
+    const cmdFaction = String(commander.STAT_FACTION || '').trim().toUpperCase();
+    const auraBlob = [
+      commander.TALENT_LVL_1, commander.TALENT_LVL_5, commander.TALENT_LVL_10,
+      commander.TALENT_LVL_15, commander.TALENT_LVL_20, commander.SPECIAL_ABILITY
+    ].filter(Boolean).join(' ');
+
+    // Tier 1: Direct MASTER_DB Linked Asset column match (bidirectional: Commander -> Soldier OR Soldier -> Commander)
+    const linkedMatches = soldiers.filter(s => {
+      const sName = normAssetKey(s.UNIT_NAME);
+      if (!sName || sName === cmdName) return false;
+      const sLinked = normAssetKey(s.LINKED_UNIT_NAME || s.LINKED_UNIT_ID || s.LINKED_ASSET || '');
+      return (cmdLinked && cmdLinked === sName) || (sLinked && sLinked === cmdName);
+    });
+    if (linkedMatches.length > 0 || cmdLinked) {
+      return linkedMatches;
+    }
+
+    // Tier 2: Strict fallback ONLY when Linked Asset column is blank on both sides
+    if (!auraBlob || !cmdFaction) return [];
+    return soldiers.filter(s => {
+      const sName = normAssetKey(s.UNIT_NAME);
+      if (!sName || sName.length < 3 || sName === cmdName) return false;
+      const sLinked = normAssetKey(s.LINKED_UNIT_NAME || s.LINKED_UNIT_ID || s.LINKED_ASSET || '');
+      if (sLinked && sLinked !== cmdName) return false;
+      const sFaction = String(s.STAT_FACTION || '').trim().toUpperCase();
+      if (!sFaction || cmdFaction !== sFaction) return false;
+      const esc = sName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const friendlyRx = new RegExp(`(?:friendly|allied|aura[^.]{0,45}|buffs?[^.]{0,30}|nearby|all)\\s+${esc}(?:s|es)?\\b|\\b${esc}(?:s|es)?\\s+(?:units?|soldiers?|allies)\\b`, 'i');
+      return friendlyRx.test(auraBlob);
+    });
+  }
+
+  function syncCustomAssetPickerButton() {
+    const lblEl = document.getElementById('myUnitPickerBtnLabel');
+    if (!lblEl) return;
+    const me = getMySelectedUnit();
+    if (!me) {
+      lblEl.innerHTML = `<span class="wtr-picker-btn-name">No units in filter</span>`;
+      return;
+    }
+    const info = getAssetPickerRoleInfo(me);
+    lblEl.innerHTML = `<span class="wtr-picker-btn-name">${info.prefix}${escapeHtml(me.UNIT_NAME)}</span><span class="ap-badge ${info.badgeCls}">${info.label}</span>`;
+  }
+
+  function toggleCustomAssetPicker(ev) {
+    if (ev) ev.stopPropagation();
+    const wrap = document.getElementById('myUnitCustomPicker');
+    const btn = document.getElementById('myUnitPickerBtn');
+    if (!wrap) return;
+    const isOpen = wrap.classList.toggle('open');
+    if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) {
+      const inp = document.getElementById('myUnitPickerSearch');
+      if (inp) { inp.value = ''; renderCustomAssetPickerList(); setTimeout(() => inp.focus(), 10); }
+    }
+  }
+
+  function closeCustomAssetPicker() {
+    const wrap = document.getElementById('myUnitCustomPicker');
+    const btn = document.getElementById('myUnitPickerBtn');
+    if (wrap) wrap.classList.remove('open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function selectAssetFromCustomPicker(unitName) {
+    const sel = document.getElementById('myUnitSelect');
+    if (sel) sel.value = unitName;
+    closeCustomAssetPicker();
+    onMyUnitChanged();
+  }
+
+  function renderCustomAssetPickerList() {
+    const listEl = document.getElementById('myUnitPickerList');
+    if (!listEl) return;
+    const q = String((document.getElementById('myUnitPickerSearch') || {}).value || '').trim().toUpperCase();
+    const selectedName = (document.getElementById('myUnitSelect') || {}).value || '';
+    const units = currentFilteredPickerUnits || [];
+
+    if (units.length === 0) {
+      listEl.innerHTML = `<div style="padding:12px; font-family:monospace; font-size:12px; color:#94a3b8;">No assets in selected Division + Generation.</div>`;
+      return;
+    }
+
+    const heroes = [], warlords = [], soldiers = [], uniques = [], mercs = [], others = [], hostiles = [];
+    units.forEach(u => {
+      const r = getAssetPickerRoleInfo(u).role;
+      if (r === 'HOSTILE') hostiles.push(u);
+      else if (r === 'HERO') heroes.push(u);
+      else if (r === 'WARLORD') warlords.push(u);
+      else if (r === 'UNIQUE') uniques.push(u);
+      else if (r === 'MERCENARY') mercs.push(u);
+      else if (r === 'OTHER') others.push(u);
+      else soldiers.push(u);
+    });
+
+    const claimedSoldierNames = new Set();
+    const heroGroups = heroes.map(h => {
+      const subs = findVerifiedAssignedSoldiers(h, soldiers);
+      subs.forEach(s => claimedSoldierNames.add(s.UNIT_NAME));
+      return { parent: h, subs };
+    });
+    const warlordGroups = warlords.map(w => {
+      const subs = findVerifiedAssignedSoldiers(w, soldiers);
+      subs.forEach(s => claimedSoldierNames.add(s.UNIT_NAME));
+      return { parent: w, subs };
+    });
+    const standaloneSoldiers = soldiers.filter(s => !claimedSoldierNames.has(s.UNIT_NAME));
+
+    const matchesQ = (u) => {
+      if (!q) return true;
+      const info = getAssetPickerRoleInfo(u);
+      return `${u.UNIT_NAME} ${info.label} ${u.STAT_FACTION || ''}`.toUpperCase().includes(q);
+    };
+
+    const makeRow = (u, extraCls, isSub) => {
+      const info = getAssetPickerRoleInfo(u);
+      const genLbl = getGenerationLabel(getGenerationBucket(u));
+      const genPill = genLbl && genLbl !== 'Legacy' ? `<span class="ap-badge" style="background:rgba(148,163,184,0.12); color:#cbd5e1; border:1px solid rgba(148,163,184,0.3);">${escapeHtml(genLbl)}</span>` : '';
+      const isAct = u.UNIT_NAME === selectedName ? ' is-active' : '';
+      const prefix = isSub ? '↳ ' : info.prefix;
+      const safeArg = escapeHtml(u.UNIT_NAME).replace(/'/g, "\\'");
+      return `<button type="button" class="wtr-picker-row ${extraCls}${isAct}" onclick="selectAssetFromCustomPicker('${safeArg}')">
+        <span>${prefix}${escapeHtml(u.UNIT_NAME)}</span>
+        <span style="display:inline-flex; align-items:center; gap:5px;">${genPill}<span class="ap-badge ${info.badgeCls}">${info.label}</span></span>
+      </button>`;
+    };
+
+    let html = '';
+
+    const heroRows = [];
+    heroGroups.forEach(g => {
+      const pMatch = matchesQ(g.parent);
+      const subMatches = g.subs.filter(matchesQ);
+      if (pMatch || subMatches.length > 0) {
+        heroRows.push(makeRow(g.parent, 'is-hero', false));
+        (pMatch && !q ? g.subs : (pMatch ? g.subs : subMatches)).forEach(s => {
+          heroRows.push(makeRow(s, 'is-sub', true));
+        });
+      }
+    });
+    if (heroRows.length) {
+      html += `<div class="wtr-picker-grp gold">★ HEROES w/ SOLDIERS</div>` + heroRows.join('');
+    }
+
+    const warlordRows = [];
+    warlordGroups.forEach(g => {
+      const pMatch = matchesQ(g.parent);
+      const subMatches = g.subs.filter(matchesQ);
+      if (pMatch || subMatches.length > 0) {
+        warlordRows.push(makeRow(g.parent, 'is-warlord', false));
+        (pMatch && !q ? g.subs : (pMatch ? g.subs : subMatches)).forEach(s => {
+          warlordRows.push(makeRow(s, 'is-sub', true));
+        });
+      }
+    });
+    if (warlordRows.length) {
+      html += `<div class="wtr-picker-grp red">👑 WARLORDS w/ SOLDIERS</div>` + warlordRows.join('');
+    }
+
+    const solRows = standaloneSoldiers.filter(matchesQ).map(s => makeRow(s, '', false));
+    if (solRows.length) {
+      html += `<div class="wtr-picker-grp">⚔️ STANDALONE SOLDIERS</div>` + solRows.join('');
+    }
+
+    const unqRows = uniques.filter(matchesQ).map(u => makeRow(u, 'is-unique', false));
+    if (unqRows.length) {
+      html += `<div class="wtr-picker-grp purp">🛡️ STANDALONE UNIQUES</div>` + unqRows.join('');
+    }
+
+    const mercRows = mercs.filter(matchesQ).map(m => makeRow(m, '', false));
+    if (mercRows.length) {
+      html += `<div class="wtr-picker-grp">🎯 MERCENARIES</div>` + mercRows.join('');
+    }
+
+    const otherRows = others.filter(matchesQ).map(o => makeRow(o, '', false));
+    if (otherRows.length) {
+      html += `<div class="wtr-picker-grp">🚀 ORDNANCE / SPECIAL</div>` + otherRows.join('');
+    }
+
+    const hostileRows = hostiles.filter(matchesQ).map(h => makeRow(h, 'is-warlord', false));
+    if (hostileRows.length) {
+      html += `<div class="wtr-picker-grp red">☠️ HOSTILES (ZOMBIE • ENEMIES • KANE'S FORCE • WINTER FORCE)</div>` + hostileRows.join('');
+    }
+
+    listEl.innerHTML = html || `<div style="padding:12px; font-family:monospace; font-size:12px; color:#94a3b8;">No matching assets for "${escapeHtml(q)}".</div>`;
+  }
+
+  document.addEventListener('click', function(ev) {
+    const wrap = document.getElementById('myUnitCustomPicker');
+    if (wrap && !wrap.contains(ev.target)) closeCustomAssetPicker();
+  });
+
+  function getGenSortRank(u) {
+    const b = getGenerationBucket(u);
+    if (b === 'ARC_3') return 3;
+    if (b === 'ARC_2') return 2;
+    if (b === 'ARC_1') return 1;
+    return 0;
+  }
+
+  function getReleaseDateTimestamp(u) {
+    const raw = cleanVal(u?.RELEASE_DATE || u?.STAT_RELEASE_DATE || '');
+    if (!raw) return -Infinity;
+    // Handle "Month YYYY" / "Mon YYYY" (e.g. "Dec 2026", "Nov 2026", "October 2025")
+    const monYr = raw.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*[\s,.-]+(\d{4})$/i);
+    if (monYr) {
+      const mMap = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+      const mIdx = mMap[monYr[1].slice(0, 3).toLowerCase()];
+      const yr = parseInt(monYr[2], 10);
+      if (mIdx !== undefined && yr) return Date.UTC(yr, mIdx, 1);
+    }
+    // Handle standalone 4-digit year (e.g. "2026")
+    const yrOnly = raw.match(/^(\d{4})$/);
+    if (yrOnly) return Date.UTC(parseInt(yrOnly[1], 10), 0, 1);
+    // Fallback to standard Date.parse (ISO "YYYY-MM-DD", "MM/DD/YYYY", "Nov 27, 2026", etc.)
+    const parsed = Date.parse(raw);
+    return Number.isFinite(parsed) ? parsed : -Infinity;
+  }
+
+  function matchesDivisionFilter(u, divVal) {
+    if (!divVal || divVal === 'ALL') return true;
+    const hay = `${u?.CLASSIFICATION || ''} ${u?.STAT_CLASSIFICATION || ''} ${u?.UNIT_NAME || ''} ${u?.STAT_TYPE || ''} ${u?.STAT_FACTION || ''}`.toUpperCase();
+    if (divVal === 'LEGENDARY') return /\bLEGENDARY\b/.test(hay);
+    if (divVal === 'UNIQUE') return /\bUNIQUES?\b/.test(`${u?.CLASSIFICATION || ''} ${u?.STAT_CLASSIFICATION || ''} ${u?.STAT_TYPE || ''}`.toUpperCase());
+    return getDivisionBucket(u) === divVal;
+  }
+
   function populateMyUnitSelect(preserve = false) {
     const divVal = document.getElementById('myDivFilter').value;
     const genVal = document.getElementById('myGenFilter').value;
     const sel = document.getElementById('myUnitSelect');
     const prev = sel.value;
     const list = allCombatUnits.filter(u =>
-      (divVal === 'ALL' || getDivisionBucket(u) === divVal) &&
+      matchesDivisionFilter(u, divVal) &&
       (genVal === 'ALL' || getGenerationBucket(u) === genVal)
-    ).sort((a, b) => String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' }));
+    ).sort((a, b) => {
+      const gDiff = getGenSortRank(b) - getGenSortRank(a);
+      if (gDiff !== 0) return gDiff;
+      const dA = getReleaseDateTimestamp(a);
+      const dB = getReleaseDateTimestamp(b);
+      if (dA !== dB) {
+        if (dA === -Infinity) return 1;
+        if (dB === -Infinity) return -1;
+        return dB - dA;
+      }
+      return String(a.UNIT_NAME || '').localeCompare(String(b.UNIT_NAME || ''), undefined, { numeric: true, sensitivity: 'base' });
+    });
+    currentFilteredPickerUnits = list;
     if (list.length === 0) {
       sel.innerHTML = `<option value="">No units in selected Division + Generation</option>`;
+      renderCustomAssetPickerList();
       onMyUnitChanged();
       return;
     }
     sel.innerHTML = list.map(u => `<option value="${escapeHtml(u.UNIT_NAME)}">${escapeHtml(u.UNIT_NAME)}</option>`).join('');
     if (preserve && list.some(u => u.UNIT_NAME === prev)) sel.value = prev;
     else sel.selectedIndex = 0;
+    renderCustomAssetPickerList();
     onMyUnitChanged();
   }
 
@@ -2154,6 +2590,7 @@
   }
 
   function onMyUnitChanged() {
+    syncCustomAssetPickerButton();
     const me = getMySelectedUnit();
     if (!me) {
       document.getElementById('myHeroPortrait').innerHTML = `<div class="portrait-fallback">NO UNIT<br>MATCHED</div>`;
@@ -3523,7 +3960,7 @@
 
     allCombatUnits.forEach(opp => {
       if (opp.UNIT_NAME === me.UNIT_NAME) return;
-      if (oppDiv !== 'ALL' && getDivisionBucket(opp) !== oppDiv) return;
+      if (oppDiv !== 'ALL' && !matchesDivisionFilter(opp, oppDiv)) return;
       if (oppGen !== 'ALL' && getGenerationBucket(opp) !== oppGen) return;
       if (q && !(`${opp.UNIT_NAME} ${opp.STAT_FACTION || ''} ${opp.STAT_TYPE || ''} ${opp.STAT_GENERATION || ''}`.toLowerCase().includes(q))) return;
 
