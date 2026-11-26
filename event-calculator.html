@@ -1705,6 +1705,20 @@
         "STAT_BUILDING": "Academy", "TALENT_LVL_1": "Protective Escort legendary infantry with Dumbfire Rockets, Bodyguard Armor, and Enhanced Jetpack techs."
       },
       {
+        "UNIT_NAME": "COALHEART", "CLASSIFICATION": "UNIT", "RELEASE_DATE": "Dec 2026",
+        "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/35764b77-d74e-4523-a3c1-082f65331324",
+        "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Rangers", "STAT_TYPE": "Infantry", "STAT_ARMOR_TYPE": "Heavy",
+        "STAT_WEAPON_TYPE": "Flamethrowers", "STAT_TARGETS": "Ground", "STAT_DAMAGE_TYPE": "Area",
+        "STAT_SIZE": "350", "STAT_BUILDING": "Academy", "STAT_BUILDING_REQ": "50",
+        "STAT_HP_RANGE_1": "322,400", "STAT_HP_RANGE_MAX": "520,000",
+        "STAT_DPS_RANGE_1": "6,713", "STAT_DPS_RANGE_MAX": "10,070",
+        "STAT_SPEED": "3", "STAT_RANGE": "550 (600 @ Lvl 5)",
+        "TALENT_LVL_1": "Frontline Unit (advances to 500 Range, fires while advancing). +50% Damage vs Light armor.",
+        "TALENT_LVL_10": "AD-3 Grenade: Detonates into temporary Low Wire Entanglement slowing enemies.",
+        "TALENT_LVL_15": "Shots ignore 25% of Flat Damage Reduction.",
+        "TALENT_LVL_20": "Gains Blue Flame stacks for +25% Damage projectiles."
+      },
+      {
         "UNIT_NAME": "MAMA BURNES", "CLASSIFICATION": "HERO", "RELEASE_DATE": "Nov 2026",
         "UNIT_IMAGE_URL": "https://d2duuy9yo5pldo.cloudfront.net/kixeyesupport/9794987a-9251-40f1-9ed4-6abc6d357cb1",
         "STAT_GENERATION": "Arc 3", "STAT_FACTION": "Rangers", "STAT_TYPE": "Infantry", "STAT_ARMOR_TYPE": "Heavy",
@@ -1732,23 +1746,39 @@
         mode: "operations",
         modeLabel: "MAIN EVENT",
         prefix: "DEC 2026",
-        eventName: "MAIN OPERATION",
-        schedStart: "TBD",
-        schedEnd: "TBD",
-        schedStore: "TBD",
+        eventName: "OPERATION: COLD FRONT",
+        schedStart: "THU DEC 3, 2026 @ 10:00 AM PST",
+        schedEnd: "WED DEC 9, 2026 @ 10:00 AM PST",
+        schedStore: "THU DEC 10, 2026 @ 10:00 AM PST",
         eventDays: 6,
         briefUrl: "./2026-dec-operation-brief.html",
-        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/section/46-events/",
-        syncSourceLabel: "Awaiting Official Brief Posting",
-        isPreReleaseFallback: true,
+        sourceUrl: "https://kixeyesupport.helpshift.com/hc/en/6-war-commander/faq/1080-operation-cold-front-december-2026-main-event/",
+        syncSourceLabel: "DEC 2026 Official Brief (FAQ #1080)",
+        isPreReleaseFallback: false,
         tracksCfg: {
-          btXpPerStage: 200,
+          btXpPerStage: 1000,
+          btMaxStages: 4,
           btUnitsPerStage: 1,
           incB1Xp: 2000, incB2Xp: 2000, incBonusXp: 4000,
           tacB1Xp: 2000, tacHvt1Xp: 4000, tacB2Xp: 2000, tacHvt2Xp: 4000, tacBonusXp: 4000,
+          deathwishXp: 16000,
           warBonusXp: 14000
         },
-        storeCatalog: []
+        storeCatalog: [
+          { name: "Cold Front Event Trophy", maxLimit: 1, cost: 4000, costLabel: "4,000", unit: "", defaultChecked: true },
+          { name: "Spec Ops: Coalheart PROMOTION - FREE", maxLimit: 1, cost: 0, costLabel: "FREE", unit: "COALHEART", defaultChecked: true },
+          { name: "Spec Ops: Coalheart PROMOTION", maxLimit: 1, cost: 40000, costLabel: "40,000", unit: "COALHEART", defaultChecked: true },
+          { name: "Coalheart Upgrade Token", maxLimit: 10, cost: 16000, costLabel: "16,000 / Each", unit: "COALHEART", defaultChecked: true },
+          { name: "Coalheart 24hr Build Logistic", maxLimit: 5, cost: 8000, costLabel: "8,000 / Each", unit: "COALHEART", defaultChecked: false },
+          { name: "Coalheart Maxbuildable", maxLimit: 22, cost: 6000, costLabel: "6,000 / Each", unit: "COALHEART", isBtUnitTarget: true, defaultChecked: true },
+          { name: "Mama Burnes Unlock Parts", maxLimit: 80, cost: 1600, costLabel: "1,600 / Each", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Upgrade Token", maxLimit: 20, cost: 16000, costLabel: "16,000 / Each", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Tech: Embershield Protocol", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Tech: Wildfire Sweep", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Mama Burnes Tech: Pyresong Harmonics", maxLimit: 1, cost: 30000, costLabel: "30,000", unit: "MAMA BURNES", defaultChecked: true },
+          { name: "Argus Tech: Resonance Charges", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "ARGUS", defaultChecked: false },
+          { name: "Argus Tech: Signal Scrambler", maxLimit: 24, cost: 10000, costLabel: "10,000 / Each", unit: "ARGUS", defaultChecked: false }
+        ]
       },
 
       holdout: {
@@ -2313,8 +2343,9 @@
     function getEffectiveItemMaxLimit(mode, itemDef) {
       const baseMax = Math.max(1, parseInt(itemDef.maxLimit, 10) || 1);
       if (mode === "operations" && itemDef.isBtUnitTarget) {
+        const btMax = EVENT_PROFILES.operations.tracksCfg.btMaxStages || 5;
         const parsedBt = parseInt(modeUserStates.operations.btStages, 10);
-        const btStages = Math.max(0, Math.min(5, Number.isFinite(parsedBt) ? parsedBt : 5));
+        const btStages = Math.max(0, Math.min(btMax, Number.isFinite(parsedBt) ? parsedBt : btMax));
         const perStage = EVENT_PROFILES.operations.tracksCfg.btUnitsPerStage || 1;
         return Math.max(0, baseMax - (btStages * perStage));
       }
@@ -2530,12 +2561,16 @@
       const cfg = EVENT_PROFILES[currentMode].tracksCfg;
 
       if (currentMode === "operations") {
+        const btMax = cfg.btMaxStages || 5;
+        const btStageOpts = Array.from({ length: btMax + 1 }, (_, i) => i);
+        const curBt = Math.min(btMax, Math.max(0, Number.isFinite(parseInt(st.btStages, 10)) ? parseInt(st.btStages, 10) : btMax));
+        st.btStages = curBt;
         box.innerHTML = `
           <div style="background:rgba(255,215,0,0.07); border:1px solid rgba(255,215,0,0.4); border-radius:4px; padding:9px 10px;">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:5px;">
-              <strong style="font-family:monospace; font-size:11.5px; color:var(--text-gold);">🎓 BASIC TRAINING (0–5 STAGES)</strong>
+              <strong style="font-family:monospace; font-size:11.5px; color:var(--text-gold);">🎓 BASIC TRAINING (0–${btMax} STAGES)</strong>
               <select id="opsBtSelect" class="source-select" onchange="updateModeField('btStages', parseInt(this.value,10)); syncOperationsBtCap();">
-                ${[0,1,2,3,4,5].map(n => `<option value="${n}" ${st.btStages===n?'selected':''}>${n}/5 Stages (+${(n*cfg.btXpPerStage).toLocaleString()} XP • -${n} Unit Cap)</option>`).join("")}
+                ${btStageOpts.map(n => `<option value="${n}" ${curBt===n?'selected':''}>${n}/${btMax} Stages (+${(n*cfg.btXpPerStage).toLocaleString()} XP • -${n} Unit Cap)</option>`).join("")}
               </select>
             </div>
             <div style="font-size:11.5px; color:var(--text-muted);" id="opsBtSavingNote">Reduces featured unit Maxbuildable needed in store &amp; credits earned XP.</div>
@@ -2619,6 +2654,19 @@
               </tbody>
             </table>
           </div>
+
+          ${(cfg.deathwishXp || 0) > 0 ? `
+          <div class="track-option-card ${st.activeTrack==='DEATHWISH'?'selected':''}" id="opsCardDw" style="border-color: rgba(248, 113, 113, 0.55);">
+            <div class="track-opt-head">
+              <label class="track-opt-label">
+                <input type="radio" name="opsTrackMode" value="DEATHWISH" ${st.activeTrack==='DEATHWISH'?'checked':''} onchange="updateModeField('activeTrack','DEATHWISH')">
+                <span>💀 Deathwish Base (Trophy Unlock)</span>
+              </label>
+              <span class="track-opt-xp-pill" id="opsPillDwXp" style="color:#fca5a5;">16,000 XP</span>
+            </div>
+            <div class="track-opt-desc">Hardest event base (unlocked via <strong>4,000 XP Event Trophy</strong>). Scales harder each victory &amp; levels up Trophy.</div>
+          </div>
+          ` : ''}
 
           <div>
             <div style="font-family:monospace; font-size:11px; font-weight:900; color:var(--text-orange); text-transform:uppercase; margin-bottom:6px;">📦 Proving Grounds Chest Multiplier (2H Boost)</div>
@@ -2854,10 +2902,12 @@
         const tacXp = Math.round(tacRaw * mult);
         const warXp = (incBonusOk && tacBonusOk) ? cfg.warBonusXp : 0;
         const bothXp = incXp + tacXp + warXp;
+        const dwXp = Math.round((cfg.deathwishXp || 0) * mult);
 
         setTxt("opsPillIncXp", `${incXp.toLocaleString()} XP`);
         setTxt("opsPillTacXp", `${tacXp.toLocaleString()} XP`);
         setTxt("opsPillBothXp", `${bothXp.toLocaleString()} XP`);
+        setTxt("opsPillDwXp", `${dwXp.toLocaleString()} XP`);
         setTxt("opsValIncB1", Math.round(cfg.incB1Xp * mult).toLocaleString());
         setTxt("opsValIncB2", Math.round(cfg.incB2Xp * mult).toLocaleString());
         setTxt("opsValIncBonus", incBonusOk ? Math.round(cfg.incBonusXp * mult).toLocaleString() : "0 (Need I & II)");
@@ -2867,8 +2917,9 @@
         setTxt("opsValTacHvt2", (st.tacB2 && st.tacHvt2) ? Math.round(cfg.tacHvt2Xp * mult).toLocaleString() : "0");
         setTxt("opsValTacBonus", tacBonusOk ? Math.round(cfg.tacBonusXp * mult).toLocaleString() : "0 (Need I & II)");
 
+        const btMax = cfg.btMaxStages || 5;
         const parsedBt2 = parseInt(st.btStages, 10);
-        const btStages = Math.max(0, Math.min(5, Number.isFinite(parsedBt2) ? parsedBt2 : 5));
+        const btStages = Math.max(0, Math.min(btMax, Number.isFinite(parsedBt2) ? parsedBt2 : btMax));
         const btEarnedXp = btStages * (cfg.btXpPerStage || 200);
         const btItem = EVENT_PROFILES.operations.storeCatalog.find(i => i.isBtUnitTarget);
         const savedStoreXp = btItem ? (btStages * (cfg.btUnitsPerStage || 1) * btItem.cost) : 0;
@@ -2877,6 +2928,7 @@
         let activeYield = bothXp, trackName = "Full Pair + War Bonus", altName = "Tactical Only", altYield = tacXp;
         if (st.activeTrack === "INCURSION") { activeYield = incXp; trackName = "Incursion Set"; altName = "Full Pair"; altYield = bothXp; }
         else if (st.activeTrack === "TACTICAL") { activeYield = tacXp; trackName = "Tactical Set"; altName = "Full Pair"; altYield = bothXp; }
+        else if (st.activeTrack === "DEATHWISH") { activeYield = dwXp; trackName = "Deathwish Base"; altName = "Full Pair"; altYield = bothXp; }
 
         return {
           activeYield,

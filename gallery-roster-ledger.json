@@ -1,6 +1,6 @@
 {
     "seededAt":  "2026-11-15T05:03:32Z",
-    "updatedAt":  "2026-11-26T03:31:50Z",
+    "updatedAt":  "2026-11-26T07:39:42Z",
     "entries":  {
                     "UNIT::DYAD \u0026 TWIN":  {
                                                    "key":  "DYAD \u0026 TWIN",
@@ -1121,6 +1121,62 @@
                                              "subLabel":  "Arc 3 • HERO",
                                              "firstSeenMs":  1795663910460,
                                              "firstSeenAt":  "2026-11-26T03:31:50Z"
-                                         }
+                                         },
+                    "UNIT::COALHEART":  {
+                                            "key":  "COALHEART",
+                                            "name":  "COALHEART",
+                                            "gallery":  "UNIT",
+                                            "subLabel":  "Arc 3 • SOLDIER",
+                                            "firstSeenMs":  1795678782445,
+                                            "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                        },
+                    "UNIT::KRAMPUS":  {
+                                          "key":  "KRAMPUS",
+                                          "name":  "KRAMPUS",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "ENEMIES • WINTERFORCE",
+                                          "firstSeenMs":  1795678782445,
+                                          "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                      },
+                    "UNIT::TIMBERCART":  {
+                                             "key":  "TIMBERCART",
+                                             "name":  "TIMBERCART",
+                                             "gallery":  "UNIT",
+                                             "subLabel":  "ENEMIES • WINTERFORCE",
+                                             "firstSeenMs":  1795678782445,
+                                             "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                         },
+                    "UNIT::TOYMAKER":  {
+                                           "key":  "TOYMAKER",
+                                           "name":  "TOYMAKER",
+                                           "gallery":  "UNIT",
+                                           "subLabel":  "ENEMIES • WINTERFORCE",
+                                           "firstSeenMs":  1795678782445,
+                                           "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                       },
+                    "UNIT::FRITZ":  {
+                                        "key":  "FRITZ",
+                                        "name":  "FRITZ",
+                                        "gallery":  "UNIT",
+                                        "subLabel":  "ENEMIES • WINTERFORCE",
+                                        "firstSeenMs":  1795678782445,
+                                        "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                    },
+                    "UNIT::DROSSELMEYER":  {
+                                               "key":  "DROSSELMEYER",
+                                               "name":  "DROSSELMEYER",
+                                               "gallery":  "UNIT",
+                                               "subLabel":  "ENEMIES • WINTERFORCE",
+                                               "firstSeenMs":  1795678782445,
+                                               "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                           },
+                    "UNIT::HOFFMAN":  {
+                                          "key":  "HOFFMAN",
+                                          "name":  "HOFFMAN",
+                                          "gallery":  "UNIT",
+                                          "subLabel":  "ENEMIES • WINTERFORCE",
+                                          "firstSeenMs":  1795678782445,
+                                          "firstSeenAt":  "2026-11-26T07:39:42Z"
+                                      }
                 }
 }
