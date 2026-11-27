@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-26T13:52:11-08:00",
-    "generatedMs":  1795729923163,
+    "generatedAt":  "2026-11-27T09:34:05-08:00",
+    "generatedMs":  1795800840294,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -27,6 +27,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                         "report-war-crimes.html",
                         "sector-status-sheet.html",
                         "vault-event-history.html",
+                        "wallpaper_generator.html",
                         "whats-broken.html"
                     ],
     "vaultFiles":  [
@@ -177,8 +178,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "index.html",
                               "path":  "./index.html",
                               "title":  "WatchToweR Command Center",
-                              "modifiedAt":  "2026-11-26T21:48:45Z",
-                              "modifiedMs":  1795729725255
+                              "modifiedAt":  "2026-11-27T17:31:12Z",
+                              "modifiedMs":  1795800672393
                           },
                           {
                               "file":  "keyboard-commands.html",
@@ -221,6 +222,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "title":  "[-WTR-] Vault — Self-Populating Event History Directory",
                               "modifiedAt":  "2026-11-22T21:54:21Z",
                               "modifiedMs":  1795384461731
+                          },
+                          {
+                              "file":  "wallpaper_generator.html",
+                              "path":  "./wallpaper_generator.html",
+                              "title":  "Tactical Callsign Wallpaper Generator | WatchToweR Data Hub",
+                              "modifiedAt":  "2026-11-27T17:20:13Z",
+                              "modifiedMs":  1795800013261
                           },
                           {
                               "file":  "whats-broken.html",
@@ -302,11 +310,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "CATAPULT",
                                           "CHRONOPHAGE",
                                           "CHRONOS",
+                                          "COALHEART",
                                           "CONDUIT",
                                           "DAWN SLATER",
                                           "DIXON",
                                           "DR. ACHE",
                                           "DR. AEGON",
+                                          "DROSSELMEYER",
                                           "DUTCH",
                                           "DYAD \u0026 TWIN",
                                           "EIDOLON",
@@ -316,6 +326,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "FLAME",
                                           "FORAGER",
                                           "FORTRESS NODE",
+                                          "FRITZ",
                                           "FROSTPIERCER",
                                           "GENERATOR",
                                           "GENERATOR BASTION",
@@ -326,6 +337,7 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "HIVE COMMAND",
                                           "HIVE GUARD",
                                           "HIVE WATCHER",
+                                          "HOFFMAN",
                                           "HOLOSIGHT",
                                           "IGNACIO DIAZ",
                                           "IRONSIDE",
@@ -333,11 +345,13 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "JOHNNY BONES",
                                           "JUGGERNAUT",
                                           "KAI CHEN",
+                                          "KRAMPUS",
                                           "LANDLOCHE",
                                           "LANDLOCKE",
                                           "LASER TANK X",
                                           "LEGENDARY ESCORT",
                                           "LUCIA VEGA",
+                                          "MAMA BURNS",
                                           "MARSHAL",
                                           "MATCHLOCKE",
                                           "MEDJAI",
@@ -376,7 +390,9 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           "TACTICAL BACKUP",
                                           "TACTICAL BACKUP BASTION",
                                           "TERRY MICHAELS",
+                                          "TIMBERCART",
                                           "TORTOISE",
+                                          "TOYMAKER",
                                           "TUNGSTEN",
                                           "VALIANT MKII",
                                           "VEGA",
@@ -426,70 +442,6 @@ window.WTR_DIRECTORY_MANIFEST = {
                                           ]
                         },
     "recentGalleryAdditions":  [
-                                   {
-                                       "key":  "MAMA BURNS",
-                                       "name":  "MAMA BURNS",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 3 • HERO",
-                                       "firstSeenMs":  1795663910460,
-                                       "firstSeenAt":  "2026-11-26T03:31:50Z"
-                                   },
-                                   {
-                                       "key":  "COALHEART",
-                                       "name":  "COALHEART",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "Arc 3 • SOLDIER",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "KRAMPUS",
-                                       "name":  "KRAMPUS",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "TIMBERCART",
-                                       "name":  "TIMBERCART",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "TOYMAKER",
-                                       "name":  "TOYMAKER",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "FRITZ",
-                                       "name":  "FRITZ",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "DROSSELMEYER",
-                                       "name":  "DROSSELMEYER",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
-                                   {
-                                       "key":  "HOFFMAN",
-                                       "name":  "HOFFMAN",
-                                       "gallery":  "UNIT",
-                                       "subLabel":  "ENEMIES • WINTERFORCE",
-                                       "firstSeenMs":  1795678782445,
-                                       "firstSeenAt":  "2026-11-26T07:39:42Z"
-                                   },
                                    {
                                        "key":  "YAMATO",
                                        "name":  "YAMATO",

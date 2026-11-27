@@ -1252,7 +1252,32 @@
     .calendar-grid, .brief-buttons-grid, .card-transfer-controls { grid-template-columns: 1fr; }
     .bento-main-btn { flex-direction: column; align-items: flex-start; gap: 8px; }
   }
-  </style>
+    /* Easter Egg: Emblem Triple-Click Ring Charge & Toast */
+  .header-logo-frame.egg-ping-1 { box-shadow: 0 0 18px rgba(56, 189, 248, 0.7) !important; border-color: #38bdf8 !important; }
+  .header-logo-frame.egg-ping-2 { box-shadow: 0 0 24px rgba(245, 197, 66, 0.85) !important; border-color: #f5c542 !important; }
+  .header-logo-frame.egg-ping-3 { box-shadow: 0 0 34px rgba(0, 216, 255, 0.98) !important; border-color: #00d8ff !important; transform: scale(1.06); }
+  .wtr-egg-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(28px);
+    background: linear-gradient(90deg, #061826, #0c2c42);
+    border: 1.5px solid #00d8ff;
+    color: #e4f2fa;
+    font-family: monospace;
+    font-size: 12.5px;
+    font-weight: 900;
+    padding: 10px 18px;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0, 216, 255, 0.38);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 99999;
+    letter-spacing: 0.6px;
+  }
+  .wtr-egg-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
 </head>
 <!-- ==================== END BLOCK 1: HEAD & CSS STYLES ==================== -->
 <!-- ==================== START BLOCK 2: SPLASH SCREEN & MASTER HEADER ==================== -->
@@ -1287,7 +1312,7 @@
   <!-- Dynamic 2-Row Stacked Master Header -->
   <div class="header">
     <div class="header-left-cluster">
-      <div class="header-logo-frame" onclick="closeCommandDrawer()" style="cursor: pointer;" title="Click to return to default Home Hub View">
+      <div class="header-logo-frame" id="wtrHeaderLogoFrame" onclick="handleHeaderLogoClick()" style="cursor: pointer;" title="Click to return to default Home Hub View">
         <img src="./assets/images/wtr-logo.png" alt="Watchtower Emblem" class="header-logo-img">
       </div>
       <div class="header-content-stack">
@@ -11866,6 +11891,45 @@ function formatOpBriefStackedTitleHtml(rawName) {
 
     updateLiveIntelTrioCards();
     setInterval(updateLiveIntelTrioCards, 1000);
+  })();
+</script>
+<div class="wtr-egg-toast" id="wtrEggToast">⚡ CLASSIFIED CALLSIGN FORGE UNLOCKED — LAUNCHING...</div>
+<script>
+  (function() {
+    let eggTaps = 0;
+    let eggTimer = null;
+    window.handleHeaderLogoClick = function() {
+      if (typeof closeCommandDrawer === "function") closeCommandDrawer();
+      const frame = document.getElementById("wtrHeaderLogoFrame");
+      const toast = document.getElementById("wtrEggToast");
+      eggTaps++;
+      clearTimeout(eggTimer);
+      if (frame) frame.classList.remove("egg-ping-1", "egg-ping-2", "egg-ping-3");
+      if (eggTaps === 1) {
+        if (frame) frame.classList.add("egg-ping-1");
+      } else if (eggTaps === 2) {
+        if (frame) frame.classList.add("egg-ping-2");
+      } else if (eggTaps >= 3) {
+        eggTaps = 0;
+        if (frame) {
+          frame.classList.add("egg-ping-3");
+          setTimeout(() => frame.classList.remove("egg-ping-3"), 900);
+        }
+        if (toast) {
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 2000);
+        }
+        const pfx = (typeof getWtrPublishedPrefix === "function") ? getWtrPublishedPrefix() : "./";
+        setTimeout(() => {
+          window.open(pfx + "wallpaper_generator.html", "_blank", "noopener");
+        }, 450);
+        return;
+      }
+      eggTimer = setTimeout(() => {
+        eggTaps = 0;
+        if (frame) frame.classList.remove("egg-ping-1", "egg-ping-2", "egg-ping-3");
+      }, 1200);
+    };
   })();
 </script>
 </body>
