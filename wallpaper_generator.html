@@ -201,6 +201,42 @@
       background: rgba(0, 216, 255, 0.12);
     }
 
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .variant-btn {
+      background: #0d1622;
+      border: 1px solid #223a54;
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 6px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-align: center;
+    }
+
+    .variant-btn:hover {
+      border-color: var(--v-accent, var(--cyan));
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .variant-btn.active {
+      border-color: var(--v-accent, var(--cyan));
+      background: color-mix(in srgb, var(--v-accent, #00d8ff) 20%, #09121c);
+      color: #ffffff;
+      box-shadow: 0 0 12px color-mix(in srgb, var(--v-accent, #00d8ff) 45%, transparent);
+    }
+
     .res-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -370,12 +406,13 @@
 
       <div class="control-group">
         <label for="callsignInput">Commander Callsign</label>
-        <input type="text" id="callsignInput" value="HIGHANXIETY" maxlength="22" placeholder="Enter Callsign..." spellcheck="false" autocomplete="off">
+        <input type="text" id="callsignInput" value="HIGHANXIETY LABS" maxlength="22" placeholder="Enter Callsign..." spellcheck="false" autocomplete="off">
         <div class="preset-chips">
           <button type="button" class="chip" data-name="HIGHANXIETY">HIGHANXIETY</button>
           <button type="button" class="chip" data-name="YELLOW7">YELLOW7</button>
           <button type="button" class="chip" data-name="BANZAII">BANZAII</button>
           <button type="button" class="chip" data-name="PROJECT D88">PROJECT D88</button>
+          <button type="button" class="chip" data-name="MACKO">MACKO</button>
         </div>
       </div>
 
@@ -414,14 +451,29 @@
       </div>
 
       <div class="control-group">
-        <label for="fxSlider">Smoke &amp; Flare Intensity</label>
+        <label style="display:flex; justify-content:space-between; align-items:center;">
+          <span>Elemental / FX Variant (Multi-Select Combos)</span>
+          <span id="comboActiveTag" style="font-size:0.74rem; color:var(--cyan-bright); font-family:monospace;">ICE</span>
+        </label>
+        <div class="variant-grid" id="variantGrid">
+          <button type="button" class="variant-btn active" data-variant="ice" style="--v-accent:#00d8ff;">❄️ Ice</button>
+          <button type="button" class="variant-btn" data-variant="fire" style="--v-accent:#ff6a00;">🔥 Fire</button>
+          <button type="button" class="variant-btn" data-variant="electric" style="--v-accent:#60a5fa;">⚡ Electric</button>
+          <button type="button" class="variant-btn" data-variant="toxic" style="--v-accent:#22c55e;">☢️ Toxic</button>
+          <button type="button" class="variant-btn" data-variant="void" style="--v-accent:#c084fc;">🌌 Void</button>
+          <button type="button" class="variant-btn" data-variant="gold" style="--v-accent:#f5c542;">🏆 Gold</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="fxSlider" id="fxSliderLabel">Ice &amp; Flare Intensity</label>
         <div class="slider-row">
           <input type="range" id="fxSlider" min="30" max="150" value="100">
           <span class="slider-val" id="fxVal">100%</span>
         </div>
       </div>
 
-      <button type="button" class="btn-secondary" id="rerollSmokeBtn">&#8635; Regenerate Smoke Pattern</button>
+      <button type="button" class="btn-secondary" id="rerollSmokeBtn">&#8635; Regenerate FX Pattern</button>
 
       <div class="download-actions">
         <button type="button" class="btn-download btn-png" id="downloadPngBtn">Download .PNG</button>
@@ -469,6 +521,198 @@
     const renderStatus = document.getElementById('renderStatus');
 
     let smokeSeed = 88421;
+    let activeVariants = ['ice'];
+    const fxSliderLabel = document.getElementById('fxSliderLabel');
+    const comboActiveTag = document.getElementById('comboActiveTag');
+
+    const FX_VARIANTS = {
+      ice: {
+        name: 'Ice',
+        sliderLbl: 'Ice & Flare Intensity',
+        metalStops: ['#c6f6ff', '#59ccf7', '#1d89c4', '#7ce4ff'],
+        mottleBright: 'rgba(235, 253, 255, 0.16)',
+        mottleDark: 'rgba(6, 52, 88, 0.18)',
+        scratchLight: '240, 254, 255',
+        scratchDark: '8, 45, 78',
+        shadow: 'rgba(0, 205, 255, 0.85)',
+        baseFill: '#062840',
+        sheen: ['rgba(235, 253, 255, 0.45)', 'rgba(0, 174, 255, 0.08)', 'rgba(3, 38, 68, 0.42)', 'rgba(130, 235, 255, 0.3)'],
+        bevelDark: '#041c30',
+        rimOuter: '#9bf3ff',
+        rimInner: '#7ceaff',
+        cloudCore: '0, 175, 255',
+        cloudMid: '0, 95, 170',
+        puffCore: '18, 195, 255',
+        puffMid: '0, 92, 165',
+        sparkRgb: '170, 245, 255',
+        flareOuter: '0, 160, 255',
+        flareCenter: '185, 248, 255',
+        hotCore: '230, 253, 255',
+        hotMid: '0, 200, 255',
+        textBloom: 'rgba(0, 216, 255, 0.95)',
+        textBloomStroke: '#00c8ff',
+        textRim: ['#ebfcff', '#4dd7ff', '#0b6da8', '#bef6ff'],
+        textCore: ['#1e3547', '#09131d', '#04070b', '#0c2336', '#1d5678'],
+        textSpec: 'rgba(195, 248, 255, 0.72)'
+      },
+      fire: {
+        name: 'Fire',
+        sliderLbl: 'Fire & Ember Intensity',
+        metalStops: ['#fff0b8', '#ff9429', '#b82500', '#ffbe4d'],
+        mottleBright: 'rgba(255, 235, 180, 0.2)',
+        mottleDark: 'rgba(75, 12, 0, 0.24)',
+        scratchLight: '255, 228, 175',
+        scratchDark: '70, 14, 0',
+        shadow: 'rgba(255, 95, 0, 0.9)',
+        baseFill: '#3b0b00',
+        sheen: ['rgba(255, 238, 185, 0.45)', 'rgba(255, 110, 0, 0.14)', 'rgba(60, 8, 0, 0.48)', 'rgba(255, 170, 50, 0.34)'],
+        bevelDark: '#260700',
+        rimOuter: '#ffd27a',
+        rimInner: '#ff8a2b',
+        cloudCore: '255, 110, 15',
+        cloudMid: '175, 28, 0',
+        puffCore: '255, 130, 20',
+        puffMid: '165, 30, 0',
+        sparkRgb: '255, 215, 120',
+        flareOuter: '255, 85, 0',
+        flareCenter: '255, 232, 165',
+        hotCore: '255, 248, 215',
+        hotMid: '255, 120, 15',
+        textBloom: 'rgba(255, 102, 0, 0.96)',
+        textBloomStroke: '#ff6a00',
+        textRim: ['#fff4cc', '#ff9d2e', '#9e1c00', '#ffd98a'],
+        textCore: ['#4a1f10', '#1d0a04', '#0b0301', '#381205', '#782b0c'],
+        textSpec: 'rgba(255, 230, 165, 0.78)'
+      },
+      electric: {
+        name: 'Electric',
+        sliderLbl: 'Voltage & Arc Intensity',
+        metalStops: ['#e0f2ff', '#6aaeff', '#2638b8', '#9ec5ff'],
+        mottleBright: 'rgba(225, 240, 255, 0.2)',
+        mottleDark: 'rgba(15, 18, 95, 0.24)',
+        scratchLight: '225, 242, 255',
+        scratchDark: '16, 22, 85',
+        shadow: 'rgba(90, 155, 255, 0.95)',
+        baseFill: '#0b1240',
+        sheen: ['rgba(235, 245, 255, 0.5)', 'rgba(90, 145, 255, 0.14)', 'rgba(12, 16, 75, 0.45)', 'rgba(150, 200, 255, 0.35)'],
+        bevelDark: '#070c2e',
+        rimOuter: '#cde6ff',
+        rimInner: '#7db7ff',
+        cloudCore: '85, 150, 255',
+        cloudMid: '42, 56, 195',
+        puffCore: '105, 170, 255',
+        puffMid: '48, 62, 190',
+        sparkRgb: '215, 238, 255',
+        flareOuter: '80, 130, 255',
+        flareCenter: '225, 242, 255',
+        hotCore: '245, 252, 255',
+        hotMid: '105, 165, 255',
+        textBloom: 'rgba(105, 168, 255, 0.98)',
+        textBloomStroke: '#66a8ff',
+        textRim: ['#f0f7ff', '#7cb8ff', '#273cb5', '#d4e8ff'],
+        textCore: ['#212c52', '#0b1024', '#040610', '#131d47', '#2b448f'],
+        textSpec: 'rgba(220, 240, 255, 0.85)'
+      },
+      toxic: {
+        name: 'Toxic',
+        sliderLbl: 'Toxic Vapor & Flare Intensity',
+        metalStops: ['#d9ffcf', '#4ade80', '#15803d', '#86efac'],
+        mottleBright: 'rgba(220, 255, 210, 0.18)',
+        mottleDark: 'rgba(5, 62, 24, 0.22)',
+        scratchLight: '225, 255, 220',
+        scratchDark: '6, 52, 20',
+        shadow: 'rgba(34, 197, 94, 0.9)',
+        baseFill: '#052e16',
+        sheen: ['rgba(225, 255, 225, 0.42)', 'rgba(34, 197, 94, 0.12)', 'rgba(4, 48, 22, 0.46)', 'rgba(134, 239, 172, 0.3)'],
+        bevelDark: '#03200f',
+        rimOuter: '#bbf7d0',
+        rimInner: '#4ade80',
+        cloudCore: '34, 215, 96',
+        cloudMid: '15, 118, 48',
+        puffCore: '52, 225, 110',
+        puffMid: '16, 112, 46',
+        sparkRgb: '190, 255, 200',
+        flareOuter: '22, 195, 84',
+        flareCenter: '215, 255, 220',
+        hotCore: '240, 255, 242',
+        hotMid: '34, 215, 96',
+        textBloom: 'rgba(34, 215, 96, 0.95)',
+        textBloomStroke: '#22c55e',
+        textRim: ['#e8ffed', '#4ade80', '#15803d', '#bbf7d0'],
+        textCore: ['#163b22', '#071a0e', '#030a05', '#0d2e18', '#1d6334'],
+        textSpec: 'rgba(205, 255, 215, 0.78)'
+      },
+      void: {
+        name: 'Void',
+        sliderLbl: 'Void Plasma & Flare Intensity',
+        metalStops: ['#f5d0fe', '#c084fc', '#6b21a8', '#e879f9'],
+        mottleBright: 'rgba(248, 215, 255, 0.18)',
+        mottleDark: 'rgba(52, 8, 84, 0.24)',
+        scratchLight: '248, 220, 255',
+        scratchDark: '48, 8, 76',
+        shadow: 'rgba(192, 100, 255, 0.92)',
+        baseFill: '#24073d',
+        sheen: ['rgba(250, 220, 255, 0.44)', 'rgba(192, 100, 255, 0.12)', 'rgba(42, 6, 68, 0.48)', 'rgba(232, 121, 249, 0.32)'],
+        bevelDark: '#19042b',
+        rimOuter: '#f5d0fe',
+        rimInner: '#d946ef',
+        cloudCore: '195, 70, 255',
+        cloudMid: '115, 18, 165',
+        puffCore: '215, 85, 255',
+        puffMid: '105, 16, 155',
+        sparkRgb: '245, 200, 255',
+        flareOuter: '185, 55, 245',
+        flareCenter: '250, 220, 255',
+        hotCore: '255, 240, 255',
+        hotMid: '205, 75, 255',
+        textBloom: 'rgba(198, 78, 255, 0.95)',
+        textBloomStroke: '#c04eff',
+        textRim: ['#fae8ff', '#d946ef', '#6b21a8', '#f0abfc'],
+        textCore: ['#36184a', '#150821', '#07020c', '#260d3b', '#561c7d'],
+        textSpec: 'rgba(248, 215, 255, 0.78)'
+      },
+      gold: {
+        name: 'Gold',
+        sliderLbl: 'Gold Dust & Flare Intensity',
+        metalStops: ['#fff7cc', '#f5c542', '#9c6808', '#ffe07d'],
+        mottleBright: 'rgba(255, 248, 210, 0.2)',
+        mottleDark: 'rgba(72, 44, 0, 0.22)',
+        scratchLight: '255, 246, 205',
+        scratchDark: '68, 42, 0',
+        shadow: 'rgba(245, 197, 66, 0.88)',
+        baseFill: '#332102',
+        sheen: ['rgba(255, 250, 220, 0.46)', 'rgba(245, 197, 66, 0.12)', 'rgba(58, 36, 0, 0.46)', 'rgba(255, 224, 125, 0.34)'],
+        bevelDark: '#211400',
+        rimOuter: '#fef08a',
+        rimInner: '#f5c542',
+        cloudCore: '245, 185, 45',
+        cloudMid: '145, 92, 10',
+        puffCore: '255, 200, 65',
+        puffMid: '138, 86, 8',
+        sparkRgb: '255, 240, 175',
+        flareOuter: '235, 170, 30',
+        flareCenter: '255, 248, 205',
+        hotCore: '255, 252, 232',
+        hotMid: '245, 190, 50',
+        textBloom: 'rgba(245, 197, 66, 0.94)',
+        textBloomStroke: '#f5c542',
+        textRim: ['#fffbe0', '#f5c542', '#8f5d06', '#fde68a'],
+        textCore: ['#453412', '#1c1405', '#0a0702', '#332408', '#6e4c10'],
+        textSpec: 'rgba(255, 245, 195, 0.8)'
+      }
+    };
+
+    const metalTextureCache = {};
+    function getActiveVariantList() {
+      const list = activeVariants.map(k => FX_VARIANTS[k]).filter(Boolean);
+      return list.length ? list : [FX_VARIANTS.ice];
+    }
+    function getVariant() { return getActiveVariantList()[0]; }
+    function getSecondaryVariant() {
+      const list = getActiveVariantList();
+      return list.length > 1 ? list[1] : list[0];
+    }
+    function hasVariant(k) { return activeVariants.includes(k); }
 
     // Deterministic PRNG so typing doesn't flicker the background smoke
     function mulberry32(a) {
@@ -480,31 +724,33 @@
       };
     }
 
-    // Build reusable scratched ice-metal texture offscreen
-    function createMetalPattern(size, seed) {
+    // Build reusable scratched metallic texture per variant (or dual/multi-variant alloy blend!)
+    function createMetalPattern(size, seed, vList) {
       const pCanvas = document.createElement('canvas');
       pCanvas.width = size;
       pCanvas.height = size;
       const pCtx = pCanvas.getContext('2d');
       const rand = mulberry32(seed);
+      const v1 = vList[0];
+      const v2 = vList.length > 1 ? vList[1] : v1;
+      const v3 = vList.length > 2 ? vList[2] : v2;
 
-      // Base icy cyan metallic gradient
       const baseGrad = pCtx.createLinearGradient(0, 0, size, size);
-      baseGrad.addColorStop(0, '#c6f6ff');
-      baseGrad.addColorStop(0.35, '#59ccf7');
-      baseGrad.addColorStop(0.7, '#1d89c4');
-      baseGrad.addColorStop(1, '#7ce4ff');
+      baseGrad.addColorStop(0, v1.metalStops[0]);
+      baseGrad.addColorStop(0.32, v1.metalStops[1]);
+      baseGrad.addColorStop(0.66, v2.metalStops[2]);
+      baseGrad.addColorStop(1, v3.metalStops[3]);
       pCtx.fillStyle = baseGrad;
       pCtx.fillRect(0, 0, size, size);
 
-      // Subtle mottled frost variation
       for (let i = 0; i < 90; i++) {
         const x = rand() * size;
         const y = rand() * size;
         const r = 15 + rand() * 55;
         const g = pCtx.createRadialGradient(x, y, 0, x, y, r);
+        const pickV = vList[i % vList.length];
         const bright = rand() > 0.5;
-        g.addColorStop(0, bright ? 'rgba(235, 253, 255, 0.16)' : 'rgba(6, 52, 88, 0.18)');
+        g.addColorStop(0, bright ? pickV.mottleBright : pickV.mottleDark);
         g.addColorStop(1, 'rgba(0,0,0,0)');
         pCtx.fillStyle = g;
         pCtx.beginPath();
@@ -512,7 +758,6 @@
         pCtx.fill();
       }
 
-      // Fine battle-worn metal scratches
       for (let i = 0; i < 420; i++) {
         const x1 = rand() * size;
         const y1 = rand() * size;
@@ -520,10 +765,11 @@
         const len = 12 + rand() * 95;
         const x2 = x1 + Math.cos(angle) * len;
         const y2 = y1 + Math.sin(angle) * len;
+        const pickV = vList[i % vList.length];
 
         pCtx.strokeStyle = rand() > 0.35
-          ? `rgba(240, 254, 255, ${0.12 + rand() * 0.28})`
-          : `rgba(8, 45, 78, ${0.15 + rand() * 0.25})`;
+          ? `rgba(${pickV.scratchLight}, ${0.12 + rand() * 0.28})`
+          : `rgba(${pickV.scratchDark}, ${0.15 + rand() * 0.25})`;
         pCtx.lineWidth = 0.5 + rand() * 1.4;
         pCtx.beginPath();
         pCtx.moveTo(x1, y1);
@@ -534,7 +780,13 @@
       return pCanvas;
     }
 
-    const metalTextureCanvas = createMetalPattern(512, 1337);
+    function getActiveMetalTexture() {
+      const cacheKey = activeVariants.join('+');
+      if (!metalTextureCache[cacheKey]) {
+        metalTextureCache[cacheKey] = createMetalPattern(512, 1337, getActiveVariantList());
+      }
+      return metalTextureCache[cacheKey];
+    }
 
     // Trace polygon helper in normalized [-1..1] emblem coordinates
     function tracePoly(ctx, pts, cx, cy, scale) {
@@ -548,13 +800,14 @@
       ctx.closePath();
     }
 
-    // Draw a 3D beveled metallic shape matching the Kixeye/War Commander icy crest
+    // Draw a 3D beveled metallic shape themed to the active variant
     function drawMetallicShape(ctx, outerPts, innerHolePts, cx, cy, scale) {
+      const v = getVariant();
       ctx.save();
 
-      // Deep cyan outer aura glow
+      // Outer aura glow
       ctx.save();
-      ctx.shadowColor = 'rgba(0, 205, 255, 0.85)';
+      ctx.shadowColor = v.shadow;
       ctx.shadowBlur = scale * 0.09;
       ctx.beginPath();
       outerPts.forEach((pt, i) => {
@@ -573,7 +826,7 @@
         });
         ctx.closePath();
       }
-      ctx.fillStyle = '#062840';
+      ctx.fillStyle = v.baseFill;
       ctx.fill();
       ctx.restore();
 
@@ -597,17 +850,17 @@
       }
       ctx.clip('evenodd');
 
-      // Fill with scratched ice-blue metal pattern
-      const pat = ctx.createPattern(metalTextureCanvas, 'repeat');
+      // Fill with scratched variant metal pattern (single or multi-element alloy blend)
+      const pat = ctx.createPattern(getActiveMetalTexture(), 'repeat');
       ctx.fillStyle = pat;
       ctx.fillRect(cx - scale, cy - scale, scale * 2, scale * 2);
 
       // Directional lighting overlay across crest
       const sheen = ctx.createLinearGradient(cx - scale * 0.7, cy - scale * 0.9, cx + scale * 0.7, cy + scale * 0.9);
-      sheen.addColorStop(0, 'rgba(235, 253, 255, 0.45)');
-      sheen.addColorStop(0.45, 'rgba(0, 174, 255, 0.08)');
-      sheen.addColorStop(0.8, 'rgba(3, 38, 68, 0.42)');
-      sheen.addColorStop(1, 'rgba(130, 235, 255, 0.3)');
+      sheen.addColorStop(0, v.sheen[0]);
+      sheen.addColorStop(0.45, v.sheen[1]);
+      sheen.addColorStop(0.8, v.sheen[2]);
+      sheen.addColorStop(1, v.sheen[3]);
       ctx.fillStyle = sheen;
       ctx.fillRect(cx - scale, cy - scale, scale * 2, scale * 2);
 
@@ -623,12 +876,12 @@
         ctx.stroke();
       };
 
-      strokePath(outerPts, Math.max(2, scale * 0.022), '#041c30');
-      strokePath(outerPts, Math.max(1.5, scale * 0.009), '#9bf3ff');
+      strokePath(outerPts, Math.max(2, scale * 0.022), v.bevelDark);
+      strokePath(outerPts, Math.max(1.5, scale * 0.009), v.rimOuter);
 
       if (innerHolePts) {
-        strokePath(innerHolePts, Math.max(2, scale * 0.022), '#041c30');
-        strokePath(innerHolePts, Math.max(1.5, scale * 0.009), '#7ceaff');
+        strokePath(innerHolePts, Math.max(2, scale * 0.022), v.bevelDark);
+        strokePath(innerHolePts, Math.max(1.5, scale * 0.009), v.rimInner);
       }
     }
 
@@ -701,49 +954,253 @@
       drawMetallicShape(ctx, starPts, null, cx, cy, s);
     }
 
-    // Draw procedural cyan/blue atmospheric smoke & embers on pure black
+    // Procedural jagged lightning bolt helper (for Electric variant)
+    function drawLightningBolt(ctx, x1, y1, x2, y2, displace, rand, depth) {
+      if (depth <= 0 || displace < 4) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        return;
+      }
+      const midX = (x1 + x2) / 2 + (rand() - 0.5) * displace;
+      const midY = (y1 + y2) / 2 + (rand() - 0.5) * displace;
+      drawLightningBolt(ctx, x1, y1, midX, midY, displace * 0.55, rand, depth - 1);
+      drawLightningBolt(ctx, midX, midY, x2, y2, displace * 0.55, rand, depth - 1);
+      if (depth >= 3 && rand() > 0.58) {
+        const bx = midX + (rand() - 0.5) * displace * 2.1;
+        const by = midY + (rand() - 0.5) * displace * 2.1;
+        ctx.save();
+        ctx.lineWidth *= 0.55;
+        ctx.globalAlpha *= 0.65;
+        drawLightningBolt(ctx, midX, midY, bx, by, displace * 0.45, rand, depth - 2);
+        ctx.restore();
+      }
+    }
+
+    // Fast 2D value noise + Domain-Warped Ridged FBM for crisp, billowing wispy smoke with defined edges
+    function createNoise2D(seed) {
+      const rand = mulberry32(seed);
+      const perm = new Uint8Array(512);
+      const vals = new Float32Array(256);
+      for (let i = 0; i < 256; i++) {
+        perm[i] = i;
+        vals[i] = rand();
+      }
+      for (let i = 255; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        const tmp = perm[i]; perm[i] = perm[j]; perm[j] = tmp;
+      }
+      for (let i = 0; i < 256; i++) perm[i + 256] = perm[i];
+
+      const fade = (t) => t * t * t * (t * (t * 6 - 15) + 10);
+      const lerp = (a, b, t) => a + (b - a) * t;
+
+      return function noise(x, y) {
+        const xi = Math.floor(x) & 255;
+        const yi = Math.floor(y) & 255;
+        const xf = x - Math.floor(x);
+        const yf = y - Math.floor(y);
+        const u = fade(xf);
+        const v = fade(yf);
+        const aa = vals[perm[perm[xi] + yi]];
+        const ab = vals[perm[perm[xi] + yi + 1]];
+        const ba = vals[perm[perm[xi + 1] + yi]];
+        const bb = vals[perm[perm[xi + 1] + yi + 1]];
+        return lerp(lerp(aa, ba, u), lerp(ab, bb, u), v);
+      };
+    }
+
+    let smokeLayerCache = { key: '', canvas: null };
+
+    function buildWispySmokeCanvas(vList, intensity, seed) {
+      const cacheKey = `${activeVariants.join('+')}_${seed}_${Math.round(intensity * 100)}`;
+      if (smokeLayerCache.key === cacheKey && smokeLayerCache.canvas) {
+        return smokeLayerCache.canvas;
+      }
+
+      const sw = 420;
+      const sh = 180;
+      const sCanvas = document.createElement('canvas');
+      sCanvas.width = sw;
+      sCanvas.height = sh;
+      const sCtx = sCanvas.getContext('2d');
+      const imgData = sCtx.createImageData(sw, sh);
+      const data = imgData.data;
+
+      const noise = createNoise2D(seed);
+      const fbm = (x, y, oct) => {
+        let val = 0, amp = 0.5, freq = 1.0;
+        for (let o = 0; o < oct; o++) {
+          val += amp * noise(x * freq, y * freq);
+          freq *= 2.08;
+          amp *= 0.5;
+        }
+        return val;
+      };
+
+      const parseRgb = (str) => str.split(',').map(n => parseInt(n.trim(), 10) || 0);
+      const c1Core = parseRgb(vList[0].puffCore);
+      const c1Mid  = parseRgb(vList[0].puffMid);
+      const c1Hi   = parseRgb(vList[0].sparkRgb);
+      const v2 = vList.length > 1 ? vList[1] : vList[0];
+      const c2Core = parseRgb(v2.puffCore);
+      const c2Mid  = parseRgb(v2.puffMid);
+      const c2Hi   = parseRgb(v2.sparkRgb);
+
+      for (let py = 0; py < sh; py++) {
+        const ny = (py / sh - 0.5) * 2; // -1..1
+        for (let px = 0; px < sw; px++) {
+          const nx = (px / sw - 0.5) * 2; // -1..1
+
+          // Envelope hugs BOTH the central emblem (tall) AND the callsign (wide horizontal band)
+          const emblemDist = Math.sqrt((nx * 2.15) ** 2 + (ny * 1.12) ** 2);
+          const textDist   = Math.sqrt((nx * 1.18) ** 2 + (ny * 2.15) ** 2);
+          const envDist = Math.min(emblemDist, textDist);
+          const mask = Math.max(0, 1 - Math.pow(Math.min(1, envDist * 0.94), 1.65));
+          if (mask <= 0.004) continue;
+
+          // Domain-warped coordinates for curling fluid tendrils
+          const sx = (px / sw) * 6.2;
+          const sy = (py / sh) * 3.4 - (hasVariant('fire') ? (1 - py / sh) * 0.8 : 0);
+          const qx = fbm(sx + 1.7, sy + 9.2, 3);
+          const qy = fbm(sx + 8.3, sy + 2.8, 3);
+          const wx = sx + (qx - 0.5) * 3.2;
+          const wy = sy + (qy - 0.5) * 3.2;
+
+          // Second warp pass for fine curling smoke filaments
+          const rx = fbm(wx + 4.1, wy + 1.3, 3);
+          const ry = fbm(wx + 2.9, wy + 7.4, 3);
+          const nBase = fbm(wx + (rx - 0.5) * 2.1, wy + (ry - 0.5) * 2.1, 4);
+
+          // Ridged turbulence creates sharp luminous smoke edges + dark inner pockets (matches reference!)
+          const ridge = 1 - Math.abs(nBase * 2 - 1);
+          const edgeFilament = Math.pow(Math.max(0, ridge), 2.35);
+          const bodyBillow   = Math.pow(Math.max(0, nBase - 0.24) * 1.45, 1.55);
+
+          const smokeVal = Math.min(1.35, (edgeFilament * 0.95 + bodyBillow * 0.55) * mask * intensity);
+          if (smokeVal <= 0.01) continue;
+
+          // Blend colors smoothly across combos using warped noise
+          const mixT = vList.length > 1 ? Math.max(0, Math.min(1, 0.5 + nx * 0.6 + (qx - 0.5) * 0.7)) : 0;
+          const midR  = c1Mid[0]  + (c2Mid[0]  - c1Mid[0])  * mixT;
+          const midG  = c1Mid[1]  + (c2Mid[1]  - c1Mid[1])  * mixT;
+          const midB  = c1Mid[2]  + (c2Mid[2]  - c1Mid[2])  * mixT;
+          const coreR = c1Core[0] + (c2Core[0] - c1Core[0]) * mixT;
+          const coreG = c1Core[1] + (c2Core[1] - c1Core[1]) * mixT;
+          const coreB = c1Core[2] + (c2Core[2] - c1Core[2]) * mixT;
+          const hiR   = c1Hi[0]   + (c2Hi[0]   - c1Hi[0])   * mixT;
+          const hiG   = c1Hi[1]   + (c2Hi[1]   - c1Hi[1])   * mixT;
+          const hiB   = c1Hi[2]   + (c2Hi[2]   - c1Hi[2])   * mixT;
+
+          // Sharp bright rim highlight along the highest ridge crests
+          const hiBoost = Math.pow(Math.max(0, edgeFilament * mask), 2.4) * intensity;
+          const tCol = Math.min(1, smokeVal * 1.1);
+
+          const r = Math.min(255, (midR + (coreR - midR) * tCol) * smokeVal + hiR * hiBoost * 0.9);
+          const g = Math.min(255, (midG + (coreG - midG) * tCol) * smokeVal + hiG * hiBoost * 0.9);
+          const b = Math.min(255, (midB + (coreB - midB) * tCol) * smokeVal + hiB * hiBoost * 0.9);
+
+          const off = (py * sw + px) * 4;
+          data[off]     = r;
+          data[off + 1] = g;
+          data[off + 2] = b;
+          data[off + 3] = Math.min(255, Math.round(smokeVal * 245));
+        }
+      }
+
+      sCtx.putImageData(imgData, 0, 0);
+      smokeLayerCache = { key: cacheKey, canvas: sCanvas };
+      return sCanvas;
+    }
+
+    // Draw procedural elemental smoke, embers, flame plumes & lightning arcs (supports multi-element combos!)
     function drawAtmosphericSmoke(ctx, w, h, cx, cy, radius, intensity, seed) {
+      const vList = getActiveVariantList();
+      const scalePerLayer = vList.length === 1 ? 1.0 : (vList.length === 2 ? 0.72 : 0.56);
       const rand = mulberry32(seed);
       ctx.save();
       ctx.globalCompositeOperation = 'screen';
 
-      // Central ambient cyan energy cloud
-      const coreGlow = ctx.createRadialGradient(cx, cy, radius * 0.08, cx, cy, radius * 1.35);
-      coreGlow.addColorStop(0, `rgba(0, 175, 255, ${0.28 * intensity})`);
-      coreGlow.addColorStop(0.45, `rgba(0, 95, 170, ${0.16 * intensity})`);
-      coreGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = coreGlow;
-      ctx.fillRect(0, 0, w, h);
+      // Subtle deep ambient glow behind the wispy plumes
+      vList.forEach((v, idx) => {
+        const offsetAngle = vList.length > 1 ? ((idx / vList.length) * Math.PI * 2 - Math.PI * 0.25) : 0;
+        const ox = vList.length > 1 ? Math.cos(offsetAngle) * radius * 0.28 : 0;
+        const oy = vList.length > 1 ? Math.sin(offsetAngle) * radius * 0.14 : 0;
+        const coreGlow = ctx.createRadialGradient(cx + ox, cy + oy, radius * 0.06, cx + ox, cy + oy, radius * 1.15);
+        coreGlow.addColorStop(0, `rgba(${v.cloudCore}, ${0.22 * intensity * scalePerLayer})`);
+        coreGlow.addColorStop(0.5, `rgba(${v.cloudMid}, ${0.1 * intensity * scalePerLayer})`);
+        coreGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = coreGlow;
+        ctx.fillRect(0, 0, w, h);
+      });
 
-      // Layered organic smoke puffs
-      const puffCount = Math.floor(115 * Math.min(1.3, intensity));
-      for (let i = 0; i < puffCount; i++) {
-        const angle = rand() * Math.PI * 2;
-        const distX = (rand() ** 0.75) * radius * 1.45;
-        const distY = (rand() ** 0.85) * radius * 0.95;
-        const px = cx + Math.cos(angle) * distX;
-        const py = cy + Math.sin(angle) * distY;
-        const pr = radius * (0.14 + rand() * 0.36);
+      // Crisp billowing edge-defined wispy smoke plumes (Domain-Warped Ridged FBM)
+      const wispyCanvas = buildWispySmokeCanvas(vList, intensity, seed);
+      ctx.save();
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      const drawW = Math.min(w, radius * 4.2);
+      const drawH = Math.min(h, radius * 2.5);
+      ctx.drawImage(wispyCanvas, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
+      // Second subtle contrast pass to pop the bright curling smoke rims
+      ctx.globalAlpha = Math.min(0.75, 0.48 * intensity);
+      ctx.drawImage(wispyCanvas, cx - drawW * 0.48, cy - drawH * 0.48, drawW * 0.96, drawH * 0.96);
+      ctx.restore();
 
-        const g = ctx.createRadialGradient(px, py, 0, px, py, pr);
-        const alpha = (0.025 + rand() * 0.055) * intensity;
-        g.addColorStop(0, `rgba(18, 195, 255, ${alpha})`);
-        g.addColorStop(0.5, `rgba(0, 92, 165, ${alpha * 0.55})`);
-        g.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(px, py, pr, 0, Math.PI * 2);
-        ctx.fill();
+      // Layer ALL active special procedural FX simultaneously!
+      if (hasVariant('fire')) {
+        const streakCount = Math.floor(65 * intensity);
+        for (let i = 0; i < streakCount; i++) {
+          const sx = cx + (rand() - 0.5) * radius * 2.5;
+          const sy = cy + (rand() - 0.4) * radius * 1.6;
+          const len = 8 + rand() * 26;
+          const drift = (rand() - 0.5) * 14;
+          ctx.strokeStyle = `rgba(255, ${140 + Math.floor(rand() * 100)}, 40, ${(0.35 + rand() * 0.55) * Math.min(1.2, intensity)})`;
+          ctx.lineWidth = 1.2 + rand() * 2.4;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.lineTo(sx + drift, sy - len);
+          ctx.stroke();
+        }
       }
 
-      // Crisp ice sparks / embers around emblem
+      if (hasVariant('electric')) {
+        const boltCount = Math.max(6, Math.floor(14 * intensity));
+        for (let i = 0; i < boltCount; i++) {
+          const a1 = rand() * Math.PI * 2;
+          const r1 = radius * (0.18 + rand() * 0.45);
+          const r2 = radius * (0.85 + rand() * 0.95);
+          const a2 = a1 + (rand() - 0.5) * 0.9;
+          const x1 = cx + Math.cos(a1) * r1;
+          const y1 = cy + Math.sin(a1) * r1;
+          const x2 = cx + Math.cos(a2) * r2;
+          const y2 = cy + Math.sin(a2) * r2;
+
+          ctx.save();
+          ctx.shadowColor = 'rgba(105, 175, 255, 0.95)';
+          ctx.shadowBlur = 16 * intensity;
+          ctx.strokeStyle = `rgba(120, 190, 255, ${Math.min(0.85, 0.55 * intensity)})`;
+          ctx.lineWidth = 2.6 + rand() * 2.2;
+          drawLightningBolt(ctx, x1, y1, x2, y2, radius * 0.24, rand, 4);
+
+          ctx.shadowBlur = 4;
+          ctx.strokeStyle = `rgba(240, 250, 255, ${Math.min(0.95, 0.85 * intensity)})`;
+          ctx.lineWidth = 1.1;
+          drawLightningBolt(ctx, x1, y1, x2, y2, radius * 0.22, mulberry32(seed + i * 31), 4);
+          ctx.restore();
+        }
+      }
+
+      // Crisp sparks / embers / spores across all active variants
       const sparkCount = Math.floor(55 * intensity);
       for (let i = 0; i < sparkCount; i++) {
+        const v = vList[i % vList.length];
         const sx = cx + (rand() - 0.5) * radius * 2.4;
         const sy = cy + (rand() - 0.5) * radius * 1.4;
         const sr = 0.8 + rand() * 2.4;
-        ctx.fillStyle = `rgba(170, 245, 255, ${(0.25 + rand() * 0.6) * Math.min(1.2, intensity)})`;
+        ctx.fillStyle = `rgba(${v.sparkRgb}, ${(0.25 + rand() * 0.6) * Math.min(1.2, intensity)})`;
         ctx.beginPath();
         ctx.arc(sx, sy, sr, 0, Math.PI * 2);
         ctx.fill();
@@ -752,17 +1209,19 @@
       ctx.restore();
     }
 
-    // Draw horizontal anamorphic lens flares behind & across callsign
+    // Draw horizontal anamorphic lens flares (blends Primary -> Secondary across width when comboed!)
     function drawAnamorphicFlares(ctx, w, cy, textHalfWidth, fontSize, intensity) {
+      const v1 = getVariant();
+      const v2 = getSecondaryVariant();
       ctx.save();
       ctx.globalCompositeOperation = 'screen';
 
       const drawStreak = (yPos, heightPx, widthReach, alpha) => {
         const grad = ctx.createLinearGradient(w / 2 - widthReach, yPos, w / 2 + widthReach, yPos);
         grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        grad.addColorStop(0.2, `rgba(0, 160, 255, ${alpha * 0.45})`);
-        grad.addColorStop(0.5, `rgba(185, 248, 255, ${alpha})`);
-        grad.addColorStop(0.8, `rgba(0, 160, 255, ${alpha * 0.45})`);
+        grad.addColorStop(0.22, `rgba(${v1.flareOuter}, ${alpha * 0.5})`);
+        grad.addColorStop(0.5, `rgba(${v1.flareCenter}, ${alpha})`);
+        grad.addColorStop(0.78, `rgba(${v2.flareOuter}, ${alpha * 0.5})`);
         grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.fillStyle = grad;
@@ -773,25 +1232,22 @@
       const botRailY = cy + fontSize * 0.37;
       const reach = Math.min(w * 0.49, textHalfWidth * 1.45);
 
-      // Soft wide horizontal glow bars
       drawStreak(topRailY, fontSize * 0.16, reach, 0.38 * intensity);
       drawStreak(botRailY, fontSize * 0.16, reach, 0.38 * intensity);
       drawStreak(cy, fontSize * 0.35, reach * 0.85, 0.25 * intensity);
 
-      // Razor-sharp anamorphic laser lines (top & bottom edges like Project D88 / HighAnxiety)
       drawStreak(topRailY, Math.max(2, fontSize * 0.025), reach * 1.05, 0.85 * intensity);
       drawStreak(botRailY, Math.max(2, fontSize * 0.025), reach * 1.05, 0.85 * intensity);
 
-      // Bright hotspot bursts at left, center, and right of callsign
       const hotspots = [
-        [w / 2 - textHalfWidth * 0.96, topRailY, fontSize * 0.48],
-        [w / 2 + textHalfWidth * 0.96, botRailY, fontSize * 0.48],
-        [w / 2, cy, fontSize * 0.65]
+        [w / 2 - textHalfWidth * 0.96, topRailY, fontSize * 0.48, v1],
+        [w / 2 + textHalfWidth * 0.96, botRailY, fontSize * 0.48, v2],
+        [w / 2, cy, fontSize * 0.65, v1]
       ];
-      hotspots.forEach(([hx, hy, hr]) => {
+      hotspots.forEach(([hx, hy, hr, hv]) => {
         const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, hr);
-        hg.addColorStop(0, `rgba(230, 253, 255, ${0.65 * intensity})`);
-        hg.addColorStop(0.25, `rgba(0, 200, 255, ${0.28 * intensity})`);
+        hg.addColorStop(0, `rgba(${hv.hotCore}, ${0.65 * intensity})`);
+        hg.addColorStop(0.25, `rgba(${hv.hotMid}, ${0.28 * intensity})`);
         hg.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = hg;
         ctx.beginPath();
@@ -802,9 +1258,10 @@
       ctx.restore();
     }
 
-    // Draw dead-center heavy beveled dark-core metallic text (PROJECT D88 / HIGHANXIETY style)
+    // Draw dead-center heavy beveled dark-core metallic text
     function drawCallsignText(ctx, text, cx, cy, maxWidth, baseHeight, userScale, fxIntensity) {
       if (!text) return;
+      const v = getVariant();
 
       ctx.save();
       let fontSize = Math.round(baseHeight * 0.155 * userScale);
@@ -812,7 +1269,6 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      // Auto-fit long names cleanly inside 88% of screen width
       let measured = ctx.measureText(text).width;
       const limitW = maxWidth * 0.88;
       if (measured > limitW) {
@@ -821,10 +1277,8 @@
         measured = ctx.measureText(text).width;
       }
 
-      // Render anamorphic horizontal lens flares synchronized to text bounds
       drawAnamorphicFlares(ctx, maxWidth, cy, measured / 2, fontSize, fxIntensity);
 
-      // 1. Heavy dark drop-shadow lift off the emblem behind it
       ctx.save();
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
       ctx.shadowBlur = fontSize * 0.24;
@@ -836,21 +1290,19 @@
       ctx.strokeText(text, cx, cy);
       ctx.restore();
 
-      // 2. Intense cyan neon outer bloom
       ctx.save();
-      ctx.shadowColor = 'rgba(0, 216, 255, 0.95)';
+      ctx.shadowColor = v.textBloom;
       ctx.shadowBlur = fontSize * 0.28 * fxIntensity;
       ctx.lineWidth = Math.max(4, fontSize * 0.09);
-      ctx.strokeStyle = '#00c8ff';
+      ctx.strokeStyle = v.textBloomStroke;
       ctx.strokeText(text, cx, cy);
       ctx.restore();
 
-      // 3. Crisp metallic icy-blue chrome outer bevel stroke
       const rimGrad = ctx.createLinearGradient(cx, cy - fontSize * 0.5, cx, cy + fontSize * 0.5);
-      rimGrad.addColorStop(0, '#ebfcff');
-      rimGrad.addColorStop(0.35, '#4dd7ff');
-      rimGrad.addColorStop(0.65, '#0b6da8');
-      rimGrad.addColorStop(1, '#bef6ff');
+      rimGrad.addColorStop(0, v.textRim[0]);
+      rimGrad.addColorStop(0.35, v.textRim[1]);
+      rimGrad.addColorStop(0.65, v.textRim[2]);
+      rimGrad.addColorStop(1, v.textRim[3]);
 
       ctx.lineJoin = 'miter';
       ctx.miterLimit = 4;
@@ -858,20 +1310,18 @@
       ctx.strokeStyle = rimGrad;
       ctx.strokeText(text, cx, cy);
 
-      // 4. Inner dark obsidian-gunmetal letter core
       const coreGrad = ctx.createLinearGradient(cx, cy - fontSize * 0.45, cx, cy + fontSize * 0.45);
-      coreGrad.addColorStop(0, '#1e3547');
-      coreGrad.addColorStop(0.28, '#09131d');
-      coreGrad.addColorStop(0.52, '#04070b');
-      coreGrad.addColorStop(0.82, '#0c2336');
-      coreGrad.addColorStop(1, '#1d5678');
+      coreGrad.addColorStop(0, v.textCore[0]);
+      coreGrad.addColorStop(0.28, v.textCore[1]);
+      coreGrad.addColorStop(0.52, v.textCore[2]);
+      coreGrad.addColorStop(0.82, v.textCore[3]);
+      coreGrad.addColorStop(1, v.textCore[4]);
 
       ctx.fillStyle = coreGrad;
       ctx.fillText(text, cx, cy);
 
-      // 5. Fine inner specular highlight stroke
       ctx.lineWidth = Math.max(1, fontSize * 0.016);
-      ctx.strokeStyle = 'rgba(195, 248, 255, 0.72)';
+      ctx.strokeStyle = v.textSpec;
       ctx.strokeText(text, cx, cy);
 
       ctx.restore();
@@ -880,7 +1330,7 @@
     function renderWallpaper() {
       const w = Math.max(640, Math.min(7680, parseInt(widthInput.value, 10) || 2560));
       const h = Math.max(480, Math.min(4320, parseInt(heightInput.value, 10) || 1080));
-      const rawName = callsignInput.value.trim().toUpperCase() || 'HIGHANXIETY';
+      const rawName = callsignInput.value.trim().toUpperCase() || 'HIGHANXIETY LABS';
       const textScale = (parseInt(textScaleSlider.value, 10) || 100) / 100;
       const fxIntensity = (parseInt(fxSlider.value, 10) || 100) / 100;
 
@@ -916,7 +1366,8 @@
     function getSafeFilename(ext) {
       const raw = (callsignInput.value.trim().toUpperCase() || 'WALLPAPER')
         .replace(/[^A-Z0-9_-]+/g, '_');
-      return `${raw}_${canvas.width}x${canvas.height}.${ext}`;
+      const vTag = activeVariants.map(k => k.toUpperCase()).join('-');
+      return `${raw}_${vTag}_${canvas.width}x${canvas.height}.${ext}`;
     }
 
     function exportImage(mimeType, ext, quality) {
@@ -937,6 +1388,35 @@
 
     // Event bindings
     callsignInput.addEventListener('input', renderWallpaper);
+
+    function syncVariantUi() {
+      document.querySelectorAll('.variant-btn').forEach(b => {
+        b.classList.toggle('active', activeVariants.includes(b.dataset.variant));
+      });
+      if (comboActiveTag) {
+        comboActiveTag.textContent = activeVariants.map(k => FX_VARIANTS[k].name.toUpperCase()).join(' + ');
+      }
+      if (fxSliderLabel) {
+        fxSliderLabel.textContent = activeVariants.length > 1
+          ? 'Combo FX & Flare Intensity'
+          : FX_VARIANTS[activeVariants[0]].sliderLbl;
+      }
+    }
+
+    document.querySelectorAll('.variant-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.variant;
+        if (!FX_VARIANTS[key]) return;
+        const idx = activeVariants.indexOf(key);
+        if (idx >= 0) {
+          if (activeVariants.length > 1) activeVariants.splice(idx, 1);
+        } else {
+          activeVariants.push(key);
+        }
+        syncVariantUi();
+        renderWallpaper();
+      });
+    });
 
     document.querySelectorAll('.chip').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -994,6 +1474,16 @@
     document.getElementById('downloadJpgBtn').addEventListener('click', () => {
       exportImage('image/jpeg', 'jpg', 0.96);
     });
+
+    // Optional URL param ?variant=fire,electric (supports single or comma-separated combos!)
+    try {
+      const vp = new URLSearchParams(window.location.search).get('variant');
+      if (vp) {
+        const parsed = vp.toLowerCase().split(/[+,]/).map(s => s.trim()).filter(k => FX_VARIANTS[k]);
+        if (parsed.length) activeVariants = [...new Set(parsed)];
+      }
+    } catch (e) {}
+    syncVariantUi();
 
     // Ensure webfont is loaded before initial render so canvas text uses Orbitron
     document.fonts.ready.then(() => {

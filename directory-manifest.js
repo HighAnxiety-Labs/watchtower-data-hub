@@ -1,8 +1,8 @@
 // AUTO-GENERATED WATCHTOWER DIRECTORY & LIVE TICKER MANIFEST
 // Updated automatically by Sync-WTR-Folders.bat or live HTTP/GitHub/MASTER_DB scanner.
 window.WTR_DIRECTORY_MANIFEST = {
-    "generatedAt":  "2026-11-27T09:34:05-08:00",
-    "generatedMs":  1795800840294,
+    "generatedAt":  "2026-11-27T10:18:56-08:00",
+    "generatedMs":  1795803532661,
     "activeFiles":  [
                         "2026-calendar.html",
                         "2026-dec-operation-brief.html",
@@ -227,8 +227,8 @@ window.WTR_DIRECTORY_MANIFEST = {
                               "file":  "wallpaper_generator.html",
                               "path":  "./wallpaper_generator.html",
                               "title":  "Tactical Callsign Wallpaper Generator | WatchToweR Data Hub",
-                              "modifiedAt":  "2026-11-27T17:20:13Z",
-                              "modifiedMs":  1795800013261
+                              "modifiedAt":  "2026-11-27T18:18:33Z",
+                              "modifiedMs":  1795803513639
                           },
                           {
                               "file":  "whats-broken.html",
